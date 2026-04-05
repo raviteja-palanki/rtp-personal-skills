@@ -1,118 +1,107 @@
-<svg viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FAFAF8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#F5F2EC;stop-opacity:1" />
-    </linearGradient>
-
-    <linearGradient id="accentBar" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#9478B8" />
-      <stop offset="25%" style="stop-color:#5B92B8" />
-      <stop offset="50%" style="stop-color:#6BA08A" />
-      <stop offset="75%" style="stop-color:#D4956A" />
-      <stop offset="100%" style="stop-color:#C27878" />
-    </linearGradient>
-
-    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%">
-      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000000" flood-opacity="0.06"/>
-    </filter>
-
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap');
-    </style>
-  </defs>
+<svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
 
   <!-- Background -->
-  <rect width="1200" height="340" rx="16" fill="url(#heroBg)" stroke="#E5E0D8" stroke-width="1"/>
+  <rect width="1200" height="300" rx="16" fill="#FAFAF8" stroke="#E5E7EB" stroke-width="1"/>
 
-  <!-- Top accent bar -->
-  <rect width="1200" height="6" rx="16" fill="url(#accentBar)"/>
-  <rect y="3" width="1200" height="3" fill="url(#accentBar)"/>
+  <!-- Rainbow accent bar at top -->
+  <rect width="240" height="6" rx="0" fill="#8B5CF6"/>
+  <rect x="240" width="240" height="6" fill="#14B8A6"/>
+  <rect x="480" width="240" height="6" fill="#06B6D4"/>
+  <rect x="720" width="240" height="6" fill="#F59E0B"/>
+  <rect x="960" width="240" height="6" fill="#EC4899"/>
+  <!-- Round just the top-left and top-right corners -->
+  <rect width="1200" height="6" rx="16" fill="transparent"/>
+  <rect width="16" height="6" fill="#FAFAF8"/>
+  <rect x="0" y="0" width="20" height="6" rx="16" fill="#8B5CF6"/>
+  <rect x="1180" y="0" width="20" height="6" rx="16" fill="#EC4899"/>
 
-  <!-- ═══════════════ LEFT: Identity ═══════════════ -->
+  <!-- ═══════════════ LEFT SIDE (x=50 to x=540) ═══════════════ -->
 
-  <!-- Author -->
-  <text x="56" y="48" style="font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; font-size: 11px; font-weight: 700; fill: #7B60A0; letter-spacing: 2.5px; text-transform: uppercase;">RAVI TEJA PALANKI</text>
+  <!-- Author line -->
+  <text x="50" y="50" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#8B5CF6" letter-spacing="2">RAVI TEJA PALANKI</text>
 
   <!-- Title -->
-  <text x="56" y="102" style="font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; font-size: 42px; font-weight: 800; fill: #1A1A1A; letter-spacing: -1.5px;">rtp-personal-skills</text>
+  <text x="50" y="100" font-family="Inter, Segoe UI, sans-serif" font-size="38" font-weight="800" fill="#1B1B1F">rtp-personal-skills</text>
 
   <!-- Tagline -->
-  <text x="56" y="134" style="font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; font-size: 15px; font-weight: 600; fill: #333333; letter-spacing: 0.3px;">66 skills. 3 layers. One compounding system.</text>
+  <text x="50" y="130" font-family="Inter, Segoe UI, sans-serif" font-size="16" font-weight="600" fill="#5F6B7A">66 skills. 3 layers. One compounding system.</text>
 
-  <!-- Thin divider -->
-  <line x1="56" y1="156" x2="490" y2="156" stroke="#D0CBBD" stroke-width="1.5"/>
+  <!-- Thin line separator -->
+  <line x1="50" y1="148" x2="480" y2="148" stroke="#E5E7EB" stroke-width="1"/>
 
-  <!-- ═══════════════ LEFT: Layer Flow ═══════════════ -->
+  <!-- ═══════════════ Layer Badges Row (y=165) ═══════════════ -->
 
-  <!-- THINK -->
-  <rect x="56" y="176" width="120" height="100" rx="12" fill="#F3EDF8" stroke="#D4C4E4" stroke-width="1"/>
-  <circle cx="116" cy="204" r="16" fill="#9478B8"/>
-  <text x="116" y="210" style="font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 800; fill: #FFFFFF; text-anchor: middle;">T</text>
-  <text x="116" y="240" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; fill: #5A3D80; letter-spacing: 1px; text-anchor: middle; text-transform: uppercase;">Think</text>
-  <text x="116" y="260" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 500; fill: #666666; text-anchor: middle;">Catch errors</text>
+  <!-- THINK badge -->
+  <rect x="50" y="165" width="120" height="70" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="50" y="165" width="120" height="24" rx="10" fill="#8B5CF6"/>
+  <!-- Clip the bottom corners of the header bar -->
+  <rect x="50" y="175" width="120" height="14" fill="#8B5CF6"/>
+  <text x="110" y="182" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">THINK</text>
+  <text x="110" y="216" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#5F6B7A" text-anchor="middle">Catch errors</text>
 
   <!-- Arrow 1 -->
-  <line x1="186" y1="226" x2="210" y2="226" stroke="#AAAAAA" stroke-width="2"/>
-  <polygon points="210,222 220,226 210,230" fill="#AAAAAA"/>
+  <line x1="180" y1="200" x2="200" y2="200" stroke="#9CA3AF" stroke-width="1.5"/>
+  <polygon points="200,196 210,200 200,204" fill="#9CA3AF"/>
 
-  <!-- JUDGE -->
-  <rect x="228" y="176" width="120" height="100" rx="12" fill="#ECF2F8" stroke="#C4D8EC" stroke-width="1"/>
-  <circle cx="288" cy="204" r="16" fill="#5B92B8"/>
-  <text x="288" y="210" style="font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 800; fill: #FFFFFF; text-anchor: middle;">J</text>
-  <text x="288" y="240" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; fill: #2E5F80; letter-spacing: 1px; text-anchor: middle; text-transform: uppercase;">Judge</text>
-  <text x="288" y="260" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 500; fill: #666666; text-anchor: middle;">Make calls</text>
+  <!-- JUDGE badge -->
+  <rect x="210" y="165" width="120" height="70" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="210" y="165" width="120" height="24" rx="10" fill="#14B8A6"/>
+  <rect x="210" y="175" width="120" height="14" fill="#14B8A6"/>
+  <text x="270" y="182" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">JUDGE</text>
+  <text x="270" y="216" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#5F6B7A" text-anchor="middle">Make calls</text>
 
   <!-- Arrow 2 -->
-  <line x1="358" y1="226" x2="382" y2="226" stroke="#AAAAAA" stroke-width="2"/>
-  <polygon points="382,222 392,226 382,230" fill="#AAAAAA"/>
+  <line x1="340" y1="200" x2="360" y2="200" stroke="#9CA3AF" stroke-width="1.5"/>
+  <polygon points="360,196 370,200 360,204" fill="#9CA3AF"/>
 
-  <!-- SHIP -->
-  <rect x="400" y="176" width="120" height="100" rx="12" fill="#EDF5EF" stroke="#C4E0CC" stroke-width="1"/>
-  <circle cx="460" cy="204" r="16" fill="#6BA08A"/>
-  <text x="460" y="210" style="font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 800; fill: #FFFFFF; text-anchor: middle;">S</text>
-  <text x="460" y="240" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; fill: #2E6650; letter-spacing: 1px; text-anchor: middle; text-transform: uppercase;">Ship</text>
-  <text x="460" y="260" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 500; fill: #666666; text-anchor: middle;">Deliver work</text>
+  <!-- SHIP badge -->
+  <rect x="370" y="165" width="120" height="70" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="370" y="165" width="120" height="24" rx="10" fill="#F59E0B"/>
+  <rect x="370" y="175" width="120" height="14" fill="#F59E0B"/>
+  <text x="430" y="182" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">SHIP</text>
+  <text x="430" y="216" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#5F6B7A" text-anchor="middle">Deliver work</text>
 
-  <!-- ═══════════════ RIGHT: Stats Panel ═══════════════ -->
+  <!-- Footer -->
+  <text x="50" y="270" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#9CA3AF">Built with Claude  ·  April 2026</text>
 
-  <g filter="url(#cardShadow)">
-    <rect x="580" y="30" width="580" height="270" rx="14" fill="#FFFFFF" stroke="#E0DCD4" stroke-width="1"/>
-  </g>
+  <!-- ═══════════════ RIGHT SIDE (x=560 to x=1150) ═══════════════ -->
 
-  <!-- Panel header -->
-  <text x="870" y="66" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; fill: #777777; letter-spacing: 2px; text-transform: uppercase; text-anchor: middle;">The Architecture</text>
+  <!-- White card panel with shadow fallback -->
+  <rect x="562" y="33" width="590" height="240" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <rect x="560" y="30" width="590" height="240" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
 
-  <!-- Stat 1: 66 -->
-  <text x="700" y="132" style="font-family: 'Inter', sans-serif; font-size: 44px; font-weight: 800; fill: #7B60A0; letter-spacing: -2px; text-anchor: middle;">66</text>
-  <text x="700" y="157" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; fill: #444444; letter-spacing: 1.2px; text-anchor: middle; text-transform: uppercase;">Skills</text>
-  <text x="700" y="176" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 500; fill: #777777; text-anchor: middle;">Think + Judge + Ship</text>
+  <!-- THE ARCHITECTURE label -->
+  <text x="855" y="70" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#9CA3AF" letter-spacing="2" text-anchor="middle">THE ARCHITECTURE</text>
 
-  <!-- Divider -->
-  <line x1="790" y1="100" x2="790" y2="182" stroke="#E8E4DC" stroke-width="1"/>
+  <!-- Stat 1: 66 SKILLS (centered in first third: x=560 to x=757 → center=658) -->
+  <text x="658" y="130" font-family="Inter, Segoe UI, sans-serif" font-size="42" font-weight="800" fill="#8B5CF6" text-anchor="middle">66</text>
+  <text x="658" y="150" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#1B1B1F" letter-spacing="1" text-anchor="middle">SKILLS</text>
+  <text x="658" y="168" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#5F6B7A" text-anchor="middle">Think + Judge + Ship</text>
 
-  <!-- Stat 2: 3 -->
-  <text x="870" y="132" style="font-family: 'Inter', sans-serif; font-size: 44px; font-weight: 800; fill: #3E7A9E; letter-spacing: -2px; text-anchor: middle;">3</text>
-  <text x="870" y="157" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; fill: #444444; letter-spacing: 1.2px; text-anchor: middle; text-transform: uppercase;">Layers</text>
-  <text x="870" y="176" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 500; fill: #777777; text-anchor: middle;">Each checks the next</text>
+  <!-- Vertical divider 1 -->
+  <line x1="757" y1="92" x2="757" y2="178" stroke="#E5E7EB" stroke-width="1"/>
 
-  <!-- Divider -->
-  <line x1="950" y1="100" x2="950" y2="182" stroke="#E8E4DC" stroke-width="1"/>
+  <!-- Stat 2: 3 LAYERS (centered in second third: x=757 to x=953 → center=855) -->
+  <text x="855" y="130" font-family="Inter, Segoe UI, sans-serif" font-size="42" font-weight="800" fill="#14B8A6" text-anchor="middle">3</text>
+  <text x="855" y="150" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#1B1B1F" letter-spacing="1" text-anchor="middle">LAYERS</text>
+  <text x="855" y="168" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#5F6B7A" text-anchor="middle">Each checks the next</text>
 
-  <!-- Stat 3: 1 -->
-  <text x="1040" y="132" style="font-family: 'Inter', sans-serif; font-size: 44px; font-weight: 800; fill: #3D7A60; letter-spacing: -2px; text-anchor: middle;">1</text>
-  <text x="1040" y="157" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; fill: #444444; letter-spacing: 1.2px; text-anchor: middle; text-transform: uppercase;">System</text>
-  <text x="1040" y="176" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 500; fill: #777777; text-anchor: middle;">Built to compound</text>
+  <!-- Vertical divider 2 -->
+  <line x1="953" y1="92" x2="953" y2="178" stroke="#E5E7EB" stroke-width="1"/>
 
-  <!-- Panel divider -->
-  <line x1="620" y1="200" x2="1120" y2="200" stroke="#E8E4DC" stroke-width="1"/>
+  <!-- Stat 3: 1 SYSTEM (centered in third third: x=953 to x=1150 → center=1052) -->
+  <text x="1052" y="130" font-family="Inter, Segoe UI, sans-serif" font-size="42" font-weight="800" fill="#F59E0B" text-anchor="middle">1</text>
+  <text x="1052" y="150" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#1B1B1F" letter-spacing="1" text-anchor="middle">SYSTEM</text>
+  <text x="1052" y="168" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#5F6B7A" text-anchor="middle">Built to compound</text>
 
-  <!-- How it works -->
-  <text x="870" y="232" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; fill: #777777; letter-spacing: 2px; text-anchor: middle; text-transform: uppercase;">How It Works</text>
+  <!-- Horizontal line separator below stats -->
+  <line x1="596" y1="190" x2="1114" y2="190" stroke="#E5E7EB" stroke-width="1"/>
 
-  <text x="870" y="260" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #555555; text-anchor: middle;">Each layer earns the right to exist by making the next layer's</text>
-  <text x="870" y="280" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #555555; text-anchor: middle;">output trustworthy. Every output is pre-tested before shipping.</text>
+  <!-- HOW IT WORKS label -->
+  <text x="855" y="216" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF" letter-spacing="2" text-anchor="middle">HOW IT WORKS</text>
 
-  <!-- ═══════════════ Footer ═══════════════ -->
-  <text x="56" y="328" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 500; fill: #999999; letter-spacing: 0.2px;">Built with Claude  ·  April 2026</text>
+  <!-- Body text -->
+  <text x="855" y="240" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="400" fill="#5F6B7A" text-anchor="middle">Each layer earns the right to exist by making the next layer's</text>
+  <text x="855" y="258" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="400" fill="#5F6B7A" text-anchor="middle">output trustworthy. Every output is pre-tested before shipping.</text>
+
 </svg>

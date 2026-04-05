@@ -1,218 +1,117 @@
 <svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <!-- Shadows -->
-    <filter id="cardShadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity="0.08" flood-color="#000000"/>
-    </filter>
+  <rect width="1200" height="700" fill="#FAFAF8"/>
 
-    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-opacity="0.06" flood-color="#000000"/>
-    </filter>
+  <!-- HEADER BAND -->
+  <rect x="0" y="0" width="1200" height="80" fill="#F9FAFB"/>
+  <text x="600" y="36" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="800" fill="#1B1B1F">Workflow Paths</text>
+  <text x="600" y="60" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#5F6B7A">Quick Check · Six Ways Through the System — Different Situations Activate Different Skill Subsets</text>
 
-    <!-- Background gradient -->
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FAFAF8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#FCFCFA;stop-opacity:1" />
-    </linearGradient>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ROW 1, CARD 1 — New AI Feature (Teal)      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="52" y="103" width="340" height="220" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <rect x="50" y="100" width="340" height="220" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <!-- Top color bar -->
+  <rect x="50" y="100" width="340" height="14" rx="14" fill="#14B8A6"/>
+  <rect x="50" y="107" width="340" height="12" fill="#14B8A6"/>
+  <rect x="50" y="107" width="340" height="12" fill="#FFFFFF" opacity="0"/>
+  <!-- Mask bottom of bar with white to keep only top 5px visible -->
+  <rect x="50" y="105" width="340" height="5" rx="14" fill="#14B8A6"/>
+  <rect x="50" y="110" width="340" height="10" fill="#FFFFFF"/>
+  <!-- Workflow name -->
+  <text x="70" y="135" font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#1B1B1F">New AI Feature</text>
+  <!-- Duration -->
+  <text x="70" y="155" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#9CA3AF">Full cycle, ~2-4 weeks</text>
+  <!-- Big number -->
+  <text x="70" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="36" font-weight="800" fill="#14B8A6">54</text>
+  <!-- Skills label -->
+  <text x="70" y="218" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#5F6B7A">skills</text>
+  <!-- Thin line -->
+  <line x1="70" y1="235" x2="370" y2="235" stroke="#E5E7EB" stroke-width="1"/>
+  <!-- Flow path -->
+  <text x="70" y="258" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#0F766E" letter-spacing="0.5">Discovery → Strategy → Safety → Build → Ship</text>
 
-    <!-- Step arrow marker -->
-    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#5B92B8" opacity="0.4"/>
-    </marker>
-    <marker id="arrowRose" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#C27878" opacity="0.4"/>
-    </marker>
-    <marker id="arrowAmber" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#D4956A" opacity="0.4"/>
-    </marker>
-    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#9478B8" opacity="0.4"/>
-    </marker>
-    <marker id="arrowMoss" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#6BA08A" opacity="0.4"/>
-    </marker>
-  </defs>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ROW 1, CARD 2 — Incident Response (Red)     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="422" y="103" width="340" height="220" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <rect x="420" y="100" width="340" height="220" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="420" y="100" width="340" height="5" rx="14" fill="#EF4444"/>
+  <rect x="420" y="105" width="340" height="5" fill="#FFFFFF"/>
+  <rect x="420" y="100" width="340" height="5" rx="14" fill="#EF4444"/>
+  <text x="440" y="135" font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#1B1B1F">Incident Response</text>
+  <text x="440" y="155" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#9CA3AF">Hours to resolution</text>
+  <text x="440" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="36" font-weight="800" fill="#EF4444">25</text>
+  <text x="440" y="218" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#5F6B7A">skills</text>
+  <line x1="440" y1="235" x2="740" y2="235" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="440" y="258" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#991B1B" letter-spacing="0.5">Failure analysis → Safety audit → Decision → Recovery</text>
 
-  <!-- Background -->
-  <rect width="1200" height="700" fill="url(#bgGradient)"/>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ROW 1, CARD 3 — Strategic Review (Amber)    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="792" y="103" width="340" height="220" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <rect x="790" y="100" width="340" height="220" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="790" y="100" width="340" height="5" rx="14" fill="#F59E0B"/>
+  <rect x="790" y="105" width="340" height="5" fill="#FFFFFF"/>
+  <rect x="790" y="100" width="340" height="5" rx="14" fill="#F59E0B"/>
+  <text x="810" y="135" font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#1B1B1F">Strategic Review</text>
+  <text x="810" y="155" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#9CA3AF">1-2 days of depth</text>
+  <text x="810" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="36" font-weight="800" fill="#F59E0B">15</text>
+  <text x="810" y="218" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#5F6B7A">skills</text>
+  <line x1="810" y1="235" x2="1110" y2="235" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="810" y="258" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#B45309" letter-spacing="0.5">Portfolio review → Capability scan → Roadmap</text>
 
-  <!-- Header -->
-  <text x="60" y="40" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="700" fill="#2C2C2C">
-    Workflow Paths — Six Ways Through the System
-  </text>
-  <text x="60" y="64" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="400" fill="#666666">
-    Different situations activate different skill subsets. A full feature cycle engages all 54. An incident response activates 25 in hours.
-  </text>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ROW 2, CARD 4 — Technical Architecture (Purple) -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="52" y="353" width="340" height="220" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <rect x="50" y="350" width="340" height="220" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="50" y="350" width="340" height="5" rx="14" fill="#8B5CF6"/>
+  <rect x="50" y="355" width="340" height="5" fill="#FFFFFF"/>
+  <rect x="50" y="350" width="340" height="5" rx="14" fill="#8B5CF6"/>
+  <text x="70" y="385" font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#1B1B1F">Technical Architecture</text>
+  <text x="70" y="405" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#9CA3AF">1 week of spec-and-build</text>
+  <text x="70" y="450" font-family="Inter, Segoe UI, sans-serif" font-size="36" font-weight="800" fill="#8B5CF6">20</text>
+  <text x="70" y="468" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#5F6B7A">skills</text>
+  <line x1="70" y1="485" x2="370" y2="485" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="70" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#6D28D9" letter-spacing="0.5">First principles → Build-or-buy → Cost model → Spec</text>
 
-  <!-- Subtle separator line -->
-  <line x1="60" y1="76" x2="1140" y2="76" stroke="#E8E6E0" stroke-width="1"/>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ROW 2, CARD 5 — Product Launch (Green)      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="422" y="353" width="340" height="220" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <rect x="420" y="350" width="340" height="220" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="420" y="350" width="340" height="5" rx="14" fill="#16A34A"/>
+  <rect x="420" y="355" width="340" height="5" fill="#FFFFFF"/>
+  <rect x="420" y="350" width="340" height="5" rx="14" fill="#16A34A"/>
+  <text x="440" y="385" font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#1B1B1F">Product Launch</text>
+  <text x="440" y="405" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#9CA3AF">1-2 weeks of execution</text>
+  <text x="440" y="450" font-family="Inter, Segoe UI, sans-serif" font-size="36" font-weight="800" fill="#16A34A">18</text>
+  <text x="440" y="468" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#5F6B7A">skills</text>
+  <line x1="440" y1="485" x2="740" y2="485" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="440" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#065F46" letter-spacing="0.5">Fit signal → Adoption plan → Alignment → Ship</text>
 
-  <!-- ========== ROW 1 ========== -->
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ROW 2, CARD 6 — Safety Audit (Pink)         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="792" y="353" width="340" height="220" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <rect x="790" y="350" width="340" height="220" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="790" y="350" width="340" height="5" rx="14" fill="#EC4899"/>
+  <rect x="790" y="355" width="340" height="5" fill="#FFFFFF"/>
+  <rect x="790" y="350" width="340" height="5" rx="14" fill="#EC4899"/>
+  <text x="810" y="385" font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#1B1B1F">Safety Audit</text>
+  <text x="810" y="405" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#9CA3AF">2-3 days of rigor</text>
+  <text x="810" y="450" font-family="Inter, Segoe UI, sans-serif" font-size="36" font-weight="800" fill="#EC4899">12</text>
+  <text x="810" y="468" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#5F6B7A">skills</text>
+  <line x1="810" y1="485" x2="1110" y2="485" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="810" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#9D174D" letter-spacing="0.5">Trust ladder → Harm taxonomy → Red team → Ready</text>
 
-  <!-- Card 1: New AI Feature (Blue) -->
-  <g filter="url(#cardShadow)">
-    <rect x="40" y="100" width="340" height="240" fill="white" rx="14"/>
-    <rect x="40" y="100" width="340" height="5" fill="#5B92B8" rx="14" ry="0"/>
-  </g>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CALLOUT BOX                                 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="50" y="600" width="1100" height="50" rx="14" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="600" y="630" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#6D28D9">The orchestrator also composes custom paths on the fly — matching skill subsets to any context.</text>
 
-  <text x="60" y="130" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
-    New AI Feature
-  </text>
-
-  <text x="60" y="155" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
-    Full cycle, ~2-4 weeks
-  </text>
-  <text x="60" y="192" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#5B92B8">
-    54
-  </text>
-  <text x="60" y="212" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
-    skills
-  </text>
-
-  <!-- Flow path for New AI Feature -->
-  <line x1="60" y1="220" x2="360" y2="220" stroke="#E8E6E0" stroke-width="1"/>
-  <text x="60" y="243" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.5">
-    Discovery → Strategy → Safety → Build → Ship
-  </text>
-
-  <!-- Card 2: Incident Response (Rose) -->
-  <g filter="url(#cardShadow)">
-    <rect x="430" y="100" width="340" height="240" fill="white" rx="14"/>
-    <rect x="430" y="100" width="340" height="5" fill="#C27878" rx="14" ry="0"/>
-  </g>
-
-  <text x="450" y="130" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
-    Incident Response
-  </text>
-
-  <text x="450" y="155" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
-    Hours to resolution
-  </text>
-  <text x="450" y="192" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#C27878">
-    25
-  </text>
-  <text x="450" y="212" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
-    skills
-  </text>
-
-  <!-- Flow path for Incident Response -->
-  <line x1="450" y1="220" x2="750" y2="220" stroke="#E8E6E0" stroke-width="1"/>
-  <text x="450" y="243" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#C27878" letter-spacing="0.5">
-    Failure analysis → Safety audit → Decision → Recovery
-  </text>
-
-  <!-- Card 3: Strategic Review (Amber) -->
-  <g filter="url(#cardShadow)">
-    <rect x="820" y="100" width="340" height="240" fill="white" rx="14"/>
-    <rect x="820" y="100" width="340" height="5" fill="#D4956A" rx="14" ry="0"/>
-  </g>
-
-  <text x="840" y="130" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
-    Strategic Review
-  </text>
-
-  <text x="840" y="155" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
-    1-2 days of depth
-  </text>
-  <text x="840" y="192" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#D4956A">
-    15
-  </text>
-  <text x="840" y="212" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
-    skills
-  </text>
-
-  <!-- Flow path for Strategic Review -->
-  <line x1="840" y1="220" x2="1140" y2="220" stroke="#E8E6E0" stroke-width="1"/>
-  <text x="840" y="243" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#D4956A" letter-spacing="0.5">
-    Portfolio review → Capability scan → Roadmap
-  </text>
-
-  <!-- ========== ROW 2 ========== -->
-
-  <!-- Card 4: Technical Architecture (Purple) -->
-  <g filter="url(#cardShadow)">
-    <rect x="40" y="380" width="340" height="240" fill="white" rx="14"/>
-    <rect x="40" y="380" width="340" height="5" fill="#9478B8" rx="14" ry="0"/>
-  </g>
-
-  <text x="60" y="410" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
-    Technical Architecture
-  </text>
-
-  <text x="60" y="435" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
-    1 week of spec-and-build
-  </text>
-  <text x="60" y="472" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#9478B8">
-    20
-  </text>
-  <text x="60" y="492" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
-    skills
-  </text>
-
-  <!-- Flow path for Technical Architecture -->
-  <line x1="60" y1="500" x2="360" y2="500" stroke="#E8E6E0" stroke-width="1"/>
-  <text x="60" y="523" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#9478B8" letter-spacing="0.5">
-    First principles → Build-or-buy → Cost model → Spec
-  </text>
-
-  <!-- Card 5: Product Launch (Moss) -->
-  <g filter="url(#cardShadow)">
-    <rect x="430" y="380" width="340" height="240" fill="white" rx="14"/>
-    <rect x="430" y="380" width="340" height="5" fill="#6BA08A" rx="14" ry="0"/>
-  </g>
-
-  <text x="450" y="410" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
-    Product Launch
-  </text>
-
-  <text x="450" y="435" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
-    1-2 weeks of execution
-  </text>
-  <text x="450" y="472" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#6BA08A">
-    18
-  </text>
-  <text x="450" y="492" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
-    skills
-  </text>
-
-  <!-- Flow path for Product Launch -->
-  <line x1="450" y1="500" x2="750" y2="500" stroke="#E8E6E0" stroke-width="1"/>
-  <text x="450" y="523" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#6BA08A" letter-spacing="0.5">
-    Fit signal → Adoption plan → Alignment → Ship
-  </text>
-
-  <!-- Card 6: Safety Audit (Rose, lighter) -->
-  <g filter="url(#cardShadow)">
-    <rect x="820" y="380" width="340" height="240" fill="white" rx="14"/>
-    <rect x="820" y="380" width="340" height="5" fill="#D89BA8" rx="14" ry="0"/>
-  </g>
-
-  <text x="840" y="410" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
-    Safety Audit
-  </text>
-
-  <text x="840" y="435" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
-    2-3 days of rigor
-  </text>
-  <text x="840" y="472" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#D89BA8">
-    12
-  </text>
-  <text x="840" y="492" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
-    skills
-  </text>
-
-  <!-- Flow path for Safety Audit -->
-  <line x1="840" y1="500" x2="1140" y2="500" stroke="#E8E6E0" stroke-width="1"/>
-  <text x="840" y="523" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#D89BA8" letter-spacing="0.5">
-    Trust ladder → Harm taxonomy → Red team → Ready
-  </text>
-
-  <!-- ========== Footer Insight ========== -->
-  <g filter="url(#softShadow)">
-    <rect x="40" y="650" width="1120" height="35" fill="#F8F5FF" rx="10"/>
-  </g>
-
-  <text x="60" y="672" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#2C2C2C">
-    The orchestrator also composes custom paths on the fly — matching skill subsets to any context that arrives.
-  </text>
+  <!-- FOOTER -->
+  <text x="600" y="680" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#9CA3AF">6 Workflow Templates · 54 AI PM + 12 General Skills · April 2026</text>
 </svg>

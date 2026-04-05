@@ -1,294 +1,147 @@
-<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-opacity="0.06"/>
-    </filter>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+  <rect width="1200" height="700" fill="#FAFAF8"/>
 
-    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#9478B8;stop-opacity:0.08" />
-      <stop offset="100%" style="stop-color:#5B92B8;stop-opacity:0.08" />
-    </linearGradient>
-  </defs>
 
-  <!-- Background -->
-  <rect width="1200" height="800" fill="#FAFAF8"/>
+  <!-- HEADER BAND -->
+  <rect x="0" y="0" width="1200" height="80" fill="#F9FAFB"/>
+  <text x="600" y="36" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="800" fill="#1B1B1F">The Import Chain</text>
+  <text x="600" y="60" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#5F6B7A">Quick Check · How Skills Feed Each Other — Every Output Is Pre-Tested Before Shipping</text>
 
-  <!-- Title Section -->
-  <rect width="1200" height="90" fill="url(#titleGrad)"/>
-  <line x1="0" y1="90" x2="1200" y2="90" stroke="#D4D0CC" stroke-width="0.5" opacity="0.5"/>
+  <!-- ════════════ TIER 1: THINKING SKILLS ════════════ -->
+  <!-- Zone shadow -->
+  <rect x="52" y="103" width="1100" height="110" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <!-- Zone -->
+  <rect x="50" y="100" width="1100" height="110" rx="14" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <!-- Label -->
+  <text x="70" y="125" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#6D28D9">LAYER 1: THINKING</text>
 
-  <text x="600" y="40" font-family="Inter, Segoe UI, sans-serif" font-size="32" font-weight="700" fill="#1A1A1A" letter-spacing="-0.6px">The Import Chain</text>
-  <text x="600" y="62" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#5A5A5A" letter-spacing="0.2px">Why the output is worth reading: thinking → judgment → craft</text>
+  <!-- Skill 1: first-principles -->
+  <rect x="72" y="140" width="190" height="50" rx="8" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="167" y="170" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#6D28D9">first-principles</text>
 
-  <!-- Column Container -->
-  <g id="columns">
+  <!-- Skill 2: bias-spotter -->
+  <rect x="282" y="140" width="190" height="50" rx="8" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="377" y="170" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#6D28D9">bias-spotter</text>
 
-    <!-- COLUMN 1: Writing an AI PRD -->
-    <g id="col1">
-      <!-- Header -->
-      <text x="150" y="125" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.3px">Writing an AI PRD</text>
+  <!-- Skill 3: falsification -->
+  <rect x="492" y="140" width="190" height="50" rx="8" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="587" y="170" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#6D28D9">falsification</text>
 
-      <!-- Skill 1: First Principles (Purple) -->
-      <g filter="url(#softShadow)">
-        <rect x="90" y="145" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="150" y="171" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">First</text>
-        <text x="150" y="184" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Principles</text>
-      </g>
+  <!-- Skill 4: stress-test -->
+  <rect x="702" y="140" width="190" height="50" rx="8" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="797" y="170" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#6D28D9">stress-test</text>
 
-      <!-- Arrow -->
-      <path d="M 150 193 L 150 218" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="150,224 147,219 153,219" fill="#CCCCCC"/>
+  <!-- Skill 5: failure-modes -->
+  <rect x="912" y="140" width="190" height="50" rx="8" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="1007" y="170" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#6D28D9">failure-modes</text>
 
-      <!-- Skill 2: Bias Spotter (Purple) -->
-      <g filter="url(#softShadow)">
-        <rect x="90" y="228" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="150" y="254" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Bias</text>
-        <text x="150" y="267" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Spotter</text>
-      </g>
+  <!-- ════════════ ARROWS: TIER 1 → TIER 2 ════════════ -->
+  <line x1="167" y1="210" x2="167" y2="244" stroke="#8B5CF6" stroke-width="2"/>
+  <polygon points="161,244 167,254 173,244" fill="#8B5CF6"/>
+  <line x1="377" y1="210" x2="377" y2="244" stroke="#8B5CF6" stroke-width="2"/>
+  <polygon points="371,244 377,254 383,244" fill="#8B5CF6"/>
+  <line x1="587" y1="210" x2="587" y2="244" stroke="#8B5CF6" stroke-width="2"/>
+  <polygon points="581,244 587,254 593,244" fill="#8B5CF6"/>
+  <line x1="797" y1="210" x2="797" y2="244" stroke="#8B5CF6" stroke-width="2"/>
+  <polygon points="791,244 797,254 803,244" fill="#8B5CF6"/>
+  <line x1="1007" y1="210" x2="1007" y2="244" stroke="#8B5CF6" stroke-width="2"/>
+  <polygon points="1001,244 1007,254 1013,244" fill="#8B5CF6"/>
+  <!-- Arrow label -->
+  <text x="600" y="237" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#8B5CF6">imports feed</text>
 
-      <!-- Arrow -->
-      <path d="M 150 276 L 150 301" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="150,307 147,302 153,302" fill="#CCCCCC"/>
+  <!-- ════════════ TIER 2: JUDGMENT SKILLS ════════════ -->
+  <!-- Zone shadow -->
+  <rect x="52" y="253" width="1100" height="110" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <!-- Zone -->
+  <rect x="50" y="250" width="1100" height="110" rx="14" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1.5"/>
+  <!-- Label -->
+  <text x="70" y="275" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#0F766E">LAYER 2: JUDGMENT</text>
 
-      <!-- Skill 3: Build-or-Buy (Blue) -->
-      <g filter="url(#softShadow)">
-        <rect x="90" y="311" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="150" y="335" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Build</text>
-        <text x="150" y="348" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">or Buy</text>
-      </g>
+  <!-- Skill 1: strategy-canvas -->
+  <rect x="72" y="290" width="190" height="50" rx="8" fill="#FFFFFF" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="167" y="320" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#0F766E">strategy-canvas</text>
 
-      <!-- Arrow -->
-      <path d="M 150 359 L 150 384" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="150,390 147,385 153,385" fill="#CCCCCC"/>
+  <!-- Skill 2: safety-by-design -->
+  <rect x="282" y="290" width="190" height="50" rx="8" fill="#FFFFFF" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="377" y="320" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#0F766E">safety-by-design</text>
 
-      <!-- Skill 4: Token Economics (Blue) -->
-      <g filter="url(#softShadow)">
-        <rect x="90" y="394" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="150" y="418" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Token</text>
-        <text x="150" y="431" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Economics</text>
-      </g>
+  <!-- Skill 3: autonomy-spectrum -->
+  <rect x="492" y="290" width="190" height="50" rx="8" fill="#FFFFFF" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="587" y="320" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#0F766E">autonomy-spectrum</text>
 
-      <!-- Arrow -->
-      <path d="M 150 442 L 150 467" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="150,473 147,468 153,468" fill="#CCCCCC"/>
+  <!-- Skill 4: eval-framework -->
+  <rect x="702" y="290" width="190" height="50" rx="8" fill="#FFFFFF" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="797" y="320" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#0F766E">eval-framework</text>
 
-      <!-- Output: AI-PRD (Moss) -->
-      <g filter="url(#softShadow)">
-        <rect x="75" y="477" width="150" height="56" rx="8" fill="#6BA08A" opacity="0.9"/>
-        <text x="150" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle" dominant-baseline="middle">AI-PRD</text>
-      </g>
+  <!-- Skill 5: token-economics -->
+  <rect x="912" y="290" width="190" height="50" rx="8" fill="#FFFFFF" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="1007" y="320" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#0F766E">token-economics</text>
 
-      <!-- Result Caption -->
-      <text x="150" y="555" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A">A PRD engineering</text>
-      <text x="150" y="570" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A">can build from</text>
-    </g>
+  <!-- ════════════ ARROWS: TIER 2 → TIER 3 ════════════ -->
+  <line x1="167" y1="360" x2="167" y2="394" stroke="#14B8A6" stroke-width="2"/>
+  <polygon points="161,394 167,404 173,394" fill="#14B8A6"/>
+  <line x1="377" y1="360" x2="377" y2="394" stroke="#14B8A6" stroke-width="2"/>
+  <polygon points="371,394 377,404 383,394" fill="#14B8A6"/>
+  <line x1="587" y1="360" x2="587" y2="394" stroke="#14B8A6" stroke-width="2"/>
+  <polygon points="581,394 587,404 593,394" fill="#14B8A6"/>
+  <line x1="797" y1="360" x2="797" y2="394" stroke="#14B8A6" stroke-width="2"/>
+  <polygon points="791,394 797,404 803,394" fill="#14B8A6"/>
+  <line x1="1007" y1="360" x2="1007" y2="394" stroke="#14B8A6" stroke-width="2"/>
+  <polygon points="1001,394 1007,404 1013,394" fill="#14B8A6"/>
+  <!-- Arrow label -->
+  <text x="600" y="387" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#14B8A6">validated output feeds</text>
 
-    <!-- COLUMN 2: Ship/No-Ship Decision -->
-    <g id="col2">
-      <!-- Header -->
-      <text x="450" y="125" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.3px">Ship/No-Ship Decision</text>
+  <!-- ════════════ TIER 3: CRAFT GENERATORS ════════════ -->
+  <!-- Zone shadow -->
+  <rect x="52" y="403" width="1100" height="110" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <!-- Zone -->
+  <rect x="50" y="400" width="1100" height="110" rx="14" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1.5"/>
+  <!-- Label -->
+  <text x="70" y="425" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#B45309">LAYER 3: CRAFT</text>
 
-      <!-- Skill 1: Stress Test (Purple) -->
-      <g filter="url(#softShadow)">
-        <rect x="390" y="145" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="450" y="171" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Stress</text>
-        <text x="450" y="184" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Test</text>
-      </g>
+  <!-- Skill 1: ai-prd -->
+  <rect x="112" y="440" width="200" height="50" rx="8" fill="#FFFFFF" stroke="#FCD34D" stroke-width="1.5"/>
+  <text x="212" y="470" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#B45309">ai-prd</text>
 
-      <!-- Arrow -->
-      <path d="M 450 193 L 450 218" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="450,224 447,219 453,219" fill="#CCCCCC"/>
+  <!-- Skill 2: agent-spec -->
+  <rect x="342" y="440" width="200" height="50" rx="8" fill="#FFFFFF" stroke="#FCD34D" stroke-width="1.5"/>
+  <text x="442" y="470" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#B45309">agent-spec</text>
 
-      <!-- Skill 2: Failure Modes (Purple) -->
-      <g filter="url(#softShadow)">
-        <rect x="390" y="228" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="450" y="254" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Failure</text>
-        <text x="450" y="267" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Modes</text>
-      </g>
+  <!-- Skill 3: cost-model -->
+  <rect x="572" y="440" width="200" height="50" rx="8" fill="#FFFFFF" stroke="#FCD34D" stroke-width="1.5"/>
+  <text x="672" y="470" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#B45309">cost-model</text>
 
-      <!-- Arrow -->
-      <path d="M 450 276 L 450 301" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="450,307 447,302 453,302" fill="#CCCCCC"/>
+  <!-- Skill 4: ship-decision -->
+  <rect x="802" y="440" width="200" height="50" rx="8" fill="#FFFFFF" stroke="#FCD34D" stroke-width="1.5"/>
+  <text x="902" y="470" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#B45309">ship-decision</text>
 
-      <!-- Skill 3: Eval-Driven Dev (Blue) -->
-      <g filter="url(#softShadow)">
-        <rect x="390" y="311" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="450" y="335" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Eval-Driven</text>
-        <text x="450" y="348" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Dev</text>
-      </g>
+  <!-- ════════════ ARROWS: TIER 3 → FINAL OUTPUT ════════════ -->
+  <line x1="212" y1="490" x2="485" y2="550" stroke="#F59E0B" stroke-width="2"/>
+  <polygon points="480,545 490,555 485,543" fill="#F59E0B"/>
+  <line x1="442" y1="490" x2="535" y2="550" stroke="#F59E0B" stroke-width="2"/>
+  <polygon points="530,545 540,555 535,543" fill="#F59E0B"/>
+  <line x1="672" y1="490" x2="665" y2="550" stroke="#F59E0B" stroke-width="2"/>
+  <polygon points="659,545 670,555 665,543" fill="#F59E0B"/>
+  <line x1="902" y1="490" x2="715" y2="550" stroke="#F59E0B" stroke-width="2"/>
+  <polygon points="710,545 720,555 715,543" fill="#F59E0B"/>
 
-      <!-- Arrow -->
-      <path d="M 450 359 L 450 384" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="450,390 447,385 453,385" fill="#CCCCCC"/>
+  <!-- ════════════ FINAL OUTPUT BOX ════════════ -->
+  <!-- Shadow fallback -->
+  <rect x="402" y="558" width="400" height="70" rx="14" fill="#E5E7EB" opacity="0.3"/>
+  <!-- Main box -->
+  <rect x="400" y="555" width="400" height="70" rx="14" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2"/>
+  <text x="600" y="585" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#B45309">Ship-Ready Deliverable</text>
+  <text x="600" y="608" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">Pre-tested by all three layers</text>
 
-      <!-- Skill 4: Trust Ladder (Blue) -->
-      <g filter="url(#softShadow)">
-        <rect x="390" y="394" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="450" y="418" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Trust</text>
-        <text x="450" y="431" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Ladder</text>
-      </g>
+  <!-- ════════════ CALLOUT: WITHOUT vs WITH ════════════ -->
+  <!-- LEFT panel (without) -->
+  <rect x="120" y="640" width="480" height="40" rx="14" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+  <text x="360" y="665" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#991B1B">Without: "We should leverage AI to enhance productivity."</text>
 
-      <!-- Arrow -->
-      <path d="M 450 442 L 450 467" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="450,473 447,468 453,468" fill="#CCCCCC"/>
+  <!-- RIGHT panel (with) -->
+  <rect x="620" y="640" width="480" height="40" rx="14" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="860" y="665" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#065F46">With: A spec engineering can ship from on Monday.</text>
 
-      <!-- Output: Ship Decision (Moss) -->
-      <g filter="url(#softShadow)">
-        <rect x="375" y="477" width="150" height="56" rx="8" fill="#6BA08A" opacity="0.9"/>
-        <text x="450" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle" dominant-baseline="middle">Ship Decision</text>
-      </g>
-
-      <!-- Result Caption -->
-      <text x="450" y="555" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A">A decision backed</text>
-      <text x="450" y="570" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A">by evidence</text>
-    </g>
-
-    <!-- COLUMN 3: Designing an Agent -->
-    <g id="col3">
-      <!-- Header -->
-      <text x="750" y="125" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.3px">Designing an Agent</text>
-
-      <!-- Skill 1: First Principles (Purple) -->
-      <g filter="url(#softShadow)">
-        <rect x="690" y="145" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="750" y="171" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">First</text>
-        <text x="750" y="184" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Principles</text>
-      </g>
-
-      <!-- Arrow -->
-      <path d="M 750 193 L 750 218" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="750,224 747,219 753,219" fill="#CCCCCC"/>
-
-      <!-- Skill 2: Alignment Check (Purple) -->
-      <g filter="url(#softShadow)">
-        <rect x="690" y="228" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="750" y="254" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Alignment</text>
-        <text x="750" y="267" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Check</text>
-      </g>
-
-      <!-- Arrow -->
-      <path d="M 750 276 L 750 301" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="750,307 747,302 753,302" fill="#CCCCCC"/>
-
-      <!-- Skill 3: Autonomy Spectrum (Blue) -->
-      <g filter="url(#softShadow)">
-        <rect x="690" y="311" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="750" y="335" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Autonomy</text>
-        <text x="750" y="348" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Spectrum</text>
-      </g>
-
-      <!-- Arrow -->
-      <path d="M 750 359 L 750 384" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="750,390 747,385 753,385" fill="#CCCCCC"/>
-
-      <!-- Skill 4: Agent Risk (Blue) -->
-      <g filter="url(#softShadow)">
-        <rect x="690" y="394" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="750" y="418" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Agent</text>
-        <text x="750" y="431" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Risk</text>
-      </g>
-
-      <!-- Arrow -->
-      <path d="M 750 442 L 750 467" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="750,473 747,468 753,468" fill="#CCCCCC"/>
-
-      <!-- Output: Agent Spec (Moss) -->
-      <g filter="url(#softShadow)">
-        <rect x="675" y="477" width="150" height="56" rx="8" fill="#6BA08A" opacity="0.9"/>
-        <text x="750" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle" dominant-baseline="middle">Agent Spec</text>
-      </g>
-
-      <!-- Result Caption -->
-      <text x="750" y="555" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A">An agent spec with</text>
-      <text x="750" y="570" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A">safety built in</text>
-    </g>
-
-    <!-- COLUMN 4: Cost Modeling -->
-    <g id="col4">
-      <!-- Header -->
-      <text x="1050" y="125" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.3px">Cost Modeling</text>
-
-      <!-- Skill 1: Falsification (Purple) -->
-      <g filter="url(#softShadow)">
-        <rect x="990" y="145" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="1050" y="171" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Falsifi-</text>
-        <text x="1050" y="184" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">cation</text>
-      </g>
-
-      <!-- Arrow -->
-      <path d="M 1050 193 L 1050 218" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="1050,224 1047,219 1053,219" fill="#CCCCCC"/>
-
-      <!-- Skill 2: Determinism Compass (Purple) -->
-      <g filter="url(#softShadow)">
-        <rect x="990" y="228" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="1050" y="254" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Determinism</text>
-        <text x="1050" y="267" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Compass</text>
-      </g>
-
-      <!-- Arrow -->
-      <path d="M 1050 276 L 1050 301" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="1050,307 1047,302 1053,302" fill="#CCCCCC"/>
-
-      <!-- Skill 3: Token Economics (Blue) -->
-      <g filter="url(#softShadow)">
-        <rect x="990" y="311" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="1050" y="335" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Token</text>
-        <text x="1050" y="348" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Economics</text>
-      </g>
-
-      <!-- Arrow -->
-      <path d="M 1050 359 L 1050 384" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="1050,390 1047,385 1053,385" fill="#CCCCCC"/>
-
-      <!-- Skill 4: Build-or-Buy (Blue) -->
-      <g filter="url(#softShadow)">
-        <rect x="990" y="394" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="1050" y="418" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">Build</text>
-        <text x="1050" y="431" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">or Buy</text>
-      </g>
-
-      <!-- Arrow -->
-      <path d="M 1050 442 L 1050 467" stroke="#CCCCCC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <polygon points="1050,473 1047,468 1053,468" fill="#CCCCCC"/>
-
-      <!-- Output: Cost Model (Moss) -->
-      <g filter="url(#softShadow)">
-        <rect x="975" y="477" width="150" height="56" rx="8" fill="#6BA08A" opacity="0.9"/>
-        <text x="1050" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle" dominant-baseline="middle">Cost Model</text>
-      </g>
-
-      <!-- Result Caption -->
-      <text x="1050" y="555" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A">A cost model that</text>
-      <text x="1050" y="570" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A">survives scrutiny</text>
-    </g>
-
-  </g>
-
-  <!-- Legend at bottom -->
-  <g id="legend">
-    <!-- Legend line separator -->
-    <line x1="60" y1="615" x2="1140" y2="615" stroke="#E0DCDA" stroke-width="0.5"/>
-
-    <!-- Legend items -->
-    <g>
-      <!-- Thinking -->
-      <rect x="80" y="635" width="12" height="12" rx="6" fill="#9478B8"/>
-      <text x="100" y="644" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#8A8A8A" text-anchor="start">Thinking</text>
-
-      <!-- Judgment -->
-      <rect x="280" y="635" width="12" height="12" rx="6" fill="#5B92B8"/>
-      <text x="300" y="644" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#8A8A8A" text-anchor="start">Judgment</text>
-
-      <!-- Craft -->
-      <rect x="480" y="635" width="12" height="12" rx="6" fill="#6BA08A"/>
-      <text x="500" y="644" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#8A8A8A" text-anchor="start">Craft</text>
-
-      <!-- Principle -->
-      <text x="650" y="644" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#8A8A8A">Every chain: Purple (thinking) → Blue (judgment) → Green (craft) = Trustworthy output</text>
-    </g>
-  </g>
-
-  <!-- Footer -->
-  <text x="600" y="780" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#8A8A8A">Import Chain · Dependency Graph · April 2026</text>
+  <!-- ════════════ FOOTER ════════════ -->
+  <text x="600" y="700" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#9CA3AF">Import Chain · 3 Layers · Every Output Pre-Tested · April 2026</text>
 </svg>
