@@ -3,7 +3,7 @@
 How 54 skills compose into a thinking system — not just a collection of files.
 
 <p align="center">
-  <img src="architecture-overview.svg" alt="Three-layer architecture — 54 skills, 7 plugins" width="900"/>
+  <img src="diagrams/01-architecture-overview.svg" alt="Three-layer architecture — 54 skills, 3 layers, 5 judgment domains" width="900"/>
 </p>
 
 > See also: [Workflow Orchestration](workflow-orchestration.svg) for the 6 curated paths through the skill graph.
