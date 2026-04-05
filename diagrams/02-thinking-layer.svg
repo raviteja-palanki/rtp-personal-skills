@@ -1,22 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
   <defs>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-      .bg { fill: #FAFAF8; }
-      .header-band { fill: #9478B8; }
-      .header-text { font-family: 'Inter', sans-serif; font-size: 32px; font-weight: 700; fill: #FFFFFF; }
-      .subtitle-text { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 400; fill: #FFFFFF; opacity: 0.95; }
-      .card-body { fill: #FFFFFF; stroke: #E8E4F0; stroke-width: 1; }
-      .card-header { fill: #9478B8; }
-      .card-header-text { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; fill: #FFFFFF; letter-spacing: -0.3px; }
-      .card-question { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; fill: #5A5450; font-style: italic; line-height: 1.5; }
-      .card-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; fill: #8B6F9E; letter-spacing: 0.8px; text-transform: uppercase; }
-      .card-catches { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #6B6160; line-height: 1.4; }
-      .story-callout { fill: #F3EFF8; stroke: #DCD2E8; stroke-width: 2; }
-      .story-text { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; fill: #5A5450; line-height: 1.6; }
-      .footer-text { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #9478B8; opacity: 0.8; }
-    </style>
     <filter id="cardShadow" x="-50%" y="-50%" width="200%" height="200%">
       <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#9478B8" flood-opacity="0.08"/>
     </filter>
@@ -26,155 +9,155 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1200" height="900" class="bg"/>
+  <rect width="1200" height="900" fill="#FAFAF8"/>
 
   <!-- Title Band -->
-  <rect x="0" y="0" width="1200" height="90" class="header-band" filter="url(#headerShadow)"/>
-  <text x="40" y="52" class="header-text">Layer 1: Thinking</text>
-  <text x="40" y="73" class="subtitle-text">The Immune System — 10 Skills That Fire Before Any Decision Gets Made</text>
+  <rect x="0" y="0" width="1200" height="90" fill="#9478B8" filter="url(#headerShadow)"/>
+  <text x="40" y="52" font-family="'Inter', sans-serif" font-size="32px" font-weight="700" fill="#FFFFFF">Layer 1: Thinking</text>
+  <text x="40" y="73" font-family="'Inter', sans-serif" font-size="14px" font-weight="400" fill="#FFFFFF" opacity="0.95">The Immune System — 10 Skills That Fire Before Any Decision Gets Made</text>
 
   <!-- ROW 1: Cards 1-5 -->
 
   <!-- Card 1: First Principles -->
   <g filter="url(#cardShadow)">
-    <rect x="20" y="110" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="20" y="110" width="220" height="50" rx="12" class="card-header"/>
-    <text x="35" y="147" class="card-header-text">First Principles</text>
+    <rect x="20" y="110" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
+    <rect x="20" y="110" width="220" height="50" rx="12" fill="#9478B8"/>
+    <text x="35" y="147" font-family="'Inter', sans-serif" font-size="15px" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3px">First Principles</text>
 
-    <text x="35" y="175" class="card-question">"What's the one atomic operation underneath?"</text>
+    <text x="35" y="175" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450" font-style="italic">"What's the one atomic operation underneath?"</text>
 
-    <text x="35" y="210" class="card-label">Catches:</text>
-    <text x="35" y="228" class="card-catches">Hidden assumptions you</text>
-    <text x="35" y="242" class="card-catches">didn't know you were making</text>
+    <text x="35" y="210" font-family="'Inter', sans-serif" font-size="10px" font-weight="600" fill="#8B6F9E" letter-spacing="0.8px">Catches:</text>
+    <text x="35" y="228" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">Hidden assumptions you</text>
+    <text x="35" y="242" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">didn't know you were making</text>
   </g>
 
   <!-- Card 2: Bias Spotter -->
   <g filter="url(#cardShadow)">
-    <rect x="260" y="110" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="260" y="110" width="220" height="50" rx="12" class="card-header"/>
-    <text x="275" y="147" class="card-header-text">Bias Spotter</text>
+    <rect x="260" y="110" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
+    <rect x="260" y="110" width="220" height="50" rx="12" fill="#9478B8"/>
+    <text x="275" y="147" font-family="'Inter', sans-serif" font-size="15px" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3px">Bias Spotter</text>
 
-    <text x="275" y="175" class="card-question">"Are you seeing what you want to see?"</text>
+    <text x="275" y="175" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450" font-style="italic">"Are you seeing what you want to see?"</text>
 
-    <text x="275" y="210" class="card-label">Catches:</text>
-    <text x="275" y="228" class="card-catches">Confirmation bias about to</text>
-    <text x="275" y="242" class="card-catches">derail the entire decision</text>
+    <text x="275" y="210" font-family="'Inter', sans-serif" font-size="10px" font-weight="600" fill="#8B6F9E" letter-spacing="0.8px">Catches:</text>
+    <text x="275" y="228" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">Confirmation bias about to</text>
+    <text x="275" y="242" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">derail the entire decision</text>
   </g>
 
   <!-- Card 3: Falsification -->
   <g filter="url(#cardShadow)">
-    <rect x="500" y="110" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="500" y="110" width="220" height="50" rx="12" class="card-header"/>
-    <text x="515" y="147" class="card-header-text">Falsification</text>
+    <rect x="500" y="110" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
+    <rect x="500" y="110" width="220" height="50" rx="12" fill="#9478B8"/>
+    <text x="515" y="147" font-family="'Inter', sans-serif" font-size="15px" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3px">Falsification</text>
 
-    <text x="515" y="175" class="card-question">"What would make this recommendation invalid?"</text>
+    <text x="515" y="175" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450" font-style="italic">"What would make this recommendation invalid?"</text>
 
-    <text x="515" y="210" class="card-label">Catches:</text>
-    <text x="515" y="228" class="card-catches">Untested hypotheses and</text>
-    <text x="515" y="242" class="card-catches">false certainty</text>
+    <text x="515" y="210" font-family="'Inter', sans-serif" font-size="10px" font-weight="600" fill="#8B6F9E" letter-spacing="0.8px">Catches:</text>
+    <text x="515" y="228" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">Untested hypotheses and</text>
+    <text x="515" y="242" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">false certainty</text>
   </g>
 
   <!-- Card 4: Dual Lens -->
   <g filter="url(#cardShadow)">
-    <rect x="740" y="110" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="740" y="110" width="220" height="50" rx="12" class="card-header"/>
-    <text x="755" y="147" class="card-header-text">Dual Lens</text>
+    <rect x="740" y="110" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
+    <rect x="740" y="110" width="220" height="50" rx="12" fill="#9478B8"/>
+    <text x="755" y="147" font-family="'Inter', sans-serif" font-size="15px" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3px">Dual Lens</text>
 
-    <text x="755" y="175" class="card-question">"Business AND technical framing?"</text>
+    <text x="755" y="175" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450" font-style="italic">"Business AND technical framing?"</text>
 
-    <text x="755" y="210" class="card-label">Catches:</text>
-    <text x="755" y="228" class="card-catches">Communication that only one</text>
-    <text x="755" y="242" class="card-catches">audience can actually use</text>
+    <text x="755" y="210" font-family="'Inter', sans-serif" font-size="10px" font-weight="600" fill="#8B6F9E" letter-spacing="0.8px">Catches:</text>
+    <text x="755" y="228" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">Communication that only one</text>
+    <text x="755" y="242" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">audience can actually use</text>
   </g>
 
   <!-- Card 5: Determinism Compass -->
   <g filter="url(#cardShadow)">
-    <rect x="980" y="110" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="980" y="110" width="220" height="50" rx="12" class="card-header"/>
-    <text x="995" y="147" class="card-header-text">Determinism Compass</text>
+    <rect x="980" y="110" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
+    <rect x="980" y="110" width="220" height="50" rx="12" fill="#9478B8"/>
+    <text x="995" y="147" font-family="'Inter', sans-serif" font-size="15px" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3px">Determinism Compass</text>
 
-    <text x="995" y="175" class="card-question">"Probabilistic or deterministic?"</text>
+    <text x="995" y="175" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450" font-style="italic">"Probabilistic or deterministic?"</text>
 
-    <text x="995" y="210" class="card-label">Catches:</text>
-    <text x="995" y="228" class="card-catches">The most common AI</text>
-    <text x="995" y="242" class="card-catches">architecture mistake</text>
+    <text x="995" y="210" font-family="'Inter', sans-serif" font-size="10px" font-weight="600" fill="#8B6F9E" letter-spacing="0.8px">Catches:</text>
+    <text x="995" y="228" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">The most common AI</text>
+    <text x="995" y="242" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">architecture mistake</text>
   </g>
 
   <!-- ROW 2: Cards 6-10 -->
 
   <!-- Card 6: Stress Test -->
   <g filter="url(#cardShadow)">
-    <rect x="20" y="410" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="20" y="410" width="220" height="50" rx="12" class="card-header"/>
-    <text x="35" y="447" class="card-header-text">Stress Test</text>
+    <rect x="20" y="410" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
+    <rect x="20" y="410" width="220" height="50" rx="12" fill="#9478B8"/>
+    <text x="35" y="447" font-family="'Inter', sans-serif" font-size="15px" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3px">Stress Test</text>
 
-    <text x="35" y="475" class="card-question">"What breaks under load?"</text>
+    <text x="35" y="475" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450" font-style="italic">"What breaks under load?"</text>
 
-    <text x="35" y="510" class="card-label">Catches:</text>
-    <text x="35" y="528" class="card-catches">Plans that look great until</text>
-    <text x="35" y="542" class="card-catches">they meet production reality</text>
+    <text x="35" y="510" font-family="'Inter', sans-serif" font-size="10px" font-weight="600" fill="#8B6F9E" letter-spacing="0.8px">Catches:</text>
+    <text x="35" y="528" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">Plans that look great until</text>
+    <text x="35" y="542" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">they meet production reality</text>
   </g>
 
   <!-- Card 7: Failure Modes -->
   <g filter="url(#cardShadow)">
-    <rect x="260" y="410" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="260" y="410" width="220" height="50" rx="12" class="card-header"/>
-    <text x="275" y="447" class="card-header-text">Failure Modes</text>
+    <rect x="260" y="410" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
+    <rect x="260" y="410" width="220" height="50" rx="12" fill="#9478B8"/>
+    <text x="275" y="447" font-family="'Inter', sans-serif" font-size="15px" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3px">Failure Modes</text>
 
-    <text x="275" y="475" class="card-question">"Gracefully or dangerously?"</text>
+    <text x="275" y="475" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450" font-style="italic">"Gracefully or dangerously?"</text>
 
-    <text x="275" y="510" class="card-label">Catches:</text>
-    <text x="275" y="528" class="card-catches">Silent failures that cascade</text>
-    <text x="275" y="542" class="card-catches">before anyone notices</text>
+    <text x="275" y="510" font-family="'Inter', sans-serif" font-size="10px" font-weight="600" fill="#8B6F9E" letter-spacing="0.8px">Catches:</text>
+    <text x="275" y="528" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">Silent failures that cascade</text>
+    <text x="275" y="542" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">before anyone notices</text>
   </g>
 
   <!-- Card 8: Alignment Check -->
   <g filter="url(#cardShadow)">
-    <rect x="500" y="410" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="500" y="410" width="220" height="50" rx="12" class="card-header"/>
-    <text x="515" y="447" class="card-header-text">Alignment Check</text>
+    <rect x="500" y="410" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
+    <rect x="500" y="410" width="220" height="50" rx="12" fill="#9478B8"/>
+    <text x="515" y="447" font-family="'Inter', sans-serif" font-size="15px" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3px">Alignment Check</text>
 
-    <text x="515" y="475" class="card-question">"Are incentives aligned across stakeholders?"</text>
+    <text x="515" y="475" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450" font-style="italic">"Are incentives aligned across stakeholders?"</text>
 
-    <text x="515" y="510" class="card-label">Catches:</text>
-    <text x="515" y="528" class="card-catches">Org readiness gaps that</text>
-    <text x="515" y="542" class="card-catches">sink AI projects silently</text>
+    <text x="515" y="510" font-family="'Inter', sans-serif" font-size="10px" font-weight="600" fill="#8B6F9E" letter-spacing="0.8px">Catches:</text>
+    <text x="515" y="528" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">Org readiness gaps that</text>
+    <text x="515" y="542" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">sink AI projects silently</text>
   </g>
 
   <!-- Card 9: Judgment Guard -->
   <g filter="url(#cardShadow)">
-    <rect x="740" y="410" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="740" y="410" width="220" height="50" rx="12" class="card-header"/>
-    <text x="755" y="447" class="card-header-text">Judgment Guard</text>
+    <rect x="740" y="410" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
+    <rect x="740" y="410" width="220" height="50" rx="12" fill="#9478B8"/>
+    <text x="755" y="447" font-family="'Inter', sans-serif" font-size="15px" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3px">Judgment Guard</text>
 
-    <text x="755" y="475" class="card-question">"Judgment call or data question?"</text>
+    <text x="755" y="475" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450" font-style="italic">"Judgment call or data question?"</text>
 
-    <text x="755" y="510" class="card-label">Catches:</text>
-    <text x="755" y="528" class="card-catches">Expertise erosion from over-</text>
-    <text x="755" y="542" class="card-catches">reliance on AI answers</text>
+    <text x="755" y="510" font-family="'Inter', sans-serif" font-size="10px" font-weight="600" fill="#8B6F9E" letter-spacing="0.8px">Catches:</text>
+    <text x="755" y="528" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">Expertise erosion from over-</text>
+    <text x="755" y="542" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">reliance on AI answers</text>
   </g>
 
   <!-- Card 10: Problem Type -->
   <g filter="url(#cardShadow)">
-    <rect x="980" y="410" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="980" y="410" width="220" height="50" rx="12" class="card-header"/>
-    <text x="995" y="447" class="card-header-text">Problem Type</text>
+    <rect x="980" y="410" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
+    <rect x="980" y="410" width="220" height="50" rx="12" fill="#9478B8"/>
+    <text x="995" y="447" font-family="'Inter', sans-serif" font-size="15px" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3px">Problem Type</text>
 
-    <text x="995" y="475" class="card-question">"What type of problem, really?"</text>
+    <text x="995" y="475" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450" font-style="italic">"What type of problem, really?"</text>
 
-    <text x="995" y="510" class="card-label">Catches:</text>
-    <text x="995" y="528" class="card-catches">Treating adaptive challenges</text>
-    <text x="995" y="542" class="card-catches">as technical problems</text>
+    <text x="995" y="510" font-family="'Inter', sans-serif" font-size="10px" font-weight="600" fill="#8B6F9E" letter-spacing="0.8px">Catches:</text>
+    <text x="995" y="528" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">Treating adaptive challenges</text>
+    <text x="995" y="542" font-family="'Inter', sans-serif" font-size="12px" font-weight="400" fill="#6B6160">as technical problems</text>
   </g>
 
   <!-- Story Callout -->
   <g>
-    <rect x="30" y="720" width="1140" height="110" rx="12" class="story-callout"/>
-    <text x="50" y="750" class="story-text" font-weight="600">10 skills that don't produce documents. They produce checks. The immune system.</text>
-    <text x="50" y="773" class="story-text">These fire before any domain-specific skill runs. They're agnostic to whether you're building AI products, traditional features, or org strategy. The domain specificity comes from Layers 2 and 3, where judgment skills adapt these thinking checks to specific problem spaces.</text>
-    <text x="50" y="810" class="story-text" font-weight="600">Every other skill imports from here first.</text>
+    <rect x="30" y="720" width="1140" height="110" rx="12" fill="#F3EFF8" stroke="#DCD2E8" stroke-width="2"/>
+    <text x="50" y="750" font-family="'Inter', sans-serif" font-size="13px" font-weight="600" fill="#5A5450">10 skills that don't produce documents. They produce checks. The immune system.</text>
+    <text x="50" y="773" font-family="'Inter', sans-serif" font-size="13px" font-weight="400" fill="#5A5450">These fire before any domain-specific skill runs. They're agnostic to whether you're building AI products, traditional features, or org strategy. The domain specificity comes from Layers 2 and 3, where judgment skills adapt these thinking checks to specific problem spaces.</text>
+    <text x="50" y="810" font-family="'Inter', sans-serif" font-size="13px" font-weight="600" fill="#5A5450">Every other skill imports from here first.</text>
   </g>
 
   <!-- Footer -->
-  <text x="40" y="875" class="footer-text">Layer 1 · Thinking Core · 10 Skills · April 2026</text>
+  <text x="40" y="875" font-family="'Inter', sans-serif" font-size="11px" font-weight="400" fill="#9478B8" opacity="0.8">Layer 1 · Thinking Core · 10 Skills · April 2026</text>
 </svg>

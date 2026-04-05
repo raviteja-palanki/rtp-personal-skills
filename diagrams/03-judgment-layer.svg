@@ -1,8 +1,8 @@
-<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- Drop shadow for cards -->
     <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000010" flood-opacity="1"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.063"/>
     </filter>
 
     <!-- Subtle gradients for headers -->

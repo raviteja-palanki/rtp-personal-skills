@@ -59,13 +59,13 @@
     New AI Feature
   </text>
 
-  <text x="60" y="158" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+  <text x="60" y="155" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
     Full cycle, ~2-4 weeks
   </text>
-  <text x="60" y="177" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#5B92B8">
+  <text x="60" y="192" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#5B92B8">
     54
   </text>
-  <text x="60" y="200" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+  <text x="60" y="212" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
     skills
   </text>
 
@@ -85,13 +85,13 @@
     Incident Response
   </text>
 
-  <text x="450" y="158" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+  <text x="450" y="155" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
     Hours to resolution
   </text>
-  <text x="450" y="177" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#C27878">
+  <text x="450" y="192" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#C27878">
     25
   </text>
-  <text x="450" y="200" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+  <text x="450" y="212" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
     skills
   </text>
 
@@ -111,13 +111,13 @@
     Strategic Review
   </text>
 
-  <text x="840" y="158" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+  <text x="840" y="155" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
     1-2 days of depth
   </text>
-  <text x="840" y="177" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#D4956A">
+  <text x="840" y="192" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#D4956A">
     15
   </text>
-  <text x="840" y="200" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+  <text x="840" y="212" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
     skills
   </text>
 
@@ -139,13 +139,13 @@
     Technical Architecture
   </text>
 
-  <text x="60" y="438" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+  <text x="60" y="435" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
     1 week of spec-and-build
   </text>
-  <text x="60" y="457" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#9478B8">
+  <text x="60" y="472" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#9478B8">
     20
   </text>
-  <text x="60" y="480" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+  <text x="60" y="492" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
     skills
   </text>
 
@@ -165,13 +165,13 @@
     Product Launch
   </text>
 
-  <text x="450" y="438" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+  <text x="450" y="435" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
     1-2 weeks of execution
   </text>
-  <text x="450" y="457" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#6BA08A">
+  <text x="450" y="472" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#6BA08A">
     18
   </text>
-  <text x="450" y="480" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+  <text x="450" y="492" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
     skills
   </text>
 
@@ -191,13 +191,13 @@
     Safety Audit
   </text>
 
-  <text x="840" y="438" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+  <text x="840" y="435" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
     2-3 days of rigor
   </text>
-  <text x="840" y="457" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#D89BA8">
+  <text x="840" y="472" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800" fill="#D89BA8">
     12
   </text>
-  <text x="840" y="480" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+  <text x="840" y="492" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#555555">
     skills
   </text>
 

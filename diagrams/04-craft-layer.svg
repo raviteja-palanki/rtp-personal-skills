@@ -1,10 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
   <defs>
-    <!-- Typography import -->
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-    </style>
-
     <!-- Gradients -->
     <linearGradient id="mossGradient" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#7AB89D;stop-opacity:1" />
@@ -44,7 +39,7 @@
   <text x="40" y="38" font-family="Inter, sans-serif" font-size="32" font-weight="700" fill="white" letter-spacing="-0.5">
     Layer 3: Craft
   </text>
-  <text x="40" y="64" font-family="Inter, sans-serif" font-size="13" fill="rgba(255,255,255,0.92)" letter-spacing="0.3">
+  <text x="40" y="64" font-family="Inter, sans-serif" font-size="13" fill="#FFFFFF" fill-opacity="0.92" letter-spacing="0.3">
     Ship-Ready Artifacts  ·  8 generators, each pre-tested by Layers 1 + 2
   </text>
 
@@ -57,7 +52,7 @@
     <rect x="25" y="105" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
 
     <!-- Header bar -->
-    <rect x="25" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <rect x="25" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)"/>
     <text x="45" y="137" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">ai-prd</text>
 
     <!-- Produces section -->
@@ -85,7 +80,7 @@
   <!-- Card 2: context-spec -->
   <g>
     <rect x="315" y="105" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
-    <rect x="315" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <rect x="315" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)"/>
     <text x="335" y="137" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">context-spec</text>
 
     <text x="335" y="168" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
@@ -106,7 +101,7 @@
   <!-- Card 3: agent-spec -->
   <g>
     <rect x="605" y="105" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
-    <rect x="605" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <rect x="605" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)"/>
     <text x="625" y="137" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">agent-spec</text>
 
     <text x="625" y="168" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
@@ -127,7 +122,7 @@
   <!-- Card 4: cost-model -->
   <g>
     <rect x="895" y="105" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
-    <rect x="895" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <rect x="895" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)"/>
     <text x="915" y="137" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">cost-model</text>
 
     <text x="915" y="168" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
@@ -147,7 +142,7 @@
   <!-- Card 5: ship-decision -->
   <g>
     <rect x="25" y="410" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
-    <rect x="25" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <rect x="25" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)"/>
     <text x="45" y="442" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">ship-decision</text>
 
     <text x="45" y="473" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
@@ -168,7 +163,7 @@
   <!-- Card 6: competitive-map -->
   <g>
     <rect x="315" y="410" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
-    <rect x="315" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <rect x="315" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)"/>
     <text x="335" y="442" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">competitive-map</text>
 
     <text x="335" y="473" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
@@ -186,7 +181,7 @@
   <!-- Card 7: fit-signal -->
   <g>
     <rect x="605" y="410" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
-    <rect x="605" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <rect x="605" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)"/>
     <text x="625" y="442" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">fit-signal</text>
 
     <text x="625" y="473" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
@@ -207,7 +202,7 @@
   <!-- Card 8: prompt-as-product -->
   <g>
     <rect x="895" y="410" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
-    <rect x="895" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <rect x="895" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)"/>
     <text x="915" y="442" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">prompt-as-product</text>
 
     <text x="915" y="473" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
