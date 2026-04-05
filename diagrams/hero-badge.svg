@@ -1,0 +1,157 @@
+<svg viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FAFAF8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F6F3EE;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="accentBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#9478B8" />
+      <stop offset="20%" style="stop-color:#5B92B8" />
+      <stop offset="40%" style="stop-color:#6BA08A" />
+      <stop offset="60%" style="stop-color:#D4956A" />
+      <stop offset="100%" style="stop-color:#C27878" />
+    </linearGradient>
+
+    <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#9478B8" />
+      <stop offset="50%" style="stop-color:#5B92B8" />
+      <stop offset="100%" style="stop-color:#6BA08A" />
+    </linearGradient>
+
+    <!-- Soft drop shadow -->
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="8" flood-color="#00000012" flood-opacity="0.8"/>
+    </filter>
+
+    <filter id="thinShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#00000008"/>
+    </filter>
+
+    <!-- Fonts -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap');
+
+      .hero-author { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 12px; font-weight: 600; fill: #9478B8; letter-spacing: 2.2px; text-transform: uppercase; }
+
+      .hero-title { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 56px; font-weight: 800; fill: url(#titleGradient); letter-spacing: -2px; }
+
+      .hero-tagline { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 16px; font-weight: 500; fill: #444444; letter-spacing: 0.2px; }
+
+      .hero-subtitle { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 13px; font-weight: 400; fill: #888888; letter-spacing: 0.3px; }
+
+      .stat-number { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 48px; font-weight: 800; letter-spacing: -2px; }
+
+      .stat-label { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 11px; font-weight: 600; fill: #666666; letter-spacing: 1.2px; text-transform: uppercase; }
+
+      .stat-flow { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; fill: #666666; letter-spacing: 0.8px; text-transform: uppercase; }
+
+      .layer-label { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; fill: #ffffff; letter-spacing: 0.5px; }
+
+      .footer { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; letter-spacing: 0.2px; }
+    </style>
+  </defs>
+
+  <!-- Main background -->
+  <rect width="1200" height="320" rx="16" fill="url(#heroBg)" stroke="#E8E4DC" stroke-width="1.5"/>
+
+  <!-- Top accent bar — gradient across 5 colors -->
+  <rect y="0" width="1200" height="8" rx="16" fill="url(#accentBar)"/>
+
+  <!-- LEFT SECTION: Title & story -->
+
+  <!-- Author line -->
+  <text x="60" y="44" class="hero-author">RAVI TEJA PALANKI</text>
+
+  <!-- Main title with gradient -->
+  <text x="60" y="120" class="hero-title">rtp-personal-skills</text>
+
+  <!-- Tagline: The hook -->
+  <text x="60" y="152" class="hero-tagline">66 skills. 3 layers. One compounding system.</text>
+
+  <!-- Divider -->
+  <line x1="60" y1="174" x2="520" y2="174" stroke="#DDD8D0" stroke-width="2"/>
+
+  <!-- Layer flow story -->
+  <g>
+    <!-- THINK box -->
+    <rect x="60" y="194" width="105" height="84" rx="12" fill="#F0EBF5" stroke="#E8DCF0" stroke-width="1" filter="url(#thinShadow)"/>
+    <circle cx="112.5" cy="215" r="14" fill="#9478B8"/>
+    <text x="112.5" y="220" class="layer-label" text-anchor="middle" font-size="20">🧠</text>
+    <text x="112.5" y="250" class="stat-label" text-anchor="middle">THINK</text>
+    <text x="112.5" y="268" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #888888; text-anchor: middle;">Catch errors</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <text x="190" y="244" style="font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 300; fill: #D8D4CC;">→</text>
+
+  <!-- JUDGE box -->
+  <g>
+    <rect x="225" y="194" width="105" height="84" rx="12" fill="#EBF2F8" stroke="#DBE8F0" stroke-width="1" filter="url(#thinShadow)"/>
+    <circle cx="277.5" cy="215" r="14" fill="#5B92B8"/>
+    <text x="277.5" y="220" class="layer-label" text-anchor="middle" font-size="20">⚖️</text>
+    <text x="277.5" y="250" class="stat-label" text-anchor="middle">JUDGE</text>
+    <text x="277.5" y="268" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #888888; text-anchor: middle;">Make calls</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <text x="355" y="244" style="font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 300; fill: #D8D4CC;">→</text>
+
+  <!-- SHIP box -->
+  <g>
+    <rect x="390" y="194" width="105" height="84" rx="12" fill="#EFF5F0" stroke="#DFEDDA" stroke-width="1" filter="url(#thinShadow)"/>
+    <circle cx="442.5" cy="215" r="14" fill="#6BA08A"/>
+    <text x="442.5" y="220" class="layer-label" text-anchor="middle" font-size="20">🚀</text>
+    <text x="442.5" y="250" class="stat-label" text-anchor="middle">SHIP</text>
+    <text x="442.5" y="268" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #888888; text-anchor: middle;">Deliver work</text>
+  </g>
+
+  <!-- RIGHT SECTION: Stats panel -->
+  <g filter="url(#softShadow)">
+    <rect x="640" y="30" width="520" height="260" rx="16" fill="#FFFFFF" stroke="#E8E4DC" stroke-width="1.5"/>
+  </g>
+
+  <!-- Stats header label -->
+  <text x="900" y="64" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; fill: #999999; letter-spacing: 1.5px; text-transform: uppercase; text-anchor: middle;">The Architecture</text>
+
+  <!-- Stat 1: 66 Skills -->
+  <g>
+    <text x="750" y="125" class="stat-number" text-anchor="middle" fill="#9478B8">66</text>
+    <text x="750" y="148" class="stat-label" text-anchor="middle">Skills</text>
+    <text x="750" y="168" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; text-anchor: middle; letter-spacing: 0.2px;">Thinking + Judgment + Craft</text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="820" y1="105" x2="820" y2="175" stroke="#E8E4DC" stroke-width="1"/>
+
+  <!-- Stat 2: 3 Layers -->
+  <g>
+    <text x="900" y="125" class="stat-number" text-anchor="middle" fill="#5B92B8">3</text>
+    <text x="900" y="148" class="stat-label" text-anchor="middle">Layers</text>
+    <text x="900" y="168" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; text-anchor: middle; letter-spacing: 0.2px;">Each checks the next</text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="970" y1="105" x2="970" y2="175" stroke="#E8E4DC" stroke-width="1"/>
+
+  <!-- Stat 3: 1 System -->
+  <g>
+    <text x="1050" y="125" class="stat-number" text-anchor="middle" fill="#6BA08A">1</text>
+    <text x="1050" y="148" class="stat-label" text-anchor="middle">System</text>
+    <text x="1050" y="168" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; text-anchor: middle; letter-spacing: 0.2px;">Built for compounding</text>
+  </g>
+
+  <!-- Divider line -->
+  <line x1="680" y1="195" x2="1140" y2="195" stroke="#F0EDE6" stroke-width="1.5"/>
+
+  <!-- Bottom section: The compounding story -->
+  <text x="900" y="229" style="font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; fill: #666666; letter-spacing: 0.8px; text-anchor: middle; text-transform: uppercase;">How It Works</text>
+
+  <text x="680" y="258" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; letter-spacing: 0.2px;">Each layer earns the right to exist by making</text>
+  <text x="680" y="277" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; letter-spacing: 0.2px;">the next layer's output trustworthy. Every output</text>
+  <text x="680" y="296" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; letter-spacing: 0.2px;">pre-tested before shipping.</text>
+
+  <!-- Footer: Attribution -->
+  <text x="600" y="314" class="footer" text-anchor="end">Built with Claude · April 2026</text>
+</svg>

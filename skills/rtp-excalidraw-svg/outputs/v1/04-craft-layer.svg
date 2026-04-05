@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 580" width="1200" height="580">
+  <defs>
+    <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="580" rx="16" fill="#FAFAF8"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1200" height="80" rx="16" fill="#FFFBEB"/>
+  <rect x="0" y="60" width="1200" height="20" fill="#FFFBEB"/>
+  <text x="600" y="36" text-anchor="middle" fill="#B45309" font-size="28" font-weight="800" font-family="Inter, Segoe UI, sans-serif">Layer 3 — Craft</text>
+  <text x="600" y="62" text-anchor="middle" fill="#5F6B7A" font-size="15" font-family="Inter, sans-serif">Depth — Comprehensive · 8 skills that produce artifacts engineering can actually build from</text>
+
+  <!-- Row of 4 cards -->
+  <!-- Card 1: ai-prd -->
+  <rect x="40" y="100" width="270" height="188" rx="14" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2" filter="url(#s)"/>
+  <rect x="40" y="100" width="270" height="44" rx="14" fill="#F59E0B"/>
+  <rect x="40" y="130" width="270" height="14" fill="#F59E0B"/>
+  <text x="175" y="129" text-anchor="middle" fill="#FFFFFF" font-size="17" font-weight="700" font-family="Inter, sans-serif">ai-prd</text>
+  <text x="60" y="170" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">PRD that ships, not slides</text>
+  <text x="60" y="192" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">Dual metrics: acceptance rate +</text>
+  <text x="60" y="208" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">security catch rate. Eval gates built in.</text>
+  <rect x="56" y="222" width="238" height="50" rx="8" fill="#FFFBEB"/>
+  <text x="175" y="242" text-anchor="middle" fill="#92400E" font-size="11" font-weight="600" font-family="Inter, sans-serif">Imports: first-principles, bias-spotter,</text>
+  <text x="175" y="258" text-anchor="middle" fill="#92400E" font-size="11" font-family="Inter, sans-serif">stress-test, problem-ai-fit, eval-framework</text>
+
+  <!-- Card 2: agent-spec -->
+  <rect x="330" y="100" width="270" height="188" rx="14" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2" filter="url(#s)"/>
+  <rect x="330" y="100" width="270" height="44" rx="14" fill="#F59E0B"/>
+  <rect x="330" y="130" width="270" height="14" fill="#F59E0B"/>
+  <text x="465" y="129" text-anchor="middle" fill="#FFFFFF" font-size="17" font-weight="700" font-family="Inter, sans-serif">agent-spec</text>
+  <text x="350" y="170" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">Agent blueprint, not a wish list</text>
+  <text x="350" y="192" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">Trust ladder, tool permissions,</text>
+  <text x="350" y="208" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">harness design, safety constraints.</text>
+  <rect x="346" y="222" width="238" height="50" rx="8" fill="#FFFBEB"/>
+  <text x="465" y="242" text-anchor="middle" fill="#92400E" font-size="11" font-weight="600" font-family="Inter, sans-serif">Imports: autonomy-spectrum, agent-harness,</text>
+  <text x="465" y="258" text-anchor="middle" fill="#92400E" font-size="11" font-family="Inter, sans-serif">tool-architecture, failure-design, trust-ladder</text>
+
+  <!-- Card 3: cost-model -->
+  <rect x="620" y="100" width="270" height="188" rx="14" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2" filter="url(#s)"/>
+  <rect x="620" y="100" width="270" height="44" rx="14" fill="#F59E0B"/>
+  <rect x="620" y="130" width="270" height="14" fill="#F59E0B"/>
+  <text x="755" y="129" text-anchor="middle" fill="#FFFFFF" font-size="17" font-weight="700" font-family="Inter, sans-serif">cost-model</text>
+  <text x="640" y="170" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">The spreadsheet that prevents regret</text>
+  <text x="640" y="192" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">Per-call cost, model routing logic,</text>
+  <text x="640" y="208" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">monthly burn at projected volume.</text>
+  <rect x="636" y="222" width="238" height="50" rx="8" fill="#FFFBEB"/>
+  <text x="755" y="242" text-anchor="middle" fill="#92400E" font-size="11" font-weight="600" font-family="Inter, sans-serif">Imports: token-economics, stress-test,</text>
+  <text x="755" y="258" text-anchor="middle" fill="#92400E" font-size="11" font-family="Inter, sans-serif">determinism-compass</text>
+
+  <!-- Card 4: ship-decision -->
+  <rect x="910" y="100" width="270" height="188" rx="14" fill="#FFFFFF" stroke="#EF4444" stroke-width="2" filter="url(#s)"/>
+  <rect x="910" y="100" width="270" height="44" rx="14" fill="#EF4444"/>
+  <rect x="910" y="130" width="270" height="14" fill="#EF4444"/>
+  <text x="1045" y="129" text-anchor="middle" fill="#FFFFFF" font-size="17" font-weight="700" font-family="Inter, sans-serif">ship-decision</text>
+  <text x="930" y="170" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">Go/no-go with kill conditions</text>
+  <text x="930" y="192" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">Canary rollout criteria, automatic</text>
+  <text x="930" y="208" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">rollback triggers, "stop if..." rules.</text>
+  <rect x="926" y="222" width="238" height="50" rx="8" fill="#FEF2F2"/>
+  <text x="1045" y="242" text-anchor="middle" fill="#991B1B" font-size="11" font-weight="600" font-family="Inter, sans-serif">Imports: stress-test, safety-as-moat,</text>
+  <text x="1045" y="258" text-anchor="middle" fill="#991B1B" font-size="11" font-family="Inter, sans-serif">eval-framework, prod-observability</text>
+
+  <!-- Row 2: 4 more cards -->
+  <rect x="110" y="310" width="230" height="128" rx="14" fill="#FFFFFF" stroke="#D97706" stroke-width="2" filter="url(#s)"/>
+  <rect x="110" y="310" width="230" height="38" rx="14" fill="#D97706"/>
+  <rect x="110" y="336" width="230" height="12" fill="#D97706"/>
+  <text x="225" y="336" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700" font-family="Inter, sans-serif">strategy-canvas</text>
+  <text x="130" y="372" fill="#1B1B1F" font-size="13" font-weight="600" font-family="Inter, sans-serif">Roadmap that bends with reality</text>
+  <text x="130" y="392" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">Capability-conditional plans.</text>
+  <text x="130" y="410" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">6-month horizon, quarterly resets.</text>
+
+  <rect x="370" y="310" width="230" height="128" rx="14" fill="#FFFFFF" stroke="#D97706" stroke-width="2" filter="url(#s)"/>
+  <rect x="370" y="310" width="230" height="38" rx="14" fill="#D97706"/>
+  <rect x="370" y="336" width="230" height="12" fill="#D97706"/>
+  <text x="485" y="336" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700" font-family="Inter, sans-serif">competitive-map</text>
+  <text x="390" y="372" fill="#1B1B1F" font-size="13" font-weight="600" font-family="Inter, sans-serif">See gaps competitors can't</text>
+  <text x="390" y="392" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">Positioning against capability</text>
+  <text x="390" y="410" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">curves, not current features.</text>
+
+  <rect x="630" y="310" width="230" height="128" rx="14" fill="#FFFFFF" stroke="#D97706" stroke-width="2" filter="url(#s)"/>
+  <rect x="630" y="310" width="230" height="38" rx="14" fill="#D97706"/>
+  <rect x="630" y="336" width="230" height="12" fill="#D97706"/>
+  <text x="745" y="336" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700" font-family="Inter, sans-serif">token-economics</text>
+  <text x="650" y="372" fill="#1B1B1F" font-size="13" font-weight="600" font-family="Inter, sans-serif">Know your unit economics cold</text>
+  <text x="650" y="392" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">Cost-per-query, model routing,</text>
+  <text x="650" y="410" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">context window optimization.</text>
+
+  <rect x="890" y="310" width="230" height="128" rx="14" fill="#FFFFFF" stroke="#D97706" stroke-width="2" filter="url(#s)"/>
+  <rect x="890" y="310" width="230" height="38" rx="14" fill="#D97706"/>
+  <rect x="890" y="336" width="230" height="12" fill="#D97706"/>
+  <text x="1005" y="336" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700" font-family="Inter, sans-serif">use-case-readiness</text>
+  <text x="910" y="372" fill="#1B1B1F" font-size="13" font-weight="600" font-family="Inter, sans-serif">Right-size the AI investment</text>
+  <text x="910" y="392" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">Solution spectrum 0-7: rules to</text>
+  <text x="910" y="410" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">full autonomous agent.</text>
+
+  <!-- Story callout -->
+  <rect x="140" y="462" width="920" height="60" rx="14" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2" filter="url(#s)"/>
+  <text x="600" y="488" text-anchor="middle" fill="#92400E" font-size="16" font-weight="700" font-family="Inter, sans-serif">Why this layer matters</text>
+  <text x="600" y="508" text-anchor="middle" fill="#78716C" font-size="14" font-family="Inter, sans-serif">Layer 3 doesn't invent — it inherits. Every artifact arrives with thinking and judgment already baked in.</text>
+
+  <text x="600" y="556" text-anchor="middle" fill="#9CA3AF" font-size="12" font-family="Inter, sans-serif">Ravi's AI Product Mind · Layer 3 of 3</text>
+</svg>

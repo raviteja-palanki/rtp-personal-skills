@@ -1,0 +1,215 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000012"/>
+    </filter>
+    <linearGradient id="orchestratorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#9478B8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8A6BA3;stop-opacity:1" />
+    </linearGradient>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+      .title { font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 700; fill: #1a1a1a; letter-spacing: -0.5px; }
+      .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; fill: #666; letter-spacing: 0.3px; }
+      .step-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; fill: #1a1a1a; }
+      .step-text { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; fill: #444; }
+      .agent-name { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; fill: #ffffff; }
+      .agent-count { font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 500; fill: #ffffff; opacity: 0.9; }
+      .box-title { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; fill: #1a1a1a; }
+      .box-text { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; fill: #666; }
+      .feedback-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; fill: #333; }
+      .footer { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; fill: #999; letter-spacing: 0.5px; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#FAFAF8"/>
+
+  <!-- ===== TOP BANNER ===== -->
+  <rect y="0" width="1200" height="70" fill="#ffffff" stroke="#E2DFD8" stroke-width="1"/>
+  <text x="600" y="32" class="title" text-anchor="middle">The Orchestrator — A Brain, Not a Routing Table</text>
+  <text x="600" y="53" class="subtitle" text-anchor="middle">Reads context · Decomposes the question · Identifies which skills apply · Synthesizes into actionable output · Learns from every routing</text>
+
+  <!-- ===== INPUT BOX ===== -->
+  <g filter="url(#dropShadow)">
+    <rect x="40" y="105" width="160" height="110" rx="8" fill="#ffffff" stroke="#E2DFD8" stroke-width="1.5"/>
+    <text x="120" y="128" class="box-title" text-anchor="middle">Any AI Product</text>
+    <text x="120" y="145" class="box-title" text-anchor="middle">Problem</text>
+    <text x="120" y="165" class="box-text" text-anchor="middle">Discovery? GTM?</text>
+    <text x="120" y="177" class="box-text" text-anchor="middle">Safety? Architecture?</text>
+    <text x="120" y="189" class="box-text" text-anchor="middle">Eval? Adoption?</text>
+  </g>
+
+  <!-- ===== ARROW TO BRAIN ===== -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#9478B8"/>
+    </marker>
+  </defs>
+  <path d="M 200 160 L 260 160" stroke="#9478B8" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+
+  <!-- ===== ORCHESTRATOR BRAIN (CENTER) ===== -->
+  <g filter="url(#dropShadow)">
+    <!-- Header -->
+    <rect x="260" y="105" width="480" height="48" rx="8" fill="url(#orchestratorGrad)"/>
+    <text x="500" y="136" class="agent-name" text-anchor="middle" font-size="16" font-weight="700">Orchestrator v1.2</text>
+
+    <!-- Body: 3 Internal Steps -->
+    <rect x="260" y="153" width="480" height="200" rx="8" fill="#ffffff" stroke="#E2DFD8" stroke-width="1.5"/>
+
+    <!-- Step 1: Decompose -->
+    <circle cx="280" cy="175" r="8" fill="#9478B8"/>
+    <text x="295" y="180" class="step-label">1. Decompose</text>
+    <text x="295" y="193" class="step-text">Break down from first principles</text>
+    <text x="295" y="204" class="step-text">Who? What phase? Real problem?</text>
+
+    <!-- Step 2: Route -->
+    <circle cx="280" cy="235" r="8" fill="#9478B8"/>
+    <text x="295" y="240" class="step-label">2. Route</text>
+    <text x="295" y="253" class="step-text">Identify which skill combination</text>
+    <text x="295" y="264" class="step-text">applies to THIS specific problem</text>
+
+    <!-- Step 3: Synthesize -->
+    <circle cx="280" cy="295" r="8" fill="#9478B8"/>
+    <text x="295" y="300" class="step-label">3. Synthesize</text>
+    <text x="295" y="313" class="step-text">Combine outputs into Monday-morning</text>
+    <text x="295" y="324" class="step-text">actionable recommendation</text>
+
+    <!-- Right callout: "Dynamic, not frozen" -->
+    <rect x="390" y="165" width="130" height="170" rx="6" fill="#f9f8f6" stroke="#E2DFD8" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="400" y="183" class="step-label" font-size="10" font-weight="600">Dynamic Routing</text>
+    <text x="400" y="198" class="step-text" font-size="9">• Not a lookup table</text>
+    <text x="400" y="211" class="step-text" font-size="9">• Fungible sequence</text>
+    <text x="400" y="224" class="step-text" font-size="9">• Context-aware</text>
+    <text x="400" y="237" class="step-text" font-size="9">• Reason fresh each</text>
+    <text x="400" y="250" class="step-text" font-size="9">time a problem arrives</text>
+    <text x="400" y="263" class="step-text" font-size="9">• Learns from routing</text>
+    <text x="400" y="276" class="step-text" font-size="9">mistakes</text>
+    <text x="400" y="289" class="step-text" font-size="9">• Pattern gets sharper</text>
+    <text x="400" y="302" class="step-text" font-size="9">next time</text>
+    <text x="400" y="315" class="step-text" font-size="9">• System compounds</text>
+  </g>
+
+  <!-- ===== 6 AGENT SPOKES (SKILL DOMAINS) ===== -->
+  <!-- Spoke lines from brain center -->
+  <g stroke="#9478B8" stroke-width="2" stroke-dasharray="4,4" opacity="0.4">
+    <line x1="500" y1="353" x2="500" y2="410"/>      <!-- Center down -->
+    <line x1="500" y1="353" x2="350" y2="420"/>      <!-- Left -->
+    <line x1="500" y1="353" x2="650" y2="420"/>      <!-- Right -->
+  </g>
+
+  <!-- Agent 1: Product Sense (Blue) -->
+  <g filter="url(#dropShadow)">
+    <rect x="290" y="420" width="120" height="90" rx="6" fill="#ffffff" stroke="#E2DFD8" stroke-width="1.5"/>
+    <rect x="290" y="420" width="120" height="30" rx="6" fill="#5B92B8"/>
+    <text x="350" y="440" class="agent-name" text-anchor="middle" font-size="11">Product Sense</text>
+    <text x="350" y="454" class="agent-count" text-anchor="middle">9 skills</text>
+    <text x="298" y="473" class="step-text" font-size="9">Signal vs. hype</text>
+    <text x="298" y="484" class="step-text" font-size="9">Hidden structure</text>
+    <text x="298" y="495" class="step-text" font-size="9">Domain framing</text>
+    <text x="298" y="506" class="step-text" font-size="9">Needs guard</text>
+  </g>
+
+  <!-- Agent 2: AI Strategy (Amber) -->
+  <g filter="url(#dropShadow)">
+    <rect x="420" y="420" width="120" height="90" rx="6" fill="#ffffff" stroke="#E2DFD8" stroke-width="1.5"/>
+    <rect x="420" y="420" width="120" height="30" rx="6" fill="#D4956A"/>
+    <text x="480" y="440" class="agent-name" text-anchor="middle" font-size="11">AI Strategy</text>
+    <text x="480" y="454" class="agent-count" text-anchor="middle">10 skills</text>
+    <text x="428" y="473" class="step-text" font-size="9">Durable bets</text>
+    <text x="428" y="484" class="step-text" font-size="9">Token economics</text>
+    <text x="428" y="495" class="step-text" font-size="9">Moat finder</text>
+    <text x="428" y="506" class="step-text" font-size="9">Roadmap phase</text>
+  </g>
+
+  <!-- Agent 3: Safety & Trust (Rose) -->
+  <g filter="url(#dropShadow)">
+    <rect x="550" y="420" width="120" height="90" rx="6" fill="#ffffff" stroke="#E2DFD8" stroke-width="1.5"/>
+    <rect x="550" y="420" width="120" height="30" rx="6" fill="#C27878"/>
+    <text x="610" y="440" class="agent-name" text-anchor="middle" font-size="11">Safety & Trust</text>
+    <text x="610" y="454" class="agent-count" text-anchor="middle">7 skills</text>
+    <text x="558" y="473" class="step-text" font-size="9">Failure modes</text>
+    <text x="558" y="484" class="step-text" font-size="9">Graceful vs. silent</text>
+    <text x="558" y="495" class="step-text" font-size="9">Bias detection</text>
+    <text x="558" y="506" class="step-text" font-size="9">Responsible AI</text>
+  </g>
+
+  <!-- Agent 4: Agent Design (Moss) -->
+  <g filter="url(#dropShadow)">
+    <rect x="680" y="420" width="120" height="90" rx="6" fill="#ffffff" stroke="#E2DFD8" stroke-width="1.5"/>
+    <rect x="680" y="420" width="120" height="30" rx="6" fill="#6BA08A"/>
+    <text x="740" y="440" class="agent-name" text-anchor="middle" font-size="11">Agent Design</text>
+    <text x="740" y="454" class="agent-count" text-anchor="middle">5 skills</text>
+    <text x="688" y="473" class="step-text" font-size="9">When act vs. answer</text>
+    <text x="688" y="484" class="step-text" font-size="9">Autonomy spectrum</text>
+    <text x="688" y="495" class="step-text" font-size="9">Tool architecture</text>
+    <text x="688" y="506" class="step-text" font-size="9">System boundary</text>
+  </g>
+
+  <!-- Agent 5: Eval & Quality (Purple variant) -->
+  <g filter="url(#dropShadow)">
+    <rect x="810" y="420" width="120" height="90" rx="6" fill="#ffffff" stroke="#E2DFD8" stroke-width="1.5"/>
+    <rect x="810" y="420" width="120" height="30" rx="6" fill="#8B6BAE"/>
+    <text x="870" y="440" class="agent-name" text-anchor="middle" font-size="11">Eval & Quality</text>
+    <text x="870" y="454" class="agent-count" text-anchor="middle">6 skills</text>
+    <text x="818" y="473" class="step-text" font-size="9">Measurement first</text>
+    <text x="818" y="484" class="step-text" font-size="9">Confidence tuner</text>
+    <text x="818" y="495" class="step-text" font-size="9">Signal extraction</text>
+    <text x="818" y="506" class="step-text" font-size="9">Eval framework</text>
+  </g>
+
+  <!-- Agent 6: General Skills (Amber lighter) -->
+  <g filter="url(#dropShadow)">
+    <rect x="940" y="420" width="120" height="90" rx="6" fill="#ffffff" stroke="#E2DFD8" stroke-width="1.5"/>
+    <rect x="940" y="420" width="120" height="30" rx="6" fill="#D4956A" opacity="0.8"/>
+    <text x="1000" y="440" class="agent-name" text-anchor="middle" font-size="11">Craft & Polish</text>
+    <text x="1000" y="454" class="agent-count" text-anchor="middle">12 skills</text>
+    <text x="948" y="473" class="step-text" font-size="9">Ship-ready artifacts</text>
+    <text x="948" y="484" class="step-text" font-size="9">Email mastery</text>
+    <text x="948" y="495" class="step-text" font-size="9">Presentations</text>
+    <text x="948" y="506" class="step-text" font-size="9">Brand system</text>
+  </g>
+
+  <!-- ===== CONVERGE TO OUTPUT ===== -->
+  <path d="M 350 510 Q 400 560 500 600" stroke="#9478B8" stroke-width="2" stroke-dasharray="4,4" opacity="0.4"/>
+  <path d="M 480 510 Q 500 560 500 600" stroke="#9478B8" stroke-width="2" stroke-dasharray="4,4" opacity="0.4"/>
+  <path d="M 610 510 Q 580 560 500 600" stroke="#9478B8" stroke-width="2" stroke-dasharray="4,4" opacity="0.4"/>
+  <path d="M 740 510 Q 650 560 500 600" stroke="#9478B8" stroke-width="2" stroke-dasharray="4,4" opacity="0.4"/>
+  <path d="M 870 510 Q 700 560 500 600" stroke="#9478B8" stroke-width="2" stroke-dasharray="4,4" opacity="0.4"/>
+  <path d="M 1000 510 Q 750 560 500 600" stroke="#9478B8" stroke-width="2" stroke-dasharray="4,4" opacity="0.4"/>
+
+  <!-- ===== OUTPUT BOX ===== -->
+  <g filter="url(#dropShadow)">
+    <rect x="360" y="600" width="280" height="100" rx="8" fill="#ffffff" stroke="#9478B8" stroke-width="2"/>
+    <text x="500" y="628" class="box-title" text-anchor="middle" font-size="13" font-weight="600">CPO-Level Output</text>
+    <text x="500" y="648" class="box-text" text-anchor="middle">Actionable Monday morning</text>
+    <text x="500" y="662" class="box-text" text-anchor="middle">The user sees the analysis,</text>
+    <text x="500" y="676" class="box-text" text-anchor="middle">not the machinery.</text>
+    <text x="500" y="690" class="box-text" text-anchor="middle">The reasoning path is baked in.</text>
+  </g>
+
+  <!-- ===== FEEDBACK LOOP (BOTTOM) ===== -->
+  <path d="M 500 700 Q 300 740 200 720" stroke="#D4956A" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="350" y="730" class="feedback-label" text-anchor="middle">Routing mistake captured</text>
+  <text x="350" y="743" class="step-text" text-anchor="middle" font-size="9">Pattern logged · Next routing sharper</text>
+
+  <!-- Feedback arrow back up -->
+  <path d="M 200 720 Q 150 450 250 160" stroke="#D4956A" stroke-width="2.5" fill="none" opacity="0.5" stroke-dasharray="4,4"/>
+  <text x="120" y="440" class="feedback-label" font-size="10">Self-correction loop</text>
+
+  <!-- ===== STORY CALLOUT ===== -->
+  <g filter="url(#dropShadow)">
+    <rect x="40" y="635" width="280" height="120" rx="8" fill="#f0ebe8" stroke="#E2DFD8" stroke-width="1.5"/>
+    <text x="55" y="661" class="step-label" font-size="11" font-weight="500">How it differs from tools:</text>
+    <text x="55" y="678" class="step-text" font-size="9">Tools: "Here are options"</text>
+    <text x="55" y="691" class="step-text" font-size="9">Brain: Reasons to ONE path</text>
+    <text x="55" y="704" class="step-text" font-size="9">Tools: Static routing table</text>
+    <text x="55" y="717" class="step-text" font-size="9">Brain: Fresh reasoning each time</text>
+    <text x="55" y="730" class="step-text" font-size="9">Tools: Execute once</text>
+    <text x="55" y="743" class="step-text" font-size="9">Brain: Learns from every run</text>
+  </g>
+
+  <!-- ===== FOOTER ===== -->
+  <text x="600" y="790" class="footer" text-anchor="middle">54 AI Product Skills + 12 General Skills · 66 total · Reasoning → Judgment → Craft · April 2026</text>
+
+</svg>

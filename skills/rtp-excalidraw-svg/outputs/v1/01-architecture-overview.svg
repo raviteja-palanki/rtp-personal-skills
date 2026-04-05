@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720">
+  <defs>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
+    </filter>
+    <filter id="glow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#6366f120"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="720" rx="16" fill="#FAFAF8"/>
+
+  <!-- Title area -->
+  <text x="600" y="48" text-anchor="middle" fill="#1B1B1F" font-size="30" font-weight="800" font-family="Inter, Segoe UI, sans-serif">Ravi's AI Product Mind</text>
+  <text x="600" y="74" text-anchor="middle" fill="#6B7280" font-size="15" font-family="Inter, Segoe UI, sans-serif">Depth — Comprehensive · 40 Skills · 3 Layers · 7 Plugins · 6 Workflows</text>
+
+  <!-- Design principle badges -->
+  <rect x="100" y="96" width="230" height="36" rx="18" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="215" y="119" text-anchor="middle" fill="#92400E" font-size="13" font-weight="600" font-family="Inter, sans-serif">Diagnosis before prescription</text>
+
+  <rect x="350" y="96" width="220" height="36" rx="18" fill="#EDE9FE" stroke="#A78BFA" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="460" y="119" text-anchor="middle" fill="#5B21B6" font-size="13" font-weight="600" font-family="Inter, sans-serif">Both sides of the table</text>
+
+  <rect x="590" y="96" width="250" height="36" rx="18" fill="#D1FAE5" stroke="#34D399" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="715" y="119" text-anchor="middle" fill="#065F46" font-size="13" font-weight="600" font-family="Inter, sans-serif">Production is the only standard</text>
+
+  <rect x="860" y="96" width="220" height="36" rx="18" fill="#FCE7F3" stroke="#F472B6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="970" y="119" text-anchor="middle" fill="#9D174D" font-size="13" font-weight="600" font-family="Inter, sans-serif">Teach the thinking, not facts</text>
+
+  <!-- LAYER 1: THINKING -->
+  <rect x="60" y="160" width="340" height="240" rx="16" fill="#F0FDFA" stroke="#14B8A6" stroke-width="2.5" filter="url(#shadow)"/>
+  <rect x="60" y="160" width="340" height="52" rx="16" fill="#14B8A6"/>
+  <rect x="60" y="196" width="340" height="16" fill="#14B8A6"/>
+  <text x="230" y="193" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="800" font-family="Inter, sans-serif">LAYER 1: THINKING</text>
+  <text x="230" y="236" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600" font-family="Inter, sans-serif">The Immune System · 7 Skills</text>
+  <text x="230" y="258" text-anchor="middle" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">"Before you decide anything —</text>
+  <text x="230" y="276" text-anchor="middle" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">is AI even needed here?"</text>
+
+  <rect x="82" y="296" width="296" height="30" rx="8" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
+  <text x="230" y="316" text-anchor="middle" fill="#0D9488" font-size="12" font-weight="600" font-family="Inter, sans-serif">first-principles · bias-spotter · falsification</text>
+  <rect x="82" y="332" width="296" height="30" rx="8" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
+  <text x="230" y="352" text-anchor="middle" fill="#0D9488" font-size="12" font-weight="600" font-family="Inter, sans-serif">dual-lens · determinism · stress-test</text>
+  <rect x="130" y="368" width="200" height="26" rx="8" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
+  <text x="230" y="386" text-anchor="middle" fill="#0D9488" font-size="12" font-weight="600" font-family="Inter, sans-serif">failure-design</text>
+
+  <!-- Arrow 1→2 -->
+  <path d="M 405 280 C 430 280, 420 280, 440 280" stroke="#F59E0B" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <polygon points="440,274 454,280 440,286" fill="#F59E0B"/>
+  <text x="430" y="268" text-anchor="middle" fill="#F59E0B" font-size="11" font-weight="700" font-family="Inter, sans-serif">feeds</text>
+
+  <!-- LAYER 2: JUDGMENT -->
+  <rect x="460" y="160" width="340" height="240" rx="16" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2.5" filter="url(#shadow)"/>
+  <rect x="460" y="160" width="340" height="52" rx="16" fill="#8B5CF6"/>
+  <rect x="460" y="196" width="340" height="16" fill="#8B5CF6"/>
+  <text x="630" y="193" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="800" font-family="Inter, sans-serif">LAYER 2: JUDGMENT</text>
+  <text x="630" y="236" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600" font-family="Inter, sans-serif">The Hard Calls · 25 Skills · 5 Plugins</text>
+  <text x="630" y="258" text-anchor="middle" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">"Which autonomy level? What's the moat?</text>
+  <text x="630" y="276" text-anchor="middle" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">How do we evaluate this?"</text>
+
+  <rect x="480" y="296" width="140" height="26" rx="8" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="550" y="314" text-anchor="middle" fill="#7C3AED" font-size="11" font-weight="600" font-family="Inter, sans-serif">Product Sense</text>
+  <rect x="628" y="296" width="155" height="26" rx="8" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="705" y="314" text-anchor="middle" fill="#7C3AED" font-size="11" font-weight="600" font-family="Inter, sans-serif">AI Strategy</text>
+  <rect x="480" y="328" width="140" height="26" rx="8" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="550" y="346" text-anchor="middle" fill="#7C3AED" font-size="11" font-weight="600" font-family="Inter, sans-serif">Eval &amp; Quality</text>
+  <rect x="628" y="328" width="155" height="26" rx="8" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="705" y="346" text-anchor="middle" fill="#7C3AED" font-size="11" font-weight="600" font-family="Inter, sans-serif">Agent &amp; Autonomy</text>
+  <rect x="530" y="360" width="200" height="26" rx="8" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="630" y="378" text-anchor="middle" fill="#7C3AED" font-size="11" font-weight="600" font-family="Inter, sans-serif">Safety &amp; Governance</text>
+
+  <!-- Arrow 2→3 -->
+  <path d="M 805 280 C 830 280, 820 280, 840 280" stroke="#F59E0B" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <polygon points="840,274 854,280 840,286" fill="#F59E0B"/>
+  <text x="830" y="268" text-anchor="middle" fill="#F59E0B" font-size="11" font-weight="700" font-family="Inter, sans-serif">feeds</text>
+
+  <!-- LAYER 3: CRAFT -->
+  <rect x="860" y="160" width="290" height="240" rx="16" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2.5" filter="url(#shadow)"/>
+  <rect x="860" y="160" width="290" height="52" rx="16" fill="#F59E0B"/>
+  <rect x="860" y="196" width="290" height="16" fill="#F59E0B"/>
+  <text x="1005" y="193" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="800" font-family="Inter, sans-serif">LAYER 3: CRAFT</text>
+  <text x="1005" y="236" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600" font-family="Inter, sans-serif">Ship It · 8 Skills</text>
+  <text x="1005" y="258" text-anchor="middle" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">"PRD with eval gates, cost</text>
+  <text x="1005" y="276" text-anchor="middle" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">models — pre-tested."</text>
+
+  <rect x="878" y="296" width="254" height="26" rx="8" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1"/>
+  <text x="1005" y="314" text-anchor="middle" fill="#B45309" font-size="11" font-weight="600" font-family="Inter, sans-serif">ai-prd · agent-spec · cost-model</text>
+  <rect x="878" y="328" width="254" height="26" rx="8" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1"/>
+  <text x="1005" y="346" text-anchor="middle" fill="#B45309" font-size="11" font-weight="600" font-family="Inter, sans-serif">strategy-canvas · ship-decision</text>
+  <rect x="878" y="360" width="254" height="26" rx="8" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1"/>
+  <text x="1005" y="378" text-anchor="middle" fill="#B45309" font-size="11" font-weight="600" font-family="Inter, sans-serif">competitive-map · token-economics</text>
+
+  <!-- Bottom story: The Import Chain -->
+  <rect x="60" y="430" width="1090" height="120" rx="16" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2" filter="url(#shadow)"/>
+  <text x="600" y="460" text-anchor="middle" fill="#1B1B1F" font-size="18" font-weight="800" font-family="Inter, sans-serif">The Import Chain: Every Output is Pre-Tested</text>
+
+  <!-- Flow boxes -->
+  <rect x="90" y="478" width="200" height="54" rx="12" fill="#F0FDFA" stroke="#14B8A6" stroke-width="2"/>
+  <text x="190" y="500" text-anchor="middle" fill="#0F766E" font-size="13" font-weight="700" font-family="Inter, sans-serif">You ask for a PRD</text>
+  <text x="190" y="518" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">"AI code review feature"</text>
+
+  <path d="M 295 505 L 325 505" stroke="#9CA3AF" stroke-width="2" fill="none"/>
+  <polygon points="325,500 335,505 325,510" fill="#9CA3AF"/>
+
+  <rect x="340" y="478" width="200" height="54" rx="12" fill="#F0FDFA" stroke="#14B8A6" stroke-width="2"/>
+  <text x="440" y="498" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="700" font-family="Inter, sans-serif">Layer 1 checks thinking</text>
+  <text x="440" y="516" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">"Rules handle 60%?"</text>
+
+  <path d="M 545 505 L 575 505" stroke="#9CA3AF" stroke-width="2" fill="none"/>
+  <polygon points="575,500 585,505 575,510" fill="#9CA3AF"/>
+
+  <rect x="590" y="478" width="200" height="54" rx="12" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="690" y="498" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="700" font-family="Inter, sans-serif">Layer 2 makes hard calls</text>
+  <text x="690" y="516" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">"Score 12/16. Ship it."</text>
+
+  <path d="M 795 505 L 825 505" stroke="#9CA3AF" stroke-width="2" fill="none"/>
+  <polygon points="825,500 835,505 825,510" fill="#9CA3AF"/>
+
+  <rect x="840" y="478" width="280" height="54" rx="12" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2"/>
+  <text x="980" y="498" text-anchor="middle" fill="#B45309" font-size="12" font-weight="700" font-family="Inter, sans-serif">Layer 3 writes the artifact</text>
+  <text x="980" y="516" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">PRD with gates, costs, kill conditions</text>
+
+  <!-- Bottom comparison -->
+  <rect x="60" y="572" width="530" height="62" rx="14" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="2" filter="url(#shadow)"/>
+  <text x="80" y="596" fill="#DC2626" font-size="15" font-weight="800" font-family="Inter, sans-serif">Without the import chain:</text>
+  <text x="80" y="618" fill="#6B7280" font-size="14" font-family="Inter, sans-serif">"Leverage AI to enhance developer productivity." — nobody builds from this.</text>
+
+  <rect x="610" y="572" width="540" height="62" rx="14" fill="#F0FDF4" stroke="#86EFAC" stroke-width="2" filter="url(#shadow)"/>
+  <text x="630" y="596" fill="#16A34A" font-size="15" font-weight="800" font-family="Inter, sans-serif">With the import chain:</text>
+  <text x="630" y="618" fill="#1B1B1F" font-size="14" font-weight="500" font-family="Inter, sans-serif">PRD with eval gates, cost model, kill conditions. Eng builds next week.</text>
+
+  <!-- Footer -->
+  <text x="600" y="668" text-anchor="middle" fill="#9CA3AF" font-size="12" font-family="Inter, sans-serif">github.com/raviteja-palanki/ravis-ai-product-mind · MIT License</text>
+
+  <!-- Decorative dots (Excalidraw feel) -->
+  <circle cx="42" cy="160" r="4" fill="#14B8A6" opacity="0.4"/>
+  <circle cx="42" cy="172" r="4" fill="#14B8A6" opacity="0.25"/>
+  <circle cx="442" cy="160" r="4" fill="#8B5CF6" opacity="0.4"/>
+  <circle cx="442" cy="172" r="4" fill="#8B5CF6" opacity="0.25"/>
+  <circle cx="842" cy="160" r="4" fill="#F59E0B" opacity="0.4"/>
+  <circle cx="842" cy="172" r="4" fill="#F59E0B" opacity="0.25"/>
+</svg>

@@ -1,0 +1,341 @@
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <!-- Drop shadow for cards -->
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000010" flood-opacity="1"/>
+    </filter>
+
+    <!-- Subtle gradients for headers -->
+    <linearGradient id="productSenseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5B92B8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4A7BA8;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="aiStrategyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4956A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C47A5A;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="safetyTrustGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C27878;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B26868;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="agentDesignGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6BA08A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5A907A;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="evalQualityGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9478B8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8468A8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#FAFAF8"/>
+
+  <!-- ========== HEADER SECTION ========== -->
+  <rect x="0" y="0" width="1200" height="90" fill="#F5F3F0" stroke="#E0DCD8" stroke-width="1" stroke-dasharray="none"/>
+
+  <text x="40" y="35" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#2C2420">
+    Layer 2: Judgment — The Hard Calls
+  </text>
+  <text x="40" y="60" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" font-weight="400" fill="#6B6460" letter-spacing="0.3">
+    36 skills · 5 domains · The calls that separate a PM who's been in the room from one who's read about the room
+  </text>
+  <text x="40" y="78" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#8B7F78" letter-spacing="0.3" font-style="italic">
+    Every skill includes a WHEN WRONG section — the conditions under which the advice fails
+  </text>
+
+  <!-- ========== COLUMN 1: PRODUCT SENSE ========== -->
+  <g filter="url(#dropShadow)">
+    <rect x="20" y="110" width="216" height="750" fill="white" stroke="#E8DFF5" stroke-width="1.5" rx="10"/>
+
+    <!-- Header -->
+    <rect x="20" y="110" width="216" height="70" fill="url(#productSenseGrad)" rx="10" ry="10"/>
+    <text x="128" y="140" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="white" text-anchor="middle">
+      Product Sense
+    </text>
+    <text x="128" y="158" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#F0E8FF" text-anchor="middle" letter-spacing="0.2">
+      9 skills
+    </text>
+    <text x="128" y="173" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="10" font-weight="400" fill="#E8DFF0" text-anchor="middle" font-style="italic" letter-spacing="0.3">
+      Is AI the right solution?
+    </text>
+
+    <!-- Skills -->
+    <rect x="30" y="195" width="196" height="30" fill="#F2ECFC" stroke="#D9CCEB" stroke-width="1" rx="6"/>
+    <text x="128" y="215" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A5F7A" text-anchor="middle">
+      ai-product-taste
+    </text>
+
+    <rect x="30" y="232" width="196" height="30" fill="#F2ECFC" stroke="#D9CCEB" stroke-width="1" rx="6"/>
+    <text x="128" y="252" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A5F7A" text-anchor="middle">
+      ai-use-case-readiness
+    </text>
+
+    <rect x="30" y="269" width="196" height="30" fill="#F2ECFC" stroke="#D9CCEB" stroke-width="1" rx="6"/>
+    <text x="128" y="289" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A5F7A" text-anchor="middle">
+      invisible-stack
+    </text>
+
+    <rect x="30" y="306" width="196" height="30" fill="#F2ECFC" stroke="#D9CCEB" stroke-width="1" rx="6"/>
+    <text x="128" y="326" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A5F7A" text-anchor="middle">
+      ai-ux-patterns
+    </text>
+
+    <rect x="30" y="343" width="196" height="30" fill="#F2ECFC" stroke="#D9CCEB" stroke-width="1" rx="6"/>
+    <text x="128" y="363" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A5F7A" text-anchor="middle">
+      ai-product-metrics
+    </text>
+
+    <rect x="30" y="380" width="196" height="30" fill="#F2ECFC" stroke="#D9CCEB" stroke-width="1" rx="6"/>
+    <text x="128" y="400" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A5F7A" text-anchor="middle">
+      adoption-launch
+    </text>
+
+    <rect x="30" y="417" width="196" height="30" fill="#F2ECFC" stroke="#D9CCEB" stroke-width="1" rx="6"/>
+    <text x="128" y="437" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A5F7A" text-anchor="middle">
+      stakeholder-translator
+    </text>
+
+    <rect x="30" y="454" width="196" height="30" fill="#F2ECFC" stroke="#D9CCEB" stroke-width="1" rx="6"/>
+    <text x="128" y="474" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A5F7A" text-anchor="middle">
+      ai-product-positioning
+    </text>
+
+    <rect x="30" y="491" width="196" height="30" fill="#F2ECFC" stroke="#D9CCEB" stroke-width="1" rx="6"/>
+    <text x="128" y="511" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A5F7A" text-anchor="middle">
+      product-sensing
+    </text>
+  </g>
+
+  <!-- ========== COLUMN 2: AI STRATEGY ========== -->
+  <g filter="url(#dropShadow)">
+    <rect x="261" y="110" width="216" height="750" fill="white" stroke="#E8DFD5" stroke-width="1.5" rx="10"/>
+
+    <!-- Header -->
+    <rect x="261" y="110" width="216" height="70" fill="url(#aiStrategyGrad)" rx="10" ry="10"/>
+    <text x="369" y="140" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="white" text-anchor="middle">
+      AI Strategy
+    </text>
+    <text x="369" y="158" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#F5EADF" text-anchor="middle" letter-spacing="0.2">
+      10 skills
+    </text>
+    <text x="369" y="173" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="10" font-weight="400" fill="#EFDCC8" text-anchor="middle" font-style="italic" letter-spacing="0.3">
+      Bets when capabilities shift quarterly
+    </text>
+
+    <!-- Skills -->
+    <rect x="271" y="195" width="196" height="30" fill="#FBF7F2" stroke="#E8DFD5" stroke-width="1" rx="6"/>
+    <text x="369" y="215" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#6B5640" text-anchor="middle">
+      build-or-buy
+    </text>
+
+    <rect x="271" y="232" width="196" height="30" fill="#FBF7F2" stroke="#E8DFD5" stroke-width="1" rx="6"/>
+    <text x="369" y="252" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#6B5640" text-anchor="middle">
+      token-economics
+    </text>
+
+    <rect x="271" y="269" width="196" height="30" fill="#FBF7F2" stroke="#E8DFD5" stroke-width="1" rx="6"/>
+    <text x="369" y="289" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#6B5640" text-anchor="middle">
+      ai-portfolio-management
+    </text>
+
+    <rect x="271" y="306" width="196" height="30" fill="#FBF7F2" stroke="#E8DFD5" stroke-width="1" rx="6"/>
+    <text x="369" y="326" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#6B5640" text-anchor="middle">
+      capability-tracking
+    </text>
+
+    <rect x="271" y="343" width="196" height="30" fill="#FBF7F2" stroke="#E8DFD5" stroke-width="1" rx="6"/>
+    <text x="369" y="363" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#6B5640" text-anchor="middle">
+      signal-scanner
+    </text>
+
+    <rect x="271" y="380" width="196" height="30" fill="#FBF7F2" stroke="#E8DFD5" stroke-width="1" rx="6"/>
+    <text x="369" y="400" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#6B5640" text-anchor="middle">
+      maturity-tracker
+    </text>
+
+    <rect x="271" y="417" width="196" height="30" fill="#FBF7F2" stroke="#E8DFD5" stroke-width="1" rx="6"/>
+    <text x="369" y="437" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#6B5640" text-anchor="middle">
+      competitive-moat
+    </text>
+
+    <rect x="271" y="454" width="196" height="30" fill="#FBF7F2" stroke="#E8DFD5" stroke-width="1" rx="6"/>
+    <text x="369" y="474" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#6B5640" text-anchor="middle">
+      data-flywheel
+    </text>
+
+    <rect x="271" y="491" width="196" height="30" fill="#FBF7F2" stroke="#E8DFD5" stroke-width="1" rx="6"/>
+    <text x="369" y="511" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#6B5640" text-anchor="middle">
+      platform-vs-feature
+    </text>
+
+    <rect x="271" y="528" width="196" height="30" fill="#FBF7F2" stroke="#E8DFD5" stroke-width="1" rx="6"/>
+    <text x="369" y="548" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#6B5640" text-anchor="middle">
+      vendor-lock-in
+    </text>
+  </g>
+
+  <!-- ========== COLUMN 3: SAFETY & TRUST ========== -->
+  <g filter="url(#dropShadow)">
+    <rect x="502" y="110" width="216" height="750" fill="white" stroke="#E8D9DD" stroke-width="1.5" rx="10"/>
+
+    <!-- Header -->
+    <rect x="502" y="110" width="216" height="70" fill="url(#safetyTrustGrad)" rx="10" ry="10"/>
+    <text x="610" y="140" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="white" text-anchor="middle">
+      Safety & Trust
+    </text>
+    <text x="610" y="158" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#FFEAF0" text-anchor="middle" letter-spacing="0.2">
+      7 skills
+    </text>
+    <text x="610" y="173" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="10" font-weight="400" fill="#FFD9E8" text-anchor="middle" font-style="italic" letter-spacing="0.3">
+      Competitive advantage, not compliance
+    </text>
+
+    <!-- Skills -->
+    <rect x="512" y="195" width="196" height="30" fill="#FDF5F7" stroke="#E8D9DD" stroke-width="1" rx="6"/>
+    <text x="610" y="215" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#7B4A5A" text-anchor="middle">
+      trust-ladder
+    </text>
+
+    <rect x="512" y="232" width="196" height="30" fill="#FDF5F7" stroke="#E8D9DD" stroke-width="1" rx="6"/>
+    <text x="610" y="252" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#7B4A5A" text-anchor="middle">
+      responsible-ai-audit
+    </text>
+
+    <rect x="512" y="269" width="196" height="30" fill="#FDF5F7" stroke="#E8D9DD" stroke-width="1" rx="6"/>
+    <text x="610" y="289" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#7B4A5A" text-anchor="middle">
+      breach-ready
+    </text>
+
+    <rect x="512" y="306" width="196" height="30" fill="#FDF5F7" stroke="#E8D9DD" stroke-width="1" rx="6"/>
+    <text x="610" y="326" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#7B4A5A" text-anchor="middle">
+      red-team-design
+    </text>
+
+    <rect x="512" y="343" width="196" height="30" fill="#FDF5F7" stroke="#E8D9DD" stroke-width="1" rx="6"/>
+    <text x="610" y="363" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#7B4A5A" text-anchor="middle">
+      compliance-navigator
+    </text>
+
+    <rect x="512" y="380" width="196" height="30" fill="#FDF5F7" stroke="#E8D9DD" stroke-width="1" rx="6"/>
+    <text x="610" y="400" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#7B4A5A" text-anchor="middle">
+      harm-taxonomy
+    </text>
+
+    <rect x="512" y="417" width="196" height="30" fill="#FDF5F7" stroke="#E8D9DD" stroke-width="1" rx="6"/>
+    <text x="610" y="437" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#7B4A5A" text-anchor="middle">
+      safety-culture
+    </text>
+  </g>
+
+  <!-- ========== COLUMN 4: AGENT DESIGN ========== -->
+  <g filter="url(#dropShadow)">
+    <rect x="743" y="110" width="216" height="750" fill="white" stroke="#E8DDD8" stroke-width="1.5" rx="10"/>
+
+    <!-- Header -->
+    <rect x="743" y="110" width="216" height="70" fill="url(#agentDesignGrad)" rx="10" ry="10"/>
+    <text x="851" y="140" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="white" text-anchor="middle">
+      Agent Design
+    </text>
+    <text x="851" y="158" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#F0F8F5" text-anchor="middle" letter-spacing="0.2">
+      5 skills
+    </text>
+    <text x="851" y="173" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="10" font-weight="400" fill="#D8EFE8" text-anchor="middle" font-style="italic" letter-spacing="0.3">
+      When should AI act, not answer?
+    </text>
+
+    <!-- Skills -->
+    <rect x="753" y="195" width="196" height="30" fill="#F5FBF9" stroke="#E8DDD8" stroke-width="1" rx="6"/>
+    <text x="851" y="215" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A6A5A" text-anchor="middle">
+      autonomy-spectrum
+    </text>
+
+    <rect x="753" y="232" width="196" height="30" fill="#F5FBF9" stroke="#E8DDD8" stroke-width="1" rx="6"/>
+    <text x="851" y="252" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A6A5A" text-anchor="middle">
+      multi-modal-product-design
+    </text>
+
+    <rect x="753" y="269" width="196" height="30" fill="#F5FBF9" stroke="#E8DDD8" stroke-width="1" rx="6"/>
+    <text x="851" y="289" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A6A5A" text-anchor="middle">
+      agent-ecosystem
+    </text>
+
+    <rect x="753" y="306" width="196" height="30" fill="#F5FBF9" stroke="#E8DDD8" stroke-width="1" rx="6"/>
+    <text x="851" y="326" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A6A5A" text-anchor="middle">
+      agent-harness
+    </text>
+
+    <rect x="753" y="343" width="196" height="30" fill="#F5FBF9" stroke="#E8DDD8" stroke-width="1" rx="6"/>
+    <text x="851" y="363" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#4A6A5A" text-anchor="middle">
+      agent-risk
+    </text>
+  </g>
+
+  <!-- ========== COLUMN 5: EVAL & QUALITY ========== -->
+  <g filter="url(#dropShadow)">
+    <rect x="984" y="110" width="216" height="750" fill="white" stroke="#E0E8DF" stroke-width="1.5" rx="10"/>
+
+    <!-- Header -->
+    <rect x="984" y="110" width="216" height="70" fill="url(#evalQualityGrad)" rx="10" ry="10"/>
+    <text x="1092" y="140" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="white" text-anchor="middle">
+      Eval & Quality
+    </text>
+    <text x="1092" y="158" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" font-weight="400" fill="#F5F0FF" text-anchor="middle" letter-spacing="0.2">
+      6 skills
+    </text>
+    <text x="1092" y="173" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="10" font-weight="400" fill="#E8DFFF" text-anchor="middle" font-style="italic" letter-spacing="0.3">
+      Can't measure it? Don't ship it
+    </text>
+
+    <!-- Skills -->
+    <rect x="994" y="195" width="196" height="30" fill="#F8FCF7" stroke="#E0E8DF" stroke-width="1" rx="6"/>
+    <text x="1092" y="215" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#3A6A4A" text-anchor="middle">
+      eval-driven-development
+    </text>
+
+    <rect x="994" y="232" width="196" height="30" fill="#F8FCF7" stroke="#E0E8DF" stroke-width="1" rx="6"/>
+    <text x="1092" y="252" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#3A6A4A" text-anchor="middle">
+      eval-design
+    </text>
+
+    <rect x="994" y="269" width="196" height="30" fill="#F8FCF7" stroke="#E0E8DF" stroke-width="1" rx="6"/>
+    <text x="1092" y="289" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#3A6A4A" text-anchor="middle">
+      regression-guard
+    </text>
+
+    <rect x="994" y="306" width="196" height="30" fill="#F8FCF7" stroke="#E0E8DF" stroke-width="1" rx="6"/>
+    <text x="1092" y="326" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#3A6A4A" text-anchor="middle">
+      human-eval-ops
+    </text>
+
+    <rect x="994" y="343" width="196" height="30" fill="#F8FCF7" stroke="#E0E8DF" stroke-width="1" rx="6"/>
+    <text x="1092" y="363" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#3A6A4A" text-anchor="middle">
+      fit-signal
+    </text>
+
+    <rect x="994" y="380" width="196" height="30" fill="#F8FCF7" stroke="#E0E8DF" stroke-width="1" rx="6"/>
+    <text x="1092" y="400" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="600" fill="#3A6A4A" text-anchor="middle">
+      quality-bar
+    </text>
+  </g>
+
+  <!-- ========== FOOTER CALLOUT ========== -->
+  <g filter="url(#dropShadow)">
+    <rect x="40" y="885" width="1120" height="32" fill="#F5F3F0" stroke="#E0DCD8" stroke-width="1" rx="6"/>
+    <text x="60" y="905" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="10" font-weight="500" fill="#6B6460" letter-spacing="0.2">
+      All 36 skills import from Layer 1 (Thinking) before executing · No circular dependencies across plugins · Each is independently installable
+    </text>
+  </g>
+
+  <!-- ========== METADATA FOOTER ========== -->
+  <text x="40" y="862" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="400" fill="#9B8F85" letter-spacing="0.3">
+    rtp-personal-skills · Layer 2 Judgment Architecture · April 2026
+  </text>
+  <text x="1160" y="862" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="9" font-weight="400" fill="#9B8F85" text-anchor="end" letter-spacing="0.3">
+    Ravi's AI PM Operating System
+  </text>
+</svg>

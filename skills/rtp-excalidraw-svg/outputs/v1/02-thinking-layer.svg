@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680">
+  <defs>
+    <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="680" rx="16" fill="#FAFAF8"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1200" height="80" rx="16" fill="#F0FDFA"/>
+  <rect x="0" y="60" width="1200" height="20" fill="#F0FDFA"/>
+  <text x="600" y="36" text-anchor="middle" fill="#0F766E" font-size="28" font-weight="800" font-family="Inter, Segoe UI, sans-serif">Layer 1 — Thinking</text>
+  <text x="600" y="62" text-anchor="middle" fill="#5F6B7A" font-size="15" font-family="Inter, sans-serif">Depth — Comprehensive · 7 skills that catch bad assumptions before you commit a single line of code</text>
+
+  <!-- Subtitle story -->
+  <text x="600" y="108" text-anchor="middle" fill="#1B1B1F" font-size="16" font-weight="600" font-family="Inter, sans-serif">Every Layer 2 and Layer 3 skill imports from here first. This is your immune system.</text>
+
+  <!-- Row 1: 4 cards -->
+  <!-- Card 1: first-principles -->
+  <rect x="40" y="134" width="270" height="168" rx="14" fill="#FFFFFF" stroke="#14B8A6" stroke-width="2" filter="url(#s)"/>
+  <rect x="40" y="134" width="270" height="44" rx="14" fill="#14B8A6"/>
+  <rect x="40" y="164" width="270" height="14" fill="#14B8A6"/>
+  <text x="175" y="163" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, sans-serif">first-principles</text>
+  <text x="60" y="204" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">Strips to the one irreducible op</text>
+  <text x="60" y="228" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">Ask: "Remove AI — what breaks?"</text>
+  <rect x="56" y="248" width="238" height="38" rx="8" fill="#F0FDFA"/>
+  <text x="175" y="264" text-anchor="middle" fill="#0D9488" font-size="11" font-weight="600" font-family="Inter, sans-serif">Think: lookup → regex → rules → AI</text>
+  <text x="175" y="280" text-anchor="middle" fill="#0D9488" font-size="11" font-family="Inter, sans-serif">60-70% decompose to lookup</text>
+
+  <!-- Card 2: bias-spotter -->
+  <rect x="330" y="134" width="270" height="168" rx="14" fill="#FFFFFF" stroke="#14B8A6" stroke-width="2" filter="url(#s)"/>
+  <rect x="330" y="134" width="270" height="44" rx="14" fill="#14B8A6"/>
+  <rect x="330" y="164" width="270" height="14" fill="#14B8A6"/>
+  <text x="465" y="163" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, sans-serif">bias-spotter</text>
+  <text x="350" y="204" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">Names the bias derailing you</text>
+  <text x="350" y="228" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">Ask: "Which bias is active now?"</text>
+  <rect x="346" y="248" width="238" height="38" rx="8" fill="#F0FDFA"/>
+  <text x="465" y="264" text-anchor="middle" fill="#0D9488" font-size="11" font-weight="600" font-family="Inter, sans-serif">8 biases × AI context</text>
+  <text x="465" y="280" text-anchor="middle" fill="#0D9488" font-size="11" font-family="Inter, sans-serif">Inversion test: if opposite were true?</text>
+
+  <!-- Card 3: falsification -->
+  <rect x="620" y="134" width="270" height="168" rx="14" fill="#FFFFFF" stroke="#14B8A6" stroke-width="2" filter="url(#s)"/>
+  <rect x="620" y="134" width="270" height="44" rx="14" fill="#14B8A6"/>
+  <rect x="620" y="164" width="270" height="14" fill="#14B8A6"/>
+  <text x="755" y="163" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, sans-serif">falsification</text>
+  <text x="640" y="204" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">When would this be wrong?</text>
+  <text x="640" y="228" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">Ask: "What metric stops this project?"</text>
+  <rect x="636" y="248" width="238" height="38" rx="8" fill="#F0FDFA"/>
+  <text x="755" y="264" text-anchor="middle" fill="#0D9488" font-size="11" font-weight="600" font-family="Inter, sans-serif">Kill conditions pre-committed</text>
+  <text x="755" y="280" text-anchor="middle" fill="#0D9488" font-size="11" font-family="Inter, sans-serif">not discovered post-failure</text>
+
+  <!-- Card 4: dual-lens -->
+  <rect x="910" y="134" width="270" height="168" rx="14" fill="#FFFFFF" stroke="#14B8A6" stroke-width="2" filter="url(#s)"/>
+  <rect x="910" y="134" width="270" height="44" rx="14" fill="#14B8A6"/>
+  <rect x="910" y="164" width="270" height="14" fill="#14B8A6"/>
+  <text x="1045" y="163" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, sans-serif">dual-lens</text>
+  <text x="930" y="204" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">CEO + CTO both act on this</text>
+  <text x="930" y="228" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">Ask: "Can both sides use this?"</text>
+  <rect x="926" y="248" width="238" height="38" rx="8" fill="#F0FDFA"/>
+  <text x="1045" y="264" text-anchor="middle" fill="#0D9488" font-size="11" font-weight="600" font-family="Inter, sans-serif">Business def + Technical def</text>
+  <text x="1045" y="280" text-anchor="middle" fill="#0D9488" font-size="11" font-family="Inter, sans-serif">Model Empathy Framework</text>
+
+  <!-- Row 2: 3 cards -->
+  <!-- Card 5: determinism-compass -->
+  <rect x="135" y="324" width="270" height="168" rx="14" fill="#FFFFFF" stroke="#0D9488" stroke-width="2" filter="url(#s)"/>
+  <rect x="135" y="324" width="270" height="44" rx="14" fill="#0D9488"/>
+  <rect x="135" y="354" width="270" height="14" fill="#0D9488"/>
+  <text x="270" y="353" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, sans-serif">determinism-compass</text>
+  <text x="155" y="394" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">Predictable vs. where AI can vary</text>
+  <text x="155" y="418" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">Ask: "Is consistency required?"</text>
+  <rect x="151" y="438" width="238" height="38" rx="8" fill="#F0FDFA"/>
+  <text x="270" y="454" text-anchor="middle" fill="#0D9488" font-size="11" font-weight="600" font-family="Inter, sans-serif">pass@k vs pass^k</text>
+  <text x="270" y="470" text-anchor="middle" fill="#0D9488" font-size="11" font-family="Inter, sans-serif">95% per step = 77% at 5 steps</text>
+
+  <!-- Card 6: stress-test -->
+  <rect x="465" y="324" width="270" height="168" rx="14" fill="#FFFFFF" stroke="#0D9488" stroke-width="2" filter="url(#s)"/>
+  <rect x="465" y="324" width="270" height="44" rx="14" fill="#0D9488"/>
+  <rect x="465" y="354" width="270" height="14" fill="#0D9488"/>
+  <text x="600" y="353" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, sans-serif">stress-test</text>
+  <text x="485" y="394" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">Pressure-tests 6 dimensions</text>
+  <text x="485" y="418" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">Ask: "Monthly cost at 10x users?"</text>
+  <rect x="481" y="438" width="238" height="38" rx="8" fill="#F0FDFA"/>
+  <text x="600" y="454" text-anchor="middle" fill="#0D9488" font-size="11" font-weight="600" font-family="Inter, sans-serif">Scale · Adversarial · Degradation</text>
+  <text x="600" y="470" text-anchor="middle" fill="#0D9488" font-size="11" font-family="Inter, sans-serif">Cost · Latency · Monitoring</text>
+
+  <!-- Card 7: failure-design -->
+  <rect x="795" y="324" width="270" height="168" rx="14" fill="#FFFFFF" stroke="#0D9488" stroke-width="2" filter="url(#s)"/>
+  <rect x="795" y="324" width="270" height="44" rx="14" fill="#0D9488"/>
+  <rect x="795" y="354" width="270" height="14" fill="#0D9488"/>
+  <text x="930" y="353" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, sans-serif">failure-design</text>
+  <text x="815" y="394" fill="#1B1B1F" font-size="14" font-weight="600" font-family="Inter, sans-serif">Graceful degradation paths</text>
+  <text x="815" y="418" fill="#5F6B7A" font-size="13" font-family="Inter, sans-serif">Ask: "Cost of being wrong here?"</text>
+  <rect x="811" y="438" width="238" height="38" rx="8" fill="#F0FDFA"/>
+  <text x="930" y="454" text-anchor="middle" fill="#0D9488" font-size="11" font-weight="600" font-family="Inter, sans-serif">AI → simpler model → rules → human</text>
+  <text x="930" y="470" text-anchor="middle" fill="#0D9488" font-size="11" font-family="Inter, sans-serif">Recovery time matters most</text>
+
+  <!-- Story callout -->
+  <rect x="140" y="520" width="920" height="76" rx="14" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2" filter="url(#s)"/>
+  <text x="600" y="550" text-anchor="middle" fill="#92400E" font-size="16" font-weight="700" font-family="Inter, sans-serif">Why this layer matters</text>
+  <text x="600" y="574" text-anchor="middle" fill="#78716C" font-size="14" font-family="Inter, sans-serif">Without Layer 1, you'll build the wrong thing confidently. These 7 skills are the "wait, should we even do this?" check.</text>
+
+  <!-- Footer -->
+  <text x="600" y="632" text-anchor="middle" fill="#9CA3AF" font-size="12" font-family="Inter, sans-serif">Ravi's AI Product Mind · Layer 1 of 3</text>
+</svg>

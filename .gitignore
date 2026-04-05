@@ -1,0 +1,61 @@
+# ===========================================
+# rtp-personal-skills — .gitignore
+# ===========================================
+
+# === OS Files ===
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === Editor / IDE ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# === Claude / Cowork Session Artifacts ===
+# These are session-specific and should NOT be in the repo
+.auto-memory/
+.remote-plugins/
+
+# === Archive (optional — uncomment to exclude from repo) ===
+# _archive/
+
+# === Large Binary Files ===
+# Keep .docx and .pdf in repo (they're content, not code)
+# But exclude video and other large media
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.zip
+*.tar.gz
+*.rar
+
+# === Skill Archives (ZIP bundles for Claude.ai web) ===
+# These are deployment artifacts, not source
+2_Skills/_web-app-skills/*.skill
+
+# === Temporary Files ===
+*.tmp
+*.temp
+*.bak
+*.log
+
+# === Node / Python (if any tooling gets added later) ===
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.local
+
+# === Git Sync Status (session-specific) ===
+2_Skills/ai-pm-skills/.git-sync-status.md

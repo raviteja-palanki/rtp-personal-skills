@@ -1,0 +1,25 @@
+{
+  "name": "rtp-personal-skills",
+  "version": "1.0.0",
+  "description": "Ravi Teja Palanki's complete AI PM operating system — 66 skills across thinking, judgment, craft, research, writing, presentations, and system administration. Includes the AIPM orchestrator (54 skills in 3 layers across 5 plugins), plus 12 general-purpose skills for visualization, email, branding, research synthesis, and folder governance. Install this plugin to absorb RTP's entire Claude skill library on any machine.",
+  "author": {
+    "name": "Ravi Teja Palanki (RTP)",
+    "url": "https://github.com/raviteja-palanki"
+  },
+  "repository": "https://github.com/raviteja-palanki/rtp-personal-skills",
+  "license": "SEE LICENSE IN LICENSE",
+  "keywords": [
+    "ai-pm",
+    "product-management",
+    "ai-strategy",
+    "thinking-skills",
+    "rtp",
+    "orchestrator",
+    "eval-framework",
+    "agent-design",
+    "safety-trust",
+    "presentations",
+    "research",
+    "writing"
+  ]
+}

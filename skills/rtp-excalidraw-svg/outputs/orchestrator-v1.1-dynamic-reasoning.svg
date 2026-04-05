@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 880" width="1200" height="880" role="img" aria-label="The orchestrator reasons dynamically through context, not a frozen routing table">
+  <title>Orchestrator v1.1 — Dynamic Reasoning Architecture</title>
+  <desc>Shows how the AI PM Orchestrator processes input through 6 steps: absorb context, activate thinking algorithms, dynamically compose skill sequences, present plan, execute deep analysis, and deliver CPO-level output. Five expert agents (Sense-Maker, Strategist, Architect, Trust Builder, Prover, Crafter) are composed dynamically based on the problem, not from a fixed table.</desc>
+
+  <defs>
+    <linearGradient id="wist-h" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B8A0D6"/><stop offset="100%" stop-color="#9478B8"/>
+    </linearGradient>
+    <linearGradient id="amber-h" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E8C170"/><stop offset="100%" stop-color="#D4A54A"/>
+    </linearGradient>
+    <linearGradient id="rose-h" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E8A0BF"/><stop offset="100%" stop-color="#D4789B"/>
+    </linearGradient>
+    <linearGradient id="celadon-h" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8CC5B0"/><stop offset="100%" stop-color="#6BA898"/>
+    </linearGradient>
+    <linearGradient id="glacier-h" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7CB8D8"/><stop offset="100%" stop-color="#5A9ABE"/>
+    </linearGradient>
+    <linearGradient id="coral-h" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E89880"/><stop offset="100%" stop-color="#D47B64"/>
+    </linearGradient>
+    <linearGradient id="moss-h" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9AC08A"/><stop offset="100%" stop-color="#7BA86C"/>
+    </linearGradient>
+    <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="880" rx="16" fill="#FAFAF8"/>
+
+  <!-- Header band -->
+  <rect x="0" y="0" width="1200" height="80" rx="16" fill="#F8F5FF"/>
+  <rect x="0" y="60" width="1200" height="20" fill="#F8F5FF"/>
+  <text x="600" y="36" text-anchor="middle" fill="#1B1B1F" font-size="26" font-weight="800" font-family="Inter, Segoe UI, sans-serif">Orchestrator v1.1 — Dynamic Reasoning, Not Routing</text>
+  <text x="600" y="62" text-anchor="middle" fill="#4A4540" font-size="14" font-family="Inter, sans-serif">Depth — Comprehensive · How the brain deploys 42 skills without a lookup table</text>
+
+  <!-- LEFT COLUMN: The 6-Step Flow -->
+
+  <!-- Step 0: Context -->
+  <rect x="40" y="100" width="340" height="56" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="2" filter="url(#s)"/>
+  <rect x="40" y="100" width="340" height="28" rx="14" fill="url(#wist-h)"/>
+  <rect x="40" y="114" width="340" height="14" fill="#9478B8"/>
+  <text x="210" y="120" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">STEP 0 — ABSORB CONTEXT (Silent)</text>
+  <text x="210" y="146" text-anchor="middle" fill="#4A4540" font-size="12" font-family="Inter, sans-serif">Who, what phase, real problem, structural constraint</text>
+
+  <!-- Arrow down -->
+  <path d="M 210 156 L 210 172" stroke="#A09890" stroke-width="2" fill="none"/>
+  <polygon points="205,170 210,180 215,170" fill="#A09890"/>
+
+  <!-- Step 1: Thinking Algorithms -->
+  <rect x="40" y="182" width="340" height="56" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="2" filter="url(#s)"/>
+  <rect x="40" y="182" width="340" height="28" rx="14" fill="url(#rose-h)"/>
+  <rect x="40" y="196" width="340" height="14" fill="#D4789B"/>
+  <text x="210" y="202" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">STEP 1 — ACTIVATE THINKING (Silent)</text>
+  <text x="210" y="228" text-anchor="middle" fill="#4A4540" font-size="12" font-family="Inter, sans-serif">10 algorithms run simultaneously, not sequentially</text>
+
+  <!-- Arrow down -->
+  <path d="M 210 238 L 210 254" stroke="#A09890" stroke-width="2" fill="none"/>
+  <polygon points="205,252 210,262 215,252" fill="#A09890"/>
+
+  <!-- Step 2: Dynamic Composition — THE KEY CHANGE -->
+  <rect x="40" y="264" width="340" height="90" rx="14" fill="#FFFCF5" stroke="#F0D78A" stroke-width="2.5" filter="url(#s)"/>
+  <rect x="40" y="264" width="340" height="32" rx="14" fill="url(#amber-h)"/>
+  <rect x="40" y="282" width="340" height="14" fill="#D4A54A"/>
+  <text x="210" y="286" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">STEP 2 — COMPOSE DYNAMICALLY (Silent)</text>
+  <text x="60" y="312" fill="#7A5A1E" font-size="12" font-weight="600" font-family="Inter, sans-serif">Not a lookup table. Reason fresh each time:</text>
+  <text x="60" y="330" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">What kind of problem? → Which experts? → What order?</text>
+  <text x="60" y="345" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">Sequence is fungible. Skip layers that don't apply.</text>
+
+  <!-- Arrow down -->
+  <path d="M 210 354 L 210 370" stroke="#A09890" stroke-width="2" fill="none"/>
+  <polygon points="205,368 210,378 215,368" fill="#A09890"/>
+
+  <!-- Step 3: Present Plan -->
+  <rect x="40" y="380" width="340" height="56" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="2" filter="url(#s)"/>
+  <rect x="40" y="380" width="340" height="28" rx="14" fill="url(#celadon-h)"/>
+  <rect x="40" y="394" width="340" height="14" fill="#6BA898"/>
+  <text x="210" y="400" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">STEP 3 — PRESENT PLAN (User sees)</text>
+  <text x="210" y="426" text-anchor="middle" fill="#4A4540" font-size="12" font-family="Inter, sans-serif">Situation reading + assumptions + 2-3 questions</text>
+
+  <!-- Arrow down -->
+  <path d="M 210 436 L 210 452" stroke="#A09890" stroke-width="2" fill="none"/>
+  <polygon points="205,450 210,460 215,450" fill="#A09890"/>
+
+  <!-- Step 4: Execute -->
+  <rect x="40" y="462" width="340" height="56" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="2" filter="url(#s)"/>
+  <rect x="40" y="462" width="340" height="28" rx="14" fill="url(#glacier-h)"/>
+  <rect x="40" y="476" width="340" height="14" fill="#5A9ABE"/>
+  <text x="210" y="482" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">STEP 4 — EXECUTE DEEP ANALYSIS</text>
+  <text x="210" y="508" text-anchor="middle" fill="#4A4540" font-size="12" font-family="Inter, sans-serif">Expert agents challenge each other silently</text>
+
+  <!-- Arrow down -->
+  <path d="M 210 518 L 210 534" stroke="#A09890" stroke-width="2" fill="none"/>
+  <polygon points="205,532 210,542 215,532" fill="#A09890"/>
+
+  <!-- Step 5: CPO Output -->
+  <rect x="40" y="544" width="340" height="56" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="2" filter="url(#s)"/>
+  <rect x="40" y="544" width="340" height="28" rx="14" fill="url(#moss-h)"/>
+  <rect x="40" y="558" width="340" height="14" fill="#7BA86C"/>
+  <text x="210" y="564" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">STEP 5 — CPO-LEVEL OUTPUT (User sees)</text>
+  <text x="210" y="590" text-anchor="middle" fill="#4A4540" font-size="12" font-family="Inter, sans-serif">Situation → Structural Insight → Recommendation → Plan</text>
+
+  <!-- RIGHT COLUMN: The 6 Expert Agents (composed dynamically) -->
+
+  <!-- Section label -->
+  <text x="750" y="112" text-anchor="middle" fill="#5B3E7A" font-size="16" font-weight="700" font-family="Inter, sans-serif">Expert Agents — Composed Per Problem</text>
+  <text x="750" y="130" text-anchor="middle" fill="#6E6860" font-size="12" font-family="Inter, sans-serif">Not all activate every time. The brain picks what fits.</text>
+
+  <!-- Agent cards: 2 columns x 3 rows -->
+
+  <!-- Sense-Maker -->
+  <rect x="440" y="148" width="280" height="100" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="440" y="148" width="280" height="30" rx="14" fill="url(#rose-h)"/>
+  <rect x="440" y="164" width="280" height="14" fill="#D4789B"/>
+  <text x="580" y="169" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Sense-Maker</text>
+  <text x="456" y="198" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">Decodes domain, finds hidden value,</text>
+  <text x="456" y="213" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">maps uncertainty, accelerates VoC</text>
+  <rect x="456" y="224" width="80" height="18" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
+  <text x="496" y="237" text-anchor="middle" fill="#A64D6E" font-size="10" font-weight="600" font-family="Inter, sans-serif">Always first</text>
+
+  <!-- Strategist -->
+  <rect x="740" y="148" width="280" height="100" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="740" y="148" width="280" height="30" rx="14" fill="url(#amber-h)"/>
+  <rect x="740" y="164" width="280" height="14" fill="#D4A54A"/>
+  <text x="880" y="169" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Strategist</text>
+  <text x="756" y="198" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">Where to invest, what to kill,</text>
+  <text x="756" y="213" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">competitive moats, cost reality</text>
+  <rect x="756" y="224" width="100" height="18" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
+  <text x="806" y="237" text-anchor="middle" fill="#946E2A" font-size="10" font-weight="600" font-family="Inter, sans-serif">When investing</text>
+
+  <!-- Architect -->
+  <rect x="440" y="266" width="280" height="100" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="440" y="266" width="280" height="30" rx="14" fill="url(#glacier-h)"/>
+  <rect x="440" y="282" width="280" height="14" fill="#5A9ABE"/>
+  <text x="580" y="287" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Architect</text>
+  <text x="456" y="316" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">Autonomy levels, tool architecture,</text>
+  <text x="456" y="331" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">agent harness, friction audit</text>
+  <rect x="456" y="342" width="74" height="18" rx="6" fill="#DFF0FA" stroke="#A4D2E8" stroke-width="1"/>
+  <text x="493" y="355" text-anchor="middle" fill="#3A7598" font-size="10" font-weight="600" font-family="Inter, sans-serif">When L3+</text>
+
+  <!-- Trust Builder -->
+  <rect x="740" y="266" width="280" height="100" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="740" y="266" width="280" height="30" rx="14" fill="url(#celadon-h)"/>
+  <rect x="740" y="282" width="280" height="14" fill="#6BA898"/>
+  <text x="880" y="287" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Trust Builder</text>
+  <text x="756" y="316" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">Safety architecture, adoption plan,</text>
+  <text x="756" y="331" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">org readiness, breach response</text>
+  <rect x="756" y="342" width="110" height="18" rx="6" fill="#DFF0E8" stroke="#A8D4C0" stroke-width="1"/>
+  <text x="811" y="355" text-anchor="middle" fill="#3D8068" font-size="10" font-weight="600" font-family="Inter, sans-serif">When deploying</text>
+
+  <!-- Prover -->
+  <rect x="440" y="384" width="280" height="100" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="440" y="384" width="280" height="30" rx="14" fill="url(#wist-h)"/>
+  <rect x="440" y="400" width="280" height="14" fill="#9478B8"/>
+  <text x="580" y="405" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Prover</text>
+  <text x="456" y="434" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">Eval frameworks, metrics, experiments,</text>
+  <text x="456" y="449" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">production observability, confidence</text>
+  <rect x="456" y="460" width="118" height="18" rx="6" fill="#EDE5F8" stroke="#CDBEE8" stroke-width="1"/>
+  <text x="515" y="473" text-anchor="middle" fill="#7556A0" font-size="10" font-weight="600" font-family="Inter, sans-serif">Before launch</text>
+
+  <!-- Crafter -->
+  <rect x="740" y="384" width="280" height="100" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="740" y="384" width="280" height="30" rx="14" fill="url(#coral-h)"/>
+  <rect x="740" y="400" width="280" height="14" fill="#D47B64"/>
+  <text x="880" y="405" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Crafter</text>
+  <text x="756" y="434" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">PRDs, specs, cost models, ship decisions</text>
+  <text x="756" y="449" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">— pre-tested by all other agents</text>
+  <rect x="756" y="460" width="112" height="18" rx="6" fill="#FFE8E0" stroke="#F0BCA8" stroke-width="1"/>
+  <text x="812" y="473" text-anchor="middle" fill="#A45840" font-size="10" font-weight="600" font-family="Inter, sans-serif">When shipping</text>
+
+  <!-- Dynamic composition arrows showing agents talking to each other -->
+  <path d="M 720 210 L 740 210" stroke="#A09890" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M 720 328 L 740 328" stroke="#A09890" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M 720 446 L 740 446" stroke="#A09890" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+
+  <!-- Vertical flow arrows between agent rows -->
+  <path d="M 580 248 L 580 266" stroke="#A09890" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M 880 248 L 880 266" stroke="#A09890" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M 580 366 L 580 384" stroke="#A09890" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M 880 366 L 880 384" stroke="#A09890" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+
+  <!-- Connection from left flow to right agents -->
+  <path d="M 380 310 C 410 310, 420 210, 440 210" stroke="#D4A54A" stroke-width="2" fill="none" stroke-dasharray="6,3"/>
+  <text x="412" y="260" fill="#946E2A" font-size="10" font-weight="700" font-family="Inter, sans-serif" transform="rotate(-90 412 260)">composes</text>
+
+  <!-- BOTTOM: Self-Improvement Loop + Expertise Calibration -->
+
+  <!-- Self-Improvement Loop -->
+  <rect x="40" y="624" width="545" height="100" rx="14" fill="#F8F5FF" stroke="#CDBEE8" stroke-width="2" filter="url(#s)"/>
+  <rect x="40" y="624" width="545" height="30" rx="14" fill="url(#wist-h)"/>
+  <rect x="40" y="640" width="545" height="14" fill="#9478B8"/>
+  <text x="312" y="645" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, sans-serif">Self-Improvement Loop (NEW in v1.1)</text>
+  <text x="60" y="676" fill="#4A4540" font-size="12" font-family="Inter, sans-serif">After every interaction: What was the actual need? Did the sequence match?</text>
+  <text x="60" y="694" fill="#4A4540" font-size="12" font-family="Inter, sans-serif">Where did analysis break? What pattern is emerging?</text>
+  <text x="60" y="712" fill="#5B3E7A" font-size="11" font-weight="600" font-family="Inter, sans-serif">Captured → hypotheses.md (2+ times) → rules.md (3+ confirmations)</text>
+
+  <!-- Curved arrow showing loop back -->
+  <path d="M 40 674 C 20 674, 20 560, 40 520" stroke="#9478B8" stroke-width="2" fill="none" stroke-dasharray="6,3"/>
+  <polygon points="38,525 44,515 48,527" fill="#9478B8"/>
+
+  <!-- User Expertise Calibration -->
+  <rect x="605" y="624" width="555" height="100" rx="14" fill="#FFFCF5" stroke="#F0D78A" stroke-width="2" filter="url(#s)"/>
+  <rect x="605" y="624" width="555" height="30" rx="14" fill="url(#amber-h)"/>
+  <rect x="605" y="640" width="555" height="14" fill="#D4A54A"/>
+  <text x="882" y="645" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, sans-serif">User Expertise Calibration (NEW in v1.1)</text>
+
+  <!-- Three calibration levels -->
+  <rect x="620" y="664" width="160" height="46" rx="8" fill="#E2F0D8" stroke="#B0D4A0" stroke-width="1"/>
+  <text x="700" y="682" text-anchor="middle" fill="#3A5E2E" font-size="11" font-weight="700" font-family="Inter, sans-serif">Expert</text>
+  <text x="700" y="700" text-anchor="middle" fill="#4A4540" font-size="10" font-family="Inter, sans-serif">Push back. Go deep.</text>
+
+  <rect x="796" y="664" width="180" height="46" rx="8" fill="#DFF0FA" stroke="#A4D2E8" stroke-width="1"/>
+  <text x="886" y="682" text-anchor="middle" fill="#2A5F7A" font-size="11" font-weight="700" font-family="Inter, sans-serif">Practitioner</text>
+  <text x="886" y="700" text-anchor="middle" fill="#4A4540" font-size="10" font-family="Inter, sans-serif">Show reasoning. Suggest.</text>
+
+  <rect x="992" y="664" width="154" height="46" rx="8" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
+  <text x="1069" y="682" text-anchor="middle" fill="#8B3A5A" font-size="11" font-weight="700" font-family="Inter, sans-serif">Explorer</text>
+  <text x="1069" y="700" text-anchor="middle" fill="#4A4540" font-size="10" font-family="Inter, sans-serif">Guide. Use analogies.</text>
+
+  <!-- BOTTOM: Key Insight Callout -->
+  <rect x="40" y="744" width="1120" height="76" rx="14" fill="#FFFCF5" stroke="#F0D78A" stroke-width="2" filter="url(#s)"/>
+  <text x="600" y="774" text-anchor="middle" fill="#7A5A1E" font-size="16" font-weight="700" font-family="Inter, sans-serif">The brain doesn't have a lookup table. It reasons through each problem fresh.</text>
+  <text x="600" y="800" text-anchor="middle" fill="#6E6860" font-size="13" font-family="Inter, sans-serif">Skills are fungible. The sequence is composed per problem. Expert agents challenge each other. The user sees only the insight.</text>
+
+  <!-- Footer -->
+  <text x="600" y="856" text-anchor="middle" fill="#A09890" font-size="12" font-family="Inter, sans-serif">Ravi Teja Palanki · AI Fluent Product Leadership · Orchestrator v1.1 (April 2026)</text>
+</svg>

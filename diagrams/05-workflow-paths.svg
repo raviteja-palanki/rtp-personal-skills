@@ -1,0 +1,218 @@
+<svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Shadows -->
+    <filter id="cardShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity="0.08" flood-color="#000000"/>
+    </filter>
+
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-opacity="0.06" flood-color="#000000"/>
+    </filter>
+
+    <!-- Background gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FAFAF8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FCFCFA;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Step arrow marker -->
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#5B92B8" opacity="0.4"/>
+    </marker>
+    <marker id="arrowRose" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#C27878" opacity="0.4"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#D4956A" opacity="0.4"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#9478B8" opacity="0.4"/>
+    </marker>
+    <marker id="arrowMoss" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#6BA08A" opacity="0.4"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="700" fill="url(#bgGradient)"/>
+
+  <!-- Header -->
+  <text x="60" y="40" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="700" fill="#2C2C2C">
+    Workflow Paths — Six Ways Through the System
+  </text>
+  <text x="60" y="64" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="400" fill="#666666">
+    Different situations activate different skill subsets. A full feature cycle engages all 54. An incident response activates 25 in hours.
+  </text>
+
+  <!-- Subtle separator line -->
+  <line x1="60" y1="76" x2="1140" y2="76" stroke="#E8E6E0" stroke-width="1"/>
+
+  <!-- ========== ROW 1 ========== -->
+
+  <!-- Card 1: New AI Feature (Blue) -->
+  <g filter="url(#cardShadow)">
+    <rect x="40" y="100" width="340" height="240" fill="white" rx="14"/>
+    <rect x="40" y="100" width="340" height="5" fill="#5B92B8" rx="14" ry="0"/>
+  </g>
+
+  <text x="60" y="130" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
+    New AI Feature
+  </text>
+
+  <text x="60" y="158" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+    Full cycle, ~2-4 weeks
+  </text>
+  <text x="60" y="177" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#5B92B8">
+    54
+  </text>
+  <text x="60" y="200" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+    skills
+  </text>
+
+  <!-- Flow path for New AI Feature -->
+  <line x1="60" y1="220" x2="360" y2="220" stroke="#E8E6E0" stroke-width="1"/>
+  <text x="60" y="243" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.5">
+    Discovery → Strategy → Safety → Build → Ship
+  </text>
+
+  <!-- Card 2: Incident Response (Rose) -->
+  <g filter="url(#cardShadow)">
+    <rect x="430" y="100" width="340" height="240" fill="white" rx="14"/>
+    <rect x="430" y="100" width="340" height="5" fill="#C27878" rx="14" ry="0"/>
+  </g>
+
+  <text x="450" y="130" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
+    Incident Response
+  </text>
+
+  <text x="450" y="158" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+    Hours to resolution
+  </text>
+  <text x="450" y="177" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#C27878">
+    25
+  </text>
+  <text x="450" y="200" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+    skills
+  </text>
+
+  <!-- Flow path for Incident Response -->
+  <line x1="450" y1="220" x2="750" y2="220" stroke="#E8E6E0" stroke-width="1"/>
+  <text x="450" y="243" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#C27878" letter-spacing="0.5">
+    Failure analysis → Safety audit → Decision → Recovery
+  </text>
+
+  <!-- Card 3: Strategic Review (Amber) -->
+  <g filter="url(#cardShadow)">
+    <rect x="820" y="100" width="340" height="240" fill="white" rx="14"/>
+    <rect x="820" y="100" width="340" height="5" fill="#D4956A" rx="14" ry="0"/>
+  </g>
+
+  <text x="840" y="130" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
+    Strategic Review
+  </text>
+
+  <text x="840" y="158" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+    1-2 days of depth
+  </text>
+  <text x="840" y="177" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#D4956A">
+    15
+  </text>
+  <text x="840" y="200" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+    skills
+  </text>
+
+  <!-- Flow path for Strategic Review -->
+  <line x1="840" y1="220" x2="1140" y2="220" stroke="#E8E6E0" stroke-width="1"/>
+  <text x="840" y="243" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#D4956A" letter-spacing="0.5">
+    Portfolio review → Capability scan → Roadmap
+  </text>
+
+  <!-- ========== ROW 2 ========== -->
+
+  <!-- Card 4: Technical Architecture (Purple) -->
+  <g filter="url(#cardShadow)">
+    <rect x="40" y="380" width="340" height="240" fill="white" rx="14"/>
+    <rect x="40" y="380" width="340" height="5" fill="#9478B8" rx="14" ry="0"/>
+  </g>
+
+  <text x="60" y="410" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
+    Technical Architecture
+  </text>
+
+  <text x="60" y="438" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+    1 week of spec-and-build
+  </text>
+  <text x="60" y="457" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#9478B8">
+    20
+  </text>
+  <text x="60" y="480" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+    skills
+  </text>
+
+  <!-- Flow path for Technical Architecture -->
+  <line x1="60" y1="500" x2="360" y2="500" stroke="#E8E6E0" stroke-width="1"/>
+  <text x="60" y="523" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#9478B8" letter-spacing="0.5">
+    First principles → Build-or-buy → Cost model → Spec
+  </text>
+
+  <!-- Card 5: Product Launch (Moss) -->
+  <g filter="url(#cardShadow)">
+    <rect x="430" y="380" width="340" height="240" fill="white" rx="14"/>
+    <rect x="430" y="380" width="340" height="5" fill="#6BA08A" rx="14" ry="0"/>
+  </g>
+
+  <text x="450" y="410" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
+    Product Launch
+  </text>
+
+  <text x="450" y="438" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+    1-2 weeks of execution
+  </text>
+  <text x="450" y="457" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#6BA08A">
+    18
+  </text>
+  <text x="450" y="480" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+    skills
+  </text>
+
+  <!-- Flow path for Product Launch -->
+  <line x1="450" y1="500" x2="750" y2="500" stroke="#E8E6E0" stroke-width="1"/>
+  <text x="450" y="523" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#6BA08A" letter-spacing="0.5">
+    Fit signal → Adoption plan → Alignment → Ship
+  </text>
+
+  <!-- Card 6: Safety Audit (Rose, lighter) -->
+  <g filter="url(#cardShadow)">
+    <rect x="820" y="380" width="340" height="240" fill="white" rx="14"/>
+    <rect x="820" y="380" width="340" height="5" fill="#D89BA8" rx="14" ry="0"/>
+  </g>
+
+  <text x="840" y="410" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#2C2C2C">
+    Safety Audit
+  </text>
+
+  <text x="840" y="438" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#999999">
+    2-3 days of rigor
+  </text>
+  <text x="840" y="457" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#D89BA8">
+    12
+  </text>
+  <text x="840" y="480" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#666666">
+    skills
+  </text>
+
+  <!-- Flow path for Safety Audit -->
+  <line x1="840" y1="500" x2="1140" y2="500" stroke="#E8E6E0" stroke-width="1"/>
+  <text x="840" y="523" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#D89BA8" letter-spacing="0.5">
+    Trust ladder → Harm taxonomy → Red team → Ready
+  </text>
+
+  <!-- ========== Footer Insight ========== -->
+  <g filter="url(#softShadow)">
+    <rect x="40" y="650" width="1120" height="35" fill="#F8F5FF" rx="10"/>
+  </g>
+
+  <text x="60" y="672" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#2C2C2C">
+    The orchestrator also composes custom paths on the fly — matching skill subsets to any context that arrives.
+  </text>
+</svg>

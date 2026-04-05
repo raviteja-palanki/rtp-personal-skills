@@ -1,0 +1,318 @@
+---
+name: rtp-ai-ux-patterns
+description: >
+  Interface patterns for AI products where output confidence varies. Uncertainty
+  communication ladder, progressive disclosure, trust calibration, AI-specific
+  loading states, and error states. Use when designing AI features or evaluating
+  why users over-trust or under-trust AI output.
+imports: [trust-ladder, failure-modes]
+---
+
+# AI UX Patterns: Communicating Uncertainty Without Destroying Trust
+
+## DEPTH DECISION
+
+You are designing an interface where the system's confidence varies. Sometimes the AI is 95% sure. Sometimes 60%. Sometimes it doesn't know at all. The question: how do you show the user the AI isn't sure without making them lose faith in the system?
+
+**Who uses this:** Product designers building AI features. PMs deciding how much AI to expose to users. Anyone shipping features where AI output quality varies.
+
+**Skip if:** The AI component of your feature is deterministic (always produces the same output for the same input) — use standard UX patterns instead.
+
+## DELIVERABLE FORMAT
+
+Before starting, ask: Word Document, Presentation, or Both?
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+
+## GROUNDING (Before Starting)
+
+Before designing uncertainty patterns, answer:
+1. What confidence range does the AI actually operate in for this feature? (e.g., 55-90%, not "it varies")
+2. Who is the user — expert (catches errors) or novice (trusts output)?
+3. What is the cost of a wrong answer? (Annoying vs. dangerous vs. compliance-critical)
+4. Have you measured actual AI accuracy on this task, or are you estimating?
+
+If you can't answer #1 and #4, run uncertainty-research first. Designing confidence UI without knowing the real accuracy distribution leads to miscalibrated trust — which is worse than no confidence signal at all.
+
+---
+
+## THE TRAP
+
+**Trap 1: False certainty.** You hide the uncertainty. The AI is wrong 30% of the time. Users don't know. When it fails, trust collapses catastrophically — and takes months to rebuild.
+
+**Trap 2: Uncertainty paralysis.** You show a raw confidence score (0.72). The user stares at it. Doesn't know what to do. Feels worse than just giving them a clear answer. Numeric confidence without context is worse than no confidence signal.
+
+**Trap 3: Uncanny valley of assistance.** Too helpful → users assume it's omniscient and get angry when it's wrong. Too cautious → users think it's useless and ignore it.
+
+**Trap 4: Mixing modalities badly.** Chat interface for high-stakes decisions, inline suggestions for low-stakes ones. Users can't build a consistent mental model of when to trust which interface.
+
+**Trap 5: Error states that blame the user.** "I couldn't understand that." Translation: "You explained it wrong." Users stop trying.
+
+---
+
+## THE PROCESS
+
+### 1. Uncertainty Communication Ladder
+
+For each AI decision, place it on this ladder based on confidence level AND error cost:
+
+**Level 1: Assertion**
+"The answer is X."
+- Use when: Confidence > 90%, stakes are low (autocomplete, search suggestion)
+- Cost: Users assume you're always right. One wrong answer damages trust.
+- Example: Search autocomplete. Typo correction.
+
+**Level 2: Confidence Signal**
+"The answer is X. I'm pretty sure."
+- Use when: Confidence 70-85%, user needs signal to decide next step
+- Cost: Numeric confidence scores mean nothing to most users. "82%" is uninterpretable.
+- Better: Verbal confidence. "Very likely" beats "82%." "Probably" beats "0.78."
+- Example: Spam detection. "This looks like spam (high confidence)."
+
+**Level 3: Alternative Ladder**
+"The answer is X, but it could also be Y or Z."
+- Use when: Confidence 60-75%, meaningful alternatives exist
+- Cost: You're asking the user to pick. Increases friction. Use only when alternatives matter.
+- Example: Email category is "Work" but could be "Billing." Let the user confirm.
+
+**Level 4: Question Back**
+"I'm not sure. Can you help me understand better?"
+- Use when: Confidence < 60%
+- Cost: User now has to do the work the AI couldn't. Use sparingly — this breaks flow.
+- Example: "I'm not sure what you're looking for. Is it related to your previous search?"
+
+**Level 5: Abstain**
+"I can't help with this."
+- Use when: Confidence < 40% OR error cost is high regardless of confidence
+- Cost: User gets no help. But wrong help at high stakes is worse than no help.
+- Example: Sensitive decisions (legal, medical, financial). Regulated decisions.
+
+---
+
+### 2. Progressive Disclosure Pattern
+
+Don't show the user the full complexity of the AI upfront. Layer it.
+
+**Layer 1: Simple output.** "Article A is the most relevant."
+- Show only if confidence > 75%.
+
+**Layer 2: Why? (optional reveal).** User clicks "Why this?"
+- Show relevant keywords, sources, reasoning fragments.
+
+**Layer 3: Alternatives (deep reveal).** User clicks "Show other results."
+- Show ranked list with confidence signals (verbal, not numeric).
+
+**Layer 4: Adjust (power user).** User clicks "Customize."
+- Show filters, weights, confidence thresholds.
+
+This keeps the interface simple for 80% of users who trust the AI. Advanced users can dive deeper. The mistake is building Layer 4 first and making everyone use it.
+
+---
+
+### 3. Modality-Specific Patterns
+
+**Inline suggestions (low stakes, high confidence):**
+- Use confidence silently — just rank by it. Don't surface the number.
+- Show top option as the assertion. Alternatives available via subtle affordance (chevron, underline).
+- Example: Gmail autocomplete, IDE code suggestions.
+
+**Chat interface (medium stakes, mixed confidence):**
+- State uncertainty directly in natural language prose.
+- "I found three relevant articles. The first one directly answers your question."
+- Offer alternatives conversationally. "Would you like to see the other two?"
+- Example: Customer support chatbot, research assistant.
+
+**Dedicated decision interface (high stakes, explicit confidence):**
+- Show confidence explicitly with context that makes it interpretable.
+- "Based on 2,847 similar cases, 91% ended with outcome A."
+- Provide a "I disagree" or "Override" button. Capture that feedback.
+- Example: Risk assessment, fraud detection, hiring recommendations.
+
+---
+
+### 4. AI Loading States
+
+Generic UX guidance: show a spinner. AI-specific reality: the spinner destroys trust because it makes the process invisible.
+
+**The insight:** Users who see *what the model is doing* during loading trust the output more than users who see a generic spinner. Process transparency reduces the "magic black box" feeling that makes errors feel betrayals rather than mechanical failures.
+
+**Redesign loading states for AI:**
+
+| Wait time | Generic (wrong) | AI-specific (right) |
+|---|---|---|
+| < 500ms | No loading state | No loading state |
+| 500ms–2s | Spinner + "Loading..." | "Thinking..." — neutral, process-aware |
+| 2–5s | Spinner + "Please wait" | Process steps: "Searching documents... Analyzing context... Drafting response." Updates every 1-2 seconds. |
+| 5s+ | Full spinner | Full process: "Analyzed 80% of sources. Generating response..." Give user permission to leave and return. |
+
+**What to show during 2-5s AI waits:**
+- "Searching [documents/your history/similar cases]..."
+- "Analyzing the context..."
+- "Generating response..."
+- "Reviewing for accuracy..."
+
+Each step tells the user something real is happening. When the output arrives, users have a frame for what it is — not magic, but a process. This makes errors feel mechanical (the process made a mistake) rather than broken (the thing I trusted failed me).
+
+**Anti-pattern:** 8-second spinner with no update. Users assume it broke and refresh — triggering a second inference call that duplicates cost and increases frustration.
+
+---
+
+### 5. Error States for Probabilistic Failures
+
+Traditional software: "Error 404 File Not Found." Clear cause. User knows what went wrong.
+
+AI software: "I couldn't generate a response." Users don't know: was it a hallucination? A timeout? Unsafe content? A context limit? The ambiguity makes them feel incompetent — not the AI.
+
+**For wrong answers or low-confidence outputs:**
+- Don't say "I don't know." (User thinks the AI is useless.)
+- Say: "I'm not confident enough to answer this reliably. Here's what I found: [fragments]. Want to try rephrasing, or should I give you my best attempt with a warning?"
+
+**For refusals (safety/policy blocks):**
+- Be transparent: "I can't help with this specific request because it looks like [category]. Here's what I *can* help with instead: [alternatives]."
+- Never blame the user. The AI has constraints — name them.
+
+**For timeout/degradation:**
+- "I'm taking longer than usual. Want me to keep going, or give you a faster partial answer?"
+- This gives the user agency instead of making them wait blind.
+
+---
+
+## KEY DIAGNOSTIC QUESTIONS
+
+**Q1: Confidence Appropriateness**
+Does your interface's stated confidence match users' actual accuracy experience?
+
+> **How to actually measure this (not estimate it):**
+>
+> Take 100 representative outputs from your AI feature. For each output:
+> 1. Record the confidence signal you displayed (or would display) — Level 1 assertion, Level 2 verbal, etc.
+> 2. Have a domain expert rate the actual accuracy (correct / partially correct / wrong)
+> 3. Plot: confidence signal on X-axis, actual accuracy on Y-axis
+>
+> **Diagnose the plot:**
+> - Diagonal line = calibrated. Your confidence signal matches reality.
+> - Above the diagonal = overconfident. You're displaying more certainty than the AI actually has. Users will learn to distrust after errors.
+> - Below the diagonal = underconfident. You're underselling accurate outputs. Users ignore a feature that could help them.
+>
+> **Red flag:** If you've never run this audit, your confidence signals are guesses. Most teams discover they're overconfident at the edges (low-confidence outputs displayed as assertions) and underconfident in the mid-range.
+>
+> **Sharpen it:** Run this audit on 3 different user query types (simple, medium, complex). Calibration often looks fine on average but breaks on complex queries — which are exactly where users need the signal most.
+
+---
+
+**Q2: Failure Transparency**
+When the AI fails, does the user know it failed? Or do they think it worked?
+
+- Example: Search returned 0 results. User sees nothing. Assumes no answer exists. Actually: the AI searched incorrectly.
+- Example: Recommendation system suggests an irrelevant item. User doesn't interact. You think the feature is bad. Actually: the confidence signal was wrong and the algorithm surfaced a low-confidence result as an assertion.
+
+**The behavioral test:** Show 5 incorrect AI outputs to 10 users without telling them the outputs are wrong. Measure: how many of them catch the error? If fewer than 50% catch the error, your failure signaling is insufficient — users will over-trust in production.
+
+---
+
+**Q3: Trust Durability**
+After the AI gives one wrong answer, does the user:
+A) Give it a second chance
+B) Distrust it for months
+C) Use it only for low-stakes decisions from now on
+
+**The answer depends on product type. These are not guidelines — they are benchmarks from shipped products:**
+
+| Product type | Trust recovery after one visible error | Why |
+|---|---|---|
+| **Enterprise tools** (finance, legal, HR systems) | 3-6 months of reduced usage | High stakes + professional reputation at risk. "I trusted the AI and it made me look bad" = lasting distrust. |
+| **Consumer tools** (email, search, writing) | Users often retry within the same session | Lower stakes. Users frame errors as "the AI got it wrong this time" not "the AI is broken." |
+| **Internal tools** (ops, data, eng workflows) | 2-4 weeks of skepticism, then recovery | Professional context but lower external consequences. Error feels like a tool bug, not a betrayal. |
+| **Medical/legal/regulated** | Never fully recovers without explanation | If the domain has safety implications, a visible error without explanation triggers permanent distrust — and sometimes a compliance event. |
+
+**Measure this for your product:** After a visible error, what % of users return to the feature within 24 hours? Within 7 days? If 24-hour return rate drops >30% after a visible error, your error UX is compounding the trust damage.
+
+**Recovery design:** The fastest trust recovery comes from explaining *what went wrong* (not hiding it) and showing *what you're doing about it*. "We detected this response was incorrect and are using it to improve. Here's what I should have said: [X]." This converts a trust-damaging event into a trust-building one.
+
+---
+
+**Q4: Modality Fit**
+Is the modality (chat, inline, dedicated interface) appropriate for the confidence level and error cost?
+- Low stakes + high confidence → Inline assertion. No explicit confidence signal needed.
+- High stakes + low confidence → Dedicated decision interface with explicit reasoning.
+- Medium stakes + medium confidence → What are you using? If it's inline, it's wrong.
+
+---
+
+## REALITY CHECK
+
+Before you ship:
+- Have you tested on a user who doesn't know this is AI? Do they understand the confidence signal intuitively?
+- Have you watched someone use the feature *incorrectly* because the confidence signal was ambiguous?
+- Have you measured: what % of wrong answers does the user actually notice? (If it's < 50%, your failure UX is insufficient.)
+- Can you explain your confidence levels without saying "the AI told me"?
+- Have you run the calibration audit (100 outputs, plot confidence vs. accuracy)?
+
+---
+
+## QUALITY GATE
+
+Before you ship AI with uncertainty:
+- [ ] Confidence thresholds defined for each UI pattern (assertion, signal, alternative, question back, abstain)
+- [ ] Calibration audit completed: actual accuracy vs. stated confidence align within 10%
+- [ ] Interface tested with users who are NOT AI-literate
+- [ ] Wrong-answer experience designed explicitly and tested — not just the success path
+- [ ] AI loading states show process steps, not a generic spinner (for waits > 2s)
+- [ ] Error states name the AI's limitation, not the user's failure
+- [ ] Trust recovery benchmarks checked against product type (enterprise vs. consumer vs. internal)
+- [ ] Trigger defined: what accuracy % would require a redesign of the confidence UI?
+
+---
+
+## WHEN WRONG
+
+**Users trust the AI too much:**
+- AI says X. User takes action without verifying. AI was wrong. User blames you.
+- Trigger: Confidence signal is too strong, or hidden when it should be visible.
+- Recovery: Add visible feedback loops ("I was wrong here"). Move from assertion to verbal confidence signal.
+
+**Users don't trust the AI enough:**
+- AI is 85% accurate. Users use it only 20% of the time they should.
+- Trigger: Confidence signal is too visible ("0.75" feels low) or too verbal ("possibly" implies doubt).
+- Recovery: Hide the confidence score. Show social proof instead: "95% of users find this helpful."
+
+**Users game the uncertainty:**
+- They learn the AI's failure modes and work around them. System feels fragile.
+- Trigger: You built on top of a probabilistic model without designing for probabilistic use.
+- Recovery: Reframe AI as a tool, not an authority. "AI suggestion. You decide." Shift responsibility explicitly.
+
+**Modality mismatch causes confusion:**
+- Users don't know whether to trust inline suggestions, chat, or decision interfaces.
+- Trigger: High-confidence inline and low-confidence chat mixed in the same product without clear separation.
+- Recovery: Physically separate modalities. Different screens, different interaction patterns, different confidence signals.
+
+---
+
+## TRADE-OFF LEDGER
+
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+
+## CONCLUSION
+
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+1. **The recommendation** — specific confidence pattern for this feature and confidence range
+2. **The hypothesis** — "We believe [confidence pattern X] will [produce Y trust outcome] because [Z]. We'd know we're wrong if [trust recovery metric drops]."
+3. **The key trade-off** — transparency vs. friction; certainty vs. trust durability
+4. **The biggest risk** — and mitigation (usually: over-confidence in early stages, calibration drift as model improves)
+5. **The next action** — [step] by [role] by [date]
+
+---
+
+## GENERATE THE DELIVERABLE
+
+Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+
+---
+
+## VISUAL SUMMARY
+
+After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. The diagram should show:
+- The Uncertainty Communication Ladder (Level 1-5) as a vertical scale with confidence ranges and example products
+- The calibration plot concept (diagonal = calibrated, above/below = over/underconfident)
+- The trust recovery timeline by product type (enterprise 3-6 months vs. consumer within session)
+
+Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.

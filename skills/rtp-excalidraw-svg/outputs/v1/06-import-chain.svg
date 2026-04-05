@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+  <defs>
+    <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6B7280"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#14B8A6"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#8B5CF6"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F59E0B"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="700" rx="16" fill="#FAFAF8"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1200" height="80" rx="16" fill="#F8FAFC"/>
+  <rect x="0" y="60" width="1200" height="20" fill="#F8FAFC"/>
+  <text x="600" y="36" text-anchor="middle" fill="#1B1B1F" font-size="28" font-weight="800" font-family="Inter, Segoe UI, sans-serif">The Import Chain in Action</text>
+  <text x="600" y="62" text-anchor="middle" fill="#5F6B7A" font-size="15" font-family="Inter, sans-serif">Depth — Comprehensive · You ask: "Write a PRD for our AI code review feature." Here's what actually runs.</text>
+
+  <!-- User prompt bubble -->
+  <rect x="380" y="96" width="440" height="44" rx="22" fill="#1B1B1F" filter="url(#s)"/>
+  <text x="600" y="123" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="600" font-family="Inter, sans-serif">"Write a PRD for our AI code review feature"</text>
+
+  <!-- Arrow down -->
+  <line x1="600" y1="144" x2="600" y2="164" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- LAYER 1 -->
+  <rect x="100" y="172" width="1000" height="136" rx="16" fill="#F0FDFA" stroke="#14B8A6" stroke-width="2.5" filter="url(#s)"/>
+  <rect x="100" y="172" width="1000" height="36" rx="16" fill="#14B8A6"/>
+  <rect x="100" y="196" width="1000" height="12" fill="#14B8A6"/>
+  <text x="600" y="197" text-anchor="middle" fill="#FFFFFF" font-size="17" font-weight="800" font-family="Inter, sans-serif">LAYER 1: THINKING — "Wait, should we even use AI here?"</text>
+
+  <text x="130" y="238" fill="#0F766E" font-size="14" font-weight="700" font-family="Inter, sans-serif">determinism-compass</text>
+  <text x="380" y="238" fill="#374151" font-size="13" font-family="Inter, sans-serif">"Code formatting = rules. Explanation = AI. Refactoring = hybrid."</text>
+
+  <text x="130" y="262" fill="#0F766E" font-size="14" font-weight="700" font-family="Inter, sans-serif">bias-spotter</text>
+  <text x="380" y="262" fill="#374151" font-size="13" font-family="Inter, sans-serif">"You're anchored on GitHub Copilot. Your users are different."</text>
+
+  <text x="130" y="286" fill="#0F766E" font-size="14" font-weight="700" font-family="Inter, sans-serif">first-principles</text>
+  <text x="380" y="286" fill="#374151" font-size="13" font-family="Inter, sans-serif">"Core op: parse diff + generate review. Could rules handle 60%?"</text>
+
+  <!-- Arrow down -->
+  <line x1="600" y1="312" x2="600" y2="332" stroke="#14B8A6" stroke-width="2.5" marker-end="url(#arrowTeal)"/>
+
+  <!-- LAYER 2 -->
+  <rect x="100" y="340" width="1000" height="136" rx="16" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2.5" filter="url(#s)"/>
+  <rect x="100" y="340" width="1000" height="36" rx="16" fill="#8B5CF6"/>
+  <rect x="100" y="364" width="1000" height="12" fill="#8B5CF6"/>
+  <text x="600" y="365" text-anchor="middle" fill="#FFFFFF" font-size="17" font-weight="800" font-family="Inter, sans-serif">LAYER 2: JUDGMENT — "Here are the hard trade-offs"</text>
+
+  <text x="130" y="406" fill="#6D28D9" font-size="14" font-weight="700" font-family="Inter, sans-serif">problem-ai-fit</text>
+  <text x="380" y="406" fill="#374151" font-size="13" font-family="Inter, sans-serif">"Score 12/16. AI justified for explanation, overkill for formatting."</text>
+
+  <text x="130" y="430" fill="#6D28D9" font-size="14" font-weight="700" font-family="Inter, sans-serif">failure-modes</text>
+  <text x="380" y="430" fill="#374151" font-size="13" font-family="Inter, sans-serif">"Confident-wrong on security review = critical. Latency on large PRs."</text>
+
+  <text x="130" y="454" fill="#6D28D9" font-size="14" font-weight="700" font-family="Inter, sans-serif">token-economics</text>
+  <text x="380" y="454" fill="#374151" font-size="13" font-family="Inter, sans-serif">"Large diffs blow context. Route: Haiku for simple, Opus for security."</text>
+
+  <!-- Arrow down -->
+  <line x1="600" y1="480" x2="600" y2="500" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#arrowPurple)"/>
+
+  <!-- LAYER 3 -->
+  <rect x="100" y="508" width="1000" height="112" rx="16" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2.5" filter="url(#s)"/>
+  <rect x="100" y="508" width="1000" height="36" rx="16" fill="#F59E0B"/>
+  <rect x="100" y="532" width="1000" height="12" fill="#F59E0B"/>
+  <text x="600" y="533" text-anchor="middle" fill="#FFFFFF" font-size="17" font-weight="800" font-family="Inter, sans-serif">LAYER 3: CRAFT — "Here's what engineering builds from"</text>
+
+  <text x="130" y="574" fill="#B45309" font-size="14" font-weight="700" font-family="Inter, sans-serif">ai-prd</text>
+  <text x="380" y="574" fill="#374151" font-size="13" font-family="Inter, sans-serif">"PRD with dual metrics: acceptance rate + security catch rate."</text>
+
+  <text x="130" y="598" fill="#B45309" font-size="14" font-weight="700" font-family="Inter, sans-serif">ship-decision</text>
+  <text x="380" y="598" fill="#374151" font-size="13" font-family="Inter, sans-serif">"Gate: 150 test cases. Canary 1% of repos. Kill if security miss > 0.1%."</text>
+
+  <!-- The punchline -->
+  <rect x="160" y="638" width="420" height="42" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="2" filter="url(#s)"/>
+  <text x="370" y="664" text-anchor="middle" fill="#DC2626" font-size="14" font-weight="700" font-family="Inter, sans-serif">Without: "Leverage AI to enhance productivity."</text>
+
+  <rect x="620" y="638" width="420" height="42" rx="12" fill="#F0FDF4" stroke="#86EFAC" stroke-width="2" filter="url(#s)"/>
+  <text x="830" y="664" text-anchor="middle" fill="#16A34A" font-size="14" font-weight="700" font-family="Inter, sans-serif">With: PRD with gates, costs, kill conditions.</text>
+</svg>
