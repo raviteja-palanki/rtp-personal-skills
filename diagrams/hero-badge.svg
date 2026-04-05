@@ -1,157 +1,125 @@
-<svg viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Gradients -->
     <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#FAFAF8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#F6F3EE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F5F2EC;stop-opacity:1" />
     </linearGradient>
 
     <linearGradient id="accentBar" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#9478B8" />
-      <stop offset="20%" style="stop-color:#5B92B8" />
-      <stop offset="40%" style="stop-color:#6BA08A" />
-      <stop offset="60%" style="stop-color:#D4956A" />
+      <stop offset="25%" style="stop-color:#5B92B8" />
+      <stop offset="50%" style="stop-color:#6BA08A" />
+      <stop offset="75%" style="stop-color:#D4956A" />
       <stop offset="100%" style="stop-color:#C27878" />
     </linearGradient>
 
-    <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#9478B8" />
-      <stop offset="50%" style="stop-color:#5B92B8" />
-      <stop offset="100%" style="stop-color:#6BA08A" />
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7B60A0" />
+      <stop offset="50%" style="stop-color:#4A7A9E" />
+      <stop offset="100%" style="stop-color:#558B74" />
     </linearGradient>
 
-    <!-- Soft drop shadow -->
-    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="3" stdDeviation="8" flood-color="#00000012" flood-opacity="0.8"/>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000000" flood-opacity="0.06"/>
     </filter>
 
-    <filter id="thinShadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#00000008"/>
-    </filter>
-
-    <!-- Fonts -->
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap');
-
-      .hero-author { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 12px; font-weight: 600; fill: #9478B8; letter-spacing: 2.2px; text-transform: uppercase; }
-
-      .hero-title { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 56px; font-weight: 800; fill: url(#titleGradient); letter-spacing: -2px; }
-
-      .hero-tagline { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 16px; font-weight: 500; fill: #444444; letter-spacing: 0.2px; }
-
-      .hero-subtitle { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 13px; font-weight: 400; fill: #888888; letter-spacing: 0.3px; }
-
-      .stat-number { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 48px; font-weight: 800; letter-spacing: -2px; }
-
-      .stat-label { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 11px; font-weight: 600; fill: #666666; letter-spacing: 1.2px; text-transform: uppercase; }
-
-      .stat-flow { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; fill: #666666; letter-spacing: 0.8px; text-transform: uppercase; }
-
-      .layer-label { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; fill: #ffffff; letter-spacing: 0.5px; }
-
-      .footer { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; letter-spacing: 0.2px; }
     </style>
   </defs>
 
-  <!-- Main background -->
-  <rect width="1200" height="320" rx="16" fill="url(#heroBg)" stroke="#E8E4DC" stroke-width="1.5"/>
+  <!-- Background -->
+  <rect width="1200" height="340" rx="16" fill="url(#heroBg)" stroke="#E5E0D8" stroke-width="1"/>
 
-  <!-- Top accent bar — gradient across 5 colors -->
-  <rect y="0" width="1200" height="8" rx="16" fill="url(#accentBar)"/>
+  <!-- Top accent bar -->
+  <rect width="1200" height="6" rx="16" fill="url(#accentBar)"/>
+  <!-- Fix bottom corners of accent bar -->
+  <rect y="3" width="1200" height="3" fill="url(#accentBar)"/>
 
-  <!-- LEFT SECTION: Title & story -->
+  <!-- ═══════════════ LEFT: Identity ═══════════════ -->
 
-  <!-- Author line -->
-  <text x="60" y="44" class="hero-author">RAVI TEJA PALANKI</text>
+  <!-- Author -->
+  <text x="56" y="48" style="font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; font-size: 11px; font-weight: 600; fill: #9478B8; letter-spacing: 2.5px; text-transform: uppercase;">RAVI TEJA PALANKI</text>
 
-  <!-- Main title with gradient -->
-  <text x="60" y="120" class="hero-title">rtp-personal-skills</text>
+  <!-- Title -->
+  <text x="56" y="100" style="font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; font-size: 42px; font-weight: 800; fill: url(#titleGrad); letter-spacing: -1.5px;">rtp-personal-skills</text>
 
-  <!-- Tagline: The hook -->
-  <text x="60" y="152" class="hero-tagline">66 skills. 3 layers. One compounding system.</text>
+  <!-- Tagline -->
+  <text x="56" y="130" style="font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; font-size: 15px; font-weight: 500; fill: #555555; letter-spacing: 0.3px;">66 skills. 3 layers. One compounding system.</text>
 
-  <!-- Divider -->
-  <line x1="60" y1="174" x2="520" y2="174" stroke="#DDD8D0" stroke-width="2"/>
+  <!-- Thin divider -->
+  <line x1="56" y1="152" x2="490" y2="152" stroke="#DDD8CE" stroke-width="1.5"/>
 
-  <!-- Layer flow story -->
-  <g>
-    <!-- THINK box -->
-    <rect x="60" y="194" width="105" height="84" rx="12" fill="#F0EBF5" stroke="#E8DCF0" stroke-width="1" filter="url(#thinShadow)"/>
-    <circle cx="112.5" cy="215" r="14" fill="#9478B8"/>
-    <text x="112.5" y="220" class="layer-label" text-anchor="middle" font-size="20">🧠</text>
-    <text x="112.5" y="250" class="stat-label" text-anchor="middle">THINK</text>
-    <text x="112.5" y="268" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #888888; text-anchor: middle;">Catch errors</text>
-  </g>
+  <!-- ═══════════════ LEFT: Layer Flow ═══════════════ -->
+
+  <!-- THINK -->
+  <rect x="56" y="172" width="120" height="100" rx="12" fill="#F3EDF8" stroke="#E0D4EC" stroke-width="1"/>
+  <circle cx="116" cy="200" r="16" fill="#9478B8" opacity="0.15"/>
+  <text x="116" y="206" style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 800; fill: #9478B8; text-anchor: middle;">T</text>
+  <text x="116" y="236" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; fill: #7B60A0; letter-spacing: 1px; text-anchor: middle; text-transform: uppercase;">Think</text>
+  <text x="116" y="256" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 400; fill: #999999; text-anchor: middle;">Catch errors</text>
 
   <!-- Arrow 1 -->
-  <text x="190" y="244" style="font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 300; fill: #D8D4CC;">→</text>
+  <line x1="186" y1="222" x2="210" y2="222" stroke="#D0CBBD" stroke-width="1.5"/>
+  <polygon points="210,218 218,222 210,226" fill="#D0CBBD"/>
 
-  <!-- JUDGE box -->
-  <g>
-    <rect x="225" y="194" width="105" height="84" rx="12" fill="#EBF2F8" stroke="#DBE8F0" stroke-width="1" filter="url(#thinShadow)"/>
-    <circle cx="277.5" cy="215" r="14" fill="#5B92B8"/>
-    <text x="277.5" y="220" class="layer-label" text-anchor="middle" font-size="20">⚖️</text>
-    <text x="277.5" y="250" class="stat-label" text-anchor="middle">JUDGE</text>
-    <text x="277.5" y="268" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #888888; text-anchor: middle;">Make calls</text>
-  </g>
+  <!-- JUDGE -->
+  <rect x="228" y="172" width="120" height="100" rx="12" fill="#ECF2F8" stroke="#D8E6F0" stroke-width="1"/>
+  <circle cx="288" cy="200" r="16" fill="#5B92B8" opacity="0.15"/>
+  <text x="288" y="206" style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 800; fill: #5B92B8; text-anchor: middle;">J</text>
+  <text x="288" y="236" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; fill: #4A7A9E; letter-spacing: 1px; text-anchor: middle; text-transform: uppercase;">Judge</text>
+  <text x="288" y="256" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 400; fill: #999999; text-anchor: middle;">Make calls</text>
 
   <!-- Arrow 2 -->
-  <text x="355" y="244" style="font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 300; fill: #D8D4CC;">→</text>
+  <line x1="358" y1="222" x2="382" y2="222" stroke="#D0CBBD" stroke-width="1.5"/>
+  <polygon points="382,218 390,222 382,226" fill="#D0CBBD"/>
 
-  <!-- SHIP box -->
-  <g>
-    <rect x="390" y="194" width="105" height="84" rx="12" fill="#EFF5F0" stroke="#DFEDDA" stroke-width="1" filter="url(#thinShadow)"/>
-    <circle cx="442.5" cy="215" r="14" fill="#6BA08A"/>
-    <text x="442.5" y="220" class="layer-label" text-anchor="middle" font-size="20">🚀</text>
-    <text x="442.5" y="250" class="stat-label" text-anchor="middle">SHIP</text>
-    <text x="442.5" y="268" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #888888; text-anchor: middle;">Deliver work</text>
+  <!-- SHIP -->
+  <rect x="400" y="172" width="120" height="100" rx="12" fill="#EDF5EF" stroke="#D8EDDC" stroke-width="1"/>
+  <circle cx="460" cy="200" r="16" fill="#6BA08A" opacity="0.15"/>
+  <text x="460" y="206" style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 800; fill: #6BA08A; text-anchor: middle;">S</text>
+  <text x="460" y="236" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; fill: #558B74; letter-spacing: 1px; text-anchor: middle; text-transform: uppercase;">Ship</text>
+  <text x="460" y="256" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 400; fill: #999999; text-anchor: middle;">Deliver work</text>
+
+  <!-- ═══════════════ RIGHT: Stats Panel ═══════════════ -->
+
+  <g filter="url(#cardShadow)">
+    <rect x="580" y="30" width="580" height="270" rx="14" fill="#FFFFFF" stroke="#E8E4DC" stroke-width="1"/>
   </g>
 
-  <!-- RIGHT SECTION: Stats panel -->
-  <g filter="url(#softShadow)">
-    <rect x="640" y="30" width="520" height="260" rx="16" fill="#FFFFFF" stroke="#E8E4DC" stroke-width="1.5"/>
-  </g>
+  <!-- Panel header -->
+  <text x="870" y="66" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; fill: #AAAAAA; letter-spacing: 2px; text-transform: uppercase; text-anchor: middle;">The Architecture</text>
 
-  <!-- Stats header label -->
-  <text x="900" y="64" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; fill: #999999; letter-spacing: 1.5px; text-transform: uppercase; text-anchor: middle;">The Architecture</text>
-
-  <!-- Stat 1: 66 Skills -->
-  <g>
-    <text x="750" y="125" class="stat-number" text-anchor="middle" fill="#9478B8">66</text>
-    <text x="750" y="148" class="stat-label" text-anchor="middle">Skills</text>
-    <text x="750" y="168" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; text-anchor: middle; letter-spacing: 0.2px;">Thinking + Judgment + Craft</text>
-  </g>
+  <!-- Stat 1: 66 -->
+  <text x="700" y="130" style="font-family: 'Inter', sans-serif; font-size: 44px; font-weight: 800; fill: #9478B8; letter-spacing: -2px; text-anchor: middle;">66</text>
+  <text x="700" y="155" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; fill: #777777; letter-spacing: 1.2px; text-anchor: middle; text-transform: uppercase;">Skills</text>
+  <text x="700" y="174" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 400; fill: #AAAAAA; text-anchor: middle;">Think + Judge + Ship</text>
 
   <!-- Divider -->
-  <line x1="820" y1="105" x2="820" y2="175" stroke="#E8E4DC" stroke-width="1"/>
+  <line x1="790" y1="100" x2="790" y2="180" stroke="#F0EDE6" stroke-width="1"/>
 
-  <!-- Stat 2: 3 Layers -->
-  <g>
-    <text x="900" y="125" class="stat-number" text-anchor="middle" fill="#5B92B8">3</text>
-    <text x="900" y="148" class="stat-label" text-anchor="middle">Layers</text>
-    <text x="900" y="168" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; text-anchor: middle; letter-spacing: 0.2px;">Each checks the next</text>
-  </g>
+  <!-- Stat 2: 3 -->
+  <text x="870" y="130" style="font-family: 'Inter', sans-serif; font-size: 44px; font-weight: 800; fill: #5B92B8; letter-spacing: -2px; text-anchor: middle;">3</text>
+  <text x="870" y="155" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; fill: #777777; letter-spacing: 1.2px; text-anchor: middle; text-transform: uppercase;">Layers</text>
+  <text x="870" y="174" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 400; fill: #AAAAAA; text-anchor: middle;">Each checks the next</text>
 
   <!-- Divider -->
-  <line x1="970" y1="105" x2="970" y2="175" stroke="#E8E4DC" stroke-width="1"/>
+  <line x1="950" y1="100" x2="950" y2="180" stroke="#F0EDE6" stroke-width="1"/>
 
-  <!-- Stat 3: 1 System -->
-  <g>
-    <text x="1050" y="125" class="stat-number" text-anchor="middle" fill="#6BA08A">1</text>
-    <text x="1050" y="148" class="stat-label" text-anchor="middle">System</text>
-    <text x="1050" y="168" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; text-anchor: middle; letter-spacing: 0.2px;">Built for compounding</text>
-  </g>
+  <!-- Stat 3: 1 -->
+  <text x="1040" y="130" style="font-family: 'Inter', sans-serif; font-size: 44px; font-weight: 800; fill: #6BA08A; letter-spacing: -2px; text-anchor: middle;">1</text>
+  <text x="1040" y="155" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; fill: #777777; letter-spacing: 1.2px; text-anchor: middle; text-transform: uppercase;">System</text>
+  <text x="1040" y="174" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 400; fill: #AAAAAA; text-anchor: middle;">Built to compound</text>
 
-  <!-- Divider line -->
-  <line x1="680" y1="195" x2="1140" y2="195" stroke="#F0EDE6" stroke-width="1.5"/>
+  <!-- Panel divider -->
+  <line x1="620" y1="198" x2="1120" y2="198" stroke="#F0EDE6" stroke-width="1"/>
 
-  <!-- Bottom section: The compounding story -->
-  <text x="900" y="229" style="font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; fill: #666666; letter-spacing: 0.8px; text-anchor: middle; text-transform: uppercase;">How It Works</text>
+  <!-- How it works -->
+  <text x="870" y="228" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; fill: #AAAAAA; letter-spacing: 2px; text-anchor: middle; text-transform: uppercase;">How It Works</text>
 
-  <text x="680" y="258" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; letter-spacing: 0.2px;">Each layer earns the right to exist by making</text>
-  <text x="680" y="277" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; letter-spacing: 0.2px;">the next layer's output trustworthy. Every output</text>
-  <text x="680" y="296" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; letter-spacing: 0.2px;">pre-tested before shipping.</text>
+  <text x="870" y="256" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; text-anchor: middle;">Each layer earns the right to exist by making the next layer's</text>
+  <text x="870" y="276" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; text-anchor: middle;">output trustworthy. Every output is pre-tested before shipping.</text>
 
-  <!-- Footer: Attribution -->
-  <text x="600" y="314" class="footer" text-anchor="end">Built with Claude · April 2026</text>
+  <!-- ═══════════════ Footer ═══════════════ -->
+  <text x="56" y="326" style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 400; fill: #BBBBBB; letter-spacing: 0.2px;">Built with Claude  ·  April 2026</text>
 </svg>
