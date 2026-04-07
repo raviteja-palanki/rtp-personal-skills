@@ -1,0 +1,181 @@
+<svg viewBox="0 0 1200 500" width="1200" height="500" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1200" height="500" rx="0" fill="#FAFAF8"/>
+
+  <!-- Header band -->
+  <rect x="0" y="0" width="1200" height="68" fill="#F5F3FF"/>
+  <line x1="0" y1="68" x2="1200" y2="68" stroke="#EDE9FE" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="600" y="28" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#8B5CF6" letter-spacing="1.5">UNDER THE HOOD</text>
+  <text x="600" y="55" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="24" font-weight="800" fill="#1B1B1F">What Makes the Orchestrator Powerful</text>
+
+  <!-- ========== PANEL 1: ISOLATED EXPERTISE ========== -->
+  <!-- Shadow -->
+  <rect x="53" y="88" width="350" height="310" rx="12" fill="#E9E5F5" opacity="0.3"/>
+  <!-- Card -->
+  <rect x="50" y="85" width="350" height="310" rx="12" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <!-- Header bar -->
+  <rect x="50" y="85" width="350" height="34" rx="12" fill="#8B5CF6"/>
+  <rect x="50" y="107" width="350" height="12" fill="#8B5CF6"/>
+  <text x="225" y="108" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">ISOLATED EXPERTISE</text>
+
+  <!-- Hub-spoke visual: central orchestrator + 6 worker dots -->
+  <!-- Central purple dot (orchestrator) -->
+  <circle cx="225" cy="195" r="16" fill="#8B5CF6" opacity="0.15" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="225" y="199" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="8" font-weight="700" fill="#8B5CF6">ORCH</text>
+
+  <!-- 6 worker dots arranged in a circle -->
+  <!-- Top: Problem Finder (teal) -->
+  <circle cx="225" cy="148" r="8" fill="#14B8A6"/>
+  <path d="M 225,156 C 225,162 225,172 225,179" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Top-right: Strategist (purple) -->
+  <circle cx="266" cy="160" r="8" fill="#7C3AED"/>
+  <path d="M 260,165 C 252,172 243,180 238,185" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Bottom-right: System Designer (cyan) -->
+  <circle cx="266" cy="230" r="8" fill="#06B6D4"/>
+  <path d="M 260,225 C 252,218 243,212 238,207" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Bottom: Eval Expert (amber) -->
+  <circle cx="225" cy="242" r="8" fill="#F59E0B"/>
+  <path d="M 225,234 C 225,228 225,218 225,211" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Bottom-left: Safety Lead (pink) -->
+  <circle cx="184" cy="230" r="8" fill="#EC4899"/>
+  <path d="M 190,225 C 198,218 207,212 212,207" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Top-left: Spec Writer (green) -->
+  <circle cx="184" cy="160" r="8" fill="#16A34A"/>
+  <path d="M 190,165 C 198,172 207,180 212,185" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- No-communication X marks between adjacent workers -->
+  <line x1="242" y1="152" x2="248" y2="158" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="248" y1="152" x2="242" y2="158" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+
+  <line x1="269" y1="193" x2="275" y2="199" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="275" y1="193" x2="269" y2="199" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+
+  <line x1="242" y1="236" x2="248" y2="242" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="248" y1="236" x2="242" y2="242" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+
+  <line x1="202" y1="236" x2="208" y2="242" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="208" y1="236" x2="202" y2="242" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+
+  <line x1="175" y1="193" x2="181" y2="199" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="181" y1="193" x2="175" y2="199" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+
+  <line x1="202" y1="152" x2="208" y2="158" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="208" y1="152" x2="202" y2="158" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Explanation text -->
+  <text x="225" y="282" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1B1B1F">6 teams. Zero crosstalk.</text>
+  <text x="225" y="302" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Each expert works independently.</text>
+  <text x="225" y="320" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">No groupthink. No echo chambers.</text>
+
+  <!-- Legend mini-labels -->
+  <text x="225" y="348" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">Workers only talk to the orchestrator.</text>
+  <text x="225" y="365" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">Never to each other.</text>
+
+  <!-- ========== PANEL 2: LAYERED VERIFICATION ========== -->
+  <!-- Shadow -->
+  <rect x="428" y="88" width="350" height="310" rx="12" fill="#CCFBF1" opacity="0.3"/>
+  <!-- Card -->
+  <rect x="425" y="85" width="350" height="310" rx="12" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <!-- Header bar -->
+  <rect x="425" y="85" width="350" height="34" rx="12" fill="#14B8A6"/>
+  <rect x="425" y="107" width="350" height="12" fill="#14B8A6"/>
+  <text x="600" y="108" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">LAYERED VERIFICATION</text>
+
+  <!-- Three layers with confidence gates -->
+  <!-- Layer 1: Thinking -->
+  <rect x="470" y="140" width="260" height="36" rx="8" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="600" y="163" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#6D28D9">Thinking  &#183;  10 checks</text>
+
+  <!-- Confidence gate 1 -->
+  <path d="M 600,176 C 602,182 598,188 600,194" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="596,192 600,200 604,192" fill="#B0B8C4"/>
+  <rect x="560" y="182" width="80" height="16" rx="4" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
+  <text x="600" y="193" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700" fill="#DC2626">GATE</text>
+
+  <!-- Layer 2: Judgment -->
+  <rect x="470" y="204" width="260" height="36" rx="8" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="600" y="227" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#0F766E">Judgment  &#183;  36 calls</text>
+
+  <!-- Confidence gate 2 -->
+  <path d="M 600,240 C 602,246 598,252 600,258" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="596,256 600,264 604,256" fill="#B0B8C4"/>
+  <rect x="560" y="246" width="80" height="16" rx="4" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1"/>
+  <text x="600" y="257" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700" fill="#DC2626">GATE</text>
+
+  <!-- Layer 3: Craft -->
+  <rect x="470" y="268" width="260" height="36" rx="8" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1.5"/>
+  <text x="600" y="291" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#B45309">Craft  &#183;  8 generators</text>
+
+  <!-- Explanation text -->
+  <text x="600" y="330" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1B1B1F">Each layer earns the next.</text>
+  <text x="600" y="350" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Confidence gate won't proceed</text>
+  <text x="600" y="368" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">on bad inputs. No shortcuts.</text>
+
+  <!-- ========== PANEL 3: COMPOUNDING INTELLIGENCE ========== -->
+  <!-- Shadow -->
+  <rect x="803" y="88" width="350" height="310" rx="12" fill="#FEF3C7" opacity="0.3"/>
+  <!-- Card -->
+  <rect x="800" y="85" width="350" height="310" rx="12" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <!-- Header bar -->
+  <rect x="800" y="85" width="350" height="34" rx="12" fill="#F59E0B"/>
+  <rect x="800" y="107" width="350" height="12" fill="#F59E0B"/>
+  <text x="975" y="108" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">COMPOUNDING INTELLIGENCE</text>
+
+  <!-- Circular feedback loop visual -->
+  <!-- Outer circle (dashed) representing the loop -->
+  <circle cx="975" cy="198" r="52" fill="none" stroke="#FCD34D" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+
+  <!-- Three nodes on the circle -->
+  <!-- Top: Session -->
+  <rect x="945" y="140" width="60" height="22" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+  <text x="975" y="155" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#B45309">Session</text>
+
+  <!-- Bottom-right: Pattern -->
+  <rect x="1006" y="224" width="60" height="22" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+  <text x="1036" y="239" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#B45309">Pattern</text>
+
+  <!-- Bottom-left: Rule -->
+  <rect x="884" y="224" width="60" height="22" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+  <text x="914" y="239" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#B45309">Rule</text>
+
+  <!-- Curved arrows connecting the three (clockwise) -->
+  <!-- Session to Pattern -->
+  <path d="M 1005,156 C 1030,168 1048,200 1036,224" stroke="#F59E0B" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="1032,221 1037,230 1040,220" fill="#F59E0B"/>
+
+  <!-- Pattern to Rule -->
+  <path d="M 1006,238 C 985,252 950,252 944,238" stroke="#F59E0B" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="947,241 942,232 940,243" fill="#F59E0B"/>
+
+  <!-- Rule back to Session -->
+  <path d="M 910,224 C 905,200 920,172 945,156" stroke="#F59E0B" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="942,160 948,150 950,162" fill="#F59E0B"/>
+
+  <!-- "3x" confirmation badge -->
+  <rect x="957" y="186" width="36" height="20" rx="6" fill="#F59E0B"/>
+  <text x="975" y="200" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">3x</text>
+
+  <!-- Explanation text -->
+  <text x="975" y="282" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1B1B1F">The system learns from running.</text>
+  <text x="975" y="302" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">After 3 confirmations, a pattern</text>
+  <text x="975" y="320" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">gets promoted to a rule.</text>
+
+  <text x="975" y="348" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">10th iteration is structurally different</text>
+  <text x="975" y="365" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">from the 1st.</text>
+
+  <!-- ========== PUNCHLINE CALLOUT ========== -->
+  <rect x="130" y="418" width="940" height="36" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="600" y="441" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1B1B1F">The workers are blind. The orchestrator holds the full picture. And the picture gets sharper every session.</text>
+
+  <!-- Footer -->
+  <text x="600" y="482" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#9CA3AF">rtp-personal-skills  &#183;  Under the Hood  &#183;  April 2026</text>
+
+</svg>

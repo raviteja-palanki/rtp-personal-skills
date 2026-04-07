@@ -16,6 +16,20 @@ This is how I actually work. Not a demo. Not a side project. The operating syste
 
 ---
 
+## What makes it powerful
+
+<p align="center">
+  <img src="diagrams/orchestrator-power.svg" alt="Three pillars: isolated expertise (6 blind workers), layered verification (confidence gates), and compounding intelligence (every session makes the next sharper)" width="900"/>
+</p>
+
+The workers are blind. They don't see each other. They don't know they're part of a system. Each brings independent analysis — no groupthink, no echo chambers. The orchestrator is the only entity that holds the full picture, the same way a great product leader holds context across engineering, design, business, and leadership — and integrates it into one decisive call.
+
+Between layers, confidence gates refuse to let the system proceed on bad inputs. You don't get to judgment until thinking says you've earned it. You don't get to craft until judgment says the calls are sound. And every session feeds back into the next — after three confirmations, a pattern gets promoted to a rule that shapes all future work.
+
+> *"A worker agent that has executed ten iterations of a task is structurally different from one on its first run."*
+
+---
+
 ## Watch it work
 
 Someone walks into the room and says:
