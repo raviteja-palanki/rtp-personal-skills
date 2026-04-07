@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+
+  <!-- Background -->
+  <rect width="1200" height="400" fill="#FAFAF8" rx="0"/>
+
+  <!-- Rainbow accent bar -->
+  <rect x="0" y="0" width="240" height="4" fill="#8B5CF6"/>
+  <rect x="240" y="0" width="240" height="4" fill="#14B8A6"/>
+  <rect x="480" y="0" width="240" height="4" fill="#06B6D4"/>
+  <rect x="720" y="0" width="240" height="4" fill="#F59E0B"/>
+  <rect x="960" y="0" width="240" height="4" fill="#EC4899"/>
+
+  <!-- ==================== CENTER BRAIN ==================== -->
+  <!-- Shadow rect (offset) -->
+  <rect x="449" y="143" width="310" height="110" rx="16" fill="#E2E0DC" opacity="0.5"/>
+  <!-- Main rect -->
+  <rect x="445" y="139" width="310" height="110" rx="16" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="2.5"/>
+  <!-- Purple accent bar inside top -->
+  <rect x="445" y="139" width="310" height="36" rx="16" fill="#8B5CF6"/>
+  <rect x="445" y="155" width="310" height="20" fill="#8B5CF6"/>
+  <!-- Label -->
+  <text x="600" y="163" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" letter-spacing="1.5">THE ORCHESTRATOR</text>
+  <!-- Subtitle -->
+  <text x="600" y="204" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">Your Second Brain for Product Work</text>
+  <!-- Small diamond accent -->
+  <rect x="594" y="218" width="12" height="12" rx="2" fill="#8B5CF6" opacity="0.2" transform="rotate(45 600 224)"/>
+
+  <!-- ==================== CONNECTION LINES ==================== -->
+  <!-- Top row lines: center (600,139) to card bottom-centers -->
+  <!-- Sense-Maker: card center ~155, bottom ~107 -->
+  <line x1="510" y1="145" x2="155" y2="107" stroke="#D1D5DB" stroke-width="1.5"/>
+  <!-- Strategist: card center ~505, bottom ~107 -->
+  <line x1="580" y1="139" x2="515" y2="107" stroke="#D1D5DB" stroke-width="1.5"/>
+  <!-- Architect: card center ~865, bottom ~107 -->
+  <line x1="680" y1="139" x2="875" y2="107" stroke="#D1D5DB" stroke-width="1.5"/>
+
+  <!-- Bottom row lines: center (600,249) to card top-centers -->
+  <!-- Trust Builder: card center ~155, top ~293 -->
+  <line x1="510" y1="249" x2="155" y2="293" stroke="#D1D5DB" stroke-width="1.5"/>
+  <!-- Prover: card center ~505, top ~293 -->
+  <line x1="580" y1="249" x2="515" y2="293" stroke="#D1D5DB" stroke-width="1.5"/>
+  <!-- Crafter: card center ~865, top ~293 -->
+  <line x1="680" y1="249" x2="875" y2="293" stroke="#D1D5DB" stroke-width="1.5"/>
+
+  <!-- Small arrow dots at card ends -->
+  <circle cx="155" cy="107" r="3" fill="#D1D5DB"/>
+  <circle cx="515" cy="107" r="3" fill="#D1D5DB"/>
+  <circle cx="875" cy="107" r="3" fill="#D1D5DB"/>
+  <circle cx="155" cy="293" r="3" fill="#D1D5DB"/>
+  <circle cx="515" cy="293" r="3" fill="#D1D5DB"/>
+  <circle cx="875" cy="293" r="3" fill="#D1D5DB"/>
+
+  <!-- ==================== TOP ROW WORKER CARDS ==================== -->
+
+  <!-- SENSE-MAKER (teal) -->
+  <rect x="73" y="42" width="170" height="65" rx="10" fill="#E8E6E2" opacity="0.4"/>
+  <rect x="70" y="39" width="170" height="65" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="70" y="39" width="170" height="24" rx="10" fill="#14B8A6"/>
+  <rect x="70" y="53" width="170" height="10" fill="#14B8A6"/>
+  <text x="155" y="56" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">PROBLEM FINDER</text>
+  <text x="155" y="82" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#5F6B7A">Finds the real problem first</text>
+
+  <!-- STRATEGIST (purple) -->
+  <rect x="433" y="42" width="170" height="65" rx="10" fill="#E8E6E2" opacity="0.4"/>
+  <rect x="430" y="39" width="170" height="65" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="430" y="39" width="170" height="24" rx="10" fill="#8B5CF6"/>
+  <rect x="430" y="53" width="170" height="10" fill="#8B5CF6"/>
+  <text x="515" y="56" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">STRATEGIST</text>
+  <text x="515" y="82" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#5F6B7A">Where to invest, what to kill</text>
+
+  <!-- ARCHITECT (cyan) -->
+  <rect x="793" y="42" width="170" height="65" rx="10" fill="#E8E6E2" opacity="0.4"/>
+  <rect x="790" y="39" width="170" height="65" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="790" y="39" width="170" height="24" rx="10" fill="#06B6D4"/>
+  <rect x="790" y="53" width="170" height="10" fill="#06B6D4"/>
+  <text x="875" y="56" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">SYSTEM DESIGNER</text>
+  <text x="875" y="82" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#5F6B7A">How much autonomy, what controls</text>
+
+  <!-- ==================== BOTTOM ROW WORKER CARDS ==================== -->
+
+  <!-- TRUST BUILDER (pink) -->
+  <rect x="73" y="296" width="170" height="65" rx="10" fill="#E8E6E2" opacity="0.4"/>
+  <rect x="70" y="293" width="170" height="65" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="70" y="293" width="170" height="24" rx="10" fill="#EC4899"/>
+  <rect x="70" y="307" width="170" height="10" fill="#EC4899"/>
+  <text x="155" y="310" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">SAFETY LEAD</text>
+  <text x="155" y="338" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#5F6B7A">Make it safe AND adopted</text>
+
+  <!-- PROVER (amber) -->
+  <rect x="433" y="296" width="170" height="65" rx="10" fill="#E8E6E2" opacity="0.4"/>
+  <rect x="430" y="293" width="170" height="65" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="430" y="293" width="170" height="24" rx="10" fill="#F59E0B"/>
+  <rect x="430" y="307" width="170" height="10" fill="#F59E0B"/>
+  <text x="515" y="310" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">EVAL EXPERT</text>
+  <text x="515" y="338" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#5F6B7A">Evidence, not hope</text>
+
+  <!-- CRAFTER (green) -->
+  <rect x="793" y="296" width="170" height="65" rx="10" fill="#E8E6E2" opacity="0.4"/>
+  <rect x="790" y="293" width="170" height="65" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="790" y="293" width="170" height="24" rx="10" fill="#16A34A"/>
+  <rect x="790" y="307" width="170" height="10" fill="#16A34A"/>
+  <text x="875" y="310" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">SPEC WRITER</text>
+  <text x="875" y="338" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#5F6B7A">Ship pre-tested artifacts</text>
+
+  <!-- ==================== BOTTOM STATS BAR ==================== -->
+  <text x="460" y="385" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#8B5CF6">66 Skills</text>
+  <text x="520" y="385" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#9CA3AF">&#183;</text>
+  <text x="588" y="385" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#14B8A6">3 Layers</text>
+  <text x="648" y="385" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#9CA3AF">&#183;</text>
+  <text x="760" y="385" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="600" fill="#F59E0B">1 Compounding System</text>
+
+</svg>

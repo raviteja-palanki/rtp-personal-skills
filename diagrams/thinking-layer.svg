@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="1200" height="520">
+  <!-- Background -->
+  <rect x="0" y="0" width="1200" height="520" fill="#FAFAF8" rx="0"/>
+
+  <!-- Header band -->
+  <rect x="0" y="0" width="1200" height="72" fill="#F5F3FF" rx="0"/>
+  <text x="40" y="38" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="bold" fill="#6D28D9">10 Checks Before You're Allowed to Decide</text>
+  <text x="40" y="60" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#5F6B7A">Comprehensive  ·  Layer 1: Thinking</text>
+
+  <!-- ROW 1 -->
+  <!-- Card 1: First Principles -->
+  <rect x="22" y="90" width="210" height="140" rx="8" fill="#E8E5E0" opacity="0.5"/>
+  <rect x="20" y="88" width="210" height="140" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="20" y="88" width="210" height="32" rx="8" fill="#8B5CF6"/>
+  <rect x="20" y="104" width="210" height="16" fill="#8B5CF6"/>
+  <text x="30" y="110" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">First Principles</text>
+  <text x="30" y="140" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">Find the ONE atomic</text>
+  <text x="30" y="156" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">operation underneath all</text>
+  <text x="30" y="172" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">the complexity</text>
+
+  <!-- Card 2: Bias Spotter -->
+  <rect x="254" y="90" width="210" height="140" rx="8" fill="#E8E5E0" opacity="0.5"/>
+  <rect x="252" y="88" width="210" height="140" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="252" y="88" width="210" height="32" rx="8" fill="#8B5CF6"/>
+  <rect x="252" y="104" width="210" height="16" fill="#8B5CF6"/>
+  <text x="262" y="110" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Bias Spotter</text>
+  <text x="262" y="140" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">Are you seeing what you</text>
+  <text x="262" y="156" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">want to see, or what's</text>
+  <text x="262" y="172" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">actually there?</text>
+
+  <!-- Card 3: Falsification -->
+  <rect x="486" y="90" width="210" height="140" rx="8" fill="#E8E5E0" opacity="0.5"/>
+  <rect x="484" y="88" width="210" height="140" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="484" y="88" width="210" height="32" rx="8" fill="#8B5CF6"/>
+  <rect x="484" y="104" width="210" height="16" fill="#8B5CF6"/>
+  <text x="494" y="110" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Falsification</text>
+  <text x="494" y="140" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">Under what conditions is</text>
+  <text x="494" y="156" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">your best recommendation</text>
+  <text x="494" y="172" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">dead wrong?</text>
+
+  <!-- Card 4: Failure Design -->
+  <rect x="718" y="90" width="210" height="140" rx="8" fill="#E8E5E0" opacity="0.5"/>
+  <rect x="716" y="88" width="210" height="140" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="716" y="88" width="210" height="32" rx="8" fill="#8B5CF6"/>
+  <rect x="716" y="104" width="210" height="16" fill="#8B5CF6"/>
+  <text x="726" y="110" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Failure Design</text>
+  <text x="726" y="140" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">Where does it fail</text>
+  <text x="726" y="156" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">gracefully vs. fail</text>
+  <text x="726" y="172" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">dangerously?</text>
+
+  <!-- Card 5: Stress Test -->
+  <rect x="950" y="90" width="210" height="140" rx="8" fill="#E8E5E0" opacity="0.5"/>
+  <rect x="948" y="88" width="210" height="140" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="948" y="88" width="210" height="32" rx="8" fill="#8B5CF6"/>
+  <rect x="948" y="104" width="210" height="16" fill="#8B5CF6"/>
+  <text x="958" y="110" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Stress Test</text>
+  <text x="958" y="140" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">What happens at 10x scale,</text>
+  <text x="958" y="156" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">0.1x budget, or hostile</text>
+  <text x="958" y="172" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">input?</text>
+
+  <!-- ROW 2 -->
+  <!-- Card 6: Dual Lens -->
+  <rect x="22" y="250" width="210" height="140" rx="8" fill="#E8E5E0" opacity="0.5"/>
+  <rect x="20" y="248" width="210" height="140" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="20" y="248" width="210" height="32" rx="8" fill="#8B5CF6"/>
+  <rect x="20" y="264" width="210" height="16" fill="#8B5CF6"/>
+  <text x="30" y="270" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Dual Lens</text>
+  <text x="30" y="300" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">Business framing AND</text>
+  <text x="30" y="316" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">technical framing.</text>
+  <text x="30" y="332" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">Every time.</text>
+
+  <!-- Card 7: Determinism Compass -->
+  <rect x="254" y="250" width="210" height="140" rx="8" fill="#E8E5E0" opacity="0.5"/>
+  <rect x="252" y="248" width="210" height="140" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="252" y="248" width="210" height="32" rx="8" fill="#8B5CF6"/>
+  <rect x="252" y="264" width="210" height="16" fill="#8B5CF6"/>
+  <text x="262" y="270" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Determinism Compass</text>
+  <text x="262" y="300" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">How probabilistic is this?</text>
+  <text x="262" y="316" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">Who bears the uncertainty</text>
+  <text x="262" y="332" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">cost?</text>
+
+  <!-- Card 8: Problem Type -->
+  <rect x="486" y="250" width="210" height="140" rx="8" fill="#E8E5E0" opacity="0.5"/>
+  <rect x="484" y="248" width="210" height="140" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="484" y="248" width="210" height="32" rx="8" fill="#8B5CF6"/>
+  <rect x="484" y="264" width="210" height="16" fill="#8B5CF6"/>
+  <text x="494" y="270" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Problem Type</text>
+  <text x="494" y="300" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">Is this a known solution,</text>
+  <text x="494" y="316" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">or genuine exploration?</text>
+
+  <!-- Card 9: Alignment Check -->
+  <rect x="718" y="250" width="210" height="140" rx="8" fill="#E8E5E0" opacity="0.5"/>
+  <rect x="716" y="248" width="210" height="140" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="716" y="248" width="210" height="32" rx="8" fill="#8B5CF6"/>
+  <rect x="716" y="264" width="210" height="16" fill="#8B5CF6"/>
+  <text x="726" y="270" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Alignment Check</text>
+  <text x="726" y="300" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">Does your team actually</text>
+  <text x="726" y="316" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">agree, or just not</text>
+  <text x="726" y="332" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">disagree?</text>
+
+  <!-- Card 10: Judgment Guard -->
+  <rect x="950" y="250" width="210" height="140" rx="8" fill="#E8E5E0" opacity="0.5"/>
+  <rect x="948" y="248" width="210" height="140" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="948" y="248" width="210" height="32" rx="8" fill="#8B5CF6"/>
+  <rect x="948" y="264" width="210" height="16" fill="#8B5CF6"/>
+  <text x="958" y="270" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Judgment Guard</text>
+  <text x="958" y="300" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">Which cognitive bias is</text>
+  <text x="958" y="316" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">most likely hijacking</text>
+  <text x="958" y="332" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#5F6B7A">this decision?</text>
+
+  <!-- Callout box -->
+  <rect x="42" y="412" width="1116" height="50" rx="8" fill="#E8E5E0" opacity="0.35"/>
+  <rect x="40" y="410" width="1116" height="50" rx="8" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="60" y="441" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#6D28D9">These don't produce documents. They produce confidence that the documents are worth writing.</text>
+
+  <!-- Footer -->
+  <text x="600" y="496" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">Layer 1  ·  Thinking  ·  10 Skills  ·  April 2026</text>
+</svg>
