@@ -8,21 +8,21 @@
 
   <!-- Title -->
   <text x="600" y="36" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="800" fill="#1B1B1F">Not a Toolkit. A Personal Operating System.</text>
-  <text x="600" y="58" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#5F6B7A">Quick Check  ·  One Brain, One Quality Bar, Every Domain</text>
+  <text x="600" y="58" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#374151">Quick Check  ·  One Brain, One Quality Bar, Every Domain</text>
 
   <!-- Orchestrator badge -->
   <rect x="516" y="80" width="168" height="28" rx="14" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.5"/>
   <text x="600" y="99" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#8B5CF6">THE ORCHESTRATOR</text>
 
-  <!-- Connection lines from orchestrator to row 1 -->
-  <line x1="540" y1="108" x2="195" y2="135" stroke="#D1D5DB" stroke-width="1.5"/>
-  <line x1="600" y1="108" x2="600" y2="135" stroke="#D1D5DB" stroke-width="1.5"/>
-  <line x1="660" y1="108" x2="1005" y2="135" stroke="#D1D5DB" stroke-width="1.5"/>
+  <!-- Connection lines to row 1 (hand-drawn curves) -->
+  <path d="M 540,108 C 440,114 300,124 195,135" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 600,108 C 603,118 597,126 600,135" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 660,108 C 760,114 900,124 1005,135" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
 
-  <!-- Connection lines from orchestrator to row 2 -->
-  <line x1="540" y1="108" x2="195" y2="315" stroke="#D1D5DB" stroke-width="1.5"/>
-  <line x1="600" y1="108" x2="600" y2="315" stroke="#D1D5DB" stroke-width="1.5"/>
-  <line x1="660" y1="108" x2="1005" y2="315" stroke="#D1D5DB" stroke-width="1.5"/>
+  <!-- Connection lines to row 2 (hand-drawn curves) -->
+  <path d="M 540,108 C 440,160 280,250 195,315" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 600,108 C 603,180 597,260 600,315" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 660,108 C 760,160 920,250 1005,315" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
 
   <!-- ==================== ROW 1 ==================== -->
 
@@ -37,9 +37,9 @@
   <!-- Card title -->
   <text x="90" y="159" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">AI Product Management</text>
   <!-- Card body -->
-  <text x="34" y="185" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">54 skills across 6 expert teams.</text>
-  <text x="34" y="203" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">PRDs, strategy, evals, safety</text>
-  <text x="34" y="221" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">-- all pre-tested.</text>
+  <text x="34" y="185" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">54 skills across 6 expert teams.</text>
+  <text x="34" y="203" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">PRDs, strategy, evals, safety</text>
+  <text x="34" y="221" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">-- all pre-tested.</text>
 
   <!-- Card 2: Writing & Email -->
   <!-- Shadow rect -->
@@ -52,9 +52,9 @@
   <!-- Card title -->
   <text x="515" y="159" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Writing &amp; Email</text>
   <!-- Card body -->
-  <text x="439" y="185" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">Email mastery with voice calibration.</text>
-  <text x="439" y="203" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">Thought leadership with the 10</text>
-  <text x="439" y="221" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">thinking algorithms baked in.</text>
+  <text x="439" y="185" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Email mastery with voice calibration.</text>
+  <text x="439" y="203" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Thought leadership with the 10</text>
+  <text x="439" y="221" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">thinking algorithms baked in.</text>
 
   <!-- Card 3: Research & Synthesis -->
   <!-- Shadow rect -->
@@ -67,9 +67,9 @@
   <!-- Card title -->
   <text x="930" y="159" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Research &amp; Synthesis</text>
   <!-- Card body -->
-  <text x="844" y="185" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">Grok + Perplexity signal collection.</text>
-  <text x="844" y="203" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">HBR pipeline. 298 podcast</text>
-  <text x="844" y="221" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">transcripts indexed.</text>
+  <text x="844" y="185" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Grok + Perplexity signal collection.</text>
+  <text x="844" y="203" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">HBR pipeline. 298 podcast</text>
+  <text x="844" y="221" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">transcripts indexed.</text>
 
   <!-- ==================== ROW 2 ==================== -->
 
@@ -84,9 +84,9 @@
   <!-- Card title -->
   <text x="100" y="339" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Presentations &amp; Visual</text>
   <!-- Card body -->
-  <text x="34" y="365" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">Zero-dependency HTML presentations.</text>
-  <text x="34" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">Hand-drawn SVG diagrams.</text>
-  <text x="34" y="401" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">Apple-level design system.</text>
+  <text x="34" y="365" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Zero-dependency HTML presentations.</text>
+  <text x="34" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Hand-drawn SVG diagrams.</text>
+  <text x="34" y="401" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Apple-level design system.</text>
 
   <!-- Card 5: Interview & Career -->
   <!-- Shadow rect -->
@@ -99,9 +99,9 @@
   <!-- Card title -->
   <text x="511" y="339" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Interview &amp; Career</text>
   <!-- Card body -->
-  <text x="439" y="365" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">AI PM interview prep grounded in</text>
-  <text x="439" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">real frameworks. Company research.</text>
-  <text x="439" y="401" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">War book of key questions.</text>
+  <text x="439" y="365" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">AI PM interview prep grounded in</text>
+  <text x="439" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">real frameworks. Company research.</text>
+  <text x="439" y="401" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">War book of key questions.</text>
 
   <!-- Card 6: Course Building -->
   <!-- Shadow rect -->
@@ -114,14 +114,14 @@
   <!-- Card title -->
   <text x="928" y="339" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Course Building</text>
   <!-- Card body -->
-  <text x="844" y="365" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">17-module AI PM curriculum using</text>
-  <text x="844" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">the CONTEXT framework. From</text>
-  <text x="844" y="401" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">foundations to leadership.</text>
+  <text x="844" y="365" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">17-module AI PM curriculum using</text>
+  <text x="844" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">the CONTEXT framework. From</text>
+  <text x="844" y="401" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">foundations to leadership.</text>
 
   <!-- ==================== PUNCHLINE CALLOUT ==================== -->
   <rect x="103" y="468" width="994" height="28" rx="6" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1"/>
   <text x="600" y="486" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#1B1B1F"><tspan font-weight="700">Most people use AI to do things faster. A few use it to think things they couldn't think before.</tspan></text>
 
   <!-- Footer -->
-  <text x="600" y="512" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#9CA3AF">rtp-personal-skills  ·  The Personal OS  ·  April 2026</text>
+  <text x="600" y="512" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">rtp-personal-skills  ·  The Personal OS  ·  April 2026</text>
 </svg>

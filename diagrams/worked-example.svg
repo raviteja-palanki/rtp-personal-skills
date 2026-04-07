@@ -6,11 +6,11 @@
   <!-- Header Band -->
   <rect x="0" y="0" width="1200" height="72" fill="#F5F3FF" rx="0"/>
   <text x="600" y="38" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#6D28D9">What Actually Happens</text>
-  <text x="600" y="58" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#5F6B7A">Comprehensive  ·  A Real Problem, Start to Finish</text>
+  <text x="600" y="58" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#374151">Comprehensive  ·  A Real Problem, Start to Finish</text>
 
   <!-- ===================== STEP 1 — THE INPUT ===================== -->
   <!-- Step Label -->
-  <text x="40" y="108" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">STEP 1</text>
+  <text x="40" y="108" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="1.5">STEP 1</text>
 
   <!-- Card shadow -->
   <rect x="102" y="92" width="1000" height="68" rx="8" fill="#D1D5DB" opacity="0.35"/>
@@ -26,12 +26,12 @@
   <rect x="980" y="100" width="108" height="24" rx="12" fill="#FEE2E2"/>
   <text x="1034" y="116" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#EF4444">VAGUE REQUEST</text>
 
-  <!-- Arrow 1→2 -->
-  <line x1="600" y1="160" x2="600" y2="180" stroke="#D1D5DB" stroke-width="2" stroke-dasharray="4,3"/>
-  <polygon points="594,178 600,188 606,178" fill="#D1D5DB"/>
+  <!-- Arrow 1 to 2 (organic curve) -->
+  <path d="M 600,160 C 603,168 597,176 600,183" stroke="#B0B8C4" stroke-width="2.5" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+  <polygon points="594,180 600,191 606,180" fill="#B0B8C4"/>
 
   <!-- ===================== STEP 2 — ORCHESTRATOR CLASSIFIES ===================== -->
-  <text x="40" y="206" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">STEP 2</text>
+  <text x="40" y="206" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="1.5">STEP 2</text>
 
   <!-- Card shadow -->
   <rect x="102" y="190" width="1000" height="100" rx="8" fill="#D1D5DB" opacity="0.35"/>
@@ -49,18 +49,18 @@
   <rect x="976" y="200" width="112" height="24" rx="12" fill="#EDE9FE"/>
   <text x="1032" y="216" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#8B5CF6">ORCHESTRATOR</text>
 
-  <!-- Arrow 2→3 -->
-  <line x1="600" y1="290" x2="600" y2="310" stroke="#D1D5DB" stroke-width="2" stroke-dasharray="4,3"/>
-  <polygon points="594,308 600,318 606,308" fill="#D1D5DB"/>
+  <!-- Arrow 2 to 3 (organic curve) -->
+  <path d="M 600,290 C 603,298 597,306 600,313" stroke="#B0B8C4" stroke-width="2.5" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+  <polygon points="594,310 600,321 606,310" fill="#B0B8C4"/>
 
-  <!-- Fan-out lines from center to 3 workers -->
-  <line x1="600" y1="318" x2="270" y2="348" stroke="#D1D5DB" stroke-width="1.5" stroke-dasharray="4,3"/>
-  <line x1="600" y1="318" x2="600" y2="348" stroke="#D1D5DB" stroke-width="1.5" stroke-dasharray="4,3"/>
-  <line x1="600" y1="318" x2="930" y2="348" stroke="#D1D5DB" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Fan-out lines to workers (hand-drawn curves) -->
+  <path d="M 600,321 C 520,330 380,340 270,348" stroke="#B0B8C4" stroke-width="2" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+  <path d="M 600,321 C 603,332 597,341 600,348" stroke="#B0B8C4" stroke-width="2" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+  <path d="M 600,321 C 680,330 820,340 930,348" stroke="#B0B8C4" stroke-width="2" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
 
   <!-- ===================== STEP 3 — WORKERS IN PARALLEL ===================== -->
-  <text x="40" y="344" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">STEP 3</text>
-  <text x="40" y="360" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#9CA3AF">PARALLEL</text>
+  <text x="40" y="344" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="1.5">STEP 3</text>
+  <text x="40" y="360" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">PARALLEL</text>
 
   <!-- === Worker 1: PROBLEM FINDER (teal) === -->
   <!-- Shadow -->
@@ -106,17 +106,17 @@
   <text x="804" y="466" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#4B5563">triggers action. Failure mode: false</text>
   <text x="804" y="482" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#4B5563">confidence on sparse data.</text>
 
-  <!-- Dashed curved arrows from workers back to center (converge) -->
-  <path d="M 255 542 Q 255 562 430 572" stroke="#D1D5DB" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
-  <path d="M 600 542 L 600 560" stroke="#D1D5DB" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
-  <path d="M 945 542 Q 945 562 770 572" stroke="#D1D5DB" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+  <!-- Converge curves from workers (hand-drawn) -->
+  <path d="M 255,542 C 260,558 370,568 430,572" stroke="#B0B8C4" stroke-width="2" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+  <path d="M 600,542 C 603,550 597,558 600,564" stroke="#B0B8C4" stroke-width="2" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+  <path d="M 945,542 C 940,558 830,568 770,572" stroke="#B0B8C4" stroke-width="2" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
 
-  <!-- Converge arrow -->
-  <line x1="600" y1="560" x2="600" y2="588" stroke="#D1D5DB" stroke-width="2" stroke-dasharray="4,3"/>
-  <polygon points="594,586 600,596 606,586" fill="#D1D5DB"/>
+  <!-- Converge arrow (organic) -->
+  <path d="M 600,564 C 603,574 597,582 600,591" stroke="#B0B8C4" stroke-width="2.5" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+  <polygon points="594,588 600,599 606,588" fill="#B0B8C4"/>
 
   <!-- ===================== STEP 4 — ORCHESTRATOR SYNTHESIZES ===================== -->
-  <text x="40" y="614" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">STEP 4</text>
+  <text x="40" y="614" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="1.5">STEP 4</text>
 
   <!-- Card shadow -->
   <rect x="102" y="598" width="1000" height="104" rx="8" fill="#D1D5DB" opacity="0.35"/>
@@ -134,12 +134,12 @@
   <rect x="956" y="608" width="132" height="24" rx="12" fill="#DCFCE7"/>
   <text x="1022" y="624" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#16A34A">RECOMMENDATION</text>
 
-  <!-- Arrow 4→5 -->
-  <line x1="600" y1="702" x2="600" y2="722" stroke="#D1D5DB" stroke-width="2" stroke-dasharray="4,3"/>
-  <polygon points="594,720 600,730 606,720" fill="#D1D5DB"/>
+  <!-- Arrow 4 to 5 (organic curve) -->
+  <path d="M 600,702 C 603,710 597,718 600,725" stroke="#B0B8C4" stroke-width="2.5" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+  <polygon points="594,722 600,733 606,722" fill="#B0B8C4"/>
 
   <!-- ===================== STEP 5 — THE OUTPUT ===================== -->
-  <text x="40" y="748" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF" letter-spacing="1.5">STEP 5</text>
+  <text x="40" y="748" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="1.5">STEP 5</text>
 
   <!-- Card shadow -->
   <rect x="102" y="732" width="1000" height="80" rx="8" fill="#D1D5DB" opacity="0.35"/>
@@ -164,6 +164,6 @@
   </text>
 
   <!-- ===================== FOOTER ===================== -->
-  <text x="600" y="892" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#9CA3AF">rtp-personal-skills  ·  The Orchestrator in Action  ·  April 2026</text>
+  <text x="600" y="892" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">rtp-personal-skills  ·  The Orchestrator in Action  ·  April 2026</text>
 
 </svg>

@@ -6,7 +6,7 @@
   <!-- Header band -->
   <rect x="0" y="0" width="1200" height="64" fill="#F0FDFA"/>
   <text x="600" y="32" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="800" fill="#0F766E">Why the Output Was Trustworthy</text>
-  <text x="600" y="52" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#5F6B7A">Quick Check  /  Three Layers, Each Earns Its Place</text>
+  <text x="600" y="52" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#374151">Quick Check  /  Three Layers, Each Earns Its Place</text>
 
   <!-- ======================== LEFT HALF: LAYER CAKE ======================== -->
 
@@ -18,12 +18,12 @@
   <rect x="50" y="80" width="500" height="30" rx="8" fill="#8B5CF6"/>
   <rect x="50" y="100" width="500" height="10" fill="#8B5CF6"/>
   <text x="70" y="100" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">Layer 1: Thinking</text>
-  <text x="70" y="133" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">10 checks run first. Are you solving the right problem?</text>
-  <text x="70" y="150" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">What would make you wrong?</text>
+  <text x="70" y="133" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">10 checks run first. Are you solving the right problem?</text>
+  <text x="70" y="150" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">What would make you wrong?</text>
 
-  <!-- Arrow 1 -->
-  <line x1="300" y1="170" x2="300" y2="195" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5,4"/>
-  <polygon points="294,192 300,202 306,192" fill="#9CA3AF"/>
+  <!-- Arrow 1 (organic curve) -->
+  <path d="M 300,170 C 303,178 297,186 300,194" stroke="#9CA3AF" stroke-width="2.5" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+  <polygon points="294,191 300,202 306,191" fill="#6B7280"/>
 
   <!-- Layer 2: Judgment — shadow -->
   <rect x="53" y="208" width="500" height="90" rx="8" fill="#D4D4D8" opacity="0.4"/>
@@ -33,12 +33,12 @@
   <rect x="50" y="205" width="500" height="30" rx="8" fill="#14B8A6"/>
   <rect x="50" y="225" width="500" height="10" fill="#14B8A6"/>
   <text x="70" y="225" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">Layer 2: Judgment</text>
-  <text x="70" y="258" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">36 domain calls. Build or buy? What autonomy level?</text>
-  <text x="70" y="275" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">Where does it fail dangerously?</text>
+  <text x="70" y="258" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">36 domain calls. Build or buy? What autonomy level?</text>
+  <text x="70" y="275" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Where does it fail dangerously?</text>
 
-  <!-- Arrow 2 -->
-  <line x1="300" y1="295" x2="300" y2="320" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5,4"/>
-  <polygon points="294,317 300,327 306,317" fill="#9CA3AF"/>
+  <!-- Arrow 2 (organic curve) -->
+  <path d="M 300,295 C 303,303 297,311 300,319" stroke="#9CA3AF" stroke-width="2.5" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+  <polygon points="294,316 300,327 306,316" fill="#6B7280"/>
 
   <!-- Layer 3: Craft — shadow -->
   <rect x="53" y="333" width="500" height="90" rx="8" fill="#D4D4D8" opacity="0.4"/>
@@ -48,8 +48,8 @@
   <rect x="50" y="330" width="500" height="30" rx="8" fill="#F59E0B"/>
   <rect x="50" y="350" width="500" height="10" fill="#F59E0B"/>
   <text x="70" y="350" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">Layer 3: Craft</text>
-  <text x="70" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">8 generators that won't start until Layers 1 and 2 have run.</text>
-  <text x="70" y="400" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5F6B7A">Every output pre-tested.</text>
+  <text x="70" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">8 generators that won't start until Layers 1 and 2 have run.</text>
+  <text x="70" y="400" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Every output pre-tested.</text>
 
   <!-- ======================== RIGHT HALF: BEFORE / AFTER ======================== -->
 
@@ -66,7 +66,7 @@
   <line x1="1116" y1="96" x2="1100" y2="112" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round"/>
 
   <!-- VS divider -->
-  <text x="885" y="248" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#9CA3AF">vs</text>
+  <text x="885" y="248" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#6B7280">vs</text>
 
   <!-- WITH panel — shadow -->
   <rect x="633" y="268" width="510" height="180" rx="8" fill="#D4D4D8" opacity="0.4"/>
@@ -83,6 +83,6 @@
   <text x="650" y="396" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#1B1B1F">invalidate the plan.</text>
 
   <!-- ======================== FOOTER ======================== -->
-  <text x="600" y="495" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#9CA3AF">rtp-personal-skills  /  Three Layers  /  April 2026</text>
+  <text x="600" y="495" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#6B7280">rtp-personal-skills  /  Three Layers  /  April 2026</text>
 
 </svg>

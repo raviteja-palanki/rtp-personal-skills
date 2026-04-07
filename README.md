@@ -44,7 +44,7 @@ The reason that output was trustworthy isn't the model. It's that **thinking hap
   <img src="diagrams/three-layers.svg" alt="Three layers — thinking, judgment, craft — each earns its place by making the next one trustworthy" width="900"/>
 </p>
 
-Each layer earns the right to exist by making the next layer's output trustworthy. The thinking layer catches errors in reasoning. The judgment layer makes the hard calls. The craft layer ships pre-tested artifacts. Skip a layer and you get polished documents built on unexamined assumptions — the most expensive kind of waste in product work.
+Each layer earns the right to exist by making the next layer's output trustworthy. The thinking layer surfaces the hard questions and won't let the system proceed until confidence clears a threshold. The judgment layer makes the hard calls — but only after the inputs have been pressure-tested. The craft layer ships pre-tested artifacts. Skip a layer and you get polished documents built on unexamined assumptions — the most expensive kind of waste in product work.
 
 > *"A beautiful PRD built on the wrong assumptions isn't a document. It's a delayed disaster with nice formatting."*
 
@@ -58,9 +58,11 @@ Each layer earns the right to exist by making the next layer's output trustworth
 
 10 checks that don't produce documents. They produce **confidence that the documents are worth writing.** Before any decision gets made: Are you decomposing from first principles, or pattern-matching from your last project? What would make your strongest recommendation completely invalid? Who bears the cost if you're wrong?
 
+The critical insight: **asking the hard questions up front is far more effective than executing blind and hoping.** The thinking layer has a confidence gate — if the inputs don't clear a threshold, the system surfaces what's missing instead of proceeding with bad assumptions. You don't get to the judgment layer until the thinking layer says you've earned it.
+
 These run silently. The user never sees "running bias check." They see a recommendation that already accounts for the blind spots — because the system caught them before the recommendation was formed.
 
-> *"Everyone has biases. The question is whether your system catches them before your users do."*
+> *"Asking the right question before the room realizes it needs asking — that's the job. Everything else is execution."*
 
 ---
 

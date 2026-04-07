@@ -94,7 +94,7 @@ Every SVG starts with this exact structure:
   <rect x="0" y="0" width="{WIDTH}" height="80" rx="16" fill="{HEADER_TINT}"/>
   <rect x="0" y="60" width="{WIDTH}" height="20" fill="{HEADER_TINT}"/>
   <text x="{CENTER}" y="36" text-anchor="middle" fill="{HEADER_TEXT}" font-size="28" font-weight="800" font-family="Inter, Segoe UI, sans-serif">{TITLE}</text>
-  <text x="{CENTER}" y="62" text-anchor="middle" fill="#5F6B7A" font-size="15" font-family="Inter, sans-serif">{DEPTH_LABEL} · {SUBTITLE}</text>
+  <text x="{CENTER}" y="62" text-anchor="middle" fill="#374151" font-size="15" font-family="Inter, sans-serif">{DEPTH_LABEL} · {SUBTITLE}</text>
 
   <!-- Content area -->
   ...
@@ -141,7 +141,7 @@ See [references/color-palette.md](references/color-palette.md) for the complete 
 | Section header | 17-20px | 700-800 | White (on colored bar) | Card/section titles |
 | Card subtitle | 14-15px | 600-700 | Semantic dark color | Below header bar |
 | Body text | 13-14px | 400 | `#5F6B7A` | Descriptions, explanations |
-| Chip/tag text | 11-12px | 600 | Semantic medium color | Skill names, labels, tags |
+| Chip/tag text | 10-12px | 600 | Semantic medium color | Skill names, labels, tags |
 | Footer/meta | 11-12px | 400 | `#9CA3AF` | Attribution, pagination |
 
 **Font stack:** `Inter, Segoe UI, sans-serif` — always. Never use monospace for display. Only for code literals.
@@ -363,27 +363,37 @@ After planning, check:
 
 | Arrow type | SVG approach | When to use |
 |-----------|-------------|-------------|
-| Straight horizontal | `M x1,y L x2,y` | Same-row connections, flow chains |
-| Straight vertical | `M x,y1 L x,y2` | Parent-child, top-down hierarchies |
-| Curved (bezier) | `M x1,y1 C cx1,cy1 cx2,cy2 x2,y2` | Layer-to-layer flows, import chains |
+| Hand-drawn curve (DEFAULT) | `M x1,y1 C cx1,cy1 cx2,cy2 x2,y2` | **All connections.** This is the default. |
 | Elbowed (L-shaped) | `M x1,y1 L x1,y2 L x2,y2` | Cross-lane routing, avoiding overlaps |
 
-### Arrow Routing Rules
+**CRITICAL: Never use straight `<line>` elements for arrows.** Straight lines look mechanical and tool-generated. Always use `<path>` with cubic bezier curves (`C`) that have control points offset 5-15px from the straight-line path. This creates the organic, hand-drawn feel that separates artisan craft from tool output.
 
-1. **Never accept crossing arrows.** If two arrows must cross, rearrange the elements. Crossing arrows signal a layout problem, not an arrow problem.
-2. **Arrow gap:** Leave 25-30px between the source element's edge and the arrow start. Same for the target.
-3. **Arrowhead sizing:** 10-12px for standard arrows. Use `<polygon>` not `<marker>` for consistent rendering across browsers.
-4. **Labels on arrows:** Place midway along the path, 12px above the line. Use 11px font, bold weight, in the semantic color of the connection.
-5. **Curved arrows with waypoints:** For connections that need to route around obstacles:
-   ```xml
-   <!-- Curve around an obstacle: control points push the curve away -->
-   <path d="M 200,300 C 200,250 400,250 400,300" stroke="#9CA3AF" stroke-width="2" fill="none"/>
-   ```
-6. **Elbowed arrows for cross-lane routing:**
-   ```xml
-   <!-- L-shaped: down then right -->
-   <path d="M 200,300 L 200,400 L 500,400" stroke="#9CA3AF" stroke-width="2" fill="none" stroke-linejoin="round"/>
-   ```
+### The Hand-Drawn Arrow Formula
+
+For a vertical arrow from (x, y1) to (x, y2):
+```xml
+<!-- Organic vertical arrow — control points wobble 3px left/right -->
+<path d="M x,y1 C x+3,y1+h/3 x-3,y1+2h/3 x,y2" stroke="#B0B8C4" stroke-width="2.5" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
+<polygon points="x-6,y2-3 x,y2+8 x+6,y2-3" fill="#B0B8C4"/>
+```
+
+For a diagonal arrow from (x1, y1) to (x2, y2):
+```xml
+<!-- Organic diagonal — single control point creates a gentle arc -->
+<path d="M x1,y1 C midX-10,midY+8 midX+10,midY-8 x2,y2" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
+```
+
+### Arrow Styling Rules
+
+1. **Always `stroke-linecap="round"`.** This is non-negotiable. Square caps look mechanical.
+2. **Arrow color: `#B0B8C4`** — darker than `#D1D5DB` (old default), visible at small sizes, but still recedes behind content.
+3. **Stroke width: 2-2.5px** for arrows, 2px for connection lines. Thinner disappears at GitHub rendering scale.
+4. **Dashed arrows: `stroke-dasharray="5,4"`** — slightly longer dashes than the old `4,3`, more organic rhythm.
+5. **Endpoint dots: `r="3.5"` circles** in `#B0B8C4` — marks where connections land. Slightly larger than before.
+6. **Never accept crossing arrows.** If two arrows must cross, rearrange the elements.
+7. **Arrow gap:** Leave 25-30px between the source element's edge and the arrow start.
+8. **Arrowhead sizing:** 10-12px. Use `<polygon>` not `<marker>` for consistent browser rendering.
+9. **Labels on arrows:** Place midway along the path, 12px above the line. 11px font, bold, semantic color.
 
 ---
 
@@ -394,8 +404,9 @@ After planning, check:
 ### Text & Readability
 - [ ] **No truncated text.** Every label fits within its container. Run the sizing rule: `width = max(160, textLength × 9)`.
 - [ ] Background is `#FAFAF8` (warm off-white), never pure white or dark
-- [ ] All body text is `#1B1B1F` or `#5F6B7A` — never grey-on-grey
-- [ ] Minimum font size is 11px (hard floor — no exceptions); body text is 13-14px
+- [ ] **Body text is `#374151`** (not `#5F6B7A` — that's too faint at GitHub scale). Dark enough to read at any zoom level.
+- [ ] **Secondary/meta text is `#6B7280`** (not `#9CA3AF` — that vanishes at small sizes). Footers, faded skill lists, step labels.
+- [ ] Minimum font size is 11px; body text is 13-14px
 - [ ] White text ONLY appears on solid color header bars (with font-weight 700+ and size 16px+)
 - [ ] Every text element has `font-family="Inter, Segoe UI, sans-serif"`
 
@@ -409,6 +420,10 @@ After planning, check:
 - [ ] Rounded corners: 14-16px for cards, 8px for chips, 18px for badges
 
 ### Arrows & Connections
+- [ ] **No straight `<line>` arrows.** All connections use `<path>` with bezier curves. No exceptions.
+- [ ] All paths have `stroke-linecap="round"` — square caps look mechanical.
+- [ ] Arrow stroke color is `#B0B8C4` (not `#D1D5DB` — too faint at small sizes).
+- [ ] Arrow stroke width is 2-2.5px (not 1.5 — disappears at GitHub scale).
 - [ ] **No crossing arrows.** If arrows cross, rearrange elements first.
 - [ ] Arrow gaps: 25-30px clearance from element edges
 - [ ] Every arrow has a visible arrowhead (polygon, not marker)
@@ -422,12 +437,25 @@ After planning, check:
 ### Story & Copy
 - [ ] Depth label present at top (Comprehensive or Executive Summary)
 - [ ] One clear narrative arc: setup → content → punchline
-- [ ] Callout or comparison box delivers the "so what?" at the bottom
+- [ ] **Punchline callout box contains a memorable, quotable line** — the kind of sentence people screenshot. Not a summary. An insight.
 - [ ] Footer includes attribution or context
 - [ ] Headlines reframe, not describe
 - [ ] No filler words: leverage, utilize, comprehensive, robust, streamline
 - [ ] Specific numbers used where possible
 - [ ] Card descriptions are 2-3 lines maximum
+
+### The Quotable Punchline Test
+Every diagram's callout box must pass this test: **would someone screenshot this line and share it?** If not, rewrite it.
+
+Good punchlines:
+- "These don't produce documents. They produce confidence that the documents are worth writing."
+- "The ask was vague. The output was surgical."
+- "A framework that doesn't know its own limits is more dangerous than having no framework at all."
+
+Bad punchlines (summaries, not insights):
+- "All five domains are covered in the judgment layer."
+- "The system produces ship-ready artifacts."
+- "Every skill has been tested and validated."
 
 ### Final Sanity Check
 - [ ] Open in browser — all text readable without zooming
@@ -684,64 +712,6 @@ Elements:
   4. Risk callout: "False positive rate must stay below 5% or devs ignore it"
 Punchline: "The goal isn't replacing reviewers — it's giving them a head start."
 ```
-
----
-
-## STEP 10: GITHUB PRE-PUSH SVG CHECKLIST (Mandatory Before Any Git Push)
-
-**This checklist runs AFTER the quality gate (Step 7) and BEFORE any `git push` that includes SVG files.** It encodes lessons from production failures — every item here caused a real rendering bug on GitHub.
-
-### GitHub Rendering Survival Checklist
-
-**Styling (GitHub strips `<style>` blocks entirely):**
-- [ ] **ZERO `<style>` blocks.** Every style is an inline `style=""` attribute on the element. Search the file for `<style` — if found, inline everything.
-- [ ] **ZERO CSS class references.** No `class="..."` on any element. GitHub strips `<style>` blocks but leaves `class` attributes orphaned.
-- [ ] **All fonts declared inline.** Every `<text>` element has `font-family="Inter, Segoe UI, sans-serif"` directly on it, not inherited from a `<style>` block.
-
-**Rendering Compatibility:**
-- [ ] **No `<foreignObject>` tags.** GitHub strips these entirely. No HTML-in-SVG.
-- [ ] **No emoji characters in `<text>` elements.** GitHub SVG sanitizer breaks emoji rendering. Use letter badges, icons, or colored shapes instead.
-- [ ] **No external references.** No `xlink:href` pointing to external URLs, no external font imports, no `<image>` tags referencing URLs.
-- [ ] **No `<use>` with external href.** Only internal `#id` references.
-- [ ] **Shadow filter fallback.** If using `<filter>`, also include an offset shadow rect as fallback (GitHub may strip filters). Preferred approach: use the offset-rect shadow pattern, not `<filter>`.
-
-**Font Sizes (at 900px rendering width on GitHub):**
-- [ ] **Minimum font size: 11px.** Nothing below 11px. Chip/tag labels that were 10px MUST be bumped to 11px.
-- [ ] **Body text: 13-14px minimum.** Description text inside cards.
-- [ ] **Card headers: 15-17px minimum.** White text on colored header bars.
-- [ ] **Diagram title: 26-30px.** The main title at the top.
-
-**Structure:**
-- [ ] **`viewBox` attribute present** with correct dimensions matching content.
-- [ ] **`width` and `height` attributes present** on the root `<svg>` element.
-- [ ] **`xmlns="http://www.w3.org/2000/svg"` present** on the root element.
-
-**File Verification (run for every SVG in the commit):**
-```bash
-# Run these checks before pushing:
-# 1. No <style> blocks
-grep -l '<style' diagrams/*.svg  # Should return nothing
-
-# 2. No font-size below 11
-grep -oP 'font-size="\d+"' diagrams/*.svg | grep -E '"[0-9]"' | grep -v '"[1-9][1-9]"'
-
-# 3. No emoji (basic check)
-grep -P '[\x{1F300}-\x{1FFFF}]' diagrams/*.svg  # Should return nothing
-
-# 4. No foreignObject
-grep -l 'foreignObject' diagrams/*.svg  # Should return nothing
-
-# 5. All have viewBox
-for f in diagrams/*.svg; do grep -L 'viewBox' "$f"; done  # Should return nothing
-```
-
-### README SVG Embedding Rules
-
-When referencing SVGs in README.md:
-- [ ] Use `<p align="center"><img src="diagrams/{file}.svg" alt="{descriptive alt}" width="900"/></p>`
-- [ ] Alt text describes the diagram's **takeaway**, not its structure ("Three-layer architecture" not "SVG diagram")
-- [ ] Every SVG file referenced in README actually exists in the `diagrams/` folder
-- [ ] No broken relative paths (run `ls` on every referenced path)
 
 ---
 
