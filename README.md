@@ -52,19 +52,54 @@ That's the architecture. **Three layers — reasoning, judgment, craft** — whe
 
 ---
 
-## The orchestrator
+## The orchestrator — a second brain, not a routing table
 
 <p align="center">
   <img src="diagrams/00-orchestrator.svg" alt="The Orchestrator — A Brain, Not a Routing Table" width="900"/>
 </p>
 
-At the center is a skill that works like a brain, not a routing table.
+The orchestrator isn't a skill. It's the brain that deploys all other skills.
 
-When a problem arrives, it doesn't look up which skill to call. It reads the context, decomposes the question from first principles, identifies which combination of skills applies *to this specific problem*, runs them in the right sequence, and synthesizes the output into something a CPO could act on Monday morning.
+Think of it as Jarvis. It carries the full context of who I am — the Bridger archetype, the quality bar, the thinking algorithms — and it runs on every input, silently. When a problem arrives, the orchestrator classifies it (quick answer, deep thinking, or direct action), activates the right thinking algorithms, and deploys **worker agents** to execute.
 
-It maintains a self-correction loop. When it routes wrong, the mistake gets captured, the pattern gets logged, and the next time a similar problem arrives, the routing is sharper. The system compounds.
+The orchestrator never does the specialized work itself. It understands the problem, plans the approach, deploys the right workers, reviews their output against the quality bar, and synthesizes the final result. The user sees decisive, executive-level output. The machinery is invisible.
 
-This is the difference between a library of tools and an operating system that learns.
+---
+
+## Worker agents — the orchestrator's army
+
+Worker agents are the specialized thinkers the orchestrator deploys. They're not order takers — they're intelligent sub-agents that combine skills with contextual understanding of my persona, goals, and quality bar.
+
+Every worker agent has three components:
+
+1. **Specialized skill(s)** — Domain expertise. A Resume Writer carries resume-building skill. An Article Writer carries research synthesis + writing skill.
+2. **Voice and persona** — Every worker inherits the 10 thinking algorithms and the Bridger identity. A resume without the Bridger voice isn't my resume. An article without the thinking algorithms isn't my thought leadership.
+3. **Domain memory** — Workers carry knowledge from prior executions. Each time the orchestrator deploys a worker and I provide feedback, that feedback sharpens the worker's future output through skill learning logs and the knowledge base.
+
+**How workers compound:** The orchestrator deploys a worker → the worker executes → the orchestrator reviews against the quality bar → I provide feedback → the feedback is captured in learning logs and rules → the next deployment starts from a higher baseline. A worker that has executed ten resume iterations is structurally different from one on its first run.
+
+**Parallel execution:** When subtasks are independent, the orchestrator runs workers simultaneously. A competitive analysis request might deploy the Research Analyst first, then in parallel: the Article Writer drafts narrative while the Presentation Builder structures the deck. The orchestrator decides parallelism based on dependency analysis — never serializing what can run concurrently.
+
+### The worker agent map
+
+**Cross-Domain (Always Active):**
+- **Ravi Voice** — The DNA in every worker. 10 thinking algorithms, 24 anti-patterns, the Bridger identity.
+
+**AI PM Domain** (54 skills, 6 expert agent teams):
+- **Sense-Maker** — First principles, problem-AI-fit, use-case readiness. Understands the real problem before anyone solves it.
+- **Strategist** — Strategy canvas, moat-finder, build-or-buy, token economics, signal scanner. Where to invest, what to kill.
+- **Architect** — Autonomy spectrum, agent ecosystem, tool architecture. How much autonomy, what architecture, what controls.
+- **Trust Builder** — Safety-by-design, trust ladder, judgment guard, breach-ready. Make it safe AND get people to use it.
+- **Prover** — Eval framework, AI metrics, production observability. Prove it works with evidence, not hope.
+- **Crafter** — AI PRD, context spec, agent spec, cost model, ship decision. Produce pre-tested documents.
+
+**Writing & Communication:** Email Writer, Article Writer
+**Research:** Research Analyst (Grok + Perplexity + HBR pipelines)
+**Presentation & Visual:** Presentation Builder (zero-dependency HTML), Diagram Builder (Excalidraw SVGs)
+**Career & Interview:** Interview Strategist
+**Course Building:** Curriculum Architect
+
+New workers emerge dynamically as the work evolves. The orchestrator creates them by pairing specialized skills with the Ravi Voice and connecting them to relevant project context.
 
 ---
 
