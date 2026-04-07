@@ -1,5 +1,5 @@
 ---
-name: rtp-excalidraw-svg
+name: excalidraw-svg
 description: "Excalidraw SVG diagrams: pastel, readable text, storytelling. Diagrams, flowcharts, architecture, infographics, flows, maps. Use when: visual explanation or output enhancer for PRD/spec/analysis. Triggers: 'diagram', 'flowchart', 'visual', 'architecture'"
 ---
 
@@ -15,47 +15,6 @@ Three non-negotiable principles from Apple's design team, adapted for diagrams:
 1. **Readability is sacred.** If text can't be read at a glance, it doesn't exist. Dark text on light backgrounds. Minimum 11px, prefer 13-16px for body. Never grey-on-grey.
 2. **Every diagram tells one story.** Not a data dump. One narrative arc: setup → tension → resolution. The viewer should know the takeaway in 3 seconds.
 3. **Restraint signals mastery.** Maximum 5 colors per diagram. One accent color draws the eye. White space is a design element, not wasted space.
-
----
-
-## IDEO DESIGN DIRECTOR REVIEW
-
-Before creating any diagram, internalize these five principles from IDEO Design Director methodology. They separate functional diagrams from ones that influence decisions.
-
-### 1. Human-Centered Framing
-Diagrams are not system dumps. They answer the viewer's question, not the system's structure.
-
-**Wrong:** "Here are all the components."
-**Right:** "Here's what the viewer needs to decide / understand / build."
-
-Example: Instead of showing "Orchestrator → LLM → Tool Calling → State Management → Execution," frame it as "How does the orchestrator handle a real request? Watch step-by-step."
-
-### 2. Prototype Thinking
-First diagrams are prototypes. Expect 2-3 iterations. Build for feedback, not perfection.
-
-- Start rough. Get the story right first.
-- After feedback: refine layout, tighten copy, polish colors.
-- Never spend 2 hours perfecting a layout before getting feedback — you'll throw it away anyway.
-
-### 3. Show, Don't Tell
-Use visual metaphors. A funnel IS the story of filtering. A bridge IS connection. A layer cake IS inheritance.
-
-**Anti-pattern:** Text-heavy boxes with arrows labeled "sends," "receives," "processes." That's a data structure diagram, not a story.
-
-**Pattern:** The shape, color, and flow carry meaning. Text amplifies, not explains.
-
-### 4. Emotional Design
-Diagrams should make the viewer FEEL something:
-- **Confidence:** Clear path forward, no ambiguity.
-- **Urgency:** Red highlights what breaks. Moss highlights what works.
-- **Clarity:** Even complex systems feel understandable.
-
-If a diagram doesn't create an emotional response, it's a data dump. Rework it.
-
-### 5. The "Walk the Wall" Test
-Would this diagram survive being printed at A3 and pinned to a wall in your office? Would someone walking by stop, read it, and get the main point in 10 seconds?
-
-If yes, it works. If no, simplify the story or split into multiple diagrams.
 
 ---
 
@@ -159,20 +118,20 @@ Width is ALWAYS 1200px. This renders perfectly on GitHub READMEs, documentation 
 
 See [references/color-palette.md](references/color-palette.md) for the complete palette.
 
-**Quick reference — the 8 Luminous Pastel families (solid headers + optional gradient accents):**
+**Quick reference — the 8 semantic color families:**
 
-| Semantic | Header solid | Accent gradient | Card bg | Chip bg | Chip border | Text dark | Text medium |
-|----------|--------------|-----------------|---------|---------|-------------|-----------|-------------|
-| Rose Quartz (thinking) | `#D4789B` | `#E8A0BF` → `#D4789B` | `#FFF5F8` | `#FFE4ED` | `#F5B8CB` | `#8B3A5A` | `#A64D6E` |
-| Wisteria (judgment) | `#9478B8` | `#B8A0D6` → `#9478B8` | `#F8F5FF` | `#EDE5F8` | `#CDBEE8` | `#5B3E7A` | `#7556A0` |
-| Honey Amber (craft) | `#D4A54A` | `#E8C170` → `#D4A54A` | `#FFFCF5` | `#FFF3D6` | `#F0D78A` | `#7A5A1E` | `#946E2A` |
-| Celadon (eval/quality) | `#6BA898` | `#8CC5B0` → `#6BA898` | `#F2FAF6` | `#DFF0E8` | `#A8D4C0` | `#2E6B54` | `#3D8068` |
-| Glacier (tech/data) | `#5A9ABE` | `#7CB8D8` → `#5A9ABE` | `#F3F9FD` | `#DFF0FA` | `#A4D2E8` | `#2A5F7A` | `#3A7598` |
-| Coral (agents/danger) | `#D47B64` | `#E89880` → `#D47B64` | `#FFF7F4` | `#FFE8E0` | `#F0BCA8` | `#8B4434` | `#A45840` |
-| Moss (success) | `#7BA86C` | `#9AC08A` → `#7BA86C` | `#F5FAF2` | `#E2F0D8` | `#B0D4A0` | `#3A5E2E` | `#4E7A40` |
-| Neutral (structure) | — | — | `#FFFFFF` | `#F8F7F5` | `#E2DFD8` | `#1B1B1F` | `#4A4540` |
+| Semantic | Header fill | Card bg | Chip bg | Chip border | Text dark | Text medium |
+|----------|------------|---------|---------|-------------|-----------|-------------|
+| Teal (thinking/foundation) | `#14B8A6` | `#F0FDFA` | `#CCFBF1` | `#5EEAD4` | `#0F766E` | `#0D9488` |
+| Purple (judgment/decision) | `#8B5CF6` | `#F5F3FF` | `#EDE9FE` | `#C4B5FD` | `#6D28D9` | `#7C3AED` |
+| Amber (craft/output) | `#F59E0B` | `#FFFBEB` | `#FEF3C7` | `#FCD34D` | `#B45309` | `#92400E` |
+| Cyan (eval/quality) | `#06B6D4` | `#ECFEFF` | `#ECFEFF` | `#67E8F9` | `#0E7490` | `#0E7490` |
+| Pink (agents/autonomy) | `#EC4899` | `#FCE7F3` | `#FCE7F3` | `#F9A8D4` | `#9D174D` | `#9D174D` |
+| Red (danger/incident) | `#EF4444` | `#FEF2F2` | `#FEF2F2` | `#FCA5A5` | `#991B1B` | `#DC2626` |
+| Green (success/positive) | `#16A34A` | `#F0FDF4` | `#D1FAE5` | `#86EFAC` | `#065F46` | `#16A34A` |
+| Neutral (structure) | `#6B7280` | `#FFFFFF` | `#F9FAFB` | `#E5E7EB` | `#1B1B1F` | `#5F6B7A` |
 
-**Selection rule:** Pick 2-3 primary families per diagram. Use solid header colors for primary fill. Optional gradient accents below for visual richness. Use neutral for structure.
+**Selection rule:** Pick 2-3 primary families per diagram. Use one for emphasis. Neutral for structure.
 
 ### Typography Scale
 
@@ -182,7 +141,7 @@ See [references/color-palette.md](references/color-palette.md) for the complete 
 | Section header | 17-20px | 700-800 | White (on colored bar) | Card/section titles |
 | Card subtitle | 14-15px | 600-700 | Semantic dark color | Below header bar |
 | Body text | 13-14px | 400 | `#5F6B7A` | Descriptions, explanations |
-| Chip/tag text | 10-12px | 600 | Semantic medium color | Skill names, labels, tags |
+| Chip/tag text | 11-12px | 600 | Semantic medium color | Skill names, labels, tags |
 | Footer/meta | 11-12px | 400 | `#9CA3AF` | Attribution, pagination |
 
 **Font stack:** `Inter, Segoe UI, sans-serif` — always. Never use monospace for display. Only for code literals.
@@ -191,20 +150,15 @@ See [references/color-palette.md](references/color-palette.md) for the complete 
 
 The fundamental building block. Excalidraw-inspired: rounded, shadowed, colored header bar.
 
-**Updated approach for readability:** Solid header color (the darker endpoint of each family's gradient) with optional gradient accent bar below.
-
 ```xml
 <!-- Standard card: 270px wide, height varies -->
 <rect x="{X}" y="{Y}" width="270" height="{H}" rx="14" fill="#FFFFFF" stroke="{BORDER}" stroke-width="2" filter="url(#s)"/>
-<!-- Solid colored header bar (high-contrast, WCAG-compliant) -->
-<rect x="{X}" y="{Y}" width="270" height="44" rx="14" fill="{HEADER_SOLID_COLOR}"/>
-<!-- Optional gradient accent bar below for visual richness -->
-<rect x="{X}" y="{Y+44}" width="270" height="12" rx="0" fill="url(#{FAMILY}-accent)"/>
-<!-- Header text (white on solid color = guaranteed readability) -->
+<!-- Colored header bar (two rects to get flat bottom on header) -->
+<rect x="{X}" y="{Y}" width="270" height="44" rx="14" fill="{HEADER_COLOR}"/>
+<rect x="{X}" y="{Y+30}" width="270" height="14" fill="{HEADER_COLOR}"/>
+<!-- Header text (white on color) -->
 <text x="{CENTER_X}" y="{Y+29}" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, sans-serif">{CARD_TITLE}</text>
 ```
-
-**Color selection:** Use the darker endpoint (gradient end color) as `HEADER_SOLID_COLOR`. See color-palette.md for specific hex values per family.
 
 Card widths: `230` (compact), `270` (standard), `340-370` (wide), `545-555` (half-width).
 
@@ -344,38 +298,6 @@ Key elements:
 - Labels below each segment
 - Contrast callout boxes below (neutral vs. red warning)
 
-### Pattern: The Deliverable Map
-Show agents/skills and what tangible outputs each produces. Critical for communicating value when describing multi-agent systems.
-Story: "Each agent does something specific. Here's what you GET from each."
-Use for: skill/agent system diagrams, service catalogs, capability maps, orchestrator systems.
-Key elements:
-- Agent/skill card with colored header
-- "Delivers:" section below the description
-- 2-3 deliverables shown as document-chip items (small page-shaped icons with labels)
-- Deliverable items use semantic color matching the agent's header
-- Optional: estimate cards below each deliverable (time estimate, complexity)
-
-Example structure:
-```xml
-<!-- Agent card with deliverables section -->
-<rect x="100" y="100" width="270" height="200" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="2" filter="url(#s)"/>
-<rect x="100" y="100" width="270" height="44" rx="14" fill="#D4789B"/>
-<text x="235" y="129" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700">Agent Name</text>
-
-<!-- Description -->
-<text x="120" y="160" fill="#1B1B1F" font-size="13" font-weight="600">Delivers:</text>
-
-<!-- Deliverable chips -->
-<rect x="120" y="175" width="120" height="24" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
-<text x="180" y="188" text-anchor="middle" fill="#8B3A5A" font-size="11" font-weight="600">PRD + Spec</text>
-
-<rect x="120" y="205" width="120" height="24" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
-<text x="180" y="218" text-anchor="middle" fill="#8B3A5A" font-size="11" font-weight="600">Risk Register</text>
-
-<rect x="120" y="235" width="120" height="24" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
-<text x="180" y="248" text-anchor="middle" fill="#8B3A5A" font-size="11" font-weight="600">Validation Report</text>
-```
-
 ### Pattern: The Attribution/Flow Graph
 Multi-path routing diagram where inputs on the left flow through processing nodes to outputs on the right. Each path gets its own color. Shared intermediate nodes show convergence.
 Story: "Multiple inputs, shared processing, divergent outputs — trace any path."
@@ -385,58 +307,6 @@ Key elements:
 - Shared zones with translucent background
 - Solid arrows for direct flow, dashed for indirect/inferred
 - Input labels left, output labels right
-
----
-
-## EXECUTIVE STORYTELLING
-
-When diagrams are shared in boardrooms, pitch decks, or strategic reviews, they need different framing. This section is not about system internals — it's about outcomes and decisions.
-
-### The "Boardroom Test"
-Would this diagram work in a board presentation? No jargon. No system internals. Only outcomes and decisions.
-
-**Bad:** "Orchestrator receives task, invokes LLM with context window constraint, tool-calls execute asynchronously."
-**Good:** "The system handles complex tasks step-by-step. Each step completes before moving forward. Failures are caught early."
-
-**The question:** Does the board member immediately understand what this solves FOR THEM? Not what it does. What value it creates.
-
-### Narrative Arc for Business Audiences
-
-Every diagram aimed at executives should follow this three-act structure. Use color to reinforce the narrative:
-
-1. **Problem** — What breaks without this? (Red/Coral if it's a pain point)
-2. **Mechanism** — How does it work? (Blue/Neutral if it's explanation)
-3. **Impact** — What becomes possible? (Green/Moss for the payoff)
-
-The color carries the narrative. An executive should see the progression without reading a word.
-
-### The "So What?" Must Be Unavoidable
-
-After explaining the mechanism, the callout box at the bottom must be the most visually prominent element (after the title).
-
-**Rule:** The punchline callout gets:
-- Larger font (16px+ vs. 13px body text)
-- Brightest color (often Moss for positive, Coral for risk)
-- Bold weight (700+)
-- Specific number if possible: "49% error reduction" > "significant improvement"
-
-### Data Points as Persuasion
-
-Include 1-2 specific numbers per diagram:
-- "Over 90% of evaluations surface this issue within 2 rounds"
-- "Typical ROI payoff: 4 weeks"
-- "Reduces manual review from 6 hours to 18 minutes"
-
-Numbers are far more persuasive than adjectives. "Dramatic" means nothing. "3.2x faster" means action.
-
-### Executive Callout Box Format
-
-```xml
-<!-- Executive "so what?" box at bottom -->
-<rect x="100" y="720" width="1000" height="80" rx="14" fill="#F5FAF2" stroke="#B0D4A0" stroke-width="2" filter="url(#s)"/>
-<text x="600" y="750" text-anchor="middle" fill="#3A5E2E" font-size="18" font-weight="800" font-family="Inter, sans-serif">Result: 49% reduction in manual review time</text>
-<text x="600" y="778" text-anchor="middle" fill="#4A4540" font-size="14" font-family="Inter, sans-serif">First-time adoption: 2 weeks. Full ROI: 6 months.</text>
-```
 
 ---
 
@@ -489,11 +359,6 @@ After planning, check:
 
 ## STEP 6: ARROW ROUTING & CONNECTIONS
 
-### Validated Pattern: Curved Bezier Arrows
-**Confirmed effective:** Curved bezier arrows with labeled midpoints are the preferred connection style across diagrams. They communicate relationships clearly without visual harshness, and they have been validated in interview and presentation contexts. Keep using this — it works.
-
----
-
 ### Arrow Types and When to Use Them
 
 | Arrow type | SVG approach | When to use |
@@ -530,7 +395,7 @@ After planning, check:
 - [ ] **No truncated text.** Every label fits within its container. Run the sizing rule: `width = max(160, textLength × 9)`.
 - [ ] Background is `#FAFAF8` (warm off-white), never pure white or dark
 - [ ] All body text is `#1B1B1F` or `#5F6B7A` — never grey-on-grey
-- [ ] Minimum font size is 11px; body text is 13-14px
+- [ ] Minimum font size is 11px (hard floor — no exceptions); body text is 13-14px
 - [ ] White text ONLY appears on solid color header bars (with font-weight 700+ and size 16px+)
 - [ ] Every text element has `font-family="Inter, Segoe UI, sans-serif"`
 
@@ -819,6 +684,64 @@ Elements:
   4. Risk callout: "False positive rate must stay below 5% or devs ignore it"
 Punchline: "The goal isn't replacing reviewers — it's giving them a head start."
 ```
+
+---
+
+## STEP 10: GITHUB PRE-PUSH SVG CHECKLIST (Mandatory Before Any Git Push)
+
+**This checklist runs AFTER the quality gate (Step 7) and BEFORE any `git push` that includes SVG files.** It encodes lessons from production failures — every item here caused a real rendering bug on GitHub.
+
+### GitHub Rendering Survival Checklist
+
+**Styling (GitHub strips `<style>` blocks entirely):**
+- [ ] **ZERO `<style>` blocks.** Every style is an inline `style=""` attribute on the element. Search the file for `<style` — if found, inline everything.
+- [ ] **ZERO CSS class references.** No `class="..."` on any element. GitHub strips `<style>` blocks but leaves `class` attributes orphaned.
+- [ ] **All fonts declared inline.** Every `<text>` element has `font-family="Inter, Segoe UI, sans-serif"` directly on it, not inherited from a `<style>` block.
+
+**Rendering Compatibility:**
+- [ ] **No `<foreignObject>` tags.** GitHub strips these entirely. No HTML-in-SVG.
+- [ ] **No emoji characters in `<text>` elements.** GitHub SVG sanitizer breaks emoji rendering. Use letter badges, icons, or colored shapes instead.
+- [ ] **No external references.** No `xlink:href` pointing to external URLs, no external font imports, no `<image>` tags referencing URLs.
+- [ ] **No `<use>` with external href.** Only internal `#id` references.
+- [ ] **Shadow filter fallback.** If using `<filter>`, also include an offset shadow rect as fallback (GitHub may strip filters). Preferred approach: use the offset-rect shadow pattern, not `<filter>`.
+
+**Font Sizes (at 900px rendering width on GitHub):**
+- [ ] **Minimum font size: 11px.** Nothing below 11px. Chip/tag labels that were 10px MUST be bumped to 11px.
+- [ ] **Body text: 13-14px minimum.** Description text inside cards.
+- [ ] **Card headers: 15-17px minimum.** White text on colored header bars.
+- [ ] **Diagram title: 26-30px.** The main title at the top.
+
+**Structure:**
+- [ ] **`viewBox` attribute present** with correct dimensions matching content.
+- [ ] **`width` and `height` attributes present** on the root `<svg>` element.
+- [ ] **`xmlns="http://www.w3.org/2000/svg"` present** on the root element.
+
+**File Verification (run for every SVG in the commit):**
+```bash
+# Run these checks before pushing:
+# 1. No <style> blocks
+grep -l '<style' diagrams/*.svg  # Should return nothing
+
+# 2. No font-size below 11
+grep -oP 'font-size="\d+"' diagrams/*.svg | grep -E '"[0-9]"' | grep -v '"[1-9][1-9]"'
+
+# 3. No emoji (basic check)
+grep -P '[\x{1F300}-\x{1FFFF}]' diagrams/*.svg  # Should return nothing
+
+# 4. No foreignObject
+grep -l 'foreignObject' diagrams/*.svg  # Should return nothing
+
+# 5. All have viewBox
+for f in diagrams/*.svg; do grep -L 'viewBox' "$f"; done  # Should return nothing
+```
+
+### README SVG Embedding Rules
+
+When referencing SVGs in README.md:
+- [ ] Use `<p align="center"><img src="diagrams/{file}.svg" alt="{descriptive alt}" width="900"/></p>`
+- [ ] Alt text describes the diagram's **takeaway**, not its structure ("Three-layer architecture" not "SVG diagram")
+- [ ] Every SVG file referenced in README actually exists in the `diagrams/` folder
+- [ ] No broken relative paths (run `ls` on every referenced path)
 
 ---
 
