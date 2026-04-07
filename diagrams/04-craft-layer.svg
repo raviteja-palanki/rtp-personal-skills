@@ -21,14 +21,14 @@
   <text x="66" y="226" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF">Imports from:</text>
   <!-- Purple chips (Thinking) -->
   <rect x="66" y="238" width="100" height="22" rx="11" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
-  <text x="116" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#6D28D9">first-principles</text>
+  <text x="116" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6D28D9">first-principles</text>
   <rect x="172" y="238" width="84" height="22" rx="11" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
-  <text x="214" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#6D28D9">bias-spotter</text>
+  <text x="214" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6D28D9">bias-spotter</text>
   <!-- Teal chips (Judgment) -->
   <rect x="66" y="266" width="88" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="110" y="281" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">build-or-buy</text>
+  <text x="110" y="281" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">build-or-buy</text>
   <rect x="160" y="266" width="110" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="215" y="281" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">token-economics</text>
+  <text x="215" y="281" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">token-economics</text>
 
   <!-- CARD 2: context-spec -->
   <rect x="333" y="103" width="260" height="230" rx="12" fill="#D1D5DB" opacity="0.35"/>
@@ -42,12 +42,12 @@
   <text x="346" y="226" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF">Imports from:</text>
   <!-- Purple chips -->
   <rect x="346" y="238" width="100" height="22" rx="11" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
-  <text x="396" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#6D28D9">first-principles</text>
+  <text x="396" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6D28D9">first-principles</text>
   <rect x="452" y="238" width="120" height="22" rx="11" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
-  <text x="512" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#6D28D9">determinism-compass</text>
+  <text x="512" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6D28D9">determinism-compass</text>
   <!-- Teal chips -->
   <rect x="346" y="266" width="100" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="396" y="281" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">signal-scanner</text>
+  <text x="396" y="281" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">signal-scanner</text>
 
   <!-- CARD 3: agent-spec -->
   <rect x="613" y="103" width="260" height="230" rx="12" fill="#D1D5DB" opacity="0.35"/>
@@ -61,11 +61,11 @@
   <text x="626" y="226" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF">Imports from:</text>
   <!-- Teal chips -->
   <rect x="626" y="238" width="118" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="685" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">autonomy-spectrum</text>
+  <text x="685" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">autonomy-spectrum</text>
   <rect x="750" y="238" width="78" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="789" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">agent-risk</text>
+  <text x="789" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">agent-risk</text>
   <rect x="626" y="266" width="84" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="668" y="281" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">trust-ladder</text>
+  <text x="668" y="281" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">trust-ladder</text>
 
   <!-- CARD 4: cost-model -->
   <rect x="893" y="103" width="260" height="230" rx="12" fill="#D1D5DB" opacity="0.35"/>
@@ -79,9 +79,9 @@
   <text x="906" y="226" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF">Imports from:</text>
   <!-- Teal chips -->
   <rect x="906" y="238" width="110" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="961" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">token-economics</text>
+  <text x="961" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">token-economics</text>
   <rect x="1022" y="238" width="88" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="1066" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">build-or-buy</text>
+  <text x="1066" y="253" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">build-or-buy</text>
 
   <!-- ============ ROW 2 ============ -->
 
@@ -97,12 +97,12 @@
   <text x="66" y="486" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF">Imports from:</text>
   <!-- Purple chips -->
   <rect x="66" y="498" width="76" height="22" rx="11" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
-  <text x="104" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#6D28D9">stress-test</text>
+  <text x="104" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6D28D9">stress-test</text>
   <rect x="148" y="498" width="94" height="22" rx="11" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
-  <text x="195" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#6D28D9">failure-modes</text>
+  <text x="195" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6D28D9">failure-modes</text>
   <!-- Teal chips -->
   <rect x="66" y="526" width="104" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="118" y="541" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">eval-driven-dev</text>
+  <text x="118" y="541" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">eval-driven-dev</text>
 
   <!-- CARD 6: competitive-map -->
   <rect x="333" y="363" width="260" height="230" rx="12" fill="#D1D5DB" opacity="0.35"/>
@@ -116,9 +116,9 @@
   <text x="346" y="486" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF">Imports from:</text>
   <!-- Teal chips -->
   <rect x="346" y="498" width="100" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="396" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">signal-scanner</text>
+  <text x="396" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">signal-scanner</text>
   <rect x="452" y="498" width="116" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="510" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">competitive-moat</text>
+  <text x="510" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">competitive-moat</text>
 
   <!-- CARD 7: fit-signal -->
   <rect x="613" y="363" width="260" height="230" rx="12" fill="#D1D5DB" opacity="0.35"/>
@@ -132,12 +132,12 @@
   <text x="626" y="486" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF">Imports from:</text>
   <!-- Teal chips -->
   <rect x="626" y="498" width="118" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="685" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">ai-product-metrics</text>
+  <text x="685" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">ai-product-metrics</text>
   <rect x="750" y="498" width="108" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="804" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">adoption-launch</text>
+  <text x="804" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">adoption-launch</text>
   <!-- Purple chip -->
   <rect x="626" y="526" width="76" height="22" rx="11" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
-  <text x="664" y="541" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#6D28D9">stress-test</text>
+  <text x="664" y="541" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6D28D9">stress-test</text>
 
   <!-- CARD 8: prompt-as-product -->
   <rect x="893" y="363" width="260" height="230" rx="12" fill="#D1D5DB" opacity="0.35"/>
@@ -151,10 +151,10 @@
   <text x="906" y="486" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#9CA3AF">Imports from:</text>
   <!-- Purple chip -->
   <rect x="906" y="498" width="100" height="22" rx="11" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
-  <text x="956" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#6D28D9">first-principles</text>
+  <text x="956" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6D28D9">first-principles</text>
   <!-- Teal chip -->
   <rect x="1012" y="498" width="84" height="22" rx="11" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
-  <text x="1054" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0F766E">eval-design</text>
+  <text x="1054" y="513" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#0F766E">eval-design</text>
 
   <!-- ============ CALLOUT BOX ============ -->
   <rect x="100" y="620" width="1000" height="70" rx="14" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1.5"/>

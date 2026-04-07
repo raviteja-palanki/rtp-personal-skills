@@ -32,19 +32,19 @@ That's the architecture. **Three layers — reasoning, judgment, craft** — whe
   <img src="diagrams/01-architecture-overview.svg" alt="Architecture Overview — Three Layers" width="900"/>
 </p>
 
-🟣 **Thinking** — 10 skills that don't produce documents. They produce *checks.* Before any decision gets made, these ask: Are you decomposing this from first principles, or just pattern-matching from your last project? Are you seeing what you want to see? If you're wrong, who gets hurt? What would make your strongest recommendation *completely invalid?*
+**Layer 1 — Thinking** (10 skills) — These don't produce documents. They produce *checks.* Before any decision gets made, these ask: Are you decomposing this from first principles, or just pattern-matching from your last project? Are you seeing what you want to see? If you're wrong, who gets hurt? What would make your strongest recommendation *completely invalid?*
 
 <p align="center">
   <img src="diagrams/02-thinking-layer.svg" alt="Thinking Layer — 10 Skills" width="900"/>
 </p>
 
-🔵 **Judgment** — 36 skills across five domains. The calls that separate a PM who's been in the room from one who's read about the room. Not "what is retrieval-augmented generation" but *"when is RAG the wrong architecture for your latency and trust constraints, and what do you do instead?"* Not "consider safety" but *"map the exact failure mode where your system's confidence score is high and its answer is dangerous — then design the intervention."*
+**Layer 2 — Judgment** (36 skills across 5 domains) — The calls that separate a PM who's been in the room from one who's read about the room. Not "what is retrieval-augmented generation" but *"when is RAG the wrong architecture for your latency and trust constraints, and what do you do instead?"* Not "consider safety" but *"map the exact failure mode where your system's confidence score is high and its answer is dangerous — then design the intervention."*
 
 <p align="center">
   <img src="diagrams/03-judgment-layer.svg" alt="Judgment Layer — 36 Skills across 5 Domains" width="900"/>
 </p>
 
-🟢 **Craft** — 8 generators that produce ship-ready artifacts. But here's the thing: none of them start by asking requirements. They start by importing the thinking and judgment layers. The PRD skill runs first principles, bias detection, build-or-buy analysis, and token economics *before* it writes a single line of spec. The output arrives pre-tested — not because I bolted on a review step, but because the architecture won't let you skip one.
+**Layer 3 — Craft** (8 generators) — These produce ship-ready artifacts. But none of them start by asking requirements. They start by importing the thinking and judgment layers. The PRD skill runs first principles, bias detection, build-or-buy analysis, and token economics *before* it writes a single line of spec. The output arrives pre-tested — not because I bolted on a review step, but because the architecture won't let you skip one.
 
 <p align="center">
   <img src="diagrams/04-craft-layer.svg" alt="Craft Layer — 8 Generators" width="900"/>
