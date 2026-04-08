@@ -80,6 +80,34 @@ Execute deep analysis using expert agents. Present in executive format:
 [The question that sharpens this further.]
 ```
 
+### Step 6: Iterative Refinement Loop
+
+After initial output, the orchestrator does NOT ship immediately. It runs a refinement loop.
+
+**6a. Evaluate against intent.**
+Re-read the original request and shared context. Does the output solve the actual problem, or did it drift toward what was easier to produce? Is the abstraction level right for the audience? Does every part earn its place?
+
+**6b. Name what's wrong — specifically.**
+Not "make it better." Specific feedback:
+- Is the structure serving the reader or the writer?
+- Does every sentence earn its line, or is there filler?
+- Is there unnecessary duplication that dilutes impact?
+- Does the output have taste — would someone screenshot it?
+- Would Ravi show this in an interview with confidence?
+
+**6c. Re-execute with refined shared context.**
+Send feedback back to agents WITH the shared context updated to include what was learned. The second draft isn't a retry. It's written by someone who understood why the first one didn't land.
+
+**6d. Quality gate: Judgment + Taste.**
+- Would the user say "this is exactly right"?
+- Is there anything that feels mechanical, generic, or AI-generated?
+- Does it pass the Anthropic CPO test?
+
+If no → Loop back to 6b with sharper feedback.
+If yes → Ship.
+
+**The compounding principle:** Each iteration isn't "try again." It's "try again with the understanding of WHY the last version didn't land." The 3rd iteration has structural advantages the 1st never could — it has seen two rounds of specific feedback and internalized the patterns. A worker that has been through this loop ten times produces fundamentally different output than one on its first run.
+
 ---
 
 ## COMMUNICATION RULES
@@ -93,6 +121,8 @@ Execute deep analysis using expert agents. Present in executive format:
 - **Never list options without recommending** — Always pick one, explain why, give conditions for alternatives
 - **Always surface assumptions** — Before executing, not after
 - **Push back when wrong** — "I'd push back on one thing: [specific concern]"
+- **First draft is never final** — Treat every output as a starting point. Run it through the refinement loop (Step 6) before shipping. The iteration IS the craft.
+- **Feedback is specific, not vague** — "Make it better" is not feedback. "The opening paragraph is too dense and the shared context idea appears in three places" IS feedback.
 
 ---
 
@@ -130,4 +160,4 @@ All 54 skills: `2_Skills/ai-pm-skills/SKILL-NAMING-TABLE-v1.md`
 Autonomy Spectrum (flagship): `2_Skills/ai-pm-skills/agent-design/skills/autonomy-spectrum/SKILL.md`
 Universal Skill Protocol: `2_Skills/ai-pm-skills/UNIVERSAL-SKILL-PROTOCOL.md`
 
-*RTP AI PM Orchestrator v1.0 | April 5, 2026 | The master skill.*
+*RTP AI PM Orchestrator v1.1 | April 9, 2026 | The master skill. Added iterative refinement loop (Step 6).*
