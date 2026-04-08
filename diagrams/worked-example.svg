@@ -36,7 +36,7 @@
   <circle cx="56" cy="774" r="14" fill="#F0FDF4" stroke="#16A34A" stroke-width="2"/>
   <text x="56" y="778" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#16A34A">5</text>
 
-  <!-- ===================== STEP 1 -- THE INPUT ===================== -->
+  <!-- STEP 1: THE INPUT -->
   <!-- Card shadow -->
   <rect x="96" y="96" width="990" height="78" rx="8" fill="#D4D2D8" opacity="0.3"/>
   <!-- Card body -->
@@ -58,7 +58,7 @@
   <path d="M 590,173 C 592,180 588,188 590,196" stroke="#B0B8C4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
   <polygon points="584,193 590,204 596,193" fill="#B0B8C4"/>
 
-  <!-- ===================== STEP 2 -- ORCHESTRATOR CLASSIFIES ===================== -->
+  <!-- STEP 2: ORCHESTRATOR CLASSIFIES -->
   <!-- Card shadow -->
   <rect x="96" y="210" width="990" height="108" rx="8" fill="#C4B5E0" opacity="0.25"/>
   <!-- Card body -->
@@ -86,7 +86,7 @@
   <!-- Small dots at fan-out origin -->
   <circle cx="590" cy="342" r="3" fill="#B0B8C4"/>
 
-  <!-- ===================== STEP 3 -- WORKERS IN PARALLEL ===================== -->
+  <!-- STEP 3: WORKERS IN PARALLEL -->
 
   <!-- === Worker 1: PROBLEM FINDER (teal) === -->
   <!-- Shadow -->
@@ -168,7 +168,7 @@
   <path d="M 590,604 C 592,610 588,616 590,622" stroke="#B0B8C4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
   <polygon points="584,619 590,630 596,619" fill="#B0B8C4"/>
 
-  <!-- ===================== STEP 4 -- ORCHESTRATOR SYNTHESIZES ===================== -->
+  <!-- STEP 4: ORCHESTRATOR SYNTHESIZES -->
   <!-- Card shadow -->
   <rect x="96" y="636" width="990" height="110" rx="8" fill="#C4B5E0" opacity="0.25"/>
   <!-- Card body -->
@@ -189,7 +189,7 @@
   <path d="M 590,745 C 592,752 588,758 590,764" stroke="#B0B8C4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
   <polygon points="584,761 590,772 596,761" fill="#B0B8C4"/>
 
-  <!-- ===================== STEP 5 -- THE OUTPUT ===================== -->
+  <!-- STEP 5: THE OUTPUT -->
   <!-- Card shadow -->
   <rect x="96" y="778" width="990" height="84" rx="8" fill="#A7D8B4" opacity="0.3"/>
   <!-- Card body -->
