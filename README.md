@@ -6,7 +6,7 @@
 
 Most AI tools give you a better autocomplete. This is something different.
 
-I built a system where Claude doesn't wait for instructions — it operates as a **second brain** that reads the problem, deploys specialized AI worker agents, pressure-tests their output through three layers of checks, and synthesizes a recommendation that a CPO could act on Monday morning. The worker agents don't see each other. They don't know they're part of a system. The orchestrator holds the full picture, the same way a great product leader holds context across engineering, design, business, and leadership — and integrates it into one decisive call.
+I built a system where Claude doesn't wait for instructions — it operates as a **second brain** that reads the problem, creates a shared context, deploys 6 specialized AI worker agents who all understand the goal and how their piece fits, pressure-tests their output through three layers of checks, and synthesizes a recommendation that a CPO could act on Monday morning. Before any worker executes, the orchestrator distributes the structural insight, the plan, and exactly how each output will connect. That's what makes the final deliverable cohesive rather than collaged — every piece was shaped to fit before it was built.
 
 66 skills. 6 expert teams. Three layers that check each other's work. One compounding loop that makes every session sharper than the last.
 
@@ -19,14 +19,14 @@ This is how I actually work. Not a demo. Not a side project. The operating syste
 ## What makes it powerful
 
 <p align="center">
-  <img src="diagrams/orchestrator-power.svg" alt="Three pillars: isolated expertise (6 blind workers), layered verification (confidence gates), and compounding intelligence (every session makes the next sharper)" width="900"/>
+  <img src="diagrams/orchestrator-power.svg" alt="Three pillars: shared context alignment (6 workers with one shared understanding), layered verification (confidence gates), and compounding intelligence (every session makes the next sharper)" width="900"/>
 </p>
 
-The workers are blind. They don't see each other. They don't know they're part of a system. Each brings independent analysis — no groupthink, no echo chambers. The orchestrator is the only entity that holds the full picture, the same way a great product leader holds context across engineering, design, business, and leadership — and integrates it into one decisive call.
+The orchestrator's real power isn't coordination — it's alignment. Before any worker agent executes, the orchestrator creates a shared context: the goal, the structural constraints others missed, the plan, and exactly how each piece will fit into the whole. Every expert team receives this context. That's what makes the output cohesive — not because someone stitched disparate pieces together after the fact, but because every piece was shaped to fit from the start. The same way a great product leader doesn't just assign work — they ensure everyone understands the why, how it connects, and what success looks like for the whole, not just their part.
 
 Between layers, confidence gates refuse to let the system proceed on bad inputs. You don't get to judgment until thinking says you've earned it. You don't get to craft until judgment says the calls are sound. And every session feeds back into the next — after three confirmations, a pattern gets promoted to a rule that shapes all future work.
 
-> *"A worker agent that has executed ten iterations of a task is structurally different from one on its first run."*
+> *"A great orchestrator doesn't distribute tasks. It distributes understanding."*
 
 ---
 

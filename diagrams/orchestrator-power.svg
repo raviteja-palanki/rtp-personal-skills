@@ -11,7 +11,7 @@
   <text x="600" y="28" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#8B5CF6" letter-spacing="1.5">UNDER THE HOOD</text>
   <text x="600" y="55" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="24" font-weight="800" fill="#1B1B1F">What Makes the Orchestrator Powerful</text>
 
-  <!-- ========== PANEL 1: ISOLATED EXPERTISE ========== -->
+  <!-- ========== PANEL 1: SHARED CONTEXT ALIGNMENT ========== -->
   <!-- Shadow -->
   <rect x="53" y="88" width="350" height="310" rx="12" fill="#E9E5F5" opacity="0.3"/>
   <!-- Card -->
@@ -19,65 +19,56 @@
   <!-- Header bar -->
   <rect x="50" y="85" width="350" height="34" rx="12" fill="#8B5CF6"/>
   <rect x="50" y="107" width="350" height="12" fill="#8B5CF6"/>
-  <text x="225" y="108" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">ISOLATED EXPERTISE</text>
+  <text x="225" y="108" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="0.8">SHARED CONTEXT</text>
 
-  <!-- Hub-spoke visual: central orchestrator + 6 worker dots -->
-  <!-- Central purple dot (orchestrator) -->
-  <circle cx="225" cy="195" r="16" fill="#8B5CF6" opacity="0.15" stroke="#8B5CF6" stroke-width="2"/>
+  <!-- Shared context ring (the purple zone connecting all workers) -->
+  <circle cx="225" cy="195" r="44" fill="#F5F3FF" fill-opacity="0.5" stroke="#C4B5FD" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- Central orchestrator -->
+  <circle cx="225" cy="195" r="18" fill="#8B5CF6" opacity="0.15" stroke="#8B5CF6" stroke-width="2.5"/>
   <text x="225" y="199" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="8" font-weight="700" fill="#8B5CF6">ORCH</text>
 
-  <!-- 6 worker dots arranged in a circle -->
+  <!-- 6 worker dots arranged outside the context ring -->
   <!-- Top: Problem Finder (teal) -->
-  <circle cx="225" cy="148" r="8" fill="#14B8A6"/>
-  <path d="M 225,156 C 225,162 225,172 225,179" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
+  <circle cx="225" cy="137" r="8" fill="#14B8A6"/>
   <!-- Top-right: Strategist (purple) -->
-  <circle cx="266" cy="160" r="8" fill="#7C3AED"/>
-  <path d="M 260,165 C 252,172 243,180 238,185" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
+  <circle cx="275" cy="166" r="8" fill="#7C3AED"/>
   <!-- Bottom-right: System Designer (cyan) -->
-  <circle cx="266" cy="230" r="8" fill="#06B6D4"/>
-  <path d="M 260,225 C 252,218 243,212 238,207" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
+  <circle cx="275" cy="224" r="8" fill="#06B6D4"/>
   <!-- Bottom: Eval Expert (amber) -->
-  <circle cx="225" cy="242" r="8" fill="#F59E0B"/>
-  <path d="M 225,234 C 225,228 225,218 225,211" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
+  <circle cx="225" cy="253" r="8" fill="#F59E0B"/>
   <!-- Bottom-left: Safety Lead (pink) -->
-  <circle cx="184" cy="230" r="8" fill="#EC4899"/>
-  <path d="M 190,225 C 198,218 207,212 212,207" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
+  <circle cx="175" cy="224" r="8" fill="#EC4899"/>
   <!-- Top-left: Spec Writer (green) -->
-  <circle cx="184" cy="160" r="8" fill="#16A34A"/>
-  <path d="M 190,165 C 198,172 207,180 212,185" stroke="#B0B8C4" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <circle cx="175" cy="166" r="8" fill="#16A34A"/>
 
-  <!-- No-communication X marks between adjacent workers -->
-  <line x1="242" y1="152" x2="248" y2="158" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-  <line x1="248" y1="152" x2="242" y2="158" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <!-- Context arrows: orchestrator distributes context outward (purple) -->
+  <path d="M 225,177 C 225,168 225,155 225,145" stroke="#C4B5FD" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="222,148 225,140 228,148" fill="#C4B5FD"/>
 
-  <line x1="269" y1="193" x2="275" y2="199" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-  <line x1="275" y1="193" x2="269" y2="199" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 240,182 C 250,176 262,170 268,167" stroke="#C4B5FD" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="264,162 271,165 266,171" fill="#C4B5FD"/>
 
-  <line x1="242" y1="236" x2="248" y2="242" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-  <line x1="248" y1="236" x2="242" y2="242" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 240,210 C 250,216 262,220 268,223" stroke="#C4B5FD" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="266,219 271,226 264,228" fill="#C4B5FD"/>
 
-  <line x1="202" y1="236" x2="208" y2="242" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-  <line x1="208" y1="236" x2="202" y2="242" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 225,213 C 225,224 225,238 225,245" stroke="#C4B5FD" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="222,242 225,250 228,242" fill="#C4B5FD"/>
 
-  <line x1="175" y1="193" x2="181" y2="199" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-  <line x1="181" y1="193" x2="175" y2="199" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 210,210 C 200,216 188,220 182,223" stroke="#C4B5FD" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="186,228 179,226 184,219" fill="#C4B5FD"/>
 
-  <line x1="202" y1="152" x2="208" y2="158" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-  <line x1="208" y1="152" x2="202" y2="158" stroke="#FCA5A5" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 210,182 C 200,176 188,170 182,167" stroke="#C4B5FD" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="184,171 179,165 186,162" fill="#C4B5FD"/>
 
   <!-- Explanation text -->
-  <text x="225" y="282" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1B1B1F">6 teams. Zero crosstalk.</text>
-  <text x="225" y="302" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Each expert works independently.</text>
-  <text x="225" y="320" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">No groupthink. No echo chambers.</text>
+  <text x="225" y="282" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1B1B1F">6 teams. One shared context.</text>
+  <text x="225" y="302" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Every worker knows the goal,</text>
+  <text x="225" y="320" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">the plan, and how their piece fits.</text>
 
   <!-- Legend mini-labels -->
-  <text x="225" y="348" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">Workers only talk to the orchestrator.</text>
-  <text x="225" y="365" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">Never to each other.</text>
+  <text x="225" y="348" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">Cohesion comes from alignment,</text>
+  <text x="225" y="365" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">not from stitching pieces after.</text>
 
   <!-- ========== PANEL 2: LAYERED VERIFICATION ========== -->
   <!-- Shadow -->
@@ -173,7 +164,7 @@
 
   <!-- ========== PUNCHLINE CALLOUT ========== -->
   <rect x="130" y="418" width="940" height="36" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1"/>
-  <text x="600" y="441" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1B1B1F">The workers are blind. The orchestrator holds the full picture. And the picture gets sharper every session.</text>
+  <text x="600" y="441" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#1B1B1F">A great orchestrator doesn't distribute tasks. It distributes understanding.</text>
 
   <!-- Footer -->
   <text x="600" y="482" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#9CA3AF">rtp-personal-skills  &#183;  Under the Hood  &#183;  April 2026</text>
