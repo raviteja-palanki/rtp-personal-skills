@@ -1,9 +1,9 @@
 # Architecture
 
-How 54 skills compose into a thinking system — not just a collection of files.
+How 55 skills compose into a thinking system — not just a collection of files.
 
 <p align="center">
-  <img src="architecture-overview.svg" alt="Three-layer architecture — 54 skills, 7 plugins" width="900"/>
+  <img src="diagrams/01-architecture-overview.svg" alt="Three-layer architecture — 55 skills, 7 domains" width="900"/>
 </p>
 
 > See also: [Workflow Orchestration](workflow-orchestration.svg) for the 6 curated paths through the skill graph.
@@ -18,7 +18,7 @@ Most AI product tools give you templates. Fill in the PRD. Check the boxes. Ship
 
 The problem: the template doesn't know that you're anchored on what a competitor built instead of what your users need. It doesn't know that the feature you're specifying needs to be predictable every time (rules) in some places and can tolerate variability (AI) in others. It doesn't know that your cost model collapses at 10x scale.
 
-The three-layer architecture solves this by making checking automatic across 54 skills:
+The three-layer architecture solves this by making checking automatic across 55 skills:
 
 - **Layer 1 (Thinking)** catches mistakes before any decision gets made
 - **Layer 2 (Judgment)** makes the hard AI-specific decisions that templates can't encode
@@ -318,7 +318,7 @@ World-class PMs know what questions to ask, not what steps to follow. A rigid pr
 Practitioners are busy. A PM mid-PRD doesn't need all 250 lines of `eval-framework` — they need to know if they should go deep, skim, or skip. Progressive disclosure respects time while making depth available when needed.
 
 **Why 6 workflows instead of 1?**
-Different contexts need different skill subsets. You don't run all 40 skills for an incident. Workflows are curated paths: `new-ai-feature` uses all 40; `ai-incident-response` uses 25 focused on diagnosis and recovery.
+Different contexts need different skill subsets. You don't run all 55 skills for an incident. Workflows are curated paths: `new-ai-feature` uses the full set; `ai-incident-response` uses 25 focused on diagnosis and recovery.
 
 ---
 

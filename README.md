@@ -4,7 +4,7 @@
 
 ---
 
-I didn't build 66 skills. I built a brain.
+I didn't build 67 skills. I built a brain.
 
 The skills are its expertise. The orchestrator is its judgment. And the whole thing learns — every session, every correction, every hard question — it compounds.
 
@@ -65,7 +65,7 @@ Every worker has three components: **domain expertise** (one or two specialized 
 
 Here's the map:
 
-### The AI PM Expert Teams (54 skills)
+### The AI PM Expert Teams (55 skills)
 
 Six specialized teams that the orchestrator deploys for AI product work:
 
@@ -103,7 +103,7 @@ Every worker inherits from **Ravi Voice** — the master thinking system that ca
   <img src="diagrams/02-thinking-layer.svg" alt="Thinking Layer" width="900"/>
 </p>
 
-The 54 AI PM skills are organized into three layers. Each layer earns the right to exist by making the next layer's output trustworthy.
+The 55 AI PM skills are organized into three layers. Each layer earns the right to exist by making the next layer's output trustworthy.
 
 ### Layer 1: Thinking — "Before you decide anything" (10 skills)
 
@@ -117,11 +117,11 @@ Skills: `first-principles` · `bias-spotter` · `falsification` · `dual-lens` �
   <img src="diagrams/03-judgment-layer.svg" alt="Judgment Layer" width="900"/>
 </p>
 
-### Layer 2: Judgment — "The hard calls" (36 skills across 5 domains)
+### Layer 2: Judgment — "The hard calls" (37 skills across 5 domains)
 
 The decisions that separate a PM who's been in the room from one who's read about the room.
 
-**Product Sense** (9 skills) — Is AI the right solution, or are you building because the technology is exciting? Scores AI fit 0-16. Maps the invisible stack. Designs the feedback flywheel that turns user corrections into model improvements.
+**Product Sense** (9 skills, incl. needs-guard) — Is AI the right solution, or are you building because the technology is exciting? Scores AI fit 0-16. Maps the invisible stack. Designs the feedback flywheel that turns user corrections into model improvements.
 
 **AI Strategy** (10 skills) — Durable bets when capabilities shift every quarter. Capability-conditional roadmaps. Moat analysis. Portfolio management with stage gates. And a trendslop detector that catches when AI-generated strategy is just telling you what's popular.
 
@@ -165,7 +165,7 @@ This isn't a library of tools. It's an operating system that learns.
 
 ## How I'd explain this in an interview
 
-*"I built a personal AI operating system — 66 composable skills with an orchestrator that works like a brain, not a routing table.*
+*"I built a personal AI operating system — 67 composable skills with an orchestrator that works like a brain, not a routing table.*
 
 *The insight was that most AI tools give you templates. You fill in a PRD template, check the boxes, ship. But the template doesn't know you're anchored on a competitor's approach. It doesn't catch that your cost model collapses at 10x scale. It doesn't ask who pays the cost if you're wrong.*
 
