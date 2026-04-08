@@ -1,8 +1,3 @@
----
-name: rtp-frontend-slides
-description: "RTP skill: rtp-frontend-slides"
----
-
 # Frontend Slides — Build Beautiful HTML Presentations with AI
 
 A complete guide to creating stunning, zero-dependency HTML slide decks from scratch or by converting PowerPoint files. Designed for non-designers who want production-quality presentations without knowing CSS or JavaScript. Works with any AI coding assistant (Claude, ChatGPT, Copilot, Gemini, Perplexity, etc.).

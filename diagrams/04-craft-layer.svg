@@ -1,0 +1,238 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <!-- Typography import -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    </style>
+
+    <!-- Gradients -->
+    <linearGradient id="mossGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7AB89D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5F9B84;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="mossLightBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F1F9F5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EFF5F0;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="purpleChip" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8DFF7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#DCC8F0;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="blueChip" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D9E9F5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C5DDF0;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="cardShadow">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+
+    <filter id="headerShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#FAFAF8"/>
+
+  <!-- Title Band -->
+  <rect x="0" y="0" width="1200" height="85" fill="url(#mossGradient)" filter="url(#headerShadow)"/>
+  <text x="40" y="38" font-family="Inter, sans-serif" font-size="32" font-weight="700" fill="white" letter-spacing="-0.5">
+    Layer 3: Craft
+  </text>
+  <text x="40" y="64" font-family="Inter, sans-serif" font-size="13" fill="rgba(255,255,255,0.92)" letter-spacing="0.3">
+    Ship-Ready Artifacts  ·  8 generators, each pre-tested by Layers 1 + 2
+  </text>
+
+  <!-- Grid Container for 2x4 Cards -->
+  <!-- ROW 1: Cards 1-4 -->
+
+  <!-- Card 1: ai-prd -->
+  <g>
+    <!-- Card background -->
+    <rect x="25" y="105" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
+
+    <!-- Header bar -->
+    <rect x="25" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <text x="45" y="137" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">ai-prd</text>
+
+    <!-- Produces section -->
+    <text x="45" y="168" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
+    <text x="45" y="186" font-family="Inter, sans-serif" font-size="12" fill="#2D3D37" letter-spacing="-0.3">PRD with eval gates, failure budgets, probabilistic specs</text>
+
+    <!-- Imports section -->
+    <text x="45" y="215" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Imports from:</text>
+
+    <!-- Purple chips (Layer 1) -->
+    <rect x="45" y="228" width="105" height="22" rx="5" fill="url(#purpleChip)" stroke="#C9B8E0" stroke-width="1"/>
+    <text x="54" y="242" font-family="Inter, sans-serif" font-size="10" fill="#6B5B95">first-principles</text>
+
+    <rect x="160" y="228" width="105" height="22" rx="5" fill="url(#purpleChip)" stroke="#C9B8E0" stroke-width="1"/>
+    <text x="169" y="242" font-family="Inter, sans-serif" font-size="10" fill="#6B5B95">bias-spotter</text>
+
+    <!-- Blue chips (Layer 2) -->
+    <rect x="45" y="256" width="105" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="54" y="270" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">build-or-buy</text>
+
+    <rect x="160" y="256" width="105" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="169" y="270" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">token-economics</text>
+  </g>
+
+  <!-- Card 2: context-spec -->
+  <g>
+    <rect x="315" y="105" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
+    <rect x="315" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <text x="335" y="137" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">context-spec</text>
+
+    <text x="335" y="168" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
+    <text x="335" y="186" font-family="Inter, sans-serif" font-size="12" fill="#2D3D37" letter-spacing="-0.3">Context architecture blueprint</text>
+
+    <text x="335" y="215" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Imports from:</text>
+
+    <rect x="335" y="228" width="105" height="22" rx="5" fill="url(#purpleChip)" stroke="#C9B8E0" stroke-width="1"/>
+    <text x="344" y="242" font-family="Inter, sans-serif" font-size="10" fill="#6B5B95">first-principles</text>
+
+    <rect x="450" y="228" width="105" height="22" rx="5" fill="url(#purpleChip)" stroke="#C9B8E0" stroke-width="1"/>
+    <text x="459" y="242" font-family="Inter, sans-serif" font-size="10" fill="#6B5B95">determinism-compass</text>
+
+    <rect x="335" y="256" width="220" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="344" y="270" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">signal-scanner</text>
+  </g>
+
+  <!-- Card 3: agent-spec -->
+  <g>
+    <rect x="605" y="105" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
+    <rect x="605" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <text x="625" y="137" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">agent-spec</text>
+
+    <text x="625" y="168" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
+    <text x="625" y="186" font-family="Inter, sans-serif" font-size="12" fill="#2D3D37" letter-spacing="-0.3">Agent boundary matrix with autonomy levels</text>
+
+    <text x="625" y="215" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Imports from:</text>
+
+    <rect x="625" y="228" width="105" height="22" rx="5" fill="url(#purpleChip)" stroke="#C9B8E0" stroke-width="1"/>
+    <text x="634" y="242" font-family="Inter, sans-serif" font-size="10" fill="#6B5B95">autonomy-spectrum</text>
+
+    <rect x="740" y="228" width="105" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="749" y="242" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">agent-risk</text>
+
+    <rect x="625" y="256" width="220" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="634" y="270" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">trust-ladder</text>
+  </g>
+
+  <!-- Card 4: cost-model -->
+  <g>
+    <rect x="895" y="105" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
+    <rect x="895" y="105" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <text x="915" y="137" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">cost-model</text>
+
+    <text x="915" y="168" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
+    <text x="915" y="186" font-family="Inter, sans-serif" font-size="12" fill="#2D3D37" letter-spacing="-0.3">Token cost at scale + path to profitability</text>
+
+    <text x="915" y="215" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Imports from:</text>
+
+    <rect x="915" y="228" width="220" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="924" y="242" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">token-economics</text>
+
+    <rect x="915" y="256" width="105" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="924" y="270" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">build-or-buy</text>
+  </g>
+
+  <!-- ROW 2: Cards 5-8 -->
+
+  <!-- Card 5: ship-decision -->
+  <g>
+    <rect x="25" y="410" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
+    <rect x="25" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <text x="45" y="442" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">ship-decision</text>
+
+    <text x="45" y="473" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
+    <text x="45" y="491" font-family="Inter, sans-serif" font-size="12" fill="#2D3D37" letter-spacing="-0.3">Eval-gated ship/no-ship decision</text>
+
+    <text x="45" y="520" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Imports from:</text>
+
+    <rect x="45" y="533" width="105" height="22" rx="5" fill="url(#purpleChip)" stroke="#C9B8E0" stroke-width="1"/>
+    <text x="54" y="547" font-family="Inter, sans-serif" font-size="10" fill="#6B5B95">stress-test</text>
+
+    <rect x="160" y="533" width="105" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="169" y="547" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">failure-modes</text>
+
+    <rect x="45" y="561" width="220" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="54" y="575" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">eval-driven-development</text>
+  </g>
+
+  <!-- Card 6: competitive-map -->
+  <g>
+    <rect x="315" y="410" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
+    <rect x="315" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <text x="335" y="442" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">competitive-map</text>
+
+    <text x="335" y="473" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
+    <text x="335" y="491" font-family="Inter, sans-serif" font-size="12" fill="#2D3D37" letter-spacing="-0.3">Competitive landscape for AI features</text>
+
+    <text x="335" y="520" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Imports from:</text>
+
+    <rect x="335" y="533" width="220" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="344" y="547" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">signal-scanner</text>
+
+    <rect x="335" y="561" width="220" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="344" y="575" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">competitive-moat</text>
+  </g>
+
+  <!-- Card 7: fit-signal -->
+  <g>
+    <rect x="605" y="410" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
+    <rect x="605" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <text x="625" y="442" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">fit-signal</text>
+
+    <text x="625" y="473" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
+    <text x="625" y="491" font-family="Inter, sans-serif" font-size="12" fill="#2D3D37" letter-spacing="-0.3">PMF diagnosis for probabilistic products</text>
+
+    <text x="625" y="520" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Imports from:</text>
+
+    <rect x="625" y="533" width="105" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="634" y="547" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">ai-product-metrics</text>
+
+    <rect x="740" y="533" width="105" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="749" y="547" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">adoption-launch</text>
+
+    <rect x="625" y="561" width="220" height="22" rx="5" fill="url(#purpleChip)" stroke="#C9B8E0" stroke-width="1"/>
+    <text x="634" y="575" font-family="Inter, sans-serif" font-size="10" fill="#6B5B95">stress-test</text>
+  </g>
+
+  <!-- Card 8: prompt-as-product -->
+  <g>
+    <rect x="895" y="410" width="270" height="280" rx="12" fill="white" filter="url(#cardShadow)"/>
+    <rect x="895" y="410" width="270" height="48" rx="12" fill="url(#mossGradient)" style="border-radius: 12px 12px 0 0;"/>
+    <text x="915" y="442" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="white">prompt-as-product</text>
+
+    <text x="915" y="473" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Produces:</text>
+    <text x="915" y="491" font-family="Inter, sans-serif" font-size="12" fill="#2D3D37" letter-spacing="-0.3">Prompt versioning with regression testing</text>
+
+    <text x="915" y="520" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#5F9B84">Imports from:</text>
+
+    <rect x="915" y="533" width="105" height="22" rx="5" fill="url(#purpleChip)" stroke="#C9B8E0" stroke-width="1"/>
+    <text x="924" y="547" font-family="Inter, sans-serif" font-size="10" fill="#6B5B95">first-principles</text>
+
+    <rect x="1030" y="533" width="105" height="22" rx="5" fill="url(#blueChip)" stroke="#A8CBDF" stroke-width="1"/>
+    <text x="1039" y="547" font-family="Inter, sans-serif" font-size="10" fill="#3B5A7A">eval-design</text>
+  </g>
+
+  <!-- Core Story Callout -->
+  <rect x="35" y="720" width="1130" height="110" rx="10" fill="url(#mossLightBg)" stroke="#6BA08A" stroke-width="2"/>
+
+  <text x="55" y="748" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#5F9B84">The Architecture Story</text>
+
+  <text x="55" y="772" font-family="Inter, sans-serif" font-size="12" fill="#2D3D37" letter-spacing="-0.2" line-height="1.5">
+    <tspan x="55" dy="0">None of these skills start by asking "what do you need?" They start by running Layers 1 and 2 first.</tspan>
+    <tspan x="55" dy="16">Every output arrives pre-tested: first-principles decomposed, bias checked, risk-mapped, evaluated. Not bolted on. Built in.</tspan>
+  </text>
+
+  <!-- Footer -->
+  <text x="40" y="880" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#9A8A7A" letter-spacing="0.5">Layer 3 Craft  ·  8 Generators  ·  April 2026</text>
+  <text x="1120" y="880" font-family="Inter, sans-serif" font-size="11" fill="#9A8A7A" text-anchor="end" letter-spacing="0.5">Luminous Pastel · Moss #6BA08A</text>
+</svg>

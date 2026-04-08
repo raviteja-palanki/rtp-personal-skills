@@ -1,160 +1,179 @@
 <p align="center">
-  <img src="diagrams/hero-brain.svg" alt="The Orchestrator — vague input becomes surgical output through shared context, three layers, and 6 expert teams" width="900"/>
-</p>
-
-<h3 align="center">A Second Brain for Product Work</h3>
-<p align="center">
-  <strong>66 Skills</strong> · <strong>6 Expert Teams</strong> · <strong>3 Layers</strong> · <strong>1 Compounding System</strong>
-</p>
-<p align="center">
-  <sub>Built with the same $200/month model everyone has access to</sub>
+  <img src="diagrams/hero-badge.svg" alt="rtp-personal-skills" width="900"/>
 </p>
 
 ---
 
-A two-sentence enterprise request went in last week.
+I didn't build 66 skills. I built a brain.
 
-What came out was so precise that the first question back was: *"When can we start?"*
+The skills are its expertise. The orchestrator is its judgment. And the whole thing learns — every session, every correction, every hard question — it compounds.
 
-Nobody asked for the section explaining when the plan might be wrong. The system wrote it anyway.
-
----
-
-That's not because I'm fast. It's because I spent a year teaching my AI how to think.
-
-Everyone has access to Claude. The model is the same for all of us. What's different is what I've taught mine to do *before* it speaks.
-
-The questions to ask before any decision. The traps to catch. The judgment calls that only come from shipping AI in production.
-
-66 skills. 6 expert teams. Three layers that check each other's work. And before anyone executes, shared context that keeps every piece aligned.
-
-The result isn't faster AI. It's an AI that thinks the way I'd think if I had unlimited time — and then tells me where I might be wrong.
-
-> *"The best product leaders don't have better answers. They have better systems for arriving at answers."*
-
-This is how I actually work. Not a demo. Not a side project.
+This is what happens when a product manager treats their own AI tooling with the same rigor they'd bring to any production system they're responsible for.
 
 ---
 
-## See it work
+## The idea, in one sentence
 
-Someone walks in and says:
+**An AI operating system that thinks before it acts, deploys specialized agents to do the work, reviews their output, and gets sharper every time it runs.**
 
-> *"We want AI in our enterprise app. Can we build an agent that gives users faster insights?"*
+Think of it like this. Most people use AI the way you'd use a calculator — type a question, get an answer, move on. Nothing connects. Nothing compounds. Every conversation starts from zero.
 
-The kind of ask that sinks most teams — broad enough to mean anything, specific enough to feel like a plan. Most PMs would start building. The orchestrator starts by figuring out what's actually being asked.
+What I built is different. It's more like having a chief of staff who knows your projects, understands your thinking style, remembers what worked last time, and — when you say "write me a PRD" — doesn't just fill in a template. It checks your reasoning first. It asks whether you've considered the failure modes. It models the cost at 10x scale. It flags the assumption that would kill the plan. Then it writes the PRD — and the PRD arrives pre-tested, because the thinking happened in the right order.
 
-<p align="center">
-  <img src="diagrams/worked-example.svg" alt="A vague enterprise AI request flows through the orchestrator: classify, deploy workers, synthesize a ship-ready recommendation" width="900"/>
-</p>
-
-That vague, two-sentence request became:
-
-- Scoped recommendation with autonomy levels justified
-- Cost model at three scales of adoption
-- Eval gates defined before launch
-- Failure modes mapped before build
-- **WHEN WRONG** — the exact assumptions that would invalidate everything
-
-> *"The gap between a junior PM and a senior one isn't knowledge. It's knowing which question to ask before the room realizes it needs asking."*
+The system has three parts.
 
 ---
 
-## How it works
+## Part 1: The Orchestrator — A Brain, Not a Router
 
 <p align="center">
-  <img src="diagrams/orchestrator-power.svg" alt="Three pillars: shared context alignment, layered verification with confidence gates, and compounding intelligence" width="900"/>
+  <img src="diagrams/00-orchestrator.svg" alt="The Orchestrator" width="900"/>
 </p>
 
-Three design principles make the output cohesive instead of collaged.
+Most AI systems route. You say "write a PRD," it loads a PRD template. You say "do a competitive analysis," it loads an analysis framework. There's no judgment. No context. No memory of who you are or what you're actually trying to accomplish.
 
-**Shared context.** Before any team executes, the orchestrator reads the problem, spots the constraint nobody mentioned, and builds a shared understanding. Every worker knows the goal, the plan, and how their piece connects. Alignment before execution — not assembly after the fact.
+The orchestrator is different. It's the persistent brain that sits at the center of everything.
 
-**Layered verification.** Thinking surfaces the hard questions. Judgment makes the hard calls. Craft ships the artifacts. Each layer earns the right for the next to run. Gates between layers refuse to proceed on bad inputs — if thinking hasn't cleared its threshold, judgment doesn't fire.
+**When any input arrives, the orchestrator does five things — silently, before you see any output:**
 
-**Compounding intelligence.** Every session feeds back. Patterns get watched. After three confirmations, promoted to rules. The system doesn't just run — it learns from running.
+1. **Listens deeply.** Not just what you asked, but what you meant. It reads the hidden signals — your role, your constraints, the phase of work you're in, the structural problem you haven't mentioned yet.
 
-> *"A great orchestrator doesn't distribute tasks. It distributes understanding."*
+2. **Classifies the ask.** Is this a quick answer? Deep thinking? Direct action? The classification determines the response — a factual question gets answered in two sentences, not wrapped in a five-step analysis. Respect for your time is a design principle.
+
+3. **Activates the right thinking patterns.** Ten cognitive algorithms — first principles decomposition, falsification (when would this advice be wrong?), bias detection, production reality checks, graceful degradation design — run on every input. Not all ten every time. The orchestrator activates the ones that matter for *this* problem.
+
+4. **Deploys worker agents.** The orchestrator doesn't do the specialized work itself. It identifies which agents to deploy, what skills they need, and in what order. Independent tasks run in parallel. Dependent tasks run in sequence. The orchestrator manages the handoffs.
+
+5. **Reviews and synthesizes.** Workers produce drafts. The orchestrator reviews for quality, consistency, and blind spots. Then it synthesizes everything into a single output — executive-level on the surface, PhD-level underneath.
+
+**The orchestrator's communication rules are non-negotiable:**
+- Every recommendation is decisive. "Do X" — not "consider X."
+- Every recommendation has conditions. "This works IF [condition]. If [condition] changes, pivot to [alternative]."
+- Every output ends with what to do Monday morning. Not what to think about — what to DO.
 
 ---
 
-## The three layers
+## Part 2: Worker Agents — An Army of Specialists
 
 <p align="center">
-  <img src="diagrams/three-layers.svg" alt="Three layers — thinking, judgment, craft — each earns its place by making the next one trustworthy" width="900"/>
+  <img src="diagrams/01-architecture-overview.svg" alt="Architecture Overview" width="900"/>
 </p>
 
-### Thinking — 10 checks
+Worker agents are not scripts. They're intelligent sub-agents that combine specialized skills with contextual understanding.
 
-<p align="center">
-  <img src="diagrams/thinking-layer.svg" alt="10 thinking checks that run before any decision gets made" width="900"/>
-</p>
+Every worker has three components: **domain expertise** (one or two specialized skills), **persona context** (they understand the user's voice, thinking style, and quality bar), and **memory** (they carry feedback from prior executions, so the tenth time a worker runs, it's structurally sharper than the first).
 
-In the enterprise AI request, most people hear "faster insights" and start building a dashboard.
+Here's the map:
 
-The thinking layer caught something different. That phrase could mean a retrieval system, an analytics copilot, or a decision-support agent. Three architecturally different products. Different cost. Different risk. Different adoption profiles. It surfaced which one matched the real constraints before anyone built the wrong one.
+### The AI PM Expert Teams (54 skills)
 
-That's what 10 thinking checks do. They don't produce documents. They produce **confidence that the documents are worth writing.**
+Six specialized teams that the orchestrator deploys for AI product work:
 
-The layer has a confidence gate. If inputs don't clear the threshold, it tells you what's missing instead of charging ahead with bad assumptions. You never see "running bias check." You see a recommendation that already accounts for the blind spots.
+**The Sense-Maker** sees the real problem — not the one you described, but the one underneath it. It runs first-principles decomposition, scores AI fit, maps where uncertainty lives, and catches adaptive challenges disguised as technical problems.
 
-> *"A beautiful PRD built on the wrong assumptions isn't a document. It's a delayed disaster with nice formatting."*
+**The Strategist** decides where to invest and what to kill. It builds capability-conditional roadmaps with expiration dates, finds the moat (data flywheel, workflow lock-in, context depth, or earned trust), catches when AI-generated strategy is just trendy advice, and models cost reality at production scale.
 
-### Judgment — 36 skills across 5 domains
+**The Architect** designs the right level of autonomy. Not "how autonomous CAN we make this" but "what level of autonomy does each interaction DESERVE?" It maps the spectrum from autocomplete to fully autonomous agents, designs tool access with consequence-aware permissions, and builds the harness architecture (planner → generator → evaluator) that keeps agents productive and safe.
 
-<p align="center">
-  <img src="diagrams/judgment-layer.svg" alt="36 judgment skills across 5 domains — product sense, strategy, safety, agent design, evals" width="900"/>
-</p>
+**The Trust Builder** makes it safe AND gets people to use it. Safety-by-design principles baked into architecture. Adoption curves modeled by persona. Proportionality analysis for every agent (is the value worth the worst-case harm?). Breach readiness — designing systems that survive being hacked, not just systems that resist it.
 
-The thinking layer identified the real problem: a decision-support agent, not a dashboard.
+**The Prover** replaces hope with evidence. Evaluation frameworks that evolve as the product matures. Experiments designed for causal evidence, not correlation. Confidence calibration that prevents both over-reliance and dismissal. The rule: if you can't measure it, you can't ship it.
 
-Now judgment makes the call. 36 skills weighed safety, latency, cost curves, and adoption readiness. The recommendation: Level 3 autonomy. Human-in-the-loop at decision boundaries. Cost models at three scales. A safety analysis mapping the exact scenarios where the system should refuse to act.
+**The Crafter** produces the documents that ship the product — PRDs, agent specs, cost models, ship/no-ship decisions. But because the Crafter runs *after* the other five teams, every document arrives pre-tested. The PRD has eval criteria as acceptance criteria. The cost model has been stress-tested at 10x. The ship decision has named the three assumptions that would invalidate it.
 
-Not a gut feel. A judgment that can show its work.
+### The General-Purpose Agents (12 skills)
 
-Every skill has a WHEN WRONG section — the conditions under which its own advice fails. The skills that wrote the enterprise recommendation are built to question themselves.
+Beyond AI PM, the system has specialists for the rest of the workday:
 
-> *"Confidence without a kill condition isn't conviction. It's negligence."*
+- **Email Writer** — professional communication calibrated to context and audience
+- **Article Writer** — thought leadership grounded in research synthesis, not opinion
+- **Research Analyst** — signal collection and pattern synthesis from curated sources
+- **Presentation Builder** — zero-dependency HTML presentations with Apple-level design polish
+- **Diagram Builder** — hand-drawn SVG diagrams with pastel palette and storytelling structure
+- **Interview Strategist** — AI PM interview preparation grounded in real frameworks and experience
+- **Curriculum Architect** — course development using the CONTEXT framework
 
-### Craft — 8 generators
-
-<p align="center">
-  <img src="diagrams/craft-layer.svg" alt="8 generators that won't start until the thinking and judgment layers have run" width="900"/>
-</p>
-
-Ship-ready artifacts. But none start by asking "what do you need?"
-
-They already know. They import everything thinking and judgment discovered.
-
-That WHEN WRONG section nobody asked for? Craft turned the three riskiest assumptions into named conditions with kill switches. The output arrived pre-tested — not because someone bolted on a review, but because the architecture won't let you skip one.
-
-> *"The best review is one that happened before the first draft was written."*
+Every worker inherits from **Ravi Voice** — the master thinking system that carries 10 cognitive algorithms, 24 AI writing anti-patterns to avoid, and the Bridger communication style. A resume without the persona embedded isn't a Ravi resume. An article without the thinking algorithms isn't Ravi's thought leadership. Voice is the DNA in every worker.
 
 ---
 
-## This runs my whole professional life
+## Part 3: The Three-Layer Skill Architecture
 
 <p align="center">
-  <img src="diagrams/personal-os.svg" alt="The same orchestrator runs AI PM, writing, research, presentations, career prep, and course building" width="900"/>
+  <img src="diagrams/02-thinking-layer.svg" alt="Thinking Layer" width="900"/>
 </p>
 
-The same brain that deploys expert teams for AI product work also runs my email, presentations, research, interview prep, and a 17-module AI PM curriculum I'm building. One system. One quality bar. One compounding loop.
+The 54 AI PM skills are organized into three layers. Each layer earns the right to exist by making the next layer's output trustworthy.
 
-> *"Most people use AI to do things faster. A few use it to think things they couldn't think before."*
+### Layer 1: Thinking — "Before you decide anything" (10 skills)
+
+These don't produce documents. They produce *checks.*
+
+Before any decision gets made, they ask: Are you decomposing from first principles, or pattern-matching from your last project? Are you anchored on what a competitor built instead of what your users need? If your AI system fails, does it degrade gracefully or does it fail silently? What would make your strongest recommendation completely invalid?
+
+Skills: `first-principles` · `bias-spotter` · `falsification` · `dual-lens` · `determinism-compass` · `stress-test` · `failure-design` · `alignment-check` · `judgment-guard` · `problem-type`
+
+<p align="center">
+  <img src="diagrams/03-judgment-layer.svg" alt="Judgment Layer" width="900"/>
+</p>
+
+### Layer 2: Judgment — "The hard calls" (36 skills across 5 domains)
+
+The decisions that separate a PM who's been in the room from one who's read about the room.
+
+**Product Sense** (9 skills) — Is AI the right solution, or are you building because the technology is exciting? Scores AI fit 0-16. Maps the invisible stack. Designs the feedback flywheel that turns user corrections into model improvements.
+
+**AI Strategy** (10 skills) — Durable bets when capabilities shift every quarter. Capability-conditional roadmaps. Moat analysis. Portfolio management with stage gates. And a trendslop detector that catches when AI-generated strategy is just telling you what's popular.
+
+**Safety & Trust** (7 skills) — Not compliance theater. Safety as the thing that earns you the right to ship fast. Proportionality analysis for agents. Breach readiness. Trust signals calibrated so users neither over-rely nor ignore.
+
+**Agent Design** (5 skills) — When AI should act, not just answer. The autonomy spectrum from Level 0 to Level 4. Multi-agent orchestration. Tool access with consequence-magnitude-aware permissions.
+
+**Eval & Quality** (6 skills) — If you can't measure it, you don't know if it works. Evaluation before code. Experiments designed for causal evidence. Confidence tuning that reduced errors by 49% in research.
+
+<p align="center">
+  <img src="diagrams/04-craft-layer.svg" alt="Craft Layer" width="900"/>
+</p>
+
+### Layer 3: Craft — "Ship-ready artifacts" (8 skills)
+
+PRDs, agent specs, cost models, ship decisions, competitive maps, product-market fit signals, prompt specifications.
+
+None of them start by asking requirements. They start by importing the thinking and judgment layers. The output arrives pre-tested — not because a review step was bolted on, but because the architecture won't let you skip one.
 
 ---
 
-## The belief behind this
+## The Compounding Engine
 
-**Everyone has access to the same model. What you craft around it to get your defined outcome — that's what separates a PM who uses AI from a PM who thinks in AI.**
+<p align="center">
+  <img src="diagrams/06-import-chain.svg" alt="Import Chain" width="900"/>
+</p>
 
-The model is identical. The difference is what you've built around it. What to check before acting. What to question before recommending. What to name as wrong before shipping.
+This is the part that took the most iteration — and it's the part that makes everything else work.
 
-That WHEN WRONG section from the enterprise request — the one nobody asked for? That's what product thinking sounds like when it's been taught to a machine.
+**Every skill follows a shared protocol:** gather context → choose depth → build a trade-off ledger → pass a quality gate → generate the deliverable. Skills compose. The output of one becomes the input of the next without translation loss.
 
-> *"Your AI is only as good as the thinking you've taught it to do before it speaks."*
+**Every diagnostic question includes calibrated answer nudges** — thinking dimensions, spectrum anchors, red flag patterns, sharpening probes — so the system adjusts its depth to match how well-defined the problem is. Vague input doesn't get glossed over. It gets flagged.
 
-I didn't build this as a portfolio piece. I built it because I needed it. And it turned out to be the clearest proof I know of what happens when a PM treats their own AI with the same rigor they'd bring to any production system.
+**Every skill has a WHEN WRONG section** — the conditions under which its own advice fails. A framework that doesn't know its limits is more dangerous than having no framework at all.
+
+**Every session feeds back.** Patterns get watched. After three confirmations, they become rules. Rules shape future sessions. Anti-patterns get captured when they cause real waste. The orchestrator reads them and avoids repeating them. Over months, the system gets meaningfully sharper.
+
+This isn't a library of tools. It's an operating system that learns.
+
+---
+
+## How I'd explain this in an interview
+
+*"I built a personal AI operating system — 66 composable skills with an orchestrator that works like a brain, not a routing table.*
+
+*The insight was that most AI tools give you templates. You fill in a PRD template, check the boxes, ship. But the template doesn't know you're anchored on a competitor's approach. It doesn't catch that your cost model collapses at 10x scale. It doesn't ask who pays the cost if you're wrong.*
+
+*So I built a system where the thinking happens in the right order. Ten reasoning skills run as checks before any decision gets made. Thirty-six judgment skills make the hard calls — not 'what is RAG' but 'when is RAG the wrong architecture for your constraints.' Eight craft skills produce documents that arrive pre-tested because the reasoning layers already ran.*
+
+*At the center is an orchestrator — a persistent brain that understands my goals, deploys specialized worker agents in parallel, reviews their output, and compounds its judgment over time. It's like having a chief of staff built from first principles.*
+
+*The system has been my actual daily operating system for months. It's not theoretical — it's how I ship, think, and prepare. And the architecture itself demonstrates the AI PM thinking it teaches: composable skills, import chains that enforce quality, graceful degradation when context is limited, and a compounding feedback loop that makes every session smarter than the last."*
 
 ---
 
@@ -162,24 +181,22 @@ I didn't build this as a portfolio piece. I built it because I needed it. And it
 
 I'm **Ravi Teja Palanki** — Senior Technical PM at Honeywell, Perplexity AI Fellow 2025.
 
-I've spent 12 years building enterprise products where the stakes are real — industrial automation, life sciences, energy. Environments where a wrong answer isn't a bad user experience, it's a safety incident. That's where I learned that great product work isn't about having the right instinct. It's about building systems that catch you when your instincts are wrong.
+12+ years shipping enterprise B2B products at Fortune 100 scale. From 0-to-1 builds through global adoption across industrial, life sciences, and energy verticals. Led cross-functional teams of 30+ and taken products from first alpha to $100M+ revenue opportunity. More recently: shipping Gen AI into production — RAG pipelines, LLM-powered assistants for plant managers and field supervisors, context-engineered architectures designed for safety-critical industrial environments where a hallucination isn't an inconvenience, it's a compliance incident.
 
-Now I build Gen AI into those same environments. RAG pipelines, LLM assistants for plant managers and field supervisors, context-engineered architectures where every output has to earn trust before it ships.
-
-I sit in the room with engineers debating inference latency *and* in the room with executives asking what this means for next quarter. This system reflects that dual fluency — and the belief that one person with the right tools can do work that used to require a team.
-
-> *"The rarest skill in AI product management isn't technical depth or business acumen. It's the ability to hold both in the same sentence."*
+I'm what the research calls a *bridger.* When engineering says "we need a validation layer," design says "users need to feel in control," and the business asks "what's the ROI at 10x scale" — I make each feel understood and challenged, then synthesize the path that serves all three. That instinct — translating across contexts, integrating across incentives — is the design principle behind every skill in this system.
 
 ---
 
-## License
+## Installation
 
-This repository is **not open source.** The code, skills, frameworks, and architecture are proprietary. You're welcome to be inspired by the approach — codifying your own judgment into your own AI system — but the implementation is mine.
+```bash
+# As a Claude plugin:
+claude plugin install raviteja-palanki/rtp-personal-skills
 
-If you'd like to discuss the ideas behind it, I'm always open to conversation.
+# Or clone directly:
+git clone https://github.com/raviteja-palanki/rtp-personal-skills.git
+```
 
 ---
 
-<p align="center">
-  <sub>Built with Claude · April 2026</sub>
-</p>
+<sub>Built with Claude · April 2026 · All rights reserved</sub>

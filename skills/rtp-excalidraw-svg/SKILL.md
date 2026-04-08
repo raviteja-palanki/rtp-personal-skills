@@ -1,5 +1,5 @@
 ---
-name: excalidraw-svg
+name: rtp-excalidraw-svg
 description: "Excalidraw SVG diagrams: pastel, readable text, storytelling. Diagrams, flowcharts, architecture, infographics, flows, maps. Use when: visual explanation or output enhancer for PRD/spec/analysis. Triggers: 'diagram', 'flowchart', 'visual', 'architecture'"
 ---
 
@@ -15,6 +15,47 @@ Three non-negotiable principles from Apple's design team, adapted for diagrams:
 1. **Readability is sacred.** If text can't be read at a glance, it doesn't exist. Dark text on light backgrounds. Minimum 11px, prefer 13-16px for body. Never grey-on-grey.
 2. **Every diagram tells one story.** Not a data dump. One narrative arc: setup → tension → resolution. The viewer should know the takeaway in 3 seconds.
 3. **Restraint signals mastery.** Maximum 5 colors per diagram. One accent color draws the eye. White space is a design element, not wasted space.
+
+---
+
+## IDEO DESIGN DIRECTOR REVIEW
+
+Before creating any diagram, internalize these five principles from IDEO Design Director methodology. They separate functional diagrams from ones that influence decisions.
+
+### 1. Human-Centered Framing
+Diagrams are not system dumps. They answer the viewer's question, not the system's structure.
+
+**Wrong:** "Here are all the components."
+**Right:** "Here's what the viewer needs to decide / understand / build."
+
+Example: Instead of showing "Orchestrator → LLM → Tool Calling → State Management → Execution," frame it as "How does the orchestrator handle a real request? Watch step-by-step."
+
+### 2. Prototype Thinking
+First diagrams are prototypes. Expect 2-3 iterations. Build for feedback, not perfection.
+
+- Start rough. Get the story right first.
+- After feedback: refine layout, tighten copy, polish colors.
+- Never spend 2 hours perfecting a layout before getting feedback — you'll throw it away anyway.
+
+### 3. Show, Don't Tell
+Use visual metaphors. A funnel IS the story of filtering. A bridge IS connection. A layer cake IS inheritance.
+
+**Anti-pattern:** Text-heavy boxes with arrows labeled "sends," "receives," "processes." That's a data structure diagram, not a story.
+
+**Pattern:** The shape, color, and flow carry meaning. Text amplifies, not explains.
+
+### 4. Emotional Design
+Diagrams should make the viewer FEEL something:
+- **Confidence:** Clear path forward, no ambiguity.
+- **Urgency:** Red highlights what breaks. Moss highlights what works.
+- **Clarity:** Even complex systems feel understandable.
+
+If a diagram doesn't create an emotional response, it's a data dump. Rework it.
+
+### 5. The "Walk the Wall" Test
+Would this diagram survive being printed at A3 and pinned to a wall in your office? Would someone walking by stop, read it, and get the main point in 10 seconds?
+
+If yes, it works. If no, simplify the story or split into multiple diagrams.
 
 ---
 
@@ -94,7 +135,7 @@ Every SVG starts with this exact structure:
   <rect x="0" y="0" width="{WIDTH}" height="80" rx="16" fill="{HEADER_TINT}"/>
   <rect x="0" y="60" width="{WIDTH}" height="20" fill="{HEADER_TINT}"/>
   <text x="{CENTER}" y="36" text-anchor="middle" fill="{HEADER_TEXT}" font-size="28" font-weight="800" font-family="Inter, Segoe UI, sans-serif">{TITLE}</text>
-  <text x="{CENTER}" y="62" text-anchor="middle" fill="#374151" font-size="15" font-family="Inter, sans-serif">{DEPTH_LABEL} · {SUBTITLE}</text>
+  <text x="{CENTER}" y="62" text-anchor="middle" fill="#5F6B7A" font-size="15" font-family="Inter, sans-serif">{DEPTH_LABEL} · {SUBTITLE}</text>
 
   <!-- Content area -->
   ...
@@ -118,20 +159,20 @@ Width is ALWAYS 1200px. This renders perfectly on GitHub READMEs, documentation 
 
 See [references/color-palette.md](references/color-palette.md) for the complete palette.
 
-**Quick reference — the 8 semantic color families:**
+**Quick reference — the 8 Luminous Pastel families (solid headers + optional gradient accents):**
 
-| Semantic | Header fill | Card bg | Chip bg | Chip border | Text dark | Text medium |
-|----------|------------|---------|---------|-------------|-----------|-------------|
-| Teal (thinking/foundation) | `#14B8A6` | `#F0FDFA` | `#CCFBF1` | `#5EEAD4` | `#0F766E` | `#0D9488` |
-| Purple (judgment/decision) | `#8B5CF6` | `#F5F3FF` | `#EDE9FE` | `#C4B5FD` | `#6D28D9` | `#7C3AED` |
-| Amber (craft/output) | `#F59E0B` | `#FFFBEB` | `#FEF3C7` | `#FCD34D` | `#B45309` | `#92400E` |
-| Cyan (eval/quality) | `#06B6D4` | `#ECFEFF` | `#ECFEFF` | `#67E8F9` | `#0E7490` | `#0E7490` |
-| Pink (agents/autonomy) | `#EC4899` | `#FCE7F3` | `#FCE7F3` | `#F9A8D4` | `#9D174D` | `#9D174D` |
-| Red (danger/incident) | `#EF4444` | `#FEF2F2` | `#FEF2F2` | `#FCA5A5` | `#991B1B` | `#DC2626` |
-| Green (success/positive) | `#16A34A` | `#F0FDF4` | `#D1FAE5` | `#86EFAC` | `#065F46` | `#16A34A` |
-| Neutral (structure) | `#6B7280` | `#FFFFFF` | `#F9FAFB` | `#E5E7EB` | `#1B1B1F` | `#5F6B7A` |
+| Semantic | Header solid | Accent gradient | Card bg | Chip bg | Chip border | Text dark | Text medium |
+|----------|--------------|-----------------|---------|---------|-------------|-----------|-------------|
+| Rose Quartz (thinking) | `#D4789B` | `#E8A0BF` → `#D4789B` | `#FFF5F8` | `#FFE4ED` | `#F5B8CB` | `#8B3A5A` | `#A64D6E` |
+| Wisteria (judgment) | `#9478B8` | `#B8A0D6` → `#9478B8` | `#F8F5FF` | `#EDE5F8` | `#CDBEE8` | `#5B3E7A` | `#7556A0` |
+| Honey Amber (craft) | `#D4A54A` | `#E8C170` → `#D4A54A` | `#FFFCF5` | `#FFF3D6` | `#F0D78A` | `#7A5A1E` | `#946E2A` |
+| Celadon (eval/quality) | `#6BA898` | `#8CC5B0` → `#6BA898` | `#F2FAF6` | `#DFF0E8` | `#A8D4C0` | `#2E6B54` | `#3D8068` |
+| Glacier (tech/data) | `#5A9ABE` | `#7CB8D8` → `#5A9ABE` | `#F3F9FD` | `#DFF0FA` | `#A4D2E8` | `#2A5F7A` | `#3A7598` |
+| Coral (agents/danger) | `#D47B64` | `#E89880` → `#D47B64` | `#FFF7F4` | `#FFE8E0` | `#F0BCA8` | `#8B4434` | `#A45840` |
+| Moss (success) | `#7BA86C` | `#9AC08A` → `#7BA86C` | `#F5FAF2` | `#E2F0D8` | `#B0D4A0` | `#3A5E2E` | `#4E7A40` |
+| Neutral (structure) | — | — | `#FFFFFF` | `#F8F7F5` | `#E2DFD8` | `#1B1B1F` | `#4A4540` |
 
-**Selection rule:** Pick 2-3 primary families per diagram. Use one for emphasis. Neutral for structure.
+**Selection rule:** Pick 2-3 primary families per diagram. Use solid header colors for primary fill. Optional gradient accents below for visual richness. Use neutral for structure.
 
 ### Typography Scale
 
@@ -150,15 +191,20 @@ See [references/color-palette.md](references/color-palette.md) for the complete 
 
 The fundamental building block. Excalidraw-inspired: rounded, shadowed, colored header bar.
 
+**Updated approach for readability:** Solid header color (the darker endpoint of each family's gradient) with optional gradient accent bar below.
+
 ```xml
 <!-- Standard card: 270px wide, height varies -->
 <rect x="{X}" y="{Y}" width="270" height="{H}" rx="14" fill="#FFFFFF" stroke="{BORDER}" stroke-width="2" filter="url(#s)"/>
-<!-- Colored header bar (two rects to get flat bottom on header) -->
-<rect x="{X}" y="{Y}" width="270" height="44" rx="14" fill="{HEADER_COLOR}"/>
-<rect x="{X}" y="{Y+30}" width="270" height="14" fill="{HEADER_COLOR}"/>
-<!-- Header text (white on color) -->
+<!-- Solid colored header bar (high-contrast, WCAG-compliant) -->
+<rect x="{X}" y="{Y}" width="270" height="44" rx="14" fill="{HEADER_SOLID_COLOR}"/>
+<!-- Optional gradient accent bar below for visual richness -->
+<rect x="{X}" y="{Y+44}" width="270" height="12" rx="0" fill="url(#{FAMILY}-accent)"/>
+<!-- Header text (white on solid color = guaranteed readability) -->
 <text x="{CENTER_X}" y="{Y+29}" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, sans-serif">{CARD_TITLE}</text>
 ```
+
+**Color selection:** Use the darker endpoint (gradient end color) as `HEADER_SOLID_COLOR`. See color-palette.md for specific hex values per family.
 
 Card widths: `230` (compact), `270` (standard), `340-370` (wide), `545-555` (half-width).
 
@@ -298,6 +344,38 @@ Key elements:
 - Labels below each segment
 - Contrast callout boxes below (neutral vs. red warning)
 
+### Pattern: The Deliverable Map
+Show agents/skills and what tangible outputs each produces. Critical for communicating value when describing multi-agent systems.
+Story: "Each agent does something specific. Here's what you GET from each."
+Use for: skill/agent system diagrams, service catalogs, capability maps, orchestrator systems.
+Key elements:
+- Agent/skill card with colored header
+- "Delivers:" section below the description
+- 2-3 deliverables shown as document-chip items (small page-shaped icons with labels)
+- Deliverable items use semantic color matching the agent's header
+- Optional: estimate cards below each deliverable (time estimate, complexity)
+
+Example structure:
+```xml
+<!-- Agent card with deliverables section -->
+<rect x="100" y="100" width="270" height="200" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="2" filter="url(#s)"/>
+<rect x="100" y="100" width="270" height="44" rx="14" fill="#D4789B"/>
+<text x="235" y="129" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700">Agent Name</text>
+
+<!-- Description -->
+<text x="120" y="160" fill="#1B1B1F" font-size="13" font-weight="600">Delivers:</text>
+
+<!-- Deliverable chips -->
+<rect x="120" y="175" width="120" height="24" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
+<text x="180" y="188" text-anchor="middle" fill="#8B3A5A" font-size="11" font-weight="600">PRD + Spec</text>
+
+<rect x="120" y="205" width="120" height="24" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
+<text x="180" y="218" text-anchor="middle" fill="#8B3A5A" font-size="11" font-weight="600">Risk Register</text>
+
+<rect x="120" y="235" width="120" height="24" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
+<text x="180" y="248" text-anchor="middle" fill="#8B3A5A" font-size="11" font-weight="600">Validation Report</text>
+```
+
 ### Pattern: The Attribution/Flow Graph
 Multi-path routing diagram where inputs on the left flow through processing nodes to outputs on the right. Each path gets its own color. Shared intermediate nodes show convergence.
 Story: "Multiple inputs, shared processing, divergent outputs — trace any path."
@@ -307,6 +385,58 @@ Key elements:
 - Shared zones with translucent background
 - Solid arrows for direct flow, dashed for indirect/inferred
 - Input labels left, output labels right
+
+---
+
+## EXECUTIVE STORYTELLING
+
+When diagrams are shared in boardrooms, pitch decks, or strategic reviews, they need different framing. This section is not about system internals — it's about outcomes and decisions.
+
+### The "Boardroom Test"
+Would this diagram work in a board presentation? No jargon. No system internals. Only outcomes and decisions.
+
+**Bad:** "Orchestrator receives task, invokes LLM with context window constraint, tool-calls execute asynchronously."
+**Good:** "The system handles complex tasks step-by-step. Each step completes before moving forward. Failures are caught early."
+
+**The question:** Does the board member immediately understand what this solves FOR THEM? Not what it does. What value it creates.
+
+### Narrative Arc for Business Audiences
+
+Every diagram aimed at executives should follow this three-act structure. Use color to reinforce the narrative:
+
+1. **Problem** — What breaks without this? (Red/Coral if it's a pain point)
+2. **Mechanism** — How does it work? (Blue/Neutral if it's explanation)
+3. **Impact** — What becomes possible? (Green/Moss for the payoff)
+
+The color carries the narrative. An executive should see the progression without reading a word.
+
+### The "So What?" Must Be Unavoidable
+
+After explaining the mechanism, the callout box at the bottom must be the most visually prominent element (after the title).
+
+**Rule:** The punchline callout gets:
+- Larger font (16px+ vs. 13px body text)
+- Brightest color (often Moss for positive, Coral for risk)
+- Bold weight (700+)
+- Specific number if possible: "49% error reduction" > "significant improvement"
+
+### Data Points as Persuasion
+
+Include 1-2 specific numbers per diagram:
+- "Over 90% of evaluations surface this issue within 2 rounds"
+- "Typical ROI payoff: 4 weeks"
+- "Reduces manual review from 6 hours to 18 minutes"
+
+Numbers are far more persuasive than adjectives. "Dramatic" means nothing. "3.2x faster" means action.
+
+### Executive Callout Box Format
+
+```xml
+<!-- Executive "so what?" box at bottom -->
+<rect x="100" y="720" width="1000" height="80" rx="14" fill="#F5FAF2" stroke="#B0D4A0" stroke-width="2" filter="url(#s)"/>
+<text x="600" y="750" text-anchor="middle" fill="#3A5E2E" font-size="18" font-weight="800" font-family="Inter, sans-serif">Result: 49% reduction in manual review time</text>
+<text x="600" y="778" text-anchor="middle" fill="#4A4540" font-size="14" font-family="Inter, sans-serif">First-time adoption: 2 weeks. Full ROI: 6 months.</text>
+```
 
 ---
 
@@ -359,41 +489,36 @@ After planning, check:
 
 ## STEP 6: ARROW ROUTING & CONNECTIONS
 
+### Validated Pattern: Curved Bezier Arrows
+**Confirmed effective:** Curved bezier arrows with labeled midpoints are the preferred connection style across diagrams. They communicate relationships clearly without visual harshness, and they have been validated in interview and presentation contexts. Keep using this — it works.
+
+---
+
 ### Arrow Types and When to Use Them
 
 | Arrow type | SVG approach | When to use |
 |-----------|-------------|-------------|
-| Hand-drawn curve (DEFAULT) | `M x1,y1 C cx1,cy1 cx2,cy2 x2,y2` | **All connections.** This is the default. |
+| Straight horizontal | `M x1,y L x2,y` | Same-row connections, flow chains |
+| Straight vertical | `M x,y1 L x,y2` | Parent-child, top-down hierarchies |
+| Curved (bezier) | `M x1,y1 C cx1,cy1 cx2,cy2 x2,y2` | Layer-to-layer flows, import chains |
 | Elbowed (L-shaped) | `M x1,y1 L x1,y2 L x2,y2` | Cross-lane routing, avoiding overlaps |
 
-**CRITICAL: Never use straight `<line>` elements for arrows.** Straight lines look mechanical and tool-generated. Always use `<path>` with cubic bezier curves (`C`) that have control points offset 5-15px from the straight-line path. This creates the organic, hand-drawn feel that separates artisan craft from tool output.
+### Arrow Routing Rules
 
-### The Hand-Drawn Arrow Formula
-
-For a vertical arrow from (x, y1) to (x, y2):
-```xml
-<!-- Organic vertical arrow — control points wobble 3px left/right -->
-<path d="M x,y1 C x+3,y1+h/3 x-3,y1+2h/3 x,y2" stroke="#B0B8C4" stroke-width="2.5" stroke-dasharray="5,4" fill="none" stroke-linecap="round"/>
-<polygon points="x-6,y2-3 x,y2+8 x+6,y2-3" fill="#B0B8C4"/>
-```
-
-For a diagonal arrow from (x1, y1) to (x2, y2):
-```xml
-<!-- Organic diagonal — single control point creates a gentle arc -->
-<path d="M x1,y1 C midX-10,midY+8 midX+10,midY-8 x2,y2" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
-```
-
-### Arrow Styling Rules
-
-1. **Always `stroke-linecap="round"`.** This is non-negotiable. Square caps look mechanical.
-2. **Arrow color: `#B0B8C4`** — darker than `#D1D5DB` (old default), visible at small sizes, but still recedes behind content.
-3. **Stroke width: 2-2.5px** for arrows, 2px for connection lines. Thinner disappears at GitHub rendering scale.
-4. **Dashed arrows: `stroke-dasharray="5,4"`** — slightly longer dashes than the old `4,3`, more organic rhythm.
-5. **Endpoint dots: `r="3.5"` circles** in `#B0B8C4` — marks where connections land. Slightly larger than before.
-6. **Never accept crossing arrows.** If two arrows must cross, rearrange the elements.
-7. **Arrow gap:** Leave 25-30px between the source element's edge and the arrow start.
-8. **Arrowhead sizing:** 10-12px. Use `<polygon>` not `<marker>` for consistent browser rendering.
-9. **Labels on arrows:** Place midway along the path, 12px above the line. 11px font, bold, semantic color.
+1. **Never accept crossing arrows.** If two arrows must cross, rearrange the elements. Crossing arrows signal a layout problem, not an arrow problem.
+2. **Arrow gap:** Leave 25-30px between the source element's edge and the arrow start. Same for the target.
+3. **Arrowhead sizing:** 10-12px for standard arrows. Use `<polygon>` not `<marker>` for consistent rendering across browsers.
+4. **Labels on arrows:** Place midway along the path, 12px above the line. Use 11px font, bold weight, in the semantic color of the connection.
+5. **Curved arrows with waypoints:** For connections that need to route around obstacles:
+   ```xml
+   <!-- Curve around an obstacle: control points push the curve away -->
+   <path d="M 200,300 C 200,250 400,250 400,300" stroke="#9CA3AF" stroke-width="2" fill="none"/>
+   ```
+6. **Elbowed arrows for cross-lane routing:**
+   ```xml
+   <!-- L-shaped: down then right -->
+   <path d="M 200,300 L 200,400 L 500,400" stroke="#9CA3AF" stroke-width="2" fill="none" stroke-linejoin="round"/>
+   ```
 
 ---
 
@@ -404,8 +529,7 @@ For a diagonal arrow from (x1, y1) to (x2, y2):
 ### Text & Readability
 - [ ] **No truncated text.** Every label fits within its container. Run the sizing rule: `width = max(160, textLength × 9)`.
 - [ ] Background is `#FAFAF8` (warm off-white), never pure white or dark
-- [ ] **Body text is `#374151`** (not `#5F6B7A` — that's too faint at GitHub scale). Dark enough to read at any zoom level.
-- [ ] **Secondary/meta text is `#6B7280`** (not `#9CA3AF` — that vanishes at small sizes). Footers, faded skill lists, step labels.
+- [ ] All body text is `#1B1B1F` or `#5F6B7A` — never grey-on-grey
 - [ ] Minimum font size is 11px; body text is 13-14px
 - [ ] White text ONLY appears on solid color header bars (with font-weight 700+ and size 16px+)
 - [ ] Every text element has `font-family="Inter, Segoe UI, sans-serif"`
@@ -420,10 +544,6 @@ For a diagonal arrow from (x1, y1) to (x2, y2):
 - [ ] Rounded corners: 14-16px for cards, 8px for chips, 18px for badges
 
 ### Arrows & Connections
-- [ ] **No straight `<line>` arrows.** All connections use `<path>` with bezier curves. No exceptions.
-- [ ] All paths have `stroke-linecap="round"` — square caps look mechanical.
-- [ ] Arrow stroke color is `#B0B8C4` (not `#D1D5DB` — too faint at small sizes).
-- [ ] Arrow stroke width is 2-2.5px (not 1.5 — disappears at GitHub scale).
 - [ ] **No crossing arrows.** If arrows cross, rearrange elements first.
 - [ ] Arrow gaps: 25-30px clearance from element edges
 - [ ] Every arrow has a visible arrowhead (polygon, not marker)
@@ -437,25 +557,12 @@ For a diagonal arrow from (x1, y1) to (x2, y2):
 ### Story & Copy
 - [ ] Depth label present at top (Comprehensive or Executive Summary)
 - [ ] One clear narrative arc: setup → content → punchline
-- [ ] **Punchline callout box contains a memorable, quotable line** — the kind of sentence people screenshot. Not a summary. An insight.
+- [ ] Callout or comparison box delivers the "so what?" at the bottom
 - [ ] Footer includes attribution or context
 - [ ] Headlines reframe, not describe
 - [ ] No filler words: leverage, utilize, comprehensive, robust, streamline
 - [ ] Specific numbers used where possible
 - [ ] Card descriptions are 2-3 lines maximum
-
-### The Quotable Punchline Test
-Every diagram's callout box must pass this test: **would someone screenshot this line and share it?** If not, rewrite it.
-
-Good punchlines:
-- "These don't produce documents. They produce confidence that the documents are worth writing."
-- "The ask was vague. The output was surgical."
-- "A framework that doesn't know its own limits is more dangerous than having no framework at all."
-
-Bad punchlines (summaries, not insights):
-- "All five domains are covered in the judgment layer."
-- "The system produces ship-ready artifacts."
-- "Every skill has been tested and validated."
 
 ### Final Sanity Check
 - [ ] Open in browser — all text readable without zooming

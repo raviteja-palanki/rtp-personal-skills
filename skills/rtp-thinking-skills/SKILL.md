@@ -1,5 +1,5 @@
 ---
-name: rtp-thinking-skills
+name: ravi-judgment-engine
 description: >
   Encodes Ravi's cognitive operating system — judgment under uncertainty, systemic
   thinking, hypothesis discipline, assumption surfacing, and ethical guardrails.
