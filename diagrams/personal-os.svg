@@ -1,127 +1,169 @@
-<svg viewBox="0 0 1200 520" width="1200" height="520" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 540" width="1200" height="540" xmlns="http://www.w3.org/2000/svg">
   <!-- Background -->
-  <rect x="0" y="0" width="1200" height="520" rx="0" fill="#FAFAF8"/>
+  <rect x="0" y="0" width="1200" height="540" rx="0" fill="#FAFAF8"/>
 
   <!-- Header band -->
-  <rect x="0" y="0" width="1200" height="70" fill="#F9FAFB"/>
-  <line x1="0" y1="70" x2="1200" y2="70" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="0" y="0" width="1200" height="72" fill="#FAF9F7"/>
+  <line x1="0" y1="72" x2="1200" y2="72" stroke="#E8E6E1" stroke-width="1"/>
 
   <!-- Title -->
   <text x="600" y="36" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="800" fill="#1B1B1F">Not a Toolkit. A Personal Operating System.</text>
-  <text x="600" y="58" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#374151">Quick Check  ·  One Brain, One Quality Bar, Every Domain</text>
+  <text x="600" y="56" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#4B5563">One Brain, One Quality Bar, Every Domain</text>
 
-  <!-- Orchestrator badge -->
-  <rect x="516" y="80" width="168" height="28" rx="14" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.5"/>
-  <text x="600" y="99" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#8B5CF6">THE ORCHESTRATOR</text>
+  <!-- ==================== ORCHESTRATOR HUB ==================== -->
+  <!-- Glow layer -->
+  <rect x="492" y="78" width="216" height="40" rx="20" fill="#EDE9FE" opacity="0.6"/>
+  <!-- Main badge (no inner accent line) -->
+  <rect x="500" y="82" width="200" height="32" rx="16" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="600" y="103" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#7C3AED" letter-spacing="0.8">THE ORCHESTRATOR</text>
 
-  <!-- Connection lines to row 1 (hand-drawn curves) -->
-  <path d="M 540,108 C 440,114 300,124 195,135" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <path d="M 600,108 C 603,118 597,126 600,135" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <path d="M 660,108 C 760,114 900,124 1005,135" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- ==================== CONNECTION LINES (color-tinted, with endpoint dots) ==================== -->
+  <!-- Row 1 connections -->
+  <!-- To AI PM (purple tinted) -->
+  <path d="M 530,114 C 430,124 300,130 200,144" stroke="#C4B5E0" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="200" cy="144" r="3" fill="#C4B5E0"/>
+  <!-- To Writing (teal tinted) -->
+  <path d="M 600,114 C 602,126 598,134 600,144" stroke="#99D0C8" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="600" cy="144" r="3" fill="#99D0C8"/>
+  <!-- To Research (cyan tinted) -->
+  <path d="M 670,114 C 770,124 900,130 1000,144" stroke="#A5D8E6" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="1000" cy="144" r="3" fill="#A5D8E6"/>
 
-  <!-- Connection lines to row 2 (hand-drawn curves) -->
-  <path d="M 540,108 C 440,160 280,250 195,315" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <path d="M 600,108 C 603,180 597,260 600,315" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <path d="M 660,108 C 760,160 920,250 1005,315" stroke="#B0B8C4" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Row 2 connections -->
+  <!-- To Presentations (amber tinted) -->
+  <path d="M 530,114 C 420,170 280,260 200,322" stroke="#F5D08C" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="200" cy="322" r="3" fill="#F5D08C"/>
+  <!-- To Interview (pink tinted) -->
+  <path d="M 600,114 C 604,190 596,270 600,322" stroke="#F0B4D0" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="600" cy="322" r="3" fill="#F0B4D0"/>
+  <!-- To Course (green tinted) -->
+  <path d="M 670,114 C 780,170 920,260 1000,322" stroke="#A7D8B4" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="1000" cy="322" r="3" fill="#A7D8B4"/>
 
-  <!-- ==================== ROW 1 ==================== -->
+  <!-- ==================== ROW 1 (primary -- 148px tall, with top accent bars) ==================== -->
 
-  <!-- Card 1: AI Product Management -->
-  <!-- Shadow rect -->
-  <rect x="23" y="138" width="350" height="140" rx="10" fill="#E9E5F5" opacity="0.5"/>
-  <!-- Main rect -->
-  <rect x="20" y="135" width="350" height="140" rx="10" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <!-- Card 1: AI Product Management (flagship) -->
+  <!-- Shadow -->
+  <rect x="23" y="148" width="350" height="148" rx="10" fill="#C4B5E0" opacity="0.25"/>
+  <!-- Main card -->
+  <rect x="20" y="145" width="350" height="148" rx="10" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1.5"/>
+  <!-- Top accent bar (Row 1 hierarchy marker) -->
+  <rect x="20" y="145" width="350" height="2" rx="1" fill="#8B5CF6"/>
   <!-- Label chip -->
-  <rect x="34" y="145" width="48" height="20" rx="10" fill="#F5F3FF"/>
-  <text x="58" y="159" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#8B5CF6">AI PM</text>
+  <rect x="34" y="156" width="52" height="22" rx="11" fill="#F5F3FF"/>
+  <text x="60" y="171" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#7C3AED" letter-spacing="0.3">AI PM</text>
   <!-- Card title -->
-  <text x="90" y="159" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">AI Product Management</text>
+  <text x="94" y="171" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">AI Product Management</text>
   <!-- Card body -->
-  <text x="34" y="185" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">54 skills across 6 expert teams.</text>
-  <text x="34" y="203" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">PRDs, strategy, evals, safety</text>
-  <text x="34" y="221" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">-- all pre-tested.</text>
+  <text x="34" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">54 skills across 6 expert teams.</text>
+  <text x="34" y="218" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">PRDs, strategy, evals, safety</text>
+  <text x="34" y="236" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">-- all pre-tested.</text>
+  <!-- Skill count accent -->
+  <rect x="34" y="252" width="80" height="20" rx="4" fill="#F5F3FF"/>
+  <text x="74" y="266" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#7C3AED">54 skills</text>
+  <rect x="120" y="252" width="80" height="20" rx="4" fill="#F5F3FF"/>
+  <text x="160" y="266" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#7C3AED">6 teams</text>
 
   <!-- Card 2: Writing & Email -->
-  <!-- Shadow rect -->
-  <rect x="428" y="138" width="350" height="140" rx="10" fill="#CCFBF1" opacity="0.4"/>
-  <!-- Main rect -->
-  <rect x="425" y="135" width="350" height="140" rx="10" fill="#FFFFFF" stroke="#14B8A6" stroke-width="1.5"/>
+  <!-- Shadow -->
+  <rect x="428" y="148" width="350" height="148" rx="10" fill="#A7D8CF" opacity="0.25"/>
+  <!-- Main card -->
+  <rect x="425" y="145" width="350" height="148" rx="10" fill="#FFFFFF" stroke="#14B8A6" stroke-width="1.5"/>
+  <!-- Top accent bar (Row 1 hierarchy marker) -->
+  <rect x="425" y="145" width="350" height="2" rx="1" fill="#14B8A6"/>
   <!-- Label chip -->
-  <rect x="439" y="145" width="68" height="20" rx="10" fill="#F0FDFA"/>
-  <text x="473" y="159" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#14B8A6">WRITING</text>
+  <rect x="439" y="156" width="72" height="22" rx="11" fill="#F0FDFA"/>
+  <text x="475" y="171" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#0D9488" letter-spacing="0.3">WRITING</text>
   <!-- Card title -->
-  <text x="515" y="159" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Writing &amp; Email</text>
+  <text x="519" y="171" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Writing &amp; Email</text>
   <!-- Card body -->
-  <text x="439" y="185" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Email mastery with voice calibration.</text>
-  <text x="439" y="203" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Thought leadership with the 10</text>
-  <text x="439" y="221" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">thinking algorithms baked in.</text>
+  <text x="439" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Email mastery with voice calibration.</text>
+  <text x="439" y="218" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Thought leadership with the 10</text>
+  <text x="439" y="236" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">thinking algorithms baked in.</text>
 
   <!-- Card 3: Research & Synthesis -->
-  <!-- Shadow rect -->
-  <rect x="833" y="138" width="350" height="140" rx="10" fill="#CFFAFE" opacity="0.4"/>
-  <!-- Main rect -->
-  <rect x="830" y="135" width="350" height="140" rx="10" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.5"/>
+  <!-- Shadow -->
+  <rect x="833" y="148" width="350" height="148" rx="10" fill="#A5D8E6" opacity="0.25"/>
+  <!-- Main card -->
+  <rect x="830" y="145" width="350" height="148" rx="10" fill="#FFFFFF" stroke="#06B6D4" stroke-width="1.5"/>
+  <!-- Top accent bar (Row 1 hierarchy marker) -->
+  <rect x="830" y="145" width="350" height="2" rx="1" fill="#06B6D4"/>
   <!-- Label chip -->
-  <rect x="844" y="145" width="78" height="20" rx="10" fill="#ECFEFF"/>
-  <text x="883" y="159" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#06B6D4">RESEARCH</text>
+  <rect x="844" y="156" width="82" height="22" rx="11" fill="#ECFEFF"/>
+  <text x="885" y="171" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#0891B2" letter-spacing="0.3">RESEARCH</text>
   <!-- Card title -->
-  <text x="930" y="159" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Research &amp; Synthesis</text>
+  <text x="934" y="171" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Research &amp; Synthesis</text>
   <!-- Card body -->
-  <text x="844" y="185" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Grok + Perplexity signal collection.</text>
-  <text x="844" y="203" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">HBR pipeline. 298 podcast</text>
-  <text x="844" y="221" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">transcripts indexed.</text>
+  <text x="844" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Grok + Perplexity signal collection.</text>
+  <text x="844" y="218" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">HBR pipeline. 298 podcast</text>
+  <text x="844" y="236" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">transcripts indexed.</text>
 
-  <!-- ==================== ROW 2 ==================== -->
+  <!-- ==================== ROW 2 (secondary -- 136px tall, no top accent bar) ==================== -->
 
   <!-- Card 4: Presentations & Visual -->
-  <!-- Shadow rect -->
-  <rect x="23" y="318" width="350" height="140" rx="10" fill="#FEF3C7" opacity="0.4"/>
-  <!-- Main rect -->
-  <rect x="20" y="315" width="350" height="140" rx="10" fill="#FFFFFF" stroke="#F59E0B" stroke-width="1.5"/>
+  <!-- Shadow -->
+  <rect x="23" y="326" width="350" height="136" rx="10" fill="#F5D08C" opacity="0.25"/>
+  <!-- Main card -->
+  <rect x="20" y="323" width="350" height="136" rx="10" fill="#FFFFFF" stroke="#F59E0B" stroke-width="1.5"/>
   <!-- Label chip -->
-  <rect x="34" y="325" width="58" height="20" rx="10" fill="#FFFBEB"/>
-  <text x="63" y="339" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#F59E0B">VISUAL</text>
+  <rect x="34" y="334" width="62" height="22" rx="11" fill="#FFFBEB"/>
+  <text x="65" y="349" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#D97706" letter-spacing="0.3">VISUAL</text>
   <!-- Card title -->
-  <text x="100" y="339" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Presentations &amp; Visual</text>
+  <text x="104" y="349" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Presentations &amp; Visual</text>
   <!-- Card body -->
-  <text x="34" y="365" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Zero-dependency HTML presentations.</text>
-  <text x="34" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Hand-drawn SVG diagrams.</text>
-  <text x="34" y="401" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Apple-level design system.</text>
+  <text x="34" y="375" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Zero-dependency HTML presentations.</text>
+  <text x="34" y="393" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Hand-drawn SVG diagrams.</text>
+  <text x="34" y="411" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Apple-level design system.</text>
+  <!-- Stat indicator -->
+  <text x="34" y="440" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#9CA3AF">3 skills</text>
 
   <!-- Card 5: Interview & Career -->
-  <!-- Shadow rect -->
-  <rect x="428" y="318" width="350" height="140" rx="10" fill="#FCE7F3" opacity="0.4"/>
-  <!-- Main rect -->
-  <rect x="425" y="315" width="350" height="140" rx="10" fill="#FFFFFF" stroke="#EC4899" stroke-width="1.5"/>
+  <!-- Shadow -->
+  <rect x="428" y="326" width="350" height="136" rx="10" fill="#F0B4D0" opacity="0.25"/>
+  <!-- Main card -->
+  <rect x="425" y="323" width="350" height="136" rx="10" fill="#FFFFFF" stroke="#EC4899" stroke-width="1.5"/>
   <!-- Label chip -->
-  <rect x="439" y="325" width="64" height="20" rx="10" fill="#FDF2F8"/>
-  <text x="471" y="339" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#EC4899">CAREER</text>
+  <rect x="439" y="334" width="68" height="22" rx="11" fill="#FDF2F8"/>
+  <text x="473" y="349" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#DB2777" letter-spacing="0.3">CAREER</text>
   <!-- Card title -->
-  <text x="511" y="339" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Interview &amp; Career</text>
+  <text x="515" y="349" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Interview &amp; Career</text>
   <!-- Card body -->
-  <text x="439" y="365" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">AI PM interview prep grounded in</text>
-  <text x="439" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">real frameworks. Company research.</text>
-  <text x="439" y="401" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">War book of key questions.</text>
+  <text x="439" y="375" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">AI PM interview prep grounded in</text>
+  <text x="439" y="393" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">real frameworks. Company research.</text>
+  <text x="439" y="411" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">War book of key questions.</text>
+  <!-- Stat indicator -->
+  <text x="439" y="440" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#9CA3AF">War book + frameworks</text>
 
   <!-- Card 6: Course Building -->
-  <!-- Shadow rect -->
-  <rect x="833" y="318" width="350" height="140" rx="10" fill="#DCFCE7" opacity="0.4"/>
-  <!-- Main rect -->
-  <rect x="830" y="315" width="350" height="140" rx="10" fill="#FFFFFF" stroke="#16A34A" stroke-width="1.5"/>
+  <!-- Shadow -->
+  <rect x="833" y="326" width="350" height="136" rx="10" fill="#A7D8B4" opacity="0.25"/>
+  <!-- Main card -->
+  <rect x="830" y="323" width="350" height="136" rx="10" fill="#FFFFFF" stroke="#16A34A" stroke-width="1.5"/>
   <!-- Label chip -->
-  <rect x="844" y="325" width="76" height="20" rx="10" fill="#F0FDF4"/>
-  <text x="882" y="339" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#16A34A">TEACHING</text>
+  <rect x="844" y="334" width="80" height="22" rx="11" fill="#F0FDF4"/>
+  <text x="884" y="349" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="700" fill="#15803D" letter-spacing="0.3">TEACHING</text>
   <!-- Card title -->
-  <text x="928" y="339" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Course Building</text>
+  <text x="932" y="349" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1B1B1F">Course Building</text>
   <!-- Card body -->
-  <text x="844" y="365" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">17-module AI PM curriculum using</text>
-  <text x="844" y="383" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">the CONTEXT framework. From</text>
-  <text x="844" y="401" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">foundations to leadership.</text>
+  <text x="844" y="375" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">17-module AI PM curriculum using</text>
+  <text x="844" y="393" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">the CONTEXT framework. From</text>
+  <text x="844" y="411" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">foundations to leadership.</text>
+  <!-- Stat indicator -->
+  <text x="844" y="440" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#9CA3AF">17 modules</text>
 
   <!-- ==================== PUNCHLINE CALLOUT ==================== -->
-  <rect x="103" y="468" width="994" height="28" rx="6" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1"/>
-  <text x="600" y="486" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#1B1B1F"><tspan font-weight="700">Most people use AI to do things faster. A few use it to think things they couldn't think before.</tspan></text>
+  <!-- Background (warmer #FAF9F6) -->
+  <rect x="94" y="476" width="1012" height="34" rx="6" fill="#FAF9F6"/>
+  <!-- Bottom border -->
+  <line x1="94" y1="510" x2="1106" y2="510" stroke="#E5E7EB" stroke-width="1"/>
+  <!-- Left accent bar -->
+  <rect x="94" y="476" width="4" height="34" rx="2" fill="#8B5CF6"/>
+  <!-- Text -->
+  <text x="600" y="498" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#1B1B1F">
+    <tspan font-weight="700">Most people use AI to do things faster.</tspan>
+    <tspan dx="8" font-weight="400" fill="#6B7280">A few use it to think things they couldn't think before.</tspan>
+  </text>
 
   <!-- Footer -->
-  <text x="600" y="512" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">rtp-personal-skills  ·  The Personal OS  ·  April 2026</text>
+  <text x="600" y="532" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#9CA3AF">rtp-personal-skills  ·  The Personal OS  ·  April 2026</text>
 </svg>

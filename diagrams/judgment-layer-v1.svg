@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+  <!-- Background -->
+  <rect x="0" y="0" width="1200" height="700" fill="#FAFAF8"/>
+
+  <!-- Header band -->
+  <rect x="0" y="0" width="1200" height="72" fill="#F0FDFA"/>
+  <text x="40" y="38" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="bold" fill="#0F766E">36 Calls That Separate Who's Been in the Room</text>
+  <text x="40" y="60" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#374151">Comprehensive  ·  Layer 2: Judgment  ·  5 Domains</text>
+
+  <!-- ========== TOP ROW: 2 containers ========== -->
+
+  <!-- 1. PRODUCT SENSE -->
+  <rect x="22" y="92" width="560" height="210" rx="10" fill="#E8E5E0" opacity="0.35"/>
+  <rect x="20" y="90" width="560" height="210" rx="10" fill="#FFFFFF" stroke="#99F6E4" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <!-- Label chip -->
+  <rect x="36" y="102" width="140" height="26" rx="13" fill="#14B8A6"/>
+  <text x="60" y="120" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">PRODUCT SENSE</text>
+  <text x="190" y="120" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#374151">9 skills</text>
+  <!-- Skill chips -->
+  <rect x="36" y="140" width="112" height="26" rx="6" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
+  <text x="46" y="157" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#0F766E">problem-AI-fit</text>
+  <rect x="158" y="140" width="132" height="26" rx="6" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
+  <text x="168" y="157" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#0F766E">use-case-readiness</text>
+  <rect x="300" y="140" width="120" height="26" rx="6" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
+  <text x="310" y="157" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#0F766E">AI-UX-patterns</text>
+  <!-- One-liner -->
+  <text x="36" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Is AI the right solution, or are you building</text>
+  <text x="36" y="218" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">because it's exciting?</text>
+  <!-- Additional skill names (smaller, faded) -->
+  <text x="36" y="248" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">+ failure-modes, feedback-flywheel, invisible-stack,</text>
+  <text x="36" y="264" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">needs-guard, uncertainty-research, ai-product-taste</text>
+
+  <!-- 2. AI STRATEGY -->
+  <rect x="618" y="92" width="560" height="210" rx="10" fill="#E8E5E0" opacity="0.35"/>
+  <rect x="616" y="90" width="560" height="210" rx="10" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <rect x="632" y="102" width="120" height="26" rx="13" fill="#8B5CF6"/>
+  <text x="652" y="120" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">AI STRATEGY</text>
+  <text x="766" y="120" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#374151">10 skills</text>
+  <!-- Skill chips -->
+  <rect x="632" y="140" width="100" height="26" rx="6" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="642" y="157" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6D28D9">build-or-buy</text>
+  <rect x="742" y="140" width="126" height="26" rx="6" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="752" y="157" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6D28D9">token-economics</text>
+  <rect x="878" y="140" width="100" height="26" rx="6" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="888" y="157" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6D28D9">moat-finder</text>
+  <!-- One-liner -->
+  <text x="632" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Durable bets when capabilities shift</text>
+  <text x="632" y="218" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">every quarter</text>
+  <text x="632" y="248" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">+ strategy-canvas, capability-tracking, signal-scanner,</text>
+  <text x="632" y="264" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">purpose-dialogue, adoption-launch, trendslop-check, ai-portfolio</text>
+
+  <!-- ========== BOTTOM ROW: 3 containers ========== -->
+
+  <!-- 3. SAFETY & TRUST -->
+  <rect x="22" y="322" width="370" height="210" rx="10" fill="#E8E5E0" opacity="0.35"/>
+  <rect x="20" y="320" width="370" height="210" rx="10" fill="#FFFFFF" stroke="#FBCFE8" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <rect x="36" y="332" width="155" height="26" rx="13" fill="#EC4899"/>
+  <text x="56" y="350" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">SAFETY &amp; TRUST</text>
+  <text x="190" y="350" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#374151">7 skills</text>
+  <!-- Chips -->
+  <rect x="36" y="370" width="120" height="26" rx="6" fill="#FCE7F3" stroke="#F9A8D4" stroke-width="1"/>
+  <text x="46" y="387" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#BE185D">safety-by-design</text>
+  <rect x="166" y="370" width="96" height="26" rx="6" fill="#FCE7F3" stroke="#F9A8D4" stroke-width="1"/>
+  <text x="176" y="387" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#BE185D">trust-ladder</text>
+  <rect x="272" y="370" width="100" height="26" rx="6" fill="#FCE7F3" stroke="#F9A8D4" stroke-width="1"/>
+  <text x="282" y="387" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#BE185D">breach-ready</text>
+  <!-- One-liner -->
+  <text x="36" y="428" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">Safety earns you the right to ship fast</text>
+  <text x="36" y="478" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">+ safety-as-moat, responsible-ai,</text>
+  <text x="36" y="494" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">agent-risk, trust-under-fog</text>
+
+  <!-- 4. AGENT DESIGN -->
+  <rect x="414" y="322" width="370" height="210" rx="10" fill="#E8E5E0" opacity="0.35"/>
+  <rect x="412" y="320" width="370" height="210" rx="10" fill="#FFFFFF" stroke="#A5F3FC" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <rect x="428" y="332" width="140" height="26" rx="13" fill="#06B6D4"/>
+  <text x="448" y="350" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">AGENT DESIGN</text>
+  <text x="582" y="350" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#374151">5 skills</text>
+  <!-- Chips -->
+  <rect x="428" y="370" width="136" height="26" rx="6" fill="#CFFAFE" stroke="#67E8F9" stroke-width="1"/>
+  <text x="438" y="387" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#0E7490">autonomy-spectrum</text>
+  <rect x="574" y="370" width="126" height="26" rx="6" fill="#CFFAFE" stroke="#67E8F9" stroke-width="1"/>
+  <text x="584" y="387" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#0E7490">agent-ecosystem</text>
+  <!-- Second row chips -->
+  <rect x="428" y="402" width="126" height="26" rx="6" fill="#CFFAFE" stroke="#67E8F9" stroke-width="1"/>
+  <text x="438" y="419" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#0E7490">tool-architecture</text>
+  <!-- One-liner -->
+  <text x="428" y="460" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">When should AI act, not just answer?</text>
+  <text x="428" y="478" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">+ agent-harness, multi-modal-product-design</text>
+
+  <!-- 5. EVAL & QUALITY -->
+  <rect x="808" y="322" width="370" height="210" rx="10" fill="#E8E5E0" opacity="0.35"/>
+  <rect x="806" y="320" width="370" height="210" rx="10" fill="#FFFFFF" stroke="#FDE68A" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <rect x="822" y="332" width="155" height="26" rx="13" fill="#F59E0B"/>
+  <text x="838" y="350" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">EVAL &amp; QUALITY</text>
+  <text x="976" y="350" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#374151">6 skills</text>
+  <!-- Chips -->
+  <rect x="822" y="370" width="116" height="26" rx="6" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1"/>
+  <text x="832" y="387" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#92400E">eval-framework</text>
+  <rect x="948" y="370" width="92" height="26" rx="6" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1"/>
+  <text x="958" y="387" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#92400E">AI-metrics</text>
+  <!-- Second row -->
+  <rect x="822" y="402" width="170" height="26" rx="6" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1"/>
+  <text x="832" y="419" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#92400E">production-observability</text>
+  <!-- One-liner -->
+  <text x="822" y="460" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">If you can't measure it, you don't</text>
+  <text x="822" y="478" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#374151">know if it works</text>
+  <text x="822" y="498" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">+ confidence-tuner, eval-driven-dev,</text>
+  <text x="822" y="514" font-family="Inter, Segoe UI, sans-serif" font-size="11" fill="#6B7280">gen-ai-experimentation</text>
+
+  <!-- Callout box -->
+  <rect x="42" y="556" width="1116" height="50" rx="8" fill="#E8E5E0" opacity="0.35"/>
+  <rect x="40" y="554" width="1116" height="50" rx="8" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="60" y="584" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#0F766E">A framework that doesn't know its own limits is more dangerous than having no framework at all.</text>
+
+  <!-- Footer -->
+  <text x="600" y="640" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#6B7280" text-anchor="middle">Layer 2  ·  Judgment  ·  36 Skills  ·  5 Domains  ·  April 2026</text>
+</svg>
