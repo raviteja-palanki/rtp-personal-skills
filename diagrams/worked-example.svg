@@ -1,139 +1,147 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="A real enterprise AI request flowing through Think, Judge, and Ship layers to produce a pre-tested PRD">
+  <title>The System in Action — Enterprise AI Request</title>
+  <desc>Shows how a vague VP request for AI dashboard insights gets reframed by the Sense-Maker, stress-tested by the Strategist and Safety Expert, given measurable success criteria by the Evals Expert, and shipped as a pre-tested PRD by the Crafter.</desc>
   <defs>
     <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
-      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.09"/>
     </filter>
-    <linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#9478B8"/>
-      <stop offset="50%" style="stop-color:#5B92B8"/>
-      <stop offset="100%" style="stop-color:#6BA08A"/>
-    </linearGradient>
   </defs>
 
   <!-- Background -->
   <rect width="1200" height="900" rx="16" fill="#FAFAF8"/>
 
   <!-- Header band -->
-  <rect x="0" y="0" width="1200" height="80" rx="16" fill="#2C2420"/>
-  <rect x="0" y="60" width="1200" height="20" fill="#2C2420"/>
-  <text x="600" y="34" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="800" font-family="Inter, Segoe UI, sans-serif">The System in Action</text>
-  <text x="600" y="60" text-anchor="middle" fill="#A09890" font-size="14" font-family="Inter, Segoe UI, sans-serif">A real enterprise AI request — from Slack message to ship-ready PRD in one pass</text>
+  <rect x="0" y="0" width="1200" height="76" rx="16" fill="#2C2420"/>
+  <rect x="0" y="56" width="1200" height="20" fill="#2C2420"/>
+  <text x="600" y="34" text-anchor="middle" fill="#FFFFFF" font-size="26" font-weight="800" font-family="Inter, Segoe UI, sans-serif">The System in Action</text>
+  <text x="600" y="58" text-anchor="middle" fill="#A09890" font-size="14" font-family="Inter, Segoe UI, sans-serif">Quick Check — One request. Three layers. Six teams. Watch what happens.</text>
 
   <!-- ===== THE REQUEST ===== -->
-  <rect x="40" y="100" width="1120" height="62" rx="14" fill="#FFFFFF" stroke="#E0DCD8" stroke-width="2" filter="url(#s)"/>
-  <rect x="40" y="100" width="6" height="62" rx="3" fill="#D4956A"/>
-  <text x="70" y="122" fill="#B45309" font-size="11" font-weight="700" font-family="Inter, Segoe UI, sans-serif" letter-spacing="1.5">THE REQUEST</text>
-  <text x="70" y="147" fill="#1B1B1F" font-size="16" font-weight="600" font-family="Inter, Segoe UI, sans-serif">"We need AI-powered insights on the manufacturing dashboard. VP wants it by Q3."</text>
+  <rect x="50" y="94" width="1100" height="54" rx="14" fill="#FFFFFF" stroke="#E0DCD8" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="50" y="94" width="5" height="54" rx="3" fill="#D4956A"/>
+  <text x="76" y="113" fill="#B45309" font-size="11" font-weight="700" font-family="Inter, Segoe UI, sans-serif" letter-spacing="1.5">THE REQUEST</text>
+  <text x="76" y="135" fill="#1B1B1F" font-size="15" font-weight="600" font-family="Inter, Segoe UI, sans-serif">"We need AI-powered insights on the manufacturing dashboard. VP wants it by Q3."</text>
 
-  <!-- Down arrow from request -->
-  <path d="M 600 162 L 600 180" stroke="#D4956A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <polygon points="600,188 595,180 605,180" fill="#D4956A"/>
+  <!-- Arrow: request → orchestrator -->
+  <path d="M 600 148 L 600 164" stroke="#D4956A" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <polygon points="600,170 596,163 604,163" fill="#D4956A"/>
 
-  <!-- ===== ORCHESTRATOR CLASSIFICATION ===== -->
-  <rect x="380" y="192" width="440" height="42" rx="10" fill="#F5F3F0" stroke="#E0DCD8" stroke-width="1.5"/>
-  <text x="600" y="218" text-anchor="middle" fill="#5F6B7A" font-size="13" font-weight="600" font-family="Inter, Segoe UI, sans-serif">Orchestrator classifies: DEEP THINKING + DIRECT ACTION → deploys 6 expert teams</text>
+  <!-- Orchestrator classification -->
+  <rect x="340" y="174" width="520" height="28" rx="8" fill="#F5F3F0" stroke="#E0DCD8" stroke-width="1"/>
+  <text x="600" y="193" text-anchor="middle" fill="#5F6B7A" font-size="12" font-weight="600" font-family="Inter, Segoe UI, sans-serif">Orchestrator: DEEP THINKING + DIRECT ACTION — deploys 6 expert teams</text>
 
-  <!-- Down arrow -->
-  <path d="M 600 234 L 600 255" stroke="#9CA3AF" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <polygon points="600,262 595,254 605,254" fill="#9CA3AF"/>
+  <!-- Arrow: orchestrator → think -->
+  <path d="M 600 202 L 600 218" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <polygon points="600,224 596,217 604,217" fill="#9CA3AF"/>
 
   <!-- ===== LAYER 1: THINK ===== -->
-  <rect x="40" y="268" width="14" height="178" rx="7" fill="#9478B8"/>
-  <text x="47" y="363" fill="#9478B8" font-size="13" font-weight="800" font-family="Inter, Segoe UI, sans-serif" transform="rotate(-90,47,363)" text-anchor="middle" letter-spacing="2">THINK</text>
+  <!-- Left accent bar -->
+  <rect x="44" y="228" width="12" height="164" rx="6" fill="#9478B8"/>
+  <text x="50" y="316" fill="#9478B8" font-size="12" font-weight="800" font-family="Inter, Segoe UI, sans-serif" transform="rotate(-90,50,316)" text-anchor="middle" letter-spacing="2">THINK</text>
 
   <!-- Sense-Maker card -->
-  <rect x="80" y="268" width="530" height="82" rx="12" fill="#FFFFFF" stroke="#E8DCF0" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="80" y="268" width="530" height="36" rx="12" fill="#9478B8"/>
-  <rect x="80" y="292" width="530" height="12" fill="#9478B8"/>
-  <text x="100" y="294" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Sense-Maker</text>
-  <text x="456" y="294" fill="#D8CCE8" font-size="11" font-weight="600" font-family="Inter, Segoe UI, sans-serif">first-principles · ai-fit-score · problem-type</text>
-  <text x="100" y="326" fill="#1B1B1F" font-size="13" font-weight="500" font-family="Inter, Segoe UI, sans-serif">"The real problem isn't insights — it's alert fatigue. 200+ daily alerts, operators ignore 80%."</text>
-  <text x="100" y="343" fill="#5F6B7A" font-size="12" font-family="Inter, Segoe UI, sans-serif">AI Fit Score: 12/16. High-volume pattern recognition on structured sensor data. Strong fit.</text>
+  <rect x="72" y="228" width="520" height="74" rx="12" fill="#FFFFFF" stroke="#E8DCF0" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="72" y="228" width="520" height="32" rx="12" fill="#9478B8"/>
+  <rect x="72" y="248" width="520" height="12" fill="#9478B8"/>
+  <text x="90" y="251" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Sense-Maker</text>
+  <text x="90" y="280" fill="#1B1B1F" font-size="13" font-weight="500" font-family="Inter, Segoe UI, sans-serif">"The real problem isn't insights — it's alert fatigue."</text>
+  <text x="90" y="296" fill="#5F6B7A" font-size="12" font-family="Inter, Segoe UI, sans-serif">AI Fit: 12/16. Pattern recognition on structured sensor data.</text>
 
-  <!-- Think output badge -->
-  <rect x="630" y="280" width="530" height="66" rx="12" fill="#F0EBF5" stroke="#DCD2E8" stroke-width="1.5"/>
-  <text x="650" y="302" fill="#6D28D9" font-size="11" font-weight="700" font-family="Inter, Segoe UI, sans-serif" letter-spacing="1">CHECKS FIRED</text>
-  <text x="650" y="322" fill="#5B3E7A" font-size="12" font-weight="500" font-family="Inter, Segoe UI, sans-serif">Bias Spotter: "Anchored on VP's framing. The ask is 'insights' — the need is 'fewer false alarms.'"</text>
-  <text x="650" y="339" fill="#5B3E7A" font-size="12" font-weight="500" font-family="Inter, Segoe UI, sans-serif">Red Team: "If model accuracy &lt; 85%, operators lose trust permanently. One-shot credibility window."</text>
+  <!-- Checks panel -->
+  <rect x="608" y="228" width="540" height="74" rx="12" fill="#F5F0FA" stroke="#DCD2E8" stroke-width="1.5"/>
+  <text x="626" y="249" fill="#6D28D9" font-size="11" font-weight="700" font-family="Inter, Segoe UI, sans-serif" letter-spacing="1">CHECKS FIRED</text>
+  <text x="626" y="270" fill="#5B3E7A" font-size="12" font-weight="500" font-family="Inter, Segoe UI, sans-serif">Bias Spotter: "Anchored on VP's words, not operators' pain."</text>
+  <text x="626" y="290" fill="#5B3E7A" font-size="12" font-weight="500" font-family="Inter, Segoe UI, sans-serif">Red Team: "One-shot credibility. Below 85% accuracy, trust dies."</text>
 
-  <!-- Think → Stress Test card -->
-  <rect x="80" y="358" width="1080" height="44" rx="10" fill="#F8F5FF" stroke="#E8DCF0" stroke-width="1"/>
-  <text x="100" y="385" fill="#7556A0" font-size="12" font-weight="600" font-family="Inter, Segoe UI, sans-serif">Stress Test:</text>
-  <text x="180" y="385" fill="#5A5450" font-size="12" font-family="Inter, Segoe UI, sans-serif">At 10x scale (50 plants), inference cost = $42K/mo. Acceptable if false-alert reduction saves $180K/mo in operator time.</text>
+  <!-- Stress Test bar -->
+  <rect x="72" y="312" width="1076" height="34" rx="8" fill="#F8F5FF" stroke="#E8DCF0" stroke-width="1"/>
+  <text x="90" y="334" fill="#7556A0" font-size="12" font-weight="600" font-family="Inter, Segoe UI, sans-serif">Stress Test:</text>
+  <text x="168" y="334" fill="#5A5450" font-size="12" font-family="Inter, Segoe UI, sans-serif">At 10x scale (50 plants), cost = $42K/mo. ROI-positive if saves $180K/mo in operator time.</text>
 
-  <!-- ===== Transition arrow Think → Judge ===== -->
-  <rect x="80" y="410" width="1080" height="28" rx="6" fill="#F5F3F0"/>
-  <text x="600" y="429" text-anchor="middle" fill="#9CA3AF" font-size="11" font-weight="600" font-family="Inter, Segoe UI, sans-serif" letter-spacing="1">THINKING LAYER COMPLETE — PROBLEMS REFRAMED, RISKS IDENTIFIED — PASSING TO JUDGMENT</text>
+  <!-- Transition: Think → Judge -->
+  <rect x="72" y="356" width="1076" height="24" rx="6" fill="#F0EDE8"/>
+  <text x="600" y="373" text-anchor="middle" fill="#9CA3AF" font-size="11" font-weight="600" font-family="Inter, Segoe UI, sans-serif" letter-spacing="0.8">PROBLEM REFRAMED, RISKS IDENTIFIED — PASSING TO JUDGMENT</text>
 
   <!-- ===== LAYER 2: JUDGE ===== -->
-  <rect x="40" y="448" width="14" height="178" rx="7" fill="#5B92B8"/>
-  <text x="47" y="543" fill="#5B92B8" font-size="13" font-weight="800" font-family="Inter, Segoe UI, sans-serif" transform="rotate(-90,47,543)" text-anchor="middle" letter-spacing="2">JUDGE</text>
+  <!-- Left accent bar -->
+  <rect x="44" y="392" width="12" height="182" rx="6" fill="#5B92B8"/>
+  <text x="50" y="489" fill="#5B92B8" font-size="12" font-weight="800" font-family="Inter, Segoe UI, sans-serif" transform="rotate(-90,50,489)" text-anchor="middle" letter-spacing="2">JUDGE</text>
 
   <!-- Strategist card -->
-  <rect x="80" y="448" width="540" height="82" rx="12" fill="#FFFFFF" stroke="#DBE8F0" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="80" y="448" width="540" height="36" rx="12" fill="#5B92B8"/>
-  <rect x="80" y="472" width="540" height="12" fill="#5B92B8"/>
-  <text x="100" y="474" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Strategist</text>
-  <text x="420" y="474" fill="#B8D8F0" font-size="11" font-weight="600" font-family="Inter, Segoe UI, sans-serif">capability-roadmap · moat-analysis · cost-model</text>
-  <text x="100" y="506" fill="#1B1B1F" font-size="13" font-weight="500" font-family="Inter, Segoe UI, sans-serif">"Start with anomaly detection (capability exists now). Predictive at Month 3"</text>
-  <text x="100" y="523" fill="#5F6B7A" font-size="12" font-family="Inter, Segoe UI, sans-serif">Moat: data flywheel. Each plant's corrections train the next plant's model. Competitors can't replicate.</text>
+  <rect x="72" y="392" width="520" height="74" rx="12" fill="#FFFFFF" stroke="#DBE8F0" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="72" y="392" width="520" height="32" rx="12" fill="#5B92B8"/>
+  <rect x="72" y="412" width="520" height="12" fill="#5B92B8"/>
+  <text x="90" y="415" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Strategist</text>
+  <text x="90" y="444" fill="#1B1B1F" font-size="13" font-weight="500" font-family="Inter, Segoe UI, sans-serif">"Ship anomaly detection now. Earn predictive at Month 3."</text>
+  <text x="90" y="460" fill="#5F6B7A" font-size="12" font-family="Inter, Segoe UI, sans-serif">Moat: data flywheel. Each plant's corrections train the next.</text>
 
-  <!-- System Architect + Safety Expert -->
-  <rect x="640" y="448" width="520" height="82" rx="12" fill="#FFFFFF" stroke="#DBE8F0" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="640" y="448" width="520" height="36" rx="12" fill="#5B92B8"/>
-  <rect x="640" y="472" width="520" height="12" fill="#5B92B8"/>
-  <text x="660" y="474" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, Segoe UI, sans-serif">System Architect + Safety Expert</text>
-  <text x="660" y="506" fill="#1B1B1F" font-size="13" font-weight="500" font-family="Inter, Segoe UI, sans-serif">Level 2 autonomy: AI suggests, human approves. No autonomous actions.</text>
-  <text x="660" y="523" fill="#5F6B7A" font-size="12" font-family="Inter, Segoe UI, sans-serif">Graceful degradation: AI → simpler model → rule-based alerts → human-only. Zero silent failures.</text>
+  <!-- System Architect + Safety Expert card -->
+  <rect x="608" y="392" width="540" height="74" rx="12" fill="#FFFFFF" stroke="#DBE8F0" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="608" y="392" width="540" height="32" rx="12" fill="#5B92B8"/>
+  <rect x="608" y="412" width="540" height="12" fill="#5B92B8"/>
+  <text x="626" y="415" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, Segoe UI, sans-serif">System Architect + Safety Expert</text>
+  <text x="626" y="444" fill="#1B1B1F" font-size="13" font-weight="500" font-family="Inter, Segoe UI, sans-serif">AI suggests. Human approves. Zero autonomous actions.</text>
+  <text x="626" y="460" fill="#5F6B7A" font-size="12" font-family="Inter, Segoe UI, sans-serif">Degrades gracefully: AI → rules → human. Never silent.</text>
 
   <!-- Evals Expert card -->
-  <rect x="80" y="540" width="1080" height="82" rx="12" fill="#FFFFFF" stroke="#DBE8F0" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="80" y="540" width="1080" height="36" rx="12" fill="#5B92B8"/>
-  <rect x="80" y="564" width="1080" height="12" fill="#5B92B8"/>
-  <text x="100" y="564" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Evals Expert</text>
-  <text x="268" y="564" fill="#B8D8F0" font-size="11" font-weight="600" font-family="Inter, Segoe UI, sans-serif">"Eval before code. If you can't measure it, you can't ship it."</text>
-  <text x="100" y="596" fill="#1B1B1F" font-size="13" font-weight="500" font-family="Inter, Segoe UI, sans-serif">Success metric: 30% reduction in false alerts within 60 days. Kill condition: &lt; 15% reduction at day 45 → pivot to rule-based triage.</text>
-  <text x="100" y="613" fill="#5F6B7A" font-size="12" font-family="Inter, Segoe UI, sans-serif">Confidence calibration: operators must rate AI suggestions 3.5+/5 on "useful" scale. Below 3.0 triggers re-training review, not more alerts.</text>
+  <rect x="72" y="478" width="1076" height="74" rx="12" fill="#FFFFFF" stroke="#DBE8F0" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="72" y="478" width="1076" height="32" rx="12" fill="#5B92B8"/>
+  <rect x="72" y="498" width="1076" height="12" fill="#5B92B8"/>
+  <text x="90" y="501" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Evals Expert</text>
+  <text x="282" y="501" fill="#B8D8F0" font-size="11" font-weight="600" font-family="Inter, Segoe UI, sans-serif">"If you can't measure it, you can't ship it."</text>
+  <text x="90" y="530" fill="#1B1B1F" font-size="13" font-weight="500" font-family="Inter, Segoe UI, sans-serif">30% fewer false alerts in 60 days — or kill it at day 45. Pivot to rule-based triage.</text>
+  <text x="90" y="546" fill="#5F6B7A" font-size="12" font-family="Inter, Segoe UI, sans-serif">Operator trust: rate suggestions 3.5+/5. Below 3.0 triggers retraining, not more alerts.</text>
 
-  <!-- ===== Transition arrow Judge → Ship ===== -->
-  <rect x="80" y="632" width="1080" height="28" rx="6" fill="#F5F3F0"/>
-  <text x="600" y="651" text-anchor="middle" fill="#9CA3AF" font-size="11" font-weight="600" font-family="Inter, Segoe UI, sans-serif" letter-spacing="1">JUDGMENT LAYER COMPLETE — STRATEGY SET, ARCHITECTURE LOCKED, EVALS DEFINED — PASSING TO CRAFT</text>
+  <!-- Transition: Judge → Ship -->
+  <rect x="72" y="564" width="1076" height="24" rx="6" fill="#F0EDE8"/>
+  <text x="600" y="581" text-anchor="middle" fill="#9CA3AF" font-size="11" font-weight="600" font-family="Inter, Segoe UI, sans-serif" letter-spacing="0.8">STRATEGY SET, ARCHITECTURE LOCKED, EVALS DEFINED — PASSING TO CRAFT</text>
 
   <!-- ===== LAYER 3: SHIP ===== -->
-  <rect x="40" y="670" width="14" height="130" rx="7" fill="#6BA08A"/>
-  <text x="47" y="740" fill="#6BA08A" font-size="13" font-weight="800" font-family="Inter, Segoe UI, sans-serif" transform="rotate(-90,47,740)" text-anchor="middle" letter-spacing="2">SHIP</text>
+  <!-- Left accent bar -->
+  <rect x="44" y="600" width="12" height="150" rx="6" fill="#6BA08A"/>
+  <text x="50" y="680" fill="#6BA08A" font-size="12" font-weight="800" font-family="Inter, Segoe UI, sans-serif" transform="rotate(-90,50,680)" text-anchor="middle" letter-spacing="2">SHIP</text>
 
   <!-- Crafter card -->
-  <rect x="80" y="670" width="1080" height="130" rx="12" fill="#FFFFFF" stroke="#DFEDDA" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="80" y="670" width="1080" height="36" rx="12" fill="#6BA08A"/>
-  <rect x="80" y="694" width="1080" height="12" fill="#6BA08A"/>
-  <text x="100" y="696" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Crafter</text>
-  <text x="196" y="696" fill="#C0E8D0" font-size="11" font-weight="600" font-family="Inter, Segoe UI, sans-serif">PRD arrives pre-tested — every section inherits from Think and Judge layers</text>
+  <rect x="72" y="600" width="1076" height="150" rx="12" fill="#FFFFFF" stroke="#DFEDDA" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="72" y="600" width="1076" height="32" rx="12" fill="#6BA08A"/>
+  <rect x="72" y="620" width="1076" height="12" fill="#6BA08A"/>
+  <text x="90" y="623" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Crafter</text>
+  <text x="182" y="623" fill="#C0E8D0" font-size="11" font-weight="600" font-family="Inter, Segoe UI, sans-serif">PRD arrives pre-tested — every section shaped by a different team</text>
 
-  <!-- PRD output items -->
-  <rect x="100" y="716" width="240" height="68" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
-  <text x="120" y="736" fill="#065F46" font-size="12" font-weight="700" font-family="Inter, Segoe UI, sans-serif">PRD — Problem Reframed</text>
-  <text x="120" y="754" fill="#3A6A5A" font-size="11" font-family="Inter, Segoe UI, sans-serif">"Reduce alert fatigue" not</text>
-  <text x="120" y="769" fill="#3A6A5A" font-size="11" font-family="Inter, Segoe UI, sans-serif">"add AI insights"</text>
+  <!-- Output card 1: Problem Reframed -->
+  <rect x="92" y="646" width="240" height="86" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
+  <text x="112" y="668" fill="#065F46" font-size="12" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Problem — Reframed</text>
+  <text x="112" y="688" fill="#3A6A5A" font-size="12" font-family="Inter, Segoe UI, sans-serif">"Reduce alert fatigue"</text>
+  <text x="112" y="704" fill="#3A6A5A" font-size="12" font-family="Inter, Segoe UI, sans-serif">not "add AI insights"</text>
+  <text x="112" y="722" fill="#6B8F7A" font-size="11" font-style="italic" font-family="Inter, Segoe UI, sans-serif">from Sense-Maker</text>
 
-  <rect x="360" y="716" width="240" height="68" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
-  <text x="380" y="736" fill="#065F46" font-size="12" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Cost Model — Stress Tested</text>
-  <text x="380" y="754" fill="#3A6A5A" font-size="11" font-family="Inter, Segoe UI, sans-serif">$42K/mo at 50 plants. ROI</text>
-  <text x="380" y="769" fill="#3A6A5A" font-size="11" font-family="Inter, Segoe UI, sans-serif">positive if saves $180K/mo</text>
+  <!-- Output card 2: Cost Model -->
+  <rect x="352" y="646" width="240" height="86" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
+  <text x="372" y="668" fill="#065F46" font-size="12" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Cost — Stress Tested</text>
+  <text x="372" y="688" fill="#3A6A5A" font-size="12" font-family="Inter, Segoe UI, sans-serif">$42K/mo at 50 plants</text>
+  <text x="372" y="704" fill="#3A6A5A" font-size="12" font-family="Inter, Segoe UI, sans-serif">ROI+ if saves $180K/mo</text>
+  <text x="372" y="722" fill="#6B8F7A" font-size="11" font-style="italic" font-family="Inter, Segoe UI, sans-serif">from Strategist</text>
 
-  <rect x="620" y="716" width="240" height="68" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
-  <text x="640" y="736" fill="#065F46" font-size="12" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Eval Criteria = Acceptance</text>
-  <text x="640" y="754" fill="#3A6A5A" font-size="11" font-family="Inter, Segoe UI, sans-serif">30% false-alert reduction or</text>
-  <text x="640" y="769" fill="#3A6A5A" font-size="11" font-family="Inter, Segoe UI, sans-serif">kill at day 45. No ambiguity.</text>
+  <!-- Output card 3: Eval = Acceptance -->
+  <rect x="612" y="646" width="240" height="86" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
+  <text x="632" y="668" fill="#065F46" font-size="12" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Eval = Acceptance Criteria</text>
+  <text x="632" y="688" fill="#3A6A5A" font-size="12" font-family="Inter, Segoe UI, sans-serif">30% alert reduction or</text>
+  <text x="632" y="704" fill="#3A6A5A" font-size="12" font-family="Inter, Segoe UI, sans-serif">kill at day 45. No ambiguity.</text>
+  <text x="632" y="722" fill="#6B8F7A" font-size="11" font-style="italic" font-family="Inter, Segoe UI, sans-serif">from Evals Expert</text>
 
-  <rect x="880" y="716" width="260" height="68" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
-  <text x="900" y="736" fill="#065F46" font-size="12" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Ship Decision — 3 Kill Conditions</text>
-  <text x="900" y="754" fill="#3A6A5A" font-size="11" font-family="Inter, Segoe UI, sans-serif">Named the 3 assumptions that</text>
-  <text x="900" y="769" fill="#3A6A5A" font-size="11" font-family="Inter, Segoe UI, sans-serif">would invalidate the entire bet</text>
+  <!-- Output card 4: Kill Conditions -->
+  <rect x="872" y="646" width="256" height="86" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
+  <text x="892" y="668" fill="#065F46" font-size="12" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Ship Decision — 3 Kill Conditions</text>
+  <text x="892" y="688" fill="#3A6A5A" font-size="12" font-family="Inter, Segoe UI, sans-serif">Named the 3 assumptions</text>
+  <text x="892" y="704" fill="#3A6A5A" font-size="12" font-family="Inter, Segoe UI, sans-serif">that would kill the whole bet</text>
+  <text x="892" y="722" fill="#6B8F7A" font-size="11" font-style="italic" font-family="Inter, Segoe UI, sans-serif">from Red Team + Strategist</text>
 
-  <!-- ===== PUNCHLINE CALLOUT ===== -->
-  <rect x="40" y="820" width="1120" height="60" rx="14" fill="#2C2420" filter="url(#s)"/>
-  <text x="600" y="847" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, Segoe UI, sans-serif">One input. Three layers. Six teams. The PRD that ships isn't a template — it's a document that's already survived scrutiny.</text>
-  <text x="600" y="867" text-anchor="middle" fill="#A09890" font-size="12" font-family="Inter, Segoe UI, sans-serif">The VP asked for "AI insights." The system delivered a reframed problem, a staged roadmap, and a kill switch.</text>
+  <!-- ===== PUNCHLINE ===== -->
+  <rect x="50" y="770" width="1100" height="76" rx="14" fill="#2C2420" filter="url(#s)"/>
+  <text x="600" y="800" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700" font-family="Inter, Segoe UI, sans-serif">The VP asked for "AI insights." The system shipped a reframed problem, a staged roadmap, and a kill switch.</text>
+  <text x="600" y="826" text-anchor="middle" fill="#A09890" font-size="13" font-family="Inter, Segoe UI, sans-serif">One input. Three layers. Six teams. The PRD that ships isn't a template — it's survived scrutiny.</text>
+
+  <!-- Footer -->
+  <text x="600" y="878" text-anchor="middle" fill="#9CA3AF" font-size="11" font-family="Inter, Segoe UI, sans-serif">rtp-personal-skills · The System in Action · April 2026</text>
 
 </svg>

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 880" width="1200" height="880">
   <defs>
     <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
-      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.09"/>
     </filter>
   </defs>
 

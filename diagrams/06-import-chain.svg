@@ -8,70 +8,6 @@
       <stop offset="0%" style="stop-color:#9478B8;stop-opacity:0.08" />
       <stop offset="100%" style="stop-color:#5B92B8;stop-opacity:0.08" />
     </linearGradient>
-
-    <style>
-
-
-      .title-main {
-        font-family: Inter, Segoe UI, sans-serif;
-        font-size: 32px;
-        font-weight: 700;
-        fill: #1A1A1A;
-        letter-spacing: -0.6px;
-      }
-
-      .title-sub {
-        font-family: Inter, Segoe UI, sans-serif;
-        font-size: 15px;
-        font-weight: 500;
-        fill: #5A5A5A;
-        letter-spacing: 0.2px;
-      }
-
-      .column-title {
-        font-family: Inter, Segoe UI, sans-serif;
-        font-size: 14px;
-        font-weight: 600;
-        fill: #1A1A1A;
-        text-anchor: middle;
-        letter-spacing: 0.3px;
-      }
-
-      .skill-label {
-        font-family: Inter, Segoe UI, sans-serif;
-        font-size: 12px;
-        font-weight: 600;
-        fill: #FFFFFF;
-        text-anchor: middle;
-        dominant-baseline: middle;
-      }
-
-      .output-label {
-        font-family: Inter, Segoe UI, sans-serif;
-        font-size: 12px;
-        font-weight: 600;
-        fill: #1A1A1A;
-        text-anchor: middle;
-        dominant-baseline: middle;
-      }
-
-      .result-caption {
-        font-family: Inter, Segoe UI, sans-serif;
-        font-size: 12px;
-        font-weight: 500;
-        fill: #6A6A6A;
-        text-anchor: center;
-        line-height: 1.4;
-      }
-
-      .footer {
-        font-family: Inter, Segoe UI, sans-serif;
-        font-size: 11px;
-        font-weight: 500;
-        fill: #8A8A8A;
-        text-anchor: center;
-      }
-    </style>
   </defs>
 
   <!-- Background -->
@@ -81,8 +17,8 @@
   <rect width="1200" height="90" fill="url(#titleGrad)"/>
   <line x1="0" y1="90" x2="1200" y2="90" stroke="#D4D0CC" stroke-width="0.5" opacity="0.5"/>
 
-  <text x="600" y="40" class="title-main">The Import Chain</text>
-  <text x="600" y="62" class="title-sub">Why the output is worth reading: thinking → judgment → craft</text>
+  <text x="600" y="40" font-family="Inter, Segoe UI, sans-serif" font-size="32" font-weight="700" fill="#1A1A1A" letter-spacing="-0.6" text-anchor="middle">The Import Chain</text>
+  <text x="600" y="62" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#5A5A5A" letter-spacing="0.2" text-anchor="middle">Why the output is worth reading: thinking → judgment → craft</text>
 
   <!-- Column Container -->
   <g id="columns">
@@ -90,13 +26,13 @@
     <!-- COLUMN 1: Writing an AI PRD -->
     <g id="col1">
       <!-- Header -->
-      <text x="150" y="125" class="column-title">Writing an AI PRD</text>
+      <text x="150" y="125" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.3">Writing an AI PRD</text>
 
       <!-- Skill 1: First Principles (Purple) -->
       <g filter="url(#softShadow)">
         <rect x="90" y="145" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="150" y="171" class="skill-label" font-size="11">First</text>
-        <text x="150" y="184" class="skill-label" font-size="11">Principles</text>
+        <text x="150" y="171" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">First</text>
+        <text x="150" y="184" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Principles</text>
       </g>
 
       <!-- Arrow -->
@@ -106,8 +42,8 @@
       <!-- Skill 2: Bias Spotter (Purple) -->
       <g filter="url(#softShadow)">
         <rect x="90" y="228" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="150" y="254" class="skill-label" font-size="11">Bias</text>
-        <text x="150" y="267" class="skill-label" font-size="11">Spotter</text>
+        <text x="150" y="254" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Bias</text>
+        <text x="150" y="267" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Spotter</text>
       </g>
 
       <!-- Arrow -->
@@ -117,8 +53,8 @@
       <!-- Skill 3: Build-or-Buy (Blue) -->
       <g filter="url(#softShadow)">
         <rect x="90" y="311" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="150" y="335" class="skill-label" font-size="11">Build</text>
-        <text x="150" y="348" class="skill-label" font-size="11">or Buy</text>
+        <text x="150" y="335" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Build</text>
+        <text x="150" y="348" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">or Buy</text>
       </g>
 
       <!-- Arrow -->
@@ -128,8 +64,8 @@
       <!-- Skill 4: Token Economics (Blue) -->
       <g filter="url(#softShadow)">
         <rect x="90" y="394" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="150" y="418" class="skill-label" font-size="11">Token</text>
-        <text x="150" y="431" class="skill-label" font-size="11">Economics</text>
+        <text x="150" y="418" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Token</text>
+        <text x="150" y="431" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Economics</text>
       </g>
 
       <!-- Arrow -->
@@ -139,24 +75,24 @@
       <!-- Output: AI-PRD (Moss) -->
       <g filter="url(#softShadow)">
         <rect x="75" y="477" width="150" height="56" rx="8" fill="#6BA08A" opacity="0.9"/>
-        <text x="150" y="508" class="output-label">AI-PRD</text>
+        <text x="150" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">AI-PRD</text>
       </g>
 
       <!-- Result Caption -->
-      <text x="150" y="555" class="result-caption">A PRD engineering</text>
-      <text x="150" y="570" class="result-caption">can build from</text>
+      <text x="150" y="555" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A" text-anchor="middle">A PRD engineering</text>
+      <text x="150" y="570" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A" text-anchor="middle">can build from</text>
     </g>
 
     <!-- COLUMN 2: Ship/No-Ship Decision -->
     <g id="col2">
       <!-- Header -->
-      <text x="450" y="125" class="column-title">Ship/No-Ship Decision</text>
+      <text x="450" y="125" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.3">Ship/No-Ship Decision</text>
 
       <!-- Skill 1: Stress Test (Purple) -->
       <g filter="url(#softShadow)">
         <rect x="390" y="145" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="450" y="171" class="skill-label" font-size="11">Stress</text>
-        <text x="450" y="184" class="skill-label" font-size="11">Test</text>
+        <text x="450" y="171" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Stress</text>
+        <text x="450" y="184" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Test</text>
       </g>
 
       <!-- Arrow -->
@@ -166,8 +102,8 @@
       <!-- Skill 2: Failure Modes (Purple) -->
       <g filter="url(#softShadow)">
         <rect x="390" y="228" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="450" y="254" class="skill-label" font-size="11">Failure</text>
-        <text x="450" y="267" class="skill-label" font-size="11">Modes</text>
+        <text x="450" y="254" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Failure</text>
+        <text x="450" y="267" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Modes</text>
       </g>
 
       <!-- Arrow -->
@@ -177,8 +113,8 @@
       <!-- Skill 3: Eval-Driven Dev (Blue) -->
       <g filter="url(#softShadow)">
         <rect x="390" y="311" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="450" y="335" class="skill-label" font-size="11">Eval-Driven</text>
-        <text x="450" y="348" class="skill-label" font-size="11">Dev</text>
+        <text x="450" y="335" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Eval-Driven</text>
+        <text x="450" y="348" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Dev</text>
       </g>
 
       <!-- Arrow -->
@@ -188,8 +124,8 @@
       <!-- Skill 4: Trust Ladder (Blue) -->
       <g filter="url(#softShadow)">
         <rect x="390" y="394" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="450" y="418" class="skill-label" font-size="11">Trust</text>
-        <text x="450" y="431" class="skill-label" font-size="11">Ladder</text>
+        <text x="450" y="418" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Trust</text>
+        <text x="450" y="431" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Ladder</text>
       </g>
 
       <!-- Arrow -->
@@ -199,24 +135,24 @@
       <!-- Output: Ship Decision (Moss) -->
       <g filter="url(#softShadow)">
         <rect x="375" y="477" width="150" height="56" rx="8" fill="#6BA08A" opacity="0.9"/>
-        <text x="450" y="508" class="output-label">Ship Decision</text>
+        <text x="450" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Ship Decision</text>
       </g>
 
       <!-- Result Caption -->
-      <text x="450" y="555" class="result-caption">A decision backed</text>
-      <text x="450" y="570" class="result-caption">by evidence</text>
+      <text x="450" y="555" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A" text-anchor="middle">A decision backed</text>
+      <text x="450" y="570" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A" text-anchor="middle">by evidence</text>
     </g>
 
     <!-- COLUMN 3: Designing an Agent -->
     <g id="col3">
       <!-- Header -->
-      <text x="750" y="125" class="column-title">Designing an Agent</text>
+      <text x="750" y="125" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.3">Designing an Agent</text>
 
       <!-- Skill 1: First Principles (Purple) -->
       <g filter="url(#softShadow)">
         <rect x="690" y="145" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="750" y="171" class="skill-label" font-size="11">First</text>
-        <text x="750" y="184" class="skill-label" font-size="11">Principles</text>
+        <text x="750" y="171" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">First</text>
+        <text x="750" y="184" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Principles</text>
       </g>
 
       <!-- Arrow -->
@@ -226,8 +162,8 @@
       <!-- Skill 2: Alignment Check (Purple) -->
       <g filter="url(#softShadow)">
         <rect x="690" y="228" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="750" y="254" class="skill-label" font-size="11">Alignment</text>
-        <text x="750" y="267" class="skill-label" font-size="11">Check</text>
+        <text x="750" y="254" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Alignment</text>
+        <text x="750" y="267" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Check</text>
       </g>
 
       <!-- Arrow -->
@@ -237,8 +173,8 @@
       <!-- Skill 3: Autonomy Spectrum (Blue) -->
       <g filter="url(#softShadow)">
         <rect x="690" y="311" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="750" y="335" class="skill-label" font-size="11">Autonomy</text>
-        <text x="750" y="348" class="skill-label" font-size="11">Spectrum</text>
+        <text x="750" y="335" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Autonomy</text>
+        <text x="750" y="348" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Spectrum</text>
       </g>
 
       <!-- Arrow -->
@@ -248,8 +184,8 @@
       <!-- Skill 4: Agent Risk (Blue) -->
       <g filter="url(#softShadow)">
         <rect x="690" y="394" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="750" y="418" class="skill-label" font-size="11">Agent</text>
-        <text x="750" y="431" class="skill-label" font-size="11">Risk</text>
+        <text x="750" y="418" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Agent</text>
+        <text x="750" y="431" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Risk</text>
       </g>
 
       <!-- Arrow -->
@@ -259,23 +195,23 @@
       <!-- Output: Agent Spec (Moss) -->
       <g filter="url(#softShadow)">
         <rect x="675" y="477" width="150" height="56" rx="8" fill="#6BA08A" opacity="0.9"/>
-        <text x="750" y="508" class="output-label">Agent Spec</text>
+        <text x="750" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Agent Spec</text>
       </g>
 
       <!-- Result Caption -->
-      <text x="750" y="555" class="result-caption">An agent spec with</text>
-      <text x="750" y="570" class="result-caption">safety built in</text>
+      <text x="750" y="555" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A" text-anchor="middle">An agent spec with</text>
+      <text x="750" y="570" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A" text-anchor="middle">safety built in</text>
     </g>
 
     <!-- COLUMN 4: Cost Modeling -->
     <g id="col4">
       <!-- Header -->
-      <text x="1050" y="125" class="column-title">Cost Modeling</text>
+      <text x="1050" y="125" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.3">Cost Modeling</text>
 
       <!-- Skill 1: Red Team (Purple) -->
       <g filter="url(#softShadow)">
         <rect x="990" y="145" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="1050" y="178" class="skill-label" font-size="11">Red Team</text>
+        <text x="1050" y="178" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Red Team</text>
       </g>
 
       <!-- Arrow -->
@@ -285,8 +221,8 @@
       <!-- Skill 2: Determinism Compass (Purple) -->
       <g filter="url(#softShadow)">
         <rect x="990" y="228" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="1050" y="254" class="skill-label" font-size="11">Determinism</text>
-        <text x="1050" y="267" class="skill-label" font-size="11">Compass</text>
+        <text x="1050" y="254" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Determinism</text>
+        <text x="1050" y="267" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Compass</text>
       </g>
 
       <!-- Arrow -->
@@ -296,8 +232,8 @@
       <!-- Skill 3: Token Economics (Blue) -->
       <g filter="url(#softShadow)">
         <rect x="990" y="311" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="1050" y="335" class="skill-label" font-size="11">Token</text>
-        <text x="1050" y="348" class="skill-label" font-size="11">Economics</text>
+        <text x="1050" y="335" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Token</text>
+        <text x="1050" y="348" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Economics</text>
       </g>
 
       <!-- Arrow -->
@@ -307,8 +243,8 @@
       <!-- Skill 4: Build-or-Buy (Blue) -->
       <g filter="url(#softShadow)">
         <rect x="990" y="394" width="120" height="48" rx="24" fill="#5B92B8" opacity="0.9"/>
-        <text x="1050" y="418" class="skill-label" font-size="11">Build</text>
-        <text x="1050" y="431" class="skill-label" font-size="11">or Buy</text>
+        <text x="1050" y="418" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">Build</text>
+        <text x="1050" y="431" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">or Buy</text>
       </g>
 
       <!-- Arrow -->
@@ -318,12 +254,12 @@
       <!-- Output: Cost Model (Moss) -->
       <g filter="url(#softShadow)">
         <rect x="975" y="477" width="150" height="56" rx="8" fill="#6BA08A" opacity="0.9"/>
-        <text x="1050" y="508" class="output-label">Cost Model</text>
+        <text x="1050" y="508" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#1A1A1A" text-anchor="middle">Cost Model</text>
       </g>
 
       <!-- Result Caption -->
-      <text x="1050" y="555" class="result-caption">A cost model that</text>
-      <text x="1050" y="570" class="result-caption">survives scrutiny</text>
+      <text x="1050" y="555" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A" text-anchor="middle">A cost model that</text>
+      <text x="1050" y="570" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#6A6A6A" text-anchor="middle">survives scrutiny</text>
     </g>
 
   </g>
@@ -337,21 +273,21 @@
     <g>
       <!-- Thinking -->
       <rect x="80" y="635" width="12" height="12" rx="6" fill="#9478B8"/>
-      <text x="100" y="644" class="footer" text-anchor="start" font-size="11">Thinking</text>
+      <text x="100" y="644" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#8A8A8A" text-anchor="start">Thinking</text>
 
       <!-- Judgment -->
       <rect x="280" y="635" width="12" height="12" rx="6" fill="#5B92B8"/>
-      <text x="300" y="644" class="footer" text-anchor="start" font-size="11">Judgment</text>
+      <text x="300" y="644" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#8A8A8A" text-anchor="start">Judgment</text>
 
       <!-- Craft -->
       <rect x="480" y="635" width="12" height="12" rx="6" fill="#6BA08A"/>
-      <text x="500" y="644" class="footer" text-anchor="start" font-size="11">Craft</text>
+      <text x="500" y="644" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#8A8A8A" text-anchor="start">Craft</text>
 
       <!-- Principle -->
-      <text x="650" y="644" class="footer" font-size="11">Every chain: Purple (thinking) → Blue (judgment) → Green (craft) = Trustworthy output</text>
+      <text x="650" y="644" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#8A8A8A" text-anchor="middle">Every chain: Purple (thinking) → Blue (judgment) → Green (craft) = Trustworthy output</text>
     </g>
   </g>
 
   <!-- Footer -->
-  <text x="600" y="780" class="footer">Import Chain · Dependency Graph · April 2026</text>
+  <text x="600" y="780" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#8A8A8A" text-anchor="middle">Import Chain · Dependency Graph · April 2026</text>
 </svg>

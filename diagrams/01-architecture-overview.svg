@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 960" width="1400" height="960">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 960" width="1200" height="960">
   <defs>
     <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
-      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.09"/>
     </filter>
     <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#9478B830"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#9478B8" flood-opacity="0.19"/>
     </filter>
     <linearGradient id="dnaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#9478B8"/>
@@ -16,13 +16,13 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1400" height="960" rx="16" fill="#FAFAF8"/>
+  <rect width="1200" height="960" rx="16" fill="#FAFAF8"/>
 
   <!-- Header band -->
-  <rect x="0" y="0" width="1400" height="80" rx="16" fill="#5B92B8"/>
-  <rect x="0" y="60" width="1400" height="20" fill="#5B92B8"/>
-  <text x="700" y="36" text-anchor="middle" fill="#FFFFFF" font-size="28" font-weight="800" font-family="Inter, Segoe UI, sans-serif">Worker Agents — An Army of Specialists</text>
-  <text x="700" y="62" text-anchor="middle" fill="#D0E8FF" font-size="15" font-family="Inter, sans-serif">Every worker: specialized skill + Ravi Voice + domain memory. They compound with every execution.</text>
+  <rect x="0" y="0" width="1200" height="80" rx="16" fill="#5B92B8"/>
+  <rect x="0" y="60" width="1200" height="20" fill="#5B92B8"/>
+  <text x="600" y="36" text-anchor="middle" fill="#FFFFFF" font-size="28" font-weight="800" font-family="Inter, Segoe UI, sans-serif">Worker Agents — An Army of Specialists</text>
+  <text x="600" y="62" text-anchor="middle" fill="#D0E8FF" font-size="15" font-family="Inter, sans-serif">Every worker: specialized skill + Ravi Voice + domain memory. They compound with every execution.</text>
 
   <!-- ===== LEFT: WHAT MAKES A WORKER ===== -->
   <rect x="30" y="100" width="280" height="350" rx="14" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1.5" filter="url(#s)"/>
@@ -61,8 +61,8 @@
   <text x="170" y="412" text-anchor="middle" fill="#3A6A5A" font-size="14" font-weight="700" font-family="Inter, sans-serif">= Intelligent Worker Agent</text>
 
   <!-- ===== CENTER: AI PM EXPERT TEAMS ===== -->
-  <text x="700" y="118" text-anchor="middle" fill="#2C2420" font-size="18" font-weight="700" font-family="Inter, sans-serif">AI PM Expert Teams</text>
-  <text x="700" y="138" text-anchor="middle" fill="#6B6460" font-size="12" font-family="Inter, sans-serif">55 skills across 6 specialized teams</text>
+  <text x="600" y="118" text-anchor="middle" fill="#2C2420" font-size="18" font-weight="700" font-family="Inter, sans-serif">AI PM Expert Teams</text>
+  <text x="600" y="138" text-anchor="middle" fill="#6B6460" font-size="12" font-family="Inter, sans-serif">55 skills across 6 specialized teams</text>
 
   <!-- Team 1: Sense-Maker -->
   <rect x="340" y="158" width="220" height="100" rx="12" fill="#FFFFFF" stroke="#D4789B" stroke-width="2" filter="url(#s)"/>
@@ -131,144 +131,144 @@
   <text x="965" y="364" text-anchor="middle" fill="#3A6A5A" font-size="9" font-family="Inter, sans-serif">PRD, spec, cost</text>
 
   <!-- ===== DIVIDER ===== -->
-  <line x1="40" y1="410" x2="1360" y2="410" stroke="#E8E4DC" stroke-width="1" stroke-dasharray="6,4"/>
+  <line x1="40" y1="410" x2="1160" y2="410" stroke="#E8E4DC" stroke-width="1" stroke-dasharray="6,4"/>
 
   <!-- ===== BOTTOM: GENERAL-PURPOSE AGENTS ===== -->
-  <text x="700" y="445" text-anchor="middle" fill="#2C2420" font-size="18" font-weight="700" font-family="Inter, sans-serif">General-Purpose Worker Agents</text>
-  <text x="700" y="465" text-anchor="middle" fill="#6B6460" font-size="12" font-family="Inter, sans-serif">12 skills powering the rest of the workday — writing, research, presentations, interviews, curriculum</text>
+  <text x="600" y="445" text-anchor="middle" fill="#2C2420" font-size="18" font-weight="700" font-family="Inter, sans-serif">General-Purpose Worker Agents</text>
+  <text x="600" y="465" text-anchor="middle" fill="#6B6460" font-size="12" font-family="Inter, sans-serif">12 skills powering the rest of the workday — writing, research, presentations, interviews, curriculum</text>
 
   <!-- Agent 1: Email Writer -->
-  <rect x="40" y="485" width="175" height="88" rx="10" fill="#FFFFFF" stroke="#D4789B" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="40" y="485" width="175" height="28" rx="10" fill="#D4789B"/>
-  <rect x="40" y="503" width="175" height="10" fill="#D4789B"/>
-  <text x="128" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Email Writer</text>
-  <text x="55" y="535" fill="#6B4A5A" font-size="10" font-family="Inter, sans-serif">ravi-email-mastery</text>
-  <text x="55" y="550" fill="#9A7A8A" font-size="9" font-family="Inter, sans-serif">Professional communication</text>
-  <text x="55" y="563" fill="#9A7A8A" font-size="9" font-family="Inter, sans-serif">in Ravi's natural voice</text>
+  <rect x="39" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#D4789B" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="39" y="485" width="150" height="28" rx="10" fill="#D4789B"/>
+  <rect x="39" y="503" width="150" height="10" fill="#D4789B"/>
+  <text x="114" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Email Writer</text>
+  <text x="51" y="535" fill="#6B4A5A" font-size="10" font-family="Inter, sans-serif">ravi-email-mastery</text>
+  <text x="51" y="550" fill="#9A7A8A" font-size="9" font-family="Inter, sans-serif">Professional comms</text>
+  <text x="51" y="563" fill="#9A7A8A" font-size="9" font-family="Inter, sans-serif">in Ravi's natural voice</text>
 
   <!-- Agent 2: Article Writer -->
-  <rect x="232" y="485" width="175" height="88" rx="10" fill="#FFFFFF" stroke="#D4956A" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="232" y="485" width="175" height="28" rx="10" fill="#D4956A"/>
-  <rect x="232" y="503" width="175" height="10" fill="#D4956A"/>
-  <text x="320" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Article Writer</text>
-  <text x="247" y="535" fill="#7A5A1E" font-size="10" font-family="Inter, sans-serif">thinking + research</text>
-  <text x="247" y="550" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">Thought leadership grounded</text>
-  <text x="247" y="563" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">in research synthesis</text>
+  <rect x="201" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#D4956A" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="201" y="485" width="150" height="28" rx="10" fill="#D4956A"/>
+  <rect x="201" y="503" width="150" height="10" fill="#D4956A"/>
+  <text x="276" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Article Writer</text>
+  <text x="213" y="535" fill="#7A5A1E" font-size="10" font-family="Inter, sans-serif">thinking + research</text>
+  <text x="213" y="550" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">Thought leadership</text>
+  <text x="213" y="563" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">in research synthesis</text>
 
   <!-- Agent 3: Research Analyst -->
-  <rect x="424" y="485" width="175" height="88" rx="10" fill="#FFFFFF" stroke="#5B92B8" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="424" y="485" width="175" height="28" rx="10" fill="#5B92B8"/>
-  <rect x="424" y="503" width="175" height="10" fill="#5B92B8"/>
-  <text x="512" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Research Analyst</text>
-  <text x="439" y="535" fill="#2B5A7F" font-size="10" font-family="Inter, sans-serif">grok + perplexity + hbr</text>
-  <text x="439" y="550" fill="#5B7A8B" font-size="9" font-family="Inter, sans-serif">Signal collection and</text>
-  <text x="439" y="563" fill="#5B7A8B" font-size="9" font-family="Inter, sans-serif">pattern synthesis</text>
+  <rect x="363" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#5B92B8" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="363" y="485" width="150" height="28" rx="10" fill="#5B92B8"/>
+  <rect x="363" y="503" width="150" height="10" fill="#5B92B8"/>
+  <text x="438" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Research Analyst</text>
+  <text x="375" y="535" fill="#2B5A7F" font-size="10" font-family="Inter, sans-serif">grok + perplexity + hbr</text>
+  <text x="375" y="550" fill="#5B7A8B" font-size="9" font-family="Inter, sans-serif">Signal collection and</text>
+  <text x="375" y="563" fill="#5B7A8B" font-size="9" font-family="Inter, sans-serif">pattern synthesis</text>
 
   <!-- Agent 4: Presentation Builder -->
-  <rect x="616" y="485" width="175" height="88" rx="10" fill="#FFFFFF" stroke="#6BA08A" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="616" y="485" width="175" height="28" rx="10" fill="#6BA08A"/>
-  <rect x="616" y="503" width="175" height="10" fill="#6BA08A"/>
-  <text x="704" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Presentation Builder</text>
-  <text x="631" y="535" fill="#3A6A5A" font-size="10" font-family="Inter, sans-serif">frontend-slides + brand</text>
-  <text x="631" y="550" fill="#5A8A7A" font-size="9" font-family="Inter, sans-serif">Zero-dependency HTML</text>
-  <text x="631" y="563" fill="#5A8A7A" font-size="9" font-family="Inter, sans-serif">with Apple-level polish</text>
+  <rect x="525" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#6BA08A" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="525" y="485" width="150" height="28" rx="10" fill="#6BA08A"/>
+  <rect x="525" y="503" width="150" height="10" fill="#6BA08A"/>
+  <text x="600" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Presentation Builder</text>
+  <text x="537" y="535" fill="#3A6A5A" font-size="10" font-family="Inter, sans-serif">frontend-slides + brand</text>
+  <text x="537" y="550" fill="#5A8A7A" font-size="9" font-family="Inter, sans-serif">Zero-dependency HTML</text>
+  <text x="537" y="563" fill="#5A8A7A" font-size="9" font-family="Inter, sans-serif">Apple-level polish</text>
 
   <!-- Agent 5: Diagram Builder -->
-  <rect x="808" y="485" width="175" height="88" rx="10" fill="#FFFFFF" stroke="#9478B8" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="808" y="485" width="175" height="28" rx="10" fill="#9478B8"/>
-  <rect x="808" y="503" width="175" height="10" fill="#9478B8"/>
-  <text x="896" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Diagram Builder</text>
-  <text x="823" y="535" fill="#5B3E7A" font-size="10" font-family="Inter, sans-serif">excalidraw-svg</text>
-  <text x="823" y="550" fill="#7A6A9A" font-size="9" font-family="Inter, sans-serif">Hand-drawn professional</text>
-  <text x="823" y="563" fill="#7A6A9A" font-size="9" font-family="Inter, sans-serif">SVGs with pastel palette</text>
+  <rect x="687" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#9478B8" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="687" y="485" width="150" height="28" rx="10" fill="#9478B8"/>
+  <rect x="687" y="503" width="150" height="10" fill="#9478B8"/>
+  <text x="762" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Diagram Builder</text>
+  <text x="699" y="535" fill="#5B3E7A" font-size="10" font-family="Inter, sans-serif">excalidraw-svg</text>
+  <text x="699" y="550" fill="#7A6A9A" font-size="9" font-family="Inter, sans-serif">Hand-drawn professional</text>
+  <text x="699" y="563" fill="#7A6A9A" font-size="9" font-family="Inter, sans-serif">SVGs, pastel palette</text>
 
   <!-- Agent 6: PM Interview Coach -->
-  <rect x="1000" y="485" width="175" height="88" rx="10" fill="#FFFFFF" stroke="#C27878" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="1000" y="485" width="175" height="28" rx="10" fill="#C27878"/>
-  <rect x="1000" y="503" width="175" height="10" fill="#C27878"/>
-  <text x="1088" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">PM Interview Coach</text>
-  <text x="1015" y="535" fill="#7B4A4A" font-size="10" font-family="Inter, sans-serif">thinking + interview-prep</text>
-  <text x="1015" y="550" fill="#9A7A7A" font-size="9" font-family="Inter, sans-serif">AI PM interview prep</text>
-  <text x="1015" y="563" fill="#9A7A7A" font-size="9" font-family="Inter, sans-serif">grounded in frameworks</text>
+  <rect x="849" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#C27878" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="849" y="485" width="150" height="28" rx="10" fill="#C27878"/>
+  <rect x="849" y="503" width="150" height="10" fill="#C27878"/>
+  <text x="924" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">PM Interview Coach</text>
+  <text x="861" y="535" fill="#7B4A4A" font-size="10" font-family="Inter, sans-serif">thinking + interview</text>
+  <text x="861" y="550" fill="#9A7A7A" font-size="9" font-family="Inter, sans-serif">AI PM interview prep</text>
+  <text x="861" y="563" fill="#9A7A7A" font-size="9" font-family="Inter, sans-serif">grounded in frameworks</text>
 
   <!-- Agent 7: Teaching Assistant -->
-  <rect x="1192" y="485" width="175" height="88" rx="10" fill="#FFFFFF" stroke="#D4956A" stroke-width="1.5" filter="url(#s)"/>
-  <rect x="1192" y="485" width="175" height="28" rx="10" fill="#D4956A"/>
-  <rect x="1192" y="503" width="175" height="10" fill="#D4956A"/>
-  <text x="1280" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Teaching Assistant</text>
-  <text x="1207" y="535" fill="#7A5A1E" font-size="10" font-family="Inter, sans-serif">thinking + CONTEXT</text>
-  <text x="1207" y="550" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">17-module AI PM</text>
-  <text x="1207" y="563" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">curriculum development</text>
+  <rect x="1011" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#D4956A" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="1011" y="485" width="150" height="28" rx="10" fill="#D4956A"/>
+  <rect x="1011" y="503" width="150" height="10" fill="#D4956A"/>
+  <text x="1086" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Teaching Assistant</text>
+  <text x="1023" y="535" fill="#7A5A1E" font-size="10" font-family="Inter, sans-serif">thinking + CONTEXT</text>
+  <text x="1023" y="550" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">17-module AI PM</text>
+  <text x="1023" y="563" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">curriculum development</text>
 
   <!-- ===== RAVI VOICE DNA BAR ===== -->
-  <rect x="40" y="605" width="1320" height="60" rx="12" fill="#FAFAF8" stroke="url(#dnaGrad)" stroke-width="2.5" filter="url(#glow)"/>
-  <rect x="40" y="605" width="1320" height="8" rx="12" fill="url(#dnaGrad)" opacity="0.15"/>
-  <text x="700" y="636" text-anchor="middle" fill="#5B3E7A" font-size="15" font-weight="700" font-family="Inter, sans-serif">Ravi Voice — The DNA in Every Worker</text>
-  <text x="700" y="655" text-anchor="middle" fill="#7556A0" font-size="12" font-family="Inter, sans-serif">10 thinking algorithms  ·  24 AI anti-patterns to avoid  ·  Bridger communication style  ·  Anthropic CPO quality bar</text>
+  <rect x="30" y="605" width="1140" height="60" rx="12" fill="#FAFAF8" stroke="url(#dnaGrad)" stroke-width="2.5" filter="url(#glow)"/>
+  <rect x="30" y="605" width="1140" height="8" rx="12" fill="url(#dnaGrad)" opacity="0.15"/>
+  <text x="600" y="636" text-anchor="middle" fill="#5B3E7A" font-size="15" font-weight="700" font-family="Inter, sans-serif">Ravi Voice — The DNA in Every Worker</text>
+  <text x="600" y="655" text-anchor="middle" fill="#7556A0" font-size="12" font-family="Inter, sans-serif">10 thinking algorithms  ·  24 AI anti-patterns to avoid  ·  Bridger communication style  ·  Anthropic CPO quality bar</text>
 
   <!-- ===== COMPOUNDING LOOP ===== -->
-  <rect x="40" y="690" width="1320" height="195" rx="14" fill="#FFFFFF" stroke="#E8E4DC" stroke-width="1.5" filter="url(#s)"/>
-  <text x="700" y="720" text-anchor="middle" fill="#2C2420" font-size="16" font-weight="700" font-family="Inter, sans-serif">How Workers Compound</text>
-  <text x="700" y="740" text-anchor="middle" fill="#6B6460" font-size="12" font-family="Inter, sans-serif">The 10th execution is structurally sharper than the 1st. The skill file stays the same — the accumulated context is what grows.</text>
+  <rect x="30" y="690" width="1140" height="195" rx="14" fill="#FFFFFF" stroke="#E8E4DC" stroke-width="1.5" filter="url(#s)"/>
+  <text x="600" y="720" text-anchor="middle" fill="#2C2420" font-size="16" font-weight="700" font-family="Inter, sans-serif">How Workers Compound</text>
+  <text x="600" y="740" text-anchor="middle" fill="#6B6460" font-size="12" font-family="Inter, sans-serif">The 10th execution is structurally sharper than the 1st. The skill file stays the same — the accumulated context is what grows.</text>
 
   <!-- 6-step feedback loop -->
   <!-- Step 1 -->
-  <rect x="70" y="760" width="170" height="50" rx="8" fill="#F8F5FF" stroke="#9478B8" stroke-width="1.5"/>
-  <text x="155" y="782" text-anchor="middle" fill="#5B3E7A" font-size="11" font-weight="600" font-family="Inter, sans-serif">Orchestrator deploys</text>
-  <text x="155" y="798" text-anchor="middle" fill="#7556A0" font-size="10" font-family="Inter, sans-serif">worker + task + context</text>
+  <rect x="55" y="760" width="155" height="50" rx="8" fill="#F8F5FF" stroke="#9478B8" stroke-width="1.5"/>
+  <text x="133" y="782" text-anchor="middle" fill="#5B3E7A" font-size="11" font-weight="600" font-family="Inter, sans-serif">Orchestrator deploys</text>
+  <text x="133" y="798" text-anchor="middle" fill="#7556A0" font-size="10" font-family="Inter, sans-serif">worker + task + context</text>
 
   <!-- Arrow -->
-  <path d="M 240 785 L 275 785" stroke="#C0B8CC" stroke-width="1.5" fill="none"/>
-  <polygon points="275,782 282,785 275,788" fill="#C0B8CC"/>
+  <path d="M 210 785 L 232 785" stroke="#C0B8CC" stroke-width="1.5" fill="none"/>
+  <polygon points="232,782 239,785 232,788" fill="#C0B8CC"/>
 
   <!-- Step 2 -->
-  <rect x="283" y="760" width="150" height="50" rx="8" fill="#EEF5FB" stroke="#5B92B8" stroke-width="1.5"/>
-  <text x="358" y="782" text-anchor="middle" fill="#2B5A7F" font-size="11" font-weight="600" font-family="Inter, sans-serif">Worker executes</text>
-  <text x="358" y="798" text-anchor="middle" fill="#5B7A8B" font-size="10" font-family="Inter, sans-serif">skills + voice + memory</text>
+  <rect x="240" y="760" width="135" height="50" rx="8" fill="#EEF5FB" stroke="#5B92B8" stroke-width="1.5"/>
+  <text x="308" y="782" text-anchor="middle" fill="#2B5A7F" font-size="11" font-weight="600" font-family="Inter, sans-serif">Worker executes</text>
+  <text x="308" y="798" text-anchor="middle" fill="#5B7A8B" font-size="10" font-family="Inter, sans-serif">skills + voice + memory</text>
 
   <!-- Arrow -->
-  <path d="M 433 785 L 468 785" stroke="#C0B8CC" stroke-width="1.5" fill="none"/>
-  <polygon points="468,782 475,785 468,788" fill="#C0B8CC"/>
+  <path d="M 375 785 L 397 785" stroke="#C0B8CC" stroke-width="1.5" fill="none"/>
+  <polygon points="397,782 404,785 397,788" fill="#C0B8CC"/>
 
   <!-- Step 3 -->
-  <rect x="476" y="760" width="150" height="50" rx="8" fill="#E8F4F0" stroke="#6BA08A" stroke-width="1.5"/>
-  <text x="551" y="782" text-anchor="middle" fill="#3A6A5A" font-size="11" font-weight="600" font-family="Inter, sans-serif">Orchestrator reviews</text>
-  <text x="551" y="798" text-anchor="middle" fill="#5A8A7A" font-size="10" font-family="Inter, sans-serif">quality gate check</text>
+  <rect x="405" y="760" width="135" height="50" rx="8" fill="#E8F4F0" stroke="#6BA08A" stroke-width="1.5"/>
+  <text x="473" y="782" text-anchor="middle" fill="#3A6A5A" font-size="11" font-weight="600" font-family="Inter, sans-serif">Orchestrator reviews</text>
+  <text x="473" y="798" text-anchor="middle" fill="#5A8A7A" font-size="10" font-family="Inter, sans-serif">quality gate check</text>
 
   <!-- Arrow -->
-  <path d="M 626 785 L 661 785" stroke="#C0B8CC" stroke-width="1.5" fill="none"/>
-  <polygon points="661,782 668,785 661,788" fill="#C0B8CC"/>
+  <path d="M 540 785 L 562 785" stroke="#C0B8CC" stroke-width="1.5" fill="none"/>
+  <polygon points="562,782 569,785 562,788" fill="#C0B8CC"/>
 
   <!-- Step 4 -->
-  <rect x="669" y="760" width="150" height="50" rx="8" fill="#FFF0F5" stroke="#D4789B" stroke-width="1.5"/>
-  <text x="744" y="782" text-anchor="middle" fill="#8B3A5A" font-size="11" font-weight="600" font-family="Inter, sans-serif">Ravi gives feedback</text>
-  <text x="744" y="798" text-anchor="middle" fill="#A05878" font-size="10" font-family="Inter, sans-serif">corrections or praise</text>
+  <rect x="570" y="760" width="135" height="50" rx="8" fill="#FFF0F5" stroke="#D4789B" stroke-width="1.5"/>
+  <text x="638" y="782" text-anchor="middle" fill="#8B3A5A" font-size="11" font-weight="600" font-family="Inter, sans-serif">Ravi gives feedback</text>
+  <text x="638" y="798" text-anchor="middle" fill="#A05878" font-size="10" font-family="Inter, sans-serif">corrections or praise</text>
 
   <!-- Arrow -->
-  <path d="M 819 785 L 854 785" stroke="#C0B8CC" stroke-width="1.5" fill="none"/>
-  <polygon points="854,782 861,785 854,788" fill="#C0B8CC"/>
+  <path d="M 705 785 L 727 785" stroke="#C0B8CC" stroke-width="1.5" fill="none"/>
+  <polygon points="727,782 734,785 727,788" fill="#C0B8CC"/>
 
   <!-- Step 5 -->
-  <rect x="862" y="760" width="150" height="50" rx="8" fill="#FFF8F0" stroke="#D4956A" stroke-width="1.5"/>
-  <text x="937" y="782" text-anchor="middle" fill="#7A5A1E" font-size="11" font-weight="600" font-family="Inter, sans-serif">Feedback captured</text>
-  <text x="937" y="798" text-anchor="middle" fill="#9B7A4A" font-size="10" font-family="Inter, sans-serif">learning log + rules</text>
+  <rect x="735" y="760" width="135" height="50" rx="8" fill="#FFF8F0" stroke="#D4956A" stroke-width="1.5"/>
+  <text x="803" y="782" text-anchor="middle" fill="#7A5A1E" font-size="11" font-weight="600" font-family="Inter, sans-serif">Feedback captured</text>
+  <text x="803" y="798" text-anchor="middle" fill="#9B7A4A" font-size="10" font-family="Inter, sans-serif">learning log + rules</text>
 
   <!-- Arrow -->
-  <path d="M 1012 785 L 1047 785" stroke="#C0B8CC" stroke-width="1.5" fill="none"/>
-  <polygon points="1047,782 1054,785 1047,788" fill="#C0B8CC"/>
+  <path d="M 870 785 L 892 785" stroke="#C0B8CC" stroke-width="1.5" fill="none"/>
+  <polygon points="892,782 899,785 892,788" fill="#C0B8CC"/>
 
   <!-- Step 6 -->
-  <rect x="1055" y="760" width="170" height="50" rx="8" fill="#F8F5FF" stroke="#9478B8" stroke-width="1.5"/>
-  <text x="1140" y="782" text-anchor="middle" fill="#5B3E7A" font-size="11" font-weight="600" font-family="Inter, sans-serif">Next deploy is sharper</text>
-  <text x="1140" y="798" text-anchor="middle" fill="#7556A0" font-size="10" font-family="Inter, sans-serif">higher baseline</text>
+  <rect x="900" y="760" width="155" height="50" rx="8" fill="#F8F5FF" stroke="#9478B8" stroke-width="1.5"/>
+  <text x="978" y="782" text-anchor="middle" fill="#5B3E7A" font-size="11" font-weight="600" font-family="Inter, sans-serif">Next deploy is sharper</text>
+  <text x="978" y="798" text-anchor="middle" fill="#7556A0" font-size="10" font-family="Inter, sans-serif">higher baseline</text>
 
   <!-- Loop-back arrow -->
-  <path d="M 1140 810 C 1140 850, 155 850, 155 810" stroke="#9478B8" stroke-width="1.5" fill="none" stroke-dasharray="6,3" opacity="0.4"/>
-  <polygon points="155,810 151,818 159,818" fill="#9478B8" opacity="0.4"/>
-  <text x="650" y="860" text-anchor="middle" fill="#9478B8" font-size="11" font-weight="600" font-family="Inter, sans-serif" opacity="0.6">The loop compounds — every correction makes the next execution better</text>
+  <path d="M 978 810 C 978 850, 133 850, 133 810" stroke="#9478B8" stroke-width="1.5" fill="none" stroke-dasharray="6,3" opacity="0.4"/>
+  <polygon points="133,810 129,818 137,818" fill="#9478B8" opacity="0.4"/>
+  <text x="555" y="860" text-anchor="middle" fill="#9478B8" font-size="11" font-weight="600" font-family="Inter, sans-serif" opacity="0.6">The loop compounds — every correction makes the next execution better</text>
 
   <!-- Footer -->
-  <text x="700" y="905" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#A09890" font-weight="500">
+  <text x="600" y="905" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#A09890" font-weight="500">
     © Raviteja Palanki, AI Product Manager · 67 skills · 13 worker agents
   </text>
 </svg>
