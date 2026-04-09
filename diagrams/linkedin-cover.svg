@@ -1,29 +1,72 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1584 396" width="1584" height="396" role="img" aria-label="Think. Judge. Ship. AI Product Manager.">
-  <title>Think. Judge. Ship.</title>
+  <title>Think · Judge · Ship — AI Product Manager</title>
   <defs>
     <linearGradient id="bar" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#9478B8"/>
       <stop offset="50%" stop-color="#5B92B8"/>
       <stop offset="100%" stop-color="#6BA08A"/>
     </linearGradient>
+    <radialGradient id="spotlight" cx="58%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#1E1E35"/>
+      <stop offset="100%" stop-color="#111119"/>
+    </radialGradient>
   </defs>
 
-  <!-- Background -->
-  <rect width="1584" height="396" fill="#FAFAF8"/>
+  <!-- Background: deep dark with centered spotlight -->
+  <rect width="1584" height="396" fill="#111119"/>
+  <rect width="1584" height="396" fill="url(#spotlight)"/>
+
+  <!-- Decorative orbital rings (left zone — adds depth behind profile photo) -->
+  <circle cx="220" cy="198" r="260" fill="none" stroke="#9478B8" stroke-width="0.7" opacity="0.10"/>
+  <circle cx="320" cy="198" r="170" fill="none" stroke="#5B92B8" stroke-width="0.7" opacity="0.08"/>
+  <circle cx="140" cy="310" r="120" fill="none" stroke="#6BA08A" stroke-width="0.7" opacity="0.08"/>
+
+  <!-- Balancing ring on far right -->
+  <circle cx="1480" cy="90" r="220" fill="none" stroke="#5B92B8" stroke-width="0.5" opacity="0.05"/>
+  <circle cx="1520" cy="340" r="140" fill="none" stroke="#9478B8" stroke-width="0.5" opacity="0.04"/>
+
+  <!-- Constellation dots — scattered for texture -->
+  <circle cx="480" cy="70" r="2.5" fill="#9478B8" opacity="0.30"/>
+  <circle cx="520" cy="340" r="2" fill="#5B92B8" opacity="0.20"/>
+  <circle cx="1420" cy="315" r="2" fill="#5B92B8" opacity="0.20"/>
+  <circle cx="1370" cy="50" r="2" fill="#6BA08A" opacity="0.25"/>
+  <circle cx="1510" cy="200" r="1.5" fill="#9478B8" opacity="0.15"/>
+  <circle cx="600" cy="320" r="1.5" fill="#6BA08A" opacity="0.15"/>
+  <circle cx="450" cy="200" r="1.5" fill="#5B92B8" opacity="0.12"/>
+  <circle cx="1300" cy="120" r="1.5" fill="#9478B8" opacity="0.12"/>
 
   <!-- Top accent bar -->
-  <rect x="0" y="0" width="1584" height="4" fill="url(#bar)"/>
+  <rect x="0" y="0" width="1584" height="3" fill="url(#bar)" opacity="0.7"/>
 
-  <!-- Three words — large, bold, colored, mobile-readable -->
-  <text x="690" y="190" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#9478B8" letter-spacing="-2">Think</text>
-  <circle cx="810" cy="172" r="5" fill="#D0CCC8"/>
-  <text x="930" y="190" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#5B92B8" letter-spacing="-2">Judge</text>
-  <circle cx="1050" cy="172" r="5" fill="#D0CCC8"/>
-  <text x="1170" y="190" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#6BA08A" letter-spacing="-2">Ship</text>
+  <!-- ═══ HERO TEXT: Think · Judge · Ship ═══ -->
+
+  <!-- "Think" — purple -->
+  <text x="690" y="178" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#9478B8" letter-spacing="-1">Think</text>
+  <rect x="618" y="194" width="144" height="4" rx="2" fill="#9478B8" opacity="0.50"/>
+
+  <!-- Dot separator -->
+  <circle cx="810" cy="162" r="4" fill="#252540"/>
+
+  <!-- "Judge" — blue -->
+  <text x="930" y="178" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#5B92B8" letter-spacing="-1">Judge</text>
+  <rect x="858" y="194" width="144" height="4" rx="2" fill="#5B92B8" opacity="0.50"/>
+
+  <!-- Dot separator -->
+  <circle cx="1052" cy="162" r="4" fill="#252540"/>
+
+  <!-- "Ship" — green -->
+  <text x="1170" y="178" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#6BA08A" letter-spacing="-1">Ship</text>
+  <rect x="1108" y="194" width="124" height="4" rx="2" fill="#6BA08A" opacity="0.50"/>
 
   <!-- Subtitle -->
-  <text x="930" y="250" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="20" font-weight="500" fill="#5F6B7A" letter-spacing="6">AI PRODUCT MANAGER</text>
+  <text x="930" y="250" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="500" fill="#505070" letter-spacing="6">AI PRODUCT MANAGER</text>
 
-  <!-- Bottom accent bar -->
-  <rect x="0" y="392" width="1584" height="4" fill="url(#bar)" opacity="0.3"/>
+  <!-- Thin horizontal rule separating content from footer zone -->
+  <line x1="640" y1="275" x2="1220" y2="275" stroke="#252540" stroke-width="0.5"/>
+
+  <!-- Footer: credibility line -->
+  <text x="930" y="305" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="400" fill="#3A3A58">Enterprise AI · Context Engineering · Safety by Design</text>
+
+  <!-- Bottom accent bar (subtle mirror) -->
+  <rect x="0" y="393" width="1584" height="3" fill="url(#bar)" opacity="0.20"/>
 </svg>
