@@ -62,7 +62,7 @@
 
   <!-- ===== CENTER: AI PM EXPERT TEAMS ===== -->
   <text x="700" y="118" text-anchor="middle" fill="#2C2420" font-size="18" font-weight="700" font-family="Inter, sans-serif">AI PM Expert Teams</text>
-  <text x="700" y="138" text-anchor="middle" fill="#6B6460" font-size="12" font-family="Inter, sans-serif">54 skills across 6 specialized teams</text>
+  <text x="700" y="138" text-anchor="middle" fill="#6B6460" font-size="12" font-family="Inter, sans-serif">55 skills across 6 specialized teams</text>
 
   <!-- Team 1: Sense-Maker -->
   <rect x="340" y="158" width="220" height="100" rx="12" fill="#FFFFFF" stroke="#D4789B" stroke-width="2" filter="url(#s)"/>

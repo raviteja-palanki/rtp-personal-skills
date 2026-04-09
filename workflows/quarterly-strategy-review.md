@@ -40,7 +40,7 @@ AI moves fast. A moat built on proprietary data erodes if a new model makes your
 ### Afternoon: Assumption Volatility Audit
 
 **Layer 1 — Thinking Core:**
-3. **falsification** — Test each assumption against current evidence.
+3. **red-team** — Test each assumption against current evidence.
    - List all strategic assumptions from last quarter
    - For each: what would disprove it? Has that evidence appeared?
    - Run pre-mortem: "It's end of next quarter and our strategy failed — why?"
@@ -303,7 +303,7 @@ AI moves fast. A moat built on proprietary data erodes if a new model makes your
 
 | Plugin | Skills Used | Step |
 |--------|------------|------|
-| **thinking-core** (7/7) | first-principles, bias-spotter, falsification, dual-lens, determinism-compass, stress-test, failure-design* | 1,6 |
+| **thinking-core** (7/7) | first-principles, bias-spotter, red-team, dual-lens, determinism-compass, stress-test, failure-design* | 1,6 |
 | **product-sense** (7/7) | problem-ai-fit, failure-modes, invisible-stack, feedback-flywheel, uncertainty-research, ai-ux-patterns, ai-product-taste | 2,3,5,6 |
 | **ai-strategy** (5/5) | strategy-canvas, moat-finder, build-or-buy, token-economics, capability-tracking | 1,2,3,4 |
 | **safety-and-trust** (3/3) | safety-as-moat, trust-ladder, safety-by-design | 5 |
@@ -351,7 +351,7 @@ If any red flag is identified, schedule an emergency strategy session before rel
 ## Facilitation Notes
 
 1. **Data over intuition:** Use actual metrics, customer feedback, and competitive intelligence
-2. **Invite skepticism:** Assign someone to argue against each assumption (use falsification skill)
+2. **Invite skepticism:** Assign someone to argue against each assumption (use red-team skill)
 3. **Document dissent:** Capture both views and reasoning when team disagrees
 4. **Get technical depth:** Include engineers in build-or-buy, cost model, and eval discussions
 5. **User voice:** Include customer insights and trust metrics, not just internal opinions

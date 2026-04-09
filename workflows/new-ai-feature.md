@@ -142,7 +142,7 @@ A complete workflow for taking a new AI feature from initial concept through pro
 
 **Layer 1 — Thinking Core:**
 35. **dual-lens** — Synthesize product and technical perspectives. What did spec and safety phases reveal that changes strategy? What's the gap between "technically feasible" and "commercially viable"?
-36. **falsification** — Test your core hypotheses against evidence. What would disprove them? Run pre-mortem: "It's 6 months post-launch and this feature failed — why?"
+36. **red-team** — Test your core hypotheses against evidence. What would disprove them? Run pre-mortem: "It's 6 months post-launch and this feature failed — why?"
 
 **Layer 2 — Product Sense:**
 37. **feedback-flywheel** — Design the post-launch learning loop. How will signals feed back into model improvement? What's the latency between observing a problem and fixing it?
@@ -161,7 +161,7 @@ A complete workflow for taking a new AI feature from initial concept through pro
 
 | Plugin | Skills Used | Phase |
 |--------|------------|-------|
-| **thinking-core** (7/7) | first-principles, bias-spotter, falsification, dual-lens, determinism-compass, stress-test, failure-design | 1,4,5 |
+| **thinking-core** (7/7) | first-principles, bias-spotter, red-team, dual-lens, determinism-compass, stress-test, failure-design | 1,4,5 |
 | **product-sense** (7/7) | problem-ai-fit, failure-modes, invisible-stack, feedback-flywheel, uncertainty-research, ai-ux-patterns, ai-product-taste | 1,3,5 |
 | **ai-strategy** (5/5) | strategy-canvas, moat-finder, build-or-buy, token-economics, capability-tracking | 2,3 |
 | **safety-and-trust** (3/3) | safety-as-moat, trust-ladder, safety-by-design | 4 |

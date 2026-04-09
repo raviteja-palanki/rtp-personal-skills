@@ -2,7 +2,7 @@
 name: rtp-token-economics
 version: "2.0"
 description: "Pricing for per-token cost structure (flat-rate, per-token, outcome, seat, hybrid). Tradeoff: optimize 2 of 3 (quality, cost, latency). Use when: new products, pricing changes, scaling, unit economics at 10x. Triggers: 'pricing for AI', 'token economics', 'how to price', 'usage-based vs flat-rate'"
-imports: [stress-test, falsification]
+imports: [stress-test, red-team]
 ---
 
 # Token Economics

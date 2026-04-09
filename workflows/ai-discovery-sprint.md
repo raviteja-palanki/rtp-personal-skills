@@ -195,7 +195,7 @@ A compressed, high-intensity discovery sprint for teams that need to understand 
 
 ---
 
-## Day 5: Synthesis & Falsification
+## Day 5: Synthesis & Red Team
 
 **Goal:** Integrate all learning and test your core assumptions against reality.
 
@@ -223,10 +223,10 @@ A compressed, high-intensity discovery sprint for teams that need to understand 
     - Which model capabilities are we betting on?
     - What's the strategy half-life? When will this be commoditized?
 
-### Afternoon: Falsification & Economics
+### Afternoon: Red Team & Economics
 
 **Layer 1 — Thinking Core:**
-27. **falsification** — Test core hypotheses against evidence.
+27. **red-team** — Test core hypotheses against evidence.
     - What would disprove your core hypotheses?
     - Do you have evidence these things are NOT true?
     - Run pre-mortem: "It's 6 months post-launch and this failed — why?"
@@ -259,7 +259,7 @@ A compressed, high-intensity discovery sprint for teams that need to understand 
 
 | Plugin | Skills Used | Day |
 |--------|------------|-----|
-| **thinking-core** (7/7) | first-principles, bias-spotter, falsification, dual-lens, determinism-compass, stress-test, failure-design | 1,2,3,5 |
+| **thinking-core** (7/7) | first-principles, bias-spotter, red-team, dual-lens, determinism-compass, stress-test, failure-design | 1,2,3,5 |
 | **product-sense** (7/7) | problem-ai-fit, failure-modes, invisible-stack, feedback-flywheel, uncertainty-research, ai-ux-patterns, ai-product-taste | 1,2,3,4,5 |
 | **ai-strategy** (4/5) | strategy-canvas, moat-finder, token-economics, capability-tracking | 5 |
 | **safety-and-trust** (3/3) | safety-as-moat, trust-ladder, safety-by-design | 2,5 |
@@ -284,7 +284,7 @@ By end of sprint, you'll have:
 4. **Safety Principles** — Constitutional rules drafted; stress test results documented
 5. **Architecture Sketch** — Determinism map; autonomy levels; agent patterns; tool access scoped
 6. **Eval Framework** — Metrics defined; test approach sketched; observability planned
-7. **Research Roadmap** — 30/60/90-day learning plan with falsification tests
+7. **Research Roadmap** — 30/60/90-day learning plan with red-team tests
 8. **Go/No-Go Assessment** — Clear recommendation to continue, pivot, or kill
 
 ---

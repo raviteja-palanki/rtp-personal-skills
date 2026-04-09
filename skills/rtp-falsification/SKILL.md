@@ -1,5 +1,5 @@
 ---
-name: rtp-falsification
+name: rtp-red-team
 description: >
   Tests any AI product recommendation by identifying conditions where it would be WRONG
   and pre-committing to what success actually looks like. Use when reviewing strategies,
@@ -14,7 +14,7 @@ description: >
 imports: []
 ---
 
-# Falsification
+# Red Team
 
 ## DEPTH DECISION
 

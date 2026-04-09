@@ -3,7 +3,7 @@
 How 55 skills compose into a thinking system — not just a collection of files.
 
 <p align="center">
-  <img src="diagrams/01-architecture-overview.svg" alt="Three-layer architecture — 55 skills, 7 domains" width="900"/>
+  <img src="diagrams/01-architecture-overview.svg" alt="Three-layer architecture — 55 AI PM skills, 6 expert teams" width="900"/>
 </p>
 
 > See also: [Workflow Orchestration](workflow-orchestration.svg) for the 6 curated paths through the skill graph.
@@ -38,7 +38,7 @@ Every Layer 2 and Layer 3 skill imports from this layer first. It's the immune s
 |-------|----------------|----------------|
 | `first-principles` | Assumptions you didn't know you were making | Strips a problem to the one irreducible operation before you start solving the wrong thing |
 | `bias-spotter` | The cognitive bias about to derail the decision | Names the specific bias (anchoring, sunk cost, survivorship) — not "be careful" but "you're anchored on the competitor's approach" |
-| `falsification` | Overconfidence in untested hypotheses | Forces the question "under what conditions would this be wrong?" before you build |
+| `red-team` | Overconfidence in untested hypotheses | Forces the question "under what conditions would this be wrong?" before you build |
 | `dual-lens` | Communication that only one side of the table can use | Tests whether both business leaders AND technical leaders can act on this. If only one can, the communication failed |
 | `determinism-compass` | The most common AI architecture mistake | Classifies which parts must be predictable every time (rules) vs. where AI variability is acceptable. Miss this and you build the wrong thing |
 | `stress-test` | Plans that look great until they meet production | Pressure-tests across 6 dimensions: scale, adversarial input, model degradation, bad data, cascade failure, cost blowup |
@@ -51,7 +51,7 @@ Every Layer 2 and Layer 3 skill imports from this layer first. It's the immune s
 
 ---
 
-## Layer 2: Judgment — "The hard calls" (36 skills across 5 plugins)
+## Layer 2: Judgment — "The hard calls" (37 skills across 5 domains)
 
 These are the decisions that separate strong AI PMs from everyone else. Not "what is RAG" but "when is RAG the wrong choice for your context." Not "what is an agent" but "how much autonomy should this agent have on day one."
 
@@ -128,7 +128,7 @@ Artifact generators. But because each one imports Layers 1 and 2 first, the outp
 | `cost-model` | Token cost at scale with path to profitability | stress-test → token-economics → agent-harness |
 | `ship-decision` | Eval-gated go/no-go decision | stress-test → safety-as-moat → failure-design → bias-spotter → eval-framework |
 | `competitive-map` | AI-specific competitive analysis | moat-finder → first-principles |
-| `fit-signal` | PMF diagnosis for non-deterministic products | feedback-flywheel → falsification → stress-test |
+| `fit-signal` | PMF diagnosis for non-deterministic products | feedback-flywheel → red-team → stress-test |
 | `prompt-as-product` | Prompt versioning with regression testing | eval-framework → determinism-compass |
 
 **Key property:** Craft skills are the only ones that produce files. Layer 1 produces reasoning. Layer 2 produces decisions. Layer 3 produces artifacts that encode both.
@@ -207,7 +207,7 @@ craft/competitive-map ─► ai-strategy/moat-finder
                  └─────► thinking-core/first-principles
 
 craft/fit-signal ──────► product-sense/feedback-flywheel
-                 ├─────► thinking-core/falsification
+                 ├─────► thinking-core/red-team
                  └─────► thinking-core/stress-test
 
 craft/prompt-as-product ► eval-and-quality/eval-framework

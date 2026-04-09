@@ -3,7 +3,7 @@ name: rtp-fit-signal
 description: "PMF for AI: trust accumulation (not engagement). Measures: trust curve inflecting, magic moment >60%, correction >50%, feedback loop weekly. Use when: active users, dependency, scale or pivot. Triggers: 'PMF', 'product-market fit'"
 imports:
   - feedback-flywheel
-  - falsification
+  - red-team
   - stress-test
 ---
 
@@ -68,7 +68,7 @@ This is especially pernicious because AI products *feel* like they're reaching P
 
 ## THE PROCESS
 
-### Phase 1: Establish the PMF Null Hypothesis (Import falsification)
+### Phase 1: Establish the PMF Null Hypothesis (Import red-team)
 
 1. **Define what PMF would look like for your AI product.** Not "NPS > 40" (that's a symptom, not a cause). PMF is: "A meaningful fraction of users prefer our product to alternatives AND can't imagine going back."
 

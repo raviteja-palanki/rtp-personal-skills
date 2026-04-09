@@ -5,7 +5,7 @@ description: >
   planning trust studies, threshold studies, or validating AI features. Runs
   longitudinal designs, stratified sampling, Wizard-of-Oz calibration.
   Prevents applying fixed-artifact methods to probabilistic products.
-imports: [falsification, first-principles]
+imports: [red-team, first-principles]
 ---
 
 # Uncertainty Research

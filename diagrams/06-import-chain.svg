@@ -272,11 +272,10 @@
       <!-- Header -->
       <text x="1050" y="125" class="column-title">Cost Modeling</text>
 
-      <!-- Skill 1: Falsification (Purple) -->
+      <!-- Skill 1: Red Team (Purple) -->
       <g filter="url(#softShadow)">
         <rect x="990" y="145" width="120" height="48" rx="24" fill="#9478B8" opacity="0.9"/>
-        <text x="1050" y="171" class="skill-label" font-size="11">Falsifi-</text>
-        <text x="1050" y="184" class="skill-label" font-size="11">cation</text>
+        <text x="1050" y="178" class="skill-label" font-size="11">Red Team</text>
       </g>
 
       <!-- Arrow -->

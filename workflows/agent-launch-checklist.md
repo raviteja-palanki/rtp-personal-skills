@@ -221,7 +221,7 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
     - Success metrics defined for first 30 days?
 
 **Layer 1 — Thinking Core:**
-21. **falsification** — Final pre-mortem.
+21. **red-team** — Final pre-mortem.
     - "It's 30 days post-launch and this agent feature failed — why?"
     - What production scenarios aren't covered by evals?
     - What would make you pull the kill switch?
@@ -264,7 +264,7 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 
 | Plugin | Skills Used |
 |--------|------------|
-| **thinking-core** (4/7) | first-principles*, determinism-compass, bias-spotter, stress-test, failure-design, falsification |
+| **thinking-core** (4/7) | first-principles*, determinism-compass, bias-spotter, stress-test, failure-design, red-team |
 | **product-sense** (3/7) | invisible-stack, feedback-flywheel, ai-ux-patterns |
 | **agent-design** (5/5) | agent-spec, agent-harness, agent-ecosystem, tool-architecture, autonomy-spectrum |
 | **safety-and-trust** (3/3) | safety-by-design, safety-as-moat, trust-ladder |
@@ -289,5 +289,5 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 - [ ] Cost model validated (per-task cost sustainable at 10x scale)
 - [ ] Rollout plan defined (canary %, monitoring triggers, rollback criteria)
 - [ ] Kill conditions documented (what triggers immediate shutdown)
-- [ ] Pre-mortem completed (falsification of core assumptions)
+- [ ] Pre-mortem completed (red-team of core assumptions)
 - [ ] 30-day monitoring plan active (metrics, alerts, review cadence)

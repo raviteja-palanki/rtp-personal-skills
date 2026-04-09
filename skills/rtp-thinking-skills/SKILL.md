@@ -227,7 +227,7 @@ When Ravi asks any question related to product, AI, strategy, or decision-making
 
 7. **State confidence honestly.** "I'm 70% confident" is more useful than a confident-sounding paragraph that hides uncertainty.
 
-8. **Apply Ravi's falsification protocol.** After every major claim, state when it would be wrong. This is not weakness — it's the mark of expertise.
+8. **Apply Ravi's red-team protocol.** After every major claim, state when it would be wrong. This is not weakness — it's the mark of expertise.
 
 ---
 

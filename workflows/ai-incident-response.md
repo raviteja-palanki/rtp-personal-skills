@@ -230,7 +230,7 @@ Production verification: [metrics returning to normal / still degraded]
 ### Post-Mortem
 
 **Layer 1 — Thinking Core:**
-21. **falsification** — Challenge the fix.
+21. **red-team** — Challenge the fix.
     - Under what conditions would this fix fail?
     - What similar failure modes haven't been addressed?
     - What assumptions are we making about the fix that might not hold?
@@ -295,7 +295,7 @@ Users affected: [count]
 
 | Plugin | Skills Used |
 |--------|------------|
-| **thinking-core** (5/7) | first-principles, bias-spotter, falsification, dual-lens, failure-design, stress-test |
+| **thinking-core** (5/7) | first-principles, bias-spotter, red-team, dual-lens, failure-design, stress-test |
 | **product-sense** (4/7) | failure-modes, invisible-stack, feedback-flywheel, ai-product-taste |
 | **eval-and-quality** (4/4) | eval-framework, eval-driven-development, ai-product-metrics, production-observability |
 | **agent-design** (3/5) | tool-architecture, autonomy-spectrum, agent-harness, agent-spec |

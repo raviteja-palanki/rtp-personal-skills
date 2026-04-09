@@ -61,11 +61,11 @@
     <text x="275" y="242" class="card-catches">derail the entire decision</text>
   </g>
 
-  <!-- Card 3: Falsification -->
+  <!-- Card 3: Red Team -->
   <g filter="url(#cardShadow)">
     <rect x="500" y="110" width="220" height="280" rx="12" class="card-body"/>
     <rect x="500" y="110" width="220" height="50" rx="12" class="card-header"/>
-    <text x="515" y="147" class="card-header-text">Falsification</text>
+    <text x="515" y="147" class="card-header-text">Red Team</text>
 
     <text x="515" y="175" class="card-question">"What would make this recommendation invalid?"</text>
 

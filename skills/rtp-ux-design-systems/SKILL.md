@@ -545,7 +545,7 @@ This agent never names itself. The user sees design feedback, not "the UX agent 
 |---------|------|----------------------|
 | **AI PM Orchestrator** | Any artifact ships | Reviews for visual quality, designer's viewpoint |
 | **Crafter team** | PRD with UI specs | Component patterns, wireframe guidance |
-| **Architect team** | Agent UI design | AI-specific UX, status dashboards, HITL |
+| **System Architect team** | Agent UI design | AI-specific UX, status dashboards, HITL |
 | **Sense-Maker team** | Competitor analysis | Design language analysis — what signals the UI sends |
 | **Safety Expert team** | Safety-critical UI | Are warnings visible? Destructive actions guarded? |
 | **frontend-slides** | Presentations | Palette, typography, slide composition review |
