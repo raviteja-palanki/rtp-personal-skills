@@ -1,5 +1,5 @@
 ---
-name: rtp-excalidraw-svg
+name: excalidraw-svg
 description: "Excalidraw SVG diagrams: pastel, readable text, storytelling. Diagrams, flowcharts, architecture, infographics, flows, maps. Use when: visual explanation or output enhancer for PRD/spec/analysis. Triggers: 'diagram', 'flowchart', 'visual', 'architecture'"
 ---
 
@@ -538,10 +538,18 @@ After planning, check:
 - [ ] **No overlapping elements.** Check every element pair — rectangles, text, chips. Zero tolerance.
 - [ ] **No arrow-text overlap.** Arrows must not pass through text labels or card bodies.
 - [ ] Width is 1200px, height ≤ 900px
-- [ ] Background zone padding: ≥ 50px from outermost elements to SVG edges
 - [ ] Consistent spacing: 20-40px gaps between sibling elements, 60px between tiers
 - [ ] All cards use `filter="url(#s)"` for consistent shadows
 - [ ] Rounded corners: 14-16px for cards, 8px for chips, 18px for badges
+
+### Border Padding Verification (The Four-Edge Gate)
+**Check all four edges explicitly. This is where SVGs most often fail.**
+- [ ] **TOP edge:** No element (rect, text, chip) starts above y=50. Title text baseline ≥ y=60.
+- [ ] **BOTTOM edge:** No element extends below `(viewBox height - 50)`. Footer text baseline + font-size must be ≤ `(viewBox height - 40)`. This is the #1 failure — footers and bottom callouts overflow or collide with content above them.
+- [ ] **LEFT edge:** No element starts before x=50. Text anchored `text-anchor="start"` must have x ≥ 50.
+- [ ] **RIGHT edge:** No element (rect x + width, or text x + estimated text width) extends past `(viewBox width - 50)`.
+- [ ] **Bottom callout/footer clearance:** If the diagram has a footer, attribution, or bottom callout box, verify ≥ 30px clear space between the lowest content element and the top of the footer. Footers must never overlap the last row of cards.
+- [ ] **Verification method:** For every text element near an edge (within 80px), manually check: `element_y + font_size < viewBox_height - 40`. For rects: `rect_y + rect_height < viewBox_height - 50`.
 
 ### Arrows & Connections
 - [ ] **No crossing arrows.** If arrows cross, rearrange elements first.

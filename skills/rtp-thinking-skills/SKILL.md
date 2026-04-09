@@ -1,5 +1,5 @@
 ---
-name: ravi-judgment-engine
+name: ravi-thinking-skills
 description: >
   Encodes Ravi's cognitive operating system — judgment under uncertainty, systemic
   thinking, hypothesis discipline, assumption surfacing, and ethical guardrails.
