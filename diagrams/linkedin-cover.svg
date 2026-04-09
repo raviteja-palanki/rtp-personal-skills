@@ -1,0 +1,165 @@
+<svg viewBox="0 0 1584 396" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FAFAF8" />
+      <stop offset="100%" style="stop-color:#F5F2ED" />
+    </linearGradient>
+
+    <!-- Top accent bar gradient: Think -> Judge -> Ship -->
+    <linearGradient id="accentBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#9478B8" />
+      <stop offset="50%" style="stop-color:#5B92B8" />
+      <stop offset="100%" style="stop-color:#6BA08A" />
+    </linearGradient>
+
+    <!-- Individual layer gradients for box borders -->
+    <linearGradient id="thinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9478B8" />
+      <stop offset="100%" style="stop-color:#A98FCC" />
+    </linearGradient>
+    <linearGradient id="judgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5B92B8" />
+      <stop offset="100%" style="stop-color:#7AADCC" />
+    </linearGradient>
+    <linearGradient id="shipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6BA08A" />
+      <stop offset="100%" style="stop-color:#88BBA6" />
+    </linearGradient>
+
+    <!-- Drop shadow -->
+    <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
+    </filter>
+
+    <!-- Lighter shadow for decorative elements -->
+    <filter id="sLight" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#00000010"/>
+    </filter>
+
+    <!-- Arrow shadow -->
+    <filter id="sArrow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#00000012"/>
+    </filter>
+  </defs>
+
+  <!-- ============================================ -->
+  <!-- BACKGROUND                                   -->
+  <!-- ============================================ -->
+  <rect width="1584" height="396" fill="url(#bg)" />
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="1584" height="4" fill="url(#accentBar)" />
+
+  <!-- ============================================ -->
+  <!-- SUBTLE DECORATIVE ELEMENTS (left zone)       -->
+  <!-- Faint geometric pattern in profile zone      -->
+  <!-- ============================================ -->
+
+  <!-- Very faint concentric arcs in the left zone -->
+  <circle cx="200" cy="280" r="180" fill="none" stroke="#9478B8" stroke-width="0.5" opacity="0.06" />
+  <circle cx="200" cy="280" r="140" fill="none" stroke="#5B92B8" stroke-width="0.5" opacity="0.05" />
+  <circle cx="200" cy="280" r="100" fill="none" stroke="#6BA08A" stroke-width="0.5" opacity="0.04" />
+
+  <!-- ============================================ -->
+  <!-- POSITIONING TEXT (right-center area)         -->
+  <!-- ============================================ -->
+
+  <!-- Professional title block -->
+  <text x="520" y="72" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#9478B8" letter-spacing="3" opacity="0.85">AI PRODUCT LEADER</text>
+
+  <!-- Name -->
+  <text x="520" y="118" font-family="Inter, Segoe UI, sans-serif" font-size="42" font-weight="700" fill="#1B1B1F" letter-spacing="-1">Ravi Teja Palanki</text>
+
+  <!-- Credentials line -->
+  <text x="520" y="150" font-family="Inter, Segoe UI, sans-serif" font-size="16" font-weight="400" fill="#5F6B7A" letter-spacing="0.3">
+    <tspan>Senior Technical PM, Honeywell</tspan>
+    <tspan dx="16" fill="#C8CDD4">|</tspan>
+    <tspan dx="16">Perplexity AI Fellow 2025</tspan>
+  </text>
+
+  <!-- ============================================ -->
+  <!-- THINK -> JUDGE -> SHIP : The Visual Core    -->
+  <!-- Three elegant cards connected by arrows      -->
+  <!-- ============================================ -->
+
+  <!-- === THINK Card === -->
+  <g filter="url(#s)">
+    <!-- Card background -->
+    <rect x="520" y="192" width="260" height="130" rx="12" fill="#FFFFFF" />
+    <!-- Left accent stripe -->
+    <rect x="520" y="192" width="4" height="130" rx="2" fill="#9478B8" />
+
+    <!-- Layer label -->
+    <text x="544" y="224" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#9478B8" letter-spacing="2" opacity="0.9">LAYER 1</text>
+
+    <!-- Stage name -->
+    <text x="544" y="256" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#1B1B1F" letter-spacing="-0.5">Think</text>
+
+    <!-- Description -->
+    <text x="544" y="280" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#5F6B7A">10 skills that catch errors</text>
+    <text x="544" y="298" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#5F6B7A">before decisions get made</text>
+  </g>
+
+  <!-- === Arrow 1: Think -> Judge === -->
+  <g filter="url(#sArrow)">
+    <line x1="790" y1="257" x2="830" y2="257" stroke="#C8CDD4" stroke-width="2" stroke-linecap="round" />
+    <polygon points="828,251 842,257 828,263" fill="#C8CDD4" />
+  </g>
+
+  <!-- === JUDGE Card === -->
+  <g filter="url(#s)">
+    <rect x="852" y="192" width="260" height="130" rx="12" fill="#FFFFFF" />
+    <rect x="852" y="192" width="4" height="130" rx="2" fill="#5B92B8" />
+
+    <text x="876" y="224" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#5B92B8" letter-spacing="2" opacity="0.9">LAYER 2</text>
+
+    <text x="876" y="256" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#1B1B1F" letter-spacing="-0.5">Judge</text>
+
+    <text x="876" y="280" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#5F6B7A">37 skills for the hard</text>
+    <text x="876" y="298" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#5F6B7A">AI product calls</text>
+  </g>
+
+  <!-- === Arrow 2: Judge -> Ship === -->
+  <g filter="url(#sArrow)">
+    <line x1="1122" y1="257" x2="1162" y2="257" stroke="#C8CDD4" stroke-width="2" stroke-linecap="round" />
+    <polygon points="1160,251 1174,257 1160,263" fill="#C8CDD4" />
+  </g>
+
+  <!-- === SHIP Card === -->
+  <g filter="url(#s)">
+    <rect x="1184" y="192" width="260" height="130" rx="12" fill="#FFFFFF" />
+    <rect x="1184" y="192" width="4" height="130" rx="2" fill="#6BA08A" />
+
+    <text x="1208" y="224" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#6BA08A" letter-spacing="2" opacity="0.9">LAYER 3</text>
+
+    <text x="1208" y="256" font-family="Inter, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#1B1B1F" letter-spacing="-0.5">Ship</text>
+
+    <text x="1208" y="280" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#5F6B7A">8 skills that produce</text>
+    <text x="1208" y="298" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#5F6B7A">pre-tested documents</text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- BOTTOM CONTEXT LINE                          -->
+  <!-- ============================================ -->
+
+  <!-- Subtle stat line below the cards -->
+  <text x="520" y="362" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#5F6B7A" opacity="0.7">
+    <tspan fill="#1B1B1F" font-weight="600" opacity="1">67 skills</tspan>
+    <tspan dx="6" opacity="0.7">across 7 plugins</tspan>
+    <tspan dx="16" fill="#C8CDD4" opacity="0.7">|</tspan>
+    <tspan dx="16" opacity="0.7">12+ years enterprise B2B</tspan>
+    <tspan dx="16" fill="#C8CDD4" opacity="0.7">|</tspan>
+    <tspan dx="16" opacity="0.7">Fortune 100 scale</tspan>
+  </text>
+
+  <!-- ============================================ -->
+  <!-- SUBTLE BOTTOM ACCENT                         -->
+  <!-- ============================================ -->
+  <rect x="0" y="393" width="1584" height="3" fill="url(#accentBar)" opacity="0.3" />
+
+  <!-- Very faint geometric texture in top-right corner -->
+  <line x1="1500" y1="30" x2="1560" y2="30" stroke="#9478B8" stroke-width="0.5" opacity="0.08" />
+  <line x1="1510" y1="46" x2="1560" y2="46" stroke="#5B92B8" stroke-width="0.5" opacity="0.06" />
+  <line x1="1520" y1="62" x2="1560" y2="62" stroke="#6BA08A" stroke-width="0.5" opacity="0.05" />
+</svg>

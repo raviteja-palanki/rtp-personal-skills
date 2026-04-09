@@ -1,17 +1,15 @@
-<svg viewBox="0 0 1200 360" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- Gradients -->
     <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#FAFAF8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#F6F3EE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F5F3EE;stop-opacity:1" />
     </linearGradient>
 
     <linearGradient id="accentBar" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#9478B8" />
-      <stop offset="20%" style="stop-color:#5B92B8" />
-      <stop offset="40%" style="stop-color:#6BA08A" />
-      <stop offset="60%" style="stop-color:#D4956A" />
-      <stop offset="100%" style="stop-color:#C27878" />
+      <stop offset="50%" style="stop-color:#5B92B8" />
+      <stop offset="100%" style="stop-color:#6BA08A" />
     </linearGradient>
 
     <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -20,138 +18,228 @@
       <stop offset="100%" style="stop-color:#6BA08A" />
     </linearGradient>
 
-    <!-- Soft drop shadow -->
-    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="3" stdDeviation="8" flood-color="#00000012" flood-opacity="0.8"/>
+    <linearGradient id="flowLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#9478B8" />
+      <stop offset="50%" style="stop-color:#5B92B8" />
+      <stop offset="100%" style="stop-color:#6BA08A" />
+    </linearGradient>
+
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#A68CCC" />
+      <stop offset="100%" style="stop-color:#9478B8" />
+    </linearGradient>
+
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6FA4CA" />
+      <stop offset="100%" style="stop-color:#5B92B8" />
+    </linearGradient>
+
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7DB49C" />
+      <stop offset="100%" style="stop-color:#6BA08A" />
+    </linearGradient>
+
+    <!-- Drop shadow -->
+    <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
     </filter>
 
-    <filter id="thinShadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#00000008"/>
+    <filter id="iconShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#00000020"/>
     </filter>
-
-    <!-- Fonts -->
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap');
-
-      .hero-author { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 12px; font-weight: 600; fill: #9478B8; letter-spacing: 2.2px; text-transform: uppercase; }
-
-      .hero-title { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 56px; font-weight: 800; fill: url(#titleGradient); letter-spacing: -2px; }
-
-      .hero-tagline { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 16px; font-weight: 500; fill: #444444; letter-spacing: 0.2px; }
-
-      .hero-subtitle { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 13px; font-weight: 400; fill: #888888; letter-spacing: 0.3px; }
-
-      .stat-number { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 48px; font-weight: 800; letter-spacing: -2px; }
-
-      .stat-label { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 11px; font-weight: 600; fill: #666666; letter-spacing: 1.2px; text-transform: uppercase; }
-
-      .stat-flow { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; fill: #666666; letter-spacing: 0.8px; text-transform: uppercase; }
-
-      .layer-label { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; fill: #ffffff; letter-spacing: 0.5px; }
-
-      .footer { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; letter-spacing: 0.2px; }
-    </style>
   </defs>
 
   <!-- Main background -->
-  <rect width="1200" height="360" rx="16" fill="url(#heroBg)" stroke="#E8E4DC" stroke-width="1.5"/>
+  <rect width="1200" height="400" rx="16" fill="url(#heroBg)" stroke="#E8E4DC" stroke-width="1.5"/>
 
-  <!-- Top accent bar — gradient across 5 colors -->
-  <rect y="0" width="1200" height="8" rx="16" fill="url(#accentBar)"/>
+  <!-- Top accent bar -->
+  <rect y="0" width="1200" height="5" rx="16" fill="url(#accentBar)"/>
+  <!-- Fix top corners to not show background above the bar -->
+  <rect y="5" width="1200" height="3" fill="url(#heroBg)"/>
 
-  <!-- LEFT SECTION: Title & story -->
+  <!-- ============================================ -->
+  <!-- TOP SECTION: Attribution + Title + Tagline   -->
+  <!-- ============================================ -->
 
-  <!-- Author line -->
-  <text x="60" y="44" class="hero-author">RAVI TEJA PALANKI</text>
+  <!-- Author attribution -->
+  <text x="600" y="42" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11.5" font-weight="600" fill="#9478B8" letter-spacing="3px">RAVI TEJA PALANKI</text>
 
-  <!-- Main title with gradient -->
-  <text x="60" y="120" class="hero-title">rtp-personal-skills</text>
+  <!-- Main title -->
+  <text x="600" y="92" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="48" font-weight="800" fill="url(#titleGradient)" letter-spacing="-1.5px">rtp-personal-skills</text>
 
-  <!-- Tagline: The hook -->
-  <text x="60" y="152" class="hero-tagline">67 skills. 3 layers. One compounding system.</text>
+  <!-- Tagline -->
+  <text x="600" y="122" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="16.5" font-weight="500" fill="#5F6B7A" letter-spacing="0.3px">I didn't build 67 skills. I built a brain.</text>
 
-  <!-- Divider -->
-  <line x1="60" y1="174" x2="520" y2="174" stroke="#DDD8D0" stroke-width="2"/>
+  <!-- Thin separator -->
+  <line x1="480" y1="142" x2="720" y2="142" stroke="#E0DDD6" stroke-width="1"/>
 
-  <!-- Layer flow story -->
+  <!-- ============================================ -->
+  <!-- HERO SECTION: Think -> Judge -> Ship         -->
+  <!-- ============================================ -->
+
+  <!-- THINK Card -->
+  <g filter="url(#s)">
+    <rect x="108" y="166" width="260" height="140" rx="14" fill="#F0EBF5" stroke="#E0D4EC" stroke-width="1"/>
+  </g>
+
+  <!-- Think icon circle -->
+  <circle cx="160" cy="210" r="24" fill="url(#purpleGrad)" filter="url(#iconShadow)"/>
+  <!-- Brain icon - geometric representation -->
+  <g transform="translate(160, 210)">
+    <!-- Left hemisphere -->
+    <path d="M-8,-12 C-14,-12 -16,-6 -16,0 C-16,6 -14,12 -8,12 C-4,12 -2,8 -2,4 L-2,-4 C-2,-8 -4,-12 -8,-12Z" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Right hemisphere -->
+    <path d="M8,-12 C14,-12 16,-6 16,0 C16,6 14,12 8,12 C4,12 2,8 2,4 L2,-4 C2,-8 4,-12 8,-12Z" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Center line -->
+    <line x1="0" y1="-12" x2="0" y2="12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Neural connections -->
+    <line x1="-10" y1="-4" x2="-2" y2="-4" stroke="#FFFFFF" stroke-width="1.2" opacity="0.7"/>
+    <line x1="2" y1="2" x2="10" y2="2" stroke="#FFFFFF" stroke-width="1.2" opacity="0.7"/>
+    <line x1="-10" y1="6" x2="-2" y2="6" stroke="#FFFFFF" stroke-width="1.2" opacity="0.7"/>
+  </g>
+
+  <!-- Think text content -->
+  <text x="198" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="22" font-weight="700" fill="#1B1B1F" letter-spacing="-0.3px">THINK</text>
+  <text x="198" y="222" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#5F6B7A">Layer 1: Reasoning</text>
+  <text x="198" y="244" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#9CA3AF">Catch errors before they</text>
+  <text x="198" y="260" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#9CA3AF">compound downstream</text>
+
+  <!-- Think stat chip -->
+  <rect x="134" y="280" width="54" height="20" rx="10" fill="#9478B8" opacity="0.12"/>
+  <text x="161" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#9478B8">10 skills</text>
+
+  <!-- Skill examples -->
+  <rect x="196" y="280" width="80" height="20" rx="10" fill="#EDE9FE"/>
+  <text x="236" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#7C6C9A">First Principles</text>
+
+  <rect x="284" y="280" width="72" height="20" rx="10" fill="#EDE9FE"/>
+  <text x="320" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#7C6C9A">Red Team</text>
+
+  <!-- ============================================ -->
+  <!-- FLOW ARROW 1: Think -> Judge                 -->
+  <!-- ============================================ -->
   <g>
-    <!-- THINK box -->
-    <rect x="60" y="194" width="105" height="84" rx="12" fill="#F0EBF5" stroke="#E8DCF0" stroke-width="1" filter="url(#thinShadow)"/>
-    <circle cx="112.5" cy="215" r="14" fill="#9478B8"/>
-    <text x="112.5" y="220" class="layer-label" text-anchor="middle" font-size="20">🧠</text>
-    <text x="112.5" y="250" class="stat-label" text-anchor="middle">THINK</text>
-    <text x="112.5" y="268" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #888888; text-anchor: middle;">Catch errors</text>
+    <!-- Connecting line -->
+    <line x1="378" y1="236" x2="432" y2="236" stroke="url(#flowLine)" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+    <!-- Arrow head -->
+    <polygon points="428,230 440,236 428,242" fill="#5B92B8" opacity="0.6"/>
   </g>
 
-  <!-- Arrow 1 -->
-  <text x="190" y="244" style="font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 300; fill: #D8D4CC;">→</text>
+  <!-- JUDGE Card -->
+  <g filter="url(#s)">
+    <rect x="470" y="166" width="260" height="140" rx="14" fill="#EBF2F8" stroke="#D6E4F0" stroke-width="1"/>
+  </g>
 
-  <!-- JUDGE box -->
+  <!-- Judge icon circle -->
+  <circle cx="522" cy="210" r="24" fill="url(#blueGrad)" filter="url(#iconShadow)"/>
+  <!-- Scales icon -->
+  <g transform="translate(522, 210)">
+    <!-- Center post -->
+    <line x1="0" y1="-14" x2="0" y2="8" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    <!-- Beam -->
+    <line x1="-14" y1="-8" x2="14" y2="-8" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    <!-- Left pan -->
+    <path d="M-14,-8 L-18,2 L-10,2 Z" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Right pan -->
+    <path d="M14,-8 L10,2 L18,2 Z" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Base -->
+    <line x1="-6" y1="12" x2="6" y2="12" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    <!-- Pivot -->
+    <circle cx="0" cy="-14" r="2.5" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Judge text content -->
+  <text x="560" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="22" font-weight="700" fill="#1B1B1F" letter-spacing="-0.3px">JUDGE</text>
+  <text x="560" y="222" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#5F6B7A">Layer 2: Judgment</text>
+  <text x="560" y="244" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#9CA3AF">Make the call that earns</text>
+  <text x="560" y="260" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#9CA3AF">the right to ship</text>
+
+  <!-- Judge stat chip -->
+  <rect x="496" y="280" width="58" height="20" rx="10" fill="#5B92B8" opacity="0.12"/>
+  <text x="525" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#5B92B8">37 skills</text>
+
+  <!-- Skill examples -->
+  <rect x="562" y="280" width="70" height="20" rx="10" fill="#DBEAFE"/>
+  <text x="597" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#4A7A9E">Trade-offs</text>
+
+  <rect x="640" y="280" width="78" height="20" rx="10" fill="#DBEAFE"/>
+  <text x="679" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#4A7A9E">Stakeholders</text>
+
+  <!-- ============================================ -->
+  <!-- FLOW ARROW 2: Judge -> Ship                  -->
+  <!-- ============================================ -->
   <g>
-    <rect x="225" y="194" width="105" height="84" rx="12" fill="#EBF2F8" stroke="#DBE8F0" stroke-width="1" filter="url(#thinShadow)"/>
-    <circle cx="277.5" cy="215" r="14" fill="#5B92B8"/>
-    <text x="277.5" y="220" class="layer-label" text-anchor="middle" font-size="20">⚖️</text>
-    <text x="277.5" y="250" class="stat-label" text-anchor="middle">JUDGE</text>
-    <text x="277.5" y="268" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #888888; text-anchor: middle;">Make calls</text>
+    <line x1="740" y1="236" x2="794" y2="236" stroke="url(#flowLine)" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+    <polygon points="790,230 802,236 790,242" fill="#6BA08A" opacity="0.6"/>
   </g>
 
-  <!-- Arrow 2 -->
-  <text x="355" y="244" style="font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 300; fill: #D8D4CC;">→</text>
-
-  <!-- SHIP box -->
-  <g>
-    <rect x="390" y="194" width="105" height="84" rx="12" fill="#EFF5F0" stroke="#DFEDDA" stroke-width="1" filter="url(#thinShadow)"/>
-    <circle cx="442.5" cy="215" r="14" fill="#6BA08A"/>
-    <text x="442.5" y="220" class="layer-label" text-anchor="middle" font-size="20">🚀</text>
-    <text x="442.5" y="250" class="stat-label" text-anchor="middle">SHIP</text>
-    <text x="442.5" y="268" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #888888; text-anchor: middle;">Deliver work</text>
+  <!-- SHIP Card -->
+  <g filter="url(#s)">
+    <rect x="832" y="166" width="260" height="140" rx="14" fill="#EFF5F0" stroke="#D8ECDD" stroke-width="1"/>
   </g>
 
-  <!-- RIGHT SECTION: Stats panel -->
-  <g filter="url(#softShadow)">
-    <rect x="640" y="30" width="520" height="260" rx="16" fill="#FFFFFF" stroke="#E8E4DC" stroke-width="1.5"/>
+  <!-- Ship icon circle -->
+  <circle cx="884" cy="210" r="24" fill="url(#greenGrad)" filter="url(#iconShadow)"/>
+  <!-- Rocket icon -->
+  <g transform="translate(884, 210)">
+    <!-- Rocket body -->
+    <path d="M0,-14 C6,-14 8,-6 8,0 L8,6 L-8,6 L-8,0 C-8,-6 -6,-14 0,-14Z" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linejoin="round"/>
+    <!-- Nose cone -->
+    <circle cx="0" cy="-10" r="3" fill="none" stroke="#FFFFFF" stroke-width="1.3"/>
+    <!-- Left fin -->
+    <path d="M-8,2 L-13,8 L-8,6" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Right fin -->
+    <path d="M8,2 L13,8 L8,6" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
+    <!-- Exhaust -->
+    <line x1="-3" y1="9" x2="0" y2="14" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+    <line x1="3" y1="9" x2="0" y2="14" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
   </g>
 
-  <!-- Stats header label -->
-  <text x="900" y="64" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; fill: #999999; letter-spacing: 1.5px; text-transform: uppercase; text-anchor: middle;">The Architecture</text>
+  <!-- Ship text content -->
+  <text x="922" y="200" font-family="Inter, Segoe UI, sans-serif" font-size="22" font-weight="700" fill="#1B1B1F" letter-spacing="-0.3px">SHIP</text>
+  <text x="922" y="222" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#5F6B7A">Layer 3: Delivery</text>
+  <text x="922" y="244" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#9CA3AF">Output that's been stress-</text>
+  <text x="922" y="260" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#9CA3AF">tested twice before arriving</text>
 
-  <!-- Stat 1: 67 Skills -->
-  <g>
-    <text x="750" y="125" class="stat-number" text-anchor="middle" fill="#9478B8">67</text>
-    <text x="750" y="148" class="stat-label" text-anchor="middle">Skills</text>
-    <text x="750" y="168" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; text-anchor: middle; letter-spacing: 0.2px;">Thinking + Judgment + Craft</text>
-  </g>
+  <!-- Ship stat chip -->
+  <rect x="858" y="280" width="50" height="20" rx="10" fill="#6BA08A" opacity="0.12"/>
+  <text x="883" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6BA08A">8 skills</text>
 
-  <!-- Divider -->
-  <line x1="820" y1="105" x2="820" y2="175" stroke="#E8E4DC" stroke-width="1"/>
+  <!-- Skill examples -->
+  <rect x="916" y="280" width="60" height="20" rx="10" fill="#D1FAE5"/>
+  <text x="946" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#4D8B6F">Email</text>
 
-  <!-- Stat 2: 3 Layers -->
-  <g>
-    <text x="900" y="125" class="stat-number" text-anchor="middle" fill="#5B92B8">3</text>
-    <text x="900" y="148" class="stat-label" text-anchor="middle">Layers</text>
-    <text x="900" y="168" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; text-anchor: middle; letter-spacing: 0.2px;">Each checks the next</text>
-  </g>
+  <rect x="984" y="280" width="84" height="20" rx="10" fill="#D1FAE5"/>
+  <text x="1026" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#4D8B6F">Presentations</text>
 
-  <!-- Divider -->
-  <line x1="970" y1="105" x2="970" y2="175" stroke="#E8E4DC" stroke-width="1"/>
+  <!-- ============================================ -->
+  <!-- STATS BAR: The numbers that matter           -->
+  <!-- ============================================ -->
 
-  <!-- Stat 3: 1 System -->
-  <g>
-    <text x="1050" y="125" class="stat-number" text-anchor="middle" fill="#6BA08A">1</text>
-    <text x="1050" y="148" class="stat-label" text-anchor="middle">System</text>
-    <text x="1050" y="168" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; text-anchor: middle; letter-spacing: 0.2px;">Built for compounding</text>
-  </g>
+  <!-- Stats section background strip -->
+  <rect x="60" y="326" width="1080" height="38" rx="10" fill="#FFFFFF" stroke="#EBE8E2" stroke-width="1" filter="url(#s)"/>
 
-  <!-- Divider line -->
-  <line x1="680" y1="195" x2="1140" y2="195" stroke="#F0EDE6" stroke-width="1.5"/>
+  <!-- Stat: 67 -->
+  <text x="230" y="351" text-anchor="end" font-family="Inter, Segoe UI, sans-serif" font-size="20" font-weight="800" fill="#9478B8" letter-spacing="-0.5px">67</text>
+  <text x="238" y="351" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#5F6B7A">skills across thinking, judgment, and craft</text>
 
-  <!-- Bottom section: The compounding story -->
-  <text x="900" y="229" style="font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; fill: #666666; letter-spacing: 0.8px; text-anchor: middle; text-transform: uppercase;">How It Works</text>
+  <!-- Dot separator -->
+  <circle cx="600" cy="345" r="2.5" fill="#E0DDD6"/>
 
-  <text x="680" y="258" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; letter-spacing: 0.2px;">Each layer earns the right to exist by making</text>
-  <text x="680" y="277" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; letter-spacing: 0.2px;">the next layer's output trustworthy. Every output</text>
-  <text x="680" y="296" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; letter-spacing: 0.2px;">pre-tested before shipping.</text>
+  <!-- Stat: 3 -->
+  <text x="658" y="351" text-anchor="end" font-family="Inter, Segoe UI, sans-serif" font-size="20" font-weight="800" fill="#5B92B8" letter-spacing="-0.5px">3</text>
+  <text x="666" y="351" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#5F6B7A">layers, each earning the next</text>
 
-  <!-- Footer: Attribution -->
-  <text x="600" y="314" class="footer" text-anchor="end">© Raviteja Palanki, AI Product Manager</text>
+  <!-- Dot separator -->
+  <circle cx="870" cy="345" r="2.5" fill="#E0DDD6"/>
+
+  <!-- Stat: 1 -->
+  <text x="916" y="351" text-anchor="end" font-family="Inter, Segoe UI, sans-serif" font-size="20" font-weight="800" fill="#6BA08A" letter-spacing="-0.5px">1</text>
+  <text x="924" y="351" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#5F6B7A">compounding system</text>
+
+  <!-- ============================================ -->
+  <!-- FOOTER                                       -->
+  <!-- ============================================ -->
+  <text x="600" y="390" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11.5" font-weight="400" fill="#9CA3AF" letter-spacing="0.3px">Senior Technical PM  ·  Honeywell  ·  Perplexity AI Fellow 2025</text>
+
 </svg>

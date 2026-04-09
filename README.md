@@ -90,7 +90,7 @@ Beyond AI PM, the system has specialists for the rest of the workday:
 - **Research Analyst** — signal collection and pattern synthesis from curated sources
 - **Presentation Builder** — zero-dependency HTML presentations with Apple-level design polish
 - **Diagram Builder** — hand-drawn SVG diagrams with pastel palette and storytelling structure
-- **UX Design Agent** — 59-company design catalog with pattern recognition, design DNA extraction, and component architecture. When you ask "how does Stripe handle this?" it gives you the real answer, not a guess.
+- **UX Design Agent** — 58-company design catalog with pattern recognition, design DNA extraction, and component architecture. When you ask "how does Stripe handle this?" it gives you the real answer, not a guess.
 - **Product Mentor** — Shreyas Doshi's PM frameworks (LNO, product sense, execution vs. strategy) for evaluating PM decisions and practicing product sense.
 - **PM Interview Coach** — AI PM interview preparation grounded in real frameworks and experience
 - **Teaching Assistant** — Ravi's structured AI learning system using the CONTEXT framework
@@ -146,6 +146,26 @@ None of them start by asking requirements. They start by importing the thinking 
 
 ---
 
+## Watch It Work — A Real Enterprise Request
+
+Architecture diagrams show structure. This shows what the structure *does.*
+
+A VP sends a message: *"We need AI-powered insights on the manufacturing dashboard. Q3 deadline."*
+
+Most PM tools would open a PRD template. This system does something different.
+
+<p align="center">
+  <img src="diagrams/worked-example.svg" alt="The System in Action — Enterprise AI Request" width="900"/>
+</p>
+
+The VP asked for "AI insights." What shipped was a reframed problem (alert fatigue, not insights), a staged capability roadmap (anomaly detection now, predictive at Month 3), an autonomy decision (Level 2 — AI suggests, human approves), a stress-tested cost model ($42K/mo at 50 plants, ROI-positive if it saves $180K/mo), and a kill switch (< 15% false-alert reduction at day 45 → pivot).
+
+Every section of that PRD was shaped by a different team. The Sense-Maker reframed the problem. The Strategist built the roadmap with an expiration date. The System Architect and Safety Expert locked the autonomy level and designed the degradation path. The Evals Expert defined success before a line of code was written. The Crafter assembled it all — but the document arrived pre-tested because the thinking happened in the right order.
+
+That's the difference between a template and an operating system.
+
+---
+
 ## The Compounding Engine
 
 <p align="center">
@@ -163,20 +183,6 @@ This is the part that took the most iteration — and it's the part that makes e
 **Every session feeds back.** Patterns get watched. After three confirmations, they become rules. Rules shape future sessions. Anti-patterns get captured when they cause real waste. The orchestrator reads them and avoids repeating them. Over months, the system gets meaningfully sharper.
 
 This isn't a library of tools. It's an operating system that learns.
-
----
-
-## How I'd explain this in an interview
-
-*"I built a personal AI operating system — 67 composable skills with an orchestrator that works like a brain, not a routing table.*
-
-*The insight was that most AI tools give you templates. You fill in a PRD template, check the boxes, ship. But the template doesn't know you're anchored on a competitor's approach. It doesn't catch that your cost model collapses at 10x scale. It doesn't ask who pays the cost if you're wrong.*
-
-*So I built a system where the thinking happens in the right order. Ten reasoning skills run as checks before any decision gets made. Thirty-seven judgment skills make the hard calls — not 'what is RAG' but 'when is RAG the wrong architecture for your constraints.' Eight craft skills produce documents that arrive pre-tested because the reasoning layers already ran.*
-
-*At the center is an orchestrator — a persistent brain that understands my goals, deploys specialized worker agents in parallel, reviews their output, and compounds its judgment over time. It's like having a chief of staff built from first principles.*
-
-*The system has been my actual daily operating system for months. It's not theoretical — it's how I ship, think, and prepare. And the architecture itself demonstrates the AI PM thinking it teaches: composable skills, import chains that enforce quality, graceful degradation when context is limited, and a compounding feedback loop that makes every session smarter than the last."*
 
 ---
 
