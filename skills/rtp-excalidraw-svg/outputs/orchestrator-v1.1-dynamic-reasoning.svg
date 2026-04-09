@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 880" width="1200" height="880" role="img" aria-label="The orchestrator reasons dynamically through context, not a frozen routing table">
   <title>Orchestrator v1.1 — Dynamic Reasoning Architecture</title>
-  <desc>Shows how the AI PM Orchestrator processes input through 6 steps: absorb context, activate thinking algorithms, dynamically compose skill sequences, present plan, execute deep analysis, and deliver CPO-level output. Five expert agents (Sense-Maker, Strategist, Architect, Trust Builder, Prover, Crafter) are composed dynamically based on the problem, not from a fixed table.</desc>
+  <desc>Shows how the AI PM Orchestrator processes input through 6 steps: absorb context, activate thinking algorithms, dynamically compose skill sequences, present plan, execute deep analysis, and deliver CPO-level output. Five expert agents (Sense-Maker, Strategist, System Architect, Safety Expert, Evals Expert, Crafter) are composed dynamically based on the problem, not from a fixed table.</desc>
 
   <defs>
     <linearGradient id="wist-h" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -132,31 +132,31 @@
   <rect x="756" y="224" width="100" height="18" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
   <text x="806" y="237" text-anchor="middle" fill="#946E2A" font-size="10" font-weight="600" font-family="Inter, sans-serif">When investing</text>
 
-  <!-- Architect -->
+  <!-- System Architect -->
   <rect x="440" y="266" width="280" height="100" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1.5" filter="url(#s)"/>
   <rect x="440" y="266" width="280" height="30" rx="14" fill="url(#glacier-h)"/>
   <rect x="440" y="282" width="280" height="14" fill="#5A9ABE"/>
-  <text x="580" y="287" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Architect</text>
+  <text x="580" y="287" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">The System Architect</text>
   <text x="456" y="316" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">Autonomy levels, tool architecture,</text>
   <text x="456" y="331" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">agent harness, friction audit</text>
   <rect x="456" y="342" width="74" height="18" rx="6" fill="#DFF0FA" stroke="#A4D2E8" stroke-width="1"/>
   <text x="493" y="355" text-anchor="middle" fill="#3A7598" font-size="10" font-weight="600" font-family="Inter, sans-serif">When L3+</text>
 
-  <!-- Trust Builder -->
+  <!-- Safety Expert -->
   <rect x="740" y="266" width="280" height="100" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1.5" filter="url(#s)"/>
   <rect x="740" y="266" width="280" height="30" rx="14" fill="url(#celadon-h)"/>
   <rect x="740" y="282" width="280" height="14" fill="#6BA898"/>
-  <text x="880" y="287" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Trust Builder</text>
+  <text x="880" y="287" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Safety Expert</text>
   <text x="756" y="316" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">Safety architecture, adoption plan,</text>
   <text x="756" y="331" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">org readiness, breach response</text>
   <rect x="756" y="342" width="110" height="18" rx="6" fill="#DFF0E8" stroke="#A8D4C0" stroke-width="1"/>
   <text x="811" y="355" text-anchor="middle" fill="#3D8068" font-size="10" font-weight="600" font-family="Inter, sans-serif">When deploying</text>
 
-  <!-- Prover -->
+  <!-- Evals Expert -->
   <rect x="440" y="384" width="280" height="100" rx="14" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1.5" filter="url(#s)"/>
   <rect x="440" y="384" width="280" height="30" rx="14" fill="url(#wist-h)"/>
   <rect x="440" y="400" width="280" height="14" fill="#9478B8"/>
-  <text x="580" y="405" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Prover</text>
+  <text x="580" y="405" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">The Evals Expert</text>
   <text x="456" y="434" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">Eval frameworks, metrics, experiments,</text>
   <text x="456" y="449" fill="#4A4540" font-size="11" font-family="Inter, sans-serif">production observability, confidence</text>
   <rect x="456" y="460" width="118" height="18" rx="6" fill="#EDE5F8" stroke="#CDBEE8" stroke-width="1"/>

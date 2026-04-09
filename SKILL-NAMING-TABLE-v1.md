@@ -38,9 +38,9 @@ The orchestrator organizes skills into 6 expert agents that can challenge each o
 |---|---|---|
 | **Sense-Maker** | first-principles, problem-ai-fit, use-case-ready, domain-decoder, hidden-value-finder, uncertainty-map, voc-accelerator, trendslop-check | Understand the problem before any solution |
 | **Strategist** | strategy-canvas, moat-finder, build-or-buy, cost-reality, portfolio-manager, signal-scanner, competitive-map, fit-signal | Where to invest, what to kill |
-| **Architect** | autonomy-spectrum, agent-ecosystem, tool-architecture, agent-harness, friction-audit, multi-modal, determinism-compass | Design the right architecture + autonomy |
-| **Trust Builder** | safety-by-design, rai-ops, trust-ladder, adoption-launch, needs-guard, judgment-guard, alignment-check, breach-ready, agent-risk, trust-under-fog, purpose-dialogue | Make it safe + get people to use it |
-| **Prover** | eval-framework, eval-first, ai-metrics, prod-watch, experiment-rig, org-ready, confidence-tuner | Prove it works with evidence |
+| **System Architect** | autonomy-spectrum, agent-ecosystem, tool-architecture, agent-harness, friction-audit, multi-modal, determinism-compass | Design the right architecture + autonomy |
+| **Safety Expert** | safety-by-design, rai-ops, trust-ladder, adoption-launch, needs-guard, judgment-guard, alignment-check, breach-ready, agent-risk, trust-under-fog, purpose-dialogue | Make it safe + get people to use it |
+| **Evals Expert** | eval-framework, eval-first, ai-metrics, prod-watch, experiment-rig, org-ready, confidence-tuner | Prove it works with evidence |
 | **Crafter** | ai-prd, context-spec, agent-spec, cost-model, ship-decision, prompt-as-product | Produce the documents that ship the product |
 
 ---

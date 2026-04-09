@@ -187,7 +187,7 @@ A structured workflow for teams building AI evaluation infrastructure from scrat
 ### Morning: End-to-End Validation
 
 **Layer 1 — Thinking Core:**
-19. **falsification** — Try to break the eval system.
+19. **red-team** — Try to break the eval system.
     - What inputs would pass evals but fail in production?
     - What production scenarios aren't covered by test sets?
     - What would a skeptic say about your eval methodology?
@@ -221,7 +221,7 @@ A structured workflow for teams building AI evaluation infrastructure from scrat
 
 | Plugin | Skills Used | Day |
 |--------|------------|-----|
-| **thinking-core** (5/7) | first-principles, determinism-compass, stress-test, bias-spotter, falsification, dual-lens | 1,2,3,5 |
+| **thinking-core** (5/7) | first-principles, determinism-compass, stress-test, bias-spotter, red-team, dual-lens | 1,2,3,5 |
 | **product-sense** (4/7) | problem-ai-fit, failure-modes, feedback-flywheel, ai-product-taste | 2,3,5 |
 | **eval-and-quality** (4/4) | eval-framework, eval-driven-development, ai-product-metrics, production-observability | 1,2,3 |
 | **agent-design** (2/5) | agent-harness, autonomy-spectrum | 4 |

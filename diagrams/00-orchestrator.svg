@@ -47,7 +47,7 @@
   <rect x="520" y="266" width="210" height="14" fill="#D4A54A"/>
   <text x="625" y="266" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, sans-serif">3. Activate Thinking</text>
   <text x="625" y="300" text-anchor="middle" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">First principles. Bias check.</text>
-  <text x="625" y="318" text-anchor="middle" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">Falsification. Cost reality.</text>
+  <text x="625" y="318" text-anchor="middle" fill="#5F6B7A" font-size="12" font-family="Inter, sans-serif">Red Team. Cost reality.</text>
   <text x="625" y="336" text-anchor="middle" fill="#7A5A1E" font-size="11" font-weight="600" font-family="Inter, sans-serif">10 algorithms, context-selected</text>
 
   <!-- Step 4: Deploy -->
@@ -109,7 +109,7 @@
   <rect x="420" y="432" width="175" height="130" rx="12" fill="#FFFFFF" stroke="#5A9ABE" stroke-width="2" filter="url(#s)"/>
   <rect x="420" y="432" width="175" height="34" rx="12" fill="#5A9ABE"/>
   <rect x="420" y="454" width="175" height="12" fill="#5A9ABE"/>
-  <text x="508" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">Architect</text>
+  <text x="508" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">System Architect</text>
   <text x="508" y="486" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">Right autonomy, right controls</text>
   <rect x="432" y="498" width="90" height="22" rx="6" fill="#DFF0FA" stroke="#A4D2E8" stroke-width="1"/>
   <text x="477" y="513" text-anchor="middle" fill="#3A7598" font-size="9" font-weight="600" font-family="Inter, sans-serif">autonomy-spectrum</text>
@@ -121,7 +121,7 @@
   <rect x="610" y="432" width="175" height="130" rx="12" fill="#FFFFFF" stroke="#D47B64" stroke-width="2" filter="url(#s)"/>
   <rect x="610" y="432" width="175" height="34" rx="12" fill="#D47B64"/>
   <rect x="610" y="454" width="175" height="12" fill="#D47B64"/>
-  <text x="698" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">Trust Builder</text>
+  <text x="698" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">Safety Expert</text>
   <text x="698" y="486" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">Safe AND adopted</text>
   <rect x="622" y="498" width="82" height="22" rx="6" fill="#FFE8E0" stroke="#F0BCA8" stroke-width="1"/>
   <text x="663" y="513" text-anchor="middle" fill="#A45840" font-size="9" font-weight="600" font-family="Inter, sans-serif">safety-by-design</text>
@@ -135,7 +135,7 @@
   <rect x="800" y="432" width="175" height="130" rx="12" fill="#FFFFFF" stroke="#6BA898" stroke-width="2" filter="url(#s)"/>
   <rect x="800" y="432" width="175" height="34" rx="12" fill="#6BA898"/>
   <rect x="800" y="454" width="175" height="12" fill="#6BA898"/>
-  <text x="888" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">Prover</text>
+  <text x="888" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">Evals Expert</text>
   <text x="888" y="486" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">Evidence, not hope</text>
   <rect x="812" y="498" width="76" height="22" rx="6" fill="#DFF0E8" stroke="#A8D4C0" stroke-width="1"/>
   <text x="850" y="513" text-anchor="middle" fill="#3D8068" font-size="9" font-weight="600" font-family="Inter, sans-serif">eval-framework</text>

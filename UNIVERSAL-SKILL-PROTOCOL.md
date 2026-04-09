@@ -66,7 +66,7 @@ Use plain language. If a term requires product management or technical backgroun
 | Load-bearing assumption | Critical assumption — if wrong, the recommendation changes |
 | Tacit knowledge | Expert judgment that's hard to write down as rules |
 | Consequence magnitude | How many people or systems are affected if this goes wrong |
-| Falsification | When would this advice be wrong? |
+| Red Team | When would this advice be wrong? |
 | Autonomy floor / ceiling | Minimum level needed / Maximum level that's safe right now |
 | Evidence level: Validated | We have data for this |
 | Evidence level: Informed | Expert opinion, no hard data yet |

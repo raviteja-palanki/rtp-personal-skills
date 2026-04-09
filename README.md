@@ -40,7 +40,7 @@ The orchestrator is different. It's the persistent brain that sits at the center
 
 2. **Classifies the ask.** Is this a quick answer? Deep thinking? Direct action? The classification determines the response — a factual question gets answered in two sentences, not wrapped in a five-step analysis. Respect for your time is a design principle.
 
-3. **Activates the right thinking patterns.** Ten cognitive algorithms — first principles decomposition, falsification (when would this advice be wrong?), bias detection, production reality checks, graceful degradation design — run on every input. Not all ten every time. The orchestrator activates the ones that matter for *this* problem.
+3. **Activates the right thinking patterns.** Ten cognitive algorithms — first principles decomposition, red-teaming (when would this advice be wrong?), bias detection, production reality checks, graceful degradation design — run on every input. Not all ten every time. The orchestrator activates the ones that matter for *this* problem.
 
 4. **Deploys worker agents.** The orchestrator doesn't do the specialized work itself. It identifies which agents to deploy, what skills they need, and in what order. Independent tasks run in parallel. Dependent tasks run in sequence. The orchestrator manages the handoffs.
 
@@ -73,15 +73,15 @@ Six specialized teams that the orchestrator deploys for AI product work:
 
 **The Strategist** decides where to invest and what to kill. It builds capability-conditional roadmaps with expiration dates, finds the moat (data flywheel, workflow lock-in, context depth, or earned trust), catches when AI-generated strategy is just trendy advice, and models cost reality at production scale.
 
-**The Architect** designs the right level of autonomy. Not "how autonomous CAN we make this" but "what level of autonomy does each interaction DESERVE?" It maps the spectrum from autocomplete to fully autonomous agents, designs tool access with consequence-aware permissions, and builds the harness architecture (planner → generator → evaluator) that keeps agents productive and safe.
+**The System Architect** designs the right level of autonomy. Not "how autonomous CAN we make this" but "what level of autonomy does each interaction DESERVE?" It maps the spectrum from autocomplete to fully autonomous agents, designs tool access with consequence-aware permissions, and builds the harness architecture (planner → generator → evaluator) that keeps agents productive and safe.
 
-**The Trust Builder** makes it safe AND gets people to use it. Safety-by-design principles baked into architecture. Adoption curves modeled by persona. Proportionality analysis for every agent (is the value worth the worst-case harm?). Breach readiness — designing systems that survive being hacked, not just systems that resist it.
+**The Safety Expert** makes it safe AND gets people to use it. Safety-by-design principles baked into architecture. Adoption curves modeled by persona. Proportionality analysis for every agent (is the value worth the worst-case harm?). Breach readiness — designing systems that survive being hacked, not just systems that resist it.
 
-**The Prover** replaces hope with evidence. Evaluation frameworks that evolve as the product matures. Experiments designed for causal evidence, not correlation. Confidence calibration that prevents both over-reliance and dismissal. The rule: if you can't measure it, you can't ship it.
+**The Evals Expert** replaces hope with evidence. Evaluation frameworks that evolve as the product matures. Experiments designed for causal evidence, not correlation. Confidence calibration that prevents both over-reliance and dismissal. The rule: if you can't measure it, you can't ship it.
 
 **The Crafter** produces the documents that ship the product — PRDs, agent specs, cost models, ship/no-ship decisions. But because the Crafter runs *after* the other five teams, every document arrives pre-tested. The PRD has eval criteria as acceptance criteria. The cost model has been stress-tested at 10x. The ship decision has named the three assumptions that would invalidate it.
 
-### The General-Purpose Agents (12 skills)
+### The General-Purpose Agents (12 deployed skills, 10 worker agents)
 
 Beyond AI PM, the system has specialists for the rest of the workday:
 
@@ -90,8 +90,11 @@ Beyond AI PM, the system has specialists for the rest of the workday:
 - **Research Analyst** — signal collection and pattern synthesis from curated sources
 - **Presentation Builder** — zero-dependency HTML presentations with Apple-level design polish
 - **Diagram Builder** — hand-drawn SVG diagrams with pastel palette and storytelling structure
-- **Interview Strategist** — AI PM interview preparation grounded in real frameworks and experience
-- **Curriculum Architect** — course development using the CONTEXT framework
+- **UX Design Agent** — 59-company design catalog with pattern recognition, design DNA extraction, and component architecture. When you ask "how does Stripe handle this?" it gives you the real answer, not a guess.
+- **Product Mentor** — Shreyas Doshi's PM frameworks (LNO, product sense, execution vs. strategy) for evaluating PM decisions and practicing product sense.
+- **PM Interview Coach** — AI PM interview preparation grounded in real frameworks and experience
+- **Teaching Assistant** — Ravi's structured AI learning system using the CONTEXT framework
+- **Admin Agent** — folder governance, skill audits, archive cleanup. The only agent authorized to permanently delete files.
 
 Every worker inherits from **Ravi Voice** — the master thinking system that carries 10 cognitive algorithms, 24 AI writing anti-patterns to avoid, and the Bridger communication style. A resume without the persona embedded isn't a Ravi resume. An article without the thinking algorithms isn't Ravi's thought leadership. Voice is the DNA in every worker.
 
@@ -111,7 +114,7 @@ These don't produce documents. They produce *checks.*
 
 Before any decision gets made, they ask: Are you decomposing from first principles, or pattern-matching from your last project? Are you anchored on what a competitor built instead of what your users need? If your AI system fails, does it degrade gracefully or does it fail silently? What would make your strongest recommendation completely invalid?
 
-Skills: `first-principles` · `bias-spotter` · `falsification` · `dual-lens` · `determinism-compass` · `stress-test` · `failure-design` · `alignment-check` · `judgment-guard` · `problem-type`
+Skills: `first-principles` · `bias-spotter` · `red-team` · `dual-lens` · `determinism-compass` · `stress-test` · `failure-design` · `alignment-check` · `judgment-guard` · `problem-type`
 
 <p align="center">
   <img src="diagrams/03-judgment-layer.svg" alt="Judgment Layer" width="900"/>
@@ -169,7 +172,7 @@ This isn't a library of tools. It's an operating system that learns.
 
 *The insight was that most AI tools give you templates. You fill in a PRD template, check the boxes, ship. But the template doesn't know you're anchored on a competitor's approach. It doesn't catch that your cost model collapses at 10x scale. It doesn't ask who pays the cost if you're wrong.*
 
-*So I built a system where the thinking happens in the right order. Ten reasoning skills run as checks before any decision gets made. Thirty-six judgment skills make the hard calls — not 'what is RAG' but 'when is RAG the wrong architecture for your constraints.' Eight craft skills produce documents that arrive pre-tested because the reasoning layers already ran.*
+*So I built a system where the thinking happens in the right order. Ten reasoning skills run as checks before any decision gets made. Thirty-seven judgment skills make the hard calls — not 'what is RAG' but 'when is RAG the wrong architecture for your constraints.' Eight craft skills produce documents that arrive pre-tested because the reasoning layers already ran.*
 
 *At the center is an orchestrator — a persistent brain that understands my goals, deploys specialized worker agents in parallel, reviews their output, and compounds its judgment over time. It's like having a chief of staff built from first principles.*
 

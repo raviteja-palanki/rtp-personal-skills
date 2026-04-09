@@ -86,33 +86,33 @@
   <rect x="670" y="228" width="110" height="20" rx="4" fill="#FFF8F0" stroke="#D4956A" stroke-width="1"/>
   <text x="725" y="242" text-anchor="middle" fill="#7A5A1E" font-size="9" font-family="Inter, sans-serif">moat, portfolio, cost</text>
 
-  <!-- Team 3: Architect -->
+  <!-- Team 3: System Architect -->
   <rect x="820" y="158" width="220" height="100" rx="12" fill="#FFFFFF" stroke="#5B92B8" stroke-width="2" filter="url(#s)"/>
   <rect x="820" y="158" width="220" height="34" rx="12" fill="#5B92B8"/>
   <rect x="820" y="178" width="220" height="14" fill="#5B92B8"/>
-  <text x="930" y="181" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">Architect</text>
+  <text x="930" y="181" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">System Architect</text>
   <text x="840" y="215" fill="#2B5A7F" font-size="11" font-family="Inter, sans-serif">Right level of autonomy</text>
   <rect x="835" y="228" width="68" height="20" rx="4" fill="#EEF5FB" stroke="#5B92B8" stroke-width="1"/>
   <text x="869" y="242" text-anchor="middle" fill="#2B5A7F" font-size="9" font-family="Inter, sans-serif">5 skills</text>
   <rect x="910" y="228" width="110" height="20" rx="4" fill="#EEF5FB" stroke="#5B92B8" stroke-width="1"/>
   <text x="965" y="242" text-anchor="middle" fill="#2B5A7F" font-size="9" font-family="Inter, sans-serif">autonomy, harness</text>
 
-  <!-- Team 4: Trust Builder -->
+  <!-- Team 4: Safety Expert -->
   <rect x="340" y="280" width="220" height="100" rx="12" fill="#FFFFFF" stroke="#C27878" stroke-width="2" filter="url(#s)"/>
   <rect x="340" y="280" width="220" height="34" rx="12" fill="#C27878"/>
   <rect x="340" y="300" width="220" height="14" fill="#C27878"/>
-  <text x="450" y="303" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">Trust Builder</text>
+  <text x="450" y="303" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">Safety Expert</text>
   <text x="360" y="337" fill="#7B4A4A" font-size="11" font-family="Inter, sans-serif">Safe AND adopted</text>
   <rect x="355" y="350" width="68" height="20" rx="4" fill="#FDF5F5" stroke="#C27878" stroke-width="1"/>
   <text x="389" y="364" text-anchor="middle" fill="#7B4A4A" font-size="9" font-family="Inter, sans-serif">8 skills</text>
   <rect x="430" y="350" width="110" height="20" rx="4" fill="#FDF5F5" stroke="#C27878" stroke-width="1"/>
   <text x="485" y="364" text-anchor="middle" fill="#7B4A4A" font-size="9" font-family="Inter, sans-serif">trust, safety, breach</text>
 
-  <!-- Team 5: Prover -->
+  <!-- Team 5: Evals Expert -->
   <rect x="580" y="280" width="220" height="100" rx="12" fill="#FFFFFF" stroke="#9478B8" stroke-width="2" filter="url(#s)"/>
   <rect x="580" y="280" width="220" height="34" rx="12" fill="#9478B8"/>
   <rect x="580" y="300" width="220" height="14" fill="#9478B8"/>
-  <text x="690" y="303" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">Prover</text>
+  <text x="690" y="303" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">Evals Expert</text>
   <text x="600" y="337" fill="#5B3E7A" font-size="11" font-family="Inter, sans-serif">Evidence over hope</text>
   <rect x="595" y="350" width="68" height="20" rx="4" fill="#F8F5FF" stroke="#9478B8" stroke-width="1"/>
   <text x="629" y="364" text-anchor="middle" fill="#5B3E7A" font-size="9" font-family="Inter, sans-serif">6 skills</text>
@@ -182,20 +182,20 @@
   <text x="823" y="550" fill="#7A6A9A" font-size="9" font-family="Inter, sans-serif">Hand-drawn professional</text>
   <text x="823" y="563" fill="#7A6A9A" font-size="9" font-family="Inter, sans-serif">SVGs with pastel palette</text>
 
-  <!-- Agent 6: Interview Strategist -->
+  <!-- Agent 6: PM Interview Coach -->
   <rect x="1000" y="485" width="175" height="88" rx="10" fill="#FFFFFF" stroke="#C27878" stroke-width="1.5" filter="url(#s)"/>
   <rect x="1000" y="485" width="175" height="28" rx="10" fill="#C27878"/>
   <rect x="1000" y="503" width="175" height="10" fill="#C27878"/>
-  <text x="1088" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Interview Strategist</text>
+  <text x="1088" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">PM Interview Coach</text>
   <text x="1015" y="535" fill="#7B4A4A" font-size="10" font-family="Inter, sans-serif">thinking + interview-prep</text>
   <text x="1015" y="550" fill="#9A7A7A" font-size="9" font-family="Inter, sans-serif">AI PM interview prep</text>
   <text x="1015" y="563" fill="#9A7A7A" font-size="9" font-family="Inter, sans-serif">grounded in frameworks</text>
 
-  <!-- Agent 7: Curriculum Architect -->
+  <!-- Agent 7: Teaching Assistant -->
   <rect x="1192" y="485" width="175" height="88" rx="10" fill="#FFFFFF" stroke="#D4956A" stroke-width="1.5" filter="url(#s)"/>
   <rect x="1192" y="485" width="175" height="28" rx="10" fill="#D4956A"/>
   <rect x="1192" y="503" width="175" height="10" fill="#D4956A"/>
-  <text x="1280" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Curriculum Architect</text>
+  <text x="1280" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Teaching Assistant</text>
   <text x="1207" y="535" fill="#7A5A1E" font-size="10" font-family="Inter, sans-serif">thinking + CONTEXT</text>
   <text x="1207" y="550" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">17-module AI PM</text>
   <text x="1207" y="563" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">curriculum development</text>

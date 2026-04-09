@@ -68,7 +68,7 @@
   <text x="60" y="120" class="hero-title">rtp-personal-skills</text>
 
   <!-- Tagline: The hook -->
-  <text x="60" y="152" class="hero-tagline">66 skills. 3 layers. One compounding system.</text>
+  <text x="60" y="152" class="hero-tagline">67 skills. 3 layers. One compounding system.</text>
 
   <!-- Divider -->
   <line x1="60" y1="174" x2="520" y2="174" stroke="#DDD8D0" stroke-width="2"/>
@@ -115,9 +115,9 @@
   <!-- Stats header label -->
   <text x="900" y="64" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; fill: #999999; letter-spacing: 1.5px; text-transform: uppercase; text-anchor: middle;">The Architecture</text>
 
-  <!-- Stat 1: 66 Skills -->
+  <!-- Stat 1: 67 Skills -->
   <g>
-    <text x="750" y="125" class="stat-number" text-anchor="middle" fill="#9478B8">66</text>
+    <text x="750" y="125" class="stat-number" text-anchor="middle" fill="#9478B8">67</text>
     <text x="750" y="148" class="stat-label" text-anchor="middle">Skills</text>
     <text x="750" y="168" style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400; fill: #999999; text-anchor: middle; letter-spacing: 0.2px;">Thinking + Judgment + Craft</text>
   </g>
