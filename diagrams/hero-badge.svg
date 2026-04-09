@@ -2,41 +2,41 @@
   <defs>
     <!-- Gradients -->
     <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FAFAF8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#F5F3EE;stop-opacity:1" />
+      <stop offset="0%" stop-color="#FAFAF8" stop-opacity="1" />
+      <stop offset="100%" stop-color="#F5F3EE" stop-opacity="1" />
     </linearGradient>
 
     <linearGradient id="accentBar" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#9478B8" />
-      <stop offset="50%" style="stop-color:#5B92B8" />
-      <stop offset="100%" style="stop-color:#6BA08A" />
+      <stop offset="0%" stop-color="#9478B8" />
+      <stop offset="50%" stop-color="#5B92B8" />
+      <stop offset="100%" stop-color="#6BA08A" />
     </linearGradient>
 
     <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#9478B8" />
-      <stop offset="50%" style="stop-color:#5B92B8" />
-      <stop offset="100%" style="stop-color:#6BA08A" />
+      <stop offset="0%" stop-color="#9478B8" />
+      <stop offset="50%" stop-color="#5B92B8" />
+      <stop offset="100%" stop-color="#6BA08A" />
     </linearGradient>
 
     <linearGradient id="flowLine" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#9478B8" />
-      <stop offset="50%" style="stop-color:#5B92B8" />
-      <stop offset="100%" style="stop-color:#6BA08A" />
+      <stop offset="0%" stop-color="#9478B8" />
+      <stop offset="50%" stop-color="#5B92B8" />
+      <stop offset="100%" stop-color="#6BA08A" />
     </linearGradient>
 
     <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#A68CCC" />
-      <stop offset="100%" style="stop-color:#9478B8" />
+      <stop offset="0%" stop-color="#A68CCC" />
+      <stop offset="100%" stop-color="#9478B8" />
     </linearGradient>
 
     <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#6FA4CA" />
-      <stop offset="100%" style="stop-color:#5B92B8" />
+      <stop offset="0%" stop-color="#6FA4CA" />
+      <stop offset="100%" stop-color="#5B92B8" />
     </linearGradient>
 
     <linearGradient id="greenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#7DB49C" />
-      <stop offset="100%" style="stop-color:#6BA08A" />
+      <stop offset="0%" stop-color="#7DB49C" />
+      <stop offset="100%" stop-color="#6BA08A" />
     </linearGradient>
 
     <!-- Drop shadow -->

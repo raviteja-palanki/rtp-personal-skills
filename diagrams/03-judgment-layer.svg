@@ -7,28 +7,28 @@
 
     <!-- Subtle gradients for headers -->
     <linearGradient id="productSenseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#5B92B8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#4A7BA8;stop-opacity:1" />
+      <stop offset="0%" stop-color="#5B92B8" stop-opacity="1" />
+      <stop offset="100%" stop-color="#4A7BA8" stop-opacity="1" />
     </linearGradient>
 
     <linearGradient id="aiStrategyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#D4956A;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#C47A5A;stop-opacity:1" />
+      <stop offset="0%" stop-color="#D4956A" stop-opacity="1" />
+      <stop offset="100%" stop-color="#C47A5A" stop-opacity="1" />
     </linearGradient>
 
     <linearGradient id="safetyTrustGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#C27878;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#B26868;stop-opacity:1" />
+      <stop offset="0%" stop-color="#C27878" stop-opacity="1" />
+      <stop offset="100%" stop-color="#B26868" stop-opacity="1" />
     </linearGradient>
 
     <linearGradient id="agentDesignGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#6BA08A;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#5A907A;stop-opacity:1" />
+      <stop offset="0%" stop-color="#6BA08A" stop-opacity="1" />
+      <stop offset="100%" stop-color="#5A907A" stop-opacity="1" />
     </linearGradient>
 
     <linearGradient id="evalQualityGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#9478B8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#8468A8;stop-opacity:1" />
+      <stop offset="0%" stop-color="#9478B8" stop-opacity="1" />
+      <stop offset="100%" stop-color="#8468A8" stop-opacity="1" />
     </linearGradient>
   </defs>
 

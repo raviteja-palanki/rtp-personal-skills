@@ -2,23 +2,23 @@
   <defs>
     <!-- Gradients -->
     <linearGradient id="mossGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#7AB89D;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#5F9B84;stop-opacity:1" />
+      <stop offset="0%" stop-color="#7AB89D" stop-opacity="1" />
+      <stop offset="100%" stop-color="#5F9B84" stop-opacity="1" />
     </linearGradient>
 
     <linearGradient id="mossLightBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#F1F9F5;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#EFF5F0;stop-opacity:1" />
+      <stop offset="0%" stop-color="#F1F9F5" stop-opacity="1" />
+      <stop offset="100%" stop-color="#EFF5F0" stop-opacity="1" />
     </linearGradient>
 
     <linearGradient id="purpleChip" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#E8DFF7;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#DCC8F0;stop-opacity:1" />
+      <stop offset="0%" stop-color="#E8DFF7" stop-opacity="1" />
+      <stop offset="100%" stop-color="#DCC8F0" stop-opacity="1" />
     </linearGradient>
 
     <linearGradient id="blueChip" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#D9E9F5;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#C5DDF0;stop-opacity:1" />
+      <stop offset="0%" stop-color="#D9E9F5" stop-opacity="1" />
+      <stop offset="100%" stop-color="#C5DDF0" stop-opacity="1" />
     </linearGradient>
 
     <!-- Shadows -->

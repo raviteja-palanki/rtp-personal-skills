@@ -7,11 +7,11 @@
       <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#9478B8" flood-opacity="0.19"/>
     </filter>
     <linearGradient id="dnaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#9478B8"/>
-      <stop offset="25%" style="stop-color:#D4789B"/>
-      <stop offset="50%" style="stop-color:#D4956A"/>
-      <stop offset="75%" style="stop-color:#5B92B8"/>
-      <stop offset="100%" style="stop-color:#6BA08A"/>
+      <stop offset="0%" stop-color="#9478B8"/>
+      <stop offset="25%" stop-color="#D4789B"/>
+      <stop offset="50%" stop-color="#D4956A"/>
+      <stop offset="75%" stop-color="#5B92B8"/>
+      <stop offset="100%" stop-color="#6BA08A"/>
     </linearGradient>
   </defs>
 
