@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 360" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- Gradients -->
     <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -54,7 +54,7 @@
   </defs>
 
   <!-- Main background -->
-  <rect width="1200" height="320" rx="16" fill="url(#heroBg)" stroke="#E8E4DC" stroke-width="1.5"/>
+  <rect width="1200" height="360" rx="16" fill="url(#heroBg)" stroke="#E8E4DC" stroke-width="1.5"/>
 
   <!-- Top accent bar — gradient across 5 colors -->
   <rect y="0" width="1200" height="8" rx="16" fill="url(#accentBar)"/>
@@ -153,5 +153,5 @@
   <text x="680" y="296" style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; fill: #888888; letter-spacing: 0.2px;">pre-tested before shipping.</text>
 
   <!-- Footer: Attribution -->
-  <text x="600" y="314" class="footer" text-anchor="end">Built with Claude · April 2026</text>
+  <text x="600" y="314" class="footer" text-anchor="end">© Raviteja Palanki, AI Product Manager</text>
 </svg>

@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 740" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- Shadows -->
     <filter id="cardShadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -34,7 +34,7 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1200" height="700" fill="url(#bgGradient)"/>
+  <rect width="1200" height="740" fill="url(#bgGradient)"/>
 
   <!-- Header -->
   <text x="60" y="40" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="700" fill="#2C2C2C">

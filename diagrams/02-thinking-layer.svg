@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 900" width="1280" height="900">
   <defs>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -26,10 +26,10 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1200" height="900" class="bg"/>
+  <rect width="1280" height="900" class="bg"/>
 
   <!-- Title Band -->
-  <rect x="0" y="0" width="1200" height="90" class="header-band" filter="url(#headerShadow)"/>
+  <rect x="0" y="0" width="1280" height="90" class="header-band" filter="url(#headerShadow)"/>
   <text x="40" y="52" class="header-text">Layer 1: Thinking</text>
   <text x="40" y="73" class="subtitle-text">The Immune System — 10 Skills That Fire Before Any Decision Gets Made</text>
 
@@ -37,15 +37,15 @@
 
   <!-- Card 1: First Principles -->
   <g filter="url(#cardShadow)">
-    <rect x="20" y="110" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="20" y="110" width="220" height="50" rx="12" class="card-header"/>
-    <text x="35" y="147" class="card-header-text">First Principles</text>
+    <rect x="40" y="110" width="220" height="280" rx="12" class="card-body"/>
+    <rect x="40" y="110" width="220" height="50" rx="12" class="card-header"/>
+    <text x="55" y="147" class="card-header-text">First Principles</text>
 
-    <text x="35" y="175" class="card-question">"What's the one atomic operation underneath?"</text>
+    <text x="55" y="175" class="card-question">"What's the one atomic operation underneath?"</text>
 
-    <text x="35" y="210" class="card-label">Catches:</text>
-    <text x="35" y="228" class="card-catches">Hidden assumptions you</text>
-    <text x="35" y="242" class="card-catches">didn't know you were making</text>
+    <text x="55" y="210" class="card-label">Catches:</text>
+    <text x="55" y="228" class="card-catches">Hidden assumptions you</text>
+    <text x="55" y="242" class="card-catches">didn't know you were making</text>
   </g>
 
   <!-- Card 2: Bias Spotter -->
@@ -104,15 +104,15 @@
 
   <!-- Card 6: Stress Test -->
   <g filter="url(#cardShadow)">
-    <rect x="20" y="410" width="220" height="280" rx="12" class="card-body"/>
-    <rect x="20" y="410" width="220" height="50" rx="12" class="card-header"/>
-    <text x="35" y="447" class="card-header-text">Stress Test</text>
+    <rect x="40" y="410" width="220" height="280" rx="12" class="card-body"/>
+    <rect x="40" y="410" width="220" height="50" rx="12" class="card-header"/>
+    <text x="55" y="447" class="card-header-text">Stress Test</text>
 
-    <text x="35" y="475" class="card-question">"What breaks under load?"</text>
+    <text x="55" y="475" class="card-question">"What breaks under load?"</text>
 
-    <text x="35" y="510" class="card-label">Catches:</text>
-    <text x="35" y="528" class="card-catches">Plans that look great until</text>
-    <text x="35" y="542" class="card-catches">they meet production reality</text>
+    <text x="55" y="510" class="card-label">Catches:</text>
+    <text x="55" y="528" class="card-catches">Plans that look great until</text>
+    <text x="55" y="542" class="card-catches">they meet production reality</text>
   </g>
 
   <!-- Card 7: Failure Modes -->
@@ -169,10 +169,10 @@
 
   <!-- Story Callout -->
   <g>
-    <rect x="30" y="720" width="1140" height="110" rx="12" class="story-callout"/>
-    <text x="50" y="750" class="story-text" font-weight="600">10 skills that don't produce documents. They produce checks. The immune system.</text>
-    <text x="50" y="773" class="story-text">These fire before any domain-specific skill runs. They're agnostic to whether you're building AI products, traditional features, or org strategy. The domain specificity comes from Layers 2 and 3, where judgment skills adapt these thinking checks to specific problem spaces.</text>
-    <text x="50" y="810" class="story-text" font-weight="600">Every other skill imports from here first.</text>
+    <rect x="50" y="720" width="1180" height="110" rx="12" class="story-callout"/>
+    <text x="70" y="750" class="story-text" font-weight="600">10 skills that don't produce documents. They produce checks. The immune system.</text>
+    <text x="70" y="773" class="story-text">These fire before any domain-specific skill runs. They're agnostic to whether you're building AI products, traditional features, or org strategy. The domain specificity comes from Layers 2 and 3, where judgment skills adapt these thinking checks to specific problem spaces.</text>
+    <text x="70" y="810" class="story-text" font-weight="600">Every other skill imports from here first.</text>
   </g>
 
   <!-- Footer -->
