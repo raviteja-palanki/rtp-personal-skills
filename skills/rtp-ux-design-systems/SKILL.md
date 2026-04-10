@@ -574,4 +574,147 @@ This agent compounds taste across sessions.
 
 ---
 
-*rtp-ux-design-agent v1.0 | April 9, 2026 | 59 reference systems · 6 meta-skills · Albers + Rams + Tufte as embedded thinking*
+## Ravi's Visual Signature — Border Strategy
+
+Every visual output Ravi produces should carry a recognizable signature. Two modes:
+
+### Personal Deliverables — Rainbow Bar
+
+For personal outputs (LinkedIn banners, GitHub SVGs, personal diagrams, skill system visualizations, portfolio pieces), use the **5-segment rainbow bar** as a top border. This is Ravi's visual fingerprint — instantly recognizable, distinctly his.
+
+**The 5 colors (in order):**
+```
+#8B5CF6  Purple
+#14B8A6  Teal
+#06B6D4  Cyan
+#F59E0B  Amber
+#EC4899  Pink
+```
+
+**SVG implementation (equal segments):**
+```xml
+<rect x="0" y="0" width="20%" height="6" fill="#8B5CF6"/>
+<rect x="20%" y="0" width="20%" height="6" fill="#14B8A6"/>
+<rect x="40%" y="0" width="20%" height="6" fill="#06B6D4"/>
+<rect x="60%" y="0" width="20%" height="6" fill="#F59E0B"/>
+<rect x="80%" y="0" width="20%" height="6" fill="#EC4899"/>
+```
+
+For absolute-width SVGs (e.g., 1200px wide), calculate segment width as `total_width / 5`.
+
+**Bar height:** 6-8px for large canvases (1200px+), 4-5px for smaller diagrams (800px).
+
+**Optional bottom bar:** Same 5 colors at 20% opacity. Creates a subtle frame.
+
+**When to use:** LinkedIn banner, GitHub repo diagrams, Excalidraw SVG outputs, personal presentations, portfolio visuals, skill system architecture diagrams.
+
+### Professional Deliverables — Polished Gradient Border
+
+For client-facing, enterprise, or professional outputs (Honeywell deliverables, interview presentations, formal reports), use a **refined single-gradient border** that looks polished without the casual rainbow energy.
+
+**Gradient options (pick one per deliverable):**
+
+*Warm professional:*
+```xml
+<linearGradient id="border" x1="0%" x2="100%">
+  <stop offset="0%" stop-color="#6366F1" stop-opacity="0.8"/>
+  <stop offset="50%" stop-color="#8B5CF6" stop-opacity="0.6"/>
+  <stop offset="100%" stop-color="#A78BFA" stop-opacity="0.4"/>
+</linearGradient>
+```
+
+*Cool executive:*
+```xml
+<linearGradient id="border" x1="0%" x2="100%">
+  <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.7"/>
+  <stop offset="50%" stop-color="#6366F1" stop-opacity="0.5"/>
+  <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.3"/>
+</linearGradient>
+```
+
+*Neutral authority:*
+```xml
+<linearGradient id="border" x1="0%" x2="100%">
+  <stop offset="0%" stop-color="#64748B" stop-opacity="0.6"/>
+  <stop offset="100%" stop-color="#94A3B8" stop-opacity="0.3"/>
+</linearGradient>
+```
+
+**Key difference:** Professional borders use opacity fade (solid → transparent) for sophistication. Rainbow bars use solid color segments for energy.
+
+**When to use:** Enterprise presentations, client deliverables, formal architecture docs, interview prep materials.
+
+---
+
+## LinkedIn Cover Image — Production Template
+
+### Dimensions & Safe Zones (verified April 2026)
+
+| Property | Value |
+|----------|-------|
+| Canvas | 1584 × 396 px (4:1 ratio) |
+| Profile photo overlap | 568 × 264 px bottom-left |
+| Safe zone (all devices) | x=300–1300, y=20–300 |
+| File format | JPEG or PNG, max 8 MB |
+| Recommended | JPEG at quality 95, under 200 KB |
+
+### Layout Rules
+
+- **Content center:** x ≈ 800–810 (right of geometric center to clear profile photo zone)
+- **Hero text:** 60–76px, weight 700–800, maximum 3–5 words for mobile readability
+- **Subtitle:** 20–24px, weight 500–600, muted gray (#6B7280 or similar)
+- **Top bar:** Rainbow 5-segment bar, 8px tall (personal signature)
+- **Bottom bar:** Same rainbow at 20% opacity (optional frame)
+- **Bottom half empty:** Profile photo, name, headline overlay the bottom-left — keep critical content in the upper 60% of the canvas
+
+### Rendering Pipeline (macOS with Pillow)
+
+SVG is the source format for editability, but LinkedIn requires raster images. Render pipeline:
+
+```python
+from PIL import Image, ImageDraw, ImageFont, ImageColor
+
+# Canvas at exact LinkedIn dimensions
+img = Image.new("RGB", (1584, 396), "#FFFFFF")
+draw = ImageDraw.Draw(img)
+
+# Load Inter variable font at bold weight
+font_path = "~/Library/Fonts/Inter-VariableFont_opsz,wght.ttf"
+font_hero = ImageFont.truetype(font_path, 76)
+font_hero.set_variation_by_axes([24, 800])  # opsz=24, wght=800
+
+font_sub = ImageFont.truetype(font_path, 24)
+font_sub.set_variation_by_axes([24, 600])  # opsz=24, wght=600
+
+# Rainbow bar (5 segments)
+colors = ["#8B5CF6", "#14B8A6", "#06B6D4", "#F59E0B", "#EC4899"]
+seg_w = 1584 / 5
+for i, c in enumerate(colors):
+    draw.rectangle([int(i * seg_w), 0, int((i+1) * seg_w), 8], fill=c)
+
+# Save as JPEG
+img.save("linkedin-cover.jpg", "JPEG", quality=95)
+```
+
+### Current Design (Ravi's Banner — April 2026)
+
+- White background (#FFFFFF)
+- 5-segment rainbow bar top
+- "Think > Judge > Ship" at 76px Inter weight-800, black (#1B1B1F)
+- Colored underlines per word: purple, teal, amber (matching rainbow palette)
+- Loop arrows: forward chevrons between words, curved return arc Ship → Think
+- "AI PRODUCT MANAGER" at 24px weight-600, #6B7280
+- Faded rainbow bar bottom
+- All content within safe zone, centered at x≈810
+
+### Update Workflow
+
+When Ravi wants to change the LinkedIn banner:
+1. Edit the Python render script (or SVG source in `diagrams/linkedin-cover.svg`)
+2. Run the render pipeline to produce JPEG at 1584×396
+3. Copy JPEG to `~/Desktop/Claude/linkedin-cover.jpg`
+4. Upload directly to LinkedIn (Settings → Edit profile → Camera icon on banner)
+
+---
+
+*rtp-ux-design-agent v1.1 | April 11, 2026 | 59 reference systems · 6 meta-skills · Albers + Rams + Tufte as embedded thinking · LinkedIn template · Visual signature system*

@@ -1,71 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1584 396" width="1584" height="396" role="img" aria-label="Think. Judge. Ship. AI Product Manager.">
   <title>Think · Judge · Ship</title>
-  <defs>
-    <linearGradient id="bar" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#9478B8"/>
-      <stop offset="50%" stop-color="#5B92B8"/>
-      <stop offset="100%" stop-color="#6BA08A"/>
-    </linearGradient>
-  </defs>
 
-  <!-- Background: warm off-white -->
-  <rect width="1584" height="396" fill="#FAFAF8"/>
+  <!-- Background: clean white -->
+  <rect width="1584" height="396" fill="#FFFFFF"/>
 
-  <!-- Top gradient accent bar -->
-  <rect x="0" y="0" width="1584" height="4" fill="url(#bar)"/>
+  <!-- ═══ TOP RAINBOW BAR — 5 segments ═══ -->
+  <rect x="0" y="0" width="317" height="6" fill="#8B5CF6"/>
+  <rect x="317" y="0" width="317" height="6" fill="#14B8A6"/>
+  <rect x="634" y="0" width="316" height="6" fill="#06B6D4"/>
+  <rect x="950" y="0" width="317" height="6" fill="#F59E0B"/>
+  <rect x="1267" y="0" width="317" height="6" fill="#EC4899"/>
 
-  <!-- Particle field — subtle network dots flowing left to right -->
-  <!-- Purple zone -->
-  <circle cx="560" cy="120" r="2.5" fill="#9478B8" opacity="0.12"/>
-  <circle cx="610" cy="230" r="2" fill="#9478B8" opacity="0.08"/>
-  <circle cx="750" cy="110" r="2" fill="#9478B8" opacity="0.10"/>
-  <circle cx="580" cy="280" r="1.5" fill="#9478B8" opacity="0.06"/>
-  <circle cx="720" cy="250" r="1.5" fill="#9478B8" opacity="0.07"/>
-  <!-- Purple→Blue transition -->
-  <circle cx="790" cy="130" r="1.5" fill="#7B88B0" opacity="0.09"/>
-  <circle cx="810" cy="230" r="2" fill="#7B88B0" opacity="0.06"/>
-  <!-- Blue zone -->
-  <circle cx="840" cy="100" r="2" fill="#5B92B8" opacity="0.10"/>
-  <circle cx="960" cy="240" r="2.5" fill="#5B92B8" opacity="0.08"/>
-  <circle cx="870" cy="270" r="1.5" fill="#5B92B8" opacity="0.07"/>
-  <circle cx="940" cy="105" r="1.5" fill="#5B92B8" opacity="0.10"/>
-  <!-- Blue→Green transition -->
-  <circle cx="1010" cy="140" r="1.5" fill="#5F9DA0" opacity="0.08"/>
-  <circle cx="1030" cy="250" r="2" fill="#5F9DA0" opacity="0.06"/>
-  <!-- Green zone -->
-  <circle cx="1070" cy="110" r="2" fill="#6BA08A" opacity="0.10"/>
-  <circle cx="1190" cy="240" r="2.5" fill="#6BA08A" opacity="0.08"/>
-  <circle cx="1140" cy="280" r="1.5" fill="#6BA08A" opacity="0.06"/>
-  <circle cx="1210" cy="115" r="1.5" fill="#6BA08A" opacity="0.09"/>
+  <!-- ═══ THREE WORDS: bold black, centered in safe zone ═══ -->
 
-  <!-- Thin connecting lines between some particles (network graph aesthetic) -->
-  <line x1="560" y1="120" x2="750" y2="110" stroke="#9478B8" stroke-width="0.5" opacity="0.06"/>
-  <line x1="750" y1="110" x2="790" y2="130" stroke="#7B88B0" stroke-width="0.5" opacity="0.05"/>
-  <line x1="840" y1="100" x2="940" y2="105" stroke="#5B92B8" stroke-width="0.5" opacity="0.06"/>
-  <line x1="940" y1="105" x2="1010" y2="140" stroke="#5F9DA0" stroke-width="0.5" opacity="0.05"/>
-  <line x1="1070" y1="110" x2="1210" y2="115" stroke="#6BA08A" stroke-width="0.5" opacity="0.06"/>
-  <line x1="610" y1="230" x2="720" y2="250" stroke="#9478B8" stroke-width="0.5" opacity="0.04"/>
-  <line x1="960" y1="240" x2="1030" y2="250" stroke="#5B92B8" stroke-width="0.5" opacity="0.04"/>
+  <!-- "Think" with small purple accent circle -->
+  <circle cx="555" cy="128" r="6" fill="#8B5CF6"/>
+  <text x="600" y="170" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="62" font-weight="800" fill="#1B1B1F">Think</text>
+  <rect x="540" y="184" width="120" height="5" rx="2.5" fill="#8B5CF6" opacity="0.35"/>
 
-  <!-- Soft color halos behind each word -->
-  <circle cx="680" cy="165" r="105" fill="#9478B8" opacity="0.04"/>
-  <circle cx="900" cy="165" r="105" fill="#5B92B8" opacity="0.04"/>
-  <circle cx="1120" cy="165" r="105" fill="#6BA08A" opacity="0.04"/>
+  <!-- Separator dot -->
+  <circle cx="710" cy="155" r="4" fill="#D1D5DB"/>
 
-  <!-- ═══ Think · Judge · Ship ═══ -->
+  <!-- "Judge" with small teal accent circle -->
+  <circle cx="755" cy="128" r="6" fill="#14B8A6"/>
+  <text x="800" y="170" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="62" font-weight="800" fill="#1B1B1F">Judge</text>
+  <rect x="737" y="184" width="126" height="5" rx="2.5" fill="#14B8A6" opacity="0.35"/>
 
-  <text x="680" y="182" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#9478B8" letter-spacing="-1">Think</text>
-  <rect x="618" y="196" width="124" height="5" rx="2.5" fill="#9478B8" opacity="0.40"/>
+  <!-- Separator dot -->
+  <circle cx="913" cy="155" r="4" fill="#D1D5DB"/>
 
-  <text x="900" y="182" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#5B92B8" letter-spacing="-1">Judge</text>
-  <rect x="838" y="196" width="124" height="5" rx="2.5" fill="#5B92B8" opacity="0.40"/>
+  <!-- "Ship" with small amber accent circle -->
+  <circle cx="953" cy="128" r="6" fill="#F59E0B"/>
+  <text x="993" y="170" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="62" font-weight="800" fill="#1B1B1F">Ship</text>
+  <rect x="938" y="184" width="110" height="5" rx="2.5" fill="#F59E0B" opacity="0.35"/>
 
-  <text x="1120" y="182" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#6BA08A" letter-spacing="-1">Ship</text>
-  <rect x="1062" y="196" width="116" height="5" rx="2.5" fill="#6BA08A" opacity="0.40"/>
+  <!-- ═══ SUBTITLE ═══ -->
+  <text x="800" y="232" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="18" font-weight="500" fill="#6B7280" letter-spacing="4">AI PRODUCT MANAGER</text>
 
-  <!-- Subtitle -->
-  <text x="900" y="248" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="500" fill="#5F6B7A" letter-spacing="5">AI PRODUCT MANAGER</text>
-
-  <!-- Bottom gradient bar -->
-  <rect x="0" y="392" width="1584" height="4" fill="url(#bar)" opacity="0.20"/>
+  <!-- ═══ BOTTOM RAINBOW BAR — subtle mirror ═══ -->
+  <rect x="0" y="390" width="317" height="6" fill="#8B5CF6" opacity="0.20"/>
+  <rect x="317" y="390" width="317" height="6" fill="#14B8A6" opacity="0.20"/>
+  <rect x="634" y="390" width="316" height="6" fill="#06B6D4" opacity="0.20"/>
+  <rect x="950" y="390" width="317" height="6" fill="#F59E0B" opacity="0.20"/>
+  <rect x="1267" y="390" width="317" height="6" fill="#EC4899" opacity="0.20"/>
 </svg>
