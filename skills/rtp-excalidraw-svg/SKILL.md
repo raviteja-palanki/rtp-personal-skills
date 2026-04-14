@@ -1,15 +1,16 @@
 ---
 name: excalidraw-svg
-version: 1.2.0
+version: 1.3.0
 description: "Excalidraw SVG diagrams: pastel, readable text, storytelling. Diagrams, flowcharts, architecture, infographics, flows, maps. Use when: visual explanation or output enhancer for PRD/spec/analysis. Triggers: 'diagram', 'flowchart', 'visual', 'architecture'"
 ---
 
-# Excalidraw SVG — Visual Storytelling System v1.2
+# Excalidraw SVG — Visual Storytelling System v1.3
 
 Production-tested design system for creating beautiful, readable SVG diagrams
 with Excalidraw-inspired aesthetics, embedded copywriting, and visual narrative structure.
 
-> **v1.2 restructure:** Core workflow + single quality gate in this file.
+> **v1.3 update:** Added GitHub rendering rules to main file (not buried in references).
+> Fixed boilerplate flood-color bug. Added text-first sizing discipline.
 > Reference material (colors, patterns, GitHub rendering, libraries) in `references/`.
 
 ---
@@ -128,7 +129,7 @@ Every SVG starts with this exact structure:
   <desc>{2-3 sentence description}</desc>
   <defs>
     <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
-      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00000018"/>
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.09"/>
     </filter>
   </defs>
 
@@ -243,6 +244,19 @@ Full code examples for each: [references/diagram-types.md](references/diagram-ty
 ## STEP 5: LAYOUT & SPACING
 
 **Plan the coordinate grid before writing a single `<rect>`.** This prevents overlapping elements.
+
+### Text-First Sizing (The #1 Failure Mode)
+
+**Write ALL text content FIRST. Then size containers to fit.** Not the other way around.
+
+The most common SVG failure is fixed-width containers with text that overflows and clips. This is invisible in code but obvious when rendered. Prevent it:
+
+1. Write out every label, title, and description line you plan to use
+2. Calculate width: `characters × 7` at 13px font, `characters × 6` at 11px font
+3. Set container width to `max(160, calculated_text_width + 40px_padding)`
+4. If the text is too long for a reasonable container: **shorten the text**, don't shrink the font
+
+Example: "The real problem isn't insights — it's alert fatigue." = 52 chars × 7px = 364px. Card must be at least 404px wide (364 + 40 padding).
 
 ### Sizing Rules
 
@@ -367,7 +381,53 @@ Before writing SVG:
 
 ---
 
-## STEP 8: ITERATE
+## STEP 8: GITHUB RENDERING (Non-Negotiable)
+
+**These rules are not optional. GitHub's SVG sanitizer will silently break your diagram if you violate any of them. Every SVG must pass ALL of these before committing.**
+
+### The Zero-Tolerance List
+
+| Rule | Wrong | Right | Why it breaks |
+|------|-------|-------|---------------|
+| No `<style>` blocks | `<style>.card { fill: #FFF }</style>` | `fill="#FFFFFF"` on every element | GitHub strips `<style>` tags entirely |
+| No CSS classes | `class="card-header"` | Inline `fill`, `font-size`, etc. | Classes reference stripped styles |
+| No 8-char hex | `flood-color="#00000018"` | `flood-color="#000000" flood-opacity="0.09"` | 8-char hex is invalid SVG |
+| No `@import` | `@import url('fonts.googleapis.com')` | `font-family="Inter, Segoe UI, sans-serif"` | CSP blocks external fonts |
+| No `xmlns:xlink` | `xmlns:xlink="http://www.w3.org/1999/xlink"` | Remove entirely | Can cause parser failures |
+| No `rgba()` | `fill="rgba(255,255,255,0.9)"` | `fill="#FFFFFF" fill-opacity="0.9"` | Not valid SVG attribute value |
+| No CSS `style=` hacks | `style="border-radius: 12px"` | `rx="12"` | SVG uses `rx`/`ry`, not CSS |
+| No emoji | `<text>🚀 Ship</text>` | `<text>Ship</text>` | Emoji rendering fails in `<text>` |
+| Require `width`/`height` | `<svg viewBox="0 0 1200 900">` | `<svg viewBox="0 0 1200 900" width="1200" height="900">` | SVG renders as 0x0 without them |
+| Use `<polygon>` arrows | `marker-end="url(#arrow)"` | `<polygon points="..." fill="..."/>` | `<marker>` renders inconsistently |
+
+### The Pre-Push Checklist (Run This Literally)
+
+```bash
+# Check for EVERY banned pattern in your SVG file:
+grep -n '<style' file.svg          # Must return nothing
+grep -n 'class="' file.svg         # Must return nothing
+grep -n '@import' file.svg         # Must return nothing
+grep -n 'xmlns:xlink' file.svg    # Must return nothing
+grep -n 'rgba(' file.svg          # Must return nothing
+grep -rn 'flood-color="#[0-9a-fA-F]\{8\}"' file.svg  # Must return nothing (8-char hex)
+```
+
+If any of these return results, the SVG WILL break on GitHub. Fix before committing.
+
+### Flood-Color Reference
+
+Common shadow opacities and their split equivalents:
+
+| Intent | Wrong | Right |
+|--------|-------|-------|
+| Very subtle shadow | `flood-color="#00000010"` | `flood-color="#000000" flood-opacity="0.06"` |
+| Light shadow | `flood-color="#00000018"` | `flood-color="#000000" flood-opacity="0.09"` |
+| Medium shadow | `flood-color="#00000020"` | `flood-color="#000000" flood-opacity="0.12"` |
+| Colored glow | `flood-color="#9478B830"` | `flood-color="#9478B8" flood-opacity="0.19"` |
+
+---
+
+## STEP 9: ITERATE
 
 Complex diagrams rarely come out perfect. Use this loop:
 
@@ -421,4 +481,4 @@ Use on standalone showcase pieces, hero images, and externally-shared diagrams. 
 
 ---
 
-*Excalidraw SVG v1.2.0 | Restructured 9 APR 2026 | Ravi Teja Palanki*
+*Excalidraw SVG v1.3.0 | Updated 10 APR 2026 | Ravi Teja Palanki*

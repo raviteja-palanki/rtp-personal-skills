@@ -1,5 +1,5 @@
 ---
-name: rtp-tool-architecture
+name: tool-architecture
 description: "Design tool access and permission boundaries to control consequence magnitude. Use when: selecting agent tools, read vs write access, sandboxing, audit infrastructure. Do NOT use: runtime enforcement (use determinism-compass), post-incident forensics (use stress-test)."
 imports:
   - determinism-compass
@@ -21,6 +21,12 @@ Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 3. Identify output format: Document, presentation, spreadsheet, or inline?
 
 Then proceed with the skill-specific analysis below.
+
+## WHERE TOOLS SIT (The T in MHTE)
+
+In Anthropic's four-layer model (Agent = Model + Harness + Tools + Environment), tools are the **actionable surface** — the discrete, invokable functions or services the agent is allowed to call. They define *what* the agent can affect. The harness decides *when and how* tools are invoked. The environment defines *where* they execute and what persists.
+
+Tools follow least-privilege scoping because overly broad tools shift risk downstream — a tool that can "run any shell command" effectively bypasses every harness guardrail. Single-purpose tool design (one tool per action, never a general-purpose shell) is now standard practice in production harnesses. Tools are invoked *by* the harness; their results feed back into the model *via* the harness. This separation is what makes tool governance possible.
 
 ## THE TRAP
 

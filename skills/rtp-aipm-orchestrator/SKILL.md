@@ -277,7 +277,7 @@ The orchestrator doesn't invoke skills mechanically. It deploys them as **expert
 
 ### The Crafter (Output Skills)
 **Role:** Produce the documents that ship the product.
-**Skills:** ai-prd, context-spec, agent-spec, cost-model, ship-decision, prompt-as-product
+**Skills:** ai-prd, context-spec, agent-spec, cost-model, ship-decision, prompt-as-product, prompt-craft
 **When activated:** When analysis is complete and needs to become a deliverable.
 **What it contributes:** Pre-tested documents. The PRD arrives already pressure-tested by the Sense-Maker, Strategist, System Architect, Safety Expert, and Evals Expert.
 

@@ -753,6 +753,44 @@ Every email should honor the recipient's time. Don't waste their attention. Earn
 
 ---
 
+# PART 6: STATUS UPDATES — A DISTINCT GENRE
+
+Status updates are not emails in the personal/outreach sense. They're structured artifacts that serve a different function: making stakeholders feel informed and confident without requiring a meeting.
+
+## Audience Calibration
+
+The same status update should never go to two different audiences unmodified:
+
+| Audience | Focus On | Leave Out |
+|----------|----------|-----------|
+| **CEO / C-suite** | Outcomes, metrics, strategic implications | Implementation details, technical decisions |
+| **VP / Director** | Progress against milestones, risks, resource needs | Code-level details, day-to-day tasks |
+| **Cross-functional peers** | Dependencies, timelines, what they need to act on | Internal team dynamics, technical debt |
+| **Engineering lead** | Technical blockers, architecture decisions, velocity | Business context they already know |
+| **Skip-level manager** | Your team's impact, wins, growth moments | Minutiae your direct manager handles |
+| **Board** | Metrics, trajectory, market context | Everything operational |
+
+## Cadence Adaptation
+
+**Daily standup / async daily** — 3 lines max. What shipped. What's happening today. Blockers. Plain text, fits in a Slack message.
+
+**Weekly update (default)** — Under 200 words. Structure: TL;DR (2 sentences), Status (On Track / At Risk / Blocked), Progress (what shipped, not what was "worked on"), Next Week, Risks & Blockers (each with mitigation), Decisions Needed (with recommendation).
+
+**Monthly** — 300-500 words. Same structure, zoom out to monthly goals. Add "Month in Review" (3-5 accomplishments) and metric trends, not snapshots.
+
+**Quarterly Business Review** — 500-800 words. Lead with OKR scorecard (target vs actual, red/yellow/green). Add "Key Decisions Made" and "Lessons Learned" sections. Use tables.
+
+## The Rules
+
+- **Bad news goes above the fold.** If the launch date slipped, that IS the TL;DR, not a footnote buried in paragraph four. Stakeholders handle bad news. They cannot handle surprises.
+- **Activity is not progress.** "Had 6 meetings about the migration" is activity. "Migrated 40% of users with 0.3% error rate" is progress. Report outcomes, not effort.
+- **Every risk gets a mitigation plan.** An unmitigated risk is just anxiety on paper.
+- **Every decision request includes a recommendation.** "I recommend Option A because X. Need sign-off from Y by Z." Never make the reader do the analysis.
+- **No weasel words.** "Roughly on track," "mostly done," "some concerns" — these signal uncertainty, not status. Be precise. If unknown, say "investigating, will update by [date]."
+- **Use `[NEED: data from X]` for gaps.** Never fabricate progress to fill a section. If behind, say so with a plan.
+
+---
+
 # CLOSING
 
 ```

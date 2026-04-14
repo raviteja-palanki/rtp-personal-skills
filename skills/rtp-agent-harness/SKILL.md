@@ -1,5 +1,5 @@
 ---
-name: rtp-agent-harness
+name: agent-harness
 description: "Harness architecture: Planner/Generator/Evaluator, eval separation, sprint contracts, context, communication. Use when: multi-agent pipelines, harness decision, costing. Triggers: 'agent harness', 'planner generator evaluator', 'orchestrate agents'"
 imports: [agent-ecosystem, eval-framework, stress-test]
 ---
@@ -18,6 +18,16 @@ Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 3. Identify output format: Document, presentation, spreadsheet, or inline?
 
 Then proceed with the skill-specific analysis below.
+
+## THE FOUR-LAYER MODEL (Where the Harness Lives)
+
+Anthropic's March 2026 NIST RFI and April 2026 policy research established the canonical framing: **Agent = Model + Harness + Tools + Environment**. The model supplies intelligence. The harness supplies orchestration, continuity, guardrails, and self-correction. Tools supply the actionable surface. The environment supplies the hard runtime boundaries.
+
+These layers are distinct because failures cascade across them in ways that model-centric thinking misses. A well-trained model can still be exploited through a poorly configured harness, an overly permissive tool, or an exposed environment. The harness is the *control plane* — it doesn't replace the model's intelligence, expose raw tools, or own the sandbox. It coordinates all three.
+
+**Why this matters for your harness decision:** When an agent fails, diagnose by layer. Most production failures are harness failures (poor session continuity, missing guardrails, no evaluation loop) — not model failures. Upgrading the model when the harness is broken is the most expensive mistake in enterprise AI.
+
+**The nested disciplines:** Prompt engineering (single-turn) → Context engineering (multi-turn, single agent) → Harness engineering (multi-agent, multi-session) → Environment engineering (runtime boundaries, persistence). Each layer contains the previous ones. Context engineering lives *inside* the harness — the harness decides when and how context is managed. Understanding this progression prevents the common mistake of treating them as separate concerns.
 
 ## THE TRAP
 
@@ -42,7 +52,23 @@ The most dangerous assumption in harness design is that the evaluator agent is t
 - Cost per query must stay under $0.10
 - You can't staff ongoing harness maintenance
 
-### 2. Three-Agent Architecture (Anthropic Pattern)
+### 2. The Initializer Pattern (Before the First Sprint)
+
+Before ANY agent begins work, a mature harness runs an **initializer step** — an agent (or the same model wearing the "senior architect" hat) that reads the current state and creates clean starting conditions. This is the single highest-leverage harness pattern, responsible for taking Anthropic's long-running agents from ~45% to 92%+ success rates.
+
+**What the initializer does:**
+1. Reads the current state (files, git history, last progress note)
+2. Creates or updates a requirements/feature list with every remaining task and success criteria
+3. Writes a progress artifact (`claude-progress.txt` or equivalent) documenting exactly where work left off
+4. Commits a clean git snapshot as a rollback point
+
+**Why this matters:** Without an initializer, every new session starts from scratch — the agent has no memory of yesterday. With an initializer, the same model, same tools, same sandbox suddenly achieves 2x+ success rates because it starts with perfect context about what's been done and what's left.
+
+**The cost is negligible:** A few hundred extra tokens at session start. The savings from eliminated rework dwarf this. For enterprise workflows spanning multiple sessions (overnight reconciliation, multi-day compliance audits), the initializer is non-negotiable.
+
+**Spec it in every RFP:** "How does your agent handle session continuity? Show me your initializer pattern and progress artifact strategy."
+
+### 3. Three-Agent Architecture (Anthropic Pattern)
 
 | Agent | Role | Context | Output |
 |-------|------|---------|--------|
@@ -66,7 +92,30 @@ Sprint Contract:
 
 **Why contracts matter:** Without pre-negotiated criteria, the evaluator invents criteria post-hoc, the generator never converges, and you burn 15 eval rounds at $0.80/round.
 
-### 4. Context Management for Harnesses
+### 5. Deterministic Lifecycle Hooks
+
+Lifecycle hooks are fixed-order checklists that always execute at specific moments — like an airplane pilot's pre-takeoff and post-landing procedures. The harness hard-codes these regardless of what the model decides to do.
+
+**Session-start hooks (always run first):**
+- Load persistent rules (CLAUDE.md, policy files)
+- Read progress artifact from last session
+- Run quick self-check for missing data or stale state
+- Verify tool access and permissions
+
+**Session-end hooks (always run last):**
+- Write final progress summary
+- Commit clean git snapshot
+- Run lightweight validation (did we complete what we planned?)
+- Archive logs and export to observability
+
+**Sprint-boundary hooks (between PGE cycles):**
+- Reset context (Anthropic finding: resets > compaction)
+- Load only the spec + current sprint state
+- Verify sprint contract criteria are still valid
+
+**Why hooks matter for governance:** They cost almost zero extra tokens but create perfect consistency. Policy updates propagate instantly. Audit logs are always clean. The model never has to "remember" to do these things — the harness enforces them automatically. Compliance teams love hooks because they're deterministic in a probabilistic system.
+
+### 6. Context Management for Harnesses
 
 **The Pre-Rot Threshold:** Models degrade at 50-60% of max context, not 100%. Plan your context budget accordingly.
 
@@ -129,6 +178,18 @@ Your harness must survive model upgrades. Design for it:
 - **Agent role abstraction** so you can swap models per role (cheaper model for planning, frontier for generation)
 - **The harness IS the moat** — when the model improves, your harness extracts more value. Competitors with raw API calls get the same model but without the orchestration.
 
+### The Self-Dissolving Harness (Model-Harness Training Loop)
+
+The deepest insight from April 2026 practitioner discourse: **what the harness does today gets trained into the model tomorrow**. As models internalize capabilities that the harness currently scaffolds (better memory, longer context, self-correction), some harness components become unnecessary. A well-designed harness generates traces that feed model fine-tuning, which makes the harness simpler, which generates better traces — a compounding loop.
+
+**What this means for design:**
+- Build harnesses that can be SIMPLIFIED, not just extended. Design each component as removable.
+- Treat observability as a data flywheel: every harness trace is potential training data for model improvement.
+- Expect 15-30% of harness scaffolding to become unnecessary within 12 months as models improve.
+- The winning strategy is not a static harness but a *meta-harness* — a decoupled design that evolves as models internalize capabilities. Anthropic's Managed Agents is exactly this: a harness that can improve underneath you without breaking your interfaces.
+
+**The paradox for PMs:** You're investing in infrastructure designed to become unnecessary. That's not a bug — it's the feature. The harness's value is precisely that it's temporary: it solves today's reliability gap while feeding the improvement loop that closes the gap permanently. Organizations that skip the harness waiting for "smarter models" never collect the traces that make models smarter for THEIR use cases.
+
 ## DIAGNOSTIC QUESTIONS
 
 1. **"Does this task genuinely need multiple agents, or am I adding complexity for its own sake?"** (If a single agent with better prompting could get to 80%, start there.)
@@ -138,6 +199,9 @@ Your harness must survive model upgrades. Design for it:
 5. **"How do I handle context across agent boundaries?"** (File-based > shared memory > context passing. Document the handoff contract.)
 6. **"What happens when one agent in the chain fails?"** (Circuit breaker? Fallback? Human escalation? Document it.)
 7. **"Is my harness model-agnostic?"** (Can I swap the generator model without rebuilding the pipeline? If not, you've coupled to a vendor.)
+8. **"What's my context durability rate?"** (% of tasks completing successfully after 50+ tool calls without human restart. Target: >85%. This is your leading indicator of harness health — more predictive than one-shot accuracy.)
+9. **"Do I have an initializer pattern?"** (If sessions start cold without reading prior progress artifacts, your multi-session success rate will be <50%. The initializer is the highest-ROI harness addition.)
+10. **"Should I build, buy, or hybrid?"** (Managed harnesses like Anthropic Managed Agents handle orchestration + sandbox + recovery. Your outer layer adds domain-specific governance. Hybrid is the Fortune 100 default for 70-80% of use cases.)
 
 ## OUTPUT FORMAT
 

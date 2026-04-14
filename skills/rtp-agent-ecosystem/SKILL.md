@@ -1,5 +1,5 @@
 ---
-name: rtp-agent-ecosystem
+name: agent-ecosystem
 description: "Orchestration, state management, handoff for multi-agent systems. Patterns: CodeAct, Magentic, SLM-micro, computer-using, A2A, harness. Use when: architecting multi-agent systems, choosing protocols. Triggers: 'multi-agent', 'agent protocol', 'orchestration'"
 imports:
   - determinism-compass
@@ -119,6 +119,38 @@ OpenAI's Codex approach emphasizes ephemeral environments with logs, metrics, tr
 - [ ] Local observability (logs, metrics, traces you can inspect post-mortem)
 - [ ] Graceful degradation (if Agent A fails, system doesn't cascade)
 - [ ] Simple orchestration (one coordinator, not peer-to-peer)
+
+**Layer 5.25: Managed vs. Self-Built vs. Hybrid Harnesses**
+
+The infrastructure decision that most enterprises face in 2026: who runs the harness?
+
+**Managed Harness** (Anthropic Managed Agents, launched April 2026): Vendor provides production-grade orchestration + sandboxed environment + observability. You define tasks, tools, and guardrails. $0.08/active session-hour + standard token costs. Pre-optimized with prompt caching — often 20-40% better effective token efficiency than average self-built. Solves the "harness goes stale" problem because vendor evolves the orchestration layer underneath stable interfaces.
+
+**Self-Built Harness** (LangGraph, custom SDKs, enterprise VPC): Maximum control over orchestration, guardrails, and data residency. Higher upfront cost (4-20 engineer-weeks for first production version, 10-20% quarterly maintenance). Justified when: annual session fees would exceed $1M+, data sovereignty is a hard blocker, or proprietary IP in the orchestration itself is a competitive advantage.
+
+**Hybrid** (the Fortune 100 default for 70-80% of use cases): Use vendor-managed harness as the "inner harness" for core orchestration (session continuity, sandboxing, error recovery). Build your own "outer harness" for company-specific governance (approval flows, risk classification, SIEM export, domain-specific evaluators). This is the "buy the platform, build the moat" pattern.
+
+| Factor | Managed | Self-Built | Hybrid |
+|--------|---------|------------|--------|
+| Time-to-production | 2-6 weeks | 3-6 months | 3-8 weeks |
+| Control | Good | Maximum | High |
+| Governance | Strong built-in | You own 100% | Best of both |
+| Scaling | Automatic | You manage | Automatic core |
+| Risk of obsolescence | Low (vendor evolves) | High (harnesses stale) | Low |
+
+**Decision heuristic:** Start every pilot on Managed. Layer outer harness for governance. Transition to self-built only when volume, sovereignty, or IP justify the engineering investment. Re-evaluate every 6 months using TCO modeling.
+
+**Context Durability as Your Leading KPI**
+
+Context durability — the % of tasks completing successfully after 50+ tool calls without human restart — is the single most predictive metric for harness health. One-shot accuracy benchmarks (SWE-Bench, etc.) don't measure this. A model might ace a benchmark in 2 tries, then fail to follow its own instructions after running for an hour.
+
+**Target thresholds:**
+- Baseline (no harness): ~45% for multi-session tasks
+- Basic harness (initializer + simple loop): 75-85%
+- Mature harness (PGE + lifecycle hooks + progress artifacts): 88-94%
+- World-class (self-optimizing harness with trace-fed improvement): >95%
+
+**Track weekly alongside:** Human intervention rate (<20% target), average session completion time (40% reduction target), and cost per successful task (should trend down as self-dissolving effect kicks in after 6-9 months).
 
 **Layer 5.5: Anthropic Harness Engineering Patterns**
 
