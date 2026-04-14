@@ -1,18 +1,32 @@
 ---
 name: learn-site-design
-version: 1.0
-description: Codified design language for learn.ravitejapalanki.com — the full design system for dark cinematic landing pages, editorial article pages, and interactive topic hubs. A sub-skill of the UX Design agent.
+version: 2.0
+description: Codified design language for ravitejapalanki.com — the full design system for the personal homepage, dark cinematic landing pages, editorial article pages, and interactive topic hubs. Covers the homepage (gateway), profile page, and writing section. A sub-skill of the UX Design agent.
 author: Ravi Teja Palanki
 created: 12 April 2026
+updated: 15 April 2026
 format: skill-definition
 status: active
 ---
 
-# Learn Website Design Language
+# Ravi's Personal Website Design Language
 
-The complete design system for learn.ravitejapalanki.com. This skill encodes every visual decision, every animation technique, every typographic rule, and every interaction pattern — learned from building and iterating the "AI Production Chasm" landing page and "Benchmarks vs. Evals" article page.
+The complete design system for ravitejapalanki.com — all three sections: homepage (the gateway), profile (digital resume), and writing hub (working notes). This skill encodes every visual decision, every animation technique, every typographic rule, and every interaction pattern — learned from building the "AI Production Chasm" landing page, the personal homepage, and the "Benchmarks vs. Evals" article page.
 
-**When to activate:** Any time the task involves building, extending, or modifying pages for learn.ravitejapalanki.com, or when Ravi asks for "the learn site style" on any other project. This skill is the UX Design agent's sub-specialist for Ravi's personal knowledge site.
+**When to activate:** Any time the task involves building, extending, or modifying pages for ravitejapalanki.com, or when Ravi asks for "the site style" on any project. This skill is the UX Design agent's sub-specialist for Ravi's personal website ecosystem.
+
+**Site architecture:**
+```
+ravitejapalanki.com/                          → Homepage (the gateway)
+ravitejapalanki.com/profile                   → Digital resume
+ravitejapalanki.com/writing                   → Writing hub landing
+ravitejapalanki.com/writing/evals             → AI Evals series hub
+ravitejapalanki.com/writing/evals/:slug       → Individual eval article
+ravitejapalanki.com/writing/agentic-stack     → Agentic Stack series hub
+ravitejapalanki.com/writing/agentic-stack/:slug → Individual agentic article
+```
+
+**Canonical reference HTML:** `1_Projects/my-personal-website/prototype/homepage-final.html`
 
 ---
 
@@ -168,7 +182,9 @@ Each layer has:
 Core beam: 3px vertical gradient through the stack, cyan glow.
 "AI" text: Inter 900, 80px, white with cyan triple text-shadow.
 
-**Mouse parallax (desktop only):** Adjusts rotateX/Z by ±5° based on cursor position within container. Spring-eases back to base on mouse leave.
+**Mouse parallax (desktop only):** Adjusts rotateX/Z by ±0.15° per pixel from center. `transition: none` during move, spring-ease 1.5s on mouseleave.
+
+**Homepage variant:** Layers are STRATEGY (cyan), PRODUCT (purple), ENGINEERING (amber), DELIVERY (red). Center text: "AI PM" (65px). Same visual treatment, different content.
 
 ### 4c. Sticky Card Stack
 
@@ -181,9 +197,15 @@ Card 3 (Tools):       top: 220px, amber border
 Card 4 (Environment): top: 280px, cyan border
 ```
 
-Each card: 75vh height, 24px radius, `box-shadow: 0 -40px 80px rgba(3,4,7,0.95)` (creates the stacking depth). Content: Instrument Serif title + Newsreader body.
+Each card: 75vh height, 24px radius, `box-shadow: 0 -40px 80px rgba(3,4,7,0.95)` (creates the stacking depth). `transform-style: preserve-3d` for 3D tilt interaction.
+
+Card titles: Inter 800 (clamp 2.2-3.5rem), NOT Instrument Serif. Body: Newsreader 400.
 
 Folder tab (top-right): JetBrains Mono 800, identity color, with 8px glowing dot.
+
+**3D tilt interaction (desktop only):** On mousemove, card tilts ±2° via `perspective(1000px) rotateX/Y`, scales to `scale3d(1.02, 1.02, 1.02)`. Children `translateZ(30px)` for depth. Spring-ease snap-back on mouseleave.
+
+**Homepage variant:** 3 cards (Engineering/cyan, Design/purple, Business/amber) at offsets 100/160/220px.
 
 ### 4d. Deep Dive Recession Stacking
 
@@ -242,18 +264,89 @@ Each pill gets a series-specific border color at 0.4 opacity and matching tinted
 
 Triggered by IntersectionObserver at 10% threshold, -10% root margin.
 
-### 5b. Hero Title Stagger
+### 5b. palankiReveal (Homepage Name Animation)
 
-Each title line gets a blur reveal with increasing delay (0.1s, 0.2s, 0.3s):
+A distinctive name reveal with blur, scale overshoot, and letter-spacing squeeze:
 
 ```css
-.hero-titles .title-display {
-  opacity: 0;
-  animation: blurReveal 1.2s var(--ease-cinematic) forwards;
+@keyframes palankiReveal {
+  0% { opacity: 0; filter: blur(12px); transform: scale(1.1) translateY(20px); letter-spacing: -0.1em; }
+  100% { opacity: 1; filter: blur(0); transform: scale(1) translateY(0); letter-spacing: -0.03em; }
 }
-.hero-titles .title-display:nth-child(1) { animation-delay: 0.1s; }
-.hero-titles .title-display:nth-child(2) { animation-delay: 0.2s; }
-.hero-titles .title-display:nth-child(3) { animation-delay: 0.3s; }
+```
+
+Combined with a pulsing cyan ghost pseudo-element (`::after` using `data-text` attribute):
+
+```css
+@keyframes pulseCyan {
+  0%, 100% { opacity: 0.2; filter: blur(2px); transform: scale(1); }
+  50% { opacity: 0.8; filter: blur(8px); transform: scale(1.02); }
+}
+.palanki-text::after { content: attr(data-text); animation: pulseCyan 4s ease-in-out infinite 1.5s; }
+```
+
+### 5b2. drawLine Animation
+
+Cyan underline draws from left on "Bridger." text:
+
+```css
+@keyframes drawLine { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+.italic-serif::after { /* 2px cyan line */ animation: drawLine 1s var(--ease-cinematic) 0.8s forwards; }
+```
+
+### 5b3. line-draw Class (Staggered Inline Underlines)
+
+Key words in body text get cyan underlines that reveal on scroll with staggered delays:
+
+```css
+.line-draw::after { /* 2px cyan line, scaleX(0) → scaleX(1) */ }
+.reveal.visible .line-draw:nth-of-type(1)::after { transition-delay: 0.8s; }
+.reveal.visible .line-draw:nth-of-type(2)::after { transition-delay: 1.2s; }
+.reveal.visible .line-draw:nth-of-type(3)::after { transition-delay: 1.6s; }
+```
+
+### 5b4. Dynamic Ambient Glow
+
+The background glow follows mouse position (desktop only):
+
+```javascript
+document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth) * 100;
+  const y = (e.clientY / window.innerHeight) * 100;
+  glowBg.style.background = `radial-gradient(circle at ${x}% ${y}%, ...)`;
+});
+```
+
+### 5b5. Dynamic Nav Tightening
+
+Nav padding and background solidify on scroll past 50px:
+
+```javascript
+if(window.scrollY > 50) { nav.style.padding = '1rem var(--px)'; nav.style.background = 'rgba(3,4,7,0.85)'; }
+```
+
+### 5b6. SVG Ring Counters
+
+Proof point stats use SVG circles with animated stroke-dashoffset + JS counting:
+
+```css
+.svg-stat-ring .progress { stroke-dasharray: 283; stroke-dashoffset: 283; transition: stroke-dashoffset 2s var(--ease-cinematic); }
+.reveal.visible .svg-stat-ring .progress { stroke-dashoffset: 0; }
+```
+
+Colored variants: `.color-cyan`, `.color-purple`, `.color-amber`, `.color-red` with matching `drop-shadow` filters.
+
+JS counter increments from 0 to target over 40 frames at 30ms intervals.
+
+### 5b7. Quote Line-by-Line Reveal
+
+Quote text splits into `.quote-line > span` blocks that slide up from `translateY(100%)`:
+
+```css
+.quote-line span { transform: translateY(100%); opacity: 0; transition: 1s var(--ease-cinematic); }
+.the-why.visible .quote-line span { transform: translateY(0); opacity: 1; }
+.quote-line:nth-child(1) span { transition-delay: 0.1s; }
+.quote-line:nth-child(2) span { transition-delay: 0.2s; color: var(--text-faint); font-style: italic; }
 ```
 
 ### 5c. Cyan Line Scale-Y
@@ -312,9 +405,12 @@ Purple progress bar (3px) with a radial gradient glow head:
 
 ### Navigation
 - Fixed, `backdrop-filter: blur(12px)`, gradient fade from base to transparent
-- Brand: full name "Ravi Teja Palanki" (Inter 800, 1.2rem)
-- Right: "Visit Website ↗" CTA button (pill, white bg, 0.85rem, 700 weight)
+- Dynamic tightening on scroll (padding 1.5rem → 1rem, bg solidifies at 50px)
+- Brand: full name "Ravi Teja Palanki" (Inter 800, 1.2rem, hover opacity 0.7)
+- Right links: "My Profile" (/profile), "My AI Learnings" (/writing) — Inter 600, 0.85rem, with animated underline on hover (scaleX 0→1, transform-origin flips from right to left)
+- CTA button: "Connect With Me ↗" (JetBrains Mono 700, 0.72rem, white bg, dark text, pill, hover translateY -2px + glow shadow)
 - On article pages: `mix-blend-mode: difference` (auto-adapts to dark/white)
+- Mobile (768px): nav links hidden, only brand + CTA visible
 
 ### Eyebrow Label
 - JetBrains Mono 700, 0.75rem, uppercase, 0.15em spacing
@@ -322,10 +418,27 @@ Purple progress bar (3px) with a radial gradient glow head:
 - Format: `01 // THE ARCHITECTURE`
 
 ### CTA Button
-- Pill: 50px radius, Inter 800, 0.95rem, uppercase
+- Pill: 50px radius, Inter 800, 0.95rem, uppercase, `overflow: hidden`
 - White on dark: `background: #FFFFFF; color: #000000`
-- Hover: translateY(-4px), heavy white glow shadow
+- Hover: translateY(-4px), heavy white glow shadow, bg shifts to #F3F4F6
+- SVG arrow icon (24x18, stroke 2.5): `transition: transform 0.4s var(--ease-spring) 0.1s`, hover translateX(6px)
+- Magnetic physics: `.magnetic-btn > .magnetic-content` — button 0.15x, content 0.08x mouse offset, spring snap-back
 - Disabled: frosted glass, white text, 0.3 opacity border
+
+### Credential Badges
+- Frosted glass: `backdrop-filter: blur(10px)`, `background: rgba(255,255,255,0.05)`, `border: 1px solid rgba(255,255,255,0.1)`
+- Unified white text. Colored dots only (6px, box-shadow glow in identity color)
+- Cyan dot: Perplexity Fellow. Purple dot: Honeywell. Amber dot: Lovable.
+- Hover: border brightens to rgba(255,255,255,0.4)
+
+### SVG Stat Ring
+- Container: `clamp(100px, 30vw, 140px)` square, centered
+- SVG: two circles (r=45), `transform: rotate(-90deg)`
+- `.bg`: `stroke: rgba(255,255,255,0.05)`, stroke-width 4
+- `.progress`: `stroke-dasharray: 283; stroke-dashoffset: 283`, transitions to 0 on reveal
+- Color variants: `.color-cyan/purple/amber/red` with matching `drop-shadow` filter (8px, 0.6 opacity)
+- Centered stat value: JetBrains Mono 800, clamp(1.8-2.5rem)
+- JS counter: increments from 0 to target over 40 frames at 30ms
 
 ### Anti-Pattern Cards
 - 4px red left border, surface bg, 12px radius
@@ -364,7 +477,17 @@ At 768px:
 
 ## 8. Page Type Recipes
 
-### Recipe: Landing Page
+### Recipe: Homepage (/)
+1. Dark canvas (noise + dynamic mouse-following glow + base)
+2. Hero: grid 1.2fr/0.8fr — "RAVI TEJA / PALANKI" (palankiReveal + pulseCyan) + "AI-fluent product leader. The Bridger." (drawLine on Bridger) + editorial lead/sub (line-draw class) + frosted glass badges + 3D isometric stack (STRATEGY/PRODUCT/ENGINEERING/DELIVERY, "AI PM" center)
+3. Bridger: sticky card stack (3 cards: Engineering/Design/Business, with 3D tilt interaction)
+4. Two Paths: recession stacking (2 sticky 100vh sections: My Profile → Working Notes)
+5. Proof Points: SVG ring counters (4 stats with counting animation)
+6. Quote: line-by-line reveal ("top 0.1% AI product leader — merging human judgement with machine intelligence")
+7. Article teaser: dark-to-white gradient + browser frame + Benchmarks ≠ Evals preview
+8. Footer links (LinkedIn | GitHub | Contact: ravi.aifluentproduct@gmail.com)
+
+### Recipe: Writing Landing Page (/writing)
 1. Dark canvas (noise + glow + base)
 2. Hero: grid 1.2fr/0.8fr, display titles + editorial block + 3D viz
 3. Architecture: sticky card stack (4 cards)
@@ -397,4 +520,6 @@ At 768px:
 - Content writing style (see `ravi-thinking-skills`)
 - Article structure / editorial voice (see `rtp-deep-dive-writer`)
 - SVG diagram design (see `excalidraw-svg` for hand-drawn, `SVG-REVISION-PLAN.md` for evals diagrams)
-- Lovable-specific build instructions (see `lovable/` folder in learn-site project)
+- Lovable-specific build instructions (see `lovable/` folder in `1_Projects/my-personal-website/`)
+- Profile page deep content (see `04-PROFILE-PAGE-SPEC.md` in the lovable folder)
+- Writing section content map (see `09-CONTENT-MAP.md` — all 70 article routes)
