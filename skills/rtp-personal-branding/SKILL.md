@@ -1,148 +1,197 @@
 ---
 name: ravi-personal-branding
-version: 1.0
-description: Complete design language for ravitejapalanki.com — dark cinematic landing (homepage, profile, writing hub) plus light editorial article pages. Covers both dark and light themes with full component catalog, animation system, and page recipes. Canonical source for every visual decision across the site ecosystem.
+version: 2.0
+description: Ravi Teja Palanki's complete design system for every visual surface — website (ravitejapalanki.com), presentations (Gamma, PowerPoint), documents (Word), diagrams, article pages. Dark + light themes properly separated. Nine creative principles that govern every choice. V2.0 incorporates V8 homepage patterns: suspension bridge SVG, data packet stream, scramble counters, scroll-written quote, hand-drawn highlight, 3D pop browser frame, premium glass cards, floating iso planes, and the product-signature footer.
 author: Ravi Teja Palanki
 created: 17 April 2026
-supersedes: learn-site-design (v2.0)
+updated: 17 April 2026 (v2.0 — V8 upgrade + multi-medium + creative principles)
+supersedes: learn-site-design (v2.0), ravi-personal-branding (v1.0)
 ---
 
-# Ravi Personal Branding
+# Ravi Personal Branding — v2.0
 
-The single source of truth for every visual decision across **ravitejapalanki.com** — homepage, profile, writing hub, series pages, and article reading experiences.
+The single source of truth for every visual decision Ravi makes — across HTML, Gamma presentations, PowerPoint decks, Word documents, diagrams, and article pages. This is not just a CSS catalog. It's the creative operating system.
 
-**When to activate:** Any task that touches the personal website's visual layer — building new pages, refining existing ones, creating diagrams, writing skill-adjacent HTML, or answering "what's the right way to do X on Ravi's site?"
+**When to activate:**
+- Building or updating ravitejapalanki.com
+- Designing a Gamma presentation template
+- Creating PowerPoint slides
+- Writing Word documents for external audiences
+- Building custom SVG diagrams or visualizations
+- Any task where visual output carries Ravi's brand
+
+**Every visual agent invokes this skill first.** Presentation Builder, Diagram Builder, UX Design Agent, Article Writer — all route through this before producing visual output.
 
 **Canonical reference files:**
-- Homepage: `1_Projects/my-personal-website/prototype/homepage-final.html`
-- Article page: `1_Projects/my-personal-website/reference/BLOG-POST-TEMPLATE.html`
-- Production landing (writing section): `1_Projects/my-personal-website/reference/production-landing.html`
-
-**Site architecture:**
-```
-ravitejapalanki.com/                                → Homepage (the gateway)
-ravitejapalanki.com/profile                         → Digital resume
-ravitejapalanki.com/writing                         → Writing hub landing
-ravitejapalanki.com/writing/evals                   → AI Evals series hub
-ravitejapalanki.com/writing/evals/:slug             → Eval article
-ravitejapalanki.com/writing/agentic-stack           → Agentic Stack series hub
-ravitejapalanki.com/writing/agentic-stack/:slug     → Agentic article
-ravitejapalanki.com/writing/harness-engineering     → Harness Engineering series hub
-ravitejapalanki.com/writing/harness-engineering/:slug → Harness episode
-```
+- Homepage (V8, cinematic landing): `1_Projects/my-personal-website/prototype/homepage-final.html`
+- Blog post template (gold standard): `1_Projects/my-personal-website/reference/BLOG-POST-TEMPLATE.html`
+- Writing section landing: `1_Projects/my-personal-website/reference/production-landing.html`
 
 ---
 
-## 1. The Identity System — 4 Colors
+## 1. The Creative Lens — Nine Principles
 
-Each color carries meaning from the AI production architecture framework. They are never decorative. They are never flat background fills.
+These are the principles behind every design choice. Internalize them; they explain why the CSS looks the way it does, and they transfer to Gamma slides, Word docs, and PowerPoint the same way they transfer to HTML.
 
-| Role | Hex | CSS var | Where it appears |
-|------|-----|---------|------------------|
-| **Model** (intelligence) | `#9D4EDD` landing / `#8121D8` article | `--color-model` | Level badges, article callouts, drop caps, progress bars, series accent for AI Evals |
-| **Harness** (guardrails, warnings) | `#F43F5E` landing / `#E11D48` article | `--color-harness` | Anti-pattern cards, mistake borders, severity badges, series accent for Harness Engineering |
-| **Tools** (capabilities) | `#F59E0B` | `--color-tools` | Amber accents, L3 badges, engineering-domain cards |
-| **Environment** (context, hero) | `#06B6D4` landing / `#00E5FF` article | `--color-env` | Editorial cyan line, "CHASM" stroke, highlight text, meta-row dots |
+### 1.1 Every Animation Has a Purpose
+The rocket flips 180° on scroll reverse because direction matters. The scramble counter creates anticipation before revealing the real number. The quote illuminates word-by-word to force reading pace. No decoration.
 
-**Functional colors:**
-- Success: `#059669` / `#10B981` (emerald) — pass states, expected-behavior boxes
-- Info callout: `#EFF6FF` bg, `#1E3A8A` text, `#3B82F6` accent
+*Cross-medium:* In Gamma, use scroll-triggered reveals, never auto-playing carousels. In PPT, animations serve narrative — never "just to make it move."
 
-**Color rules — never break:**
-- Colors appear only as accents: borders, glows, text highlights, tiny fills. Never as flat backgrounds.
-- Red is EXCLUSIVELY anti-patterns, mistakes, warnings. Never positive.
-- On dark: border accents, text-shadow glows, radial-gradient overlays at 4-15% opacity.
-- On white: border-left accents, tinted backgrounds at 4-12% opacity, text color.
+### 1.2 Signature Moments Per Section
+Every major section has ONE stunning element that makes someone stop scrolling:
+- Hero: suspension bridge SVG drawn beneath "The Bridger."
+- Architecture: frosted glass sticky cards with identity-colored gradient tops
+- Telemetry: scramble counter + "Metric_01 [Years]" dashboard framing
+- The Why: word-by-word scroll-written quote + hand-drawn purple-to-rose highlight
+- Two Paths: premium glass cards with 40px rounded top edge sliding over each other
+- Article teaser: 3D pop browser frame (`rotateX(15deg) translateY(100px) scale(0.9)` entry)
+- Footer: "Crafted with intent by Ravi Teja Palanki" signature
+
+*Cross-medium:* Every slide deck section needs ONE signature visual. Every Word doc section gets ONE editorial moment (blockquote, pullquote, or custom SVG).
+
+### 1.3 Progressive Disclosure Through Scroll Position
+Quote illuminates word-by-word based on scroll %. Cards slide as physical objects during recession stacking. Line-draw underlines stagger at 0.4s, 0.8s, 1.2s. The reader sets the pace.
+
+*Cross-medium:* In Gamma, use scroll-linked reveals. In PPT, use sequential animations with consistent timing. In Word, let layout force pacing — deliberate use of page breaks, pull quotes, full-width images.
+
+### 1.4 Physical Materiality Over Flatness
+Frosted glass (backdrop-filter blur 32px). Inset highlight shadows (`inset 0 1px 1px rgba(255,255,255,0.15)`). Premium card physics (40px rounded-top, inset light edge, 100px drop shadow). Surfaces feel touchable, not designed.
+
+*Cross-medium:* In Gamma/PPT, cards need subtle shadows and slight elevation — never pure flat rectangles. Word docs use hairline borders + soft tinted backgrounds for callouts, not box outlines.
+
+### 1.5 Typography as Three Rhythms
+Instrument Serif italic (editorial) + Inter 900 uppercase (display) + JetBrains Mono caps (metadata). Three distinct beats that never blur into homogeneity.
+
+*Cross-medium:* Every slide, every doc uses exactly these four fonts. Headings in Inter 900 or Instrument Serif. Body in Newsreader. Labels and data in JetBrains Mono. Never substitute.
+
+### 1.6 Telemetry Over Statistics
+Stats aren't "12 years experience" — they're "Metric_01 [Years] · 12+ · B2B Product Experience" in mono + scramble reveal. Feels like a systems dashboard, not a resume.
+
+*Cross-medium:* In PPT, KPI slides use dashboard framing (`METRIC_NN`, `[UNIT]`, scramble-to-value). In Gamma, counter animations. In Word, metrics get their own structured table with mono labels.
+
+### 1.7 Smooth Scroll as Baseline
+Lenis smooth scroll (`@studio-freight/lenis`) replaces native. Every scroll interaction becomes cinematic by default.
+
+*Cross-medium:* In PPT, transitions default to Morph or Fade (0.6-0.8s cubic-bezier easing), never Bounce or Wipe. In Gamma, cinematic scroll mode.
+
+### 1.8 Tension Between Density and Breath
+Sticky card stacks = dense. Quote section (`padding: 15vh 20vh`) = cavernous. The breathing rhythm between sections is itself a design element.
+
+*Cross-medium:* In PPT, never pack six bullets on a slide. One signature idea per slide, then let whitespace carry weight. In Word, double-page spreads with a quote page alone are acceptable for emphasis.
+
+### 1.9 Signature Closers
+"This website is my product work. / Crafted with intent by *Ravi Teja Palanki*." The artifact IS the signature. No marketing speak.
+
+*Cross-medium:* Every PPT deck ends with the same signature line. Every Word doc cover/closer uses Instrument Serif for the name. The signature carries across mediums unchanged.
 
 ---
 
-## 2. Per-Series Accent Overrides (Article Pages)
+## 2. The Identity System — 4 Colors
 
-Each deep dive series takes over `--color-model` and `--color-model-light` to tint every article in its own accent without changing structure.
+Every color carries meaning. Never decorative. Never flat background fills on any medium.
+
+| Role | Website hex | Article hex | Meaning | Where |
+|------|-------------|-------------|---------|-------|
+| **Model** (intelligence) | `#9D4EDD` | `#8121D8` | The thinking layer | Drop caps, callouts, Evals series accent |
+| **Harness** (guardrails) | `#F43F5E` | `#E11D48` | Warnings, anti-patterns | Mistake cards, Harness series accent |
+| **Tools** (capabilities) | `#F59E0B` | `#F59E0B` | Amber — systems + engineering | L3 badges, amber accents |
+| **Environment** (context) | `#06B6D4` | `#00E5FF` | Hero, cyan line, CTA halos | Default homepage accent |
+
+**Functional:** Success `#059669` / `#10B981` (emerald). Info `#1E3A8A` text on `#EFF6FF` bg.
+
+**Rules — never break:**
+- Colors appear only as accents. Never flat background fills.
+- Red is EXCLUSIVELY anti-patterns, warnings, mistakes. Never positive.
+- On dark: border accents, text-shadow glows, radial gradients at 4-15% opacity.
+- On light: border-left accents, tinted bg at 4-12% opacity, text color.
+
+**Per-series accent override (articles + topic-specific presentations):**
 
 | Series | `--color-model` | `--color-model-light` | Drop-cap gradient end |
 |--------|-----------------|-----------------------|----------------------|
-| AI Evals | `#8121D8` (deep purple) | `rgba(129, 33, 216, 0.12)` | `#C084FC` |
-| Agentic Stack | `#0891B2` (deep cyan) | `rgba(8, 145, 178, 0.12)` | `#67E8F9` |
-| Harness Engineering | `#E11D48` (rose-red) | `rgba(225, 29, 72, 0.12)` | `#FB7185` |
-
-Also swap the **rocket exhaust gradient** color per series:
-- Default (evals): `rgba(129, 33, 216, 0.8)`
-- Agentic: `rgba(8, 145, 178, 0.8)`
-- Harness: `rgba(225, 29, 72, 0.8)`
+| AI Evals | `#8121D8` | `rgba(129, 33, 216, 0.12)` | `#C084FC` |
+| Agentic Stack | `#0891B2` | `rgba(8, 145, 178, 0.12)` | `#67E8F9` |
+| Harness Engineering | `#E11D48` | `rgba(225, 29, 72, 0.12)` | `#FB7185` |
 
 ---
 
-## 3. Typography — 4 Fonts
+## 3. Typography — 4 Fonts, Universal Across Mediums
 
-| Font | CSS var | Role | Weights |
-|------|---------|------|---------|
-| **Inter** | `--font-sans` | Display titles (900), UI labels, eyebrows | 300, 400, 500, 600, 700, 800, 900 |
-| **Instrument Serif** | `--font-display` | Editorial moments, hero titles, article H2s, quotes, drop caps, signatures, nav brand on article pages | 400, 400 italic |
-| **Newsreader** | `--font-body` | Long-form body, editorial paragraphs, descriptions on dark sections | 200-800 variable, optical size 6-72 |
-| **JetBrains Mono** | `--font-mono` | Labels, tags, badges, topic pills, code, meta | 400, 500, 700, 800 |
+| Font | CSS var | Role | Where |
+|------|---------|------|-------|
+| **Inter** | `--font-sans` | Display titles (900), UI, eyebrows | 300–900 weights |
+| **Instrument Serif** | `--font-display` | Editorial moments, hero titles, quotes, drop caps, signatures, nav brand on articles | 400, 400 italic |
+| **Newsreader** | `--font-body` | Body prose on both dark and light | 300, 400, 500, italic variants |
+| **JetBrains Mono** | `--font-mono` | Labels, tags, metadata, code | 400, 500, 700, 800 |
+
+**Cross-medium mandate:**
+- **PowerPoint:** Install all 4 fonts on your machine. Every slide uses them natively. Never substitute with Arial/Calibri.
+- **Gamma:** Load all 4 as Google Fonts in the theme settings.
+- **Word:** Install all 4. Document styles map exactly — Heading 1 = Inter 900, Heading 2 = Instrument Serif 400, Body = Newsreader 400, Code/Metadata = JetBrains Mono.
 
 **Typography rules — never break:**
 - Inter 900 ONLY for display titles (uppercase, `letter-spacing: -0.03em`, `line-height: 0.95`).
-- Instrument Serif NEVER for body text. Only for: hero titles, article section H2s, massive quotes, drop caps, card titles, signatures, nav brand on article pages.
-- Newsreader ONLY for body prose. Never for labels, UI, or titles.
-- JetBrains Mono for ALL labels, tags, and metadata. Font-weight 700-800, uppercase, `letter-spacing: 0.15em`.
-- On dark backgrounds: minimum font-weight 400. Inter 300 washes out.
+- Instrument Serif NEVER for body prose. Only editorial moments.
+- Newsreader ONLY for body prose on both themes.
+- JetBrains Mono for ALL labels, tags, badges, code, meta. Font-weight 700–800. Uppercase. `letter-spacing: 0.15em`.
+- Minimum font-weight 400 on dark. Inter 300 washes out.
 
 ---
 
-## 4. DARK THEME (Landing / Homepage / Profile / Writing Hub / Series Pages / Article Heroes)
+## 4. DARK THEME — Default for Website, Presentations
 
-### CSS Variables
+**Default medium:** HTML landing pages, Gamma presentations, PowerPoint decks, dashboard visuals.
+
+### 4.1 CSS Variables
 ```css
 :root {
     /* Backgrounds */
-    --bg-base: #030407;        /* Landing pages, section base */
-    --bg-surface: #0a0b10;     /* Card surfaces, folder cards */
-    --bg-elevated: #11131a;    /* Nested elevated surfaces */
-
-    /* Article hero-specific (darker for contrast against paper canvas) */
-    /* Use --bg-base: #020305 on article pages */
+    --bg-base: #030407;        /* Landing / homepage / presentations */
+    --bg-surface: #0a0b10;     /* Cards, folder cards, telemetry boxes */
+    --bg-elevated: #11131a;    /* Nested elevated surfaces (rare) */
+    /* Article hero variant: use #020305 (slightly darker for paper contrast) */
 
     /* Text hierarchy */
-    --text-pure: #FFFFFF;      /* Display titles, hero text */
+    --text-pure: #FFFFFF;      /* Display titles, hero emphasis */
     --text-main: #F9FAFB;      /* Primary body on dark */
-    --text-muted: #D1D5DB;     /* Secondary text, editorial lead, card body */
-    --text-faint: #9CA3AF;     /* Eyebrow labels, meta text */
+    --text-muted: #D1D5DB;     /* Secondary text, editorial lead */
+    --text-faint: #9CA3AF;     /* Eyebrow labels, meta */
 
     /* Borders */
     --border-dim: rgba(255, 255, 255, 0.1);
     --border-glow: rgba(255, 255, 255, 0.15);
+    --border-bright: rgba(255, 255, 255, 0.25);  /* Frosted glass top edges */
+
+    /* Selection */
+    /* ::selection { background: rgba(6, 182, 212, 0.3); color: #FFF; } */
 }
 ```
 
-### Ambient Layers (Fixed Across Every Dark Page)
+### 4.2 Ambient Layers (Every Dark Page)
 
 **Noise overlay** (z-index 9999):
 ```css
 .noise-overlay {
     position: fixed; inset: 0;
-    background: url("data:image/svg+xml,...fractalNoise baseFrequency=0.8 numOctaves=4...");
-    opacity: 0.04-0.05;
-    mix-blend-mode: multiply;  /* or overlay on article pages */
+    background: url("data:image/svg+xml,...fractalNoise baseFrequency=0.8 numOctaves=3...");
+    opacity: 0.04;
+    mix-blend-mode: screen;   /* V8 change — was multiply. Screen is lighter. */
     pointer-events: none;
 }
 ```
-On article pages, add: `animation: noiseShift 8s steps(10) infinite`.
 
-**Dynamic ambient glow** (landing pages only, z-index 0):
+**Ambient glow** (z-index 0, fixed):
 ```css
 .glow-bg {
     position: fixed; inset: 0; pointer-events: none;
     background:
-        radial-gradient(circle at 80% 0%, rgba(157, 78, 221, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 20% 100%, rgba(6, 182, 212, 0.04) 0%, transparent 50%);
-    transition: background 0.5s ease;
+        radial-gradient(circle at 80% 0%, rgba(157, 78, 221, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 20% 100%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
 }
 ```
-JS on mousemove (desktop only) repositions both gradients to follow the cursor — purple tracks `(x%, y%)`, cyan tracks `(100-x%, 100-y%)`.
 
-### Readability Verification (Dark Mode)
+### 4.3 Readability (Dark Mode)
 | Combination | Ratio |
 |-------------|-------|
 | `#FFFFFF` on `#030407` | 20.3:1 |
@@ -150,55 +199,54 @@ JS on mousemove (desktop only) repositions both gradients to follow the cursor �
 | `#D1D5DB` on `#030407` | 14.8:1 |
 | `#9CA3AF` on `#030407` | 8.9:1 |
 
-All pass WCAG AAA.
+All pass WCAG AAA. For presentations viewed on projectors, enforce min `#D1D5DB` — never `#9CA3AF` for body text on a stage.
 
 ---
 
-## 5. LIGHT THEME (Article Reading — Paper Canvas Overlay)
+## 5. LIGHT THEME — Default for Word Documents, Blog Posts
 
-### CSS Variables
+**Default medium:** Word documents, article reading pages, printed materials.
+
+### 5.1 CSS Variables
 ```css
 :root {
-    /* Paper backgrounds */
-    --bg-paper: #FCFDFD;        /* Primary paper — microscopically off-white for eye comfort */
-    --bg-cream: #F8F7F4;        /* Spec cards only — intentional warm cream */
+    /* Paper */
+    --bg-paper: #FCFDFD;        /* Microscopically off-white — eye comfort */
+    --bg-cream: #F8F7F4;        /* Spec cards / code blocks only */
     --bg-faint: #F3F4F6;        /* Secondary bg, archive */
 
-    /* 5-tier tactile ink system (richer than 4-tier landing grays) */
+    /* 5-tier ink system */
     --ink-pure: #000000;
     --ink-main: #111318;        /* Headings, titles */
-    --ink-body: #202226;        /* Body text — rich warm dark for long-form reading */
-    --ink-faint: #5A5D67;
-    --ink-muted: #8E93A0;
+    --ink-body: #202226;        /* Body text — warm dark for long-form */
+    --ink-faint: #5A5D67;       /* Meta */
+    --ink-muted: #8E93A0;       /* Captions, timestamps */
 }
 ```
 
-### Paper Canvas (the signature overlay)
+### 5.2 Paper Canvas (Signature Overlay on Article Pages)
 ```css
 .paper-canvas {
-    position: relative; z-index: 20;
     background: var(--bg-paper);
-    margin-top: -12vh;                    /* Overlaps dark hero by 12% of viewport */
-    border-radius: 40px 40px 0 0;         /* Rounded top corners only */
+    margin-top: -12vh;                       /* Overlaps dark hero */
+    border-radius: 40px 40px 0 0;
     padding: 6rem var(--px) 8rem;
-    /* Hyper-realistic edge: heavy drop shadow + inset highlights */
     box-shadow:
         0 -40px 100px rgba(0,0,0,0.8),
         inset 0 1px 1px rgba(255,255,255,1),
         inset 0 2px 4px rgba(255,255,255,0.5);
-    /* Microscopic dot grid — working notebook texture */
+    /* Dot grid — notebook texture */
     background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
     background-size: 32px 32px;
-    background-position: center top;
 }
 ```
 
-### Reading Layout
-- `.text-col` — `max-width: 660px` (optimal 65-75 character reading line)
-- `.bleed-wide` — `width: 100%`, `margin: 6rem 0` (diagrams, cards, specs break out)
-- Parent `.content-layout` — `max-width: 960px`, `margin: 0 auto`, `align-items: center`
+### 5.3 Reading Layout
+- `.text-col` — `max-width: 660px` (65–75 char optimal line)
+- `.bleed-wide` — `width: 100%; margin: 6rem 0` (diagrams break out)
+- Parent `.content-layout` — `max-width: 960px; margin: 0 auto`
 
-### Readability Verification (Light Mode)
+### 5.4 Readability (Light Mode)
 | Combination | Ratio |
 |-------------|-------|
 | `#000000` on `#FCFDFD` | 20.9:1 |
@@ -206,894 +254,549 @@ All pass WCAG AAA.
 | `#202226` on `#FCFDFD` | 14.5:1 |
 | `#5A5D67` on `#FCFDFD` | 6.5:1 |
 
-All pass WCAG AA; top three pass AAA.
+All pass WCAG AA; top three pass AAA. For Word printing, body stays `#202226` — never `#5A5D67`.
 
 ---
 
-## 6. Component Catalog
+## 6. Component Catalog (V8)
 
-### 6.1 Nav (Two Variants)
+### 6.1 Nav — Two Variants
 
-**Homepage / Profile / Writing Hub variant** — left brand + right links + CTA:
+**Homepage / Profile / Writing Hub** — brand + links + CTA:
 ```css
 nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    padding: 1.5rem var(--px);  /* tightens to 1rem on scroll > 50px */
-    display: flex; justify-content: space-between; align-items: center;
-    z-index: 1000;
+    position: fixed; top: 0; padding: 1.5rem var(--px);
     backdrop-filter: blur(12px);
-    background: linear-gradient(to bottom, rgba(3,4,7,0.9), rgba(3,4,7,0));
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(to bottom, rgba(3,4,7,0.95), rgba(3,4,7,0));
     transition: padding 0.4s var(--ease-cinematic), background 0.4s var(--ease-cinematic);
 }
+nav.scrolled { padding: 1rem var(--px); background: rgba(3,4,7,0.85); }
+
 .nav-brand {
-    font-family: var(--font-sans); font-weight: 800;
-    font-size: 1.2rem; letter-spacing: -0.02em;
+    /* V8 update: Newsreader italic, not Inter */
+    font-family: var(--font-body); font-style: italic; font-weight: 500;
+    font-size: 1.5rem; letter-spacing: -0.01em;
     color: var(--text-pure);
 }
-.nav-link {
-    font-family: var(--font-sans); font-weight: 600; font-size: 0.85rem;
-    color: var(--text-main);
-    padding-bottom: 4px; position: relative;
+
+.nav-link { font-family: var(--font-sans); font-weight: 600; font-size: 0.85rem; color: var(--text-main); }
+.nav-link::after { /* cyan underline, scaleX 0→1 with origin flip */
+    background: var(--color-env);  /* V8: cyan, not white */
 }
-/* Animated underline on hover — origin flips from right to left */
-.nav-link::after {
-    content: ''; position: absolute; bottom: 0; left: 0;
-    width: 100%; height: 2px; background: var(--text-pure);
-    transform: scaleX(0); transform-origin: right;
-    transition: transform 0.4s var(--ease-cinematic);
-}
-.nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
 .nav-cta {
-    font-family: var(--font-mono); font-weight: 700; font-size: 0.72rem;
+    /* White pill with dark text */
+    font-family: var(--font-mono); font-weight: 800; font-size: 0.72rem;
+    background: var(--text-pure); color: var(--bg-base);
+    padding: 0.7rem 1.5rem; border-radius: 50px;
     text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--bg-base); background: var(--text-pure);
-    padding: 0.6rem 1.4rem; border-radius: 50px;
-    transition: all 0.4s var(--ease-spring);
 }
-.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255,255,255,0.2); }
 ```
 
-**Article page variant** — left brand (Newsreader italic) + right single CTA (frosted glass):
+**Article page** — brand + single frosted CTA:
 ```css
-nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    padding: 1.5rem var(--px);
-    background: linear-gradient(to bottom, rgba(2,3,5,0.95) 0%, transparent 100%);
-    /* NO backdrop-blur, NO border-bottom — relies on gradient fade */
-    z-index: 1000;
-}
-.nav-brand {
-    font-family: var(--font-body);  /* Newsreader */
-    font-style: italic;
-    font-size: 1.4rem;              /* Larger, softer than homepage */
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    color: #FFFFFF;
-}
-.nav-cta {
-    /* Frosted glass variant — becomes opaque white on hover */
-    font-family: var(--font-sans); font-weight: 700; font-size: 0.75rem;
-    text-transform: uppercase; letter-spacing: 0.05em;
-    color: #FFFFFF !important;
+.nav-cta {  /* Frosted variant for articles */
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(12px);
-    padding: 0.5rem 1.4rem; border-radius: 50px;
+    color: #FFFFFF !important;
 }
 .nav-cta:hover {
-    transform: translateY(-2px);
     background: #FFFFFF; color: #000000 !important;
     border-color: #FFFFFF;
-    box-shadow: 0 4px 20px rgba(255,255,255,0.4);
 }
 ```
 
-### 6.2 Rocket Engine Progress Bar (Article Pages)
+### 6.2 Hero Name — `palankiReveal` + Cyan Ghost
 
-The signature reading-progress indicator. Replaces the old simple comet.
-
+Palanki hollow stroke with pulsing cyan echo:
 ```css
-.progress-bar-container {
-    position: fixed; top: 12px; left: 12px; right: 12px; height: 3px;
-    background: rgba(255, 255, 255, 0.08);
-    z-index: 10005; border-radius: 4px;
+.palanki-text { position: relative; display: inline-block; }
+.palanki-text::after {
+    content: attr(data-text);  /* Clones text via data-text attribute */
+    position: absolute; left: 0; top: 0;
+    color: transparent; -webkit-text-stroke: 2px var(--color-env);
+    opacity: 0; animation: pulseCyan 4s ease-in-out infinite 1.5s;
+    z-index: -1; pointer-events: none;
 }
-/* On mobile (<1024px): full-width, top 0, no border-radius, 4px height */
-
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, transparent, #F59E0B, var(--color-model));
-    width: 0%;
-    transition: width 0.1s linear;
-    border-radius: 4px;
-    box-shadow: 0 0 10px var(--color-model-light);
-}
-
-.rocket-assembly {
-    position: absolute; right: -8px; top: 50%;
-    transform: translate(50%, -50%) rotate(0deg);
-    display: flex; align-items: center;
-    transition: transform 0.4s var(--ease-spring);
-}
-/* Flips 180deg on scroll reverse (JS-driven) */
-
-.rocket-exhaust {
-    width: 40px; height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(129, 33, 216, 0.8), #FFF);
-    margin-right: -4px;
-    border-radius: 4px 0 0 4px;
-}
-.rocket-exhaust::after {
-    content: ''; position: absolute; right: 0; top: 50%;
-    width: 10px; height: 6px; background: #FFFFFF; border-radius: 50%;
-    filter: drop-shadow(0 0 6px var(--color-model)) blur(1px);
-    animation: enginePulse 0.4s ease-in-out infinite alternate;
-    transform: translateY(-50%);
-}
-@keyframes enginePulse {
-    0% { opacity: 0.6; transform: translateY(-50%) scale(0.8); }
-    100% { opacity: 1; transform: translateY(-50%) scale(1.3); }
-}
-.rocket-icon {
-    width: 18px; height: 18px; color: #FFFFFF;
-    filter: drop-shadow(0 0 4px rgba(255,255,255,0.6));
-    transform: rotate(45deg);  /* Dart-point angle */
-}
-```
-
-**SVG used:**
-```html
-<svg class="rocket-icon" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-</svg>
-```
-
-### 6.3 Topic Pill (Frosted Glass)
-```css
-.topic-pill {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: #FFFFFF;
-    padding: 0.7rem 2.2rem; border-radius: 999px;
-    font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.2em;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-```
-
-### 6.4 Hero Meta Row (Dark Pill with Cyan Dot)
-```css
-.meta-row {
-    display: inline-flex; gap: 1.5rem; align-items: center;
-    font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700;
-    color: #FFFFFF;
-    text-transform: uppercase; letter-spacing: 0.15em;
-    background: rgba(0, 0, 0, 0.85);
-    padding: 0.8rem 2rem; border-radius: 50px;
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.2);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-}
-.meta-row .dot {
-    color: var(--color-env); font-weight: 900; font-size: 1.2rem; line-height: 0;
-}
-```
-
-### 6.5 Credential Badges (Homepage Hero)
-```css
-.badge {
-    font-family: var(--font-mono); font-weight: 700; font-size: 0.65rem;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    padding: 0.5rem 0.8rem; border-radius: 50px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    color: var(--text-pure);
-    display: flex; align-items: center; gap: 0.4rem;
-}
-.badge-dot {
-    width: 6px; height: 6px; border-radius: 50%; background: currentColor;
-    box-shadow: 0 0 10px currentColor;
-}
-.badge-cyan .badge-dot { color: var(--color-env); }
-.badge-purple .badge-dot { color: var(--color-model); }
-.badge-amber .badge-dot { color: var(--color-tools); }
-```
-
-### 6.6 3D Isometric Stack (Homepage + Writing Landing)
-```
-Container: perspective 1200px, 600px height
-.iso-plane: rotateX(60deg) rotateZ(-45deg), 320x240px, transform-style: preserve-3d
-Layers (Z-axis):
-  Top    → translateZ(120px), cyan border+glow
-  Upper  → translateZ(40px), red border+glow (writing site) / purple (homepage)
-  Lower  → translateZ(-40px), amber border+glow
-  Bottom → translateZ(-120px), purple (writing site) / red (homepage)
-Core beam: 3px vertical gradient, cyan glow, through center
-Each layer: 1px border in identity color (0.6 opacity), inset box-shadow glow,
-            CSS grid overlay (20x20px, 10% opacity, currentColor)
-Center text: Inter 900, 65-80px, white, triple cyan text-shadow
-```
-
-Mouse parallax (desktop >1024px): adjusts rotateX/Z by ±0.05-0.15deg per pixel offset. Spring ease 1.5s on mouseleave.
-
-### 6.7 Sticky Card Stack (with 3D Tilt)
-```
-Each card: position: sticky, height 75vh, 24px border-radius
-Box-shadow: 0 -40px 80px rgba(3,4,7,0.95)  /* creates stacking depth */
-transform-style: preserve-3d
-
-Sticky offsets (desktop):
-  Card 1: top 100px    /* mobile: 90px */
-  Card 2: top 160px    /* mobile: 150px */
-  Card 3: top 220px    /* mobile: 210px */
-  Card 4: top 280px    /* mobile: 270px */
-
-Titles: Inter 800 (homepage) or Instrument Serif 400 (writing site)
-Body: Newsreader 400, var(--text-muted)
-
-Folder tab (top-right): JetBrains Mono 800, identity color, 8px glowing dot
-```
-
-3D tilt interaction (desktop only, on mousemove):
-```js
-rotateX = ((y - centerY) / centerY) * -2
-rotateY = ((x - centerX) / centerX) * 2
-card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`
-// Children lift: translateZ(30px)
-```
-Spring-ease snap-back on mouseleave (0.5s `--ease-spring`).
-
-### 6.8 Deep Dive Hero with Recession Stacking (Homepage + Writing)
-```
-Each section: position: sticky, top: 0, height: 100vh
-Increasing z-index per section (31, 32, 33, 34)
-Background image: inset -50px, grayscale 100%, contrast 120%, opacity 0.25, mix-blend-mode luminosity
-Gradient overlay: radial from identity color (15% opacity) to base
-```
-
-Recession animation (scroll-driven, `requestAnimationFrame`):
-```js
-// When current section is pinned (rect.top <= 0) and next is entering:
-progress = 1 - (Math.max(0, nextRect.top) / window.innerHeight)
-scale = 1 - (progress * 0.08)
-y = progress * 40
-opacity = 1 - (progress * 0.8)
-bgScale = 1.05 - (progress * 0.05)
-bgBrightness = 1 - progress
-```
-
-### 6.9 SVG Stat Ring (Homepage Proof Points)
-```
-Container: clamp(100px, 30vw, 140px) square
-SVG circles: r=45, stroke-width 4
-.bg: stroke rgba(255,255,255,0.05)
-.progress: stroke-dasharray 283; stroke-dashoffset 283 → 0 on reveal
-  Transition: 2s var(--ease-cinematic)
-Color variants: .color-cyan/purple/amber/red with matching drop-shadow filter (8px glow)
-Stat value centered: JetBrains Mono 800, clamp(1.8-2.5rem)
-```
-
-JS counter: increments 0 → target over 40 frames at 30ms intervals, triggered by IntersectionObserver at 50% threshold.
-
-### 6.10 Learning Objectives Block
-```css
-.learning-block {
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    border-radius: 20px;
-    padding: 5rem;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.03), inset 0 2px 4px rgba(0,0,0,0.02);
-}
-.learning-num {
-    font-family: var(--font-display); font-size: 2.8rem;
-    color: var(--ink-faint);  /* Default */
-    transition: color 0.4s ease;
-}
-.learning-item:hover .learning-num { color: var(--color-model); }
-
-.learning-text {
-    font-family: var(--font-body); font-size: 1.35rem;
-    line-height: 1.6; color: var(--ink-body); font-weight: 400;
-}
-```
-
-### 6.11 Blueprint Diagram (Concept / Fig 1)
-The premium "definition + vs comparison" diagram.
-
-```css
-.svg-replica-1 {
-    padding: 5rem;
-    background: #FAFAFA;                  /* Lighter than paper for contrast */
-    border: 1px solid #E5E7EB;
-    border-radius: 24px;
-    perspective: 1200px;
-    /* Dot grid background (blueprint paper) */
-    background-image: radial-gradient(#D1D5DB 1px, transparent 1px);
-    background-size: 24px 24px;
-    position: relative; overflow: hidden;
-}
-/* Radial series-color glow from top-center */
-.svg-replica-1::before {
-    content: ''; position: absolute; top: 30%; left: 50%;
-    width: 80%; height: 80%;
-    background: radial-gradient(circle, var(--color-model-light) 0%, transparent 60%);
-    transform: translate(-50%, -50%); z-index: 0; pointer-events: none;
-}
-
-.svg-1-def-box {
-    /* Dark inset — the "definition on chalkboard" moment */
-    background: var(--ink-main);
-    border-radius: 20px; padding: 4rem 3rem;
-    color: #FFF;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.05);
-    transform-style: preserve-3d;
-}
-.svg-1-def-box:hover { transform: translateY(-5px) rotateX(2deg); }
-
-.svg-1-def-label {  /* Eyebrow */
-    font-family: var(--font-mono); font-weight: 800;
-    color: var(--color-env);  /* Cyan — the environment color */
-    letter-spacing: 0.2em;
-}
-.svg-1-def-title {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    color: #FFF;
-}
-
-.svg-1-split {
-    display: grid; grid-template-columns: 1fr auto 1fr;
-    gap: 1.5rem; align-items: center;
-}
-.vs-divider {
-    font-family: var(--font-mono); font-weight: 800;
-    background: #FFF; border: 1px solid #E5E7EB;
-    width: 48px; height: 48px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-}
-
-.interactive-card {
-    background: rgba(255,255,255,0.8);
-    backdrop-filter: blur(12px);
-    border: 1px solid #E5E7EB;
-    border-radius: 16px;
-    padding: 3.5rem 2.5rem;
-    transform-style: preserve-3d;
-}
-.interactive-card.eval {
-    border: 2px solid var(--color-model);  /* Series accent */
-    background: #FFF;
-}
-/* Card icon (SVG) + label + sentence */
-```
-
-### 6.12 Practice Diagram (Pass/Fail Comparison / Fig 2)
-```css
-.svg-replica-2 {
-    padding: 5rem; background: #FFFFFF;
-    border: 1px solid #E5E7EB; border-radius: 24px;
-    perspective: 1200px;
-}
-.svg-2-card.pass { border: 2px solid var(--color-success); }
-.svg-2-card.fail { border: 2px solid var(--color-harness); }
-.svg-2-card-head.pass { background: var(--color-success); color: #FFF; }
-.svg-2-card-head.fail { background: var(--color-harness); color: #FFF; }
-.svg-2-pill.pass { color: var(--color-success); background: rgba(5, 150, 105, 0.08); }
-.svg-2-pill.fail { color: var(--color-harness); background: var(--color-harness-light); }
-.svg-2-result {
-    font-family: var(--font-display); font-size: 3rem;
-    /* pass = success color, fail = harness color */
-}
-```
-
-Both diagrams get 3D tilt interaction (same pattern as sticky cards, ±4deg rotation).
-
-### 6.13 Mistake Card (Anti-Pattern)
-```css
-.mistake-card {
-    padding: 4.5rem; background: #FFFFFF;
-    border: 1px solid rgba(225, 29, 72, 0.15);
-    border-left: 6px solid var(--color-harness);
-    border-radius: 12px;
-    box-shadow: 0 20px 40px var(--color-harness-light);
-    position: relative; overflow: hidden;
-}
-/* ANTI-PATTERN watermark */
-.mistake-card::before {
-    content: 'ANTI-PATTERN';
-    position: absolute; top: -10%; right: -5%;
-    font-family: var(--font-sans); font-weight: 900; font-size: 8rem;
-    color: rgba(225, 29, 72, 0.03);
-    transform: rotate(-10deg);
-    pointer-events: none;
-}
-.mistake-icon {
-    background: var(--color-harness); color: white;
-    width: 32px; height: 32px; border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);
-}
-.mistake-card h3 {
-    font-family: var(--font-sans); font-size: 1.8rem; font-weight: 700;
-    color: #881337;  /* Deep rose */
-}
-.mistake-card p {
-    font-family: var(--font-body); font-size: 1.35rem;
-    color: #9F1239;  /* Rose body */
-}
-```
-
-### 6.14 Spec Card (Dark Terminal)
-```css
-.spec-card {
-    background: #0A0C10;  /* Near-black */
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    color: #E2E2E9;
-}
-.spec-header {
-    background: #111318;
-    display: flex; align-items: center; gap: 1.5rem;
-    padding: 1.2rem 2rem;
-}
-.mac-dot.r { background: #FF5F56; }  /* Red */
-.mac-dot.y { background: #FFBD2E; }  /* Yellow */
-.mac-dot.g { background: #27C93F; }  /* Green */
-
-.spec-content.input-box {
-    font-family: var(--font-mono); font-size: 1rem;
-    color: #61AFEF;  /* Blue — terminal prompt */
-    background: #15171E; padding: 2rem;
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.05);
-}
-.spec-content.expected-box {
-    font-family: var(--font-sans);
-    background: rgba(5, 150, 105, 0.1);
-    border-left: 4px solid var(--color-success);
-    color: #A7F3D0;  /* Light emerald */
-}
-.spec-content.expected-box strong { color: #34D399; }
-
-.severity-badge {
-    background: var(--color-harness); color: #FFFFFF;
-    font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800;
-    padding: 0.4rem 1.2rem; border-radius: 999px;
-    text-transform: uppercase; letter-spacing: 0.1em;
-}
-```
-
-### 6.15 Drop Cap (Article Opening Paragraph)
-```css
-.drop-cap::first-letter {
-    float: left;
-    font-family: var(--font-display);
-    font-size: 6.8rem; line-height: 0.7;
-    padding-top: 0.08em; padding-right: 0.12em;
-    /* Gradient uses series accent */
-    background: linear-gradient(135deg, var(--color-model), /* lighter end */);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-```
-Gradient end per series: AI Evals `#C084FC`, Agentic Stack `#67E8F9`, Harness `#FB7185`.
-
-### 6.16 Wet-Ink Highlighter
-```css
-mark.pastel-highlight {
-    background-color: transparent;
-    background-image: linear-gradient(110deg,
-        transparent 2%,
-        var(--color-model-light) 5%,
-        var(--color-model-light) 95%,
-        transparent 98%);
-    background-size: 0% 100%;  /* Starts empty */
-    background-repeat: no-repeat;
-    background-position: left center;
-    transition: background-size 1.2s var(--ease-cinematic);
-    padding: 0.1em 0.2em; border-radius: 4px;
-    mix-blend-mode: multiply;  /* Authentic ink-on-paper */
-    box-decoration-break: clone;
-}
-mark.pastel-highlight.visible { background-size: 100% 100%; }
-```
-Triggered by IntersectionObserver at 15% threshold.
-
-### 6.17 Up Next Card (Liquid Border Expand)
-```css
-.next-card {
-    background: #FFFFFF; border: 1px solid #E5E7EB;
-    padding: 5rem 4rem; border-radius: 24px;
-    transition: all 0.6s var(--ease-cinematic);
-    position: relative; overflow: hidden;
-}
-.next-card::before {
-    content: ''; position: absolute; inset: 0;
-    border: 3px solid var(--color-model);
-    border-radius: 24px;
-    opacity: 0; transform: scale(0.98);
-    transition: all 0.6s var(--ease-cinematic);
-}
-.next-card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 40px 80px var(--color-model-light);
-    border-color: transparent;
-}
-.next-card:hover::before { opacity: 1; transform: scale(1); }
-.next-card:hover .next-arrow {
-    background: var(--color-model); color: white;
-    transform: translateX(8px);
-}
-.next-title {
-    font-family: var(--font-display); font-size: 4.2rem;
-    font-weight: 400; color: var(--ink-main);
-}
-```
-
-### 6.18 Magnetic Back Button (Top + Bottom of Article)
-```css
-.magnetic-btn {
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    background: transparent; color: var(--ink-faint);
-    padding: 0.8rem 1.5rem; border-radius: 999px;
-    font-family: var(--font-sans); font-size: 0.9rem; font-weight: 600;
-    border: 1px solid #D1D5DB;
-    transition: background 0.4s, border-color 0.4s, color 0.4s, box-shadow 0.4s;
-}
-.magnetic-btn:hover {
-    border-color: var(--ink-main); color: var(--ink-main);
-    background: #FFFFFF;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.04);
-}
-.magnetic-btn svg { transition: transform 0.4s var(--ease-cinematic); }
-.magnetic-btn:hover svg { transform: translateX(-4px); }
-```
-
-Magnetic physics (desktop >768px only):
-```js
-btn.addEventListener('mousemove', (e) => {
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-    content.style.transform = `translate(${x * 0.08}px, ${y * 0.08}px)`;
-});
-// mouseleave: spring snap back 0.5s
-```
-
-### 6.19 Footer Signature
-```css
-.signature {
-    font-family: var(--font-display); font-style: italic;
-    font-size: 3.5rem; color: var(--ink-main);
-    letter-spacing: -0.02em;
-}
-.copyright {
-    font-family: var(--font-mono); font-size: 0.85rem;
-    color: var(--ink-muted); font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.15em;
-}
-```
-
----
-
-## 7. Animation System
-
-### 7.1 Core Easing Curves
-```css
---ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);        /* Apple deceleration */
---ease-spring:    cubic-bezier(0.175, 0.885, 0.32, 1.1); /* Overshoot spring */
-```
-
-### 7.2 Keyframe Animations
-
-**blurReveal** — hero content entry:
-```css
-@keyframes blurReveal {
-    0% { opacity: 0; transform: translateY(30px) scale(0.98); filter: blur(8px); }
-    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-}
-/* Applied via: animation: blurReveal 1.2s var(--ease-cinematic) forwards */
-/* Staggered delays: 0.1s, 0.2s, 0.3s */
-```
-
-**palankiReveal** — homepage name letter-spacing squeeze:
-```css
-@keyframes palankiReveal {
-    0% { opacity: 0; filter: blur(12px); transform: scale(1.1) translateY(20px); letter-spacing: -0.1em; }
-    100% { opacity: 1; filter: blur(0); transform: scale(1) translateY(0); letter-spacing: -0.03em; }
-}
-```
-
-**pulseCyan** — PALANKI ghost pulse (via `::after` pseudo-element):
-```css
 @keyframes pulseCyan {
     0%, 100% { opacity: 0.2; filter: blur(2px); transform: scale(1); }
     50% { opacity: 0.8; filter: blur(8px); transform: scale(1.02); }
 }
-/* 4s infinite, starts at 1.5s delay */
 ```
 
-**drawLine** — cyan underline on "Bridger." text:
+### 6.3 Suspension Bridge SVG (The Signature Under "Bridger.")
+
+This is the V8 crown jewel. An 180×45px SVG of a suspension bridge with deck, towers, sweeping cables, and 11 vertical suspenders. Animates via stroke-dashoffset on reveal.
+
+```html
+<svg class="bridge-schematic" viewBox="0 0 300 70">
+    <!-- Deck -->
+    <line x1="0" y1="55" x2="300" y2="55" stroke="rgba(6,182,212,0.4)" stroke-width="1.5"/>
+    <line x1="0" y1="60" x2="300" y2="60" stroke="rgba(6,182,212,0.2)" stroke-width="1"/>
+    <!-- Towers -->
+    <path d="M 75 10 L 75 65 M 225 10 L 225 65" stroke="var(--color-env)" stroke-width="1.5" opacity="0.8"/>
+    <polyline points="70 65 75 10 80 65" stroke="var(--color-env)" stroke-width="0.5" fill="none" opacity="0.4"/>
+    <polyline points="220 65 225 10 230 65" stroke="var(--color-env)" stroke-width="0.5" fill="none" opacity="0.4"/>
+    <!-- Main sweeping cables -->
+    <path d="M 0 45 Q 75 10 150 50 Q 225 10 300 45" stroke="var(--color-env)" stroke-width="1.5" fill="none" opacity="0.7"/>
+    <!-- 11 vertical suspenders at varying heights -->
+    <line x1="20" y1="36" ... />  <!-- See homepage-final.html for full coords -->
+</svg>
+```
+
 ```css
-@keyframes drawLine {
-    0% { transform: scaleX(0); }
-    100% { transform: scaleX(1); }
+.bridge-schematic path, .bridge-schematic line, .bridge-schematic polyline {
+    stroke-dasharray: 600; stroke-dashoffset: 600;
 }
-/* Applied to ::after pseudo, transform-origin: left */
+.reveal-up.is-visible .bridge-schematic path,
+.reveal-up.is-visible .bridge-schematic line,
+.reveal-up.is-visible .bridge-schematic polyline {
+    animation: drawBridge 2.5s var(--ease-cinematic) forwards 0.8s;
+}
+@keyframes drawBridge { to { stroke-dashoffset: 0; } }
 ```
 
-**scaleYIn** — editorial cyan vertical line:
+### 6.4 3D Isometric Stack with Floating Planes + Data Stream
+
+**Floating iso planes** (V8 upgrade):
 ```css
-@keyframes scaleYIn {
-    0% { transform: scaleY(0); opacity: 0; }
-    100% { transform: scaleY(1); opacity: 1; }
+@keyframes floatIso { 0%, 100% { transform: translateZ(var(--tz)); } 50% { transform: translateZ(calc(var(--tz) + 12px)); } }
+.iso-layer {
+    animation: floatIso 6s ease-in-out infinite;
+    /* Each layer gets a staggered animation-delay: 0s, 0.5s, 1s, 1.5s */
+}
+.iso-strategy { --tz: 110px; animation-delay: 0s; }
+.iso-product { --tz: 40px; animation-delay: 0.5s; }
+.iso-engineering { --tz: -30px; animation-delay: 1s; }
+.iso-delivery { --tz: -100px; animation-delay: 1.5s; }
+```
+
+**Core beam with data packets** (V8 signature):
+```css
+.core-beam {
+    /* 4px vertical laser through the stack */
+    width: 4px; height: 450px;
+    background: linear-gradient(to bottom, transparent 0%, #FFF 20%, var(--color-env) 50%, #FFF 80%, transparent 100%);
+    box-shadow: 0 0 20px var(--color-env), 0 0 40px rgba(6,182,212,0.8), 0 0 60px rgba(6,182,212,0.5);
+    border-radius: 50px;
+    animation: pulseBeam 3s ease-in-out infinite;
+}
+.data-packet {
+    position: absolute; left: -1px; width: 6px; height: 35px; background: #FFF;
+    box-shadow: 0 0 15px #FFF, 0 0 30px var(--color-env), 0 0 50px var(--color-env);
+    animation: dataStream 2.5s linear infinite;
+    border-radius: 10px;
+}
+.data-packet:nth-child(2) { animation-delay: 0.8s; height: 45px; }
+.data-packet:nth-child(3) { animation-delay: 1.6s; height: 25px; }
+
+@keyframes dataStream {
+    0% { top: -10%; opacity: 0; transform: scaleY(0.8); }
+    15% { opacity: 1; transform: scaleY(1.5); }
+    85% { opacity: 1; transform: scaleY(1.5); }
+    100% { top: 110%; opacity: 0; transform: scaleY(0.8); }
 }
 ```
 
-**enginePulse** — rocket engine exhaust flame:
+### 6.5 Sticky Card Stack (Frosted Glass, V8)
 ```css
-@keyframes enginePulse {
-    0% { opacity: 0.6; transform: translateY(-50%) scale(0.8); }
-    100% { opacity: 1; transform: translateY(-50%) scale(1.3); }
+.folder-card {
+    position: sticky; height: 75vh;
+    backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255,255,255,0.25);  /* Brighter top edge = light catching */
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.15), 0 30px 60px rgba(0,0,0,0.8);
+    border-radius: 12px;
 }
-/* 0.4s ease-in-out infinite alternate */
+/* Identity-colored gradient top */
+.card-1 { border-top: 2px solid var(--color-env); background: linear-gradient(145deg, rgba(6,182,212,0.08) 0%, rgba(10,11,16,0.6) 100%); }
+.card-2 { border-top: 2px solid var(--color-model); background: linear-gradient(145deg, rgba(157,78,221,0.08) 0%, rgba(10,11,16,0.6) 100%); }
+.card-3 { border-top: 2px solid var(--color-tools); background: linear-gradient(145deg, rgba(245,158,11,0.08) 0%, rgba(10,11,16,0.6) 100%); }
+
+/* Titles: Instrument Serif on homepage, NOT Inter */
+.folder-card h3 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+}
 ```
 
-**noiseShift** — ambient noise texture drift (article pages):
+### 6.6 Telemetry Stat Grid (V8 Dashboard Framing)
+
+Replaces the older SVG ring stats. This is the signature for proof points.
+
 ```css
-@keyframes noiseShift {
-    0% { background-position: 0 0; }
-    100% { background-position: 100% 100%; }
+.telemetry-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px;  /* 1px gap creates thin divider lines */
+    background: var(--border-dim);
+    border: 1px solid var(--border-dim);
 }
-/* 8s steps(10) infinite */
+.telemetry-box {
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.02), transparent 80%), var(--bg-surface);
+    padding: 4rem 2rem;
+    transition: all 0.5s var(--ease-cinematic);
+}
+.telemetry-box:hover {
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 80%), var(--bg-surface);
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-8px); z-index: 10;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+.t-header {
+    /* V8 signature: "Metric_01" + "[Years]" mono dashboard framing */
+    font-family: var(--font-mono); font-size: 0.7rem;
+    color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.15em;
+    display: flex; justify-content: space-between;
+}
+.t-value {
+    font-family: var(--font-sans); font-size: clamp(3rem, 4vw, 4.5rem);
+    font-weight: 900; letter-spacing: -0.04em;
+}
 ```
 
-**slowZoom** — hero background image Ken Burns:
-```css
-@keyframes slowZoom {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
+**Scramble counter JS** (1.2s anticipation reveal):
+```js
+const duration = 1200;
+const startTime = performance.now();
+function updateCounter(currentTime) {
+    const elapsed = currentTime - startTime;
+    if (elapsed < duration) {
+        counter.innerText = Math.floor(Math.random() * target * 2);  // Scramble
+        requestAnimationFrame(updateCounter);
+    } else {
+        counter.innerText = target;  // Lock final value
+    }
 }
-/* 30s linear infinite alternate */
 ```
 
-### 7.3 Scroll-Driven Animations
+### 6.7 The Why — Scroll-Written Quote + Hand-Drawn Highlight
 
-**Cinematic reveal** (`.reveal` class):
+**Word-by-word scroll illumination:**
 ```css
-.reveal {
+.q-word {
+    opacity: 0.15;  /* Dim until activated */
+    transition: opacity 0.4s ease, text-shadow 0.4s ease;
+    display: inline-block;
+}
+.q-word.lit {
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(255,255,255,0.4);
+}
+```
+
+```js
+// JS: based on container's rect.top, calculate progress 0-1, light that many words
+const progress = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
+const activeWords = Math.floor(progress * qWords.length);
+qWords.forEach((word, i) => word.classList.toggle('lit', i <= activeWords));
+```
+
+**Hand-drawn highlight** (purple-to-rose marker sweep, 2.5s slow draw):
+```css
+.hand-drawn-highlight::before {
+    content: ''; position: absolute; bottom: 0.08em; left: -2%;
+    width: 0; height: 45%;
+    background: linear-gradient(90deg, var(--color-model), #F43F5E);
+    opacity: 0.85; z-index: -1;
+    transform: rotate(-1deg);  /* Handwritten feel — slight angle */
+    border-radius: 6px;
+    transition: width 2.5s var(--ease-cinematic) 0.3s;
+}
+.highlight-wrapper.is-visible .hand-drawn-highlight::before {
+    width: 104%;  /* Slightly overshoot — authentic marker feel */
+}
+```
+
+### 6.8 Premium Glass Cards — Recession Stacking
+
+V8 upgrade: paths are physical cards with rounded-top, inset light edge, massive drop shadow.
+
+```css
+.path-hero {
+    position: sticky; top: 0; height: 100vh;
+    background: var(--bg-base);
+    border-top: 1px solid rgba(255,255,255,0.2);   /* Light edge */
+    border-radius: 40px 40px 0 0;                  /* Physical card feel */
+    box-shadow:
+        0 -40px 100px rgba(0,0,0,1),               /* Massive drop shadow */
+        inset 0 1px 2px rgba(255,255,255,0.3);     /* Light catching top */
+}
+.path-hero:first-child {
+    /* First card integrates with page — no curve */
+    border-radius: 0; border-top: none; box-shadow: none;
+}
+```
+
+**Recession animation** (scroll-driven, `requestAnimationFrame`):
+```js
+progress = 1 - (Math.max(0, nextRect.top) / window.innerHeight)
+scale = 1 - (progress * 0.08)
+y = progress * 40
+opacity = 1 - (progress * 0.8)
+contentWrapper.style.transform = `translate3d(0, ${y}px, 0) scale(${scale})`
+contentWrapper.style.opacity = opacity
+```
+
+### 6.9 3D Pop Browser Frame (V8)
+
+Browser frame entry animation — rotates in from 15deg with translateY + scale:
+```css
+.browser-container { perspective: 1200px; }
+.browser-pop {
     opacity: 0;
-    transform: translateY(40px) scale(0.98);
-    filter: blur(4px);
-    transition: opacity 1.2s var(--ease-cinematic),
-                transform 1.2s var(--ease-cinematic),
-                filter 1.2s var(--ease-cinematic);
-    will-change: opacity, transform, filter;
+    transform: rotateX(15deg) translateY(100px) scale(0.9);
+    transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.1);  /* Spring */
+    transform-origin: bottom center;
 }
-.reveal.visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+.browser-pop.is-visible {
+    opacity: 1;
+    transform: rotateX(0deg) translateY(0) scale(1);
+}
 ```
-IntersectionObserver at 10-15% threshold, -10% root margin.
 
-**Line-draw** (staggered cyan underlines on inline words):
+**macOS chrome** — gradient bar, slightly lifted:
 ```css
-.line-draw::after {
-    /* 2px cyan line, scaleX 0 → 1, transform-origin: left */
-    transition: transform 0.8s var(--ease-cinematic);
+.browser-chrome {
+    background: linear-gradient(to bottom, #2a2d36, #1a1c23);
+    border-bottom: 1px solid #000;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
 }
-.reveal.visible .line-draw:nth-of-type(1)::after { transition-delay: 0.8s; transform: scaleX(1); }
-.reveal.visible .line-draw:nth-of-type(2)::after { transition-delay: 1.2s; transform: scaleX(1); }
-.reveal.visible .line-draw:nth-of-type(3)::after { transition-delay: 1.6s; transform: scaleX(1); }
+.browser-dot.r { background: #FF5F56; }
+.browser-dot.y { background: #FFBD2E; }
+.browser-dot.g { background: #27C93F; }
 ```
 
-**Quote line reveal** — each `.quote-line > span` translates up individually:
+### 6.10 Neon Highlight (Dark Mode Articles Inside Browser Frame)
 ```css
-.quote-line span {
-    display: block; transform: translateY(100%); opacity: 0;
-    transition: transform 1s var(--ease-cinematic),
-                opacity 1s var(--ease-cinematic);
+mark.neon-highlight {
+    background: transparent;
+    background-image: linear-gradient(110deg, transparent 2%, rgba(157,78,221,0.2) 5%, rgba(157,78,221,0.4) 95%, transparent 98%);
+    color: #FFF;
+    padding: 0.1em 0.3em; border-radius: 4px;
 }
-.the-why.visible .quote-line span { transform: translateY(0); opacity: 1; }
-.quote-line:nth-child(1) span { transition-delay: 0.1s; }
-.quote-line:nth-child(2) span { transition-delay: 0.2s; }
 ```
 
-### 7.4 Interactive Physics (JS-Driven, Desktop Only)
+### 6.11 Pastel Highlight (Light Mode Articles — Paper Canvas)
+```css
+mark.pastel-highlight {
+    background-image: linear-gradient(110deg, transparent 2%, var(--color-model-light) 5%, var(--color-model-light) 95%, transparent 98%);
+    background-size: 0% 100%;  /* Animates to 100% on scroll */
+    transition: background-size 1.2s var(--ease-cinematic);
+    mix-blend-mode: multiply;  /* Ink-on-paper */
+    padding: 0.1em 0.2em; border-radius: 4px;
+}
+mark.pastel-highlight.visible { background-size: 100% 100%; }
+```
 
-**3D isometric stack hover** (homepage hero viz):
-- On mousemove: adjust rotateX/Z by ±0.05-0.15deg per pixel offset from center
-- `transition: none` during move
-- Spring ease 1.5s on mouseleave back to base `rotateX(60deg) rotateZ(-45deg)`
+### 6.12 Product Signature Footer (V8)
+```html
+<footer>
+    <div class="footer-links">...</div>
+    <div class="footer-signature">
+        <div>This website is my product work.</div>
+        <div>Crafted with intent by <span class="sig-name">Ravi Teja Palanki</span></div>
+    </div>
+</footer>
+```
+```css
+.footer-signature {
+    font-family: var(--font-body); font-style: italic;
+    color: var(--text-faint); font-size: 1.15rem;
+}
+.sig-name {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--text-pure);
+    font-style: normal;  /* The name is strong, not italic */
+}
+```
 
-**Recession stacking** (deep dive sections):
-- Formula: `scale = 1 - progress * 0.08`, `y = progress * 40`, `opacity = 1 - progress * 0.8`
-- Background darkens: `brightness(1 - progress)`
-- Run in `requestAnimationFrame` with `ticking` guard for 60fps
+### 6.13 Other Core Components
+- **Topic pill** — frosted glass, mono caps, 0.2em letter-spacing
+- **Credential badge** — frosted with colored dot glow (cyan/purple/amber)
+- **Rocket progress bar** — article-page only (not on homepage V8)
+- **Mistake card** — red left border, ANTI-PATTERN watermark (article pages)
+- **Spec card** — dark terminal with mac dots, blue mono input, emerald expected (article pages)
+- **Blueprint diagram (svg-replica-1)** — dot grid bg, dark def-box with cyan label, VS circle, interactive cards with 3D tilt
+- **Practice diagram (svg-replica-2)** — pass/fail comparison cards
+- **Up Next card** — liquid border expand on hover
+- **Magnetic back button** — physics-based hover tracking
 
-**Magnetic button physics**:
-- Button translates at `0.15x` cursor offset from center
-- Inner `.magnetic-content` translates at `0.08x` (creates depth)
-- On mouseleave: spring snap-back 0.5s
-
-**Folder card 3D tilt**:
-- `rotateX/Y ±2-4deg` per card based on cursor position
-- `scale3d(1.02, 1.02, 1.02)` on hover
-- Children `translateZ(30px)` for depth lift
-- Spring snap-back on mouseleave
-
-**Dynamic ambient glow** (homepage only):
-- Mouse position determines dual radial gradient centers
-- Purple tracks `(x%, y%)`, cyan tracks `(100-x%, 100-y%)`
-- Transition 0.5s
-
-**Nav tightening** (scroll > 50px, desktop >768px):
-- Padding reduces from `1.5rem` to `1rem`
-- Background solidifies from gradient to `rgba(3,4,7,0.85)`
-
-**Rocket flip** (scroll reverse):
-- Track `lastScroll`; if `winScroll > lastScroll` → rotate 0deg
-- If `winScroll < lastScroll` → rotate 180deg (flip)
-
-### 7.5 Ironclad Rule
-
-**No other animations.** No parallax on body content. No auto-playing hero videos. No spinner loaders. No confetti. No animation libraries (GSAP, Framer, Lottie). CSS + IntersectionObserver + requestAnimationFrame only.
+Full CSS in `BLOG-POST-TEMPLATE.html` for article-page components.
 
 ---
 
-## 8. Page Recipes
+## 7. Animation System — Canonical Keyframes
 
-### Recipe: Homepage (`/`)
-1. Dark canvas + noise + dynamic mouse-following glow
-2. Hero: grid 1.2fr/0.8fr — "RAVI TEJA / PALANKI" (palankiReveal + pulseCyan ghost) + "AI-fluent product leader. The Bridger." (drawLine on Bridger.) + editorial lead/sub (line-draw words) + frosted badges + 3D isometric stack (STRATEGY/PRODUCT/ENGINEERING/DELIVERY, "AI PM" center)
-3. Bridger: sticky card stack (3 cards: Engineering/Design/Business, with 3D tilt)
-4. Two Paths: recession stacking (2 sticky 100vh sections: My Profile → Working Notes)
-5. Proof Points: SVG ring counters (4 stats with counting animation)
-6. Quote: line-by-line reveal
-7. Article teaser: dark-to-white gradient + browser frame + Benchmarks ≠ Evals preview
-8. Footer: LinkedIn | GitHub | Contact
-
-### Recipe: Profile (`/profile`)
-See `1_Projects/my-personal-website/lovable/04-PROFILE-PAGE-SPEC.md`. Uses folder-card 3D tilt for product cards (not sticky), SVG ring stats, timeline for career arc.
-
-### Recipe: Writing Landing (`/writing`)
-1. Dark canvas (noise + static glow)
-2. Hero: grid 1.2fr/0.8fr, "THE AI / PRODUCTION / CHASM" + editorial block + 3D viz (MODEL/HARNESS/TOOLS/ENVIRONMENT, "AI" center)
-3. Architecture: sticky card stack (4 cards with 3D tilt)
-4. Anti-patterns: 3 red-accented cards (fixed 3-col grid)
-5. Deep dives: recession stacking (4 sticky 100vh sections — Evals, Agentic, Strategy [soon], Leadership [soon])
-6. Quote: Instrument Serif massive quote
-7. Reading transition: gradient + browser frame + article preview
-8. Footer
-
-### Recipe: Series Hub (`/writing/evals`, `/writing/agentic-stack`, `/writing/harness-engineering`)
-1. Dark canvas throughout (no white sections)
-2. Series hero: 70vh, breadcrumb + display title + lead + stats
-3. Level sections: badge + header + topic card grid (auto-fill 340px)
-4. Reading guide: path recommendation cards
-5. CTA: quote + start button
-6. Footer
-
-**Harness Engineering variant:** No levels — sequential 8-episode guide layout. See `11-HARNESS-ENGINEERING-SPEC.md`.
-
-### Recipe: Article Reading Page
-**Canonical template:** `reference/BLOG-POST-TEMPLATE.html`
-
-1. Rocket progress bar (fixed, top)
-2. Noise overlay (fixed)
-3. Nav: brand (Newsreader italic) + single "Connect With Me ↗" CTA
-4. Hero: 90vh, dark, Unsplash bg (grayscale, luminosity), topic pill + Instrument Serif title + meta pill with cyan dot
-5. Paper canvas overlay: `margin-top: -12vh`, 40px rounded top, dot grid
-6. Content layout (max 960px):
-   - Top back-nav (magnetic)
-   - Learning objectives block
-   - Body sections (H2 Instrument Serif + Newsreader paragraphs, drop cap on first)
-   - Diagrams (svg-replica-1, mistake-card, spec-card, svg-replica-2 as needed)
-   - References
-   - Up Next card (liquid border)
-   - Bottom back-nav (magnetic)
-   - Footer signature
-7. Per-series accent override via `--color-model` + `--color-model-light`
-8. Transform existing articles via `1_Projects/my-personal-website/scripts/apply-gold-template.py`
-
----
-
-## 9. Per-Series Asset Map
-
-| Series | Article route | Hero Unsplash theme | Count |
-|--------|---------------|---------------------|-------|
-| AI Evals | `/writing/evals/:slug` | Blueprint / measurement / observatory | 30 articles + 150 built diagrams |
-| Agentic Stack | `/writing/agentic-stack/:slug` | Abstract neural / circuits / data | 35 articles (diagrams pending) |
-| Harness Engineering | `/writing/harness-engineering/:slug` | Industrial machinery / factory floor | 1 built + 7 planned (16 SVGs spec'd) |
-
-Backup safety: transformation script creates `.bak` files alongside originals for every write.
-
----
-
-## 10. Readability Rules (Non-Negotiable)
-
-1. **Minimum font sizes on dark backgrounds:** Body 1.15rem (Newsreader). Smaller text only for mono labels and meta (0.75rem with tight letter-spacing).
-2. **Minimum font-weight on dark:** 400. Inter 300 is allowed ONLY for `--text-muted` or brighter.
-3. **Minimum contrast:** WCAG AA (4.5:1) for body text. AAA (7:1) target for main text.
-4. **Maximum line length:** 660px (optimal 65-75 chars). Enforced by `.text-col`.
-5. **Line-height on body:** 1.7-1.8 for Newsreader paragraphs.
-6. **Touch targets on mobile:** 44x44px minimum. Applies to nav links, CTA buttons, card tap areas.
-7. **No pure black on pure white.** Use `#111318` on `#FCFDFD` for titles.
-8. **No text below 0.65rem.** Even smallest labels stay legible.
-9. **Hyphens on display titles:** `overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; max-width: 100%;` prevents overflow on narrow viewports.
-
----
-
-## 11. Responsive Breakpoints
-
-### At 1024px (layout collapse)
+### 7.1 Easing
 ```css
-@media (max-width: 1024px) {
-    .hero { grid-template-columns: 1fr; padding-top: 8rem; gap: 3rem; }
-    .chasm-schematic { height: 400px; }
-    .iso-plane { transform: rotateX(60deg) rotateZ(-45deg) scale(0.8); }
-    .folder-card { height: auto; min-height: 50vh; padding: 3rem 2.5rem; margin-bottom: 5vh; }
-    .card-1 { top: 90px; } .card-2 { top: 150px; } .card-3 { top: 210px; }
-    .paths-container { padding-bottom: 10vh; }
-    .path-hero { height: auto; min-height: 80vh; position: relative; box-shadow: none; }
-    .signal-grid { grid-template-columns: repeat(2, 1fr); }
-    .bleed-wide { margin: 4rem 0; }
-    .svg-replica-1, .svg-replica-2 { padding: 3rem 2rem; }
-    .progress-bar-container { top: 0; left: 0; right: 0; border-radius: 0; height: 4px; }
-}
+--ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);        /* Apple deceleration */
+--ease-spring:    cubic-bezier(0.175, 0.885, 0.32, 1.1); /* Spring overshoot */
 ```
 
-### At 768px (mobile refinement)
+### 7.2 V8 Keyframes (New)
 ```css
-@media (max-width: 768px) {
-    nav { padding: 1.25rem var(--px) !important; background: rgba(3,4,7,0.9) !important; }
-    .nav-link { display: none; }  /* Only brand + CTA visible */
-    .hero-titles .title-display { font-size: clamp(3rem, 11vw, 4.5rem); }
-    .iso-plane { transform: rotateX(60deg) rotateZ(-45deg) scale(0.6); }
-    .article-title { font-size: 3.5rem; overflow-wrap: break-word; }
-    .paper-canvas { padding: 3rem 1.2rem 5rem; margin-top: -5vh; border-radius: 30px 30px 0 0; }
-    .text-col h2 { font-size: 2.8rem; margin: 4rem 0 2rem; }
-    .drop-cap::first-letter { font-size: 5rem; }
-    .learning-block { padding: 2.5rem 1.5rem; }
-    .learning-item { flex-direction: column; gap: 0.8rem; }
-    .mistake-card { padding: 2.5rem 1.5rem; border-left-width: 4px; }
-    .spec-body { padding: 2rem 1.5rem; }
-    .spec-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .svg-1-split, .svg-2-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-    .interactive-card { width: 100%; }
-    .next-card { padding: 3rem 2rem; }
-    .next-title { font-size: 3rem; }
-    .signature { font-size: 2.8rem; }
-    .meta-row { font-size: 0.7rem; padding: 0.6rem 1.2rem; gap: 0.8rem; flex-wrap: wrap; }
-    .footer-links { flex-direction: column; gap: 1.5rem; }
+@keyframes floatIso { 0%, 100% { transform: translateZ(var(--tz)); } 50% { transform: translateZ(calc(var(--tz) + 12px)); } }
+
+@keyframes dataStream {
+    0% { top: -10%; opacity: 0; transform: scaleY(0.8); }
+    15% { opacity: 1; transform: scaleY(1.5); }
+    85% { opacity: 1; transform: scaleY(1.5); }
+    100% { top: 110%; opacity: 0; transform: scaleY(0.8); }
 }
+
+@keyframes pulseBeam {
+    0%, 100% { opacity: 0.7; box-shadow: 0 0 15px var(--color-env), 0 0 30px rgba(6,182,212,0.5); }
+    50% { opacity: 1; box-shadow: 0 0 30px var(--color-env), 0 0 60px rgba(6,182,212,0.9); }
+}
+
+@keyframes drawBridge { to { stroke-dashoffset: 0; } }
 ```
 
-### Mobile Optimization Checklist
-- [ ] Body `scrollWidth` equals `viewport width` (no horizontal overflow)
-- [ ] All titles have `overflow-wrap: break-word`
-- [ ] Touch targets minimum 44x44
+### 7.3 Existing Keyframes (Preserved)
+- `blurReveal` (1.2s entry — hero content)
+- `palankiReveal` (1.5s — name letter-spacing squeeze)
+- `pulseCyan` (4s infinite — PALANKI ghost pulse)
+- `drawLine` (1s — cyan underline scaleX)
+- `scaleYIn` (1s — editorial cyan vertical line)
+- `enginePulse` (0.4s alternate — rocket flame, article pages)
+- `noiseShift` (8s steps — ambient noise drift, article pages)
+- `slowZoom` (30s alternate — hero bg Ken Burns, article pages)
+
+### 7.4 Scroll-Driven & Interactive (JS)
+- **Lenis smooth scroll** — V8 baseline (`@studio-freight/lenis@1.0.42`)
+- **`.reveal-up` / `.reveal-lines`** — IntersectionObserver 0.1 threshold, -10% rootMargin
+- **Scramble counter** — 1.2s random scramble then lock
+- **Scroll-written quote** — word-by-word illumination by scroll %
+- **Recession stacking** — GPU-accelerated `translate3d + scale` on path cards
+- **3D pop reveal** — browser-frame rotates in from 15deg
+- **Nav tightening** — scroll >50px: padding 1.5rem → 1rem, bg solid
+- **Magnetic buttons** — (article pages) button 0.15x + content 0.08x cursor offset
+
+### 7.5 Rule
+No other animations. No parallax on body content. No spinner loaders. No auto-playing hero videos. No animation libraries beyond Lenis (smooth scroll only).
+
+---
+
+## 8. Multi-Medium Application
+
+### 8.1 Website (HTML) — Primary Canvas
+- Reference files: `homepage-final.html`, `BLOG-POST-TEMPLATE.html`
+- Dark theme default. Article reading pages are the only light-mode surfaces.
+
+### 8.2 Gamma Presentations — Dark Theme Default
+- **Theme setup:** Load 4 Google Fonts. Set dark mode. Background `#030407`.
+- **Slide structure:**
+  - Title slide → giant Inter 900 + Instrument Serif italic subtitle + frosted badges + bridge SVG as decoration
+  - Section divider → hollow-stroke number + eyebrow label
+  - Content slide → one headline + one visual or three max bullets. Never six bullets.
+  - KPI slide → telemetry grid framing: "METRIC_01 [UNIT]" + value + label
+  - Quote slide → Instrument Serif 4vw, cavernous padding, hand-drawn highlight on key phrase
+  - Closer → product signature ("Crafted with intent by *Ravi Teja Palanki*")
+- **Animations:** Scroll-linked reveals only. No auto-play, no bounce.
+
+### 8.3 PowerPoint — Dark Theme Default
+- **Master slide:** `#030407` background, Inter/Instrument Serif/JetBrains Mono/Newsreader loaded
+- **Section transitions:** Morph or Fade (0.6s). Never Bounce, Dissolve, Wipe, or any "flashy" transition.
+- **Color palette:** Only the 4 identity colors as accents. Never flat color backgrounds.
+- **Typography rule:** Inter 900 for titles (uppercase, -0.03em tracking). Newsreader for body. Mono for metadata. Instrument Serif italic for quotes and editorial moments.
+- **Signature elements:** Every deck includes bridge SVG (as a decorative header) + frosted glass badges on the title slide + product signature closer.
+
+### 8.4 Word Documents — Light Theme Default
+- **Paper:** `#FCFDFD` background. Never pure white.
+- **Document styles:**
+  - Heading 1 → Inter 900, `clamp(2.5rem, ..., 4rem)`, uppercase, -0.03em tracking, `#111318`
+  - Heading 2 → Instrument Serif 400, 2.8rem, `#111318`
+  - Body → Newsreader 400, 1.2rem, line-height 1.7, `#202226`
+  - Meta / captions → JetBrains Mono 700, 0.75rem, uppercase, 0.15em tracking, `#5A5D67`
+  - Blockquote → Instrument Serif italic, left border 4px in `--color-model`
+  - Code block → JetBrains Mono on `#F8F7F4` (cream)
+- **Accent use:** Purple left borders for callouts. Red borders ONLY for warnings.
+- **Signature:** Every document closes with "Ravi Teja Palanki" in Instrument Serif.
+
+### 8.5 Diagrams (Excalidraw / SVG)
+- Use Excalidraw hand-drawn aesthetic for harness series
+- Use the V8 blueprint aesthetic (dot grid bg, dark def-box, VS circle) for concept diagrams
+- See `excalidraw-svg` skill for drawing rules; this skill supplies the color palette
+
+---
+
+## 9. Page Recipes
+
+### 9.1 Homepage (V8 — `/`)
+1. Dark canvas (`#030407`) + noise overlay + ambient glow
+2. Nav: fixed, Newsreader italic brand, 3 nav items + white CTA pill
+3. **Hero** (grid 1.15fr/0.85fr):
+   - Left: "RAVI TEJA / PALANKI" (palankiReveal + pulseCyan ghost) + editorial block with suspension bridge SVG under "The Bridger." + line-draw emphasis words + frosted badges
+   - Right: 3D isometric stack (STRATEGY/PRODUCT/ENGINEERING/DELIVERY with floatIso) + core beam + 3 data packets
+4. **The Bridger** — sticky card stack (3 frosted glass cards with identity gradients)
+5. **Telemetry** — 4-box dashboard grid with "METRIC_NN [UNIT]" headers and scramble counters
+6. **The Why** — word-by-word scroll-written quote + hand-drawn purple-to-rose highlight + CTA
+7. **Two Paths** — premium glass cards with 40px rounded-top edge, recession stacking
+8. **Article teaser** — 3D pop browser frame with neon highlight
+9. **Footer** — product signature
+
+### 9.2 Profile (`/profile`)
+See `lovable/04-PROFILE-PAGE-SPEC.md`. Uses folder-card 3D tilt for product cards (sequential, not sticky).
+
+### 9.3 Writing Landing (`/writing`)
+7 sections: hero → architecture (sticky cards) → anti-patterns → deep dives (recession) → quote → reading transition → archive. See `production-landing.html`.
+
+### 9.4 Series Hub (`/writing/{evals,agentic-stack,harness-engineering}`)
+Dark throughout. Series hero + level sections + reading guide + CTA. Harness variant uses sequential 8-episode layout.
+
+### 9.5 Article Reading Page
+Canonical template: `BLOG-POST-TEMPLATE.html`. Rocket progress bar, paper canvas overlay, learning objectives, body sections, mistake/spec/blueprint diagrams, up next, back nav, footer signature. Per-series accent override.
+
+---
+
+## 10. Responsive Breakpoints
+
+### `@media (max-height: 850px) and (min-width: 1025px)` — Short desktops
+Compacts hero: padding 6rem, title 5.5rem, italic-serif 3.2rem, viz scaled 0.85x.
+
+### `@media (max-width: 1024px)` — Tablet
+Hero collapses to single column (text-align center). Chasm viz scales to 0.8. Telemetry 2 cols. Nav links hide. Path heroes lose sticky and rounded corners.
+
+### `@media (max-width: 768px)` — Mobile
+Nav brand 1.2rem. Chasm 0.65 scale. Telemetry 1 col. Quote font 1.8rem. Hand-drawn highlight allows wrap. Signature stacks.
+
+### Mobile Checklist
+- [ ] `document.body.scrollWidth === window.innerWidth` (no horizontal overflow)
+- [ ] Touch targets ≥ 44×44px
 - [ ] Magnetic button physics disabled (<768px)
-- [ ] 3D card tilt disabled (<1024px)
-- [ ] 3D isometric mouse parallax disabled (<1024px)
-- [ ] Custom cursor disabled (<1025px)
-- [ ] Nav links hidden on <768px — only brand + CTA
-- [ ] Grids collapse to single column
-- [ ] `clamp()` sizing on all text
-- [ ] Newsreader body line-height ≥ 1.6
+- [ ] 3D tilt disabled (<1024px)
+- [ ] Smooth-scroll touchMultiplier 2 (Lenis config)
+- [ ] `clamp()` on every text size
+- [ ] `overflow-wrap: break-word` on display titles
+
+---
+
+## 11. Readability Rules (Non-Negotiable Across All Mediums)
+
+1. Minimum body size 1.15rem (HTML/Gamma) / 11pt (PPT/Word)
+2. Minimum font-weight 400 on dark
+3. WCAG AA minimum (4.5:1), AAA target (7:1) for main body
+4. Maximum line length 660px (65–75 chars)
+5. Line-height ≥ 1.7 for Newsreader body
+6. Touch targets ≥ 44×44 on mobile
+7. No pure black on pure white (use `#111318` on `#FCFDFD`)
+8. No text below 0.65rem
+9. Display titles get `overflow-wrap: break-word; hyphens: auto; max-width: 100%`
 
 ---
 
 ## 12. What This Skill Does NOT Cover
 
-- **Content voice and writing style** — see `ravi-thinking-skills` and `rtp-deep-dive-writer`
-- **Article editorial structure** (story → core idea → trap → in practice) — see `rtp-deep-dive-writer`
-- **Lovable-specific build instructions** (React component conversion, routing) — see `1_Projects/my-personal-website/lovable/` specs
-- **SVG diagram design content** — per-article specs in `SVG-VISUAL-PLAN.md` for harness, evals diagrams already built in each article's HTML
-- **Profile page deep content** — see `lovable/04-PROFILE-PAGE-SPEC.md`
-- **Article content map** — see `lovable/09-CONTENT-MAP.md` (all 70 article routes)
+- **Content voice** — see `ravi-thinking-skills`
+- **Article editorial structure** — see `rtp-deep-dive-writer`
+- **Lovable-specific build** — see `1_Projects/my-personal-website/lovable/` specs
+- **Diagram content (per-article specs)** — see series-specific `SVG-VISUAL-PLAN.md` files
+- **Profile deep content** — see `lovable/04-PROFILE-PAGE-SPEC.md`
+- **Content map** — see `lovable/09-CONTENT-MAP.md`
 
 ---
 
@@ -1101,12 +804,21 @@ Backup safety: transformation script creates `.bak` files alongside originals fo
 
 | Artifact | Path |
 |----------|------|
-| Homepage HTML (final) | `1_Projects/my-personal-website/prototype/homepage-final.html` |
+| Homepage (V8, canonical) | `1_Projects/my-personal-website/prototype/homepage-final.html` |
 | Blog post template (gold standard) | `1_Projects/my-personal-website/reference/BLOG-POST-TEMPLATE.html` |
-| Production writing landing | `1_Projects/my-personal-website/reference/production-landing.html` |
-| Article reference (approved) | `1_Projects/my-personal-website/reference/REFERENCE-article-page.html` |
-| Transformation script | `1_Projects/my-personal-website/scripts/apply-gold-template.py` |
-| Lovable build specs (11 files) | `1_Projects/my-personal-website/lovable/00-10-*.md` |
-| Harness episode spec | `1_Projects/my-personal-website/lovable/11-HARNESS-ENGINEERING-SPEC.md` |
+| Writing landing (production) | `1_Projects/my-personal-website/reference/production-landing.html` |
+| Article transform script | `1_Projects/my-personal-website/scripts/apply-gold-template.py` |
+| Lovable specs (11 files + harness) | `1_Projects/my-personal-website/lovable/` |
 
-When in doubt, the canonical HTML files win over any written description.
+**When in doubt, the canonical HTML files win over any written description.**
+
+---
+
+## 14. Version History
+
+| Version | Date | Change |
+|---------|------|--------|
+| 2.0 | 17 APR 2026 | V8 upgrade — suspension bridge SVG, data packet stream, scramble counter dashboard, scroll-written quote, hand-drawn purple-to-rose highlight, 3D pop browser frame, premium glass cards with 40px rounded-top, floating iso planes, product-signature footer, Lenis smooth scroll. Added Design Philosophy (9 creative principles) + multi-medium guidance (HTML/Gamma/PPT/Word). |
+| 1.0 | 17 APR 2026 | Initial unified skill superseding learn-site-design v2.0 |
+| — (learn-site-design v2.0) | 15 APR 2026 | Expanded to full ravitejapalanki.com (deprecated) |
+| — (learn-site-design v1.0) | 12 APR 2026 | learn subdomain only (deprecated) |
