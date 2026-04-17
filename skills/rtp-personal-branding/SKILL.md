@@ -23,7 +23,7 @@ The single source of truth for every visual decision Ravi makes — across HTML,
 **Every visual agent invokes this skill first.** Presentation Builder, Diagram Builder, UX Design Agent, Article Writer — all route through this before producing visual output.
 
 **Canonical reference files:**
-- Homepage (V8, cinematic landing): `1_Projects/my-personal-website/prototype/homepage-final.html`
+- Homepage (V8, cinematic landing): `1_Projects/my-personal-website/FOR-LOVABLE/02-reference-html/homepage-final.html`
 - Blog post template (gold standard): `1_Projects/my-personal-website/reference/BLOG-POST-TEMPLATE.html`
 - Deep-dive hub template (gold standard, v2.1 source): `1_Projects/my-personal-website/reference/DEEP-DIVE-HUB-TEMPLATE.html`
 - Writing section landing: `1_Projects/my-personal-website/reference/production-landing.html`
@@ -1229,7 +1229,7 @@ Nav brand 1.2rem. Chasm 0.65 scale. Telemetry 1 col. Quote font 1.8rem. Hand-dra
 
 | Artifact | Path |
 |----------|------|
-| Homepage (V8, canonical) | `1_Projects/my-personal-website/prototype/homepage-final.html` |
+| Homepage (V8, canonical) | `1_Projects/my-personal-website/FOR-LOVABLE/02-reference-html/homepage-final.html` |
 | Blog post template (gold standard) | `1_Projects/my-personal-website/reference/BLOG-POST-TEMPLATE.html` |
 | Deep-dive hub template (gold standard — v2.1 source) | `1_Projects/my-personal-website/reference/DEEP-DIVE-HUB-TEMPLATE.html` |
 | Writing landing (production) | `1_Projects/my-personal-website/reference/production-landing.html` |
