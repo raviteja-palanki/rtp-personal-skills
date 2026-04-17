@@ -1,10 +1,10 @@
 ---
 name: ravi-personal-branding
 version: 2.1
-description: Ravi Teja Palanki's complete design system for every visual surface — website (ravitejapalanki.com), presentations (Gamma, PowerPoint), documents (Word), diagrams, article pages. Dark + light themes properly separated. Nine creative principles that govern every choice. V2.1 adds 5 components from DEEP-DIVE-HUB-TEMPLATE: Live Trace observability engine, per-level semantic animated SVG badges, card laser on hover, status ring indicator, spotlight 3D tilt card.
+description: Ravi Teja Palanki's complete design system for every visual surface — website (ravitejapalanki.com), presentations (Gamma, PowerPoint), documents (Word), diagrams, article pages. Dark + light themes properly separated. Nine creative principles that govern every choice. V2.1 adds 5 components from the AI Evals hub (canonical): Live Trace observability engine, per-level semantic animated SVG badges, card laser on hover, status ring indicator, spotlight 3D tilt card.
 author: Ravi Teja Palanki
 created: 17 April 2026
-updated: 17 April 2026 (v2.1 — added 5 components from DEEP-DIVE-HUB-TEMPLATE: Live Trace engine, semantic badges, card laser, status ring, spotlight 3D tilt)
+updated: 17 April 2026 (v2.1 — added 5 components from the AI Evals hub (canonical): Live Trace engine, semantic badges, card laser, status ring, spotlight 3D tilt)
 supersedes: learn-site-design (v2.0), ravi-personal-branding (v1.0)
 ---
 
@@ -25,7 +25,7 @@ The single source of truth for every visual decision Ravi makes — across HTML,
 **Canonical reference files:**
 - Homepage (V8, cinematic landing): `1_Projects/my-personal-website/FOR-LOVABLE/02-reference-html/homepage-final.html`
 - Blog post template (gold standard): `1_Projects/my-personal-website/reference/BLOG-POST-TEMPLATE.html`
-- Deep-dive hub template (gold standard, v2.1 source): `1_Projects/my-personal-website/reference/DEEP-DIVE-HUB-TEMPLATE.html`
+- Deep-dive hub template (gold standard, v2.1 source): `1_Projects/my-personal-website/03-articles-ai-evals/index.html`
 - Writing section landing: `1_Projects/my-personal-website/reference/production-landing.html`
 
 ---
@@ -633,7 +633,7 @@ Full CSS in `BLOG-POST-TEMPLATE.html` for article-page components.
 
 ## 6B. Deep-Dive Hub Components (v2.1 — Components #31–#35)
 
-Five components introduced with `DEEP-DIVE-HUB-TEMPLATE.html`. These power the series hub pages (/writing/evals, /writing/agentic-stack, /writing/harness-engineering). They are **HTML-primary** — most do not port cleanly to Gamma / PPT / Word. Where cross-medium use is possible, it's called out.
+Five components introduced with `03-articles-ai-evals/index.html`. These power the series hub pages (/writing/evals, /writing/agentic-stack, /writing/harness-engineering). They are **HTML-primary** — most do not port cleanly to Gamma / PPT / Word. Where cross-medium use is possible, it's called out.
 
 ### 6.14 Component #31 — Live Trace Observability Engine
 
@@ -841,7 +841,7 @@ Five components introduced with `DEEP-DIVE-HUB-TEMPLATE.html`. These power the s
 
 **Anti-pattern:** Don't invent a 5th metaphor for a 5th level. The 4-level system is the ceiling for mental-model compression. If you have 5 levels, collapse two. Don't swap metaphors across series — the reticle/network/layers/waveform quartet is the brand signature.
 
-**Companion components:** Pairs with `.level-section` + `.topic-grid` layout (see DEEP-DIVE-HUB-TEMPLATE.html lines 189-240). Works inside the Live Trace engine background (#31).
+**Companion components:** Pairs with `.level-section` + `.topic-grid` layout (see 03-articles-ai-evals/index.html lines 189-240). Works inside the Live Trace engine background (#31).
 
 ---
 
@@ -1231,7 +1231,7 @@ Nav brand 1.2rem. Chasm 0.65 scale. Telemetry 1 col. Quote font 1.8rem. Hand-dra
 |----------|------|
 | Homepage (V8, canonical) | `1_Projects/my-personal-website/FOR-LOVABLE/02-reference-html/homepage-final.html` |
 | Blog post template (gold standard) | `1_Projects/my-personal-website/reference/BLOG-POST-TEMPLATE.html` |
-| Deep-dive hub template (gold standard — v2.1 source) | `1_Projects/my-personal-website/reference/DEEP-DIVE-HUB-TEMPLATE.html` |
+| Deep-dive hub template (gold standard — v2.1 source) | `1_Projects/my-personal-website/03-articles-ai-evals/index.html` |
 | Writing landing (production) | `1_Projects/my-personal-website/reference/production-landing.html` |
 | Article transform script | `1_Projects/my-personal-website/scripts/apply-gold-template.py` |
 | Lovable specs (11 files + harness) | `1_Projects/my-personal-website/lovable/` |
@@ -1244,7 +1244,7 @@ Nav brand 1.2rem. Chasm 0.65 scale. Telemetry 1 col. Quote font 1.8rem. Hand-dra
 
 | Version | Date | Change |
 |---------|------|--------|
-| 2.1 | 17 APR 2026 | Added 5 components from `DEEP-DIVE-HUB-TEMPLATE.html` — #31 Live Trace observability engine (animated SVG background simulating spans + evals), #32 per-level semantic animated SVG badges (L1 reticle / L2 neural network / L3 isometric layers / L4 anomaly waveform), #33 card laser on hover (beam shoot across top edge), #34 status ring indicator (14px ring micro-signal for card state), #35 spotlight 3D tilt card (cursor-tracked radial gradient + subtle rotateX/Y). Updated Creative Principles 1.2 (added hub page signatures) and 1.3 (status rings as micro-disclosure). Added `DEEP-DIVE-HUB-TEMPLATE.html` to canonical references. |
+| 2.1 | 17 APR 2026 | Added 5 components from `03-articles-ai-evals/index.html` — #31 Live Trace observability engine (animated SVG background simulating spans + evals), #32 per-level semantic animated SVG badges (L1 reticle / L2 neural network / L3 isometric layers / L4 anomaly waveform), #33 card laser on hover (beam shoot across top edge), #34 status ring indicator (14px ring micro-signal for card state), #35 spotlight 3D tilt card (cursor-tracked radial gradient + subtle rotateX/Y). Updated Creative Principles 1.2 (added hub page signatures) and 1.3 (status rings as micro-disclosure). Added `03-articles-ai-evals/index.html` to canonical references. |
 | 2.0 | 17 APR 2026 | V8 upgrade — suspension bridge SVG, data packet stream, scramble counter dashboard, scroll-written quote, hand-drawn purple-to-rose highlight, 3D pop browser frame, premium glass cards with 40px rounded-top, floating iso planes, product-signature footer, Lenis smooth scroll. Added Design Philosophy (9 creative principles) + multi-medium guidance (HTML/Gamma/PPT/Word). |
 | 1.0 | 17 APR 2026 | Initial unified skill superseding learn-site-design v2.0 |
 | — (learn-site-design v2.0) | 15 APR 2026 | Expanded to full ravitejapalanki.com (deprecated) |
