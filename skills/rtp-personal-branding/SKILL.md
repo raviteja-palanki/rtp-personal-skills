@@ -1165,7 +1165,7 @@ No other animations. No parallax on body content. No spinner loaders. No auto-pl
 9. **Footer** — product signature
 
 ### 9.2 Profile (`/profile`)
-See `lovable/04-PROFILE-PAGE-SPEC.md`. Uses folder-card 3D tilt for product cards (sequential, not sticky).
+See `FOR-LOVABLE/01-lovable-specs/04-PROFILE-PAGE-SPEC.md`. Uses folder-card 3D tilt for product cards (sequential, not sticky).
 
 ### 9.3 Writing Landing (`/writing`)
 7 sections: hero → architecture (sticky cards) → anti-patterns → deep dives (recession) → quote → reading transition → archive. See `production-landing.html`.
@@ -1220,8 +1220,8 @@ Nav brand 1.2rem. Chasm 0.65 scale. Telemetry 1 col. Quote font 1.8rem. Hand-dra
 - **Article editorial structure** — see `rtp-deep-dive-writer`
 - **Lovable-specific build** — see `1_Projects/my-personal-website/lovable/` specs
 - **Diagram content (per-article specs)** — see series-specific `SVG-VISUAL-PLAN.md` files
-- **Profile deep content** — see `lovable/04-PROFILE-PAGE-SPEC.md`
-- **Content map** — see `lovable/09-CONTENT-MAP.md`
+- **Profile deep content** — see `FOR-LOVABLE/01-lovable-specs/04-PROFILE-PAGE-SPEC.md`
+- **Content map** — see `FOR-LOVABLE/01-lovable-specs/09-CONTENT-MAP.md`
 
 ---
 
