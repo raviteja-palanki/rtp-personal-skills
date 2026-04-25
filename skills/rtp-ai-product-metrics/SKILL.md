@@ -1,14 +1,9 @@
 ---
-id: ai-product-metrics
-title: AI Product Metrics
-category: craft
+name: rtp-ai-product-metrics
 description: AI products require different metrics. Traditional DAU/retention are lagging indicators. Leading indicators are acceptance rate, correction rate, regeneration rate, and cost-per-successful-outcome.
-difficulty: intermediate
 imports:
   - eval-framework
   - feedback-flywheel
-author: ai-pm
-last_updated: 2026-03-28
 ---
 
 ## GROUNDING (Before Starting)
@@ -116,7 +111,28 @@ These consistency metrics measure whether your system is capability-limited or c
 
 For customer-facing agents, track pass^k not pass@k. A single failure in a sequence damages trust more than raw capability metrics suggest.
 
-**7. Detect Eval Saturation**
+**7. Define Anti-Metrics (What Going UP Would Be Bad)**
+
+Most metric frameworks define what success looks like. Anti-metrics define what a dangerous signal looks like — a metric that's increasing but shouldn't be.
+
+**The pattern:** For every primary metric, ask: "What metric going UP would actually signal a problem?"
+
+| Primary Metric | Anti-Metric | Why It's Dangerous |
+|----------------|-------------|-------------------|
+| DAU (Daily Active Users) | Session count with no task completion | Users are coming back because the AI keeps failing — they're retrying, not succeeding |
+| Acceptance rate | Acceptance rate + zero edits on complex tasks | Users may be blindly accepting AI output without reviewing. Over-trust is a failure mode, not a success signal |
+| Feature adoption | Adoption + increased support tickets | Users are adopting but can't figure it out — adoption without competence |
+| Time in product | Time in product + low task completion | User is stuck, not engaged. High time-on-task in a productivity tool means friction, not value |
+| Cost reduction | Cost reduction + declining quality scores | You cut cost by degrading quality. The savings are temporary — churn follows |
+
+**Process:**
+1. For each primary metric and guardrail metric, define its anti-metric
+2. Monitor anti-metrics alongside primaries on the same dashboard — never in isolation
+3. If a primary metric is trending up AND its anti-metric is also trending up, investigate before celebrating. The growth may be masking a deeper problem.
+
+**The check that catches perverse incentives:** Anti-metrics are the systematic defense against Goodhart's Law — "when a measure becomes a target, it ceases to be a good measure." By defining what going UP would mean going WRONG, you force the team to think about gaming, over-optimization, and unintended consequences.
+
+**8. Detect Eval Saturation**
 
 When your eval suite stops moving despite meaningful improvements in production, your metrics have plateaued. Signs include:
 

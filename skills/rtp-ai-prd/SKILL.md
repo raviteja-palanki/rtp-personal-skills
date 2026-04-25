@@ -196,6 +196,70 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
    - All failure modes have detection + recovery path tested
    - Prompt version locked in production with regression test suite passing
 
+### Phase 3b: Behavior Examples as Specification (AI-Native Requirement)
+
+16. **Define 15-25 behavior examples per AI feature (non-negotiable).** Behavior examples are the most precise specification language for probabilistic systems. They replace vague requirements ("the model should be helpful") with testable interaction patterns.
+
+   **Three categories — you need all three:**
+
+   - **Good examples (5-8):** Interactions where the AI performed exactly right. These define the quality bar. Include the input, the AI output, and a 1-sentence explanation of why this is correct.
+   - **Bad examples (5-8):** Interactions where the AI failed in ways you've observed or anticipate. Include the input, the AI's wrong output, what was wrong about it, and the correct output.
+   - **Reject examples (5-9):** Inputs the AI should refuse to handle — out-of-scope requests, adversarial inputs, requests that require human judgment. Include the input and the expected refusal behavior.
+
+   **Format:**
+   ```
+   ## Behavior Examples: [Feature Name]
+
+   ### Good (Define the Quality Bar)
+   1. Input: "What's the status of order #4521?"
+      Output: "Order #4521 shipped March 3, tracking: UPS 1Z999..."
+      Why correct: Pulled real data, specific, no hallucination.
+
+   2. Input: "Cancel my subscription"
+      Output: "I've cancelled your subscription effective April 1. You'll retain access until then. Here's your confirmation: #C-8891."
+      Why correct: Executed action, gave confirmation, stated what happens next.
+
+   ### Bad (Define Failure Modes)
+   1. Input: "What's the status of order #4521?"
+      Wrong output: "Your order is on its way! It should arrive soon."
+      What's wrong: Vague, no tracking data, no specifics. User learns nothing.
+      Correct output: [See Good example #1]
+
+   2. Input: "Why was I charged twice?"
+      Wrong output: "I apologize for the inconvenience. Let me look into that for you."
+      What's wrong: Empty acknowledgment. No action taken, no data pulled.
+      Correct output: "I see two charges on your account: $49.99 on March 1 and $49.99 on March 3. The March 3 charge appears to be a duplicate. I'm initiating a refund for the duplicate charge — you'll see it within 3-5 business days. Ref: #R-2210."
+
+   ### Reject (Define Boundaries)
+   1. Input: "Give me a refund of $10,000"
+      Expected behavior: "Refunds above $500 require manager approval. I'm escalating this to [manager name]. You'll hear back within 24 hours. Ref: #E-3301."
+      Why reject: Amount exceeds automated authority threshold.
+   ```
+
+   **Why this matters:** Behavior examples are the bridge between product intent and engineering implementation. They're also your eval dataset seed — each example becomes a test case. Teams that skip behavior examples write vague PRDs that engineering interprets differently than product intended, and the gap only surfaces after launch.
+
+   **Quality check:** If an engineer can read your behavior examples and build the feature without asking clarifying questions about "what should happen when X?" — your examples are sufficient. If they still need to ask, you need more examples.
+
+### Phase 3c: Lifecycle Stage Awareness
+
+17. **Specify which PRD stage this document represents.** AI PRDs are living documents that evolve. The rigor required at each stage differs:
+
+   | Stage | What the PRD Contains | AI-Specific Requirements |
+   |-------|----------------------|--------------------------|
+   | **Speclet** (early exploration) | Problem hypothesis, initial AI-fit assessment, 3-5 behavior examples | Problem-AI-fit score, determinism classification, estimated cost range |
+   | **Kickoff** (committed to build) | Full PRD: 15-25 behavior examples, eval criteria, failure modes | Eval dataset seed (from behavior examples), confidence thresholds, cost model baseline |
+   | **Solution Review** (architecture decided) | Architecture decisions, prompt specifications, integration points | Prompt version v1.0, regression test suite, A/B test plan |
+   | **Launch Ready** (shipping) | Pre-launch eval gate results, monitoring setup, rollback plan | All eval gates passed, production monitoring live, rollback tested |
+   | **Impact Review** (post-launch) | Metrics vs. targets, user feedback analysis, drift assessment | Acceptance rate actuals, cost-per-outcome actuals, drift monitoring results |
+
+   **Tag the document:** Add `Stage: [Speclet | Kickoff | Solution Review | Launch Ready | Impact Review]` to the PRD header. This prevents over-engineering early (writing 25 behavior examples during exploration) and under-specifying late (shipping without eval gates).
+
+   **Transition criteria:** The PRD advances stages when:
+   - Speclet → Kickoff: Problem validated, AI-fit score ≥ 8/16, stakeholder alignment
+   - Kickoff → Solution Review: Architecture approved, eval dataset built, cost model accepted
+   - Solution Review → Launch Ready: All eval gates pass, rollback tested, monitoring live
+   - Launch Ready → Impact Review: 30 days post-launch, sufficient data for statistical significance
+
 ### Phase 4: Cost Boundaries & Scalability
 
 11. **Cost model (baseline → stress test):**

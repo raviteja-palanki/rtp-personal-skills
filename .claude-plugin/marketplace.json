@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "rtp-personal-skills",
+  "version": "1.1.0",
+  "description": "Ravi Teja Palanki's complete AI PM operating system. 75+ skills across thinking, judgment, craft, research, writing, presentations, design systems, and admin — including the orchestrator that deploys all skills as expert agents. Install once on any machine to absorb the full RTP skill library.",
+  "owner": {
+    "name": "Ravi Teja Palanki (RTP)",
+    "url": "https://github.com/raviteja-palanki"
+  },
+  "plugins": [
+    {
+      "name": "rtp-personal-skills",
+      "description": "The complete RTP skill library: orchestrator + 55 AIPM skills (thinking-core, product-sense, ai-strategy, safety-trust, agent-design, eval-quality, craft) + 16 general-purpose skills (thinking, writing, branding, presentations, visualization, design-systems, research, admin, resume-builder).",
+      "source": ".",
+      "category": "ai-product-management"
+    }
+  ]
+}

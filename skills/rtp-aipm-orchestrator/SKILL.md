@@ -296,6 +296,40 @@ The expert agents don't work in isolation. They challenge each other:
 
 ---
 
+## FULL ECOSYSTEM AWARENESS — All Skills Available
+
+The orchestrator commands the entire installed plugin ecosystem, not just RTP's AI PM skills. RTP skills are first preference when a purpose-built equivalent exists — they carry Ravi's voice, his thinking algorithms, his quality bar. But the orchestrator never refuses a task because RTP doesn't ship a skill for it. When a non-RTP plugin solves the problem better, reach for it. The job is to know what's installed and pick the right tool, not to default-route to the same six expert agents for every prompt.
+
+### The Tier Map
+
+**Tier 1 — RTP skills (Ravi's voice + thinking).** The primary expert agents. `rtp-aipm-orchestrator`, `rtp-thinking-skills`, `rtp-personal-branding`, `rtp-email-mastery`, `rtp-frontend-slides`, `rtp-excalidraw-svg`, `rtp-research-synthesiser`, `rtp-hbr-research`, `rtp-claude-admin`, `rtp-deep-dive-writer`, `rtp-ux-design-systems`, `rtp-learn-site-design`, `rtp-product-thinking`, `rtp-ai-fluent-brand`, `rtp-ravis-resume-builder`, plus all 55 AIPM skills (`first-principles`, `problem-ai-fit`, `autonomy-spectrum`, `eval-framework`, `ai-prd`, the rest of the roster). Reach for these when the task is AI PM strategy, content or visual output that must sound like Ravi, governance, or any design system work.
+
+**Tier 2 — Process and engineering rigor.** `superpowers:*` and `compound-engineering:*` own the discipline layer. Test-driven development, systematic debugging, code review (giving and receiving), brainstorming, writing plans, executing plans, finishing development branches, dispatching parallel agents, verification before completion, frontend-design, agent-native-architecture, dhh-rails-style, every-style-editor. When the work is actual engineering — code, tests, debug, review — these skills run the show. Discipline matters more than voice here.
+
+**Tier 3 — PM execution skills (the pm-skills marketplace, 8 plugins).** `pm-product-discovery`, `pm-product-strategy`, `pm-execution`, `pm-market-research`, `pm-data-analytics`, `pm-go-to-market`, `pm-toolkit`, `pm-marketing-growth`. Textbook PM frameworks — Lean Canvas, OKRs, RICE, JTBD, Porter's Five Forces, GTM motions, cohort analysis, A/B test stats. Use when Ravi explicitly wants a textbook framework, or when the activity is traditional non-AI PM work that RTP skills don't cover. RTP skills win for AI-specific PM work (`rtp-strategy-canvas` over a generic strategy canvas); pm-skills win for everything else PM.
+
+**Tier 4 — Anthropic and file-format skills.** `anthropic-skills:pdf`, `anthropic-skills:pptx`, `anthropic-skills:xlsx`, `anthropic-skills:docx`, `anthropic-skills:brand-guidelines`, `anthropic-skills:web-artifacts-builder`, `anthropic-skills:skill-creator`, `anthropic-skills:schedule`, `anthropic-skills:consolidate-memory`, `anthropic-skills:setup-cowork`. Whenever the task touches that file format or capability, this is the right tool. Layer Tier 1 design DNA on top when the output is visual.
+
+**Tier 5 — Development tools.** `github` (issues, PRs, repos), `linear` (tickets), `supabase` (DB), `commit-commands` (git workflows), `ralph-loop`, `claude-md-management`, `plugin-dashboard`, `claude-session-driver`, `episodic-memory:search-conversations` (search past conversations), `elements-of-style:writing-clearly-and-concisely` (Strunk rules). Use when the task obviously hits that tool — don't reinvent what's already wrapped.
+
+### Priority Examples
+
+- "Brainstorm a new product idea" → `superpowers:brainstorming` first (it owns the rigor), then layer Ravi's voice via `rtp-thinking-skills`.
+- "Write a PRD for an AI feature" → `rtp-ai-prd`. Purpose-built for AI PRDs. RTP wins.
+- "Write a non-AI PRD or backlog stories" → `pm-execution:write-prd` or `pm-execution:write-stories`. Textbook PM, no AI nuance needed.
+- "Debug failing tests" → `superpowers:systematic-debugging` plus `superpowers:test-driven-development`. They own that workflow end to end.
+- "Review a Rails PR" → `compound-engineering:dhh-rails-style`. Purpose-built reviewer for that idiom.
+- "Build a presentation deck" → `rtp-frontend-slides` for HTML mechanics, layered with `rtp-personal-branding` for the design DNA.
+- "Search past conversations for a decision" → `episodic-memory:search-conversations`.
+- "Create a Word doc" → `anthropic-skills:docx` for the file format, layered with `rtp-personal-branding` for visual style.
+- "Run a competitive analysis" → `pm-market-research:competitive-analysis` for the framework, then sharpen with `rtp-thinking-skills` for the structural insight.
+
+### The Never Refuse, Never Narrow Rule
+
+Never say "I don't have a skill for that" when there's a plugin installed that handles it. The orchestrator's job is to know what's at its disposal and reach for the right one. Check the tier map first. Layer skills together when the task spans domains — file format plus design DNA, framework plus voice, engineering rigor plus PM judgment. If after honest scanning no plugin fits, say so plainly and propose the best path forward without one. But check first.
+
+---
+
 ## QUALITY GATE — FOR THE ORCHESTRATOR ITSELF
 
 Before presenting ANY output, verify:
