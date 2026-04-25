@@ -383,6 +383,77 @@ If >50% of revenue comes from Tier 1, scaling is painful — you need 10 tier-1 
 
 *Sharpen it:* For each tier, what's the actual cost per customer after 6 months? Is margin positive for all tiers, including harness overhead?
 
+## THE MONETIZATION DECISION — BUNDLE / ADD-ON / STANDALONE
+
+The cost model tells you what AI costs to run. The monetization decision tells you whether to charge for it separately. These are different questions and most teams collapse them.
+
+Palle Broe's analysis of 44 tech incumbents (Lenny's Newsletter, 2024):
+- **59% bundle** — AI features included in existing plans, no separate charge
+- **23% add-on** — AI in a separate tier or add-on price point
+- **18% standalone** — AI is a separate product with its own pricing
+
+The decision is structural, not preferential. Three signals tell you which model fits.
+
+### Signal 1 — Marginal Cost Reality
+
+Pull from your `cost-model`. Compute per-call inference cost as a percentage of subscription revenue per active user.
+
+| Cost as % of revenue | Model that fits | Why |
+|---|---|---|
+| <5% | Bundle is safe | Heavy users don't blow the unit economics; bundling buys positioning and retention |
+| 5-20% | Bundle with fair-use, or hybrid | Margin is sensitive to power users; need a soft cap or metered overage |
+| >20% | Add-on or usage-based mandatory | Bundling means losing money on power users; structural unprofitability disguised as growth |
+
+The trap: teams quote "average user cost" and bundle. The average user is irrelevant. The 90th percentile user determines whether bundling works. Compute against P90 cost, not mean cost.
+
+### Signal 2 — New Value vs Improvement
+
+Is this AI capability a new product, or an enhancement of the existing product? The test: could users get this value before AI was added (just slower or worse)?
+
+- **Improvement → bundle.** If users had this value before (manually, slowly, or at lower quality), AI is making the existing product better. Bundling defends against competitive unbundling — if you charge separately, a competitor will include it for free and you'll lose on positioning. Salesforce bundling Einstein is the canonical example. Notion bundling AI writing is another.
+- **New value → add-on or standalone.** If users couldn't get this value at all before AI, it's a new product surface. Add-on captures the willingness-to-pay differential without splitting the GTM. Standalone is the right call only when the new value reaches a non-overlapping audience (the Cursor / Github Copilot pattern).
+
+The test that catches teams: write the sentence "Before our AI feature, users could [X]." If the blank fills with "do this manually" or "do this with worse output," it's an improvement. If the blank fills with "couldn't do this at all," it's new value.
+
+### Signal 3 — Segment Willingness-to-Pay Separation
+
+Does a clear segment value the AI feature *enough* to pay extra for it specifically? Two ways this shows up:
+
+- **Yes, separable WTP exists.** A subset of users would pay 30-50% more for AI features alone. Add-on captures that. Examples: Notion AI ($10/seat add-on) and Slack AI ($10/seat add-on) both work because power-user segments have separable WTP.
+- **No, everyone wants it but no one would pay extra.** AI is becoming table stakes. Bundling is correct — charging separately just creates friction without revenue. Examples: Gmail's smart compose, GitHub's basic code suggestions in the free tier, Notion's basic AI helper.
+
+The signal you want from the field: when sales mentions AI to a prospect, do they ask "what's the price for that?" (separable WTP) or "is that included?" (table stakes). The first answer points to add-on. The second points to bundle.
+
+### Failure Modes by Model
+
+For each model, name the failure and the mitigation. If you can't articulate the failure mode, you don't understand why your model fits.
+
+| Model | Primary Failure Mode | Mitigation |
+|---|---|---|
+| **Bundle** | High-usage power users blow unit economics | Soft fair-use policies. Usage caps that almost no one hits but exist as kill switches. Track P95 and P99 cost per user; alert if either crosses your gross margin floor. |
+| **Add-on** | Friction to adoption depresses AI feature usage | Free trial of AI features (14-30 days). Clear ROI display before paywall ("you saved 4 hours this trial — upgrade to keep it"). One-click toggle, not a contract change. |
+| **Standalone** | Dilutes brand and splits go-to-market | Only do this when the standalone product genuinely serves a new use case and a new user. Cursor (developers, separate IDE) works. "AI version of our existing product, $50 more" usually doesn't. |
+
+The standalone path is the most often miscalled. PM Copilot itself is a textbook standalone — a plugin that adds capability that the host product doesn't have, sold to a different buyer (the PM, not the engineering org). Most teams that go standalone are really doing add-on with extra friction. Test it: if your "standalone product" is sold to the same buyer as your core product, on the same sales cycle, with the same logo, it's an add-on with bad packaging.
+
+### The AI-Specific Pricing Twist
+
+Per-call cost variability is what makes AI pricing different from SaaS pricing. SaaS marginal cost is near zero — adding a user costs nothing. AI marginal cost is real and variable. Three rules:
+
+1. **If your value metric is "per AI call," users game it.** Batching, sharing accounts, scripted automation. Per-call as the value metric works for developers (OpenAI API) where the buyer is technical and accepts the metric. For end-user products it fails — users feel taxed for thinking.
+2. **If your value metric is "per outcome" (e.g., per generated PRD, per resolved ticket), it aligns better but is harder to measure.** What counts as an outcome? Who decides? Users will argue about it during renewal. Outcome pricing works in narrow categories where the outcome is unambiguous (a closed support ticket, a published article, a generated brief). It fails for ambiguous tasks (a brainstorm session, an open conversation).
+3. **The cleanest enterprise model: charge for seats (predictable revenue) and cap with fair-use language (defends against runaway costs). Bundle the AI in the seat price.** Buyers love predictable. Procurement teams love seat counts. Fair-use language ("up to 1,000 AI calls per seat per month, additional usage subject to overage") is the defense. Almost no one hits the cap, but it exists as the legal floor.
+
+The hybrid that emerging enterprise leaders are converging on: **seat-based for the predictable buy, with metered overage for usage that crosses a threshold.** This handles 95% of cases. The remaining 5% are pure-API developer products where per-token transparency is the trust mechanism.
+
+### Cross-Links
+
+- **`cost-model`** — for the underlying unit economics. Don't price without modeling at P90, not mean. Pull the P90 cost-per-user before deciding which monetization model fits.
+- **`adoption-launch`** — because monetization model determines launch motion. Bundle launches as a feature update (PR, in-product). Add-on launches as a new SKU (sales enablement, pricing-page change, comp plan implications). Standalone launches as a separate product (full GTM). Don't run a Bundle launch motion for an Add-on product.
+- **`competitive-map`** — because pricing is positioning made visible. If your competitor bundles AI and you charge for it, you're saying "AI is premium" — which only works if you can defend that with quality differentiation. If you bundle and they charge, you're saying "AI is table stakes" — which only works if you can absorb the unit economics.
+
+The full pricing decision is: **(monetization model) × (pricing model) × (value metric).** Most teams pick one and assume the others. Pick all three explicitly, with the failure mode named for each.
+
 ## REALITY CHECK
 
 - **Failure mode:** Prices viable at 10x but not 100x. Model 10x scenarios.

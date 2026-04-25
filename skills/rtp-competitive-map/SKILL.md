@@ -225,6 +225,181 @@ In AI, competitive advantage doesn't live in features. It lives in moat durabili
 
     Your competitive position = intersection of these three matrices. That's your defensible market.
 
+## THE 5-COMPONENT POSITIONING FRAMEWORK (April Dunford)
+
+The matrices above tell you where you stand. They don't tell you how to talk about it. That's positioning — and most AI teams skip it, then wonder why customers don't get them.
+
+April Dunford's framework forces five answers. Each is testable. Together they produce a positioning statement that survives sales conversations, not just internal whiteboards.
+
+### Component 1: Competitive Alternatives
+
+**The question:** What would your customer use if you didn't exist?
+
+This is not just "other AI products." For an AI agent product, the real alternatives usually include:
+
+- **Rule-based automation** — RPA tools, scripted workflows. Lower capability ceiling, but deterministic. Procurement teams trust it. Different positioning required.
+- **Human BPO** — Outsourced humans doing the same task. Higher cost, slower, but the customer's risk model accepts it because humans are accountable in a way AI isn't.
+- **Other LLM agents** — Direct competitors. Same model class, different harness.
+- **Status quo (do nothing)** — Often the strongest alternative. Inertia is a competitor. The customer is already coping with the problem somehow.
+- **In-house build** — Especially at enterprise scale. "We could just wrap GPT-4 ourselves."
+
+**Each alternative needs different positioning.** Against rule-based: lead with adaptability and edge cases. Against human BPO: lead with consistency and unit economics. Against other LLM agents: lead with your specific harness, eval depth, or domain data. Against status quo: quantify the cost of doing nothing.
+
+**The trap:** Listing only direct competitors. If your customer is comparing you to a $40/hour human contractor, comparing yourself only to other AI startups is malpractice.
+
+### Component 2: Unique Attributes
+
+**The question:** What do you have that no alternative has?
+
+Not features. Attributes. A feature is "we have RAG." An attribute is "we are the only product that retrieves from your private contract corpus AND your CRM AND your email threads in one query."
+
+Test each candidate attribute:
+- Can a competitor add it in 6 months? If yes, it's not unique. It's a temporary lead.
+- Is it visible to the customer at the point of decision? If not, it's not an attribute — it's hidden value that doesn't drive choice.
+- Does it map to a value the customer cares about? If not, it's a vanity attribute.
+
+**AI-product examples of real attributes:**
+- "Trained on 5 years of your industry's regulatory filings — the only model with that corpus" (data moat)
+- "Refuses to act on unverified inputs in financial contexts — the only product with this safety posture" (trust moat)
+- "Sub-$0.02 per query at enterprise scale — the only product that survives 100x volume" (cost moat)
+
+**The trap:** Every team thinks their attributes are unique. Half are wrong. The Phase 5 unit economics analysis and Phase 7 trust capital scoring above are the cross-checks. If a competitor scores within 0.5 of you on a dimension, that's not your unique attribute.
+
+### Component 3: Value (The Benefit Those Attributes Deliver)
+
+**The question:** What can the customer accomplish *because* of your unique attributes that they couldn't otherwise?
+
+Attributes are inputs. Value is outcomes. Customers buy outcomes.
+
+**The translation pattern:**
+- Attribute: "We have private corpus retrieval across contracts, CRM, and email"
+- Value: "Contract review that catches risks across all three systems in 90 seconds — work that took associates 4 hours"
+
+The value statement names a specific outcome, a specific time delta, and a specific user. If any of those three are vague, the value is vague.
+
+**The trap:** Stopping at attributes. "We have RAG" is not value. "Your legal team finds liability clauses across 10,000 contracts in under a minute" is value.
+
+### Component 4: Who Cares (The Segment That Values Them Most)
+
+**The question:** For whom is this value most acute?
+
+Not the largest segment. The segment where the value is so sharp that they will pay full price, sign a multi-year contract, and ignore competitors.
+
+Think in terms of **best-fit customer characteristics**:
+- **Pain intensity** — Who is bleeding from this problem right now?
+- **Decision authority** — Who has budget AND can sign?
+- **Buying readiness** — Who has already failed with one alternative? (They're now teachable.)
+- **Reference-ability** — Who, if they buy, will pull others?
+
+**AI-product example:** An AI contract review tool. Three candidate segments:
+- All in-house legal teams (largest segment, low pain density, slow procurement)
+- Legal teams at mid-market PE-backed companies during deal flow surges (smaller, but pain is acute, deals create urgency, decisions move in weeks not quarters)
+- Solo lawyers at boutique M&A firms (smallest, but they buy fast and refer)
+
+**The right "who cares" is segment 2.** The pain is concentrated, the decision moves fast, and the attribute (cross-system retrieval) directly serves their workflow. Positioning for segment 1 sounds generic; positioning for segment 3 limits your ARR.
+
+**The trap:** Picking the largest segment because it looks like the biggest TAM. The segment that values you most is rarely the largest — it's the one where your unique attributes solve their sharpest pain.
+
+### Component 5: Market Category (The Frame for Comparison)
+
+**The question:** What box does the customer mentally put you in?
+
+The category determines the comparison set. Get it wrong and you fight the wrong battles.
+
+**AI-product category choices:**
+- "AI assistant" — Broadest, weakest. Compares you to ChatGPT. You lose.
+- "Contract intelligence platform" — Specific, defensible. Compares you to Kira, Luminance, Evisort. You can win.
+- "Deal-flow legal automation" — Even more specific. Reframes the comparison around use case, not category.
+
+**The category is a lever.** If you're losing on capability comparisons, narrow the category until your unique attributes become the category-defining ones. If you're winning on capability but losing on credibility, widen the category to include analog players whose trust you can borrow.
+
+**The trap:** Letting customers choose your category by default. Every category-naming choice you don't make, your competitor makes for you. Pick the frame and reinforce it in every customer conversation.
+
+### The Full Positioning Statement
+
+Once all five components are answered, assemble:
+
+> "For [WHO CARES] who struggle with [the pain your unique attributes solve], [PRODUCT] is the [MARKET CATEGORY] that [VALUE]. Unlike [COMPETITIVE ALTERNATIVES], we [UNIQUE ATTRIBUTES]."
+
+**Worked AI example:**
+
+> "For mid-market PE-backed legal teams running deal flow at high volume, ContractAI is the contract intelligence platform that finds liability clauses across contracts, CRM data, and email threads in under 90 seconds. Unlike rule-based contract tools or generic LLM assistants, we are the only product trained on 5 years of M&A regulatory filings with private retrieval across all three systems."
+
+If this statement passes the Phase 1-7 cross-checks above, it's defensible. If it doesn't, one of the five components is wrong — usually "unique attributes" claiming uniqueness that the unit economics or trust capital scores already disproved.
+
+---
+
+## BATTLECARD STRUCTURE
+
+A battlecard is the field artifact that makes the positioning operational. One page. Sales-ready. Updated quarterly. Most AI teams either don't have one, or have one that reads like a feature list.
+
+The right structure is six sections, in this order:
+
+### Section 1: Positioning Snapshot (top of card)
+
+The positioning statement from above. Three sentences max. This is what the rep says when asked "why you over them?" Do not bury it; it's the lede.
+
+### Section 2: Strengths vs This Competitor
+
+Three bullets. Each one is a customer-language claim backed by evidence:
+
+- **Strength** — "We retrieve from private CRM data; they don't" — Evidence: customer-confirmed in 8 of last 10 deals
+- Not "we're better at retrieval" — that's vanity. Specific, customer-confirmable, evidence-backed.
+
+If a strength can't be backed by evidence (eval scores, customer quotes, integration count, deployment count), it doesn't go on the card.
+
+### Section 3: Weaknesses vs This Competitor
+
+Three bullets. Honest. The reps will encounter them anyway — better they hear it from you than from the buyer.
+
+For each weakness, the card includes the **reframe** — the way to acknowledge it and pivot to a strength:
+
+- **Weakness:** "Their UI has been polished for 5 years; ours is 8 months old"
+- **Reframe:** "Their UI is mature; ours moves faster on customer requests. Our last 6 sprints shipped features they're still planning."
+
+The reframe is non-negotiable. A weakness without a reframe leaves the rep stuck.
+
+### Section 4: Objection Handling
+
+The five objections this competitor's reps will plant in the buyer's mind, with answers. Format:
+
+| Objection (in buyer's voice) | Why It's Planted | Your Answer |
+|---|---|---|
+| "[Competitor] has been doing this longer" | They're trying to make youth feel like risk | "Doing it longer means optimizing for an older problem. Our architecture was built for 2026 workloads — theirs was built for 2022." |
+| "[Competitor] integrates with everything" | They're claiming breadth | "Breadth without depth is the problem. We integrate with the three systems your contract review actually touches — and we do it deeper than any horizontal player." |
+
+**The rule:** No objection without a specific answer. The card surfaces the trap; the answer disarms it.
+
+### Section 5: Proof Points
+
+Three to five concrete artifacts the rep can deploy:
+- Customer logo + outcome ("Bain Capital reduced deal review from 14 days to 3")
+- Eval comparison ("In our internal benchmark of 200 contracts, we caught 94% of liability clauses; competitor caught 71%")
+- Independent reference ("Forrester named us a Strong Performer in their Q1 2026 wave")
+- Pricing/cost comparison ("Our $0.018/query vs their $0.095 — survives 5x scale")
+
+**The rule:** Every proof point must be defensible if the buyer asks "send me the source." If it can't be hyperlinked or attached, it doesn't go on the card.
+
+### Section 6: Talk Track (the close)
+
+Two to three sentences the rep delivers verbatim when the buyer is comparing you head-to-head. Tested in real deals, refined quarterly. Format:
+
+> "When teams compare us to [Competitor], the right question isn't who has more features — it's who's built for [your specific use case]. We're the only product [unique attribute] for [who cares segment]. That's why [reference customer] switched from [competitor] last quarter."
+
+**The rule:** This is not marketing copy. It's a script. The rep memorizes it and delivers it in the deal. If reps won't say it because it sounds fake, the talk track is wrong — rewrite until they will.
+
+### Battlecard Hygiene
+
+- **One battlecard per direct competitor.** Not one master card with everyone listed.
+- **Owned by product marketing, with input from sales and product.** Not crowdsourced.
+- **Quarterly refresh, monthly during competitive surge.** Stale battlecards lose deals.
+- **Versioned and dated.** Old versions archived. Field reps see only the current one.
+- **Adoption-tracked.** Which reps use which sections in which deals? If sections aren't being used, they're wrong — fix or cut.
+
+The battlecard is the bridge between the strategic analysis above and the deal happening Tuesday morning. The Phase 1-7 work tells you whether your position is defensible. The battlecard makes it usable.
+
+---
+
 ## REALITY CHECK
 
 - **Data quality:** Capability benchmarks are only as good as your test queries. 20-30 queries per use case is minimum; test both common cases and edge cases.

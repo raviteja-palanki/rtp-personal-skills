@@ -1,5 +1,5 @@
 ---
-name: learn-site-design
+name: rtp-learn-site-design
 version: 2.0
 description: Codified design language for ravitejapalanki.com — the full design system for the personal homepage, dark cinematic landing pages, editorial article pages, and interactive topic hubs. Covers the homepage (gateway), profile page, and writing section. A sub-skill of the UX Design agent.
 author: Ravi Teja Palanki
@@ -515,7 +515,120 @@ At 768px:
 
 ---
 
-## 9. What This Skill Does NOT Cover
+## 9. DESIGN.md Compatibility
+
+This design system is exportable as a `DESIGN.md` (Google Labs format) for agent consumption. When an AI agent (Claude, Cursor, v0, Bolt) is generating a prototype that should match the learn site, it needs the design tokens in a structured frontmatter format the agent can parse and apply.
+
+The pattern: ship the same design system as both this skill (for humans and design discussions) AND a `DESIGN.md` artifact (for agents generating code). Both stay in sync — when the design tokens shift here, they shift in `DESIGN.md`.
+
+Reference the new `design-spec` skill being built in parallel for the full DESIGN.md authoring guide. This section gives the export-ready frontmatter for the learn site's tokens.
+
+### YAML Frontmatter — Learn Site Tokens
+
+```yaml
+---
+name: learn-site-design
+version: 2.0
+purpose: Cinematic editorial design system for ravitejapalanki.com
+audience: Editorial readers, AI PMs, technical leaders
+
+colors:
+  identity:
+    model: "#9D4EDD"      # Purple — intelligence layer, primary identity
+    harness: "#F43F5E"    # Red — anti-patterns, mistakes, warnings only
+    tools: "#F59E0B"      # Amber — capabilities, APIs, instruments
+    environment: "#06B6D4" # Cyan — deployment, hero accent
+  functional:
+    success: "#10B981"    # Emerald — pass states only
+    info_bg: "#EFF6FF"
+    info_text: "#1E3A8A"
+    info_accent: "#3B82F6"
+  dark_canvas:
+    bg_base: "#030407"    # Near-black with slight blue
+    bg_surface: "#0a0b10"
+    text_pure: "#FFFFFF"
+    text_main: "#F9FAFB"
+    text_muted: "#D1D5DB"
+    text_faint: "#9CA3AF"
+
+fonts:
+  display:
+    family: "Inter"
+    weights: [300, 400, 500, 600, 700, 800, 900]
+    role: "Display titles, UI labels, headings"
+  editorial:
+    family: "Instrument Serif"
+    weights: [400]
+    italics: true
+    role: "Hero titles, article H2s, drop caps, signatures"
+  body:
+    family: "Newsreader"
+    weights: [200, 300, 400, 500, 600, 700, 800]
+    variable: true
+    role: "Long-form article body (reading pages only)"
+  mono:
+    family: "JetBrains Mono"
+    weights: [400, 500, 700, 800]
+    role: "Labels, tags, badges, metadata, code"
+
+typography_rules:
+  - rule: "Inter 900 ONLY for display titles"
+    properties: "uppercase, letter-spacing -0.03em, line-height 0.95"
+  - rule: "Instrument Serif NEVER for body text"
+    use: "hero titles, article H2s, quotes, drop caps, signatures"
+  - rule: "Newsreader ONLY on article reading pages"
+    fallback: "Inter for landing/topic hubs"
+  - rule: "JetBrains Mono for ALL labels, tags, metadata"
+    properties: "font-weight 700-800, uppercase, letter-spacing 0.15em"
+
+color_rules:
+  - "Identity colors appear ONLY as accents (borders, glows, text highlights, small fills) — never as flat background fills"
+  - "Red is EXCLUSIVELY for anti-patterns, mistakes, warnings — never positive"
+  - "On dark backgrounds: borders, text-shadow glows, radial gradients at 6-15% opacity"
+  - "On white backgrounds: border-left accents, tinted backgrounds at 4-12% opacity, text color"
+
+signature_techniques:
+  - "Cinematic blur animations on hero entrances"
+  - "3D isometric CSS visualizations (no canvas/WebGL)"
+  - "Sticky card stacks for layered storytelling"
+  - "Deep dive recession stacking (4 sticky 100vh sections)"
+  - "Dark-to-white transitions at section breaks"
+  - "Paper canvas overlay (rounded corners, dot grid)"
+  - "Magnetic button physics (cursor attraction)"
+  - "Wet-ink highlighters on key phrases"
+  - "Comet progress bars (article reading)"
+
+responsive:
+  breakpoints:
+    desktop: "default"
+    tablet: "1024px"
+    mobile: "768px"
+  fluid_sizing: "All text and padding use clamp()"
+---
+```
+
+### Why DESIGN.md Matters
+
+When an agent generates a prototype using the vibe-coding pattern (see the `prompt-craft` skill), it needs the design system in structured form. Pasting this entire SKILL.md into the prompt is wasteful — most of the content is editorial guidance the agent doesn't need.
+
+The DESIGN.md frontmatter gives the agent:
+- Exact hex codes for the four identity colors
+- Font names and weights with their exact roles
+- The non-negotiable rules (red = warnings only, Newsreader = article body only)
+- Signature techniques the agent should use to make outputs feel like learn-site outputs
+
+The agent generates a prototype using these tokens, and the result looks like the learn site without the agent ever reading the editorial sections of this skill.
+
+### When to Use Which Format
+
+- **This SKILL.md** — for design discussions, building new pages by hand, training a new designer, troubleshooting why a section feels off
+- **DESIGN.md frontmatter** — for agent-driven prototyping, vibe-coding, or any scenario where an LLM is generating code that should match the learn-site visual identity
+
+Keep both in sync. When tokens change here, they change in DESIGN.md. The cross-reference to the `design-spec` skill (in parallel) covers the maintenance protocol — versioning, change-tracking, and the agent-consumption tests that confirm the frontmatter still produces correct outputs.
+
+---
+
+## 10. What This Skill Does NOT Cover
 
 - Content writing style (see `ravi-thinking-skills`)
 - Article structure / editorial voice (see `rtp-deep-dive-writer`)

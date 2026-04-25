@@ -212,7 +212,7 @@ Use these to test whether the bridge is working:
 
 Once you've worked through the diagnostic questions and built clarity between business and technical definitions, synthesize your output according to the Universal Skill Protocol Section 11.
 
-**Core deliverable:** Complete the template below, then create a visual summary using the **excalidraw-svg** skill. The diagram should show the bridge between business and technical definitions at a glance, making the dual-lens analysis immediately actionable for stakeholders. Reference the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md` for diagram standards (Aureate Codex palette, clear hierarchy, minimal text).
+**Core deliverable:** Complete the template below, then create a visual summary using the **excalidraw-svg** skill. The diagram should show the bridge between business and technical definitions at a glance, making the dual-lens analysis immediately actionable for stakeholders. Reference the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md` for diagram standards (ravi-personal-branding palette, clear hierarchy, minimal text).
 
 ---
 

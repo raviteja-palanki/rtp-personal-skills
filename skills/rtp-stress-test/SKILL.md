@@ -137,6 +137,76 @@ For multi-agent and harness-based systems (skip for single-model features):
 - **Cost explosion:** A multi-agent harness running 5-15 evaluator rounds per sprint costs 20x a single-agent call. Anthropic's full harness cost $200 for 6 hours vs $9 for a solo agent doing 20 minutes. Model this cost curve explicitly.
 - **Evaluator reliability:** If you have a separate evaluator agent, what happens when IT hallucinates? The GAN-inspired pattern (Anthropic) separates generation from evaluation, but the evaluator needs its own quality checks.
 
+## THE PRE-MORTEM (Shreyas Doshi variant)
+
+The six dimensions above are the technical stress test. They catch failure modes that show up in production — load, cost, latency, hallucination at the edges. They miss the strategic failures: shipped on time, technically performant, and the team still loses.
+
+The pre-mortem catches the second category. Run it after the six dimensions, before the launch decision. It takes 90 minutes. It has saved more launches than any single technical dimension.
+
+**The frame:** Imagine it is six months from now. The AI feature failed. Not crashed — failed. It launched, telemetry looks fine, but something went wrong. Write the post-mortem.
+
+Specifically, four questions:
+
+### Q1: What was the failure?
+
+Not "users didn't adopt it." Specific. "Adoption hit 18% of target users in week 1, peaked at 22% in week 4, then declined to 11% by month 4 as users discovered the feature gave subtly wrong answers in their highest-stakes workflows."
+
+The discipline: write the failure as if you were drafting the post-mortem doc that goes to the leadership team. Names, numbers, specifics. Vagueness here is the tell that you don't actually understand the risk.
+
+### Q2: What signals did we miss?
+
+In hindsight, what was visible in week 2 that we would have caught if we'd been looking? Not "user complaints" — that's lagging. Leading signals.
+
+For AI features specifically, the signals usually come from one of these:
+- **Eval pass rate plateau or quiet decline** — your eval suite started missing the failure mode because it was scoped wrong
+- **Cost-per-successful-outcome creeping up while DAU stays flat** — users re-running outputs, masking quality decline
+- **Acceptance rate stable, edit rate rising** — users still using the feature but doing more rework than launch baseline
+- **Power user cohort declining first** — they're the first to notice degradation; aggregate metrics hide it for weeks
+- **Support ticket volume normal, but ticket *complexity* rising** — tickets are getting harder to resolve, meaning failures are getting subtler
+
+The discipline: name the specific signal you would have needed to be tracking. If your current dashboard wouldn't show it, that's the gap to close before launch.
+
+### Q3: Which assumption broke?
+
+Every AI launch carries 3-7 load-bearing assumptions. The pre-mortem question is: which one broke?
+
+Common AI-feature load-bearing assumptions:
+- "The model's accuracy on our eval set will hold in production" (breaks when production distribution shifts)
+- "Users will read the confidence signal" (breaks when users normalize to the warning UI)
+- "The cost-per-query will stay below $X" (breaks when conversation length grows over time)
+- "The model provider won't deprecate the version we built on" (breaks 12-18 months in)
+- "Adversarial use will be rare" (breaks the moment someone posts a jailbreak on social)
+- "Users will trust the AI's refusal as much as its output" (breaks when refusal feels like the product is broken)
+
+The discipline: list your top 5 load-bearing assumptions in the pre-mortem doc. For each, write the specific evidence that would tell you it's breaking. If you can't write that evidence statement, you're flying blind on that assumption.
+
+### Q4: What would we have done differently if we'd seen it Tuesday?
+
+Not "we should have done better research." Specific Tuesday-morning actions. "We would have added eval test cases for the financial-services context where we lost the most users. We would have set an alert on edit-rate cohort drift. We would have shipped the feature behind a feature flag for a 4-week beta with the power-user cohort first."
+
+The discipline: each "would have done differently" must be an action a PM can put on a sprint plan. If it's strategic platitude ("we would have been more careful"), rewrite it.
+
+### The AI-Specific Failure Modes Most Pre-Mortems Miss
+
+Generic pre-mortems probe for execution risk, market risk, organizational risk. AI features fail in modes the generic version misses entirely. Probe these explicitly:
+
+| Failure Mode | What It Looks Like | The Tuesday-Morning Action |
+|---|---|---|
+| **Eval drift** | Your eval suite was built in month 3, scored 87%. Six months later, production distribution has shifted, eval still scores 87%, but real users are now 12% less satisfied. | Refresh 20-30% of eval set monthly with production traces. Track eval-difficulty score, not just pass rate. |
+| **Prompt regression** | A "small" prompt tweak fixed the loud bug, silently broke three quiet ones. No one noticed until power users churned. | Every prompt change runs the full regression suite, not just the targeted eval. Diff scores per failure mode. |
+| **Model deprecation** | The provider sunset the version you built on. New version behaves subtly differently. Your eval set was built for the old model. | Track model version explicitly. Run eval on candidate replacement before forced migration. Build harness on top of swappable model layer. |
+| **Cost spiral** | Conversation length grew 4x over 6 months as users built context. Token cost grew with it. Margin disappeared. | Model token-per-user as a curve, not a point. Set alert on conversation-length percentile drift. |
+| **Trust collapse from one incident** | One viral failure. One regulator complaint. One bad output that screenshots well on social. Months of trust gone in days. | Pre-write the incident response. Pre-design the user-facing "we caught it, here's the fix" flow. The recovery UX matters more than the prevention. |
+| **Silent degradation** | Model quality decays at the edges. Aggregate metrics look fine. Power users leave first. | Cohort dashboards by user segment AND task complexity. Watch the 95th-percentile users, not the median. |
+
+The discipline: for each failure mode, ask "could this happen to us in the next 12 months?" If yes, the pre-mortem must produce a specific Tuesday-morning action that reduces the probability or accelerates detection.
+
+### Output of the Pre-Mortem
+
+A one-page doc with four sections (Q1-Q4) plus the AI-specific failure mode probe. The doc lives next to the launch decision. The decision-maker reads it before greenlighting.
+
+**Hard rule:** if any of the AI-specific failure modes would be unrecoverable (regulatory exposure, irreversible trust collapse, cost spiral that breaks the business), the launch waits until the mitigation is in place. Pre-mortem failures that can't be mitigated post-launch are launch blockers, not edits.
+
 ## STRESS TEST SCORING MATRIX
 
 | Dimension | Pass | Marginal | Fail |

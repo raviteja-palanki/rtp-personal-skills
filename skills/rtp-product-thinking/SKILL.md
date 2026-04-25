@@ -1,5 +1,5 @@
 ---
-name: product-thinking
+name: rtp-product-thinking
 description: A high-agency cognitive operating system for product evaluation, decision-making, and organizational diagnosis. Synthesizes Shreyas Doshi's mental models with complementary frameworks from Marty Cagan, Teresa Torres, and Kapil Gupta. Invoke when evaluating products/features, diagnosing failures, making decisions under ambiguity, assessing team dynamics, navigating stakeholder complexity, reviewing strategies, or any context requiring senior product judgment. Triggers on "evaluate this product", "should we build", "why did this fail", "product decision", "feature assessment", "product strategy", "stakeholder alignment", "prioritization", "roadmap review", or any request requiring product thinking beyond tactics.
 ---
 
@@ -220,6 +220,56 @@ Use this skill when:
 **Diagnostic Questions**:
 - "If I do this A+ instead of B-, does the company actually benefit, or does my ego just feel safer?"
 - "Am I procrastinating on an L-task by doing three N-tasks perfectly?"
+
+---
+
+### 2.3.1 Altitude-Horizon Framing (LNO's Time Dimension)
+
+**The Principle**: LNO classifies tasks by leverage. Altitude-horizon classifies them by *time horizon*. The two stack. A task is L/N/O AND it operates at high altitude (12+ months out, strategic), medium altitude (1-3 months, tactical), or low altitude (this week, execution). Master PMs spend disproportionate time at high altitude on Leverage tasks — and refuse to let low-altitude noise crowd them out.
+
+**The Framework**:
+
+| Altitude | Horizon | Task Type | Example |
+|---|---|---|---|
+| **High** | 12+ months out | Strategic — what game are we playing? | Multi-year platform bets, market entry, moat design, eval discipline as a long-term capability |
+| **Medium** | 1-3 months | Tactical — what are we shipping next? | Roadmap sequencing, this quarter's bets, eval suite refresh, prompt-as-product release process |
+| **Low** | This week | Execution — what's blocking us right now? | Sprint reviews, prompt regressions, alert investigations, status updates |
+
+**The trap**: Mistaking altitude for leverage. A high-altitude task isn't automatically L. A status update for the CEO is high-altitude (it shapes how leadership reads the team for months) but might still be O or N depending on what it actually changes. The altitude tells you *time horizon*; LNO tells you *impact magnitude*. Both must be assessed independently.
+
+**The Real PM Allocation** (from observation, not aspiration):
+
+| PM Type | Time at High Altitude | Time at Medium | Time at Low | Outcome |
+|---|---|---|---|---|
+| **The Hamster Wheel PM** | 5% | 15% | 80% | Always shipping, never moving the needle |
+| **The Strategic Talker PM** | 60% | 30% | 10% | Beautiful slide decks, no execution |
+| **The Master PM** | 20% | 50% | 30% | Strategic clarity AND shipped work |
+
+The 20/50/30 split looks unimpressive on paper. In practice it's the hardest allocation to defend because everyone else is pulling you to low-altitude work.
+
+**The AI PM problem**: AI products produce more low-altitude noise than traditional software products. Every day brings: an eval that regressed overnight, a prompt that failed for one customer cohort, a model provider outage, a hallucination screenshot in the team Slack, a cost spike from a new user pattern. Each one feels urgent. Each one *is* urgent at low altitude. Together they consume 100% of the day, and the strategic work — the moat building, the eval discipline, the multi-year platform bet — never happens.
+
+**The 0.1% angle**: AI PMs spend disproportionate time on Overhead tasks (eval pipeline maintenance, prompt regression triage, status updates about model behavior) unless they consciously schedule high-altitude time. The pattern is invisible because every individual low-altitude task feels legitimately important — and most are. The failure isn't that the work is wrong. The failure is that the work crowds out the strategic work that actually compounds.
+
+**Protecting Strategic Time When AI Ops Drag Everything Down**:
+
+1. **Block high-altitude time on the calendar before the week starts.** Two 2-hour blocks per week, marked as "strategic." Put them at peak energy hours (usually morning). Make them recurring. Defend them like a regulatory deadline.
+
+2. **Build an "AI ops triage queue" that someone else owns.** If every prompt regression hits your inbox, you will work on prompt regressions. Push the queue to a designated owner — engineering manager, prompt engineer, or rotating L-rotation across the team. You see only escalations.
+
+3. **The 24-hour rule for low-altitude alerts.** Most low-altitude AI ops alerts that feel urgent are actually 24-hour-tolerable. Costs went up 8% — investigate tomorrow morning, not at 11pm. Hallucination on a non-power-user — log it, batch with other ops issues at the weekly review. The exception is a critical safety or revenue alert; those break the rule.
+
+4. **Status updates batched, not interleaved.** Status updates are high-altitude in *appearance* but low-altitude in *actual leverage*. Batch them to a single 30-minute slot, late afternoon. Don't let a status update consume morning strategic time.
+
+5. **The "altitude check-in" weekly question.** Friday afternoon: "What did I do this week at high altitude? Will my team or my company be different in 6 months because of those hours?" If the answer is "nothing," the next week's allocation is broken. Reset.
+
+6. **Owning the eval discipline as a high-altitude task, not low-altitude.** Most teams treat eval as ops. The 0.1% AI PM treats eval as strategic infrastructure — the kind of work that compounds for years. Schedule the eval refresh design at high altitude. Schedule the eval *execution* at medium altitude. Schedule the eval triage at low altitude. The same word ("evals") covers all three, and conflating them is how strategic work disappears into the noise.
+
+**Diagnostic Questions**:
+- "Did I do high-altitude work this week, or did the AI ops queue consume my time?"
+- "If I disappeared for a month, what high-altitude work would I have already set in motion?"
+- "Which of my recurring meetings are pulling me below my actual altitude?"
+- "Is my eval work strategic infrastructure or reactive triage? Which one am I actually doing?"
 
 ---
 

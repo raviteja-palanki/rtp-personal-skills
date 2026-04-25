@@ -1,14 +1,14 @@
 ---
 name: rtp-cinematic-presentations
 description: |
-  World-class cinematic HTML/React presentation system based on The Aureate Codex v8 design system. Use when creating: (1) HTML slide decks or presentations, (2) React/JSX presentation artifacts, (3) Pitch decks, keynotes, or investor presentations, (4) Masterclass or course content, (5) Product launches with cinematic feel, (6) Any multi-slide visual content requiring premium dark aesthetics. Provides 20+ slide templates, exact CSS with gold/teal/purple accent system, scroll-snap navigation, data-reveal animation system, glassmorphism components, and production-tested responsive scaling. Features ambient glow effects, mesh gradients, pulsing labels, and framework diagrams.
+  World-class cinematic HTML/React presentation system based on ravi-personal-branding (v2.x) design system. Use when creating: (1) HTML slide decks or presentations, (2) React/JSX presentation artifacts, (3) Pitch decks, keynotes, or investor presentations, (4) Masterclass or course content, (5) Product launches with cinematic feel, (6) Any multi-slide visual content requiring premium dark aesthetics. Provides 20+ slide templates, exact CSS with gold/teal/purple accent system, scroll-snap navigation, data-reveal animation system, glassmorphism components, and production-tested responsive scaling. Features ambient glow effects, mesh gradients, pulsing labels, and framework diagrams.
 ---
 
 # Cinematic Presentations Skill
 
 > *"The goal is not to impress. The goal is to communicate with such clarity and beauty that the design becomes invisible."*
 
-A world-class presentation system based on The Aureate Codex v8. Production-tested on masterclass content.
+A world-class presentation system based on ravi-personal-branding (v2.x). Production-tested on masterclass content.
 
 ---
 

@@ -1,10 +1,17 @@
 ---
 name: rtp-prompt-craft
+id: prompt-craft
+title: Prompt Craft
+category: craft
 description: How to actually write good prompts. The writing craft — hard constraints, structure-triggers-quality, test splits, cost economics, model-specific formatting. Distinct from prompt-as-product (which covers versioning and process). Use when writing or improving system prompts, optimizing prompt quality, or debugging why a prompt underperforms.
+difficulty: intermediate
+version: "1.0"
 imports:
   - determinism-compass
   - prompt-as-product
   - eval-framework
+author: ai-pm
+last_updated: 2026-04-12
 ---
 
 ## DEPTH DECISION
@@ -228,6 +235,102 @@ Define what "good" means before optimizing. Five dimensions:
 - That's $72K/month saved — worth the optimization effort
 
 **When longer is correct:** Complex tasks requiring extensive context, high-stakes decisions where additional examples prevent costly errors, tasks where the cost of a wrong output exceeds the cost of extra tokens.
+
+---
+
+## VIBE-CODING — PRD TO PROTOTYPE IN 10 MINUTES
+
+The 6-step framework above is for production system prompts. This section is for a different use case: turning a PRD into a working prototype in under 10 minutes using Claude, Cursor, v0, or Bolt.
+
+The pattern is associated with Colin Matthews and Aparna Chennapragada — vibe-coding, PRD-to-prototype, AI-native prototyping. The principle: PMs no longer need an engineer to test whether a feature feels right. The PM writes a structured prompt, pastes the PRD, gets a working HTML/React/Streamlit prototype that demonstrates the user flow.
+
+This is not production code. It's a thinking tool. A way to externalize the PRD into something the team can click through, react to, and stress-test before engineering invests real time.
+
+### When to Vibe-Code
+
+Use the pattern when:
+- The PRD is fresh and the team has never seen the flow visualized
+- A stakeholder is misreading the spec because they can't picture it
+- A design review is coming up and a clickable artifact will sharpen feedback
+- An engineer is questioning whether the flow makes sense — let them click through it
+- You want to see your own design before committing to it
+
+Don't use the pattern when:
+- The feature is mostly backend logic with minimal UI
+- Production parity matters (the prototype's design will mislead)
+- You're trying to ship — vibe-coding is a thinking tool, not a delivery vehicle
+
+### The Prompt Template
+
+The structure below produces clickable prototypes in 5-10 minutes. Paste this into Claude (or your prototyping LLM of choice), filling the placeholders:
+
+```
+I have a PRD for [FEATURE_NAME]. Generate a [HTML | React | Streamlit] 
+prototype that demonstrates [SPECIFIC_USER_FLOW].
+
+Use Tailwind for styling. Match this design system:
+[PASTE DESIGN.md FRONTMATTER OR DESIGN TOKENS HERE]
+
+The prototype must show me:
+- The happy path: [DESCRIBE THE CORE USER FLOW]
+- The edge case: [DESCRIBE ONE SPECIFIC EDGE CASE — e.g., "what the user 
+  sees when the AI has low confidence"]
+- The error state: [DESCRIBE WHAT FAILURE LOOKS LIKE]
+- The empty state: [DESCRIBE WHAT THE USER SEES BEFORE INTERACTING]
+
+Constraints:
+- Single file, no external dependencies beyond Tailwind CDN
+- Runnable locally by opening the file in a browser
+- Use realistic mock data, not "Lorem ipsum"
+- Include 2-3 sample interactions that demonstrate the flow
+
+PRD attached below:
+[PASTE PRD]
+```
+
+The four placeholders (FEATURE_NAME, USER_FLOW, edge case, error state) are non-negotiable. Generic prompts produce generic prototypes. Specific prompts produce prototypes you can actually use to make decisions.
+
+### Why Each Section Matters
+
+**"[HTML | React | Streamlit]"** — Pick based on the audience. HTML for design reviews and stakeholder demos. React for engineering feasibility checks. Streamlit for data-heavy tools where the prototype needs real Python logic.
+
+**"Use Tailwind for styling"** — Tailwind is the universal default. Models are trained heavily on it. Output looks polished without specifying classes manually. If you're matching a specific design system that doesn't use Tailwind, swap accordingly.
+
+**"Match this design system"** — Critical. Without this, you get generic Bootstrap-looking output. With your DESIGN.md frontmatter, you get a prototype that looks like your product, which is what makes the artifact credible to stakeholders.
+
+**"Show me the happy path / edge case / error state / empty state"** — The four states cover ~95% of UX surface area. Generic prompts produce only the happy path; the edge cases are where the design decisions actually live. Demanding all four forces the model to think through the design, not just the marketing pitch.
+
+**"Realistic mock data, not Lorem ipsum"** — Lorem ipsum prototypes lie. Stakeholders react to the data shape and tone, not just the layout. Realistic mock data (real-looking customer names, real-looking dollar amounts, real-looking error messages) makes the prototype useful for real decisions.
+
+**"Include 2-3 sample interactions"** — A static screenshot prototype is less useful than a clickable one. Asking for sample interactions ("user types a query → sees AI response → clicks 'show more'") forces the model to wire up actual JavaScript or React state.
+
+### The 10-Minute Workflow
+
+1. **Minute 0-2:** Open Claude (or Cursor / v0 / Bolt). Paste the prompt template. Fill placeholders.
+2. **Minute 2-5:** Paste PRD. Hit send. Watch the model generate.
+3. **Minute 5-7:** Save the output as a file (`prototype.html` or `App.tsx`). Open in browser.
+4. **Minute 7-9:** Click through. Note what's right, what's wrong, what's missing.
+5. **Minute 9-10:** Send Claude a follow-up: "The error state looks like a dead end. Add a 'try again' affordance and show what happens when the user retries." Iterate 1-2 times.
+
+The discipline: stop at 3 iterations. After that, you're polishing a thinking tool, not making decisions. Move to the next prototype or commit to the design.
+
+### Connecting Vibe-Coding to the 6-Step Framework
+
+The 6-step framework (Steps 1-6 above) is for the production system prompt that runs *inside* the feature. Vibe-coding is for the demo prompt that *creates* the feature's prototype. Different layers:
+
+- **Vibe-coding produces the artifact** — a clickable React/HTML mockup of the feature
+- **Prompt-craft produces the brain** — the production system prompt that powers the feature's AI behavior
+
+A team using vibe-coding to externalize the PRD into a prototype, then using the 6-step framework to engineer the production prompt that powers the real version, ships features 5-10x faster than teams that wait for engineering before they can see the design.
+
+### What Vibe-Coding Doesn't Solve
+
+- **Architecture decisions.** The prototype answers "does this flow feel right?" — not "is this the right system design?"
+- **Performance and cost reality.** A prototype hitting Claude Sonnet at $0.003/1K tokens for a few demo interactions tells you nothing about production unit economics at 100K daily users.
+- **Edge case coverage.** The model generates the edge cases you ask for. The ones it didn't think of (and you didn't either) are still landmines.
+- **Production prompt engineering.** The system prompt inside the prototype is throwaway — likely 200 tokens of "you are a helpful assistant." When the real feature ships, you need the 6-step framework's hard constraints, structured templates, and 20/60/20 testing.
+
+The pattern is a thinking tool. Use it to make better PRDs and faster decisions. Don't confuse the prototype with the product.
 
 ---
 

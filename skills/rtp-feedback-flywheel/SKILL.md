@@ -232,6 +232,94 @@ Track: Time from user correction logged → correction labeled → added to eval
 
 Example: If it's now Wednesday and a user corrected something Monday, is that correction in today's eval set? In this week's training run? Will it be in next week's production model?
 
+## THE EVAL IMPROVEMENT FLYWHEEL (Hamel Husain pattern)
+
+The pipeline above describes the infrastructure. The Husain pattern describes the *cycle that runs on the infrastructure*. They are different things. You can have a working pipeline with a broken cycle — most teams do.
+
+The pattern is five steps. Each step has an owner. Each step has an artifact. The cycle is what turns one-time fixes into compounding improvements:
+
+```
+1. Failure mode discovered
+        ↓
+2. Eval test written for the failure
+        ↓
+3. Fix shipped (prompt change, retrieval tweak, model swap, harness adjustment)
+        ↓
+4. Regression test added — the fixed failure can never silently come back
+        ↓
+5. Next failure mode surfaces (and it's a different one, because the eval suite caught the previous one)
+        ↓
+[loop back to step 1]
+```
+
+The 0.1% angle: **most teams fix and forget.** They find a failure, ship a fix, and never write the eval test that prevents regression. Six months later, a different prompt change brings the original failure back, no one notices, and the cycle never compounds. The Husain pattern demands that every fix becomes a permanent eval test that prevents regression. Without this discipline, AI products degrade silently as the team optimizes for the next thing.
+
+### The Five Steps in Practice
+
+**Step 1: Failure mode discovered.** A user correction, a support ticket, an internal trace review. The discovery itself is not the work; the work starts when you decide to act on it.
+
+**Discipline:** Every failure mode entered into a tracking log within 24 hours of discovery. Not Slack, not memory — a structured log with: failure description, example trace, severity, frequency estimate, owner.
+
+**Step 2: Eval test written for the failure.** Before fixing, write the test that would catch this failure if it happened again.
+
+The test is binary: pass/fail on a specific failure pattern. Not a Likert scale. Not "quality score." A specific case the model should pass, with a specific output the model should produce (or not produce).
+
+**Discipline:** No fix ships without the eval test that catches it. The test is the contract — when the test passes, the fix is real. When the test fails after a future change, the regression is caught immediately, not three months later by a churning customer.
+
+**The trap most teams fall into:** Writing the eval test *after* the fix, copying the post-fix output as the "correct" answer. This validates that the fix works but doesn't prove the test would have caught the original failure. Write the test against the *broken* output first. Confirm it fails. Then ship the fix. Then confirm it passes.
+
+**Step 3: Fix shipped.** Prompt change, retrieval improvement, model swap, harness adjustment, downstream filter. The fix is the part everyone focuses on — and it's the least important part of the cycle.
+
+The fix has to pass:
+- The new eval test (for the failure you just discovered)
+- The full existing eval suite (no regression on previously caught failures)
+- The cost-per-successful-outcome budget (improving quality at the cost of unit economics is a different kind of regression)
+- The latency budget (improving quality at the cost of P95 latency is a UX regression)
+
+If any of these fail, the fix isn't ready. Iterate.
+
+**Step 4: Regression test added.** This is the step that turns one-time fixes into compounding improvements. Most teams skip it.
+
+The regression test is permanent. It runs on every prompt change, every model upgrade, every retrieval tweak. It will run a thousand times before it ever catches another regression. That's fine. Its job is not to be useful daily — its job is to be the immune system that catches the failure if it ever tries to come back.
+
+**Discipline:** Eval suite is split into two layers:
+- **Capability evals** — hard problems, low pass rate, used for measuring improvement. Refreshed monthly.
+- **Regression evals** — every fix you've ever shipped, target 100% pass rate. Permanent. Only grows; never shrinks.
+
+The regression layer is the moat. Six months in, you have 50 regression tests. Twelve months in, 200. Twenty-four months in, 500. A new competitor with a better model still ships worse product because they don't have your regression coverage.
+
+**Step 5: Next failure mode surfaces.** This is the proof the cycle is working. If the same failure modes keep appearing, your regression layer is leaking — fixes aren't permanent. If new and *different* failure modes keep appearing, your regression layer is doing its job and the team is climbing the difficulty curve.
+
+**Discipline:** Quarterly review the failure mode log. Are new categories appearing, or the same ones? If the same ones, audit the regression layer. Find the test that should have caught it, ask why it didn't, fix the test (not just the model).
+
+### Why This Compounds (And Why Most Teams Don't)
+
+The math: every fix without a regression test is a 50/50 chance of returning within 12 months as the team makes adjacent changes. Every fix *with* a regression test is permanently fixed.
+
+After 12 months:
+- **Team without the cycle:** Fixed 100 issues. ~50 came back silently. ~50 still in production but discovered by users (not by evals). Quality flat.
+- **Team with the cycle:** Fixed 100 issues. 0 came back. 100 permanently retired from the failure space. Quality compounds.
+
+The teams without the cycle work harder. They spend more time on prompt engineering. They have more incident response. They have more support tickets. And their quality flatlines — because every step forward is matched by a quiet step backward.
+
+The teams with the cycle look slower in the first three months. Their first 20 fixes take longer because each one comes with a permanent regression test. By month nine, they're outpacing the no-cycle team because their fix work compounds while the other team's work decays.
+
+### Diagnostic Questions for the Cycle
+
+Run these monthly:
+
+- **What % of fixes shipped this month had a regression test merged within the same week?** Target: >90%. <70% means the cycle is broken.
+- **How many regression tests does the suite contain?** This number should grow monotonically. If it shrank, someone deleted tests they shouldn't have.
+- **When did the suite last catch a regression on a change that would have shipped otherwise?** If you can't remember, the suite isn't being run — or it's been deleted.
+- **Are the failure modes I see this month different from the ones I saw last quarter?** Yes = cycle is working, climbing difficulty. No = regression layer is leaking, audit it.
+- **Who owns the eval suite?** If the answer is "everyone" or "engineering," it's no one. The 0.1% AI PM owns the eval suite as a strategic artifact.
+
+### Connection to Loop Latency
+
+The pattern above describes the *quality* of the cycle. Loop latency (above) describes the *speed*. Both matter. A cycle that runs the Husain pattern but takes 3 months per loop produces 4 compounding fixes per year. A cycle that runs the same pattern in 2 weeks produces 26. The compounding math favors the fast cycle by 6.5x.
+
+The discipline: improve cycle speed only after the cycle quality is real. A fast cycle without regression tests just produces more silent regressions, faster.
+
 ## OUTPUT FORMAT
 
 When you audit a feature or product for flywheel maturity, use this structure:

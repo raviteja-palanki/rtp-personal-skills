@@ -244,6 +244,127 @@ Trust doesn't stabilize in one session. It develops (or collapses) over weeks.
 
 ---
 
+## SWITCH INTERVIEW — THE MOMENT-OF-CHANGE METHOD (Bob Moesta)
+
+The methods above (longitudinal diary, threshold studies, expectation calibration) measure *current* user behavior. The Switch Interview measures the *moment a user changed* — the inflection point when they switched from one product to another, or from one behavior to another.
+
+The methodology comes from Bob Moesta's Jobs-to-be-Done research. It anchors the entire interview on a specific event: the moment of change. Around that anchor, you reconstruct the timeline that led to it.
+
+For AI products, the Switch Interview probes one specific question that no other method captures: **the moment users started TRUSTING the AI** (or the moment they stopped trusting it). That moment is more revealing than any usability test, threshold study, or NPS survey.
+
+### When to Run a Switch Interview
+
+Use this method when:
+- A user just adopted your AI feature after using a competitor or manual workflow → understand what triggered the switch
+- A user just churned from your AI product → understand what broke their trust
+- A power user tells you "I now trust this for X use case" → understand what made the trust click
+- You're entering a new market and need to understand what makes those users adopt or reject AI tools
+- You're seeing high acquisition but low retention → the data tells you they leave; the Switch Interview tells you why
+
+### The Six Timeline Questions
+
+The interview has six questions. They're asked in this order, anchored on the moment of change. The discipline: don't deviate from the timeline. The answers in order matter — the user's narrative builds chronologically and probing out of order destroys the recall.
+
+#### Question 1: When did you first think about this?
+
+**The probe:** Take me back to the very first time you remember thinking "I need a better way to do [task]." Or "the current way isn't working." Or "I wonder if there's an AI for this."
+
+**What you're listening for:**
+- The first signal in their environment — a frustration, a peer's recommendation, a moment of failure with the old system
+- The time horizon — was this last week, last quarter, or two years ago? Long incubation time signals high stakes; short signals impulse adoption
+- The emotional charge — frustrated, curious, desperate, opportunistic. Different starting emotions predict different trust trajectories.
+
+**Why this matters for AI:** Users who started thinking about AI from a place of desperation (current system completely broken) have higher trust thresholds for the new tool — they need it to *demonstrably* work or they fall back to their old broken system. Users who started from curiosity have lower trust thresholds and are more forgiving of early errors.
+
+#### Question 2: What triggered it?
+
+**The probe:** What specifically pushed you from "thinking about it" to "actively looking for a solution"? Was it a moment, a person, an event?
+
+**What you're listening for:**
+- The triggering event — usually a specific incident, not a gradual realization
+- Whether the trigger was external (someone showed them a demo) or internal (they hit a wall with the existing approach)
+- The urgency — did they start looking that day, or did the trigger marinate for weeks?
+
+**Why this matters for AI:** AI adoption usually triggers from one of three patterns: someone they trust used it and shared an output ("look what this AI did"), they hit an unsolvable wall in their existing process, or they were given mandate from above. Each pattern produces different post-adoption behavior. Mandate-driven adopters are the highest-risk for trust collapse — they didn't choose; they comply.
+
+#### Question 3: What did you try?
+
+**The probe:** Walk me through what you considered. What other options did you look at? What did you almost pick instead of [your product]?
+
+**What you're listening for:**
+- The full consideration set — usually 3-5 options, not just yours
+- Which alternatives they took seriously vs. which they dismissed quickly and why
+- The deal-breakers that eliminated alternatives (price, trust, reputation, safety concerns, integration gaps)
+
+**Why this matters for AI:** The competitive set in the user's mind is usually different from what your competitive analysis suggests. They might have compared you to a manual process, a non-AI tool, and a different category entirely — not to the AI competitors you think you're losing to. This question reveals the real competitive frame.
+
+#### Question 4: What made you decide?
+
+**The probe:** What was the moment you decided "I'm going with [your product]"? What tipped it for you?
+
+**What you're listening for:**
+- The decision moment — usually a specific signal, demo, conversation, or trial output
+- The decision criteria — explicit (cost, features) and implicit (gut feel, social proof, recovery story)
+- Whether the decision was rational, emotional, or social
+
+**Why this matters for AI:** AI adoption decisions are rarely purely rational. They're trust calibration events. The user picked your product because something specific gave them confidence the AI would work. That "something" — often a demo output, a customer reference, a safety statement, or a moment of unexpected accuracy — is the marketing message that actually converts. Most teams don't know what their actual conversion driver is until they run Switch Interviews.
+
+#### Question 5: What almost stopped you?
+
+**The probe:** Was there a moment where you almost didn't do this? What was the hesitation? Who or what almost talked you out of it?
+
+**What you're listening for:**
+- The objections that didn't fully kill the deal but slowed it
+- Internal blockers (skeptical colleagues, procurement, safety review) and external (price, capability gaps, integration concerns)
+- The reassurances that resolved the hesitation
+
+**Why this matters for AI:** Every AI buyer has a moment of "is this hype or real?" hesitation. The Switch Interview surfaces what almost killed the deal. The patterns across 10-15 interviews tell you the systematic objections your sales motion needs to dismantle, not the one-offs.
+
+#### Question 6: How did the new thing feel after the switch?
+
+**The probe:** Take me through your first few interactions with [your product]. When did it click? When did you trust it? Was there a moment when you stopped feeling cautious?
+
+**What you're listening for:**
+- The first "wow" moment — the specific interaction where trust clicked
+- The setbacks — moments of "wait, did the AI just hallucinate?" and how the user recovered (or didn't)
+- The trust trajectory — did trust grow steadily, plateau, or spike-and-recover?
+
+**Why this matters for AI:** This question is the entire reason to run Switch Interviews on AI products. Other research methods can tell you trust *levels*. Only the Switch Interview tells you trust *moments* — the specific interactions that built or broke trust.
+
+The 0.1% angle: **for AI features, the trust moment is more revealing than any usability metric.** A user who tells you "I started trusting it on day 3 when it caught a contract risk our last review missed" has just told you exactly what marketing asset, demo, or onboarding moment converts skeptical buyers into believers. A user who tells you "I stopped trusting it on day 8 when it confidently cited a regulation that didn't exist" has told you exactly which failure mode causes irrecoverable trust damage.
+
+### Switch Interview Logistics
+
+- **Sample size:** 10-15 users per switch direction (to-you, to-competitor, to-manual). Patterns emerge around interview 8-10. Beyond 15, you're confirming patterns, not finding new ones.
+- **Recruitment:** Recently-switched users (within 30-60 days). The memory is fresh enough to recall specifics; far enough that initial novelty has settled.
+- **Duration:** 45-60 minutes. Less than 45 and you can't get through six questions with depth. More than 60 and the user starts to confabulate.
+- **Format:** 1-on-1, video call, recorded with permission. The interviewer doesn't lead — they ask the question and let silence force the user to fill it. Long pauses are productive; rushing them produces shallow answers.
+- **The interviewer's job:** Listen. Probe specifically when the user says something abstract ("it just felt right" → "what specifically felt right? what were you doing in that moment?"). Resist the urge to validate the product or argue with negative feedback.
+
+### Synthesizing Switch Interviews
+
+After 10-15 interviews, you have ~10 hours of recordings. The synthesis pattern is the same open coding → axial coding → selective coding methodology used in eval frameworks:
+
+1. **Open code** every transcript. Tag specific moments, quotes, decisions, frustrations, trust events.
+2. **Axial code** the labels. Cluster into themes — common triggers, common decision criteria, common trust moments, common failure modes.
+3. **Selective code** the themes. Pick the 3-5 highest-leverage findings — the ones that should change product, marketing, or onboarding decisions.
+
+The output is not a deck. It's a memo with three sections:
+- **The triggers** — what made users start looking for an AI tool
+- **The decision criteria** — what made them choose us (or our competitor)
+- **The trust events** — the specific moments that built or broke trust after the switch
+
+Each section has 3-5 patterns backed by 3+ user quotes each. Patterns with fewer than 3 corroborating quotes are noted but not acted on yet.
+
+### When NOT to Use Switch Interviews
+
+- When users haven't switched recently — the method requires a real moment of change
+- When the AI feature is too new — there's no switching pattern yet
+- When you need quantitative data — Switch Interviews are qualitative; pair with threshold studies for the numbers
+- When you can't conduct 1-on-1 interviews (regulated industries, anonymous users) — adapt to async written formats but expect lower depth
+
+---
+
 ## OUTPUT FORMAT
 
 Use this template when planning uncertainty research:

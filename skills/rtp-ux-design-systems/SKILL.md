@@ -610,7 +610,7 @@ For absolute-width SVGs (e.g., 1200px wide), calculate segment width as `total_w
 
 ### Professional Deliverables — Polished Gradient Border
 
-For client-facing, enterprise, or professional outputs (Honeywell deliverables, interview presentations, formal reports), use a **refined single-gradient border** that looks polished without the casual rainbow energy.
+For client-facing, enterprise, or professional outputs (Fortune 100 deliverables, interview presentations, formal reports), use a **refined single-gradient border** that looks polished without the casual rainbow energy.
 
 **Gradient options (pick one per deliverable):**
 

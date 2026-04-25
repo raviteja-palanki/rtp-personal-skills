@@ -90,6 +90,74 @@ This is the highest-ROI activity in AI product development. Not optional — fou
 
 **Diagnostic question:** When was the last time a new failure mode surprised me? If >4 weeks ago, I've stopped looking.
 
+### OPEN CODING → AXIAL CODING (Husain + Shankar methodology)
+
+The Error Analysis section above tells you to "let categories emerge from data." That direction is right but vague. Hamel Husain and Shreya Shankar formalized the workflow as open coding → axial coding → selective coding — the same qualitative research methodology used in social science, applied to AI traces.
+
+The methodology is rigorous because the stakes are. Your failure taxonomy IS your eval framework. Get it wrong and you spend the next year measuring the wrong things.
+
+#### Step 1: Open Coding
+
+Read 50-100 traces. For each one, write a label that describes what's wrong, what's notable, or what's surprising. No schema. No predetermined categories. The labels can be long, repetitive, contradictory across traces. That's expected.
+
+**The discipline:**
+- One trace at a time. Don't batch — the cognitive load of comparison early kills the methodology.
+- Label freely. "Refused but should have helped." "Hallucinated a regulation that doesn't exist." "Confidently wrong about pricing." "Tone too formal for casual user." "Ignored the second half of the question." These are all legitimate open codes.
+- Domain expertise matters. The person doing open coding must understand what "good" looks like in this domain. Outsourced annotators break the cycle — they don't know what to notice.
+- One pass through 50-100 traces takes 4-6 hours. Block the time. Don't try to do it in 30 minutes between meetings.
+
+**The output:** A spreadsheet with one row per trace and a free-text label column. At the end of step 1, you have ~80 unique labels across 80 traces (with some natural duplication).
+
+**The trap:** Starting with a schema. The moment you have a predefined list of failure categories, you stop seeing new ones. Your evals will reflect the categories you imagined, not the ones in the data.
+
+#### Step 2: Axial Coding
+
+Now cluster the labels. Read through your 80 labels. Group ones that describe the same underlying failure. The clusters are emergent — you find them; you don't impose them.
+
+**The discipline:**
+- Sort labels by similarity. Make piles.
+- Name each pile with a short, specific category. Not "quality issues" — "fabricated regulatory citations." Not "user experience problems" — "refusal triggered by routine request."
+- Some labels won't cluster. They're outliers — interesting, but rare. Park them separately.
+- Some piles will be huge. Split them — usually they're hiding 2-3 sub-failures that need separate evaluators.
+- Some piles will contain 1-2 labels. Park them too — not enough signal yet, but worth tracking.
+
+**The output:** A taxonomy of 5-12 failure categories, each backed by 3+ traces from the open coding pass. The taxonomy is your eval framework — every category becomes a candidate evaluator.
+
+**The trap:** Forcing labels into existing categories. If a label doesn't fit, that's a signal. Either it's a new category, or your axial coding is too coarse. Re-cluster, don't force.
+
+#### Step 3: Selective Coding
+
+You don't have time to build evaluators for 12 failure categories. Pick the 3-5 that matter most.
+
+**The criteria:**
+- **Frequency** — How often does this failure happen? (Count from the open coding pass. Categories with <3 traces aren't yet worth an evaluator.)
+- **Severity** — How bad is the user impact? (Hallucinated regulations in a legal product is severe. Slightly formal tone is not.)
+- **Customer-visibility** — Will users notice this failure, or is it invisible? (Invisible failures hurt long-term trust; visible failures hurt short-term acceptance. Both matter, but visible ones earn priority.)
+- **Fixability** — Can this be addressed with prompt, retrieval, or harness changes? (If the failure requires a different model or fundamentally different architecture, the evaluator still matters but the priority is different.)
+
+**The output:** A ranked list of 3-5 failure modes that become your initial eval suite. Each one gets a binary evaluator (pass/fail) per the existing "Choosing Your Evaluator Type" section above.
+
+**The trap:** Picking by what's easy to evaluate, not what matters. A failure mode that's hard to detect with code is *more* important to evaluate, not less — because no one else is catching it.
+
+#### The Cross-Domain Insight
+
+The 0.1% angle: **the same methodology works on user interviews.** Open coding → axial coding → selective coding is the proven workflow for any unstructured data — AI traces, user research transcripts, support tickets, customer feedback emails.
+
+This is one mental model, two data sources. Cross-link to the `interview-synthesis` skill being built in parallel — when you internalize the methodology for AI traces, you can apply it to user interviews without learning a new framework. The discipline transfers.
+
+The deeper point: AI evaluation and qualitative user research are the same craft. Both are about converting unstructured signal into structured insight without imposing a frame too early. PMs who treat them as separate disciplines build worse products in both directions.
+
+#### When to Re-Run the Full Cycle
+
+Open → axial → selective coding is not a one-time setup. Re-run it:
+
+- **Quarterly** — to catch new failure modes that emerged from changing user behavior or model upgrades
+- **After a model swap** — the failure modes shift; old taxonomy may not fit
+- **After a major prompt rewrite** — the system you fixed in the prompt may now have different fragility patterns
+- **When the eval suite plateaus** — if your existing evaluators all score 95%+ but users still complain, your taxonomy is stale; re-discover
+
+The full cycle takes 6-10 hours. It's the highest-leverage 6-10 hours an AI PM spends per quarter.
+
 ### Choosing Your Evaluator Type
 
 For each failure mode, ask: **Can I catch this with code?**

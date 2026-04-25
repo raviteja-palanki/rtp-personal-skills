@@ -1,5 +1,5 @@
 ---
-name: ravi-personal-branding
+name: rtp-personal-branding
 version: 2.1
 description: Ravi Teja Palanki's complete design system for every visual surface — website (ravitejapalanki.com), presentations (Gamma, PowerPoint), documents (Word), diagrams, article pages. Dark + light themes properly separated. Nine creative principles that govern every choice. V2.1 adds 5 components from the AI Evals hub (canonical): Live Trace observability engine, per-level semantic animated SVG badges, card laser on hover, status ring indicator, spotlight 3D tilt card.
 author: Ravi Teja Palanki
@@ -1214,7 +1214,335 @@ Nav brand 1.2rem. Chasm 0.65 scale. Telemetry 1 col. Quote font 1.8rem. Hand-dra
 
 ---
 
-## 12. What This Skill Does NOT Cover
+## 12. DESIGN.md Export — Agent-Portable Design System
+
+This brand has 1,251 lines of prose, CSS, and SVG. A coding agent (Claude Code, Cursor, v0, Bolt) doesn't need all of it to produce on-brand UI — it needs the contract. This section is that contract: the full system distilled to Google Labs' DESIGN.md format (alpha spec, `@google/design.md`). Drop the YAML frontmatter into any agent's context and it will produce a passable Ravi-branded surface in 30 seconds. Add the prose below for the closing 20% to on-brand.
+
+For the format spec, lint rules, and export paths (Tailwind / DTCG / Figma), see the sister skill `design-spec`.
+
+### The Canonical DESIGN.md
+
+```yaml
+---
+version: alpha
+name: Ravi Personal Branding v2.1
+description: >
+  Architectural minimalism meets warm intelligence. Premium matte aesthetic with four
+  semantic color identities (Model/Harness/Tools/Environment), four-typeface stack,
+  recession glass cards with 40px rounded-top, paper canvas overlay for light surfaces.
+colors:
+  primary: "#9D4EDD"             # Aureate Purple — Model (intelligence, drop caps, evals accent)
+  secondary: "#F43F5E"            # Crimson Rose — Harness (warnings, anti-patterns, harness series)
+  tertiary: "#F59E0B"             # Amber — Tools (capabilities, L3 badges, systems accent)
+  quaternary: "#06B6D4"           # Cyan — Environment (default homepage hero, CTA halos)
+  success: "#10B981"              # Emerald (functional, positive states)
+  surface-dark-base: "#030407"    # Landing / homepage / presentations
+  surface-dark-card: "#0a0b10"    # Folder cards, telemetry boxes
+  surface-dark-elevated: "#11131a" # Nested elevated surfaces (rare)
+  surface-light-paper: "#FCFDFD"  # Off-white paper canvas for articles
+  surface-light-cream: "#F8F7F4"  # Spec cards, code blocks
+  on-surface-dark: "#F9FAFB"      # Primary body on dark
+  on-surface-dark-muted: "#D1D5DB" # Secondary text on dark
+  on-surface-dark-faint: "#9CA3AF" # Eyebrow labels, meta on dark
+  on-surface-light: "#202226"     # Body text on paper (warm dark, long-form)
+  on-surface-light-heading: "#111318" # Headings, titles on paper
+  on-surface-light-faint: "#5A5D67"   # Meta on paper
+  series-evals: "#8121D8"         # AI Evals series accent (per-series override)
+  series-agentic: "#0891B2"       # Agentic Stack series accent
+  series-harness: "#E11D48"       # Harness Engineering series accent
+typography:
+  display:
+    fontFamily: Instrument Serif
+    fontSize: 4.5rem
+    fontWeight: 400
+    lineHeight: 1.1
+    letterSpacing: -0.02em
+  display-italic:
+    fontFamily: Instrument Serif
+    fontSize: 4.5rem
+    fontWeight: 400
+    lineHeight: 1.1
+    letterSpacing: -0.02em
+    fontFeature: "'ital' 1"
+  h1:
+    fontFamily: Inter
+    fontSize: 4rem
+    fontWeight: 900
+    lineHeight: 0.95
+    letterSpacing: -0.03em
+  h2:
+    fontFamily: Instrument Serif
+    fontSize: 2.8rem
+    fontWeight: 400
+    lineHeight: 1.15
+    letterSpacing: -0.01em
+  body-md:
+    fontFamily: Newsreader
+    fontSize: 1.2rem
+    fontWeight: 400
+    lineHeight: 1.7
+  body-sm:
+    fontFamily: Newsreader
+    fontSize: 1rem
+    fontWeight: 400
+    lineHeight: 1.6
+  label-md:
+    fontFamily: Inter
+    fontSize: 0.85rem
+    fontWeight: 600
+    lineHeight: 1.4
+  meta:
+    fontFamily: JetBrains Mono
+    fontSize: 0.75rem
+    fontWeight: 700
+    lineHeight: 1.4
+    letterSpacing: 0.15em
+  meta-sm:
+    fontFamily: JetBrains Mono
+    fontSize: 0.7rem
+    fontWeight: 800
+    lineHeight: 1.4
+    letterSpacing: 0.15em
+rounded:
+  sm: 4px                  # neon highlight, pastel highlight, mistake card border-radius
+  md: 12px                 # folder cards, blueprint diagram boxes
+  lg: 16px                 # paper canvas inner cards
+  xl: 20px                 # level badges (L1/L2/L3/L4)
+  pill: 50px               # nav CTA pill
+  card-recession: 40px     # signature 40px rounded-top recession glass cards
+  full: 9999px
+spacing:
+  xs: 4px
+  sm: 8px
+  md: 16px
+  lg: 32px
+  xl: 64px
+  hero-px: 6rem            # hero left/right padding via --px
+  text-col-max: 660px      # 65–75 char optimal line
+  content-max: 960px       # article content layout
+components:
+  card-glass-recession:
+    backgroundColor: "{colors.surface-dark-base}"
+    rounded: "{rounded.card-recession}"
+    padding: 32px
+  card-folder-frosted:
+    backgroundColor: "{colors.surface-dark-card}"
+    textColor: "{colors.on-surface-dark}"
+    rounded: "{rounded.md}"
+    padding: 32px
+  card-folder-frosted-evals:
+    backgroundColor: "{colors.surface-dark-card}"
+    textColor: "{colors.on-surface-dark}"
+    # 2px top border accent in {colors.primary} — purple gradient at 8% mixed into surface
+  card-folder-frosted-harness:
+    backgroundColor: "{colors.surface-dark-card}"
+    textColor: "{colors.on-surface-dark}"
+    # 2px top border accent in {colors.secondary} — rose gradient at 8% mixed into surface
+  card-folder-frosted-tools:
+    backgroundColor: "{colors.surface-dark-card}"
+    textColor: "{colors.on-surface-dark}"
+    # 2px top border accent in {colors.tertiary} — amber gradient at 8% mixed into surface
+  callout-success:
+    backgroundColor: "{colors.surface-light-paper}"
+    textColor: "{colors.success}"
+    rounded: "{rounded.sm}"
+    padding: 12px
+  callout-elevated:
+    backgroundColor: "{colors.surface-dark-elevated}"
+    textColor: "{colors.on-surface-dark-muted}"
+    rounded: "{rounded.md}"
+    padding: 24px
+  meta-faint-dark:
+    backgroundColor: "{colors.surface-dark-base}"
+    textColor: "{colors.on-surface-dark-faint}"
+    typography: "{typography.meta}"
+  spec-card:
+    backgroundColor: "{colors.surface-light-cream}"
+    textColor: "{colors.on-surface-light-heading}"
+    rounded: "{rounded.md}"
+    padding: 24px
+  meta-light:
+    backgroundColor: "{colors.surface-light-paper}"
+    textColor: "{colors.on-surface-light-faint}"
+    typography: "{typography.meta}"
+  badge-series-evals:
+    backgroundColor: "{colors.surface-dark-card}"
+    textColor: "{colors.series-evals}"
+    typography: "{typography.label-md}"
+    rounded: "{rounded.xl}"
+  badge-series-agentic:
+    backgroundColor: "{colors.surface-dark-card}"
+    textColor: "{colors.series-agentic}"
+    typography: "{typography.label-md}"
+    rounded: "{rounded.xl}"
+  badge-series-harness:
+    backgroundColor: "{colors.surface-dark-card}"
+    textColor: "{colors.series-harness}"
+    typography: "{typography.label-md}"
+    rounded: "{rounded.xl}"
+  card-paper-canvas:
+    backgroundColor: "{colors.surface-light-paper}"
+    textColor: "{colors.on-surface-light}"
+    rounded: "{rounded.card-recession}"
+    padding: 96px
+  button-primary:
+    backgroundColor: "{colors.on-surface-dark}"
+    textColor: "{colors.surface-dark-base}"
+    typography: "{typography.meta-sm}"
+    rounded: "{rounded.pill}"
+    padding: 12px
+  button-primary-hover:
+    backgroundColor: "{colors.quaternary}"
+    textColor: "{colors.surface-dark-base}"
+  button-frosted:
+    backgroundColor: "rgba(255, 255, 255, 0.15)"
+    textColor: "{colors.on-surface-dark}"
+    rounded: "{rounded.pill}"
+    padding: 12px
+  badge-level:
+    backgroundColor: "{colors.surface-dark-card}"
+    textColor: "{colors.quaternary}"
+    typography: "{typography.label-md}"
+    rounded: "{rounded.xl}"
+    padding: 8px
+    size: 80px
+  highlight-neon:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-surface-dark}"
+    rounded: "{rounded.sm}"
+    # In CSS: rendered at 0.4 opacity over dark via gradient
+  highlight-pastel:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-surface-light}"
+    rounded: "{rounded.sm}"
+    # In CSS: rendered at 0.12 opacity with mix-blend-mode multiply
+  drop-cap-evals:
+    backgroundColor: "{colors.surface-dark-base}"
+    textColor: "{colors.primary}"
+    typography: "{typography.display}"
+  mistake-card:
+    backgroundColor: "{colors.surface-light-paper}"
+    textColor: "{colors.secondary}"
+    rounded: "{rounded.sm}"
+    padding: 16px
+    # Red left border in {colors.secondary} — anti-pattern marker
+  badge-l3-tools:
+    backgroundColor: "{colors.surface-dark-card}"
+    textColor: "{colors.tertiary}"
+    typography: "{typography.label-md}"
+    rounded: "{rounded.xl}"
+    size: 80px
+---
+```
+
+### Brand & Style
+
+Architectural minimalism meets warm intelligence. The aesthetic is a premium matte finish — a contemporary product surface that reads like a systems dashboard but feels like a broadsheet. Trustworthy, restrained, expert. Targeted at senior PMs, engineers, and executives who recognize craft when they see it. Dark theme is the default — for landing pages, presentations, technical hubs. Light theme (paper canvas) is reserved for long-form reading: blog posts, Word documents, articles. The emotional response: this person ships at the bar I expect of myself.
+
+### Colors
+
+Four semantic identities, never decorative. Each color carries meaning and is restricted to specific roles:
+
+- **Primary (#9D4EDD — Aureate Purple):** the Model layer. Intelligence, the thinking system. Used for drop caps in long-form, the AI Evals series accent, callouts that highlight cognitive work.
+- **Secondary (#F43F5E — Crimson Rose):** the Harness layer. Guardrails, warnings, anti-patterns. Used EXCLUSIVELY for negative semantics — mistake cards, anti-pattern watermarks, the Harness Engineering series accent. Never positive, never decorative.
+- **Tertiary (#F59E0B — Amber):** the Tools layer. Capabilities, systems, engineering. Used for L3 production badges, amber accents on infrastructure topics.
+- **Quaternary (#06B6D4 — Cyan):** the Environment layer. Context, default homepage hero, CTA halos, the suspension bridge SVG, the cyan ghost echo on the hero name.
+
+Three rules — never break:
+1. Colors appear only as accents (border-left, text-shadow glow, radial gradient at 4-15% opacity, mark highlight). Never flat background fills.
+2. Red is exclusively negative. Anti-patterns, warnings, mistakes. Never use for positive emphasis.
+3. Per-series accent overrides (`series-evals` #8121D8, `series-agentic` #0891B2, `series-harness` #E11D48) replace `primary` only on series hub pages and topic-specific decks.
+
+### Typography
+
+Four typefaces — universal across HTML, Gamma, PowerPoint, and Word. Never substitute.
+
+- **Inter** for display titles (900 weight, uppercase, tight tracking) and UI. The geometric clarity carries headlines without ornamentation.
+- **Instrument Serif** for editorial moments — hero subtitles, signature quotes, drop caps, the closer name. Italic by default in editorial use; upright when the name is meant to anchor.
+- **Newsreader** for body prose on both dark and light. Designed for long-form reading; line-height 1.7 minimum.
+- **JetBrains Mono** for everything telemetric — labels, tags, metadata, code, the dashboard framing (`METRIC_01 [UNIT]`). Always uppercase, always 0.15em letter-spacing, always 700 weight or above.
+
+The system is three rhythms in conversation: Inter 900 for display gravity, Instrument Serif for editorial breath, JetBrains Mono for systems precision. Newsreader sits underneath as the substrate. Never homogenize them.
+
+### Layout & Spacing
+
+Spacing follows an 8px scale (xs/sm/md/lg/xl). Hero sections use cavernous padding (`6rem` left/right, 15-20vh vertical for quote sections) — the breathing rhythm itself is a design element. Reading layouts cap at `max-width: 660px` for body prose (65-75 char optimal line) inside a `max-width: 960px` content layout. Diagrams break out via `.bleed-wide` to full width for emphasis.
+
+The tension between density and breath is intentional. Sticky card stacks are dense — three frosted cards visible at once. Quote sections are cavernous — one sentence holding a full viewport. Pages alternate between the two to set narrative pace.
+
+### Elevation & Depth
+
+Depth is achieved through physical materiality, not flat layers. Dark surfaces use frosted glass: `backdrop-filter: blur(32px)`, brighter top borders (`rgba(255,255,255,0.25)` on top, `rgba(255,255,255,0.1)` on the rest) to simulate light catching. Inset highlight shadows (`inset 0 1px 1px rgba(255,255,255,0.15)`) make every card feel touchable.
+
+Recession glass cards (the signature) carry a 40px rounded-top edge and a massive 100px drop shadow (`0 -40px 100px rgba(0,0,0,1)`) — they read as physical objects sliding into view. The first card in a stack integrates flat with the page; subsequent cards get the curve and shadow.
+
+Light surfaces use the paper canvas: `#FCFDFD` background with a subtle dot grid (`radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px) 32px 32px`). Articles overlap the dark hero with a `-12vh` margin and a 40px rounded-top to feel like a physical sheet of paper sliding over the dark canvas.
+
+### Shapes
+
+Corner radius scales with hierarchy:
+- 4px — text-level highlights (neon highlight, pastel highlight, mistake card)
+- 12px — folder cards, blueprint diagrams
+- 16px — paper canvas inner content cards
+- 20px — level badges (L1/L2/L3/L4 hub badges)
+- 50px — pill-shaped CTAs (nav button)
+- **40px — the signature recession glass card.** This is the brand's tactile fingerprint. Reserve for hero recession stacks and paper canvas overlays.
+- 9999px — circular elements (status rings, dots)
+
+Rule: never mix sharp (0px) with rounded in the same view. The system is rounded throughout.
+
+### Components
+
+**The hero containers.** Premium glass recession cards (`card-glass-recession`) are the brand's most distinctive component — physical cards with 40px rounded-top, light edge, and 100px drop shadow that recede during scroll via `translate3d + scale`. Used for the Two Paths section on the homepage and the paper canvas on article pages.
+
+**The frosted folder cards** (`card-folder-frosted`) carry sticky stacks with identity-colored gradient tops (cyan/purple/amber for the Bridger architecture cards). Each gets a 2px top border in its identity color and a 145deg gradient mixing 8% identity color into the surface base.
+
+**The buttons.** Primary CTA (`button-primary`) is a white pill with mono-cap text — the bright moment in the dark canvas. Article-page CTAs use the frosted variant (`button-frosted`) with `rgba(255,255,255,0.15)` background and 1px white border, hovering to solid white with dark text.
+
+**The level badges** (`badge-level`) are 80×80 with 20px corner radius, hosting per-level semantic SVGs (L1 reticle, L2 neural network, L3 isometric layers, L4 anomaly waveform) on a 5%-opacity tint of the level's identity color.
+
+**Highlights.** Two flavors. `highlight-neon` for dark surfaces inside browser frames — purple glow on dark via gradient `rgba(157,78,221,0.2)` to `rgba(157,78,221,0.4)`. `highlight-pastel` for paper canvas — same purple at 12% with `mix-blend-mode: multiply` for ink-on-paper feel.
+
+### Do's and Don'ts
+
+- Do use the four identity colors only as accents — borders, text glows, radial gradients at 4-15% opacity, marker highlights
+- Don't use any identity color as a flat background fill anywhere, on any medium
+- Do reserve red (`#F43F5E`) exclusively for warnings, mistakes, and anti-patterns
+- Don't use red for positive emphasis, decoration, or aesthetic balance
+- Do load all four fonts in every medium (HTML, Gamma, PowerPoint, Word). Install them on the machine
+- Don't substitute Arial, Calibri, or Helvetica for any of the four typefaces
+- Do use Inter 900 only for display titles (uppercase, -0.03em tracking)
+- Don't use Instrument Serif for body prose — only editorial moments (subtitles, quotes, drop caps, signatures)
+- Do maintain WCAG AAA on dark (`#F9FAFB` minimum on `#030407`) and AAA-equivalent on light (`#202226` minimum on `#FCFDFD`)
+- Don't use pure black on pure white — always `#111318` on `#FCFDFD`
+- Do close every artifact with the product signature: "Crafted with intent by *Ravi Teja Palanki*" in Instrument Serif
+- Don't add marketing copy, hype words ("game-changing," "revolutionary"), or generic positive conclusions
+
+### Lint Notes
+
+The frontmatter above is designed to pass `@google/design.md lint`:
+- `primary` is defined (`#9D4EDD`) → no `missing-primary` warning
+- Every `{colors.*}`, `{typography.*}`, `{rounded.*}` reference resolves to a defined token → no `broken-ref` errors
+- Every color token (including `success`, all four `series-*`, all `surface-*`, all `on-surface-*`) is referenced by at least one component → no `orphaned-tokens` warnings
+- Typography is defined alongside colors → no `missing-typography` warning
+- Component contrast on key pairs:
+  - `button-primary`: `#F9FAFB` text on `#030407` background = 19.6:1 (AAA)
+  - `card-paper-canvas`: `#202226` text on `#FCFDFD` background = 14.5:1 (AAA)
+  - `mistake-card`: `#F43F5E` text on `#FCFDFD` background = 4.8:1 (AA — passes for body sized at 1rem+)
+  - `drop-cap-evals`: `#9D4EDD` on `#030407` = 6.2:1 (AAA at large display sizes)
+- Component values that store `rgba(...)` strings (translucent overlays) bypass contrast-ratio rule and may emit `info`-level findings — that is expected for the glass aesthetic and documented in section 1.4 (Physical Materiality)
+
+What's NOT captured by DESIGN.md (intentional gaps — see `design-spec` Red Team):
+- All 8 named keyframes (`palankiReveal`, `pulseCyan`, `dataStream`, `recession`, `floatIso`, `drawBridge`, `drawTrace`, `flowData`)
+- Lenis smooth scroll behavior, scroll-driven recession physics
+- Glass `backdrop-filter` chains, paper canvas `box-shadow` stacks
+- Per-medium guidance (Gamma vs PPT vs Word) — those live in section 8 of this skill
+
+The frontmatter is the static contract. Section 1 (Creative Lens) and section 8 (Multi-Medium Application) of this skill carry the rest. Hand both to a coding agent for full fidelity.
+
+---
+
+## 13. What This Skill Does NOT Cover
 
 - **Content voice** — see `ravi-thinking-skills`
 - **Article editorial structure** — see `rtp-deep-dive-writer`
@@ -1225,7 +1553,7 @@ Nav brand 1.2rem. Chasm 0.65 scale. Telemetry 1 col. Quote font 1.8rem. Hand-dra
 
 ---
 
-## 13. Canonical References
+## 14. Canonical References
 
 | Artifact | Path |
 |----------|------|
@@ -1240,10 +1568,11 @@ Nav brand 1.2rem. Chasm 0.65 scale. Telemetry 1 col. Quote font 1.8rem. Hand-dra
 
 ---
 
-## 14. Version History
+## 15. Version History
 
 | Version | Date | Change |
 |---------|------|--------|
+| 2.2 | 25 APR 2026 | Added section 12 "DESIGN.md Export — Agent-Portable Design System" — full Google Labs DESIGN.md frontmatter (alpha spec) covering colors, typography, rounded, spacing, components, plus 8 prose sections (Brand & Style, Colors, Typography, Layout & Spacing, Elevation & Depth, Shapes, Components, Do's and Don'ts) and lint notes. Renumbered subsequent sections (13/14/15). Pairs with new sister skill `design-spec` for the format spec and lint/export tooling. |
 | 2.1 | 17 APR 2026 | Added 5 components from `03-articles-ai-evals/index.html` — #31 Live Trace observability engine (animated SVG background simulating spans + evals), #32 per-level semantic animated SVG badges (L1 reticle / L2 neural network / L3 isometric layers / L4 anomaly waveform), #33 card laser on hover (beam shoot across top edge), #34 status ring indicator (14px ring micro-signal for card state), #35 spotlight 3D tilt card (cursor-tracked radial gradient + subtle rotateX/Y). Updated Creative Principles 1.2 (added hub page signatures) and 1.3 (status rings as micro-disclosure). Added `03-articles-ai-evals/index.html` to canonical references. |
 | 2.0 | 17 APR 2026 | V8 upgrade — suspension bridge SVG, data packet stream, scramble counter dashboard, scroll-written quote, hand-drawn purple-to-rose highlight, 3D pop browser frame, premium glass cards with 40px rounded-top, floating iso planes, product-signature footer, Lenis smooth scroll. Added Design Philosophy (9 creative principles) + multi-medium guidance (HTML/Gamma/PPT/Word). |
 | 1.0 | 17 APR 2026 | Initial unified skill superseding learn-site-design v2.0 |

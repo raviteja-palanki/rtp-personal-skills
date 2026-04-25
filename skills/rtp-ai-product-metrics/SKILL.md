@@ -1,9 +1,15 @@
 ---
 name: rtp-ai-product-metrics
+id: ai-product-metrics
+title: AI Product Metrics
+category: craft
 description: AI products require different metrics. Traditional DAU/retention are lagging indicators. Leading indicators are acceptance rate, correction rate, regeneration rate, and cost-per-successful-outcome.
+difficulty: intermediate
 imports:
   - eval-framework
   - feedback-flywheel
+author: ai-pm
+last_updated: 2026-03-28
 ---
 
 ## GROUNDING (Before Starting)
@@ -149,6 +155,147 @@ When your eval suite stops moving despite meaningful improvements in production,
 2. Add to eval set, removing lowest-signal existing examples
 3. Measure: Does this new eval version show measurable gaps in your system?
 4. Iterate: If new evals don't expose problems, you're not testing hard enough
+
+---
+
+## NORTH STAR + AARRR FOR AI PRODUCTS
+
+The metrics above (acceptance rate, regeneration rate, hallucination rate, pass^k) are AI-specific leading indicators. They tell you whether the model is doing its job. They do not tell you whether the *product* is doing its job.
+
+For that, you need the foundational metric framework — North Star + AARRR — adapted for AI features. Lenny Rachitsky's North Star guide is the canonical reference. AARRR (Acquisition / Activation / Retention / Revenue / Referral) is the canonical funnel. Both are PM table stakes. The AI twist is what they look like when the product is non-deterministic.
+
+### The North Star for AI Products
+
+**The Lenny criteria for a North Star metric:**
+1. Represents value delivered to users (not value extracted from them)
+2. Predicts long-term revenue
+3. Measurable
+4. Actionable (the team can move it)
+5. Understandable (everyone in the company can explain it)
+
+**The AI-specific failure mode:** Most AI products pick a North Star that ignores AI quality. "Daily active users." "Queries per day." "Sessions per week." These are activity metrics — they go up when users come back, regardless of whether the AI did its job.
+
+**The 0.1% angle: AI features need a "successful AI interaction rate" North Star that pure DAU/retention misses.**
+
+The pattern: pick the North Star metric AT the moment of AI-driven value delivery. Not "users who logged in" — "users who completed a successful AI-assisted task." Not "queries per session" — "queries that produced a user-accepted output."
+
+**The canonical AI-feature funnel (the five-stage model):**
+
+| Stage | Definition | What "Good" Looks Like |
+|---|---|---|
+| **Surfaced** | The AI feature was visible to the user (in their UI, in their workflow) | High — the feature is discoverable |
+| **Invoked** | The user actually used the feature (typed a prompt, clicked the button) | Conversion from surface depends on UX clarity |
+| **Completed** | The AI finished generating an output (no timeout, no refusal, no error) | High — model and infra reliability |
+| **Accepted** | The user kept the output (used it, copied it, sent it, saved it) | The acceptance rate metric — the truth about quality |
+| **Retained** | The user came back and used the feature again within 7 days | The trust metric — did the experience earn repeat use? |
+
+Each stage has a drop-off. Each drop-off has a different optimization. **The North Star sits at "Accepted" or "Retained" — never at "Invoked."** Invocation is activity. Acceptance is value.
+
+**Worked example:**
+
+For an AI contract review tool, candidate North Stars:
+
+- **Bad:** "Daily active users" — measures coming back, not value
+- **Bad:** "Queries per day" — measures activity, not success
+- **Bad:** "Reviews completed" — measures throughput, not whether the review was useful
+- **Better:** "Reviews accepted by user without edit" — measures whether the AI's output was good enough as-is
+- **Best:** "Weekly active users who accept at least 3 reviews per week" — combines retention, activity, and quality into one metric
+
+The "best" version satisfies all five Lenny criteria. It moves only when the product is genuinely working. It can't be gamed by adding more users or running more queries.
+
+### AARRR Adapted for AI Features
+
+The AARRR funnel applies to AI products, but each stage gets an AI-specific layer.
+
+#### Acquisition
+
+The user discovers the feature exists. Same as any product — marketing, search, word of mouth, in-product placement.
+
+**The AI-specific twist:** Unlike traditional features, AI features benefit from social proof signals that signal "this AI doesn't suck." Demo videos showing real outputs. Customer logos. Eval transparency. Hallucination rates published openly. Trust signals at acquisition time reduce the "is this just AI hype?" friction.
+
+**Metric:** Trial conversion rate from acquisition channel. Watch for big variation by channel — power-user channels (developer communities, expert forums) often convert at 3-5x the rate of generic channels because the audience already trusts AI and knows how to use it.
+
+#### Activation
+
+The user experiences first value. For AI features, this is the first successful interaction.
+
+**The AI-specific twist:** Activation is about whether the user's *first prompt produces a useful output*. If the first prompt fails or feels wrong, churn risk in the first week is 3-5x higher than for users whose first prompt succeeded. The first impression is load-bearing.
+
+**Metric:** First-prompt acceptance rate. Measures: of users who tried the feature once, what % accepted the AI's output without editing or regenerating?
+
+**Optimization:** First-time user experience matters more in AI products than traditional ones. Show example prompts. Suggest queries. Pre-populate the input with a high-confidence template. Get the user to a "yes, this worked" moment in their first 60 seconds.
+
+#### Retention
+
+The user comes back and uses the feature again.
+
+**The AI-specific twist:** Trust takes 4 weeks to stabilize (per the `uncertainty-research` skill). A user who uses the feature 3 times in week 1 and never returns has been quietly disappointed. A user who uses it 1 time per week for 8 weeks has built durable trust. Track retention curves by week, not just by month.
+
+**Metric:** Weekly active acceptance rate — % of weekly actives who accepted at least one AI output that week. Catches users who keep coming back but stop accepting outputs (a sign of declining trust before churn).
+
+**Optimization:** The biggest retention lever in AI products is fixing the failure modes that surface in week 2-3. Users tolerate week-1 errors as "I'm still learning." They don't tolerate week-3 errors. The eval-and-quality work compounds at retention.
+
+#### Revenue
+
+The user pays. For AI products, this often shows up as: free tier users converting to paid, paid users upgrading to higher tiers, expanding seat count.
+
+**The AI-specific twist:** AI features have unit cost. Revenue without unit economics modeling produces "we have $1M ARR and burn $1.2M on inference" surprises. Track revenue PER unit of AI capacity consumed. Track revenue versus cost-per-successful-outcome (the metric from the Process section above).
+
+**Metric:** Net revenue per user, after AI cost. Not gross. The AI cost is the real margin compression.
+
+**Optimization:** The pricing model should align with the cost structure. Per-seat pricing (flat fee per user) is a margin trap if power users consume 10x the AI capacity of casual users. Usage-based pricing aligns better but requires the user to understand and accept variable bills. The right answer depends on segment — enterprise often prefers flat, prosumer often prefers usage-based.
+
+#### Referral
+
+The user invites others.
+
+**The AI-specific twist:** AI products have a unique referral mechanism — *output sharing*. When a user copies an AI output and pastes it into Slack, email, or a doc, the recipient sees the output AND the implicit endorsement. Track output-shared rate as a leading indicator of organic growth.
+
+**Metric:** % of accepted outputs that were shared externally. Higher = organic referral surface area.
+
+**Optimization:** Make sharing easy. Watermark outputs subtly with the product name (without compromising the user's intent). Offer "share this answer" affordances. Track which outputs get shared most — they reveal which use cases produce shareable artifacts and which produce private ones.
+
+### Mapping the AI Funnel to AARRR
+
+The five-stage AI funnel (Surfaced → Invoked → Completed → Accepted → Retained) maps onto AARRR but isn't identical. Use both:
+
+| AARRR | Maps to AI Funnel | Why Both Matter |
+|---|---|---|
+| Acquisition | Pre-Surfaced | User has to find the product before the AI funnel begins |
+| Activation | Surfaced + Invoked + Completed (first time) | Activation in AI = first successful interaction |
+| Retention | Repeated Acceptance + Retention | Coming back AND accepting outputs |
+| Revenue | (Conversion event, separate) | Often gated by retention |
+| Referral | Output Sharing | Distinct from formal referral programs |
+
+**The discipline:** Build dashboards that show both. AARRR for the business view (where executives think). The five-stage AI funnel for the product view (where PMs and engineers diagnose). They tell the same story at different altitudes.
+
+### The Combined Dashboard Structure
+
+Add this to the dashboard template in the section above. The North Star + AARRR sit *above* the AI-specific metrics — they're the company-level view that the AI quality metrics support.
+
+```
+NORTH STAR METRIC: [e.g., Weekly active users who accept ≥3 AI outputs per week]
+Current: [Value]    Target: [Value]    Trend (4w): [↑/↓]
+
+AARRR FUNNEL
+| Stage | Metric | Current | Target | Trend |
+|---|---|---|---|---|
+| Acquisition | Trial conversion rate | — | — | — |
+| Activation | First-prompt acceptance rate | — | — | — |
+| Retention | WAU with ≥1 acceptance | — | — | — |
+| Revenue | Net revenue per user (post-AI cost) | — | — | — |
+| Referral | % outputs shared externally | — | — | — |
+
+AI FUNNEL (per primary feature)
+| Stage | Conversion | Drop-off Reason | Action |
+|---|---|---|---|
+| Surfaced → Invoked | — | — | — |
+| Invoked → Completed | — | — | — |
+| Completed → Accepted | — | — | — |
+| Accepted → Retained (7d) | — | — | — |
+```
+
+The discipline: every drop-off in the AI funnel ladders up to a drop-off in AARRR. If first-prompt acceptance is low, AARRR Activation is low. If accepted-to-retained conversion is low, AARRR Retention is low. The funnels aren't separate diagnoses — they're the same diagnosis at different altitudes.
 
 ---
 
