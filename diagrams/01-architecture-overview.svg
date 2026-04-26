@@ -206,7 +206,7 @@
   <rect x="30" y="605" width="1140" height="60" rx="12" fill="#FAFAF8" stroke="url(#dnaGrad)" stroke-width="2.5" filter="url(#glow)"/>
   <rect x="30" y="605" width="1140" height="8" rx="12" fill="url(#dnaGrad)" opacity="0.15"/>
   <text x="600" y="636" text-anchor="middle" fill="#5B3E7A" font-size="15" font-weight="700" font-family="Inter, sans-serif">Ravi Voice — The DNA in Every Worker</text>
-  <text x="600" y="655" text-anchor="middle" fill="#7556A0" font-size="12" font-family="Inter, sans-serif">10 thinking algorithms  ·  24 AI anti-patterns to avoid  ·  Bridger communication style  ·  Anthropic CPO quality bar</text>
+  <text x="600" y="655" text-anchor="middle" fill="#7556A0" font-size="12" font-family="Inter, sans-serif">10 thinking algorithms  ·  24 AI anti-patterns to avoid  ·  Bridger communication style  ·  world-class CPO quality bar</text>
 
   <!-- ===== COMPOUNDING LOOP ===== -->
   <rect x="30" y="690" width="1140" height="195" rx="14" fill="#FFFFFF" stroke="#E8E4DC" stroke-width="1.5" filter="url(#s)"/>
