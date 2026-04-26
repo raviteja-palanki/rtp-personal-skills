@@ -160,13 +160,13 @@ Slash commands and sprint templates are NOT competing — slash commands are the
 
 The 64 AI PM skills are organized into three layers. Each layer earns the right to exist by making the next layer's output trustworthy.
 
-### Layer 1: Thinking — *Before you decide anything* (11 skills)
+### Layer 1: Thinking — *Before you decide anything* (10 skills)
 
 These don't produce documents. They produce **checks.**
 
-Before any decision: Are you decomposing from first principles, or pattern-matching from your last project? Are you anchored on what a competitor built instead of what your users need? If your AI system fails, does it degrade gracefully or fail silently? What would make your strongest recommendation completely invalid? When the model failed in standup, did that signal route to the eval pipeline or evaporate as venting?
+Before any decision: Are you decomposing from first principles, or pattern-matching from your last project? Are you anchored on what a competitor built instead of what your users need? If your AI system fails, does it degrade gracefully or fail silently? What would make your strongest recommendation completely invalid?
 
-Skills: `first-principles` · `bias-spotter` · `falsification` · `dual-lens` · `determinism-compass` · `stress-test` · `failure-design` · `alignment-check` · `judgment-guard` · `problem-type` · `gossip-mode`
+Core thinking skills: first-principles, bias-spotter, falsification, dual-lens, determinism-compass, stress-test, failure-design, alignment-check, judgment-guard, problem-type.
 
 <p align="center">
   <img src="diagrams/03-judgment-layer.svg" alt="Judgment Layer" width="900"/>
