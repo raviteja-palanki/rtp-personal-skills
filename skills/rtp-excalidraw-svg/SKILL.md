@@ -1,14 +1,19 @@
 ---
-name: excalidraw-svg
-version: 1.3.0
+name: rtp-excalidraw-svg
+version: 1.4.0
 description: "Excalidraw SVG diagrams: pastel, readable text, storytelling. Diagrams, flowcharts, architecture, infographics, flows, maps. Use when: visual explanation or output enhancer for PRD/spec/analysis. Triggers: 'diagram', 'flowchart', 'visual', 'architecture'"
 ---
 
-# Excalidraw SVG — Visual Storytelling System v1.3
+# Excalidraw SVG — Visual Storytelling System v1.4
 
 Production-tested design system for creating beautiful, readable SVG diagrams
 with Excalidraw-inspired aesthetics, embedded copywriting, and visual narrative structure.
 
+> **v1.4 update (25 APR 2026):** Added STEP 10 "Post-Edit Review Pass" — five hard-won
+> rules from the Harness V2 production cycle. Static XML checks miss line-spacing crashes;
+> HTML render verification is mandatory; jargon translation must show restraint, not flood
+> the diagram with translator chips.
+>
 > **v1.3 update:** Added GitHub rendering rules to main file (not buried in references).
 > Fixed boilerplate flood-color bug. Added text-first sizing discipline.
 > Reference material (colors, patterns, GitHub rendering, libraries) in `references/`.
@@ -447,6 +452,91 @@ Complex diagrams rarely come out perfect. Use this loop:
 
 ---
 
+## STEP 10: POST-EDIT REVIEW PASS (When Editing Existing SVGs)
+
+Editing an existing SVG is structurally different from building a new one. New rules apply because the layout was already fitted; any addition can crash the geometry. **Run this five-rule discipline after every edit pass — it caught real bugs the static Quality Gate missed.**
+
+### Rule 1: HTML Render Verification Is Mandatory
+
+Static XML inspection misses line-spacing collisions, descender/ascender overlap, container clipping, and visual hierarchy breaks. The XML may be perfectly valid; the rendering may still look broken.
+
+**Required after every edit pass:**
+- Build a small `_review-harness.html` that loads every modified SVG via `<object type="image/svg+xml" data="...">`
+- Start a local server (`python3 -m http.server 8091`) from the SVG folder
+- Open the page, scroll through every SVG at native viewBox
+- Catch what static checks cannot: overlap, clipping, visual rhythm breaks
+
+**Do not declare an edit pass complete without this step.** "Looks fine in the XML" is not a passing grade.
+
+### Rule 2: The Three-Line Body Pitfall (Most Common Edit Bug)
+
+When body text wraps to 3 lines inside a card, the third line frequently sits at an 8-10px gap from line 2 instead of the proper 18-22px line-height. Static XML inspection will read both `<text>` elements as valid; the rendered diagram shows descenders of line 2 crashing into ascenders of line 3.
+
+**Detection:**
+- For any card with 3+ body `<text>` elements, compute pairwise y-deltas
+- If any delta is `< 1.5 × font-size`, the spacing is too tight
+
+**Fix (in priority order):**
+1. **Consolidate to 2 lines.** Combine line 2 + line 3 into a single longer sentence that fits the container width. This is almost always the right move.
+2. **Reposition with proper line-height.** If 3 lines are essential, set `y` deltas to `1.5 × font-size` minimum and extend the card height to absorb.
+3. **Never** shrink the font to fit. Readability dies first.
+
+### Rule 3: Restraint on Jargon Translation
+
+When making a diagram readable to non-experts, the temptation is to add a translator chip under every technical term. **This is the wrong move.** Six per-element translators turn a diagram into a glossary; visual rhythm dies; the essence drowns in noise.
+
+**The restraint principle:**
+- One row of related technical terms (e.g., 6 hook names, 8 tool categories, 5 layer names) gets ONE consolidated caption beneath the row, not N individual translators
+- Per-element translators are reserved for terms that are GENUINELY cryptic (novel coinages from this series; abbreviations no PM-adjacent reader would know like "IAM" or "Ralph Loop")
+- Every translator must earn its place. Test: would removing this translator confuse a reader? If no, remove it.
+
+**Calibration test (apply to every translator added):**
+- Smart non-AI-engineer PM reads the term cold. Do they understand?
+  - YES → no translator. Remove.
+  - NO → translator earns its place. Keep, in muted grey at 10-11px italic.
+- The technical term itself stays visible — engineers need it to anchor on. The translator is a bridge, not a replacement.
+
+### Rule 4: Reader Perspective, Not Expert Mode
+
+The diagram is for a learner, not for the engineer who built the system. Ask: would a smart-but-non-expert PM understand this in 10 seconds?
+
+**Anti-pattern:**
+- Stacking jargon ("MHTE", "RBAC", "MCP servers", "wrap_tool_call") without bridges
+- Using framework-specific terms as if they were universal vocabulary
+- Assuming the reader knows the architectural pattern the diagram references
+
+**The fix:**
+- Spell out every acronym at first use (MHTE → "Model · Harness · Tools · Environment")
+- Pair novel coinages with one-line glosses ("Ralph Loop (resume after stop)")
+- Use plain-English action verbs in flow arrows ("runs before LLM call" not just `before_model`)
+- Keep technical anchors visible, but never naked
+
+### Rule 5: Don't Lose the Essence
+
+Edits and translations must serve the diagram's one-sentence story, not bury it. Every addition is also a subtraction (of attention, of space, of clarity).
+
+**Before adding any element to an existing SVG, ask:**
+- Does this addition strengthen the diagram's one-sentence story, or just decorate it?
+- Could I instead remove something that's no longer earning its place?
+- Would a reader, looking at this for 10 seconds, see the story more or less clearly after my edit?
+
+If the answer to the third question is "less clearly," the edit fails. Roll back. Find a tighter way.
+
+### Post-Edit Review Checklist
+
+Run literally before marking an edit pass complete:
+
+- [ ] HTML render harness built and viewed (Rule 1)
+- [ ] Every 3+ line body text checked for line-spacing collision (Rule 2)
+- [ ] Per-element translators consolidated to row-level captions where possible (Rule 3)
+- [ ] Every translator earns its place via the calibration test (Rule 3)
+- [ ] Acronyms spelled out at first use, novel coinages paired with glosses (Rule 4)
+- [ ] No element added that doesn't strengthen the one-sentence story (Rule 5)
+- [ ] `xmllint --noout file.svg` passes
+- [ ] Original Step 7 Quality Gate still passes
+
+---
+
 ## CROSS-SKILL VISUAL SUMMARIES
 
 When ANY other skill produces output (PRD, spec, analysis), create ONE Excalidraw SVG capturing the essence in a single glanceable image. This makes every deliverable 10x more impactful.
@@ -481,4 +571,4 @@ Use on standalone showcase pieces, hero images, and externally-shared diagrams. 
 
 ---
 
-*Excalidraw SVG v1.3.0 | Updated 10 APR 2026 | Ravi Teja Palanki*
+*Excalidraw SVG v1.4.0 | Updated 26 APR 2026 | Ravi Teja Palanki*
