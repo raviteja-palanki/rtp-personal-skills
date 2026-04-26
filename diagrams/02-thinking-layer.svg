@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="10 thinking skills that produce checks before any decision, not documents.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 900" width="1280" height="900" role="img" aria-label="10 thinking skills that produce checks before any decision, not documents.">
   <title>Thinking Layer</title>
   <desc>The first layer of the architecture: 10 cognitive skills (first-principles, bias-spotter, falsification, dual-lens, determinism-compass, stress-test, failure-design, alignment-check, judgment-guard, problem-type) that gate-check every recommendation before it reaches the judgment layer.</desc>
   <defs>
@@ -11,10 +11,10 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1200" height="900" fill="#FAFAF8"/>
+  <rect width="1280" height="900" fill="#FAFAF8"/>
 
   <!-- Title Band -->
-  <rect x="0" y="0" width="1200" height="90" fill="#9478B8" filter="url(#headerShadow)"/>
+  <rect x="0" y="0" width="1280" height="90" fill="#9478B8" filter="url(#headerShadow)"/>
   <text x="40" y="52" font-family="Inter, Segoe UI, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">Layer 1: Thinking</text>
   <text x="40" y="73" font-family="Inter, Segoe UI, sans-serif" font-size="14" fill="#FFFFFF" opacity="0.95">The Immune System — 10 Skills That Fire Before Any Decision Gets Made</text>
 
