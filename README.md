@@ -66,7 +66,7 @@ The orchestrator commands the entire installed Claude Code plugin ecosystem, not
 
 Five tiers, each with a clear use:
 
-**Tier 1 — RTP skills (Ravi's voice + thinking).** AI PM strategy, content or visual output that must sound like Ravi, governance, design system work. The 64 AI PM skills + 16 general-purpose skills in this repo.
+**Tier 1 — RTP skills (Ravi's voice + thinking).** AI PM strategy, content or visual output that must sound like Ravi, governance, design system work. The 63 AI PM skills + 16 general-purpose skills in this repo.
 
 **Tier 2 — Process and engineering rigor.** `superpowers:*` and `compound-engineering:*` for TDD discipline, systematic debugging, code review (giving and receiving), brainstorming, frontend design, agent-native architecture, dhh-rails-style. When the work is actual engineering — code, tests, debug — these own the discipline layer.
 
@@ -90,7 +90,7 @@ Worker agents are not scripts. They're intelligent sub-agents combining speciali
 
 Every worker has three components: **domain expertise** (one or two specialized skills), **persona context** (they understand the user's voice, thinking style, and quality bar), and **memory** (they carry feedback from prior executions, so the tenth time a worker runs, it's structurally sharper than the first).
 
-### The AI PM Expert Teams (64 skills across 6 teams)
+### The AI PM Expert Teams (63 skills across 6 teams)
 
 **The Sense-Maker** sees the real problem — not the one you described, but the one underneath. First-principles decomposition, AI-fit scoring, uncertainty mapping, JTBD demand-side analysis, opportunity-solution-tree with feasibility filter, attitudinal segmentation by AI stance.
 
@@ -158,7 +158,7 @@ Slash commands and sprint templates are NOT competing — slash commands are the
   <img src="diagrams/02-thinking-layer.svg" alt="Thinking Layer" width="900"/>
 </p>
 
-The 64 AI PM skills are organized into three layers. Each layer earns the right to exist by making the next layer's output trustworthy.
+The 63 AI PM skills are organized into three layers. Each layer earns the right to exist by making the next layer's output trustworthy.
 
 ### Layer 1: Thinking — *Before you decide anything* (10 skills)
 
@@ -278,7 +278,7 @@ I'm what the research calls a *bridger.* When engineering says *we need a valida
 
 ## Repo state at a glance
 
-- **80 skills** (64 AIPM + 16 general-purpose), all lint-clean and voice-consistent
+- **80 skills** (63 AIPM + 1 orchestrator + 16 general-purpose), all lint-clean and voice-consistent
 - **10 slash command workflows** + **6 multi-day sprint templates**
 - **1 plugin marketplace registration** (installable from any machine)
 - **1 orchestrator** that thinks across the 5-tier ecosystem

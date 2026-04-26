@@ -44,11 +44,11 @@
     <text x="275" y="242" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#6B6160">derail the entire decision</text>
   </g>
 
-  <!-- Card 3: Red Team -->
+  <!-- Card 3: Falsification -->
   <g filter="url(#cardShadow)">
     <rect x="500" y="110" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
     <rect x="500" y="110" width="220" height="50" rx="12" fill="#9478B8"/>
-    <text x="515" y="147" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3">Red Team</text>
+    <text x="515" y="147" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3">Falsification</text>
 
     <text x="515" y="175" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5A5450" font-style="italic">"What would make this recommendation invalid?"</text>
 
@@ -98,11 +98,11 @@
     <text x="55" y="542" font-family="Inter, Segoe UI, sans-serif" font-size="12" fill="#6B6160">they meet production reality</text>
   </g>
 
-  <!-- Card 7: Failure Modes -->
+  <!-- Card 7: Failure Design -->
   <g filter="url(#cardShadow)">
     <rect x="260" y="410" width="220" height="280" rx="12" fill="#FFFFFF" stroke="#E8E4F0" stroke-width="1"/>
     <rect x="260" y="410" width="220" height="50" rx="12" fill="#9478B8"/>
-    <text x="275" y="447" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3">Failure Modes</text>
+    <text x="275" y="447" font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3">Failure Design</text>
 
     <text x="275" y="475" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#5A5450" font-style="italic">"Gracefully or dangerously?"</text>
 
