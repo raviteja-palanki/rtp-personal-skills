@@ -68,7 +68,7 @@
   <text x="600" y="92" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="48" font-weight="800" fill="url(#titleGradient)" letter-spacing="-1.5px">rtp-personal-skills</text>
 
   <!-- Tagline -->
-  <text x="600" y="122" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="16.5" font-weight="500" fill="#5F6B7A" letter-spacing="0.3px">I didn't build 67 skills. I built a brain.</text>
+  <text x="600" y="122" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="16.5" font-weight="500" fill="#5F6B7A" letter-spacing="0.3px">I didn't build 80 skills. I built a brain.</text>
 
   <!-- Thin separator -->
   <line x1="480" y1="142" x2="720" y2="142" stroke="#E0DDD6" stroke-width="1"/>
@@ -219,8 +219,8 @@
   <!-- Stats section background strip -->
   <rect x="60" y="326" width="1080" height="38" rx="10" fill="#FFFFFF" stroke="#EBE8E2" stroke-width="1" filter="url(#s)"/>
 
-  <!-- Stat: 67 -->
-  <text x="230" y="351" text-anchor="end" font-family="Inter, Segoe UI, sans-serif" font-size="20" font-weight="800" fill="#9478B8" letter-spacing="-0.5px">67</text>
+  <!-- Stat: 80 -->
+  <text x="230" y="351" text-anchor="end" font-family="Inter, Segoe UI, sans-serif" font-size="20" font-weight="800" fill="#9478B8" letter-spacing="-0.5px">80</text>
   <text x="238" y="351" font-family="Inter, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#5F6B7A">skills across thinking, judgment, and craft</text>
 
   <!-- Dot separator -->
