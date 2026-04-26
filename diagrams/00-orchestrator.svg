@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 880" width="1200" height="880">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 880" width="1200" height="880" role="img" aria-label="The orchestrator listens, classifies, deploys agents, reviews their output, and synthesizes one decisive answer.">
+  <title>The Orchestrator</title>
+  <desc>Architecture diagram of how the orchestrator processes any input: silent reading and classification, parallel agent deployment, quality review, then a single executive-level synthesis to the user.</desc>
   <defs>
     <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
       <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.09"/>
@@ -84,13 +86,13 @@
   <text x="128" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">Sense-Maker</text>
   <text x="128" y="486" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">The real problem</text>
   <rect x="52" y="498" width="70" height="22" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
-  <text x="87" y="513" text-anchor="middle" fill="#A64D6E" font-size="9" font-weight="600" font-family="Inter, sans-serif">first-principles</text>
+  <text x="87" y="513" text-anchor="middle" fill="#A64D6E" font-size="11" font-weight="600" font-family="Inter, sans-serif">first-principles</text>
   <rect x="128" y="498" width="76" height="22" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
-  <text x="166" y="513" text-anchor="middle" fill="#A64D6E" font-size="9" font-weight="600" font-family="Inter, sans-serif">problem-ai-fit</text>
+  <text x="166" y="513" text-anchor="middle" fill="#A64D6E" font-size="11" font-weight="600" font-family="Inter, sans-serif">problem-ai-fit</text>
   <rect x="52" y="524" width="76" height="22" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
-  <text x="90" y="539" text-anchor="middle" fill="#A64D6E" font-size="9" font-weight="600" font-family="Inter, sans-serif">use-case-ready</text>
+  <text x="90" y="539" text-anchor="middle" fill="#A64D6E" font-size="11" font-weight="600" font-family="Inter, sans-serif">use-case-ready</text>
   <rect x="134" y="524" width="70" height="22" rx="6" fill="#FFE4ED" stroke="#F5B8CB" stroke-width="1"/>
-  <text x="169" y="539" text-anchor="middle" fill="#A64D6E" font-size="9" font-weight="600" font-family="Inter, sans-serif">needs-guard</text>
+  <text x="169" y="539" text-anchor="middle" fill="#A64D6E" font-size="11" font-weight="600" font-family="Inter, sans-serif">needs-guard</text>
 
   <rect x="230" y="432" width="175" height="130" rx="12" fill="#FFFFFF" stroke="#9478B8" stroke-width="2" filter="url(#s)"/>
   <rect x="230" y="432" width="175" height="34" rx="12" fill="#9478B8"/>
@@ -98,13 +100,13 @@
   <text x="318" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">Strategist</text>
   <text x="318" y="486" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">Where to invest, what to kill</text>
   <rect x="242" y="498" width="78" height="22" rx="6" fill="#EDE5F8" stroke="#CDBEE8" stroke-width="1"/>
-  <text x="281" y="513" text-anchor="middle" fill="#7556A0" font-size="9" font-weight="600" font-family="Inter, sans-serif">strategy-canvas</text>
+  <text x="281" y="513" text-anchor="middle" fill="#7556A0" font-size="11" font-weight="600" font-family="Inter, sans-serif">strategy-canvas</text>
   <rect x="326" y="498" width="68" height="22" rx="6" fill="#EDE5F8" stroke="#CDBEE8" stroke-width="1"/>
-  <text x="360" y="513" text-anchor="middle" fill="#7556A0" font-size="9" font-weight="600" font-family="Inter, sans-serif">moat-finder</text>
+  <text x="360" y="513" text-anchor="middle" fill="#7556A0" font-size="11" font-weight="600" font-family="Inter, sans-serif">moat-finder</text>
   <rect x="242" y="524" width="74" height="22" rx="6" fill="#EDE5F8" stroke="#CDBEE8" stroke-width="1"/>
-  <text x="279" y="539" text-anchor="middle" fill="#7556A0" font-size="9" font-weight="600" font-family="Inter, sans-serif">build-or-buy</text>
+  <text x="279" y="539" text-anchor="middle" fill="#7556A0" font-size="11" font-weight="600" font-family="Inter, sans-serif">build-or-buy</text>
   <rect x="322" y="524" width="74" height="22" rx="6" fill="#EDE5F8" stroke="#CDBEE8" stroke-width="1"/>
-  <text x="359" y="539" text-anchor="middle" fill="#7556A0" font-size="9" font-weight="600" font-family="Inter, sans-serif">cost-reality</text>
+  <text x="359" y="539" text-anchor="middle" fill="#7556A0" font-size="11" font-weight="600" font-family="Inter, sans-serif">cost-reality</text>
 
   <rect x="420" y="432" width="175" height="130" rx="12" fill="#FFFFFF" stroke="#5A9ABE" stroke-width="2" filter="url(#s)"/>
   <rect x="420" y="432" width="175" height="34" rx="12" fill="#5A9ABE"/>
@@ -112,11 +114,11 @@
   <text x="508" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">System Architect</text>
   <text x="508" y="486" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">Right autonomy, right controls</text>
   <rect x="432" y="498" width="90" height="22" rx="6" fill="#DFF0FA" stroke="#A4D2E8" stroke-width="1"/>
-  <text x="477" y="513" text-anchor="middle" fill="#3A7598" font-size="9" font-weight="600" font-family="Inter, sans-serif">autonomy-spectrum</text>
+  <text x="477" y="513" text-anchor="middle" fill="#3A7598" font-size="11" font-weight="600" font-family="Inter, sans-serif">autonomy-spectrum</text>
   <rect x="528" y="498" width="56" height="22" rx="6" fill="#DFF0FA" stroke="#A4D2E8" stroke-width="1"/>
-  <text x="556" y="513" text-anchor="middle" fill="#3A7598" font-size="9" font-weight="600" font-family="Inter, sans-serif">harness</text>
+  <text x="556" y="513" text-anchor="middle" fill="#3A7598" font-size="11" font-weight="600" font-family="Inter, sans-serif">harness</text>
   <rect x="432" y="524" width="82" height="22" rx="6" fill="#DFF0FA" stroke="#A4D2E8" stroke-width="1"/>
-  <text x="473" y="539" text-anchor="middle" fill="#3A7598" font-size="9" font-weight="600" font-family="Inter, sans-serif">tool-architecture</text>
+  <text x="473" y="539" text-anchor="middle" fill="#3A7598" font-size="11" font-weight="600" font-family="Inter, sans-serif">tool-architecture</text>
 
   <rect x="610" y="432" width="175" height="130" rx="12" fill="#FFFFFF" stroke="#D47B64" stroke-width="2" filter="url(#s)"/>
   <rect x="610" y="432" width="175" height="34" rx="12" fill="#D47B64"/>
@@ -124,13 +126,13 @@
   <text x="698" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">Safety Expert</text>
   <text x="698" y="486" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">Safe AND adopted</text>
   <rect x="622" y="498" width="82" height="22" rx="6" fill="#FFE8E0" stroke="#F0BCA8" stroke-width="1"/>
-  <text x="663" y="513" text-anchor="middle" fill="#A45840" font-size="9" font-weight="600" font-family="Inter, sans-serif">safety-by-design</text>
+  <text x="663" y="513" text-anchor="middle" fill="#A45840" font-size="11" font-weight="600" font-family="Inter, sans-serif">safety-by-design</text>
   <rect x="710" y="498" width="64" height="22" rx="6" fill="#FFE8E0" stroke="#F0BCA8" stroke-width="1"/>
-  <text x="742" y="513" text-anchor="middle" fill="#A45840" font-size="9" font-weight="600" font-family="Inter, sans-serif">trust-ladder</text>
+  <text x="742" y="513" text-anchor="middle" fill="#A45840" font-size="11" font-weight="600" font-family="Inter, sans-serif">trust-ladder</text>
   <rect x="622" y="524" width="76" height="22" rx="6" fill="#FFE8E0" stroke="#F0BCA8" stroke-width="1"/>
-  <text x="660" y="539" text-anchor="middle" fill="#A45840" font-size="9" font-weight="600" font-family="Inter, sans-serif">breach-ready</text>
+  <text x="660" y="539" text-anchor="middle" fill="#A45840" font-size="11" font-weight="600" font-family="Inter, sans-serif">breach-ready</text>
   <rect x="704" y="524" width="70" height="22" rx="6" fill="#FFE8E0" stroke="#F0BCA8" stroke-width="1"/>
-  <text x="739" y="539" text-anchor="middle" fill="#A45840" font-size="9" font-weight="600" font-family="Inter, sans-serif">agent-risk</text>
+  <text x="739" y="539" text-anchor="middle" fill="#A45840" font-size="11" font-weight="600" font-family="Inter, sans-serif">agent-risk</text>
 
   <rect x="800" y="432" width="175" height="130" rx="12" fill="#FFFFFF" stroke="#6BA898" stroke-width="2" filter="url(#s)"/>
   <rect x="800" y="432" width="175" height="34" rx="12" fill="#6BA898"/>
@@ -138,13 +140,13 @@
   <text x="888" y="456" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700" font-family="Inter, sans-serif">Evals Expert</text>
   <text x="888" y="486" text-anchor="middle" fill="#5F6B7A" font-size="11" font-family="Inter, sans-serif">Evidence, not hope</text>
   <rect x="812" y="498" width="76" height="22" rx="6" fill="#DFF0E8" stroke="#A8D4C0" stroke-width="1"/>
-  <text x="850" y="513" text-anchor="middle" fill="#3D8068" font-size="9" font-weight="600" font-family="Inter, sans-serif">eval-framework</text>
+  <text x="850" y="513" text-anchor="middle" fill="#3D8068" font-size="11" font-weight="600" font-family="Inter, sans-serif">eval-framework</text>
   <rect x="894" y="498" width="70" height="22" rx="6" fill="#DFF0E8" stroke="#A8D4C0" stroke-width="1"/>
-  <text x="929" y="513" text-anchor="middle" fill="#3D8068" font-size="9" font-weight="600" font-family="Inter, sans-serif">ai-metrics</text>
+  <text x="929" y="513" text-anchor="middle" fill="#3D8068" font-size="11" font-weight="600" font-family="Inter, sans-serif">ai-metrics</text>
   <rect x="812" y="524" width="82" height="22" rx="6" fill="#DFF0E8" stroke="#A8D4C0" stroke-width="1"/>
-  <text x="853" y="539" text-anchor="middle" fill="#3D8068" font-size="9" font-weight="600" font-family="Inter, sans-serif">experiment-rig</text>
+  <text x="853" y="539" text-anchor="middle" fill="#3D8068" font-size="11" font-weight="600" font-family="Inter, sans-serif">experiment-rig</text>
   <rect x="900" y="524" width="66" height="22" rx="6" fill="#DFF0E8" stroke="#A8D4C0" stroke-width="1"/>
-  <text x="933" y="539" text-anchor="middle" fill="#3D8068" font-size="9" font-weight="600" font-family="Inter, sans-serif">prod-watch</text>
+  <text x="933" y="539" text-anchor="middle" fill="#3D8068" font-size="11" font-weight="600" font-family="Inter, sans-serif">prod-watch</text>
 
   <!-- Crafter (below, centered) -->
   <rect x="380" y="580" width="440" height="80" rx="14" fill="#FFFFFF" stroke="#D4A54A" stroke-width="2" filter="url(#s)"/>
@@ -152,15 +154,15 @@
   <rect x="380" y="602" width="440" height="12" fill="#D4A54A"/>
   <text x="600" y="604" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, sans-serif">Crafter — Ship-Ready Artifacts (runs LAST, after all teams)</text>
   <rect x="395" y="626" width="56" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
-  <text x="423" y="641" text-anchor="middle" fill="#946E2A" font-size="9" font-weight="600" font-family="Inter, sans-serif">ai-prd</text>
+  <text x="423" y="641" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">ai-prd</text>
   <rect x="457" y="626" width="72" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
-  <text x="493" y="641" text-anchor="middle" fill="#946E2A" font-size="9" font-weight="600" font-family="Inter, sans-serif">agent-spec</text>
+  <text x="493" y="641" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">agent-spec</text>
   <rect x="535" y="626" width="70" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
-  <text x="570" y="641" text-anchor="middle" fill="#946E2A" font-size="9" font-weight="600" font-family="Inter, sans-serif">cost-model</text>
+  <text x="570" y="641" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">cost-model</text>
   <rect x="611" y="626" width="78" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
-  <text x="650" y="641" text-anchor="middle" fill="#946E2A" font-size="9" font-weight="600" font-family="Inter, sans-serif">ship-decision</text>
+  <text x="650" y="641" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">ship-decision</text>
   <rect x="695" y="626" width="86" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
-  <text x="738" y="641" text-anchor="middle" fill="#946E2A" font-size="9" font-weight="600" font-family="Inter, sans-serif">competitive-map</text>
+  <text x="738" y="641" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">competitive-map</text>
 
   <!-- Arrows from agents to crafter -->
   <path d="M 128 562 C 128 572 400 572 480 580" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>

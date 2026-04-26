@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1230" width="1200" height="1230">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1230" width="1200" height="1230" role="img" aria-label="10 craft skills that produce ship-ready artifacts already pre-tested by upstream layers.">
+  <title>Craft Layer</title>
+  <desc>The final layer: PRDs, agent specs, cost models, ship decisions, competitive maps, prompt specs, and stakeholder communications — every artifact arrives with its own thinking and judgment baked in.</desc>
   <defs>
     <!-- Gradients -->
     <linearGradient id="mossGradient" x1="0%" y1="0%" x2="0%" y2="100%">

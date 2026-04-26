@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 960" width="1200" height="960">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 960" width="1200" height="960" role="img" aria-label="80 skills, 10 slash commands, 6 sprint templates organized as an AI operating system that learns.">
+  <title>Architecture Overview</title>
+  <desc>Full system map: 63 AIPM skills across 6 specialized teams plus 16 general-purpose worker agents, all coordinated by a meta-orchestrator that reviews and refines every output.</desc>
   <defs>
     <filter id="s" x="-4%" y="-4%" width="108%" height="108%">
       <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.09"/>
@@ -71,9 +73,9 @@
   <text x="450" y="181" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">Sense-Maker</text>
   <text x="360" y="215" fill="#6B4A5A" font-size="11" font-family="Inter, sans-serif">Sees the real problem underneath</text>
   <rect x="355" y="228" width="68" height="20" rx="4" fill="#FFF0F5" stroke="#D4789B" stroke-width="1"/>
-  <text x="389" y="242" text-anchor="middle" fill="#8B3A5A" font-size="9" font-family="Inter, sans-serif">5 skills</text>
+  <text x="389" y="242" text-anchor="middle" fill="#8B3A5A" font-size="11" font-family="Inter, sans-serif">5 skills</text>
   <rect x="430" y="228" width="110" height="20" rx="4" fill="#FFF0F5" stroke="#D4789B" stroke-width="1"/>
-  <text x="485" y="242" text-anchor="middle" fill="#8B3A5A" font-size="9" font-family="Inter, sans-serif">first-principles, fit</text>
+  <text x="485" y="242" text-anchor="middle" fill="#8B3A5A" font-size="11" font-family="Inter, sans-serif">first-principles, fit</text>
 
   <!-- Team 2: Strategist -->
   <rect x="580" y="158" width="220" height="100" rx="12" fill="#FFFFFF" stroke="#D4956A" stroke-width="2" filter="url(#s)"/>
@@ -82,9 +84,9 @@
   <text x="690" y="181" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">Strategist</text>
   <text x="600" y="215" fill="#7A5A1E" font-size="11" font-family="Inter, sans-serif">Where to invest, what to kill</text>
   <rect x="595" y="228" width="68" height="20" rx="4" fill="#FFF8F0" stroke="#D4956A" stroke-width="1"/>
-  <text x="629" y="242" text-anchor="middle" fill="#7A5A1E" font-size="9" font-family="Inter, sans-serif">9 skills</text>
+  <text x="629" y="242" text-anchor="middle" fill="#7A5A1E" font-size="11" font-family="Inter, sans-serif">9 skills</text>
   <rect x="670" y="228" width="110" height="20" rx="4" fill="#FFF8F0" stroke="#D4956A" stroke-width="1"/>
-  <text x="725" y="242" text-anchor="middle" fill="#7A5A1E" font-size="9" font-family="Inter, sans-serif">moat, portfolio, cost</text>
+  <text x="725" y="242" text-anchor="middle" fill="#7A5A1E" font-size="11" font-family="Inter, sans-serif">moat, portfolio, cost</text>
 
   <!-- Team 3: System Architect -->
   <rect x="820" y="158" width="220" height="100" rx="12" fill="#FFFFFF" stroke="#5B92B8" stroke-width="2" filter="url(#s)"/>
@@ -93,9 +95,9 @@
   <text x="930" y="181" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">System Architect</text>
   <text x="840" y="215" fill="#2B5A7F" font-size="11" font-family="Inter, sans-serif">Right level of autonomy</text>
   <rect x="835" y="228" width="68" height="20" rx="4" fill="#EEF5FB" stroke="#5B92B8" stroke-width="1"/>
-  <text x="869" y="242" text-anchor="middle" fill="#2B5A7F" font-size="9" font-family="Inter, sans-serif">5 skills</text>
+  <text x="869" y="242" text-anchor="middle" fill="#2B5A7F" font-size="11" font-family="Inter, sans-serif">5 skills</text>
   <rect x="910" y="228" width="110" height="20" rx="4" fill="#EEF5FB" stroke="#5B92B8" stroke-width="1"/>
-  <text x="965" y="242" text-anchor="middle" fill="#2B5A7F" font-size="9" font-family="Inter, sans-serif">autonomy, harness</text>
+  <text x="965" y="242" text-anchor="middle" fill="#2B5A7F" font-size="11" font-family="Inter, sans-serif">autonomy, harness</text>
 
   <!-- Team 4: Safety Expert -->
   <rect x="340" y="280" width="220" height="100" rx="12" fill="#FFFFFF" stroke="#C27878" stroke-width="2" filter="url(#s)"/>
@@ -104,9 +106,9 @@
   <text x="450" y="303" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">Safety Expert</text>
   <text x="360" y="337" fill="#7B4A4A" font-size="11" font-family="Inter, sans-serif">Safe AND adopted</text>
   <rect x="355" y="350" width="68" height="20" rx="4" fill="#FDF5F5" stroke="#C27878" stroke-width="1"/>
-  <text x="389" y="364" text-anchor="middle" fill="#7B4A4A" font-size="9" font-family="Inter, sans-serif">8 skills</text>
+  <text x="389" y="364" text-anchor="middle" fill="#7B4A4A" font-size="11" font-family="Inter, sans-serif">8 skills</text>
   <rect x="430" y="350" width="110" height="20" rx="4" fill="#FDF5F5" stroke="#C27878" stroke-width="1"/>
-  <text x="485" y="364" text-anchor="middle" fill="#7B4A4A" font-size="9" font-family="Inter, sans-serif">trust, safety, breach</text>
+  <text x="485" y="364" text-anchor="middle" fill="#7B4A4A" font-size="11" font-family="Inter, sans-serif">trust, safety, breach</text>
 
   <!-- Team 5: Evals Expert -->
   <rect x="580" y="280" width="220" height="100" rx="12" fill="#FFFFFF" stroke="#9478B8" stroke-width="2" filter="url(#s)"/>
@@ -115,9 +117,9 @@
   <text x="690" y="303" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">Evals Expert</text>
   <text x="600" y="337" fill="#5B3E7A" font-size="11" font-family="Inter, sans-serif">Evidence over hope</text>
   <rect x="595" y="350" width="68" height="20" rx="4" fill="#F8F5FF" stroke="#9478B8" stroke-width="1"/>
-  <text x="629" y="364" text-anchor="middle" fill="#5B3E7A" font-size="9" font-family="Inter, sans-serif">6 skills</text>
+  <text x="629" y="364" text-anchor="middle" fill="#5B3E7A" font-size="11" font-family="Inter, sans-serif">6 skills</text>
   <rect x="670" y="350" width="110" height="20" rx="4" fill="#F8F5FF" stroke="#9478B8" stroke-width="1"/>
-  <text x="725" y="364" text-anchor="middle" fill="#5B3E7A" font-size="9" font-family="Inter, sans-serif">eval, experiment, cal</text>
+  <text x="725" y="364" text-anchor="middle" fill="#5B3E7A" font-size="11" font-family="Inter, sans-serif">eval, experiment, cal</text>
 
   <!-- Team 6: Crafter -->
   <rect x="820" y="280" width="220" height="100" rx="12" fill="#FFFFFF" stroke="#6BA08A" stroke-width="2" filter="url(#s)"/>
@@ -126,9 +128,9 @@
   <text x="930" y="303" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700" font-family="Inter, sans-serif">Crafter</text>
   <text x="840" y="337" fill="#3A6A5A" font-size="11" font-family="Inter, sans-serif">Pre-tested documents</text>
   <rect x="835" y="350" width="68" height="20" rx="4" fill="#E8F4F0" stroke="#6BA08A" stroke-width="1"/>
-  <text x="869" y="364" text-anchor="middle" fill="#3A6A5A" font-size="9" font-family="Inter, sans-serif">8 skills</text>
+  <text x="869" y="364" text-anchor="middle" fill="#3A6A5A" font-size="11" font-family="Inter, sans-serif">8 skills</text>
   <rect x="910" y="350" width="110" height="20" rx="4" fill="#E8F4F0" stroke="#6BA08A" stroke-width="1"/>
-  <text x="965" y="364" text-anchor="middle" fill="#3A6A5A" font-size="9" font-family="Inter, sans-serif">PRD, spec, cost</text>
+  <text x="965" y="364" text-anchor="middle" fill="#3A6A5A" font-size="11" font-family="Inter, sans-serif">PRD, spec, cost</text>
 
   <!-- ===== DIVIDER ===== -->
   <line x1="40" y1="410" x2="1160" y2="410" stroke="#E8E4DC" stroke-width="1" stroke-dasharray="6,4"/>
@@ -143,8 +145,8 @@
   <rect x="39" y="503" width="150" height="10" fill="#D4789B"/>
   <text x="114" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Email Writer</text>
   <text x="51" y="535" fill="#6B4A5A" font-size="10" font-family="Inter, sans-serif">ravi-email-mastery</text>
-  <text x="51" y="550" fill="#9A7A8A" font-size="9" font-family="Inter, sans-serif">Professional comms</text>
-  <text x="51" y="563" fill="#9A7A8A" font-size="9" font-family="Inter, sans-serif">in Ravi's natural voice</text>
+  <text x="51" y="550" fill="#9A7A8A" font-size="11" font-family="Inter, sans-serif">Professional comms</text>
+  <text x="51" y="563" fill="#9A7A8A" font-size="11" font-family="Inter, sans-serif">in Ravi's natural voice</text>
 
   <!-- Agent 2: Article Writer -->
   <rect x="201" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#D4956A" stroke-width="1.5" filter="url(#s)"/>
@@ -152,8 +154,8 @@
   <rect x="201" y="503" width="150" height="10" fill="#D4956A"/>
   <text x="276" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Article Writer</text>
   <text x="213" y="535" fill="#7A5A1E" font-size="10" font-family="Inter, sans-serif">thinking + research</text>
-  <text x="213" y="550" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">Thought leadership</text>
-  <text x="213" y="563" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">in research synthesis</text>
+  <text x="213" y="550" fill="#9B8A6A" font-size="11" font-family="Inter, sans-serif">Thought leadership</text>
+  <text x="213" y="563" fill="#9B8A6A" font-size="11" font-family="Inter, sans-serif">in research synthesis</text>
 
   <!-- Agent 3: Research Analyst -->
   <rect x="363" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#5B92B8" stroke-width="1.5" filter="url(#s)"/>
@@ -161,8 +163,8 @@
   <rect x="363" y="503" width="150" height="10" fill="#5B92B8"/>
   <text x="438" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Research Analyst</text>
   <text x="375" y="535" fill="#2B5A7F" font-size="10" font-family="Inter, sans-serif">grok + perplexity + hbr</text>
-  <text x="375" y="550" fill="#5B7A8B" font-size="9" font-family="Inter, sans-serif">Signal collection and</text>
-  <text x="375" y="563" fill="#5B7A8B" font-size="9" font-family="Inter, sans-serif">pattern synthesis</text>
+  <text x="375" y="550" fill="#5B7A8B" font-size="11" font-family="Inter, sans-serif">Signal collection and</text>
+  <text x="375" y="563" fill="#5B7A8B" font-size="11" font-family="Inter, sans-serif">pattern synthesis</text>
 
   <!-- Agent 4: Presentation Builder -->
   <rect x="525" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#6BA08A" stroke-width="1.5" filter="url(#s)"/>
@@ -170,8 +172,8 @@
   <rect x="525" y="503" width="150" height="10" fill="#6BA08A"/>
   <text x="600" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Presentation Builder</text>
   <text x="537" y="535" fill="#3A6A5A" font-size="10" font-family="Inter, sans-serif">frontend-slides + brand</text>
-  <text x="537" y="550" fill="#5A8A7A" font-size="9" font-family="Inter, sans-serif">Zero-dependency HTML</text>
-  <text x="537" y="563" fill="#5A8A7A" font-size="9" font-family="Inter, sans-serif">Apple-level polish</text>
+  <text x="537" y="550" fill="#5A8A7A" font-size="11" font-family="Inter, sans-serif">Zero-dependency HTML</text>
+  <text x="537" y="563" fill="#5A8A7A" font-size="11" font-family="Inter, sans-serif">Apple-level polish</text>
 
   <!-- Agent 5: Diagram Builder -->
   <rect x="687" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#9478B8" stroke-width="1.5" filter="url(#s)"/>
@@ -179,8 +181,8 @@
   <rect x="687" y="503" width="150" height="10" fill="#9478B8"/>
   <text x="762" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Diagram Builder</text>
   <text x="699" y="535" fill="#5B3E7A" font-size="10" font-family="Inter, sans-serif">excalidraw-svg</text>
-  <text x="699" y="550" fill="#7A6A9A" font-size="9" font-family="Inter, sans-serif">Hand-drawn professional</text>
-  <text x="699" y="563" fill="#7A6A9A" font-size="9" font-family="Inter, sans-serif">SVGs, pastel palette</text>
+  <text x="699" y="550" fill="#7A6A9A" font-size="11" font-family="Inter, sans-serif">Hand-drawn professional</text>
+  <text x="699" y="563" fill="#7A6A9A" font-size="11" font-family="Inter, sans-serif">SVGs, pastel palette</text>
 
   <!-- Agent 6: PM Interview Coach -->
   <rect x="849" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#C27878" stroke-width="1.5" filter="url(#s)"/>
@@ -188,8 +190,8 @@
   <rect x="849" y="503" width="150" height="10" fill="#C27878"/>
   <text x="924" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">PM Interview Coach</text>
   <text x="861" y="535" fill="#7B4A4A" font-size="10" font-family="Inter, sans-serif">thinking + interview</text>
-  <text x="861" y="550" fill="#9A7A7A" font-size="9" font-family="Inter, sans-serif">AI PM interview prep</text>
-  <text x="861" y="563" fill="#9A7A7A" font-size="9" font-family="Inter, sans-serif">grounded in frameworks</text>
+  <text x="861" y="550" fill="#9A7A7A" font-size="11" font-family="Inter, sans-serif">AI PM interview prep</text>
+  <text x="861" y="563" fill="#9A7A7A" font-size="11" font-family="Inter, sans-serif">grounded in frameworks</text>
 
   <!-- Agent 7: Teaching Assistant -->
   <rect x="1011" y="485" width="150" height="88" rx="10" fill="#FFFFFF" stroke="#D4956A" stroke-width="1.5" filter="url(#s)"/>
@@ -197,8 +199,8 @@
   <rect x="1011" y="503" width="150" height="10" fill="#D4956A"/>
   <text x="1086" y="505" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700" font-family="Inter, sans-serif">Teaching Assistant</text>
   <text x="1023" y="535" fill="#7A5A1E" font-size="10" font-family="Inter, sans-serif">thinking + CONTEXT</text>
-  <text x="1023" y="550" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">17-module AI PM</text>
-  <text x="1023" y="563" fill="#9B8A6A" font-size="9" font-family="Inter, sans-serif">curriculum development</text>
+  <text x="1023" y="550" fill="#9B8A6A" font-size="11" font-family="Inter, sans-serif">17-module AI PM</text>
+  <text x="1023" y="563" fill="#9B8A6A" font-size="11" font-family="Inter, sans-serif">curriculum development</text>
 
   <!-- ===== RAVI VOICE DNA BAR ===== -->
   <rect x="30" y="605" width="1140" height="60" rx="12" fill="#FAFAF8" stroke="url(#dnaGrad)" stroke-width="2.5" filter="url(#glow)"/>

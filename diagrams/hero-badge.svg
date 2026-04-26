@@ -1,4 +1,6 @@
-<svg viewBox="0 0 1200 400" width="1200" height="400" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 400" width="1200" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An AI operating system that thinks before it acts. 80 skills, one orchestrator, learns every session.">
+  <title>rtp-personal-skills</title>
+  <desc>Hero badge for the rtp-personal-skills repository. The system Ravi Teja Palanki built to externalize how he thinks with AI: 80 specialized skills coordinated by a persistent orchestrator that reviews every output before synthesis.</desc>
   <defs>
     <!-- Gradients -->
     <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
