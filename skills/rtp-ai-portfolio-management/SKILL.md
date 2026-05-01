@@ -18,7 +18,7 @@ framework_source: "Harvard Business Review — Hoque, Nelson, Davenport & Scade,
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ---
 
@@ -293,11 +293,11 @@ Foundational vs. transformational: [% in confidence builders / capability builde
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6.
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6.
 
 ---
 

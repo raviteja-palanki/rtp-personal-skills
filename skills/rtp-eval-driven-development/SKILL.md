@@ -1,4 +1,13 @@
 ---
+name: rtp-eval-driven-development
+description: >
+  Build AI features with the eval rubric AS the spec, not as a downstream gate. The eval
+  defines what to build next — not whether what you built is acceptable. Use when shipping
+  AI features with no clear definition of "done", when the team iterates on prompts without
+  a quality compass, when error analysis must come before the next sprint, or when reviewers
+  ask "how do you know this is good?". Triggers on "how do we test this AI feature",
+  "when is it ready to ship", "eval framework", "quality gate", "definition of done for AI",
+  "eval-driven", "ship criteria".
 title: "Eval-Driven Development"
 plugin: "craft"
 version: "2.0"

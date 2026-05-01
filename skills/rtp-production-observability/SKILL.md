@@ -1,8 +1,17 @@
 ---
+name: rtp-production-observability
+description: >
+  Catch silent AI degradation in production before users leave. Monitor latency, cost,
+  quality drift, usage patterns, and error categorization with real-time alerts — not
+  weekly dashboards. AI systems degrade silently in ways traditional logging misses
+  (model drift, prompt regressions, distribution shift). Use when shipping an AI feature
+  to production, debugging "it worked yesterday" reports, designing alerts for AI
+  systems, or auditing whether you'd catch a degradation before users complain.
+  Triggers on "AI in production", "monitoring AI", "model drift", "quality regression",
+  "production observability", "alerts for AI", "silent failure".
 id: production-observability
 title: Production Observability for AI Systems
 category: craft
-description: AI systems degrade silently. Without observability, you don't know your product is broken until users leave. Monitor latency, cost, quality drift, usage patterns, and error categorization.
 difficulty: intermediate
 imports:
   - stress-test
@@ -25,7 +34,7 @@ Silent failure is the AI product killer.
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -270,11 +279,11 @@ Optimize:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

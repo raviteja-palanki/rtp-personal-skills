@@ -5,7 +5,7 @@ description: >
   planning trust studies, threshold studies, or validating AI features. Runs
   longitudinal designs, stratified sampling, Wizard-of-Oz calibration.
   Prevents applying fixed-artifact methods to probabilistic products.
-imports: [red-team, first-principles]
+imports: [falsification, first-principles]
 ---
 
 # Uncertainty Research
@@ -21,7 +21,7 @@ imports: [red-team, first-principles]
 ## DELIVERABLE FORMAT
 
 Before starting, ask: Word Document, Presentation, or Both?
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## GROUNDING (Before Starting)
 
@@ -430,11 +430,11 @@ Use this template when planning uncertainty research:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. **The recommendation** — specific research plan with method, sample, duration
 2. **The hypothesis** — "We believe users will accept X quality level because Y. We'd know we're wrong if acceptance rate at that level is below Z."
 3. **The key trade-off** — rigor vs. speed; longitudinal vs. directional
@@ -445,7 +445,7 @@ Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIV
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
 
 If this skill feeds into feature decisions (problem-ai-fit → uncertainty-research → ai-use-case-readiness), generate the markdown handoff file per Section 9.
 

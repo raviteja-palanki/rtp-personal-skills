@@ -1,4 +1,13 @@
 ---
+name: rtp-multi-modal-product-design
+description: >
+  Choose the right modality (text, voice, image, video) for an AI feature based on user
+  friction, verification cost, latency, and trust dynamics — not on technology novelty or
+  what's possible with the model. Each modality has different failure modes, cost profiles,
+  and user-trust dynamics. Use when scoping multimodal features, deciding between voice
+  and text input, evaluating cost/latency tradeoffs, designing modality switches in a flow,
+  or pushing back on "let's add video". Triggers on "should this be voice", "multimodal",
+  "add audio", "video features", "modality choice", "voice UI", "should we add images".
 title: "Multi-Modal Product Design"
 plugin: "agent-design"
 version: "2.0"
@@ -30,11 +39,11 @@ Before starting, ask:
 
 If the user specifies format in their request, skip the question.
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -437,7 +446,7 @@ Voice-in / text-out is fine for transcription but jarring for conversational ass
 
 ## GENERATE THE DELIVERABLE
 
-Use the output generation prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+Use the output generation prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
 
 If this skill connects to downstream skills (e.g., build-or-buy, cost-model), generate the markdown handoff file as well.
 
@@ -445,11 +454,11 @@ If this skill connects to downstream skills (e.g., build-or-buy, cost-model), ge
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

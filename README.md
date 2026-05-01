@@ -26,12 +26,24 @@ Four parts make it work.
 
 ## Install (any machine)
 
+**Step 1 — Install this plugin:**
+
 ```
 /plugin marketplace add github:raviteja-palanki/rtp-personal-skills
 /plugin install rtp-personal-skills@rtp-personal-skills
 ```
 
-Restart Claude Code. Every skill becomes addressable as `rtp-personal-skills:rtp-{name}` (e.g., `rtp-personal-skills:rtp-design-ai-feature`). Slash commands like `/design-ai-feature`, `/stakeholder-update`, `/brief-me` work directly.
+Restart Claude Code. Every skill becomes addressable as `rtp-personal-skills:rtp-{name}` (e.g., `rtp-personal-skills:rtp-design-ai-feature`). Slash commands like `/design-ai-feature`, `/stakeholder-update`, `/brief-me`, and `/rtp-setup` work directly.
+
+**Step 2 — Bootstrap the companion ecosystem:**
+
+```
+/rtp-setup
+```
+
+This prints the full install sequence for companion plugins (`superpowers`, `compound-engineering`, `pm-skills`, `anthropic-skills`, `github/linear/supabase`) so the orchestrator can command the entire Claude Code plugin ecosystem — not just RTP's own skills. Full tier map in [COMPANION-PLUGINS.md](COMPANION-PLUGINS.md). Machine-readable manifest in [companion-plugins.json](companion-plugins.json).
+
+Without companion plugins the orchestrator still works — it falls back to RTP-only mode covering AI PM strategy, content, design, and governance end to end. With them, it commands the wider ecosystem (TDD discipline, textbook PM frameworks, real .pptx/.docx file generation, dev tools).
 
 ---
 
@@ -66,7 +78,7 @@ The orchestrator commands the entire installed Claude Code plugin ecosystem, not
 
 Five tiers, each with a clear use:
 
-**Tier 1 — RTP skills (Ravi's voice + thinking).** AI PM strategy, content or visual output that must sound like Ravi, governance, design system work. The 63 AI PM skills + 16 general-purpose skills in this repo.
+**Tier 1 — RTP skills (Ravi's voice + thinking).** AI PM strategy, content or visual output that must sound like Ravi, governance, design system work. The 63 AI PM skills + 17 general-purpose skills in this repo.
 
 **Tier 2 — Process and engineering rigor.** `superpowers:*` and `compound-engineering:*` for TDD discipline, systematic debugging, code review (giving and receiving), brainstorming, frontend design, agent-native architecture, dhh-rails-style. When the work is actual engineering — code, tests, debug — these own the discipline layer.
 
@@ -278,7 +290,7 @@ I'm what the research calls a *bridger.* When engineering says *we need a valida
 
 ## Repo state at a glance
 
-- **80 skills** (63 AIPM + 1 orchestrator + 16 general-purpose), all lint-clean and voice-consistent
+- **80 skills** (62 AIPM layer + 1 orchestrator + 17 general-purpose), all lint-clean and voice-consistent
 - **10 slash command workflows** + **6 multi-day sprint templates**
 - **1 plugin marketplace registration** (installable from any machine)
 - **1 orchestrator** that thinks across the 5-tier ecosystem

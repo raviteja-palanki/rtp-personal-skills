@@ -48,13 +48,13 @@ Before starting, ask:
 >
 > *Default if no preference: Word Document.*
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ---
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions — at minimum: Who are the workers? What AI system is being deployed? What's the resistance pattern you're seeing?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, or inline?
@@ -313,7 +313,7 @@ This skill gives bad advice if:
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 If workers are experiencing need violations that stem from broader job-change dynamics, generate a markdown handoff file for the `adoption-launch` skill so it can design phase-specific support that protects needs across the adoption curve.
 

@@ -1,8 +1,15 @@
 ---
+name: rtp-ai-product-taste
+description: >
+  Calibrate the quality bar for an AI feature against your specific domain, users, and price
+  point — not against benchmark scores. Exceptional AI products are domain-calibrated, not
+  generically excellent. Use when output looks technically impressive but feels mediocre to
+  users, when the team can't articulate what "good enough" means, or when judging whether
+  to ship now vs. raise the bar. Triggers on "the model output is impressive", "is this
+  good enough", "quality bar", "user perception", "ship-or-polish", "AI product quality".
 id: ai-product-taste
 title: AI Product Taste
 category: product-sense
-description: Quality bar calibration. Exceptional AI products are domain-calibrated, not generically excellent. Taste is knowing what "good enough" means for YOUR domain, users, and price point.
 difficulty: advanced
 imports:
   - first-principles
@@ -23,7 +30,7 @@ Product taste is the difference between a product users tolerate and one they lo
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -267,11 +274,11 @@ Use this to make taste explicit, testable, and domain-grounded.
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

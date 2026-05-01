@@ -57,7 +57,7 @@ Before starting, ask:
 >
 > *Default if no preference: Word Document.*
 
-Follow the [Universal Deliverable Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Deliverable Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ---
 
@@ -516,6 +516,6 @@ When continuing to a downstream skill (ai-use-case-readiness, invisible-stack, d
 - Critical assumptions with evidence ratings
 - Open questions for the next skill
 
-Follow the Markdown Handoff format in the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 9.
+Follow the Markdown Handoff format in the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 9.
 
 File naming: `problem-ai-fit-handoff-[use-case-slug].md`

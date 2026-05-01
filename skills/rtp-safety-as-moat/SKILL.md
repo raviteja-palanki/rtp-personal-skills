@@ -12,7 +12,7 @@ imports: ["determinism-compass"]
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -200,7 +200,7 @@ Before calling a safety control a moat:
 2. **Regulatory Alignment:** Does this control map to a specific regulation (EU AI Act, state law, industry standard)? Documented in audit trail?
 3. **Real Cost-Benefit:** Did you run the failure-scale math? Is the guardrail cheaper than the downside?
 4. **Active Monitoring:** Is there a metric you check monthly? What's your bypass rate or failure rate? Does it trigger an incident?
-5. **Adversarial Validated:** Have you red-teamed this? (Not just code review. Adversarial attack, measure, iterate.)
+5. **Adversarial Validated:** Have you falsificationed this? (Not just code review. Adversarial attack, measure, iterate.)
 6. **Alignment Tax Quantified:** Can you state the cost (latency, engineering, false positives) and the benefit (revenue protected, regulatory compliance)?
 7. **Defense-in-Depth:** Is safety layered (input + system + output + monitoring), not single-point?
 
@@ -219,11 +219,11 @@ This skill breaks if:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

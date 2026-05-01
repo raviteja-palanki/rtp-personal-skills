@@ -1,0 +1,125 @@
+{
+  "$schema": "https://anthropic.com/claude-code/companion-plugins.schema.json",
+  "name": "rtp-personal-skills-companions",
+  "version": "1.0.0",
+  "description": "Companion plugin manifest for rtp-personal-skills. Lists the wider Claude Code plugin ecosystem the rtp-aipm-orchestrator commands as expert agents. Install these alongside rtp-personal-skills for the full RTP setup.",
+  "owner": {
+    "name": "Ravi Teja Palanki (RTP)",
+    "url": "https://github.com/raviteja-palanki"
+  },
+  "primary_plugin": {
+    "name": "rtp-personal-skills",
+    "marketplace": "rtp-personal-skills",
+    "marketplace_source": "github:raviteja-palanki/rtp-personal-skills",
+    "install_commands": [
+      "/plugin marketplace add github:raviteja-palanki/rtp-personal-skills",
+      "/plugin install rtp-personal-skills@rtp-personal-skills"
+    ]
+  },
+  "tiers": [
+    {
+      "tier": 1,
+      "label": "RTP skills (this plugin)",
+      "purpose": "AI PM strategy, content and visual output in Ravi's voice, governance, design systems",
+      "priority": "required",
+      "plugins": [
+        {
+          "name": "rtp-personal-skills",
+          "marketplace": "rtp-personal-skills"
+        }
+      ]
+    },
+    {
+      "tier": 2,
+      "label": "Process and engineering rigor",
+      "purpose": "TDD discipline, systematic debugging, code review, brainstorming, plan execution",
+      "priority": "high",
+      "marketplaces": [
+        {
+          "id": "superpowers-marketplace",
+          "source": "github:obra/superpowers-marketplace",
+          "add_command": "/plugin marketplace add github:obra/superpowers-marketplace"
+        },
+        {
+          "id": "compound-engineering-plugin",
+          "note": "Pre-registered in most Claude Code installs"
+        }
+      ],
+      "plugins": [
+        { "name": "superpowers", "marketplace": "superpowers-marketplace" },
+        { "name": "episodic-memory", "marketplace": "superpowers-marketplace" },
+        { "name": "claude-session-driver", "marketplace": "superpowers-marketplace" },
+        { "name": "elements-of-style", "marketplace": "superpowers-marketplace" },
+        { "name": "superpowers-developing-for-claude-code", "marketplace": "superpowers-marketplace" },
+        { "name": "superpowers-lab", "marketplace": "superpowers-marketplace" },
+        { "name": "compound-engineering", "marketplace": "compound-engineering-plugin" },
+        { "name": "coding-tutor", "marketplace": "compound-engineering-plugin" }
+      ]
+    },
+    {
+      "tier": 3,
+      "label": "PM execution (pm-skills marketplace)",
+      "purpose": "Textbook PM frameworks — Lean Canvas, OKRs, RICE, JTBD, Porter's, GTM, cohort analysis, A/B stats",
+      "priority": "medium",
+      "marketplaces": [
+        {
+          "id": "pm-skills",
+          "note": "Add via /plugin marketplace add — find URL in Claude Code plugin registry"
+        }
+      ],
+      "plugins": [
+        { "name": "pm-product-discovery", "marketplace": "pm-skills" },
+        { "name": "pm-product-strategy", "marketplace": "pm-skills" },
+        { "name": "pm-execution", "marketplace": "pm-skills" },
+        { "name": "pm-market-research", "marketplace": "pm-skills" },
+        { "name": "pm-data-analytics", "marketplace": "pm-skills" },
+        { "name": "pm-go-to-market", "marketplace": "pm-skills" },
+        { "name": "pm-toolkit", "marketplace": "pm-skills" },
+        { "name": "pm-marketing-growth", "marketplace": "pm-skills" }
+      ]
+    },
+    {
+      "tier": 4,
+      "label": "Anthropic skills (file formats + capabilities)",
+      "purpose": "PDF, PPTX, XLSX, DOCX file generation; web artifacts; brand guidelines; scheduled tasks",
+      "priority": "medium",
+      "marketplaces": [
+        {
+          "id": "claude-plugins-official",
+          "note": "Built-in with Claude Code; no separate add command"
+        }
+      ],
+      "plugins": [
+        { "name": "anthropic-skills", "marketplace": "claude-plugins-official" }
+      ]
+    },
+    {
+      "tier": 5,
+      "label": "Development tools",
+      "purpose": "GitHub, Linear, Supabase, commit workflows, session drivers",
+      "priority": "as-needed",
+      "marketplaces": [
+        {
+          "id": "claude-plugins-official",
+          "note": "Built-in with Claude Code"
+        }
+      ],
+      "plugins": [
+        { "name": "github", "marketplace": "claude-plugins-official" },
+        { "name": "linear", "marketplace": "claude-plugins-official" },
+        { "name": "supabase", "marketplace": "claude-plugins-official" },
+        { "name": "commit-commands", "marketplace": "claude-plugins-official" },
+        { "name": "ralph-loop", "marketplace": "claude-plugins-official" },
+        { "name": "skill-creator", "marketplace": "claude-plugins-official" },
+        { "name": "claude-md-management", "marketplace": "claude-plugins-official" },
+        { "name": "frontend-design", "marketplace": "claude-plugins-official" }
+      ]
+    }
+  ],
+  "bootstrap_command": "/rtp-setup",
+  "documentation": {
+    "human_readable": "COMPANION-PLUGINS.md",
+    "orchestrator_tier_map": "skills/rtp-aipm-orchestrator/SKILL.md",
+    "section": "FULL ECOSYSTEM AWARENESS"
+  }
+}

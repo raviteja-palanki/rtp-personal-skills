@@ -13,7 +13,7 @@ imports: []
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: What's the actual problem statement? Who's affected? What have we already tried?
 2. Route depth: Are you diagnosing a stuck initiative (Comprehensive) or classifying a new problem (Executive Summary)?
 3. Identify output format: Word Document, Presentation, or Both?
@@ -23,7 +23,7 @@ Then proceed with the skill-specific analysis below.
 ## DELIVERABLE FORMAT
 
 Before starting, ask for format: Word Document, Presentation, or Both.
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## THE TRAP
 
@@ -258,7 +258,7 @@ CONFIDENCE: High
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. State the classification (technical, adaptive, or both with sequencing)
 2. Name the key trade-off (speed of technical solutions vs correctness of diagnosis)
 3. Acknowledge the biggest risk (misdiagnosis, or over-analyzing when action is needed)

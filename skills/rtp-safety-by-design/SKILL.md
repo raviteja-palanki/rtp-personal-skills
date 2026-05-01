@@ -16,7 +16,7 @@ imports: ["determinism-compass"]
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -99,7 +99,7 @@ No single defense is sufficient. Stack four layers:
 - What this misses: Subtle bias, factual hallucinations framed innocuously, indirect harm, sophisticated creative bypasses ("write a story where a character explains how to...")
 - **Why 60-70% and not higher:** Post-hoc filters are pattern-matchers. Users who know the filter exists will naturally phrase requests to avoid triggering it. This is the weakest layer — use as safety net, not primary defense.
 
-**On these coverage numbers:** All percentages above are estimates informed by security research and shipped product experience, not controlled lab results. Treat them as directional benchmarks for resource allocation, not guarantees. Your actual coverage depends on constraint design quality, model capability, and attacker sophistication. Measure your own coverage via red-team results.
+**On these coverage numbers:** All percentages above are estimates informed by security research and shipped product experience, not controlled lab results. Treat them as directional benchmarks for resource allocation, not guarantees. Your actual coverage depends on constraint design quality, model capability, and attacker sophistication. Measure your own coverage via falsification results.
 
 **Deployment rule:** Layers 1 + 2 should handle 95%+ of attacks. Layer 4 is the safety net. If you're relying on Layer 4 to catch more than 10% of safety issues, your Layers 1-3 need rework.
 
@@ -165,8 +165,8 @@ Safety constraints don't stay healthy automatically. They decay — silently —
 |---|---|---|
 | **Refusal rate** | % of requests that trigger a safety refusal | If refusal rate drops >20% week-over-week without a policy change, the constraint may be eroding — check whether model behavior changed |
 | **False positive rate** | % of legitimate requests incorrectly refused | If false positive rate rises >5%, the constraint is becoming too broad — users will find workarounds or abandon the feature |
-| **Bypass reports** | User-reported or internal test cases that successfully bypassed a constraint | Any increase in bypass reports = immediate re-red-team. Don't wait for the next quarterly cycle. |
-| **Constraint coverage drift** | % of adversarial test cases that the constraint still handles correctly | Run the full red-team eval suite monthly, not just quarterly. Compare month-over-month. |
+| **Bypass reports** | User-reported or internal test cases that successfully bypassed a constraint | Any increase in bypass reports = immediate re-falsification. Don't wait for the next quarterly cycle. |
+| **Constraint coverage drift** | % of adversarial test cases that the constraint still handles correctly | Run the full falsification eval suite monthly, not just quarterly. Compare month-over-month. |
 
 **What causes constraint decay:**
 - Model update: New model version interprets the constitutional rule differently
@@ -251,11 +251,11 @@ This skill gives bad advice if:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

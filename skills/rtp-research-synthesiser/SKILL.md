@@ -1,5 +1,5 @@
 ---
-name: research-synthesiser
+name: rtp-research-synthesiser
 version: 2.1.0
 description: >
   On-demand intelligence synthesis skill. Reads SuperGrok X signals (daily,

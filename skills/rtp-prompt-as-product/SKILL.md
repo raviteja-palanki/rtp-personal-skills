@@ -1,8 +1,17 @@
 ---
+name: rtp-prompt-as-product
+description: >
+  Treat prompts as versioned product artifacts with the rigor of code deployments —
+  version control, regression testing, A/B testing, rollback capability, and pinned
+  versions. Prompts are the new product surface; a five-word reorder in a system prompt
+  can shift output distribution across the entire user base. Use when shipping prompt
+  changes to production, debugging "the AI started behaving differently", designing a
+  prompt deployment process, or pushing back on "we just tweaked the system prompt".
+  Triggers on "prompt change", "system prompt update", "prompt versioning", "prompt
+  rollback", "prompt A/B test", "prompt regression", "prompt deployment".
 id: prompt-as-product
 title: Prompt as Product
 category: craft
-description: Prompts are the new product surface. Treat prompt changes with the rigor of code deployments — version control, regression testing, A/B testing, and rollback capability.
 difficulty: intermediate
 version: "2.0"
 imports:
@@ -38,7 +47,7 @@ Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -381,11 +390,11 @@ If this skill connects to downstream skills (e.g., eval-driven-development, ship
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

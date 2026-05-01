@@ -21,7 +21,7 @@ You are designing an interface where the system's confidence varies. Sometimes t
 ## DELIVERABLE FORMAT
 
 Before starting, ask: Word Document, Presentation, or Both?
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## GROUNDING (Before Starting)
 
@@ -445,11 +445,11 @@ Before you ship AI with uncertainty:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. **The recommendation** — specific confidence pattern for this feature and confidence range
 2. **The hypothesis** — "We believe [confidence pattern X] will [produce Y trust outcome] because [Z]. We'd know we're wrong if [trust recovery metric drops]."
 3. **The key trade-off** — transparency vs. friction; certainty vs. trust durability
@@ -460,7 +460,7 @@ Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIV
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
 
 ---
 

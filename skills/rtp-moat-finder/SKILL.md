@@ -16,7 +16,7 @@ imports: [bias-spotter, determinism-compass]
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -218,7 +218,7 @@ The strongest AI switching costs combine 3+ of these. Single-dimension switching
 
 **Definition:** Embedded organizational processes that produce a sustained quality, cost, or speed advantage — and that take competitors years to replicate even after they understand them.
 
-**AI-product example (real moat):** Anthropic's RLHF + Constitutional AI training process. The recipe is partially public (papers, blog posts), but reproducing it requires the entire organizational stack: research culture, evaluation infrastructure, internal red-team capacity, alignment researchers who know which trade-offs matter. A competitor can read the papers and still fail because the process isn't in the papers — it's in the organization.
+**AI-product example (real moat):** Anthropic's RLHF + Constitutional AI training process. The recipe is partially public (papers, blog posts), but reproducing it requires the entire organizational stack: research culture, evaluation infrastructure, internal falsification capacity, alignment researchers who know which trade-offs matter. A competitor can read the papers and still fail because the process isn't in the papers — it's in the organization.
 
 **AI-product example (vanity):** "Our process is faster product iteration." Faster iteration is execution, not process power. Process power requires that the process produces structurally better outputs in a way competitors cannot match even with more money.
 
@@ -455,11 +455,11 @@ Moat Refresh Plan: [quarterly actions to maintain/deepen]
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

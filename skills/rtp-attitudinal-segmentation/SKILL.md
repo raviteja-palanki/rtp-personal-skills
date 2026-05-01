@@ -30,7 +30,7 @@ imports:
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions — at minimum: Who is the user? What's their alternative if they refuse the AI? What does "right answer" look like for each segment?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, or inline plan?
@@ -373,11 +373,11 @@ Three failure patterns that show up repeatedly when teams try to add attitudinal
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. The recommendation — segment distribution + the 3 shipping decisions that will move first
 2. The hypothesis — "We believe Skeptics make up [X]% of our users and churning at [Y]× the rate of Embracers because we ship Embracer-default onboarding. We'd know we're wrong if Skeptic-tuned onboarding doesn't move Skeptic month-2 retention by at least 30%."
 3. The key trade-off — three defaults adds complexity vs single default loses the tails
@@ -388,7 +388,7 @@ Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIV
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
 
 Generate the markdown handoff file when the next downstream skill is `confidence-tuner`, `feedback-triage`, or `adoption-launch`.
 

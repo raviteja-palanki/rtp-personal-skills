@@ -28,13 +28,13 @@ Before starting, ask:
 >
 > *Default: Word Document.*
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ---
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 1 — at minimum:
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 1 — at minimum:
 
 1. **Who is the customer?** Specific segment — not "our users."
 2. **What problem?** In their words, not yours.
@@ -342,13 +342,13 @@ CONFIDENCE: [High / Medium / Low]
   What would change our mind: [specific signal or data point]
 ```
 
-Complete using the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Complete using the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ---
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 
 1. **State the path** — Which of the five options: Prompt, In-Context, RAG, Fine-Tune, or Vertical SaaS?
 2. **Name the gate that decided it** — Which gate was the forcing function?
@@ -360,7 +360,7 @@ Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIV
 
 ## GENERATE THE DELIVERABLE
 
-Use the output generation prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+Use the output generation prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
 
 **Visuals to generate for this skill:**
 1. **Gate decision flow** — Which gates passed, which one stopped the analysis, and why

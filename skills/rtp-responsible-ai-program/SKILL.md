@@ -18,7 +18,7 @@ framework_source: "MIT Sloan Management Review — Öykü Işık & Ankita Goswam
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions — at minimum: Who is the customer? What problem? What does YES mean saying NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, stakeholder brief?
@@ -79,7 +79,7 @@ Ask these questions. If you answer NO to any, the gap exists:
 |---------|-----|-----|
 | Does the ethics/AI governance team have authority to delay or block a product launch? | | |
 | Do ethics reviewers have technical AI literacy sufficient to evaluate model behavior? | | |
-| Is there a dedicated budget for red-teaming, bias auditing, and ethics-related engineering? | | |
+| Is there a dedicated budget for falsificationing, bias auditing, and ethics-related engineering? | | |
 | Are ethics reviews resourced proportionally to AI risk level (more review for higher-risk AI)? | | |
 
 **Gap severity:** 0 NOs = No gap. 1-2 NOs = Partial gap. 3-4 NOs = Full resource gap.
@@ -352,11 +352,11 @@ This skill gives bad advice if:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

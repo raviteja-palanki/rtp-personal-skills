@@ -70,7 +70,7 @@ Before starting the analysis, ask:
 >
 > *Default if no preference: Word Document.*
 
-Follow the [Universal Deliverable Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) for structure, formatting, visuals, and quality standards.
+Follow the [Universal Deliverable Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md) for structure, formatting, visuals, and quality standards.
 
 ---
 
@@ -732,6 +732,6 @@ When this skill feeds into a downstream skill (invisible-stack, determinism-comp
 - Critical assumptions with evidence ratings
 - Open questions for the next skill
 
-Follow the Markdown Handoff format in the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 9.
+Follow the Markdown Handoff format in the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 9.
 
 File naming: `ai-use-case-readiness-handoff-[use-case-slug].md`

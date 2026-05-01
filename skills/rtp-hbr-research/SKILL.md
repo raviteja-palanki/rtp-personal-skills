@@ -1,5 +1,5 @@
 ---
-name: hbr-research
+name: rtp-hbr-research
 version: 1.0.0
 description: >
   Monthly research synthesis engine for Harvard Business Review, MIT Sloan, and other

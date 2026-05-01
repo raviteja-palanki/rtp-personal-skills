@@ -13,7 +13,7 @@ imports: []
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: What expertise is at risk? What's the cost of that expertise degrading? How will users know they're losing judgment?
 2. Route depth: Are you building a new system (Comprehensive) or auditing an existing one (Executive Summary)?
 3. Identify output format: Word Document, Presentation, or Both?
@@ -23,7 +23,7 @@ Then proceed with the skill-specific analysis below.
 ## DELIVERABLE FORMAT
 
 Before starting, ask for format: Word Document, Presentation, or Both.
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## THE TRAP
 
@@ -241,7 +241,7 @@ CONFIDENCE: High
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. State the recommendation (which checkpoints to implement, in what order)
 2. Name the key trade-off (efficiency loss vs judgment maintenance)
 3. Acknowledge the biggest risk (organizational resistance, or checkpoint failure if not enforced)

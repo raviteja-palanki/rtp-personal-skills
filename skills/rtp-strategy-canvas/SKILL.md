@@ -1,7 +1,7 @@
 ---
 name: rtp-strategy-canvas
 description: "AI product strategy that survives quarterly capability changes: 6-month horizons, conditional bets (IF model X → Path A), model-agnostic moats, reset triggers. Use for: strategic direction, roadmap review. Triggers: 'AI strategy', 'product strategy for AI', 'strategic direction', 'roadmap for AI'"
-imports: [first-principles, red-team]
+imports: [first-principles, falsification]
 ---
 
 # Strategy Canvas
@@ -17,11 +17,11 @@ imports: [first-principles, red-team]
 ## DELIVERABLE FORMAT
 
 Before starting, ask: Word Document, Presentation, or Both?
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, or inline?
@@ -348,11 +348,11 @@ Your competitive moat is eval infrastructure + orchestration quality — not mod
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. **The recommendation** — clear strategic direction, not "it depends"
 2. **The hypothesis** — "We believe [X] will [Y] because [Z]. We'd know we're wrong if [signal] within [timeframe]."
 3. **The key trade-off** — what we're prioritizing and what we're giving up
@@ -363,7 +363,7 @@ Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIV
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
 
 If this skill connects to downstream skills (moat-finder, agent-harness, capability-tracking), also generate the markdown handoff file per Section 9.
 

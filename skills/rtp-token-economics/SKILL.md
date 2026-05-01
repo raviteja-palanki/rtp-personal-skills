@@ -2,7 +2,7 @@
 name: rtp-token-economics
 version: "2.0"
 description: "Pricing for per-token cost structure (flat-rate, per-token, outcome, seat, hybrid). Tradeoff: optimize 2 of 3 (quality, cost, latency). Use when: new products, pricing changes, scaling, unit economics at 10x. Triggers: 'pricing for AI', 'token economics', 'how to price', 'usage-based vs flat-rate'"
-imports: [stress-test, red-team]
+imports: [stress-test, falsification]
 ---
 
 # Token Economics
@@ -32,7 +32,7 @@ Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -488,11 +488,11 @@ If this skill connects to downstream skills (e.g., build-or-buy, cost-model), ge
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

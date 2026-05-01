@@ -13,7 +13,7 @@ imports: []
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: What problem is this AI initiative solving? Who owns it cross-functionally? What happens if it fails?
 2. Route depth: Are you diagnosing an existing failure (Comprehensive) or assessing readiness (Executive Summary)?
 3. Identify output format: Word Document, Presentation, or Both?
@@ -23,7 +23,7 @@ Then proceed with the skill-specific analysis below.
 ## DELIVERABLE FORMAT
 
 Before starting, ask for format: Word Document, Presentation, or Both.
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## THE TRAP
 
@@ -278,7 +278,7 @@ CONFIDENCE: High
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. State the recommendation (which link to fix first, what evidence is strongest)
 2. Name the key trade-off (building delay vs alignment gain)
 3. Acknowledge the biggest risk (organizational discomfort with hard conversations)

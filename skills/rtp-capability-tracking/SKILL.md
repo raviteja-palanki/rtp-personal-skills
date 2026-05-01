@@ -1,4 +1,14 @@
 ---
+name: rtp-capability-tracking
+description: >
+  Decide whether to build an AI feature now or wait for model capability uplift to deliver
+  it for free. Frames build-vs-wait decisions when frontier models are improving every 6-9
+  months and custom engineering risks being commoditized. Use when scoping 12-18 month
+  roadmaps, evaluating which features will commoditize on next model release, deciding
+  between custom fine-tuning and waiting for foundation-model improvements, or building a
+  capability watchlist for portfolio bets. Triggers on "should we build this", "wait for
+  the next model", "18-month roadmap", "commoditization risk", "capability planning",
+  "build vs. wait", "model capability tracking".
 title: "Capability Tracking"
 plugin: "ai-strategy"
 version: "2.0"
@@ -33,7 +43,7 @@ Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?

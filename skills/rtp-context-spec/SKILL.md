@@ -19,7 +19,7 @@ imports:
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -311,7 +311,7 @@ Context-spec deliverables should include:
 
 ## GENERATE THE DELIVERABLE
 
-Follow the [Deliverable Protocol from Universal Skill Protocol Section 11](../../../UNIVERSAL-SKILL-PROTOCOL.md) to package the context-spec analysis.
+Follow the [Deliverable Protocol from Universal Skill Protocol Section 11](../../UNIVERSAL-SKILL-PROTOCOL.md) to package the context-spec analysis.
 
 Your deliverable should include:
 - **Executive summary:** 1-2 sentences on the context architecture choice and why it works for this feature
@@ -325,11 +325,11 @@ Push back if the feature doesn't warrant this level of spec (single-turn, no ret
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

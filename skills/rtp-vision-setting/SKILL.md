@@ -40,7 +40,7 @@ This skill exists because most AI product visions written today won't survive 18
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who specifically benefits? What changes in their work or life? What timeframe?
 2. Route depth: Full exercise or refresh?
 3. Identify output format: Document, presentation, or both?
@@ -456,7 +456,7 @@ This skill gives bad advice when:
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. **The recommendation** — which of the three drafts is the working vision and why
 2. **The hypothesis** — "We believe this vision will hold for [horizon] because it's anchored on [durable transformation], not [volatile capability]. We'd know we're wrong if [signal] within [timeframe]."
 3. **The key trade-off** — what this vision is choosing and what it's giving up
@@ -467,7 +467,7 @@ Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../U
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
 
 If this skill connects to downstream skills (strategy-canvas, moat-finder, signal-scanner), also generate the markdown handoff file per Section 9.
 
