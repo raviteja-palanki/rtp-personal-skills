@@ -4,21 +4,19 @@
 
 ---
 
-I didn't build 80 skills. I built a brain.
+Most people use AI like a calculator. Type a question, get an answer, move on. Nothing connects. Nothing compounds. Every conversation starts from zero.
 
-The skills are its expertise. The orchestrator is its judgment. The slash commands are how it executes a single decisive thought across a chain of expert agents. And the whole thing learns — every session, every correction, every hard question — it compounds.
-
-This is what happens when a product manager treats their own AI tooling with the same rigor they'd bring to any production system they're responsible for.
+This is the opposite. A second brain that researches before it answers, pushes back when the direction is wrong, remembers what worked last time, and gets meaningfully sharper every session — across any domain, not just product management.
 
 ---
 
 ## The idea, in one sentence
 
-**An AI operating system that thinks before it acts, deploys specialized agents to do the work, reviews their output, commands the entire installed plugin ecosystem (not just its own skills), and gets sharper every time it runs.**
+**A second brain that thinks before it acts, deploys specialized agents to do the work, reviews their output, commands the entire installed plugin ecosystem (not just its own skills), and gets sharper every time it runs.**
 
-Most people use AI like a calculator — type a question, get an answer, move on. Nothing connects. Nothing compounds. Every conversation starts from zero.
+It's a senior PM at a Fortune 100 industrial company spending three years externalizing how he thinks. Not a productivity hack. Not a prompt library. Not a content-generation gimmick. An operating system for judgment, packaged as a plugin you install in two commands.
 
-This is built differently. It's a chief of staff who knows your projects, understands your thinking style, remembers what worked last time, and — when you say *"write me a PRD"* — doesn't just fill in a template. It checks your reasoning. It asks whether you've considered the failure modes. It models the cost at 10x scale. It flags the assumption that would kill the plan. Then it writes the PRD — and the PRD arrives pre-tested, because the thinking happened in the right order.
+AI product management is where the depth runs deepest — frontier-model strategy, evals, agent design, safety, harness engineering. But the same thinking discipline applies to anything: code review, finance, history, life decisions, "what should I think about X." The orchestrator never disclaims with "I'm specialized in AI PM, this is outside my expertise." It researches, applies the same algorithms, reaches for the right plugin for the domain, and answers at the same quality bar.
 
 Four parts make it work.
 
@@ -41,9 +39,9 @@ Restart Claude Code. Every skill becomes addressable as `rtp-personal-skills:rtp
 /rtp-setup
 ```
 
-This prints the full install sequence for companion plugins (`superpowers`, `compound-engineering`, `pm-skills`, `anthropic-skills`, `github/linear/supabase`) so the orchestrator can command the entire Claude Code plugin ecosystem — not just RTP's own skills. Full tier map in [COMPANION-PLUGINS.md](COMPANION-PLUGINS.md). Machine-readable manifest in [companion-plugins.json](companion-plugins.json).
+Prints the install sequence for companion plugins (`superpowers`, `compound-engineering`, `pm-skills`, `anthropic-skills`, `github/linear/supabase`) so the orchestrator can command the entire Claude Code plugin ecosystem — not just RTP's own skills. Full tier map in [COMPANION-PLUGINS.md](COMPANION-PLUGINS.md). Machine-readable manifest in [companion-plugins.json](companion-plugins.json).
 
-Without companion plugins the orchestrator still works — it falls back to RTP-only mode covering AI PM strategy, content, design, and governance end to end. With them, it commands the wider ecosystem (TDD discipline, textbook PM frameworks, real .pptx/.docx file generation, dev tools).
+Without companion plugins the orchestrator still works — it falls back to RTP-only mode covering AI PM strategy, content, design, governance, and any non-PM question that fits in its training-grounded knowledge. With companion plugins, it commands the wider ecosystem (TDD discipline, textbook PM frameworks, real `.pptx` / `.docx` / `.pdf` file generation, dev tools, web research, episodic memory).
 
 ---
 
@@ -55,36 +53,89 @@ Without companion plugins the orchestrator still works — it falls back to RTP-
 
 Most AI systems route. You say "write a PRD," it loads a PRD template. There's no judgment, no context, no memory of who you are or what you're trying to accomplish.
 
-The orchestrator is different. It's the persistent brain at the center of everything.
+The orchestrator is different. It's the persistent brain at the center of everything — and it runs on every input, silently, before you see any output. There is no activation question. Loading the plugin activates it.
 
-**On every input it does five things — silently, before you see any output:**
+**On every input it does five things — silently, before any output:**
 
 1. **Listens deeply.** Not just what you asked, but what you meant. It reads the hidden signals — your role, your constraints, the phase of work you're in, the structural problem you haven't mentioned yet.
 2. **Classifies the ask.** Quick answer, deep thinking, or direct action? A factual question gets answered in two sentences, not a five-step analysis. Respect for your time is a design principle.
-3. **Activates the right thinking patterns.** Ten cognitive algorithms — first principles, red-teaming, bias detection, production reality checks, graceful degradation — run on every input. Not all ten every time. The ones that matter for *this* problem.
+3. **Activates the right thinking patterns.** Ten cognitive algorithms — first principles, falsification, dual lens, production reality, graceful degradation, cross-domain import — run on every input. Not all ten every time. The ones that matter for *this* problem.
 4. **Deploys worker agents.** Independent tasks run in parallel. Dependent tasks run in sequence. The orchestrator manages the handoffs.
 5. **Reviews and synthesizes.** Workers produce drafts. The orchestrator reviews for quality, consistency, and blind spots. The user sees one synthesized output — executive-level on the surface, PhD-level underneath.
 
-**Communication rules are non-negotiable:**
-- Every recommendation is decisive. *Do X* — not *consider X*.
-- Every recommendation has conditions. *This works IF [condition]. If [condition] changes, pivot to [alternative].*
-- Every output ends with what to do Monday morning. Not what to think about — what to **DO**.
+**The honesty layer is non-negotiable.** Every recommendation is decisive (*"Do X"* — not *"consider X"*). Every recommendation has conditions (*"This works IF [condition]. If [condition] changes, pivot to [alternative]."*). Every output ends with what to do Monday morning. When a fact may be stale, the orchestrator says so before recommending — and reaches for `WebFetch` or `context7` rather than guess. False confidence is the failure mode, not admitting limits.
+
+**Scope is determined by the question, not by an AI-PM ceiling.** *"Should I refactor this Python script"* gets the same depth as *"should we ship this AI feature."* *"Explain the Roman Empire's collapse to me"* gets deep research first, then the same thinking algorithms, then a grounded answer with cited sources.
 
 ---
 
-## Part 2: Full Ecosystem Awareness — The 0.1% Move
+## Part 2: 80 Skills + 11 Slash Commands + 6 Sprint Templates
+
+<p align="center">
+  <img src="diagrams/01-architecture-overview.svg" alt="Architecture Overview" width="900"/>
+</p>
+
+**80 skills total:** 62 AI PM skills across 7 specialist layers + 1 orchestrator + 17 general-purpose skills (writing, presentations, branding, visualization, design systems, research, admin, resume, README storytelling).
+
+The 62 AI PM skills are organized by what they do, not by what role uses them:
+
+| Layer | Count | What it produces | Example skills |
+|---|---|---|---|
+| **Thinking Core** | 9 | Checks, not documents | `first-principles`, `falsification`, `bias-spotter`, `dual-lens`, `stress-test` |
+| **Product Sense** | 14 | Problem framing | `problem-ai-fit`, `jtbd-analysis`, `feedback-flywheel`, `attitudinal-segmentation` |
+| **AI Strategy** | 11 | Durable bets | `strategy-canvas`, `moat-finder`, `vision-setting`, `token-economics` |
+| **Safety & Trust** | 7 | Earned right to ship | `safety-by-design`, `trust-ladder`, `responsible-ai-program`, `breach-ready` |
+| **Agent Design** | 5 | Autonomy decisions | `autonomy-spectrum`, `agent-harness`, `tool-architecture` |
+| **Eval & Quality** | 6 | Measurable proof | `eval-framework`, `eval-driven-development`, `confidence-tuner` |
+| **Craft** | 10 | Ship-ready artifacts | `ai-prd`, `agent-spec`, `cost-model`, `stakeholder-communications` |
+
+Plus 17 general-purpose skills covering everything else Ravi does: `ravi-thinking-skills`, `ravi-personal-branding`, `email-mastery`, `frontend-slides`, `excalidraw-svg`, `learn-site-design`, `product-thinking`, `hbr-research`, `research-synthesiser`, `claude-admin`, `deep-dive-writer`, `ux-design-systems`, `ravis-resume-builder`, `cinematic-presentations`, `ai-fluent-brand`, `design-spec`, `readme-storytelling`.
+
+### 11 Slash Commands
+
+Each chains multiple skills into one decisive output. Run when the work is single-prompt, not a multi-day sprint.
+
+| Command | What it does | When |
+|---|---|---|
+| `/rtp-setup` | Bootstraps the full RTP plugin ecosystem on a fresh Claude account | First day on a new machine |
+| `/brief-me` | Memory + recent activity → 60-second briefing | Every morning |
+| `/stakeholder-update` | Audience-tailored AI comms with confidence framing | Before exec/eng/customer comms |
+| `/weekly-digest` | Week's CHANGE_LOG + git activity + ACTION-PLAN deltas | Friday afternoons |
+| `/design-ai-feature` | **10-gate gauntlet** — `problem-ai-fit` → `first-principles` → `autonomy-spectrum` → `determinism-compass` → `prompt-craft` → `eval-framework` → `cost-model` → `ai-ux-patterns` → `safety-by-design` → `ai-prd` | Before a single line of code |
+| `/ai-prd-flow` | `problem-ai-fit` + `use-case-readiness` + `jtbd-analysis` + `ai-prd` + `ship-decision` | When PRD context is established |
+| `/discover` | `problem-ai-fit` + `jtbd-analysis` + `opportunity-solution-tree` + `uncertainty-research` | Single-prompt discovery cycle |
+| `/triage-feedback` | `feedback-triage` (4-axis score) + `failure-modes` | When inboxes pile up |
+| `/strategy-review` | `strategy-canvas` + `moat-finder` + `competitive-map` + `cost-model` + `signal-scanner` | Quarterly check |
+| `/plan-launch` | `adoption-launch` + `ship-decision` + `cost-model` + `breach-ready` + `production-observability` | L4+ AI feature launch |
+| `/retro` | Original AI-PRD lookup + `ai-product-metrics` + `stress-test` + `feedback-flywheel` | Post-ship reflection |
+
+The crown jewel is `/design-ai-feature` — every gate prevents a specific AI launch failure mode. *problem-ai-fit* prevents building ML for a problem rules would solve at 1/100th the cost. *autonomy-spectrum* prevents giving AI L4 when L2 was sufficient. *cost-model* prevents the 1000x volume blow-up between pilot and GA. *safety-by-design* prevents bolted-on guardrails that break the UX before fixing the failure mode.
+
+### 6 Multi-Day Sprint Templates
+
+Project blueprints for work that spans days and orchestrates 30+ skills end-to-end. `new-ai-feature.md` (12 days, all 80 skills), `ai-discovery-sprint.md` (5 days), `quarterly-strategy-review.md` (5 days), `ai-incident-response.md` (hours-days), `eval-ops-setup.md` (days), `agent-launch-checklist.md` (days).
+
+Slash commands and sprint templates are not competing — slash commands are the daily-cadence layer that supports execution between sprint cycles.
+
+---
+
+## Part 3: Full Ecosystem Awareness — What Makes This 0.1%
+
+<p align="center">
+  <img src="diagrams/05-workflow-paths.svg" alt="Workflow Paths" width="900"/>
+</p>
 
 The orchestrator commands the entire installed Claude Code plugin ecosystem, not just the skills in this repo. RTP skills are first preference when a purpose-built equivalent exists. But the orchestrator never refuses a task because RTP doesn't ship a skill for it. When a non-RTP plugin solves the problem better, it reaches for it.
 
 Five tiers, each with a clear use:
 
-**Tier 1 — RTP skills (Ravi's voice + thinking).** AI PM strategy, content or visual output that must sound like Ravi, governance, design system work. The 63 AI PM skills + 17 general-purpose skills in this repo.
+**Tier 1 — RTP skills (Ravi's voice + thinking).** AI PM strategy, content or visual output that must sound like Ravi, governance, design system work, README storytelling. The 80 skills in this repo.
 
-**Tier 2 — Process and engineering rigor.** `superpowers:*` and `compound-engineering:*` for TDD discipline, systematic debugging, code review (giving and receiving), brainstorming, frontend design, agent-native architecture, dhh-rails-style. When the work is actual engineering — code, tests, debug — these own the discipline layer.
+**Tier 2 — Process and engineering rigor.** `superpowers:*` and `compound-engineering:*` for TDD discipline, systematic debugging, code review (giving and receiving), brainstorming, plan execution, frontend design, agent-native architecture, dhh-rails-style. When the work is actual engineering — code, tests, debug — these own the discipline layer.
 
-**Tier 3 — PM execution (pm-skills marketplace, 8 plugins).** Lean Canvas, OKRs, RICE, JTBD, Porter's Five Forces, GTM motions, cohort analysis, A/B test stats. Textbook PM frameworks for when an AI-specific RTP version doesn't apply.
+**Tier 3 — PM execution (`pm-skills` marketplace, 8 plugins).** Lean Canvas, OKRs, RICE, JTBD canonical, Porter's Five Forces, GTM motions, cohort analysis, A/B test stats. Textbook PM frameworks for when an AI-specific RTP version doesn't apply.
 
-**Tier 4 — File formats and Anthropic skills.** `anthropic-skills:pdf`, `anthropic-skills:pptx`, `anthropic-skills:xlsx`, `anthropic-skills:docx`, `anthropic-skills:web-artifacts-builder`. Whenever the task touches that file format. Layered with Tier 1 design DNA when the output is visual.
+**Tier 4 — File formats and Anthropic skills.** `anthropic-skills:pdf`, `anthropic-skills:pptx`, `anthropic-skills:xlsx`, `anthropic-skills:docx`, `anthropic-skills:web-artifacts-builder`, `anthropic-skills:brand-guidelines`. Whenever the task touches that file format. Layered with Tier 1 design DNA when the output is visual.
 
 **Tier 5 — Development tools.** `github`, `linear`, `supabase`, `commit-commands`, `episodic-memory:search-conversations`, `elements-of-style`. The orchestrator picks the right tool for the actual need — never reinvents what's wrapped.
 
@@ -92,127 +143,39 @@ The result: **the orchestrator is never narrow.** It picks the right plugin ever
 
 ---
 
-## Part 3: Worker Agents — An Army of Specialists
+## Part 4: The Worker Agents
 
 <p align="center">
-  <img src="diagrams/01-architecture-overview.svg" alt="Architecture Overview" width="900"/>
+  <img src="diagrams/06-import-chain.svg" alt="Import Chain" width="900"/>
 </p>
 
-Worker agents are not scripts. They're intelligent sub-agents combining specialized skills with contextual understanding.
+The 80 skills aren't a flat list. They're organized into **specialist agent teams** the orchestrator deploys — sometimes solo, often in parallel.
 
-Every worker has three components: **domain expertise** (one or two specialized skills), **persona context** (they understand the user's voice, thinking style, and quality bar), and **memory** (they carry feedback from prior executions, so the tenth time a worker runs, it's structurally sharper than the first).
+### The 6 AI PM Expert Teams
 
-### The AI PM Expert Teams (63 skills across 6 teams)
+**Sense-Maker** — Understands the real problem before anyone solves it. Skills: `first-principles`, `problem-ai-fit`, `use-case-ready`, `problem-type`, `needs-guard`, `jtbd-analysis`, `interview-synthesis`, `feedback-triage`, `attitudinal-segmentation`.
 
-**The Sense-Maker** sees the real problem — not the one you described, but the one underneath. First-principles decomposition, AI-fit scoring, uncertainty mapping, JTBD demand-side analysis, opportunity-solution-tree with feasibility filter, attitudinal segmentation by AI stance.
+**Strategist** — Where to invest, what to kill. Skills: `strategy-canvas`, `moat-finder`, `build-or-buy`, `cost-reality`, `portfolio-manager`, `signal-scanner`, `trendslop-check`, `adoption-launch`, `purpose-dialogue`, `vision-setting`.
 
-**The Strategist** decides where to invest and what to kill. Capability-conditional roadmaps with expiration dates. Moat analysis through Helmer's 7 Powers (real moats vs vanity claims). Cost reality at production scale. Vision durable across model generations. Trendslop detector for AI strategy that's just popular advice.
+**System Architect** — How much autonomy, what architecture, what controls. Skills: `autonomy-spectrum`, `agent-ecosystem`, `tool-architecture`, `agent-harness`, `determinism-compass`, `multi-modal-product-design`.
 
-**The System Architect** designs the right level of autonomy. Not *how autonomous CAN we make this* but *what level does each interaction DESERVE?* L1-L6 spectrum. Tool access with consequence-aware permissions. Harness architecture (planner → generator → evaluator) that keeps agents productive and safe.
+**Safety Expert** — Make it safe AND get people to use it. Skills: `safety-by-design`, `rai-ops`, `trust-ladder`, `judgment-guard`, `alignment-check`, `breach-ready`, `agent-risk`, `trust-under-fog`.
 
-**The Safety Expert** makes it safe AND gets people to use it. Safety-by-design baked into architecture. Adoption curves modeled by persona. Proportionality analysis for every agent. Breach readiness — designing systems that survive being hacked, not just systems that resist it.
+**Evals Expert** — Prove it works with evidence, not hope. Skills: `eval-framework`, `eval-first`, `ai-metrics`, `prod-watch`, `experiment-rig`, `confidence-tuner`.
 
-**The Evals Expert** replaces hope with evidence. Open coding → axial coding → selective coding (Husain + Shankar methodology) on AI traces. Confidence calibration that prevents both over-reliance and dismissal. The rule: if you can't measure it, you can't ship it.
+**Crafter** — Produce pre-tested documents. Skills: `ai-prd`, `context-spec`, `agent-spec`, `cost-model`, `ship-decision`, `prompt-as-product`, `prompt-craft`, `competitive-map`, `fit-signal`, `stakeholder-communications`.
 
-**The Crafter** produces the documents that ship the product — PRDs, agent specs, cost models, ship/no-ship decisions, stakeholder updates. Because the Crafter runs *after* the other five teams, every document arrives pre-tested. The PRD has eval criteria as acceptance criteria. The cost model has been stress-tested at 10x. The stakeholder update carries an eval-backed confidence band, a named drift surface, and a mandatory "what could be wrong" section.
+### The 17 General-Purpose Workers
 
-### The General-Purpose Agents (16 skills)
-
-Beyond AI PM, specialists for the rest of the workday: email writer, deep dive writer (long-form thought leadership), research analyst (Grok + Perplexity + HBR pipelines), presentation builder (zero-dependency HTML), diagram builder (hand-drawn pastel SVG), UX design agent (58-company pattern catalog), product mentor (Doshi LNO + altitude-horizon), interview coach, teaching assistant (CONTEXT framework), admin agent, resume builder (pixel-perfect ReportLab PDF), and **design-spec** — generator for Google Labs' DESIGN.md format that makes any design system AI-agent-portable in 30 seconds.
-
-Every worker inherits from **Ravi Voice** — the master thinking system carrying 10 cognitive algorithms, 24 AI writing anti-patterns, and the Bridger communication style. Voice is the DNA in every worker.
+For everything else Ravi does. `ravi-voice` (the DNA in every output), `email-mastery`, `frontend-slides`, `excalidraw-svg`, `ravi-personal-branding`, `learn-site-design`, `product-thinking`, `research-synthesiser`, `hbr-research`, `claude-admin`, `deep-dive-writer`, `ux-design-systems`, `ravis-resume-builder`, `cinematic-presentations`, `ai-fluent-brand`, `design-spec`, `readme-storytelling`.
 
 ---
 
-## Part 4: 10 Slash Command Workflows + 6 Multi-Day Sprint Templates
-
-Two distinct kinds of orchestrated work, each in its own folder.
-
-### 10 Slash Commands (single-prompt skill chains)
-
-Run when one decisive output is needed that pulls multiple skills together in one motion.
-
-| Command | What it chains | When to run |
-|---|---|---|
-| `/brief-me` | memory + recent activity → 60-second briefing | Every morning |
-| `/stakeholder-update` | stakeholder-communications + memory + activity | Before sending exec/eng/customer comms |
-| `/weekly-digest` | week's CHANGE_LOG + git activity + ACTION-PLAN deltas | Friday afternoons |
-| `/design-ai-feature` | **10-gate gauntlet** — problem-ai-fit → first-principles → autonomy-spectrum → determinism-compass → prompt-craft → eval-framework → cost-model → ai-ux-patterns → safety-by-design → ai-prd | Before a single line of code |
-| `/ai-prd-flow` | problem-ai-fit + use-case-readiness + jtbd-analysis + ai-prd + ship-decision | When PRD context is established |
-| `/discover` | problem-ai-fit + jtbd-analysis + opportunity-solution-tree + uncertainty-research | Single-prompt discovery cycle |
-| `/triage-feedback` | feedback-triage (4-axis score) + failure-modes | When inboxes pile up |
-| `/strategy-review` | strategy-canvas + moat-finder + competitive-map + cost-model + signal-scanner | Quarterly check |
-| `/plan-launch` | adoption-launch + ship-decision + cost-model + breach-ready + production-observability | L4+ AI feature launch |
-| `/retro` | original AI-PRD lookup + ai-product-metrics + stress-test + feedback-flywheel | Post-ship reflection |
-
-The crown jewel is `/design-ai-feature` — every gate prevents a specific AI launch failure mode. *problem-ai-fit* prevents building ML for a problem rules would solve at 1/100th the cost. *autonomy-spectrum* prevents giving AI L4 when L2 was sufficient. *cost-model* prevents the 1000x volume blow-up between pilot and GA. *safety-by-design* prevents bolted-on guardrails that break the UX before fixing the failure mode.
-
-### 6 Multi-Day Sprint Templates
-
-Project blueprints, not single prompts. Run when the work spans days and orchestrates 30+ skills end-to-end.
-
-| File | Timeline | Purpose |
-|---|---|---|
-| `new-ai-feature.md` | 12 days | Concept → launch full cycle, all 80 skills |
-| `ai-discovery-sprint.md` | 5 days | Validate problem-solution fit + map failure landscape |
-| `quarterly-strategy-review.md` | 5 days | Capability check, moat erosion, build-or-buy reassessment |
-| `ai-incident-response.md` | hours-days | Active AI incident — triage, contain, communicate, retro |
-| `eval-ops-setup.md` | days | Stand up an eval pipeline from scratch |
-| `agent-launch-checklist.md` | days | Pre-launch readiness for an agentic system |
-
-Slash commands and sprint templates are NOT competing — slash commands are the daily-cadence layer that supports execution between sprint cycles.
-
----
-
-## Part 5: The Three-Layer Skill Architecture
-
-<p align="center">
-  <img src="diagrams/02-thinking-layer.svg" alt="Thinking Layer" width="900"/>
-</p>
-
-The 63 AI PM skills are organized into three layers. Each layer earns the right to exist by making the next layer's output trustworthy.
-
-### Layer 1: Thinking — *Before you decide anything* (10 skills)
-
-These don't produce documents. They produce **checks.**
-
-Before any decision: Are you decomposing from first principles, or pattern-matching from your last project? Are you anchored on what a competitor built instead of what your users need? If your AI system fails, does it degrade gracefully or fail silently? What would make your strongest recommendation completely invalid?
-
-Core thinking skills: first-principles, bias-spotter, falsification, dual-lens, determinism-compass, stress-test, failure-design, alignment-check, judgment-guard, problem-type.
-
-<p align="center">
-  <img src="diagrams/03-judgment-layer.svg" alt="Judgment Layer" width="900"/>
-</p>
-
-### Layer 2: Judgment — *The hard calls* (43 skills across 5 domains)
-
-The decisions that separate a PM who's been in the room from one who's read about the room.
-
-**Product Sense** (14 skills) — Is AI the right solution, or are you building because the technology is exciting? Scores AI fit 0-16. Maps invisible stack. Designs the feedback flywheel. Plus the new layer — JTBD demand-side analysis (AI changes the job being hired), opportunity-solution-tree with AI-feasibility filter (deterministic / probabilistic+evals / unevaluable), interview synthesis using the same coding methodology your evals use, feedback triage with an AI-failure axis (bimodal feedback isn't averaged into invisibility), attitudinal segmentation by AI stance (Embracer / Neutral / Skeptic).
-
-**AI Strategy** (11 skills) — Durable bets when capabilities shift every quarter. Capability-conditional roadmaps. Moat analysis through Helmer's 7 Powers. Portfolio with stage gates. Vision durable across model generations (10x better and 10x cost test). Trendslop detector.
-
-**Safety & Trust** (7 skills) — Not compliance theater. Safety as the thing that earns the right to ship fast. Proportionality analysis. Breach readiness. Trust signals calibrated so users neither over-rely nor ignore.
-
-**Agent Design** (5 skills) — When AI should act, not just answer. Autonomy spectrum L0-L6. Multi-agent orchestration. Tool access with consequence-magnitude-aware permissions.
-
-**Eval & Quality** (6 skills) — If you can't measure it, you don't know if it works. Evaluation before code. Open coding → axial coding → selective coding. Confidence tuning that reduced errors by 49% in research.
-
-<p align="center">
-  <img src="diagrams/04-craft-layer.svg" alt="Craft Layer" width="900"/>
-</p>
-
-### Layer 3: Craft — *Ship-ready artifacts* (10 skills)
-
-PRDs, agent specs, cost models, ship decisions, competitive maps, product-market fit signals, prompt specifications, prompt craft, **stakeholder communications** (the new one — AI-native confidence framing trio: eval-backed band + drift surface + mandatory "what could be wrong" section).
-
-None of them start by asking requirements. They start by importing the thinking and judgment layers. The output arrives pre-tested — not because a review step was bolted on, but because the architecture won't let you skip one.
-
----
-
-## Watch It Work — A Real Enterprise Request
+## Watch It Work — Two Real Requests
 
 Architecture diagrams show structure. This shows what the structure *does.*
+
+### Request 1 — An Enterprise AI Feature
 
 A VP sends a message: *"We need AI-powered insights on the manufacturing dashboard. Q3 deadline."*
 
@@ -226,13 +189,23 @@ The VP asked for *AI insights.* What shipped was a reframed problem (alert fatig
 
 Every section was shaped by a different team. The Sense-Maker reframed the problem. The Strategist built the roadmap with an expiration date. The System Architect and Safety Expert locked the autonomy level and designed the degradation path. The Evals Expert defined success before a line of code was written. The Crafter assembled it all — but the document arrived pre-tested because the thinking happened in the right order.
 
-That's the difference between a template and an operating system.
+### Request 2 — A Non-PM Question
+
+*"Help me think about what to look for in a 30-year mortgage right now."*
+
+There is no `mortgage-evaluator` skill. There is no AI PM angle. The orchestrator does NOT disclaim.
+
+It runs the same loop: classify (deep thinking, not quick answer), activate first-principles (what's the real decision — rate, term, optionality, or total interest paid?), reach for `WebFetch` to get current rates from primary sources, apply red-team (state when its advice would be wrong — short residency, expected income drop, rate-cut probability), end with what to do this week.
+
+The output cites sources. Names assumptions. Surfaces the conditions that would change the recommendation. Reads like a smart financial-curious human did the work — because that's the brain it's externalizing, not an AI-PM-only specialist disclaiming outside its lane.
+
+That's the difference between a template and a second brain.
 
 ---
 
 ## The Frameworks Embedded
 
-These are not referenced. They're folded into specific skills with attribution and AI-PM extensions.
+Not referenced. Folded into specific skills with attribution and AI-PM extensions.
 
 | Practitioner | Framework | Skill |
 |---|---|---|
@@ -249,6 +222,7 @@ These are not referenced. They're folded into specific skills with attribution a
 | **Palle Broe** | AI monetization decision tree (59% bundle / 23% add-on / 18% standalone) | `token-economics` |
 | **Marty Cagan / Jackie Bavaro** | Vision durability across model generations | `vision-setting` |
 | **Google Labs** | DESIGN.md format spec (W3C / Tailwind / DTCG export) | `design-spec` |
+| **Morgan Housel** | Narrative-first technical writing | `readme-storytelling` |
 
 ---
 
@@ -260,10 +234,6 @@ The `ravi-personal-branding` skill exports as a [Google Labs DESIGN.md](https://
 
 ## The Compounding Engine
 
-<p align="center">
-  <img src="diagrams/06-import-chain.svg" alt="Import Chain" width="900"/>
-</p>
-
 This part took the most iteration — and it's the part that makes everything else work.
 
 **Every skill follows a shared protocol:** gather context → choose depth → build a trade-off ledger → pass a quality gate → generate the deliverable. Skills compose. The output of one becomes the input of the next without translation loss.
@@ -274,7 +244,7 @@ This part took the most iteration — and it's the part that makes everything el
 
 **Every session feeds back.** Patterns get watched. After three confirmations, they become rules. Rules shape future sessions. Anti-patterns get captured when they cause real waste. The orchestrator reads them and avoids repeating them. Over months, the system gets meaningfully sharper.
 
-This isn't a library of tools. It's an operating system that learns.
+This isn't a library of tools. It's a second brain that learns.
 
 ---
 
@@ -290,15 +260,16 @@ I'm what the research calls a *bridger.* When engineering says *we need a valida
 
 ## Repo state at a glance
 
-- **80 skills** (62 AIPM layer + 1 orchestrator + 17 general-purpose), all lint-clean and voice-consistent
-- **10 slash command workflows** + **6 multi-day sprint templates**
-- **1 plugin marketplace registration** (installable from any machine)
-- **1 orchestrator** that thinks across the 5-tier ecosystem
-- **DESIGN.md export** for the brand system (agent-portable)
-- All skills in this repo cross-reference each other; no orphans
+- **80 skills** = 62 AI PM layer skills + 1 orchestrator + 17 general-purpose. All lint-clean, frontmatter audited, voice-consistent.
+- **11 slash commands** + **6 multi-day sprint templates**.
+- **1 plugin marketplace** registration (installable from any machine via `/plugin marketplace add`).
+- **1 orchestrator** (v1.4.0) — Ravi's full second brain. Always on, every session. AI PM is the deepest expertise; same rigor applies to any domain.
+- **DESIGN.md export** for the brand system (agent-portable across Claude Code, Cursor, v0, Bolt).
+- **5-tier companion plugin manifest** — orchestrator commands superpowers, compound-engineering, pm-skills, anthropic-skills, dev tools.
+- All skills cross-reference each other; no orphans.
 
 License: All Rights Reserved. Use, study, learn from. Don't ship as your own.
 
 ---
 
-<sub>Built with Claude · 26 April 2026 · Compound Engineering · v1.1</sub>
+<sub>Built with Claude · 4 May 2026 · Compound Engineering · Orchestrator v1.4.0</sub>

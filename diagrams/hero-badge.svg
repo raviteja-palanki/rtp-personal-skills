@@ -67,7 +67,7 @@
   <text x="600" y="42" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11.5" font-weight="600" fill="#9478B8" letter-spacing="3px">RAVI TEJA PALANKI</text>
 
   <!-- Main title -->
-  <text x="600" y="92" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="48" font-weight="800" fill="url(#titleGradient)" letter-spacing="-1.5px">rtp-personal-skills</text>
+  <text x="600" y="92" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="48" font-weight="800" fill="#5B92B8" letter-spacing="-1.5px">rtp-personal-skills</text>
 
   <!-- Tagline -->
   <text x="600" y="122" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="16.5" font-weight="500" fill="#5F6B7A" letter-spacing="0.3px">I didn't build 80 skills. I built a brain.</text>
@@ -107,15 +107,15 @@
   <text x="198" y="260" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#9CA3AF">compound downstream</text>
 
   <!-- Think stat chip -->
-  <rect x="134" y="280" width="54" height="20" rx="10" fill="#9478B8" opacity="0.12"/>
-  <text x="161" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#9478B8">10 skills</text>
+  <rect x="120" y="280" width="50" height="20" rx="10" fill="#9478B8" opacity="0.12"/>
+  <text x="145" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#9478B8">9 skills</text>
 
   <!-- Skill examples -->
-  <rect x="196" y="280" width="80" height="20" rx="10" fill="#EDE9FE"/>
-  <text x="236" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#7C6C9A">First Principles</text>
+  <rect x="178" y="280" width="105" height="20" rx="10" fill="#EDE9FE"/>
+  <text x="231" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#7C6C9A">First Principles</text>
 
-  <rect x="284" y="280" width="72" height="20" rx="10" fill="#EDE9FE"/>
-  <text x="320" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#7C6C9A">Red Team</text>
+  <rect x="291" y="280" width="72" height="20" rx="10" fill="#EDE9FE"/>
+  <text x="327" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="500" fill="#7C6C9A">Red Team</text>
 
   <!-- ============================================ -->
   <!-- FLOW ARROW 1: Think -> Judge                 -->
@@ -158,7 +158,7 @@
 
   <!-- Judge stat chip -->
   <rect x="496" y="280" width="58" height="20" rx="10" fill="#5B92B8" opacity="0.12"/>
-  <text x="525" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#5B92B8">37 skills</text>
+  <text x="525" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#5B92B8">43 skills</text>
 
   <!-- Skill examples -->
   <rect x="562" y="280" width="70" height="20" rx="10" fill="#DBEAFE"/>
@@ -204,8 +204,8 @@
   <text x="922" y="260" font-family="Inter, Segoe UI, sans-serif" font-size="12" font-weight="400" fill="#9CA3AF">tested twice before arriving</text>
 
   <!-- Ship stat chip -->
-  <rect x="858" y="280" width="50" height="20" rx="10" fill="#6BA08A" opacity="0.12"/>
-  <text x="883" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6BA08A">8 skills</text>
+  <rect x="858" y="280" width="58" height="20" rx="10" fill="#6BA08A" opacity="0.12"/>
+  <text x="887" y="294" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="600" fill="#6BA08A">10 skills</text>
 
   <!-- Skill examples -->
   <rect x="916" y="280" width="60" height="20" rx="10" fill="#D1FAE5"/>

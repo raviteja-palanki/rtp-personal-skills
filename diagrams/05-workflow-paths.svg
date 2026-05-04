@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1200 1080" width="1200" height="1080" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two ways through the system: 10 slash commands for single-prompt skill chains and 6 sprint templates for multi-day work">
+<svg viewBox="0 0 1200 1000" width="1200" height="1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two ways through the system: 10 slash commands for single-prompt skill chains and 6 sprint templates for multi-day work">
   <title>Workflow Paths — Slash Commands and Sprint Templates</title>
   <desc>Two parallel categories. Slash commands chain skills into a single prompt — fast. Sprint templates organize multi-day work — deliberate. The /design-ai-feature gauntlet is the crown jewel: 10 RTP skills, STOP gates between every gate.</desc>
 
@@ -32,22 +32,22 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1200" height="1080" fill="#FAFAF8"/>
+  <rect width="1200" height="1000" fill="#FAFAF8"/>
 
   <!-- ========== HEADER ========== -->
-  <text x="60" y="44" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="700" fill="#2C2C2C">
+  <text x="40" y="44" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="700" fill="#2C2C2C">
     Workflow Paths — Two Ways Through the System
   </text>
-  <text x="60" y="70" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="400" fill="#666666">
+  <text x="40" y="70" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="400" fill="#666666">
     10 slash commands for single-prompt skill chains. 6 sprint templates for multi-day work. Pick your time horizon.
   </text>
-  <line x1="60" y1="86" x2="1140" y2="86" stroke="#E8E6E0" stroke-width="1"/>
+  <line x1="40" y1="86" x2="1160" y2="86" stroke="#E8E6E0" stroke-width="1"/>
 
   <!-- ========== SECTION A: SLASH COMMANDS ========== -->
-  <text x="60" y="120" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#9478B8" letter-spacing="0.5">
+  <text x="40" y="120" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#9478B8" letter-spacing="0.5">
     SLASH COMMANDS
   </text>
-  <text x="60" y="140" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="400" fill="#888888">
+  <text x="40" y="140" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="400" fill="#888888">
     Single prompt. Skill chain runs. You ship faster.
   </text>
 
@@ -73,9 +73,9 @@
 
   <!-- Hero badge: 10 skills -->
   <g>
-    <rect x="980" y="184" width="160" height="58" fill="#F3EFF8" stroke="#9478B8" stroke-width="1.5" rx="8"/>
-    <text x="1060" y="208" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#9478B8" text-anchor="middle">10 skills</text>
-    <text x="1060" y="228" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#7F5FA8" text-anchor="middle">chained · STOP gates</text>
+    <rect x="965" y="184" width="160" height="58" fill="#F3EFF8" stroke="#9478B8" stroke-width="1.5" rx="8"/>
+    <text x="1045" y="208" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#9478B8" text-anchor="middle">10 skills</text>
+    <text x="1045" y="228" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#7F5FA8" text-anchor="middle">chained · STOP gates</text>
   </g>
 
   <!-- 9 remaining slash commands: 3x3 grid -->
@@ -155,87 +155,87 @@
   <text x="822" y="548" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">what didn't, what changes next sprint.</text>
 
   <!-- ========== DIVIDER ========== -->
-  <line x1="60" y1="600" x2="1140" y2="600" stroke="#E8E6E0" stroke-width="1"/>
+  <line x1="40" y1="595" x2="1160" y2="595" stroke="#E8E6E0" stroke-width="1"/>
 
   <!-- ========== SECTION B: SPRINT TEMPLATES ========== -->
-  <text x="60" y="635" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#5B92B8" letter-spacing="0.5">
+  <text x="40" y="625" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#5B92B8" letter-spacing="0.5">
     SPRINT TEMPLATES
   </text>
-  <text x="60" y="655" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="400" fill="#888888">
+  <text x="40" y="645" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="400" fill="#888888">
     Multi-day blueprints. The work that doesn't compress into a single prompt.
   </text>
 
   <!-- 6 sprint cards: 3x2 grid -->
   <!-- Row 1 -->
   <g filter="url(#cardShadow)">
-    <rect x="40" y="675" width="358" height="124" fill="white" rx="10"/>
-    <rect x="40" y="675" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
+    <rect x="40" y="665" width="358" height="124" fill="white" rx="10"/>
+    <rect x="40" y="665" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
   </g>
-  <text x="60" y="708" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">new-ai-feature</text>
-  <text x="60" y="728" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">12 DAYS · DISCOVERY → SHIP</text>
-  <text x="60" y="752" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Full feature cycle. Discovery, strategy,</text>
-  <text x="60" y="766" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">safety, build, eval, ship — sequenced.</text>
-  <text x="60" y="785" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: greenfield AI feature, full team</text>
+  <text x="60" y="698" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">new-ai-feature</text>
+  <text x="60" y="718" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">12 DAYS · DISCOVERY → SHIP</text>
+  <text x="60" y="742" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Full feature cycle. Discovery, strategy,</text>
+  <text x="60" y="756" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">safety, build, eval, ship — sequenced.</text>
+  <text x="60" y="775" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: greenfield AI feature, full team</text>
 
   <g filter="url(#cardShadow)">
-    <rect x="421" y="675" width="358" height="124" fill="white" rx="10"/>
-    <rect x="421" y="675" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
+    <rect x="421" y="665" width="358" height="124" fill="white" rx="10"/>
+    <rect x="421" y="665" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
   </g>
-  <text x="441" y="708" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">ai-discovery-sprint</text>
-  <text x="441" y="728" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">5 DAYS · PROBLEM → BET</text>
-  <text x="441" y="752" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Compressed discovery. Interviews, JTBD,</text>
-  <text x="441" y="766" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">opportunity tree, AI-fit check, decision.</text>
-  <text x="441" y="785" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: you need a bet, not a build</text>
+  <text x="441" y="698" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">ai-discovery-sprint</text>
+  <text x="441" y="718" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">5 DAYS · PROBLEM → BET</text>
+  <text x="441" y="742" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Compressed discovery. Interviews, JTBD,</text>
+  <text x="441" y="756" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">opportunity tree, AI-fit check, decision.</text>
+  <text x="441" y="775" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: you need a bet, not a build</text>
 
   <g filter="url(#cardShadow)">
-    <rect x="802" y="675" width="358" height="124" fill="white" rx="10"/>
-    <rect x="802" y="675" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
+    <rect x="802" y="665" width="358" height="124" fill="white" rx="10"/>
+    <rect x="802" y="665" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
   </g>
-  <text x="822" y="708" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">quarterly-strategy-review</text>
-  <text x="822" y="728" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">5 DAYS · PORTFOLIO → ROADMAP</text>
-  <text x="822" y="752" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Portfolio review, capability scan, moat</text>
-  <text x="822" y="766" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">audit, signal-scan, roadmap rewrite.</text>
-  <text x="822" y="785" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: leadership wants the next bet</text>
+  <text x="822" y="698" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">quarterly-strategy-review</text>
+  <text x="822" y="718" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">5 DAYS · PORTFOLIO → ROADMAP</text>
+  <text x="822" y="742" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Portfolio review, capability scan, moat</text>
+  <text x="822" y="756" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">audit, signal-scan, roadmap rewrite.</text>
+  <text x="822" y="775" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: leadership wants the next bet</text>
 
   <!-- Row 2 -->
   <g filter="url(#cardShadow)">
-    <rect x="40" y="819" width="358" height="124" fill="white" rx="10"/>
-    <rect x="40" y="819" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
+    <rect x="40" y="800" width="358" height="124" fill="white" rx="10"/>
+    <rect x="40" y="800" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
   </g>
-  <text x="60" y="852" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">ai-incident-response</text>
-  <text x="60" y="872" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">HOURS · TRIAGE → RECOVERY</text>
-  <text x="60" y="896" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">When an AI feature breaks in production.</text>
-  <text x="60" y="910" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Triage, comms, postmortem, prevent recur.</text>
-  <text x="60" y="929" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: a hallucination hit production</text>
+  <text x="60" y="833" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">ai-incident-response</text>
+  <text x="60" y="853" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">HOURS · TRIAGE → RECOVERY</text>
+  <text x="60" y="877" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">When an AI feature breaks in production.</text>
+  <text x="60" y="891" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Triage, comms, postmortem, prevent recur.</text>
+  <text x="60" y="910" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: a hallucination hit production</text>
 
   <g filter="url(#cardShadow)">
-    <rect x="421" y="819" width="358" height="124" fill="white" rx="10"/>
-    <rect x="421" y="819" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
+    <rect x="421" y="800" width="358" height="124" fill="white" rx="10"/>
+    <rect x="421" y="800" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
   </g>
-  <text x="441" y="852" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">eval-ops-setup</text>
-  <text x="441" y="872" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">3-5 DAYS · BUILD THE EVALS</text>
-  <text x="441" y="896" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Stand up eval pipelines, regression suites,</text>
-  <text x="441" y="910" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">production-observability dashboards.</text>
-  <text x="441" y="929" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: shipping without measurement</text>
+  <text x="441" y="833" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">eval-ops-setup</text>
+  <text x="441" y="853" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">3-5 DAYS · BUILD THE EVALS</text>
+  <text x="441" y="877" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Stand up eval pipelines, regression suites,</text>
+  <text x="441" y="891" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">production-observability dashboards.</text>
+  <text x="441" y="910" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: shipping without measurement</text>
 
   <g filter="url(#cardShadow)">
-    <rect x="802" y="819" width="358" height="124" fill="white" rx="10"/>
-    <rect x="802" y="819" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
+    <rect x="802" y="800" width="358" height="124" fill="white" rx="10"/>
+    <rect x="802" y="800" width="358" height="6" fill="url(#sprintAccent)" rx="0"/>
   </g>
-  <text x="822" y="852" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">agent-launch-checklist</text>
-  <text x="822" y="872" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">2-3 DAYS · GATES BEFORE GA</text>
-  <text x="822" y="896" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Autonomy review, harness audit, breach</text>
-  <text x="822" y="910" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">drills, trust-ladder check before launch.</text>
-  <text x="822" y="929" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: an agent is about to act for users</text>
+  <text x="822" y="833" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700" fill="#2C2C2C">agent-launch-checklist</text>
+  <text x="822" y="853" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5B92B8" letter-spacing="0.4">2-3 DAYS · GATES BEFORE GA</text>
+  <text x="822" y="877" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">Autonomy review, harness audit, breach</text>
+  <text x="822" y="891" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">drills, trust-ladder check before launch.</text>
+  <text x="822" y="910" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#999999">Use when: an agent is about to act for users</text>
 
   <!-- ========== FOOTER INSIGHT ========== -->
   <g filter="url(#softShadow)">
-    <rect x="40" y="975" width="1120" height="62" fill="#F8F5FF" stroke="#E0D5F0" stroke-width="1" rx="10"/>
+    <rect x="40" y="935" width="1120" height="55" fill="#F8F5FF" stroke="#E0D5F0" stroke-width="1" rx="10"/>
   </g>
-  <text x="60" y="1003" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="#2C2C2C">
+  <text x="60" y="958" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="#2C2C2C">
     Slash command if it fits in one prompt. Sprint template if the work needs days.
   </text>
-  <text x="60" y="1023" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">
+  <text x="60" y="977" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">
     The orchestrator picks for you when you describe the situation. /design-ai-feature is the gauntlet — use when you want the full quality bar in one shot.
   </text>
 </svg>

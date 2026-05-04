@@ -69,11 +69,10 @@
   <path d="M 730 295 L 750 295" stroke="#9CA3AF" stroke-width="2" fill="none"/>
   <polygon points="748,291 756,295 748,299" fill="#9CA3AF"/>
 
-  <!-- Dashed lines from brain to steps -->
-  <path d="M 490 195 C 400 215 250 225 165 240" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-dasharray="6,4"/>
-  <path d="M 530 200 L 395 240" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-dasharray="6,4"/>
-  <path d="M 670 200 L 625 240" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-dasharray="6,4"/>
-  <path d="M 710 195 C 750 215 810 225 855 240" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-dasharray="6,4"/>
+  <!-- Horizontal divider with parallel-deploy label -->
+  <line x1="60" y1="223" x2="450" y2="223" stroke="#C8B8E0" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="750" y1="223" x2="1140" y2="223" stroke="#C8B8E0" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="600" y="227" text-anchor="middle" fill="#7556A0" font-size="10" font-weight="700" font-family="Inter, sans-serif" letter-spacing="2">DEPLOY ALL FOUR IN PARALLEL</text>
 
   <!-- Worker Agents Section -->
   <text x="600" y="390" text-anchor="middle" fill="#5B3E7A" font-size="18" font-weight="800" font-family="Inter, Segoe UI, sans-serif">The Worker Agents — Deployed by the Orchestrator</text>
@@ -149,41 +148,41 @@
   <text x="933" y="539" text-anchor="middle" fill="#3D8068" font-size="11" font-weight="600" font-family="Inter, sans-serif">prod-watch</text>
 
   <!-- Crafter (below, centered) -->
-  <rect x="380" y="580" width="440" height="80" rx="14" fill="#FFFFFF" stroke="#D4A54A" stroke-width="2" filter="url(#s)"/>
-  <rect x="380" y="580" width="440" height="34" rx="14" fill="#D4A54A"/>
-  <rect x="380" y="602" width="440" height="12" fill="#D4A54A"/>
-  <text x="600" y="604" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, sans-serif">Crafter — Ship-Ready Artifacts (runs LAST, after all teams)</text>
-  <rect x="395" y="626" width="56" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
-  <text x="423" y="641" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">ai-prd</text>
-  <rect x="457" y="626" width="72" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
-  <text x="493" y="641" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">agent-spec</text>
-  <rect x="535" y="626" width="70" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
-  <text x="570" y="641" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">cost-model</text>
-  <rect x="611" y="626" width="78" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
-  <text x="650" y="641" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">ship-decision</text>
-  <rect x="695" y="626" width="86" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
-  <text x="738" y="641" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">competitive-map</text>
+  <rect x="380" y="595" width="440" height="80" rx="14" fill="#FFFFFF" stroke="#D4A54A" stroke-width="2" filter="url(#s)"/>
+  <rect x="380" y="595" width="440" height="34" rx="14" fill="#D4A54A"/>
+  <rect x="380" y="617" width="440" height="12" fill="#D4A54A"/>
+  <text x="600" y="619" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700" font-family="Inter, sans-serif">Crafter — Ship-Ready Artifacts (runs LAST, after all teams)</text>
+  <rect x="395" y="641" width="56" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
+  <text x="423" y="656" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">ai-prd</text>
+  <rect x="457" y="641" width="72" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
+  <text x="493" y="656" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">agent-spec</text>
+  <rect x="535" y="641" width="70" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
+  <text x="570" y="656" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">cost-model</text>
+  <rect x="611" y="641" width="78" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
+  <text x="650" y="656" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">ship-decision</text>
+  <rect x="695" y="641" width="86" height="22" rx="6" fill="#FFF3D6" stroke="#F0D78A" stroke-width="1"/>
+  <text x="738" y="656" text-anchor="middle" fill="#946E2A" font-size="11" font-weight="600" font-family="Inter, sans-serif">competitive-map</text>
 
   <!-- Arrows from agents to crafter -->
-  <path d="M 128 562 C 128 572 400 572 480 580" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
-  <path d="M 318 562 C 318 572 420 572 500 580" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
-  <path d="M 508 562 L 560 580" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
-  <path d="M 698 562 L 640 580" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
-  <path d="M 888 562 C 888 572 780 572 720 580" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M 128 562 C 128 580 400 587 480 595" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M 318 562 C 318 580 420 587 500 595" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M 508 562 L 560 595" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M 698 562 L 640 595" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+  <path d="M 888 562 C 888 580 780 587 720 595" stroke="#D4A54A" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
 
   <!-- Arrow from crafter to output -->
-  <path d="M 600 660 L 600 690" stroke="#7BA86C" stroke-width="3" fill="none"/>
-  <polygon points="594,688 600,700 606,688" fill="#7BA86C"/>
+  <path d="M 600 675 L 600 700" stroke="#7BA86C" stroke-width="3" fill="none"/>
+  <polygon points="594,698 600,710 606,698" fill="#7BA86C"/>
 
   <!-- Output box -->
-  <rect x="280" y="700" width="640" height="76" rx="14" fill="#F5FAF2" stroke="#7BA86C" stroke-width="2" filter="url(#s)"/>
-  <text x="600" y="732" text-anchor="middle" fill="#3A5E2E" font-size="18" font-weight="700" font-family="Inter, Segoe UI, sans-serif">Pre-Tested, Executive-Level Output</text>
-  <text x="600" y="756" text-anchor="middle" fill="#4E7A40" font-size="14" font-family="Inter, sans-serif">Engineering builds from it. Finance models it. QA tests against it. Monday morning ready.</text>
+  <rect x="280" y="710" width="640" height="76" rx="14" fill="#F5FAF2" stroke="#7BA86C" stroke-width="2" filter="url(#s)"/>
+  <text x="600" y="742" text-anchor="middle" fill="#3A5E2E" font-size="18" font-weight="700" font-family="Inter, sans-serif">Pre-Tested, Executive-Level Output</text>
+  <text x="600" y="766" text-anchor="middle" fill="#4E7A40" font-size="14" font-family="Inter, sans-serif">Engineering builds from it. Finance models it. QA tests against it. Monday morning ready.</text>
 
   <!-- Feedback loop -->
-  <path d="M 920 738 C 1000 738 1060 600 1060 400 C 1060 250 1000 200 920 195" stroke="#9478B8" stroke-width="2" fill="none" stroke-dasharray="6,4"/>
+  <path d="M 920 748 C 990 748 1050 600 1050 400 C 1050 250 990 200 920 195" stroke="#9478B8" stroke-width="2" fill="none" stroke-dasharray="6,4"/>
   <polygon points="922,190 912,195 922,200" fill="#9478B8"/>
-  <text x="1090" y="460" text-anchor="middle" fill="#9478B8" font-size="12" font-weight="700" font-family="Inter, sans-serif" transform="rotate(-90, 1090, 460)">Feedback compounds</text>
+  <text x="1085" y="460" text-anchor="middle" fill="#9478B8" font-size="12" font-weight="700" font-family="Inter, sans-serif" transform="rotate(-90, 1085, 460)">Feedback compounds</text>
 
   <!-- Footer -->
   <text x="600" y="820" text-anchor="middle" fill="#9CA3AF" font-size="13" font-family="Inter, sans-serif">The difference: the thinking happened in the right order. Every document arrives pre-tested.</text>
