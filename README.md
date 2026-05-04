@@ -93,7 +93,7 @@ Plus 17 general-purpose skills covering everything else Ravi does: `ravi-thinkin
 
 ### 11 Slash Commands
 
-Each chains multiple skills into one decisive output. Run when the work is single-prompt, not a multi-day sprint.
+Each chains multiple skills into one decisive output. Run when the work is single-prompt, not a multi-step sprint.
 
 | Command | What it does | When |
 |---|---|---|
@@ -111,11 +111,20 @@ Each chains multiple skills into one decisive output. Run when the work is singl
 
 The crown jewel is `/design-ai-feature` — every gate prevents a specific AI launch failure mode. *problem-ai-fit* prevents building ML for a problem rules would solve at 1/100th the cost. *autonomy-spectrum* prevents giving AI L4 when L2 was sufficient. *cost-model* prevents the 1000x volume blow-up between pilot and GA. *safety-by-design* prevents bolted-on guardrails that break the UX before fixing the failure mode.
 
-### 6 Multi-Day Sprint Templates
+### 6 Sprint Templates (Multi-Step Orchestration)
 
-Project blueprints for work that spans days and orchestrates 30+ skills end-to-end. `new-ai-feature.md` (12 days, all 80 skills), `ai-discovery-sprint.md` (5 days), `quarterly-strategy-review.md` (5 days), `ai-incident-response.md` (hours-days), `eval-ops-setup.md` (days), `agent-launch-checklist.md` (days).
+Slash commands chain skills into one decisive output. Sprint templates orchestrate when the work doesn't fit in one prompt — multiple iterations, multiple skill blocks, multiple outputs that compose into a finished deliverable. Time is the user's variable; the template defines the orchestration depth.
 
-Slash commands and sprint templates are not competing — slash commands are the daily-cadence layer that supports execution between sprint cycles.
+| Template | Scope | Triggers when |
+|---|---|---|
+| `new-ai-feature.md` | Full feature lifecycle, all 80 skills, concept → ship | Greenfield AI feature with no prior framing |
+| `ai-discovery-sprint.md` | Compressed discovery — interviews, JTBD, opportunity tree, AI-fit, decision | You need a bet, not a build |
+| `quarterly-strategy-review.md` | Portfolio review, capability scan, moat audit, signal scan, roadmap rewrite | Leadership wants the next bet |
+| `ai-incident-response.md` | Active incident — triage, containment, comms, postmortem | A hallucination hit production |
+| `eval-ops-setup.md` | Eval pipelines, regression suites, production observability dashboards | Shipping AI without measurement infrastructure |
+| `agent-launch-checklist.md` | Autonomy review, harness audit, breach drills, trust-ladder check | An agent is about to act for users |
+
+Slash commands and sprint templates are not competing — slash commands are the single-prompt layer; sprint templates are the multi-prompt orchestration layer for work the orchestrator decomposes across iterations. The orchestrator picks based on how the user describes the situation.
 
 ---
 
@@ -261,7 +270,7 @@ I'm what the research calls a *bridger.* When engineering says *we need a valida
 ## Repo state at a glance
 
 - **80 skills** = 62 AI PM layer skills + 1 orchestrator + 17 general-purpose. All lint-clean, frontmatter audited, voice-consistent.
-- **11 slash commands** + **6 multi-day sprint templates**.
+- **11 slash commands** + **6 multi-step sprint templates**.
 - **1 plugin marketplace** registration (installable from any machine via `/plugin marketplace add`).
 - **1 orchestrator** (v1.4.0) — Ravi's full second brain. Always on, every session. AI PM is the deepest expertise; same rigor applies to any domain.
 - **DESIGN.md export** for the brand system (agent-portable across Claude Code, Cursor, v0, Bolt).
