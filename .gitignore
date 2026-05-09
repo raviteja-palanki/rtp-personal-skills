@@ -31,7 +31,7 @@ Desktop.ini
 
 # === Large Binary Files ===
 # Keep .docx and .pdf in repo (they're content, not code)
-# But exclude video and other large media
+# But exclude video, images, and other large media
 *.mp4
 *.mov
 *.avi
@@ -39,6 +39,13 @@ Desktop.ini
 *.zip
 *.tar.gz
 *.rar
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif
+*.bmp
+*.tiff
 
 # === Skill Archives (ZIP bundles for Claude.ai web) ===
 # These are deployment artifacts, not source
