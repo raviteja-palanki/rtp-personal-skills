@@ -1,11 +1,12 @@
 {
   "name": "rtp-personal-skills",
   "version": "1.3.0",
-  "description": "Ravi Teja Palanki's second brain — installable as a Claude Code plugin. A top-0.1% AI PM by depth, a smart human across every domain by breadth. 80 skills total: rtp-aipm-orchestrator v1.4.0 (always on, every session, scope determined by the question) + 62 AI PM skills across 7 specialist layers (thinking-core, product-sense, ai-strategy, safety-and-trust, agent-design, eval-and-quality, craft) + 17 general-purpose skills (thinking, writing, branding, presentations, visualization, design-systems, research, admin, resume, readme-storytelling). 11 slash commands including /rtp-setup for ecosystem bootstrap. Install once, absorb the full skill library on any machine. Companion plugin manifest at COMPANION-PLUGINS.md documents the 5-tier wider ecosystem (superpowers, compound-engineering, pm-skills, anthropic-skills, dev tools) the orchestrator commands.",
+  "description": "Ravi Teja Palanki's second brain — installable as a Claude Code plugin. 80 skills: rtp-aipm-orchestrator v1.4.0 (always on) + 62 AI PM skills across 7 specialist layers + 17 general-purpose skills. 11 slash commands including /rtp-setup.",
   "author": {
     "name": "Ravi Teja Palanki (RTP)",
-    "url": "https://github.com/raviteja-palanki"
+    "email": "savings.rtp@gmail.com"
   },
+  "homepage": "https://github.com/raviteja-palanki/rtp-personal-skills",
   "repository": "https://github.com/raviteja-palanki/rtp-personal-skills",
   "license": "SEE LICENSE IN LICENSE",
   "keywords": [

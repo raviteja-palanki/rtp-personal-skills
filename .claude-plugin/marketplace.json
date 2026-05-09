@@ -1,18 +1,52 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "rtp-personal-skills",
-  "version": "1.3.0",
-  "description": "Ravi Teja Palanki's second brain — installable. A top-0.1% AI PM by depth, a smart human across every domain by breadth. 80 skills (1 orchestrator v1.4.0 + 62 AI PM skills across 7 specialist layers + 17 general-purpose) and 11 slash commands. AI PM is where the expertise runs deepest; the same thinking discipline applies to any question (code review, finance, history, design, life decisions) — research first, push back when wrong, end with what to do Monday morning. Designed to install on any Claude Code account and command the wider plugin ecosystem (superpowers, compound-engineering, pm-skills, anthropic-skills) — see COMPANION-PLUGINS.md for the 5-tier map.",
   "owner": {
     "name": "Ravi Teja Palanki (RTP)",
-    "url": "https://github.com/raviteja-palanki"
+    "email": "savings.rtp@gmail.com"
+  },
+  "metadata": {
+    "description": "Ravi Teja Palanki's second brain — installable. A top-0.1% AI PM by depth, a smart human across every domain by breadth. 80 skills (1 orchestrator v1.4.0 + 62 AI PM skills across 7 specialist layers + 17 general-purpose) and 11 slash commands. AI PM is where the expertise runs deepest; the same thinking discipline applies to any question (code review, finance, history, design, life decisions) — research first, push back when wrong, end with what to do Monday morning.",
+    "version": "1.3.0"
   },
   "plugins": [
     {
       "name": "rtp-personal-skills",
-      "description": "The complete RTP skill library: rtp-aipm-orchestrator (v1.4.0, Ravi's second brain — always on, scope determined by the question, not by an AI-PM ceiling) + 62 AI PM skills across 7 specialist layers (thinking-core, product-sense, ai-strategy, safety-and-trust, agent-design, eval-and-quality, craft) + 17 general-purpose skills (thinking, writing, branding, presentations, visualization, design-systems, research, admin, resume-builder, readme-storytelling) + 11 slash commands including /rtp-setup for ecosystem bootstrap. Pairs with companion plugins documented in COMPANION-PLUGINS.md.",
-      "source": ".",
-      "category": "ai-product-management"
+      "source": "./",
+      "description": "The complete RTP skill library: rtp-aipm-orchestrator (v1.4.0, always on) + 62 AI PM skills across 7 specialist layers (thinking-core, product-sense, ai-strategy, safety-and-trust, agent-design, eval-and-quality, craft) + 17 general-purpose skills + 11 slash commands including /rtp-setup.",
+      "version": "1.3.0",
+      "author": {
+        "name": "Ravi Teja Palanki (RTP)",
+        "email": "savings.rtp@gmail.com"
+      },
+      "homepage": "https://github.com/raviteja-palanki/rtp-personal-skills",
+      "repository": "https://github.com/raviteja-palanki/rtp-personal-skills",
+      "license": "SEE LICENSE IN LICENSE",
+      "keywords": [
+        "ai-pm",
+        "product-management",
+        "ai-strategy",
+        "thinking-skills",
+        "rtp",
+        "orchestrator",
+        "eval-framework",
+        "agent-design",
+        "safety-trust",
+        "presentations",
+        "research",
+        "writing",
+        "design-system",
+        "companion-plugins"
+      ],
+      "category": "ai-product-management",
+      "tags": [
+        "ai-pm",
+        "orchestrator",
+        "second-brain",
+        "product-thinking",
+        "agent-design",
+        "evals",
+        "open-source"
+      ]
     }
   ]
 }
