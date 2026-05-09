@@ -175,7 +175,7 @@ URL_PROFILE     = "https://ravitejapalanki.com/profile"
 URL_GITHUB      = "https://github.com/raviteja-palanki/rtp-personal-skills"
 URL_PP          = "https://productpatterns.in"
 URL_PP_GITHUB   = "https://github.com/raviteja-palanki/Patterns"
-URL_LEARN       = "https://learn.ravitejapalanki.com"
+URL_WRITING     = "https://www.ravitejapalanki.com/writing"
 URL_SUBSTACK    = "https://ravitejapalanki.substack.com"
 
 # Education
@@ -315,4 +315,4 @@ Links: productpatterns.in + https://github.com/raviteja-palanki/Patterns
 ```
 Sharing AI knowledge publicly — frameworks, lessons, and insights
 ```
-Links: learn.ravitejapalanki.com + Substack
+Links: ravitejapalanki.com/writing + Substack
