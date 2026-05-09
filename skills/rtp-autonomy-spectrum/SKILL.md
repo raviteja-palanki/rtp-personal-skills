@@ -3,7 +3,7 @@ name: rtp-autonomy-spectrum
 version: 3.0.0
 author: RTP (Ravi Teja Palanki)
 plugin: rtp-agent-design
-updated: April 5, 2026 (v3.0: comprehensive product intelligence map, model-agnostic design pattern, Descript exemplar)
+updated: "April 5, 2026 (v3.0: comprehensive product intelligence map, model-agnostic design pattern, Descript exemplar)"
 description: >
   Choose the right level of AI autonomy for every interaction — from autocomplete to
   multi-agent systems. Use when someone says "let's build an agent", when designing any

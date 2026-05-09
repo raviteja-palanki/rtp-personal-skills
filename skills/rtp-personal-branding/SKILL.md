@@ -1,10 +1,10 @@
 ---
 name: rtp-personal-branding
 version: 2.1
-description: Ravi Teja Palanki's complete design system for every visual surface — website (ravitejapalanki.com), presentations (Gamma, PowerPoint), documents (Word), diagrams, article pages. Dark + light themes properly separated. Nine creative principles that govern every choice. V2.1 adds 5 components from the AI Evals hub (canonical): Live Trace observability engine, per-level semantic animated SVG badges, card laser on hover, status ring indicator, spotlight 3D tilt card.
+description: "Ravi Teja Palanki's complete design system for every visual surface — website (ravitejapalanki.com), presentations (Gamma, PowerPoint), documents (Word), diagrams, article pages. Dark + light themes properly separated. Nine creative principles that govern every choice. V2.1 adds 5 components from the AI Evals hub (canonical) — Live Trace observability engine, per-level semantic animated SVG badges, card laser on hover, status ring indicator, spotlight 3D tilt card."
 author: Ravi Teja Palanki
 created: 17 April 2026
-updated: 17 April 2026 (v2.1 — added 5 components from the AI Evals hub (canonical): Live Trace engine, semantic badges, card laser, status ring, spotlight 3D tilt)
+updated: "17 April 2026 (v2.1 — added 5 components from the AI Evals hub (canonical) — Live Trace engine, semantic badges, card laser, status ring, spotlight 3D tilt)"
 supersedes: learn-site-design (v2.0), ravi-personal-branding (v1.0)
 ---
 
