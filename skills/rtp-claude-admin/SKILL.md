@@ -185,6 +185,66 @@ Steps:
 4. Update SKILL-REGISTRY.md "Deployed To" column
 5. Add CHANGE_LOG entry
 
+### Action 9: PLUGIN PUBLISHING AUDIT
+**What it does:** Validates the `rtp-personal-skills` plugin end-to-end and surfaces install blockers BEFORE publishing to GitHub or rebuilding the `.plugin` bundle. Captures the architectural lessons from the May 2026 plugin-install debugging cycle.
+
+**When to run:** Before every push to GitHub. Before rebuilding the `.plugin` upload bundle. Whenever a session has modified skill frontmatter, the orchestrator, or `.claude-plugin/` manifests.
+
+**Steps:**
+
+1. **Run the official validator first — it is the source of truth.**
+   ```bash
+   cd ~/Desktop/Claude/rtp-personal-skills-repo && claude plugin validate .
+   ```
+   If this fails, stop. Do NOT trust the Claude Desktop "Customize" UI's "validation failed" toast as diagnostic signal — it returns the same generic message for every failure mode. The CLI tells you exactly what's wrong.
+
+2. **Scan every SKILL.md frontmatter for the four hard blockers:**
+   ```python
+   # For each skills/*/SKILL.md:
+   #   - YAML must parse cleanly (the "mapping values not allowed" trap)
+   #   - name must match folder name exactly (lowercase-hyphenated, ≤64 chars)
+   #   - description must be ≤ 1024 chars (Anthropic hard limit — one bad skill blocks the whole plugin)
+   #   - description must contain a trigger pattern ("use when...", "use to...", "use before...")
+   ```
+   The YAML colon trap: unquoted parenthetical version notes like `(v3.0: comprehensive...)` or `(canonical): Live Trace...` get interpreted as nested mapping keys and break the parser silently. Quote them or replace the inner colon with an em-dash.
+
+3. **Field-vocabulary audit.** Count distinct frontmatter fields across all skills. Only `name` and `description` are required by Anthropic's Skill spec. Everything else (`imports`, `version`, `author`, `title`, `id`, `category`, `difficulty`, `last_updated`, `plugin`, `updated`, `status`, `tags`, `created`, `triggers`, `type`, etc.) is noise that creates invisible debt. If field count > 2, propose stripping the rest.
+
+4. **Orphan plugin manifest scan.** Search the entire workspace (excluding `_archive/` and worktrees) for ALL `.claude-plugin/plugin.json` files. There should be exactly ONE (the canonical `rtp-personal-skills-repo/.claude-plugin/plugin.json`). Any others are orphans from the old multi-plugin architecture — archive them to `_archive/{DATE}/legacy-plugin-manifests/` and remove the source directories. Claude's plugin scanner picks up orphans and shows phantom plugins in the directory UI.
+   ```bash
+   find ~/Desktop/Claude -name "plugin.json" -path "*.claude-plugin*" 2>/dev/null | grep -v "_archive\|worktrees"
+   ```
+
+5. **Three-way sync verification.** The plugin lives in three places that must agree on commit hash:
+   ```bash
+   echo "Desktop repo: $(cd ~/Desktop/Claude/rtp-personal-skills-repo && git log -1 --format='%h')"
+   echo "GitHub:       $(git ls-remote https://github.com/raviteja-palanki/rtp-personal-skills.git HEAD | awk '{print substr($1,1,7)}')"
+   echo "Local cache:  $(cd ~/.claude/plugins/marketplaces/rtp-personal-skills && git log -1 --format='%h')"
+   ```
+   If the local cache lags behind GitHub, the Desktop UI install will use the OLD code — every "validation failed" with stale cache will reproduce even after fixes are pushed. Force-refresh the cache:
+   ```bash
+   cd ~/.claude/plugins/marketplaces/rtp-personal-skills && git fetch origin main && git reset --hard origin/main
+   ```
+
+6. **`.plugin` bundle freshness check.** The manual-upload `.plugin` file is a zip; its contents are dated by zip metadata, NOT by the file's mtime. An old bundle on disk uploaded after fixes were pushed will reproduce the original failure. Rebuild from the current repo state:
+   ```bash
+   cd ~/Desktop/Claude/rtp-personal-skills-repo && zip -r ~/Desktop/Claude/rtp-personal-skills.plugin . -x "*.git/*"
+   ```
+
+7. **Post-push: refresh the local cache and re-validate.**
+   After `git push origin main`, immediately:
+   ```bash
+   cd ~/.claude/plugins/marketplaces/rtp-personal-skills && git fetch origin main && git reset --hard origin/main && claude plugin validate .
+   ```
+   This catches the "I pushed but the cache still has old code" failure mode that wasted multiple hours during the May 2026 debugging cycle.
+
+**Output format:**
+- Pre-push report: `✓ N/N skills pass | ✓ 1 manifest | ✓ field-vocabulary clean | ⚠ M orphans found at [paths]`
+- One-line action recommendation per finding
+- Three-way sync table after publishing
+
+**Reference:** Full root-cause history is in CHANGE_LOG.md under the May 2026 entries. The architectural lessons compounded across 5+ failed install attempts before the final fix.
+
 ---
 
 ## Session Governance Reminders
