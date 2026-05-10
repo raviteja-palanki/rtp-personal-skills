@@ -1,10 +1,7 @@
 ---
 name: rtp-confidence-tuner
-description: >
-  Design trust signals so users neither over-rely on AI nor ignore it. 49% error reduction achievable through confidence alerts alone. Show endorsements when AI is confident and correct domain. Show warnings when AI is uncertain or outside training distribution. Calibrate, don't just display. Use when designing confidence indicators for any AI system, reducing automation bias or alert fatigue, designing UX for probabilistic systems, or when users are misaligning with AI reliability. Skip for systems with near-100% accuracy (no calibration needed) or for static, deterministic systems.
-imports: [trust-ladder, eval-framework]
+description: Design trust signals so users neither over-rely on AI nor ignore it. 49% error reduction achievable through confidence alerts alone. Show endorsements when AI is confident and correct domain. Show warnings when AI is uncertain or outside training distribution. Calibrate, don't just display. Use when designing confidence indicators for any AI system, reducing automation bias or alert fatigue, designing UX for probabilistic systems, or when users are misaligning with AI reliability. Skip for systems with near-100% accuracy (no calibration needed) or for static, deterministic systems.
 ---
-
 # Confidence Tuner
 
 ## DEPTH DECISION

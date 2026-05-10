@@ -1,15 +1,7 @@
 ---
 name: rtp-ai-use-case-readiness
-description: >
-  Assess whether a use case needs no AI, rules, assistive AI, or autonomous agents.
-  Hypothesis-driven autonomy analysis with 12 diagnostics, dual matrices,
-  phased roadmaps, and governance readiness checks.
-imports:
-  - first-principles
-  - determinism-compass
-  - autonomy-spectrum
+description: Use when evaluating whether to build with AI, picking the right autonomy level, or scoring a candidate use case for readiness. Assess whether a use case needs no AI, rules, assistive AI, or autonomous agents. Hypothesis-driven autonomy analysis with 12 diagnostics, dual matrices, phased roadmaps, and governance readiness checks.
 ---
-
 # AI Use Case Readiness Assessment
 
 Determine the right-sized autonomy for a use case — not the maximum autonomy.

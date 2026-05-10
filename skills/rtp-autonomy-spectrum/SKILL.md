@@ -1,31 +1,7 @@
 ---
 name: rtp-autonomy-spectrum
-version: 3.0.0
-author: RTP (Ravi Teja Palanki)
-plugin: rtp-agent-design
-updated: "April 5, 2026 (v3.0: comprehensive product intelligence map, model-agnostic design pattern, Descript exemplar)"
-description: >
-  Choose the right level of AI autonomy for every interaction — from autocomplete to
-  multi-agent systems. Use when someone says "let's build an agent", when designing any
-  AI product, when evaluating competitors, or when deciding how much control to give AI.
-  The core question: who decides what happens next — the code or the model? This skill
-  gives you the 7-level spectrum to answer that for every feature, not just the product.
-  Do NOT use for: evaluating model quality (use eval-framework), testing outputs
-  (use stress-test), or incident response (use safety-by-design).
-imports:
-  - determinism-compass
-  - tool-architecture
-frameworks:
-  - name: "The Agent Spectrum"
-    source: "AI Fluent — Ravi Teja Palanki (2026)"
-    canonical: "../../frameworks/governance/autonomy-ladder.md"
-  - name: "Four-Friction Model"
-    source: "Telang, Hydari, Iqbal — HBR (2026)"
-    canonical: "../../frameworks/governance/four-friction-model.md"
-  - name: "Autonomy Ladder (Sema4.ai adaptation)"
-    source: "Sema4.ai Research (2025)"
+description: 'Choose the right level of AI autonomy for every interaction — from autocomplete to multi-agent systems. Use when someone says "let''s build an agent", when designing any AI product, when evaluating competitors, or when deciding how much control to give AI. The core question: who decides what happens next — the code or the model? This skill gives you the 7-level spectrum to answer that for every feature, not just the product. Do NOT use for: evaluating model quality (use eval-framework), testing outputs (use stress-test), or incident response (use safety-by-design).'
 ---
-
 # Autonomy Spectrum
 **Place every AI interaction at exactly the level it deserves — not the highest.**
 

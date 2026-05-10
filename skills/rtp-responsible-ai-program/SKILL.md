@@ -1,11 +1,7 @@
 ---
 name: rtp-responsible-ai-program
-description: "Build or audit an enterprise Responsible AI program using the MIT Sloan 3 Gaps framework and SHARP implementation system. Diagnoses organisational accountability, strategy, and resource gaps. Designs governance structures that hardwire ethics into product development. Triggers: 'responsible AI', 'AI governance program', 'ethics program', 'SHARP framework', 'accountability gap', 'AI governance structure', 'AI ethics by design'"
-imports: ["safety-as-moat", "safety-by-design", "dual-lens"]
-version: "1.1"
-framework_source: "MIT Sloan Management Review — Öykü Işık & Ankita Goswami, 'The Three Obstacles Slowing Responsible AI', October 2025"
+description: 'Use when building or auditing an enterprise Responsible AI program — diagnosing accountability gaps, designing governance, or scoring readiness. Build or audit an enterprise Responsible AI program using the MIT Sloan 3 Gaps framework and SHARP implementation system. Diagnoses organisational accountability, strategy, and resource gaps. Designs governance structures that hardwire ethics into product development. Triggers: ''responsible AI'', ''AI governance program'', ''ethics program'', ''SHARP framework'', ''accountability gap'', ''AI governance structure'', ''AI ethics by design'''
 ---
-
 # Responsible AI Program
 
 ## DEPTH DECISION

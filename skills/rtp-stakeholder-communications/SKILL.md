@@ -1,23 +1,7 @@
 ---
 name: rtp-stakeholder-communications
-description: >
-  Audience-tailored communication for AI features — exec summaries, engineering briefs,
-  launch announcements, risk escalations, weekly digests. The differentiator is AI-native
-  confidence framing: every claim about a model's behavior carries an eval-backed band, a
-  named drift surface, and a mandatory "what could be wrong" section. Use when a single
-  piece of information needs to land in three rooms — exec, engineering, customer — and
-  each room is going to ask a different "but what's the failure rate?" question. Do NOT
-  use for internal team chat, casual PR updates, or comms about deterministic features
-  where probabilistic framing is theater. Triggers: "stakeholder update," "exec briefing,"
-  "escalate to leadership," "launch announcement," "weekly digest," "send a note to."
-imports:
-  - ai-product-metrics
-  - eval-framework
-  - problem-ai-fit
-  - trust-under-fog
-  - confidence-tuner
+description: 'Audience-tailored communication for AI features — exec summaries, engineering briefs, launch announcements, risk escalations, weekly digests. The differentiator is AI-native confidence framing: every claim about a model''s behavior carries an eval-backed band, a named drift surface, and a mandatory "what could be wrong" section. Use when a single piece of information needs to land in three rooms — exec, engineering, customer — and each room is going to ask a different "but what''s the failure rate?" question. Do NOT use for internal team chat, casual PR updates, or comms about deterministic features where probabilistic framing is theater. Triggers: "stakeholder update," "exec briefing," "escalate to leadership," "launch announcement," "weekly digest," "send a note to."'
 ---
-
 # Stakeholder Communications: AI-Native Edition
 
 ## DEPTH DECISION

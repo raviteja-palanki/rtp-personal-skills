@@ -1,25 +1,7 @@
 ---
 name: rtp-production-observability
-description: >
-  Catch silent AI degradation in production before users leave. Monitor latency, cost,
-  quality drift, usage patterns, and error categorization with real-time alerts — not
-  weekly dashboards. AI systems degrade silently in ways traditional logging misses
-  (model drift, prompt regressions, distribution shift). Use when shipping an AI feature
-  to production, debugging "it worked yesterday" reports, designing alerts for AI
-  systems, or auditing whether you'd catch a degradation before users complain.
-  Triggers on "AI in production", "monitoring AI", "model drift", "quality regression",
-  "production observability", "alerts for AI", "silent failure".
-id: production-observability
-title: Production Observability for AI Systems
-category: craft
-difficulty: intermediate
-imports:
-  - stress-test
-  - eval-framework
-author: ai-pm
-last_updated: 2026-03-28
+description: Catch silent AI degradation in production before users leave. Monitor latency, cost, quality drift, usage patterns, and error categorization with real-time alerts — not weekly dashboards. AI systems degrade silently in ways traditional logging misses (model drift, prompt regressions, distribution shift). Use when shipping an AI feature to production, debugging "it worked yesterday" reports, designing alerts for AI systems, or auditing whether you'd catch a degradation before users complain. Triggers on "AI in production", "monitoring AI", "model drift", "quality regression", "production observability", "alerts for AI", "silent failure".
 ---
-
 ## DEPTH DECISION
 
 Can you detect when your AI product degraded in the past hour? Or do you find out when users complain?

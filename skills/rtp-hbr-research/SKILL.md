@@ -1,28 +1,7 @@
 ---
 name: rtp-hbr-research
-version: 1.0.0
-description: >
-  Monthly research synthesis engine for Harvard Business Review, MIT Sloan, and other
-  tier-1 management research. Auto-classifies PDFs into thematic batches, launches parallel
-  extraction agents (each reading through the lens of a top 0.1% AI Product Manager),
-  orchestrates cross-batch pattern synthesis, maps findings to the existing AI PM skill system,
-  identifies new skills to create, and produces Excalidraw visualizations for retention.
-  Use this skill whenever Ravi drops new research PDFs into the hbr-ai-2026 folder, mentions
-  "HBR research", "research synthesis", "process the articles", "extract from PDFs",
-  "what did the research say", or wants to run the monthly research cycle. Also use when
-  Ravi asks about frameworks, data points, or insights from prior research cycles — this skill
-  knows where the dossiers live and can retrieve specific findings.
-triggers:
-  - hbr research
-  - research synthesis
-  - process the articles
-  - monthly research
-  - extract from PDFs
-  - what did the research say
-  - run the research cycle
-  - new articles to process
+description: Monthly research synthesis engine for Harvard Business Review, MIT Sloan, and other tier-1 management research. Auto-classifies PDFs into thematic batches, launches parallel extraction agents (each reading through the lens of a top 0.1% AI Product Manager), orchestrates cross-batch pattern synthesis, maps findings to the existing AI PM skill system, identifies new skills to create, and produces Excalidraw visualizations for retention. Use this skill whenever Ravi drops new research PDFs into the hbr-ai-2026 folder, mentions "HBR research", "research synthesis", "process the articles", "extract from PDFs", "what did the research say", or wants to run the monthly research cycle. Also use when Ravi asks about frameworks, data points, or insights from prior research cycles — this skill knows where the dossiers live and can retrieve specific findings.
 ---
-
 # HBR Research Synthesis Engine v1.0
 
 ## Purpose

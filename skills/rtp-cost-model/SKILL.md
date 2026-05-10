@@ -1,9 +1,7 @@
 ---
 name: rtp-cost-model
-description: "AI product unit economics: cost stack (inference, retrieval, storage, compute, human review), stress-test at 10x, identify cost levers and margin cliffs. Maps cost per successful outcome, 80/20 levers, margin cliff scale. Triggers: 'unit economics', 'AI cost model'"
-imports: [stress-test, token-economics, product-pricing]
+description: 'Use when modeling unit economics for an AI product, stress-testing costs at 10x, or finding margin cliffs and cost levers. AI product unit economics: cost stack (inference, retrieval, storage, compute, human review), stress-test at 10x, identify cost levers and margin cliffs. Maps cost per successful outcome, 80/20 levers, margin cliff scale. Triggers: ''unit economics'', ''AI cost model'''
 ---
-
 # Cost Model
 
 ## DEPTH DECISION

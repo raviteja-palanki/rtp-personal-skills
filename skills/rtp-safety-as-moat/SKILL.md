@@ -1,9 +1,7 @@
 ---
 name: rtp-safety-as-moat
-description: "Safety as moat: competitive defensibility vs compliance theater. Evaluate guardrail depth, capability-vs-safety tradeoff, safety brand impact, enterprise AI architecture. Red teaming as product quality. Triggers: 'safety strategy', 'safety moat', 'guardrails'"
-imports: ["determinism-compass"]
+description: 'Use when evaluating AI safety as competitive defensibility — guardrail depth, capability-vs-safety tradeoffs, red teaming as product quality. Safety as moat: competitive defensibility vs compliance theater. Evaluate guardrail depth, capability-vs-safety tradeoff, safety brand impact, enterprise AI architecture. Red teaming as product quality. Triggers: ''safety strategy'', ''safety moat'', ''guardrails'''
 ---
-
 # Safety as Moat
 
 ## DEPTH DECISION

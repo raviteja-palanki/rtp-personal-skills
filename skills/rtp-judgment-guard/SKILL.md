@@ -1,10 +1,7 @@
 ---
 name: rtp-judgment-guard
-description: >
-  Prevent your team from losing the ability to think for themselves as they rely more on AI. Without designed friction, people accept AI outputs without engaging their own judgment. Over 6-18 months, expertise atrophies silently. This skill designs checkpoints that keep humans sharp. Use when deploying high-stakes AI (medical, financial, hiring decisions), designing AI-augmented workflows, noticing that users aren't questioning AI outputs anymore, or after observing expertise degradation in teams using automation. Do NOT use for low-stakes decisions where acceptance is fine, or when human expertise is already gone (you can't rebuild judgment instantly).
-imports: []
+description: Prevent your team from losing the ability to think for themselves as they rely more on AI. Without designed friction, people accept AI outputs without engaging their own judgment. Over 6-18 months, expertise atrophies silently. This skill designs checkpoints that keep humans sharp. Use when deploying high-stakes AI (medical, financial, hiring decisions), designing AI-augmented workflows, noticing that users aren't questioning AI outputs anymore, or after observing expertise degradation in teams using automation. Do NOT use for low-stakes decisions where acceptance is fine, or when human expertise is already gone (you can't rebuild judgment instantly).
 ---
-
 # Judgment Guard
 
 ## DEPTH DECISION

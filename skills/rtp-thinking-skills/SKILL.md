@@ -1,11 +1,7 @@
 ---
 name: rtp-thinking-skills
-description: >
-  Encodes Ravi's cognitive operating system — judgment under uncertainty, systemic
-  thinking, hypothesis discipline, assumption surfacing, and ethical guardrails.
-  Load alongside any skill when Ravi asks for product decisions or analysis.
+description: Encodes Ravi's cognitive operating system — judgment under uncertainty, systemic thinking, hypothesis discipline, assumption surfacing, and ethical guardrails. Load alongside any skill when Ravi asks for product decisions or analysis.
 ---
-
 # Ravi's Judgment Engine
 ## How Ravi Thinks — Not How He Speaks
 

@@ -1,21 +1,7 @@
 ---
 name: rtp-dual-lens
-version: "1.1"
-description: >
-  Ensures any AI concept is simultaneously actionable for business leaders AND technically
-  validatable by engineers, preventing misalignment that leads to wasted sprints. Use when
-  writing PRDs, strategy docs, presentations to mixed audiences, communicating with board,
-  or when there's disagreement between business and engineering about "what we're building".
-  Triggers on 'business doesn't understand what we're building', 'engineering doesn't see
-  the business case', 'the spec doesn't match what we shipped', or when business and technical
-  teams have conflicting interpretations of the same concept. Also use before committing
-  quarterly roadmap resources. Do NOT use for pure engineering specifications (internal
-  architecture docs), pure business memos (financial forecasts), or when both audiences
-  are already deeply aligned. Do NOT use when speed matters more than cross-functional
-  clarity, or in organizations with strong silos where bridge-building will be resisted.
-imports: []
+description: Ensures any AI concept is simultaneously actionable for business leaders AND technically validatable by engineers, preventing misalignment that leads to wasted sprints. Use when writing PRDs, strategy docs, presentations to mixed audiences, communicating with board, or when there's disagreement between business and engineering about "what we're building". Triggers on 'business doesn't understand what we're building', 'engineering doesn't see the business case', 'the spec doesn't match what we shipped', or when business and technical teams have conflicting interpretations of the same concept. Also use before committing quarterly roadmap resources. Do NOT use for pure engineering specifications (internal architecture docs), pure business memos (financial forecasts), or when both audiences are already deeply aligned. Do NOT use when speed matters more than cross-functional clarity, or in organizations with strong silos where bridge-building will be resisted.
 ---
-
 # Dual-Lens
 
 ## DEPTH DECISION

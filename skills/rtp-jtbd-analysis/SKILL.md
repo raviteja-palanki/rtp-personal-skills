@@ -1,18 +1,7 @@
 ---
 name: rtp-jtbd-analysis
-description: >
-  Demand-side Jobs-to-be-Done analysis for AI features — the structural reframe
-  most PMs miss. Use when teams jump from "build X" to "ship X" without naming
-  what users are actually hiring the AI to do. Runs the four-forces diagram,
-  the switch interview script, and the surface-job vs hidden-job map. Output
-  is a job statement plus a design implication, not a 40-page customer empathy
-  deck.
-imports:
-  - problem-ai-fit
-  - first-principles
-  - uncertainty-research
+description: Demand-side Jobs-to-be-Done analysis for AI features — the structural reframe most PMs miss. Use when teams jump from "build X" to "ship X" without naming what users are actually hiring the AI to do. Runs the four-forces diagram, the switch interview script, and the surface-job vs hidden-job map. Output is a job statement plus a design implication, not a 40-page customer empathy deck.
 ---
-
 # JTBD Analysis
 
 Decipher what users are actually hiring an AI feature to do — and design for the hidden job, not the surface one.

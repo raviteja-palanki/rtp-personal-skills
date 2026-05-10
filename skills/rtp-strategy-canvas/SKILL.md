@@ -1,9 +1,7 @@
 ---
 name: rtp-strategy-canvas
-description: "AI product strategy that survives quarterly capability changes: 6-month horizons, conditional bets (IF model X → Path A), model-agnostic moats, reset triggers. Use for: strategic direction, roadmap review. Triggers: 'AI strategy', 'product strategy for AI', 'strategic direction', 'roadmap for AI'"
-imports: [first-principles, falsification]
+description: 'AI product strategy that survives quarterly capability changes: 6-month horizons, conditional bets (IF model X → Path A), model-agnostic moats, reset triggers. Use for: strategic direction, roadmap review. Triggers: ''AI strategy'', ''product strategy for AI'', ''strategic direction'', ''roadmap for AI'''
 ---
-
 # Strategy Canvas
 
 ## DEPTH DECISION

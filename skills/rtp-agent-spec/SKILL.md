@@ -1,9 +1,7 @@
 ---
 name: rtp-agent-spec
-description: "Agent spec: autonomy levels (0-4), confidence thresholds, handoff, recovery, state snapshots. Maps uncertainty cascade (90% × 5 steps = 59% end-to-end). Use when: multi-step agents, autonomy levels, checkpoints. Triggers: 'agent autonomy', 'agent spec'"
-imports: [trust-ladder, failure-modes, determinism-compass]
+description: 'Agent spec: autonomy levels (0-4), confidence thresholds, handoff, recovery, state snapshots. Maps uncertainty cascade (90% × 5 steps = 59% end-to-end). Use when: multi-step agents, autonomy levels, checkpoints. Triggers: ''agent autonomy'', ''agent spec'''
 ---
-
 # Agent Specification
 
 ## DEPTH DECISION

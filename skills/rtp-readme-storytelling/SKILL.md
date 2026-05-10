@@ -1,18 +1,7 @@
 ---
 name: rtp-readme-storytelling
-description: >
-  Write READMEs and public-facing technical descriptions with Morgan Housel-level
-  storytelling — narrative-first, no feature specs, frame-of-reference openings, before/after
-  contrasts, and "why" before "what". A README is the first 30 seconds of a conversation
-  with someone who doesn't care yet; this skill makes them care before they understand.
-  Use when writing or rewriting a project README, a GitHub repo description, a launch
-  announcement, or any first-touch technical narrative. Triggers on "readme", "GitHub
-  readme", "repo description", "storytelling readme", "narrative-first writeup", "rewrite
-  this readme", "make this readme better", "README hook".
-version: 1.0
-author: Ravi Teja Palanki
+description: Write READMEs and public-facing technical descriptions with Morgan Housel-level storytelling — narrative-first, no feature specs, frame-of-reference openings, before/after contrasts, and "why" before "what". A README is the first 30 seconds of a conversation with someone who doesn't care yet; this skill makes them care before they understand. Use when writing or rewriting a project README, a GitHub repo description, a launch announcement, or any first-touch technical narrative. Triggers on "readme", "GitHub readme", "repo description", "storytelling readme", "narrative-first writeup", "rewrite this readme", "make this readme better", "README hook".
 ---
-
 # README Storytelling — Narrative-First Technical Writing
 
 Write READMEs and public-facing technical descriptions that make people care before they understand.

@@ -1,13 +1,7 @@
 ---
 name: rtp-ai-prd
-description: "PRD for probabilistic systems: model as spec, dual metrics, prompts as artifacts, thresholds, failures, cost, drift. Use when: shipped AI feature, architecture, capability launches. Triggers: 'AI PRD', 'probabilistic spec'"
-imports:
-  - determinism-compass
-  - bias-spotter
-  - stress-test
-  - prompt-as-spec
+description: 'PRD for probabilistic systems: model as spec, dual metrics, prompts as artifacts, thresholds, failures, cost, drift. Use when: shipped AI feature, architecture, capability launches. Triggers: ''AI PRD'', ''probabilistic spec'''
 ---
-
 # AI-PRD: Probabilistic Product Specification
 
 ## DEPTH DECISION

@@ -1,17 +1,7 @@
 ---
 name: rtp-ai-product-metrics
-id: ai-product-metrics
-title: AI Product Metrics
-category: craft
-description: AI products require different metrics. Traditional DAU/retention are lagging indicators. Leading indicators are acceptance rate, correction rate, regeneration rate, and cost-per-successful-outcome.
-difficulty: intermediate
-imports:
-  - eval-framework
-  - feedback-flywheel
-author: ai-pm
-last_updated: 2026-03-28
+description: Use when defining metrics for an AI product, designing dashboards, or choosing which signals matter beyond DAU/retention. AI products require different metrics. Traditional DAU/retention are lagging indicators. Leading indicators are acceptance rate, correction rate, regeneration rate, and cost-per-successful-outcome.
 ---
-
 ## GROUNDING (Before Starting)
 
 Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):

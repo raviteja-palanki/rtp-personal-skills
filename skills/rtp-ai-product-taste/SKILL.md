@@ -1,23 +1,7 @@
 ---
 name: rtp-ai-product-taste
-description: >
-  Calibrate the quality bar for an AI feature against your specific domain, users, and price
-  point — not against benchmark scores. Exceptional AI products are domain-calibrated, not
-  generically excellent. Use when output looks technically impressive but feels mediocre to
-  users, when the team can't articulate what "good enough" means, or when judging whether
-  to ship now vs. raise the bar. Triggers on "the model output is impressive", "is this
-  good enough", "quality bar", "user perception", "ship-or-polish", "AI product quality".
-id: ai-product-taste
-title: AI Product Taste
-category: product-sense
-difficulty: advanced
-imports:
-  - first-principles
-  - dual-lens
-author: ai-pm
-last_updated: 2026-03-28
+description: Calibrate the quality bar for an AI feature against your specific domain, users, and price point — not against benchmark scores. Exceptional AI products are domain-calibrated, not generically excellent. Use when output looks technically impressive but feels mediocre to users, when the team can't articulate what "good enough" means, or when judging whether to ship now vs. raise the bar. Triggers on "the model output is impressive", "is this good enough", "quality bar", "user perception", "ship-or-polish", "AI product quality".
 ---
-
 ## DEPTH DECISION
 
 Do you have a quality bar, or are you just launching whatever the model produces?

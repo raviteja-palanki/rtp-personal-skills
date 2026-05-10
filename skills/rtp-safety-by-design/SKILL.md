@@ -1,9 +1,7 @@
 ---
 name: rtp-safety-by-design
-description: "Encode safety constraints into system context (prompt, instruction layer), not post-hoc filters. Use when: architecting AI systems, scaling safety, testing constraint generalization. Triggers: 'safety constraints', 'safety architecture'"
-imports: ["determinism-compass"]
+description: 'Encode safety constraints into system context (prompt, instruction layer), not post-hoc filters. Use when: architecting AI systems, scaling safety, testing constraint generalization. Triggers: ''safety constraints'', ''safety architecture'''
 ---
-
 # Safety-by-Design
 
 ## DEPTH DECISION

@@ -1,10 +1,7 @@
 ---
 name: rtp-trust-ladder
-description: "Design autonomy levels that match CALIBRATED trust and failure severity. Use when: defining permission models, progressive autonomy, detecting over-reliance, repairing trust after errors. Do NOT use: to justify maximum trust, full autonomy without calibration, when mental models misalign."
-imports: ["determinism-compass"]
-version: "1.1"
+description: 'Design autonomy levels that match CALIBRATED trust and failure severity. Use when: defining permission models, progressive autonomy, detecting over-reliance, repairing trust after errors. Do NOT use: to justify maximum trust, full autonomy without calibration, when mental models misalign.'
 ---
-
 # Trust Ladder
 
 ## DEPTH DECISION

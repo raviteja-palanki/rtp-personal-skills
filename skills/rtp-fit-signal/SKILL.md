@@ -1,12 +1,7 @@
 ---
 name: rtp-fit-signal
-description: "PMF for AI: trust accumulation (not engagement). Measures: trust curve inflecting, magic moment >60%, correction >50%, feedback loop weekly. Use when: active users, dependency, scale or pivot. Triggers: 'PMF', 'product-market fit'"
-imports:
-  - feedback-flywheel
-  - falsification
-  - stress-test
+description: 'PMF for AI: trust accumulation (not engagement). Measures: trust curve inflecting, magic moment >60%, correction >50%, feedback loop weekly. Use when: active users, dependency, scale or pivot. Triggers: ''PMF'', ''product-market fit'''
 ---
-
 # Fit Signal: Detecting PMF in Non-Deterministic Systems
 
 ## DEPTH DECISION

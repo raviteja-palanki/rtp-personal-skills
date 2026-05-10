@@ -1,14 +1,7 @@
 ---
 name: rtp-needs-guard
-description: >
-  Ensure AI deployment doesn't threaten what workers actually care about: feeling competent,
-  having autonomy, and belonging. 31% of workers actively resist AI. 54% use unauthorized
-  tools. These aren't skill gaps — they're signals that psychological needs are being violated.
-  The AWARE framework diagnoses which need is broken. Use when designing AI change management,
-  assessing worker resistance, or pre-deployment impact assessment.
-imports: [first-principles, bias-spotter]
+description: 'Ensure AI deployment doesn''t threaten what workers actually care about: feeling competent, having autonomy, and belonging. 31% of workers actively resist AI. 54% use unauthorized tools. These aren''t skill gaps — they''re signals that psychological needs are being violated. The AWARE framework diagnoses which need is broken. Use when designing AI change management, assessing worker resistance, or pre-deployment impact assessment.'
 ---
-
 # Needs Guard
 
 When AI gets implemented, workers resist. Not because they're afraid of change. Because something they depend on professionally is being removed.

@@ -2,7 +2,6 @@
 name: rtp-email-mastery
 description: Comprehensive email writing system for Ravi Teja Palanki across all contexts — learners, professional contacts, teaching partnerships, enterprise stakeholders, collaborators, and personal network. Synthesizes Ravi's authentic voice as a practitioner-educator with his thinking patterns, emotional signature, and communication principles. Use for any email Ravi needs to write, from thank-you notes to partnership proposals to follow-ups.
 ---
-
 # RAVI'S EMAIL MASTERY
 
 ```

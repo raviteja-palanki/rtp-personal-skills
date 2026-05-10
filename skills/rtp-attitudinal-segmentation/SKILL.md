@@ -1,23 +1,7 @@
 ---
 name: rtp-attitudinal-segmentation
-description: >
-  Segment AI product users by stance toward AI itself — AI Embracer, AI Neutral,
-  AI Skeptic — not just by role, company size, or behavior. Each segment needs
-  different onboarding, different default autonomy levels, different evidence,
-  different feedback prompts. Use when designing onboarding for an AI product,
-  triaging churn that splits oddly across demographic cuts, planning a launch
-  that crosses a mixed user base (e.g., new grads + 30-year veterans), or
-  setting per-segment confidence thresholds. Triggers: "AI embracer vs skeptic",
-  "users hate the AI", "skeptic operator", "split onboarding", "attitude
-  segmentation", "psychographic", "trust by user type", "why are veterans
-  churning", "grad vs veteran".
-imports:
-  - uncertainty-research
-  - jtbd-analysis
-  - feedback-triage
-  - ai-product-metrics
+description: 'Segment AI product users by stance toward AI itself — AI Embracer, AI Neutral, AI Skeptic — not just by role, company size, or behavior. Each segment needs different onboarding, different default autonomy levels, different evidence, different feedback prompts. Use when designing onboarding for an AI product, triaging churn that splits oddly across demographic cuts, planning a launch that crosses a mixed user base (e.g., new grads + 30-year veterans), or setting per-segment confidence thresholds. Triggers: "AI embracer vs skeptic", "users hate the AI", "skeptic operator", "split onboarding", "attitude segmentation", "psychographic", "trust by user type", "why are veterans churning", "grad vs veteran".'
 ---
-
 # Attitudinal Segmentation
 
 ## DEPTH DECISION

@@ -1,10 +1,7 @@
 ---
 name: rtp-failure-modes
-description: "Complete AI failure engineering: identify failure types (hallucination, injection, cascade, drift), quantify risk (cost × detectability), then design the response (confidence UX, correction paths, refusal boundaries, graceful degradation). Use to spec features, design telemetry, write failure acceptance criteria. Merges former failure-design skill."
-imports: [stress-test]
-version: "2.0"
+description: 'Complete AI failure engineering: identify failure types (hallucination, injection, cascade, drift), quantify risk (cost × detectability), then design the response (confidence UX, correction paths, refusal boundaries, graceful degradation). Use to spec features, design telemetry, write failure acceptance criteria. Merges former failure-design skill.'
 ---
-
 # Failure Modes: Diagnostic & Design Framework
 
 ## DEPTH DECISION

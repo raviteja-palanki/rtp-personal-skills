@@ -1,10 +1,7 @@
 ---
 name: rtp-agent-ecosystem
-description: "Orchestration, state management, handoff for multi-agent systems. Patterns: CodeAct, Magentic, SLM-micro, computer-using, A2A, harness. Use when: architecting multi-agent systems, choosing protocols. Triggers: 'multi-agent', 'agent protocol', 'orchestration'"
-imports:
-  - determinism-compass
+description: 'Orchestration, state management, handoff for multi-agent systems. Patterns: CodeAct, Magentic, SLM-micro, computer-using, A2A, harness. Use when: architecting multi-agent systems, choosing protocols. Triggers: ''multi-agent'', ''agent protocol'', ''orchestration'''
 ---
-
 ## DEPTH DECISION
 
 **Go deep if:** You're designing a multi-agent system (2+), evaluating orchestration architecture, planning to scale beyond one agent, or addressing coordination failure modes.

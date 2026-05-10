@@ -1,10 +1,7 @@
 ---
 name: rtp-alignment-check
-description: >
-  Check if your organization is actually ready for AI — structure, roles, accountability — before spending on technology. 93% of AI failures are organizational, not technical. This skill maps the 5-link chain (Purpose → Strategy → Capability → Architecture → Systems) and finds which one is broken. Use when kicking off an AI initiative, inheriting a stalled project, evaluating why pilots fail to scale, assessing readiness before a major investment, or diagnosing production failures. Do NOT use to delay decisions or as a perfectionist checklist — it's diagnostic, not a maturity model.
-imports: []
+description: Check if your organization is actually ready for AI — structure, roles, accountability — before spending on technology. 93% of AI failures are organizational, not technical. This skill maps the 5-link chain (Purpose → Strategy → Capability → Architecture → Systems) and finds which one is broken. Use when kicking off an AI initiative, inheriting a stalled project, evaluating why pilots fail to scale, assessing readiness before a major investment, or diagnosing production failures. Do NOT use to delay decisions or as a perfectionist checklist — it's diagnostic, not a maturity model.
 ---
-
 # Alignment Check
 
 ## DEPTH DECISION

@@ -1,10 +1,7 @@
 ---
 name: rtp-purpose-dialogue
-description: >
-  Connect AI initiatives to what your organization actually stands for — because people adopt what they believe in. Purpose without dialogue is a poster on the wall. Dialogue drives 10% commitment lift per point of authenticity. Best Buy's turnaround used purpose dialogue to double adoption of their AI-assisted recommendation engine. Use when adoption is stalling despite good technology, when commitment feels emotionally flat, when you need to make the case for AI beyond efficiency, or when you're integrating AI into core values. Skip if the initiative is low-stakes (internal tool with no cultural weight) or adoption is already strong.
-imports: [first-principles, alignment-check]
+description: Connect AI initiatives to what your organization actually stands for — because people adopt what they believe in. Purpose without dialogue is a poster on the wall. Dialogue drives 10% commitment lift per point of authenticity. Best Buy's turnaround used purpose dialogue to double adoption of their AI-assisted recommendation engine. Use when adoption is stalling despite good technology, when commitment feels emotionally flat, when you need to make the case for AI beyond efficiency, or when you're integrating AI into core values. Skip if the initiative is low-stakes (internal tool with no cultural weight) or adoption is already strong.
 ---
-
 # Purpose Dialogue
 
 ## DEPTH DECISION

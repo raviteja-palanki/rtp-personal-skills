@@ -1,10 +1,7 @@
 ---
 name: rtp-agent-risk
-description: >
-  For every agent: is the value worth the potential harm? And can you pull the plug fast enough? Proportionality analysis (value vs worst-case) + kill-switch design (manual, anomaly-triggered, time-elapsed). If you can't kill it faster than harm cascades, don't deploy it. Use for any agentic system (AI agents, automated workflows, autonomous processes), pre-launch risk reviews, or when debating autonomy levels. Skip for static systems (no autonomous actions) or systems with trivial harm potential.
-imports: [stress-test, failure-design, autonomy-spectrum]
+description: 'For every agent: is the value worth the potential harm? And can you pull the plug fast enough? Proportionality analysis (value vs worst-case) + kill-switch design (manual, anomaly-triggered, time-elapsed). If you can''t kill it faster than harm cascades, don''t deploy it. Use for any agentic system (AI agents, automated workflows, autonomous processes), pre-launch risk reviews, or when debating autonomy levels. Skip for static systems (no autonomous actions) or systems with trivial harm potential.'
 ---
-
 # Agent Risk
 
 ## DEPTH DECISION

@@ -1,11 +1,7 @@
 ---
 name: rtp-competitive-map
-description: "Maps competitive positioning: base model, safety, privacy, economics, switching cost, trust, moat, regulatory. Use when: evaluating threats, defensibility, positioning (premium vs budget). Triggers: 'competitive analysis', 'competitive positioning'"
-imports:
-  - moat-finder
-  - first-principles
+description: 'Maps competitive positioning: base model, safety, privacy, economics, switching cost, trust, moat, regulatory. Use when: evaluating threats, defensibility, positioning (premium vs budget). Triggers: ''competitive analysis'', ''competitive positioning'''
 ---
-
 # Competitive Map: AI-Native Analysis Framework
 
 ## DEPTH DECISION

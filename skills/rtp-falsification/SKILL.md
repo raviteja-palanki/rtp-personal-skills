@@ -1,19 +1,7 @@
 ---
 name: rtp-falsification
-description: >
-  Tests any AI product recommendation by identifying conditions where it would be WRONG
-  and pre-committing to what success actually looks like. Use when reviewing strategies,
-  evaluating proposals, before committing resources, before launching features, or when
-  someone is confident something "will work" without specifying what failure would look
-  like. Triggers on 'this feature will improve X', 'we should launch this', 'our model
-  will solve the problem', or 'we need to do this to compete'. Also use when reviewing
-  metrics definitions (many teams measure what they can instead of what matters). Do NOT
-  use to block action—use to de-risk it. Do NOT use on decisions that are genuinely cheap
-  to reverse or in organizations where pre-committing to kill conditions is seen as political
-  sabotage. Do NOT use during early exploration when the hypothesis is still forming.
-imports: []
+description: Tests any AI product recommendation by identifying conditions where it would be WRONG and pre-committing to what success actually looks like. Use when reviewing strategies, evaluating proposals, before committing resources, before launching features, or when someone is confident something "will work" without specifying what failure would look like. Triggers on 'this feature will improve X', 'we should launch this', 'our model will solve the problem', or 'we need to do this to compete'. Also use when reviewing metrics definitions (many teams measure what they can instead of what matters). Do NOT use to block action—use to de-risk it. Do NOT use on decisions that are genuinely cheap to reverse or in organizations where pre-committing to kill conditions is seen as political sabotage. Do NOT use during early exploration when the hypothesis is still forming.
 ---
-
 # Falsification
 
 ## DEPTH DECISION

@@ -1,11 +1,7 @@
 ---
 name: rtp-gen-ai-experimentation
-description: "Design and run organisational experiments to validate gen AI before scaling. Covers the Productivity J-Curve, how to structure experiments vs pilots vs A/B tests, causal vs correlational insights, ecosystem experimentation, and how to build an internal experimentation capability. Triggers: 'gen AI experiment', 'AI pilot design', 'productivity J-curve', 'organisational experiment', 'test AI before scaling', 'AI adoption testing'"
-imports: ["eval-driven-development", "eval-framework"]
-version: "1.0"
-framework_source: "Harvard Business Review — Berndt, Englmaier, Sadun, Tamayo & von Hesler, 'A Systematic Approach to Experimenting with Gen AI', January–February 2026"
+description: 'Use when planning gen-AI experiments, structuring pilots vs A/B tests, or validating productivity gains before scaling. Design and run organisational experiments to validate gen AI before scaling. Covers the Productivity J-Curve, how to structure experiments vs pilots vs A/B tests, causal vs correlational insights, ecosystem experimentation, and how to build an internal experimentation capability. Triggers: ''gen AI experiment'', ''AI pilot design'', ''productivity J-curve'', ''organisational experiment'', ''test AI before scaling'', ''AI adoption testing'''
 ---
-
 # Gen AI Experimentation
 
 ## DEPTH DECISION

@@ -1,9 +1,7 @@
 ---
 name: rtp-determinism-compass
-description: "Deterministic vs probabilistic classification: what must stay consistent, what can vary, where variation is risk/value. Quality gates, testing, caching. Use when: architecting, QA design, spec review. Triggers: 'variation acceptable', 'test AI component', 'cache', 'reproducible'"
-imports: []
+description: 'Deterministic vs probabilistic classification: what must stay consistent, what can vary, where variation is risk/value. Quality gates, testing, caching. Use when: architecting, QA design, spec review. Triggers: ''variation acceptable'', ''test AI component'', ''cache'', ''reproducible'''
 ---
-
 # Determinism Compass
 
 ## DEPTH DECISION

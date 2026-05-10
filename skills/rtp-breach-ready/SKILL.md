@@ -1,10 +1,7 @@
 ---
 name: rtp-breach-ready
-description: >
-  Design systems that SURVIVE being hacked — because "if," not "when." Prevention-only security fails. Resilience means: can you operate 48 hours without digital systems? Can you isolate damage? Can you restore from manual backup? FedEx survived NotPetya because of resilience planning. Use when designing systems that handle sensitive data, post-incident reviews, business continuity planning, or any system where downtime has non-trivial cost. Skip if the system has trivial impact if breached (internal tool with no sensitive data).
-imports: [stress-test, failure-design]
+description: 'Design systems that SURVIVE being hacked — because "if," not "when." Prevention-only security fails. Resilience means: can you operate 48 hours without digital systems? Can you isolate damage? Can you restore from manual backup? FedEx survived NotPetya because of resilience planning. Use when designing systems that handle sensitive data, post-incident reviews, business continuity planning, or any system where downtime has non-trivial cost. Skip if the system has trivial impact if breached (internal tool with no sensitive data).'
 ---
-
 # Breach Ready
 
 ## DEPTH DECISION

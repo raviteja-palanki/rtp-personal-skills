@@ -1,14 +1,7 @@
 ---
 name: rtp-learn-site-design
-version: 2.0
-description: Codified design language for ravitejapalanki.com — the full design system for the personal homepage, dark cinematic landing pages, editorial article pages, and interactive topic hubs. Covers the homepage (gateway), profile page, and writing section. A sub-skill of the UX Design agent.
-author: Ravi Teja Palanki
-created: 12 April 2026
-updated: 15 April 2026
-format: skill-definition
-status: active
+description: Use when designing or revising pages on ravitejapalanki.com — homepage, article pages, dark cinematic landing pages, or topic hubs. Codified design language for ravitejapalanki.com — the full design system for the personal homepage, dark cinematic landing pages, editorial article pages, and interactive topic hubs. Covers the homepage (gateway), profile page, and writing section. A sub-skill of the UX Design agent.
 ---
-
 # Ravi's Personal Website Design Language
 
 The complete design system for ravitejapalanki.com — all three sections: homepage (the gateway), profile (digital resume), and writing hub (working notes). This skill encodes every visual decision, every animation technique, every typographic rule, and every interaction pattern — learned from building the "AI Production Chasm" landing page, the personal homepage, and the "Benchmarks vs. Evals" article page.

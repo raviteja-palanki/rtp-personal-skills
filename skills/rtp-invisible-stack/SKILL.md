@@ -1,14 +1,7 @@
 ---
 name: rtp-invisible-stack
-description: >
-  Maps seven-layer CONTEXT: Constitution, Observations, kNowledge, Tracks,
-  Equipment, eXecution, Template. Use when reviewing architecture, diagnosing
-  demo-to-production gaps, or writing specs. Identifies weakest layer. Do NOT use
-  for simple experiments. Prevents model fixation and infrastructure gaps.
-imports: [determinism-compass, stress-test]
-version: "1.1"
+description: 'Maps seven-layer CONTEXT: Constitution, Observations, kNowledge, Tracks, Equipment, eXecution, Template. Use when reviewing architecture, diagnosing demo-to-production gaps, or writing specs. Identifies weakest layer. Do NOT use for simple experiments. Prevents model fixation and infrastructure gaps.'
 ---
-
 # Invisible Stack
 
 ## DEPTH DECISION

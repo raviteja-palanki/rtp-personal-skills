@@ -1,9 +1,7 @@
 ---
 name: rtp-agent-harness
-description: "Harness architecture: Planner/Generator/Evaluator, eval separation, sprint contracts, context, communication. Use when: multi-agent pipelines, harness decision, costing. Triggers: 'agent harness', 'planner generator evaluator', 'orchestrate agents'"
-imports: [agent-ecosystem, eval-framework, stress-test]
+description: 'Harness architecture: Planner/Generator/Evaluator, eval separation, sprint contracts, context, communication. Use when: multi-agent pipelines, harness decision, costing. Triggers: ''agent harness'', ''planner generator evaluator'', ''orchestrate agents'''
 ---
-
 # Agent Harness Engineering
 
 ## DEPTH DECISION

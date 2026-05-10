@@ -1,21 +1,7 @@
 ---
 name: rtp-multi-modal-product-design
-description: >
-  Choose the right modality (text, voice, image, video) for an AI feature based on user
-  friction, verification cost, latency, and trust dynamics — not on technology novelty or
-  what's possible with the model. Each modality has different failure modes, cost profiles,
-  and user-trust dynamics. Use when scoping multimodal features, deciding between voice
-  and text input, evaluating cost/latency tradeoffs, designing modality switches in a flow,
-  or pushing back on "let's add video". Triggers on "should this be voice", "multimodal",
-  "add audio", "video features", "modality choice", "voice UI", "should we add images".
-title: "Multi-Modal Product Design"
-plugin: "agent-design"
-version: "2.0"
-imports: ["cost-model", "ai-ux-patterns"]
-tags: ["multimodal", "modality-choice", "product-design", "cost-latency"]
-status: "production"
+description: Choose the right modality (text, voice, image, video) for an AI feature based on user friction, verification cost, latency, and trust dynamics — not on technology novelty or what's possible with the model. Each modality has different failure modes, cost profiles, and user-trust dynamics. Use when scoping multimodal features, deciding between voice and text input, evaluating cost/latency tradeoffs, designing modality switches in a flow, or pushing back on "let's add video". Triggers on "should this be voice", "multimodal", "add audio", "video features", "modality choice", "voice UI", "should we add images".
 ---
-
 # Multi-Modal Product Design: Modality Is a Product Decision
 
 ## DEPTH DECISION

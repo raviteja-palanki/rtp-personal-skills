@@ -1,12 +1,7 @@
 ---
 name: rtp-context-spec
-description: "Context engineering: information architecture for reasoning (not prompts). Constitution → Observations → Knowledge → Tracks → Equipment → Execution. Failure modes, latency, Pre-Rot Threshold. Use when: architecting features, design review. Triggers: 'context engineering', 'context architecture'"
-imports:
-  - invisible-stack
-  - determinism-compass
-  - stress-test
+description: 'Context engineering: information architecture for reasoning (not prompts). Constitution → Observations → Knowledge → Tracks → Equipment → Execution. Failure modes, latency, Pre-Rot Threshold. Use when: architecting features, design review. Triggers: ''context engineering'', ''context architecture'''
 ---
-
 # Context-Spec: Engineering Information Architecture
 
 ## DEPTH DECISION

@@ -1,18 +1,7 @@
 ---
 name: rtp-opportunity-solution-tree
-description: >
-  Teresa Torres OST with an AI-feasibility filter. Use when the team has a
-  desired outcome and needs to map opportunities, solutions, and experiments —
-  AND when not every opportunity is probabilistically addressable. Adds the
-  determinism-compass cut that separates "needs deterministic rules" from
-  "can tolerate AI variability." Without that filter, OST becomes a wish list.
-imports:
-  - problem-ai-fit
-  - determinism-compass
-  - jtbd-analysis
-  - eval-framework
+description: Teresa Torres OST with an AI-feasibility filter. Use when the team has a desired outcome and needs to map opportunities, solutions, and experiments — AND when not every opportunity is probabilistically addressable. Adds the determinism-compass cut that separates "needs deterministic rules" from "can tolerate AI variability." Without that filter, OST becomes a wish list.
 ---
-
 # Opportunity Solution Tree
 
 Map outcomes → opportunities → solutions → experiments, then run each opportunity through an AI-feasibility filter before any of them get a roadmap slot.

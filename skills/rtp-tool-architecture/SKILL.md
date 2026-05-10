@@ -1,10 +1,7 @@
 ---
 name: rtp-tool-architecture
-description: "Design tool access and permission boundaries to control consequence magnitude. Use when: selecting agent tools, read vs write access, sandboxing, audit infrastructure. Do NOT use: runtime enforcement (use determinism-compass), post-incident forensics (use stress-test)."
-imports:
-  - determinism-compass
+description: 'Design tool access and permission boundaries to control consequence magnitude. Use when: selecting agent tools, read vs write access, sandboxing, audit infrastructure. Do NOT use: runtime enforcement (use determinism-compass), post-incident forensics (use stress-test).'
 ---
-
 # Tool Architecture
 
 ## DEPTH DECISION

@@ -1,9 +1,7 @@
 ---
 name: rtp-stress-test
-description: "Production-scale stress test: failure resilience, unit economics, tail latency, observability. Use before: launch, resource allocation, technical commitment, SLOs. Triggers: 'will this scale', '10x users', 'cost at scale', 'latency budget', 'production readiness'"
-imports: []
+description: 'Use when stress-testing an AI product at production scale — failure resilience, unit economics at 10x, tail latency, observability. Production-scale stress test: failure resilience, unit economics, tail latency, observability. Use before: launch, resource allocation, technical commitment, SLOs. Triggers: ''will this scale'', ''10x users'', ''cost at scale'', ''latency budget'', ''production readiness'''
 ---
-
 # Stress Test
 
 ## DEPTH DECISION

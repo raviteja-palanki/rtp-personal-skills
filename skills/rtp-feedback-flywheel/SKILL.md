@@ -1,13 +1,7 @@
 ---
 name: rtp-feedback-flywheel
-description: >
-  Diagnostic tool for building data flywheels that turn user interactions into model improvements.
-  Maps feedback signals, designs capture pipelines, closes the loop from correction→eval→prompt→improvement,
-  bootstraps cold start, handles PII/privacy. At maturity 5, products improve 15-20% per quarter
-  from usage data alone. This is your competitive moat.
-imports: [first-principles, stress-test]
+description: Use when designing data flywheels — capturing user interactions, closing the correction→eval→prompt loop, or auditing feedback pipelines. Diagnostic tool for building data flywheels that turn user interactions into model improvements. Maps feedback signals, designs capture pipelines, closes the loop from correction→eval→prompt→improvement, bootstraps cold start, handles PII/privacy. At maturity 5, products improve 15-20% per quarter from usage data alone. This is your competitive moat.
 ---
-
 # Feedback Flywheel: The Diagnostic
 
 ## GROUNDING (Before Starting)

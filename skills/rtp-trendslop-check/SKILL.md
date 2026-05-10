@@ -1,14 +1,7 @@
 ---
 name: rtp-trendslop-check
-description: >
-  Catch when AI-generated strategy defaults to trendy advice instead of context-specific strategy.
-  Across 15,000+ trials, LLMs show systematic bias: favor differentiation over cost-leadership,
-  augmentation over automation, long-term thinking over immediate profit. NOT based on what's right
-  for your business, but based on what's common in training data. Use when bootstrapping strategy,
-  running multi-scenario planning, or validating AI-generated recommendations.
-imports: [first-principles, bias-spotter]
+description: 'Catch when AI-generated strategy defaults to trendy advice instead of context-specific strategy. Across 15,000+ trials, LLMs show systematic bias: favor differentiation over cost-leadership, augmentation over automation, long-term thinking over immediate profit. NOT based on what''s right for your business, but based on what''s common in training data. Use when bootstrapping strategy, running multi-scenario planning, or validating AI-generated recommendations.'
 ---
-
 # Trendslop Check
 
 When you ask an AI to generate strategy, it produces sophisticated-sounding advice. It's also biased in predictable, measurable ways.

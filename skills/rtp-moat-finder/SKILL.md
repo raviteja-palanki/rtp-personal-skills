@@ -1,9 +1,7 @@
 ---
 name: rtp-moat-finder
-description: "Four moat types: data flywheel, workflow lock-in, context depth, trust. Defend at 18 months when models commoditize. Use when: strategy, moat vs parity, defensibility. Triggers: 'competitive advantage', 'defensibility', 'moat'"
-imports: [bias-spotter, determinism-compass]
+description: 'Four moat types: data flywheel, workflow lock-in, context depth, trust. Defend at 18 months when models commoditize. Use when: strategy, moat vs parity, defensibility. Triggers: ''competitive advantage'', ''defensibility'', ''moat'''
 ---
-
 # Moat Finder
 
 ## DEPTH DECISION

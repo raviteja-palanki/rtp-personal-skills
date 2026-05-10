@@ -1,22 +1,7 @@
 ---
 name: rtp-capability-tracking
-description: >
-  Decide whether to build an AI feature now or wait for model capability uplift to deliver
-  it for free. Frames build-vs-wait decisions when frontier models are improving every 6-9
-  months and custom engineering risks being commoditized. Use when scoping 12-18 month
-  roadmaps, evaluating which features will commoditize on next model release, deciding
-  between custom fine-tuning and waiting for foundation-model improvements, or building a
-  capability watchlist for portfolio bets. Triggers on "should we build this", "wait for
-  the next model", "18-month roadmap", "commoditization risk", "capability planning",
-  "build vs. wait", "model capability tracking".
-title: "Capability Tracking"
-plugin: "ai-strategy"
-version: "2.0"
-imports: ["strategy-canvas", "first-principles"]
-tags: ["model-strategy", "capability-planning", "feature-lifecycle"]
-status: "production"
+description: Decide whether to build an AI feature now or wait for model capability uplift to deliver it for free. Frames build-vs-wait decisions when frontier models are improving every 6-9 months and custom engineering risks being commoditized. Use when scoping 12-18 month roadmaps, evaluating which features will commoditize on next model release, deciding between custom fine-tuning and waiting for foundation-model improvements, or building a capability watchlist for portfolio bets. Triggers on "should we build this", "wait for the next model", "18-month roadmap", "commoditization risk", "capability planning", "build vs. wait", "model capability tracking".
 ---
-
 # Capability Tracking: Know What the Model Will Do Next
 
 ## DEPTH DECISION

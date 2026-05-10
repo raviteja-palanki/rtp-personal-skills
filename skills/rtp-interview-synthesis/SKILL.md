@@ -1,18 +1,7 @@
 ---
 name: rtp-interview-synthesis
-description: >
-  Open coding → axial coding → selective coding for customer interview
-  transcripts. NOT for AI trace synthesis (that's eval-framework's job) — for
-  human conversations. Use when a stack of 5-15 interview transcripts needs to
-  become themes, persona signals, opportunity hypotheses, and eval-test
-  candidates. Applies the same machinery that AI eval teams use on traces, so
-  the codes that emerge from interviews can become failure-mode tests later.
-imports:
-  - jtbd-analysis
-  - uncertainty-research
-  - eval-framework
+description: Open coding → axial coding → selective coding for customer interview transcripts. NOT for AI trace synthesis (that's eval-framework's job) — for human conversations. Use when a stack of 5-15 interview transcripts needs to become themes, persona signals, opportunity hypotheses, and eval-test candidates. Applies the same machinery that AI eval teams use on traces, so the codes that emerge from interviews can become failure-mode tests later.
 ---
-
 # Interview Synthesis
 
 Turn a stack of interview transcripts into structured insight using the open-coding → axial-coding → selective-coding workflow that serious eval teams already run on AI traces.

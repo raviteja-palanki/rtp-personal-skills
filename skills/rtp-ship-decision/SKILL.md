@@ -1,9 +1,7 @@
 ---
 name: rtp-ship-decision
-description: "Go/no-go gate: safety tested, error rates acceptable, cost defensible at 10x, observability live, user education clear, failures mapped, fallback defined, formal go-no-go. Use when: 1 week before launch, production-ready. Triggers: 'ship gate', 'launch checklist'"
-imports: [stress-test, safety-as-moat, failure-modes, cost-model]
+description: 'Go/no-go gate: safety tested, error rates acceptable, cost defensible at 10x, observability live, user education clear, failures mapped, fallback defined, formal go-no-go. Use when: 1 week before launch, production-ready. Triggers: ''ship gate'', ''launch checklist'''
 ---
-
 # Ship Decision
 
 ## DEPTH DECISION

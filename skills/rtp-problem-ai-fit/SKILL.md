@@ -1,12 +1,7 @@
 ---
 name: rtp-problem-ai-fit
-description: >
-  Determines whether a problem genuinely needs AI or if rules, search, and heuristics
-  deliver better outcomes. Use when teams propose AI features, stakeholders say
-  "use AI," or during discovery. Runs hypothesis-driven AI-necessity analysis.
-imports: [first-principles]
+description: Determines whether a problem genuinely needs AI or if rules, search, and heuristics deliver better outcomes. Use when teams propose AI features, stakeholders say "use AI," or during discovery. Runs hypothesis-driven AI-necessity analysis.
 ---
-
 # Problem-AI Fit
 
 Determine if the problem needs AI, or if you're adding complexity without value.

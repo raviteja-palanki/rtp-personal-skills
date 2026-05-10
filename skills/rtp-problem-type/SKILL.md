@@ -1,10 +1,7 @@
 ---
 name: rtp-problem-type
-description: >
-  Figure out if you're facing a technical problem (clear solution, known path) or an adaptive challenge (unclear solution, requires people to change). Most AI failures happen because teams treat adaptive challenges like technical problems — they keep "solving" something that requires organizational change, not a better algorithm. Use when the same problem recurs despite fixes, leadership says "just build it" but the barrier is organizational, a feature is technically perfect but adoption is failing, or when you notice the pattern "we tried everything and it didn't work." Do NOT use to avoid difficult decisions or to justify doing nothing — often the right move is both technical AND adaptive work, sequenced carefully.
-imports: []
+description: Figure out if you're facing a technical problem (clear solution, known path) or an adaptive challenge (unclear solution, requires people to change). Most AI failures happen because teams treat adaptive challenges like technical problems — they keep "solving" something that requires organizational change, not a better algorithm. Use when the same problem recurs despite fixes, leadership says "just build it" but the barrier is organizational, a feature is technically perfect but adoption is failing, or when you notice the pattern "we tried everything and it didn't work." Do NOT use to avoid difficult decisions or to justify doing nothing — often the right move is both technical AND adaptive work, sequenced carefully.
 ---
-
 # Problem Type
 
 ## DEPTH DECISION

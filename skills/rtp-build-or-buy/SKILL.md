@@ -1,10 +1,7 @@
 ---
 name: rtp-build-or-buy
-version: 2.0
-description: "Build vs buy framework: prompt, in-context, RAG, fine-tune, vertical SaaS. 5 gates + in-context check: problem type, 200K context test, data, latency, cost, maintenance. Use when: scoping features, evaluating fine-tune ROI, comparing custom vs API costs. Triggers: 'build or buy', 'fine-tune vs prompt', 'RAG vs API', 'in-context vs fine-tune', 'should we train a model'"
-imports: [determinism-compass, stress-test, agent-harness]
+description: 'Build vs buy framework: prompt, in-context, RAG, fine-tune, vertical SaaS. 5 gates + in-context check: problem type, 200K context test, data, latency, cost, maintenance. Use when: scoping features, evaluating fine-tune ROI, comparing custom vs API costs. Triggers: ''build or buy'', ''fine-tune vs prompt'', ''RAG vs API'', ''in-context vs fine-tune'', ''should we train a model'''
 ---
-
 # Build or Buy
 
 ## DEPTH DECISION

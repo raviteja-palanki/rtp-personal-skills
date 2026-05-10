@@ -1,9 +1,7 @@
 ---
 name: rtp-ai-fluent-brand
-description: |
-  Complete visual identity system for AI Fluent Product Leadership — "ravi-personal-branding (v2.x)." Use when creating ANY visual content: presentations, websites, landing pages, artifacts, HTML, React, documents, PDFs, social graphics, infographics, or emails. Triggers include: (1) Any content for Ravi Teja Palanki or AI Fluent, (2) Dark theme with gold/premium aesthetics, (3) Presentations or slides, (4) Landing pages or marketing content, (5) Data visualizations or infographics, (6) Component styling or UI design. Provides exact color hex values, typography specs, spacing systems, component classes, animation timing, and accessibility standards. Core principles: readability is sacred, restraint signals mastery, gold appears maximum 3× per view.
+description: 'Complete visual identity system for AI Fluent Product Leadership — "ravi-personal-branding (v2.x)." Use when creating ANY visual content: presentations, websites, landing pages, artifacts, HTML, React, documents, PDFs, social graphics, infographics, or emails. Triggers include: (1) Any content for Ravi Teja Palanki or AI Fluent, (2) Dark theme with gold/premium aesthetics, (3) Presentations or slides, (4) Landing pages or marketing content, (5) Data visualizations or infographics, (6) Component styling or UI design. Provides exact color hex values, typography specs, spacing systems, component classes, animation timing, and accessibility standards. Core principles: readability is sacred, restraint signals mastery, gold appears maximum 3× per view.'
 ---
-
 # AI Fluent Brand System — ravi-personal-branding (v2.x)
 
 > *"Design is not just what it looks like and feels like. Design is how it works."* — Steve Jobs

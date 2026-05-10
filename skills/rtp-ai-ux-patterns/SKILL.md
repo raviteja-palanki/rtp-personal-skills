@@ -1,13 +1,7 @@
 ---
 name: rtp-ai-ux-patterns
-description: >
-  Interface patterns for AI products where output confidence varies. Uncertainty
-  communication ladder, progressive disclosure, trust calibration, AI-specific
-  loading states, and error states. Use when designing AI features or evaluating
-  why users over-trust or under-trust AI output.
-imports: [trust-ladder, failure-modes]
+description: Interface patterns for AI products where output confidence varies. Uncertainty communication ladder, progressive disclosure, trust calibration, AI-specific loading states, and error states. Use when designing AI features or evaluating why users over-trust or under-trust AI output.
 ---
-
 # AI UX Patterns: Communicating Uncertainty Without Destroying Trust
 
 ## DEPTH DECISION

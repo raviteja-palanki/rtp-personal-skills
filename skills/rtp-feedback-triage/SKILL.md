@@ -1,17 +1,7 @@
 ---
 name: rtp-feedback-triage
-description: >
-  Score user feedback by frequency × severity × strategic fit + an AI-failure
-  axis. Use when triaging support tickets, NPS comments, in-product feedback,
-  or social-channel complaints. Most triage frameworks treat AI feedback like
-  any other UX issue. They shouldn't — AI failures are bimodal and route to
-  different fix teams. This skill separates them and ranks accordingly.
-imports:
-  - failure-modes
-  - ai-product-metrics
-  - eval-framework
+description: Score user feedback by frequency × severity × strategic fit + an AI-failure axis. Use when triaging support tickets, NPS comments, in-product feedback, or social-channel complaints. Most triage frameworks treat AI feedback like any other UX issue. They shouldn't — AI failures are bimodal and route to different fix teams. This skill separates them and ranks accordingly.
 ---
-
 # Feedback Triage
 
 Take an unstructured pile of user feedback and produce a ranked, routed report — with the AI-failure axis that frequency-only triage misses.

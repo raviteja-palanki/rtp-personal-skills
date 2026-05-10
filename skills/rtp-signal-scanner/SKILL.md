@@ -1,13 +1,7 @@
 ---
 name: rtp-signal-scanner
-description: >
-  Detect weak signals early — trends, threats, opportunities invisible in quarterly reviews but obvious in hindsight.
-  Dual-speed sensing: real-time operational signals (what's happening now) + long-term strategic signals (what's emerging).
-  Companies with systematic signal scanning achieve 5% financial lift. Use for annual planning, competitor monitoring,
-  or when building early-warning systems into product strategy.
-imports: [first-principles, strategy-canvas]
+description: 'Detect weak signals early — trends, threats, opportunities invisible in quarterly reviews but obvious in hindsight. Dual-speed sensing: real-time operational signals (what''s happening now) + long-term strategic signals (what''s emerging). Companies with systematic signal scanning achieve 5% financial lift. Use for annual planning, competitor monitoring, or when building early-warning systems into product strategy.'
 ---
-
 # Signal Scanner
 
 Most companies are reactive. They respond to what's already obvious: a competitor ship, a customer churn, a market shift. By then, decision windows are closed.

@@ -2,7 +2,6 @@
 name: rtp-product-thinking
 description: A high-agency cognitive operating system for product evaluation, decision-making, and organizational diagnosis. Synthesizes Shreyas Doshi's mental models with complementary frameworks from Marty Cagan, Teresa Torres, and Kapil Gupta. Invoke when evaluating products/features, diagnosing failures, making decisions under ambiguity, assessing team dynamics, navigating stakeholder complexity, reviewing strategies, or any context requiring senior product judgment. Triggers on "evaluate this product", "should we build", "why did this fail", "product decision", "feature assessment", "product strategy", "stakeholder alignment", "prioritization", "roadmap review", or any request requiring product thinking beyond tactics.
 ---
-
 # Product Thinking Skill
 *The High-Agency Operating System for Product Judgment*
 

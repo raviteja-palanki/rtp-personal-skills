@@ -1,9 +1,7 @@
 ---
 name: rtp-eval-framework
-description: "Evaluation approach: what eval problem, what to measure from failures, evolve evals as product matures. Use when: launching features, diagnosing quality, setting monitoring. Triggers: 'how to evaluate', 'eval framework', 'quality metrics'"
-imports: [feedback-flywheel, first-principles, stress-test]
+description: 'Evaluation approach: what eval problem, what to measure from failures, evolve evals as product matures. Use when: launching features, diagnosing quality, setting monitoring. Triggers: ''how to evaluate'', ''eval framework'', ''quality metrics'''
 ---
-
 # Evaluation Framework
 
 ## GROUNDING (Before Starting)

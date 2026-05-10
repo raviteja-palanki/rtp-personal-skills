@@ -1,18 +1,7 @@
 ---
 name: rtp-ravis-resume-builder
-description: >
-  Pixel-perfect PDF resume generator for Raviteja Palanki (Ravi). Produces an Apple-quality,
-  A4, two-column resume using ReportLab with Lato font and full Unicode support.
-  Use this skill whenever the user asks to update, rebuild, regenerate, or modify Ravi's resume
-  — including content edits, URL changes, adding/removing experience roles, updating portfolio
-  items, changing competencies, or tweaking layout spacing. Triggers on "update my resume",
-  "rebuild resume", "generate resume PDF", "change resume content", "new resume version",
-  "fix resume link", "add to my resume", "resume v17", "update portfolio on resume", or
-  any reference to modifying Ravi's professional resume. Also triggers when the user uploads
-  a resume PDF and asks to recreate or improve it. Do NOT use for creating resumes for other
-  people or for general document formatting unrelated to Ravi's resume.
+description: Pixel-perfect PDF resume generator for Raviteja Palanki (Ravi). Produces an Apple-quality, A4, two-column resume using ReportLab with Lato font and full Unicode support. Use this skill whenever the user asks to update, rebuild, regenerate, or modify Ravi's resume — including content edits, URL changes, adding/removing experience roles, updating portfolio items, changing competencies, or tweaking layout spacing. Triggers on "update my resume", "rebuild resume", "generate resume PDF", "change resume content", "new resume version", "fix resume link", "add to my resume", "resume v17", "update portfolio on resume", or any reference to modifying Ravi's professional resume. Also triggers when the user uploads a resume PDF and asks to recreate or improve it. Do NOT use for creating resumes for other people or for general document formatting unrelated to Ravi's resume.
 ---
-
 # Ravi's Resume Skill Builder
 
 You are generating Ravi Teja Palanki's professional resume as a pixel-perfect PDF. The resume

@@ -1,17 +1,7 @@
 ---
 name: rtp-first-principles
-description: >
-  Decomposes any AI product problem to its ONE irreducible operation by stripping vendor
-  features, marketing language, and implementation details. Use when evaluating new feature
-  proposals, diagnosing why a product failed, starting any product analysis, or when someone
-  says "we should add AI to X", "is this feature necessary", "what's the real problem here",
-  or "break this down to basics". Also triggers on reviewing competitive features or when
-  a team wants to migrate to a different model/technology. Do NOT use when the problem is
-  already well-decomposed by the team, when speed of iteration matters more than depth
-  (early prototyping phase), or when making a low-stakes decision with reversible consequences.
-imports: []
+description: Decomposes any AI product problem to its ONE irreducible operation by stripping vendor features, marketing language, and implementation details. Use when evaluating new feature proposals, diagnosing why a product failed, starting any product analysis, or when someone says "we should add AI to X", "is this feature necessary", "what's the real problem here", or "break this down to basics". Also triggers on reviewing competitive features or when a team wants to migrate to a different model/technology. Do NOT use when the problem is already well-decomposed by the team, when speed of iteration matters more than depth (early prototyping phase), or when making a low-stakes decision with reversible consequences.
 ---
-
 # First Principles
 
 ## DEPTH DECISION

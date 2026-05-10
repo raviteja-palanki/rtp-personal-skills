@@ -2,7 +2,6 @@
 name: rtp-deep-dive-writer
 description: Writes practitioner deep dives for ravitejapalanki.com/writing — story-driven, production-grounded, enterprise-real. Use when Ravi wants to create or refine deep dive content on any technical domain (AI evals, context engineering, agentic AI, etc.). Produces posts following Ravi's Deep Dive Template with 2 Excalidraw SVGs per topic. v2.0 — May 2026 — incorporates the full rebuild learnings from the 105-post corpus revision.
 ---
-
 # Ravi's Deep Dive Writer
 **v2.0 — Updated 05 May 2026 with the full set of disciplines surfaced during the 105-post corpus rewrite.**
 

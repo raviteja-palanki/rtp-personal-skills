@@ -1,19 +1,7 @@
 ---
 name: rtp-prompt-craft
-id: prompt-craft
-title: Prompt Craft
-category: craft
 description: How to actually write good prompts. The writing craft — hard constraints, structure-triggers-quality, test splits, cost economics, model-specific formatting. Distinct from prompt-as-product (which covers versioning and process). Use when writing or improving system prompts, optimizing prompt quality, or debugging why a prompt underperforms.
-difficulty: intermediate
-version: "1.0"
-imports:
-  - determinism-compass
-  - prompt-as-product
-  - eval-framework
-author: ai-pm
-last_updated: 2026-04-12
 ---
-
 ## DEPTH DECISION
 
 **Go deep** if: you're writing a production system prompt, optimizing an underperforming prompt, or need to balance quality against cost. Read the full 6-step framework.

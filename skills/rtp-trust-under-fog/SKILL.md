@@ -1,10 +1,7 @@
 ---
 name: rtp-trust-under-fog
-description: >
-  Communicate confidently when outcomes are genuinely uncertain — without over-promising or under-delivering. Boards want guarantees. Customers want certainty. AI outcomes are probabilistic. This skill helps you build stakeholder confidence through transparency, not false promises. Use when stakeholders demand guarantees you can't give, when communicating AI capabilities to non-technical audiences, when navigating probabilistic outcomes but deterministic business expectations, or when rebuilding trust after over-promise. Skip when outcomes are deterministic (no fog) or when stakeholders are already comfortable with uncertainty.
-imports: [determinism-compass, dual-lens]
+description: Communicate confidently when outcomes are genuinely uncertain — without over-promising or under-delivering. Boards want guarantees. Customers want certainty. AI outcomes are probabilistic. This skill helps you build stakeholder confidence through transparency, not false promises. Use when stakeholders demand guarantees you can't give, when communicating AI capabilities to non-technical audiences, when navigating probabilistic outcomes but deterministic business expectations, or when rebuilding trust after over-promise. Skip when outcomes are deterministic (no fog) or when stakeholders are already comfortable with uncertainty.
 ---
-
 # Trust Under Fog
 
 ## DEPTH DECISION

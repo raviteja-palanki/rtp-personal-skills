@@ -1,13 +1,7 @@
 ---
 name: rtp-adoption-launch
-description: >
-  Treat AI adoption as a product launch — with personas, phases, and phase-specific support — not as a training program.
-  Adoption curves are predictable: Surge (Month 1) → Dip (Months 3-4) → Rebound (Month 5+).
-  Organizations that give one-time training see 50% churn at the dip. Adoption is not a training problem;
-  it's a product problem. Use when planning AI rollout, adoption is stalling, or designing change management.
-imports: [first-principles, needs-guard]
+description: 'Treat AI adoption as a product launch — with personas, phases, and phase-specific support — not as a training program. Adoption curves are predictable: Surge (Month 1) → Dip (Months 3-4) → Rebound (Month 5+). Organizations that give one-time training see 50% churn at the dip. Adoption is not a training problem; it''s a product problem. Use when planning AI rollout, adoption is stalling, or designing change management.'
 ---
-
 # Adoption Launch
 
 Adoption curves for enterprise software are predictable. Yours will follow the same pattern. The question is not whether your team will hit the Month 3 dip — they will. The question is whether you've planned for it.

@@ -1,18 +1,7 @@
 ---
 name: rtp-bias-spotter
-description: >
-  Identifies the cognitive bias making a potentially flawed AI product decision feel
-  right or inevitable. Use when evaluating any recommendation, reviewing PRDs, assessing
-  feature proposals, before major resource commits, or when a decision feels 'obvious',
-  'everyone knows this is right', or 'the competitor did it so we should too'. Triggers
-  on phrases like 'that's just common sense', 'obviously we need to', 'this is our only
-  option', or when urgency is being cited as justification. Also use after hearing from
-  a senior person or consultant to audit for authority bias. Do NOT use as a decision blocker
-  (biases are always present), use it to improve reasoning before deciding. Do NOT use
-  when the team is already paralyzed by analysis and needs to commit.
-imports: []
+description: Identifies the cognitive bias making a potentially flawed AI product decision feel right or inevitable. Use when evaluating any recommendation, reviewing PRDs, assessing feature proposals, before major resource commits, or when a decision feels 'obvious', 'everyone knows this is right', or 'the competitor did it so we should too'. Triggers on phrases like 'that's just common sense', 'obviously we need to', 'this is our only option', or when urgency is being cited as justification. Also use after hearing from a senior person or consultant to audit for authority bias. Do NOT use as a decision blocker (biases are always present), use it to improve reasoning before deciding. Do NOT use when the team is already paralyzed by analysis and needs to commit.
 ---
-
 # Bias Spotter
 
 ## DEPTH DECISION

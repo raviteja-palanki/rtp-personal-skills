@@ -1,26 +1,7 @@
 ---
 name: rtp-prompt-as-product
-description: >
-  Treat prompts as versioned product artifacts with the rigor of code deployments —
-  version control, regression testing, A/B testing, rollback capability, and pinned
-  versions. Prompts are the new product surface; a five-word reorder in a system prompt
-  can shift output distribution across the entire user base. Use when shipping prompt
-  changes to production, debugging "the AI started behaving differently", designing a
-  prompt deployment process, or pushing back on "we just tweaked the system prompt".
-  Triggers on "prompt change", "system prompt update", "prompt versioning", "prompt
-  rollback", "prompt A/B test", "prompt regression", "prompt deployment".
-id: prompt-as-product
-title: Prompt as Product
-category: craft
-difficulty: intermediate
-version: "2.0"
-imports:
-  - eval-framework
-  - determinism-compass
-author: ai-pm
-last_updated: 2026-04-04
+description: Treat prompts as versioned product artifacts with the rigor of code deployments — version control, regression testing, A/B testing, rollback capability, and pinned versions. Prompts are the new product surface; a five-word reorder in a system prompt can shift output distribution across the entire user base. Use when shipping prompt changes to production, debugging "the AI started behaving differently", designing a prompt deployment process, or pushing back on "we just tweaked the system prompt". Triggers on "prompt change", "system prompt update", "prompt versioning", "prompt rollback", "prompt A/B test", "prompt regression", "prompt deployment".
 ---
-
 ## DEPTH DECISION
 
 Are you treating prompts as internal implementation details, or as versioned product artifacts?
