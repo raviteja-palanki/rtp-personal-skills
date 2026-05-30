@@ -26,7 +26,7 @@ Ravi is a **Bridger** — he translates across engineering, design, business, an
 
 ## When This Skill Activates
 
-ONLY when Ravi explicitly invokes it. This skill does NOT auto-activate. Trigger phrases:
+**Primarily when Ravi explicitly invokes it.** Trigger phrases:
 - "RTP Claude Admin"
 - "Claude Admin"
 - "Admin mode"
@@ -35,6 +35,17 @@ ONLY when Ravi explicitly invokes it. This skill does NOT auto-activate. Trigger
 - "Run a health check"
 - "Delete deprecated files"
 - "Update the master index"
+
+**Also auto-suggest a health check** (added 12 MAY 2026) at session start when ANY of these conditions are true:
+- `ACTION-PLAN.md` last updated > 7 days ago
+- `CHANGE_LOG.md` last entry > 7 days ago
+- `SKILL-REGISTRY.md` last updated > 7 days ago
+- `MASTER_INDEX.md` last updated > 14 days ago
+- `git worktree list` shows >1 non-current worktree
+
+When auto-triggered, the skill should propose: "Last governance update was [N] days ago. Recommend running HEALTH CHECK before new work. Should I?" — wait for Ravi's confirmation. Don't auto-execute admin actions without confirmation.
+
+**Why this addition:** Between 6 APR and 12 MAY 2026, governance drifted silently for 36 days because no session invoked the health check. The skill HAS the capability — the gap was a missing trigger. Auto-suggestion at session start closes that gap without violating the "Ravi authorizes destructive actions" principle.
 
 ## Core Principle
 
@@ -47,7 +58,21 @@ ONLY when Ravi explicitly invokes it. This skill does NOT auto-activate. Trigger
 When invoked, ask Ravi which action he wants, or suggest based on context.
 
 ### Action 1: HEALTH CHECK
-**What it does:** Scans the entire Claude folder and reports on its condition.
+**What it does:** Scans the entire Claude folder and reports on its condition. Now includes the 6 governance-vs-filesystem reconciliation checks added 12 MAY 2026 (see "Governance Reconciliation Checks" below).
+
+**Governance Reconciliation Checks (added 12 MAY 2026):**
+
+Run these in addition to the original checks. Each one verifies a governance claim against actual filesystem state:
+
+1. **Archive integrity.** For each `## DD MMM YYYY` entry in `DEPRECATED-TRACKER.md`, check whether `_archive/{date_folder}/` actually exists AND contains the listed content. Flag any entry that claims files that aren't there.
+2. **Skill count accuracy.** Run `find 2_Skills -name SKILL.md | wc -l`. Compare to the total claimed in `SKILL-REGISTRY.md`. Flag any drift.
+3. **AIPM layer count accuracy.** Run `find 2_Skills/ai-pm-skills -name SKILL.md | wc -l`. Compare to claims in the AIPM section header. Flag drift.
+4. **Active projects table accuracy.** Run `ls 1_Projects/`. Compare to the active-projects table in `MASTER_INDEX.md`. Flag any project listed that doesn't exist, or any folder that exists but isn't listed.
+5. **Worktree hygiene.** Run `git worktree list`. For each non-current worktree, check filesystem mtime: any modifications in the last 5-10 minutes? → active session, leave it. Otherwise flag as stale + propose `git worktree remove`.
+6. **Zone fit.** Scan for content in wrong zones:
+   - `5_Knowledge/` should have NO binary files (PNG, PDF, MP4). It's a text-only zone.
+   - `3_Research/` root should have NO loose files — everything goes in subfolders.
+   - `2_Skills/` should have NO folders with spaces or loose `.skill` files at top level (those go in `_web-app-skills/`).
 
 Steps:
 1. Read `MASTER_INDEX.md` — check if it matches actual folder state
