@@ -1,7 +1,8 @@
 ---
 name: rtp-deep-dive-writer
-description: Writes practitioner deep dives for ravitejapalanki.com/writing — story-driven, production-grounded, enterprise-real. Use when Ravi wants to create or refine deep dive content on any technical domain (AI evals, context engineering, agentic AI, etc.). Produces posts following Ravi's Deep Dive Template with 2 Excalidraw SVGs per topic. v2.0 — May 2026 — incorporates the full rebuild learnings from the 105-post corpus revision.
+description: Writes practitioner deep dives for learn.ravitejapalanki.com — story-driven, production-grounded, enterprise-real. Use when Ravi wants to create or refine deep dive content on any technical domain (AI evals, context engineering, agentic AI, etc.). Produces posts following Ravi's Deep Dive Template with 2 Excalidraw SVGs per topic. v2.0 — May 2026 — incorporates the full rebuild learnings from the 105-post corpus revision.
 ---
+
 # Ravi's Deep Dive Writer
 **v2.0 — Updated 05 May 2026 with the full set of disciplines surfaced during the 105-post corpus rewrite.**
 
@@ -18,7 +19,7 @@ That identity shapes everything. The writing is:
 - Opinionated where experience warrants it, uncertain where evidence is thin
 - Never overcomplicated. Never claiming to have done everything.
 
-Anyone who reads ravitejapalanki.com/writing should know: this person reads deeply, understands carefully, and explains in a way that respects your time and intelligence while keeping things realistically grounded.
+Anyone who reads learn.ravitejapalanki.com should know: this person reads deeply, understands carefully, and explains in a way that respects your time and intelligence while keeping things realistically grounded.
 
 **The 0.1% bar.** The benchmark is Naval Ravikant reading a post and saying *"this is the best AI PM content I've read on the internet."* Every paragraph earns its place. Every sentence carries weight. Every closing line is screenshot-able.
 
@@ -124,6 +125,25 @@ The reader gets the lesson here. The cross-reference exists if they want depth.
 5. **Jargon explained on first use, every post — even *inference*.** Then used freely for the rest of that post.
 6. **Cross-references carry the insight first, link for depth.** No name-sake referrals.
 7. **Length matches lesson.** Be precise where precision earns its place. Expand where expansion genuinely helps the learner. Never long for its own sake. Never short for its own sake.
+
+---
+
+## The data-feature & synthesis bar (NEW — v2.1, Jun 2026, from the Frontier-Company build)
+
+Use this whenever a post carries a lot of numbers, multiple sources, or is a cross-company/market synthesis — the mode where good writing most easily collapses into a spreadsheet with sentences. It layers on the 7 voice rules and the four hard tests; it doesn't replace them. (Distilled across ~8 revision passes that took a piece from "reads like a Bloomberg analyst, 7/10" to a TIME-grade feature.)
+
+1. **Open on a person or one arresting fact, never an abstraction.** *"In late May, a Uber executive said one sentence that explained the AI economy"* beats *"AI ROI is hard to measure."* The lede is a scene, not a thesis.
+2. **Insight up top.** Lead with a tight "the short version" — your structural claim in the reader's hands in the first thirty seconds — then spend the piece earning it.
+3. **One move per section, no repetition.** Each section makes exactly one new point. If two sections argue the same thing in different words, merge them. This is the cut almost every draft needs.
+4. **Numbers live in visuals; prose carries the story.** Don't stack figures in sentences. Put them in a table or chart and let the prose say what they *mean*. If a paragraph has more than ~2 numbers, it probably wants to be a visual.
+5. **Label every number for what it is.** ✅ audited (in a filing) · ◆ company-disclosed (a self-reported metric like a run-rate) · ⚠ reported/unverified. A run-rate is not revenue. Carry one consistent key through the whole piece, in prose *and* visuals. (See `5_Knowledge/rules.md` Rules 31–34, and decompose vendor framing — "AI revenue" is usually Cloud, ads, or a bundled run-rate.)
+6. **Every visual is guided.** Above it, one line: *what you're looking at.* Below it, one line: *the one thing to take from this.* A chart nobody is told how to read is decoration.
+7. **Synthesis, not summary.** Given many sources, metabolize all of them, reconcile the contradictions (say which source wins and why), and lead with the single insight that reorganizes the field. Never recap source-by-source — metabolize, don't paraphrase.
+8. **Subtle sourcing.** Hyperlink the load-bearing numbers inline (primary sources; two for anything heavy) and gather the method in a quiet "how I know this" note at the end. Sourcing earns trust by being present, not loud. Discard viral/contested stats even when they help the argument — and never contradict the reader's own canon (the playbook).
+9. **Close on the Monday move.** End with what the reader should *do*, not what to think about — the operator's takeaway, specific and immediate.
+10. **For web-bound posts, leave HTML build-notes** as a comment at the top: which visual is the hero, how to render it, which pull-quotes to enlarge. The designer shouldn't have to guess what should sing.
+
+**The test:** a smart non-expert should follow the whole piece without slowing down, *and* a skeptic should be able to click every number through to a primary source. If it reads like a Bloomberg terminal — cut numbers, add story. If it reads like a blog with no receipts — add the citations and the tier labels.
 
 ---
 
@@ -429,6 +449,10 @@ The 105-post rewrite surfaced disciplines the v1 skill did not encode. v2 adds:
 
 The v1 disciplines (template, terminology gate, illustrative signal gate, factual-vs-illustrative rule, 24 anti-patterns, Connecting-the-dots format, cross-skill integration, quality bar) are all preserved.
 
+## What changed in v2.1 (Jun 2026)
+
+Added **"The data-feature & synthesis bar"** — ten rules for posts heavy on numbers, sources, or cross-company synthesis, distilled from the Frontier-Company deep-dive build. The core additions over v2: open on a human scene (not an abstraction); insight up top; one move per section; numbers live in *guided, tier-labeled* visuals (✅/◆/⚠) not prose; synthesis-over-summary; subtle inline sourcing + an end note; close on the Monday move; HTML build-notes for web pieces. Pairs with `5_Knowledge/rules.md` Rules 31–36 and the orchestrator's Fact-Discipline & Output-Bar module.
+
 ---
 
-*Last updated: 05 May 2026. v2.0. Skill at parity with the rebuild learnings from the 105-post corpus revision.*
+*Last updated: 05 Jun 2026. v2.1 (data-feature & synthesis bar) on the v2.0 base. Skill at parity with the rebuild learnings from the 105-post corpus revision plus the Frontier-Company synthesis build.*
