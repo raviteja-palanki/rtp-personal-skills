@@ -1,8 +1,35 @@
 ---
-name: rtp-bias-spotter
-description: Identifies the cognitive bias making a potentially flawed AI product decision feel right or inevitable. Use when evaluating any recommendation, reviewing PRDs, assessing feature proposals, before major resource commits, or when a decision feels 'obvious', 'everyone knows this is right', or 'the competitor did it so we should too'. Triggers on phrases like 'that's just common sense', 'obviously we need to', 'this is our only option', or when urgency is being cited as justification. Also use after hearing from a senior person or consultant to audit for authority bias. Do NOT use as a decision blocker (biases are always present), use it to improve reasoning before deciding. Do NOT use when the team is already paralyzed by analysis and needs to commit.
+name: bias-spotter
+description: >
+  Identifies the cognitive bias making a potentially flawed AI product decision feel
+  right or inevitable. Use when evaluating any recommendation, reviewing PRDs, assessing
+  feature proposals, before major resource commits, or when a decision feels 'obvious',
+  'everyone knows this is right', or 'the competitor did it so we should too'. Triggers
+  on phrases like 'that's just common sense', 'obviously we need to', 'this is our only
+  option', or when urgency is being cited as justification. Also use after hearing from
+  a senior person or consultant to audit for authority bias. Do NOT use as a decision blocker
+  (biases are always present), use it to improve reasoning before deciding. Do NOT use
+  when the team is already paralyzed by analysis and needs to commit.
+  Pairs with: falsification (what evidence would prove this wrong), first-principles
+  (strip the framing before auditing it), trendslop-check (when the bias is baked into
+  AI-generated strategy itself).
+imports: []
 ---
+
 # Bias Spotter
+
+**The objective:** name the cognitive bias that is making a flawed decision feel obvious, before the money is committed. Every expensive AI product mistake felt right at the time — that feeling has a mechanism, and the mechanism has a name. This skill finds the name, states the evidence, and forces one mitigation per bias. It never blocks a decision; it prices the risk into it.
+
+## KEY TERMS (plain language)
+
+- **Cognitive bias** — a systematic shortcut in human judgment that produces predictable errors; not stupidity, wiring.
+- **Bias blind spot (meta-blindness)** — the inability to see your own biases while actively looking for them; finding none is itself a warning sign.
+- **Distribution shift / drift** — production data slowly stops resembling the data the model was tested on, so old accuracy numbers quietly expire.
+- **LLM-as-judge** — using one AI model to grade another's output; useful, but the judge has tastes (verbosity, its own style) that skew scores.
+- **BLEU / exact-match** — automated text-similarity scores; easy to measure, weakly related to whether users were actually helped.
+- **Stratified sample** — an eval set deliberately built to include the rare and hard cases in proportion, not just the common easy ones.
+- **Shadow deployment** — running the AI silently alongside the real process, comparing outputs without users seeing them; the honest dress rehearsal.
+- **Inversion test** — asking "if the opposite were true, what evidence would I expect?" and then actually looking for it.
 
 ## DEPTH DECISION
 
