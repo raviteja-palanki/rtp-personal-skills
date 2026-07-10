@@ -22,6 +22,8 @@ chains:
 
 Trigger phrases: "plan a launch," "ready to ship [AI feature]," "GA checklist," "production rollout for AI."
 
+**Run in two sittings, not one.** Sitting 1: the readiness gates (ship-decision + cost-model at 10× volume) — these produce the go/no-go evidence, and a no-go here makes the rest moot. Sitting 2, fresh session: the launch machinery (adoption plan, kill-switch design with a named owner, monitoring dashboards, breach drill, comms). Teams that run all five in one pass reliably shortchange the machinery half, which is the half that saves you in week three.
+
 Use this when:
 - The AI-PRD is approved and engineering is implementing
 - You're 2-4 weeks from launch

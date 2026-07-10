@@ -1,6 +1,6 @@
 ---
 name: design-ai-feature
-description: The pre-build gauntlet for any new AI feature — chains 7 RTP skills into one disciplined workflow before a single line of code is written. Triggers on "design an AI feature," "should we build AI for X," "validate this AI idea."
+description: The pre-build gauntlet for any new AI feature — ten gates across three bounded stages (Fit, ~15 min; Shape, one session; Build gate, one deep session), each stage a realistic sitting with its own decision output. Triggers on "design an AI feature," "should we build AI for X," "validate this AI idea."
 version: 1.0.0
 author: RTP (Ravi Teja Palanki)
 chains:
@@ -46,7 +46,17 @@ The cost of skipping is high. AI features that ship without these gates fail in 
 | cost-model | Per-call cost × volume × margin = negative unit economics at GA |
 | safety-by-design | Bolted on guardrails after launch — broke the UX, didn't fix the failure mode |
 
-This workflow runs all ten gates in sequence. If any gate fails, the workflow halts and surfaces "here's why we shouldn't proceed."
+This workflow runs all ten gates — but **never in one sitting.** Ten gates in one prompt produces ten shallow passes; the depth that makes each gate worth running needs its own attention. So the gauntlet runs as **three bounded stages**, each a realistic single session with its own decision output. Each stage ends with a one-paragraph summary that becomes the next stage's input, so the work resumes cleanly in a fresh prompt (or a fresh day) with nothing lost.
+
+| Stage | Gates | The question it answers | Typical effort | Kill rate |
+|---|---|---|---|---|
+| **Stage 1 — Fit** | 1–2 (problem-ai-fit, first-principles) | Is this even an AI problem? | ~15 minutes | Highest — most ideas die here, cheaply |
+| **Stage 2 — Shape** | 3–4, 8 (autonomy-spectrum, determinism-compass, ai-ux-patterns) | What form should it take — how much autonomy, what architecture, what user experience? | One focused session | Medium |
+| **Stage 3 — Build gate** | 5–7, 9–10 (prompt-craft, eval-framework, cost-model, safety-by-design, ai-prd) | Are we ready to build — measured, costed, safe, specced? | One deep session (the heaviest stage) | Low, but the most expensive to skip |
+
+Run Stage 1 the moment the idea appears. Don't schedule Stage 2 until Stage 1 passes. A stage can be invoked on its own when its inputs already exist ("we know it's an AI problem, shape it").
+
+**Drift guard:** the tables in this file are summaries; the skills are the source of truth. When a skill updates (for example, the verifiability cut line now caps every autonomy decision in `autonomy-spectrum`), the skill wins over this file's summary.
 
 ---
 
@@ -61,6 +71,8 @@ The user invokes this with a feature description. If empty, ask:
 The third question routes the rest of the workflow. If the answer is "regulator," the safety and cost gates get tighter.
 
 ---
+
+## STAGE 1 — FIT (run this the moment the idea appears; ~15 minutes)
 
 ## STEP 1 — GATE: PROBLEM-AI-FIT
 
@@ -91,7 +103,11 @@ Classify the atomic operation: LOOKUP / TRANSFORM / CLASSIFY / GENERATE / DECIDE
 
 **Pass signal:** Atomic operation is non-trivial AND the input is genuinely unstructured. Continue.
 
+**STAGE 1 CHECKPOINT — stop here.** Write the Stage-1 summary (fit score, atomic operation, verdict: proceed / kill / deterministic path) and end the session. Stage 2 starts fresh with that summary as input. If the verdict is kill, you just saved a build at the cost of fifteen minutes.
+
 ---
+
+## STAGE 2 — SHAPE (one focused session: autonomy, architecture, experience)
 
 ## STEP 3 — GATE: AUTONOMY-SPECTRUM
 
@@ -144,7 +160,13 @@ Three patterns:
 
 **Pass signal:** The workflow is one of the three patterns AND every probabilistic-to-deterministic handoff has a contract. Continue.
 
+**STAGE 2 CONTINUES with Step 8 (ai-ux-patterns) — run it now, before the checkpoint.** Autonomy, architecture, and experience are one design conversation; splitting UX into the build stage is how "the model works but users don't trust it" ships.
+
+**STAGE 2 CHECKPOINT — stop here.** Write the Stage-2 summary (autonomy level with its four controls, determinism pattern with handoff contracts, UX patterns with fallback design) and end the session. Stage 3 is the heavy one; it deserves a fresh session with full attention.
+
 ---
+
+## STAGE 3 — BUILD GATE (one deep session: prompt, evals, cost, safety, PRD)
 
 ## STEP 5 — GATE: PROMPT-CRAFT
 
