@@ -231,6 +231,16 @@ Based on context, determine which thinking algorithms are critical:
 
 **The skill sequence is fungible.** A novel problem might activate Sense-Maker → Evals Expert → Crafter (skipping strategy entirely). A political problem might be Sense-Maker → Safety Expert → Strategist (reordered because the constraint is organizational). Build the sequence that fits THIS problem — not the sequence that fits a template.
 
+**The companion map (reference for this step — an input to your reasoning, never a script).** Every skill's frontmatter now carries a `Pairs with:` line naming its natural companions and why. When you invoke a skill, read that line and ask whether the companions belong in this sequence. The recurring companion clusters, so you compose them deliberately rather than rediscovering them:
+
+- **"Should we build this?"** → problem-ai-fit (does it need AI at all) → ai-use-case-readiness (what autonomy level) → build-or-buy (own it or buy it) → moat-finder (is it defensible). Skipping straight to build-or-buy without problem-ai-fit is the classic mis-invocation.
+- **"Design the agent"** → autonomy-spectrum (choose the level) + agent-spec (per-step design) + agent-risk (worst case + kill switch) + determinism-compass (what must never vary). agent-ecosystem joins only at 2+ agents.
+- **"Is it good / can we ship?"** → eval-framework (the tests) + eval-driven-development (tests as spec) → ship-decision (the gate) → production-observability (after launch). ai-product-metrics is the dashboard over all of it.
+- **"The economics"** → cost-model (cost side) + token-economics (price side) always travel together; moat-finder's value-line pre-screen runs before either — don't optimize a cost line nobody should be aiming at.
+- **"Humans around the AI"** → judgment-guard (erosion of human judgment) + trust-ladder (calibrated trust) + adoption-launch (rollout) + attitudinal-segmentation (who resists and why). agent-risk's adversarial-user module joins when someone has a reason to want the rollout to fail.
+- **"Safety"** → safety-by-design (build it in) + safety-as-moat (does it pay) + responsible-ai-program (the governance) + breach-ready (when it fails anyway).
+- **"Communicate it"** → stakeholder-communications (audience framing) + dual-lens (business AND technical legibility) + trust-under-fog (uncertain outcomes, confident comms).
+
 **Never narrate the skills.** The user sees the analysis, not the machinery.
 
 ### Step 3: Present the Directional Plan (User Sees This)

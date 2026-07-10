@@ -1,7 +1,9 @@
 ---
-name: rtp-determinism-compass
-description: 'Deterministic vs probabilistic classification: what must stay consistent, what can vary, where variation is risk/value. Quality gates, testing, caching. Use when: architecting, QA design, spec review. Triggers: ''variation acceptable'', ''test AI component'', ''cache'', ''reproducible'''
+name: determinism-compass
+description: "Which parts of your AI product must give the same answer every time, and where is variety acceptable — or even the point? Sorts every component into 'must be consistent' vs. 'may vary', then sets the testing, caching, and autonomy rules that follow from the sort. Use when: designing the architecture, QA planning, spec reviews. Pairs with: autonomy-spectrum (how far the AI may act alone), problem-ai-fit (whether AI belongs here at all). Triggers: 'variation acceptable', 'test AI component', 'cache', 'reproducible'"
+imports: []
 ---
+
 # Determinism Compass
 
 ## DEPTH DECISION
@@ -10,7 +12,7 @@ description: 'Deterministic vs probabilistic classification: what must stay cons
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -28,6 +30,15 @@ Reality: **Most features sit on a spectrum.** Routing is deterministic. Classifi
 ### Non-Determinism Compounds in Multi-Agent Systems
 
 A single model call with 5% variation is manageable. Chain 4 agents sequentially and variation compounds: the downstream agent operates on a different input each time. A pipeline that passes 95% of the time per step passes only ~81% end-to-end across 4 steps. This is why Anthropic measures **pass^k** (all k trials succeed) not just **pass@k** (at least one succeeds). For customer-facing agents, consistency matters as much as capability.
+
+## KEY TERMS (plain language)
+
+- **Deterministic vs. probabilistic** — a task with one right answer that should never vary (deterministic) versus one where a range of outputs is acceptable (probabilistic).
+- **Variation tolerance** — how much the same input is allowed to produce different outputs before it becomes a risk.
+- **Temperature** — a dial on how random or creative a model's output is; low for consistency, high for variety.
+- **pass@k vs. pass^k** — succeeded on at least one of k tries versus succeeded on all k tries (the bar for consistency).
+- **Property-based testing** — instead of checking for an exact output, check that the output has the required properties (valid format, right fields, within length).
+- **The verifiability cut line** — the point up to which you can still check how a system was set up; autonomy can rise to it and must stop where it would need checking every single output.
 
 ## DIAGNOSTIC QUESTIONS
 
@@ -69,6 +80,14 @@ Not all "variation tolerance" is the same. Use these anchors to calibrate where 
 - Safety-critical instructions: Assembly instructions, medication dosage, emergency procedures.
 
 **The test:** "Would a user feel betrayed if they got a different answer to the same question tomorrow?" If yes, you're in high variation risk territory. Design accordingly: deterministic outputs for the critical path, AI-generated only for low-stakes suggestions.
+
+### From Sourcing to Autonomy — Two 2026 Additions
+
+**Task type maps to how much autonomy and accountability to give.** A four-way sort of *work* lands on this same spectrum. Routine, measurable, rules-based tasks are the deterministic end — high autonomy and full automation belong here. Regulated, high-liability, judgment-heavy tasks are the probabilistic, human-in-the-loop end — the AI only *assists*, a named human stays responsible, and the work is governed "through risk forums rather than simple service-level agreements" (contract targets like speed or volume). **Why it matters:** when work carries real liability, you don't manage it with a contract metric; you keep a named human accountable — the sourcing decision and the autonomy decision are the same call reached from opposite ends of the org. **When this is wrong:** a routine-looking task can still carry hidden liability (a "simple" claims-intake error that cascades), so check liability separately from how routine the task looks.
+*(Source: "AI Is Rewriting the Economics of Outsourcing," Agrawal, HBR, 5 Jun 2026.)*
+
+**The verifiability cut line — how far autonomy can go.** Checking every single output by hand doesn't scale; require a human to review every output and you cancel the efficiency that justified the AI. The fix is to move human judgment up front, to the *setup* — goals, limits, escalation paths, thresholds. So the rule: **let the AI run as far as you can still check the setup, and stop where it would need someone checking every output.** You can hand off as far as you can verify the *design*, no further. **Why it matters:** this is why over-reaching rollouts get pulled back to a human-present mode — they were pushed past the point where the setup could be checked, into territory needing per-output review, which isn't feasible. **When this is wrong:** "can I check the setup?" is itself a judgment call — a team can convince itself it verified a setup it didn't understand; the line sets the ceiling, not the guarantee.
+*(Source: "Beyond Verification," Renieris, Kiron, Mills & Kleppe, MIT Sloan Management Review, 12 May 2026. Full treatment in `rtp-autonomy-spectrum`.)*
 
 ## THE PROCESS
 
@@ -206,7 +225,7 @@ If you run the same pipeline 3 times and take the majority answer, you need all 
 
 ## GENERATE THE DELIVERABLE
 
-Follow the **Deliverable Protocol** from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11:
+Follow the **Deliverable Protocol** from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11:
 - Choose format: spreadsheet matrix, specification document, or presentation
 - Embed the classification matrix (Step 3 from THE PROCESS) as the core artifact
 - For each component, document: determinism level, temperature, test strategy, pin strategy, pass@k/pass^k target
@@ -257,11 +276,11 @@ Regression strategy: [eval set size, cadence, threshold]
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

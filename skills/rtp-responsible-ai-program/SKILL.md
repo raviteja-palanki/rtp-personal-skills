@@ -1,7 +1,11 @@
 ---
-name: rtp-responsible-ai-program
-description: 'Use when building or auditing an enterprise Responsible AI program — diagnosing accountability gaps, designing governance, or scoring readiness. Build or audit an enterprise Responsible AI program using the MIT Sloan 3 Gaps framework and SHARP implementation system. Diagnoses organisational accountability, strategy, and resource gaps. Designs governance structures that hardwire ethics into product development. Triggers: ''responsible AI'', ''AI governance program'', ''ethics program'', ''SHARP framework'', ''accountability gap'', ''AI governance structure'', ''AI ethics by design'''
+name: "responsible-ai-program"
+description: "Build or audit a company-wide responsible-AI program that actually functions instead of existing to be seen. Diagnoses the three gaps that make ethics programs fail — nobody truly accountable, no strategy connecting ethics to the business, no budget or people behind it (the MIT Sloan '3 Gaps' lens) — and designs governance that wires ethics into how products get built (the SHARP system; both explained in plain terms inside). Use when: standing up AI governance, auditing an existing program, translating an ethics risk into a number executives act on. Pairs with: safety-as-moat (the business case), safety-by-design (the technical half), alignment-check (org readiness). Triggers: 'responsible AI', 'AI governance program', 'ethics program', 'SHARP framework', 'accountability gap', 'AI ethics by design'"
+imports: ["safety-as-moat", "safety-by-design", "dual-lens"]
+version: "1.1"
+framework_source: "MIT Sloan Management Review — Öykü Işık & Ankita Goswami, 'The Three Obstacles Slowing Responsible AI', October 2025"
 ---
+
 # Responsible AI Program
 
 ## DEPTH DECISION
@@ -14,12 +18,20 @@ description: 'Use when building or auditing an enterprise Responsible AI program
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions — at minimum: Who is the customer? What problem? What does YES mean saying NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, stakeholder brief?
 
 ---
+
+## KEY TERMS (plain language)
+
+- **The 3 gaps** — the accountability, strategy, and resource gaps that make responsible-AI programs fail.
+- **SHARP framework** — the skill's system for closing those gaps and hardwiring ethics into product development.
+- **Ethical-business risk translation** — expressing an ethics risk as a dollar range (fine + churn + brand) so cost-conscious executives act on it.
+- **Checkbox transparency** — treating "the explanation exists" as compliance, without ensuring anyone actually engages it.
+- **Inner/outer world lens** — designing your process so it doesn't create the risk (inner world) versus watching whether regulators or press expose it (outer world).
 
 ## THE TRAP
 
@@ -75,7 +87,7 @@ Ask these questions. If you answer NO to any, the gap exists:
 |---------|-----|-----|
 | Does the ethics/AI governance team have authority to delay or block a product launch? | | |
 | Do ethics reviewers have technical AI literacy sufficient to evaluate model behavior? | | |
-| Is there a dedicated budget for falsificationing, bias auditing, and ethics-related engineering? | | |
+| Is there a dedicated budget for red-teaming, bias auditing, and ethics-related engineering? | | |
 | Are ethics reviews resourced proportionally to AI risk level (more review for higher-risk AI)? | | |
 
 **Gap severity:** 0 NOs = No gap. 1-2 NOs = Partial gap. 3-4 NOs = Full resource gap.
@@ -190,6 +202,8 @@ by product team)      architecture)      ship without       review of
 - Translation is done once for a presentation but not embedded into ongoing risk management
 - Estimates are too vague to act on ("reputational damage" without a dollar range)
 - Business risk framing works for cost-conscious executives but alienates values-driven stakeholders who feel the ethics are being commodified
+
+**Checkbox transparency — "make the explanation available" is not a control.** This is THE TRAP ("programs that exist to be seen, not to function") in its most common concrete form. Explainability is often logged as a compliance checkbox: the explanation exists, the box is ticked, the regulator is satisfied. The evidence says that's false comfort. When looking at the reasoning might cost the viewer — money or moral exposure — people decline to look even when it's free and one click away, and a bias-disclosure prompt can make them look *less*. For any decision with real bias or compliance stakes (credit, hiring, medical, judicial), voluntary explainability predictably goes unused by exactly the people whose incentives most need it used. **The governance constraint:** require *engagement* with the explanation (mandatory, logged review), not just its *availability* — which is closer to what the CFPB already demands (the credit-scoring row above): "specific" and "accurate" reasons *used in the decision*, not a rationale sitting unread in a log. **Why it matters:** the same liability this register prices (CFPB enforcement, GDPR fines) is not neutralized by an explanation nobody reads — "explainability shipped" and "explainability used" are different lines in the program. **When wrong:** low-stakes, low-bias-risk decisions don't warrant a mandatory review step — the checkbox is proportionate where the harm is trivial. *(Source: "Employees Aren't Questioning AI Advice Enough," Chan / Rand, HBR, 24 Jun 2026 — ◆ study, n=2,512; CFPB circular 2023-03 + GDPR / EU AI Act ✅. Mechanism-level fix in `rtp-judgment-guard`, motivated non-inquiry.)*
 
 ---
 
@@ -348,11 +362,11 @@ This skill gives bad advice if:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

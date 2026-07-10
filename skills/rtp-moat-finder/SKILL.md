@@ -1,7 +1,9 @@
 ---
-name: rtp-moat-finder
-description: 'Four moat types: data flywheel, workflow lock-in, context depth, trust. Defend at 18 months when models commoditize. Use when: strategy, moat vs parity, defensibility. Triggers: ''competitive advantage'', ''defensibility'', ''moat'''
+name: moat-finder
+description: "Will your AI advantage survive copycats? Scores the four defenses that get stronger with use — the data loop, workflow lock-in, behind-the-scenes engineering depth, and earned trust — plus a pre-screen on which profit line (cost vs. growth) the feature even moves, and two checks for fake moats. Use when: setting strategy, deciding whether an edge is defensible or just parity with rivals, pre-investment reviews, or ~18 months out when base models catch up. Pairs with: build-or-buy (which capability to own), safety-as-moat (the trust side), eval-framework (the hard-case audit). Triggers: 'competitive advantage', 'defensibility', 'moat'"
+imports: [bias-spotter, determinism-compass]
 ---
+
 # Moat Finder
 
 ## DEPTH DECISION
@@ -14,7 +16,7 @@ description: 'Four moat types: data flywheel, workflow lock-in, context depth, t
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -26,6 +28,37 @@ Then proceed with the skill-specific analysis below.
 You will confuse impressive with defensible. The bias is **recency bias** — a clever prompt or RLHF trick feels like a moat because it's novel. Three months later every competitor uses the same approach. You're left racing on execution cost, which is not a durable strategy.
 
 In AI, moats are invisible until they work or fail. A proprietary dataset, a fine-tuned model, deep workflow integration — all can look defensible on launch day and become commodities by month 18. Teams that win know their moat *before* they start building. Teams that don't spend 18 months optimizing something someone else will copy in weeks.
+
+## KEY TERMS (plain language)
+
+Read these once; the rest of the skill uses them.
+
+- **Moat** — a durable advantage a competitor can't easily copy.
+- **Data flywheel** — usage creates data that improves the product, which attracts more usage; a loop that compounds.
+- **Workflow lock-in** — customers are so embedded (integrations, trained staff, stored history) that switching is expensive.
+- **Context depth** — the hard-to-copy engineering behind the scenes (prompts, evals, system design) that you can't read off the outputs.
+- **Trust (as a moat)** — a track record of reliability and safety that buyers pay extra for; slow to build, fast to lose in one incident.
+- **7 Powers** — Hamilton Helmer's list of seven durable business advantages (scale economies, network effects, counter-positioning, switching costs, branding, cornered resource, process power).
+- **Network effects** — the product gets more valuable to each user as more users join (not the same as just collecting a lot of data).
+- **Compounding feedback loop** — a system that improves itself from the data its own use generates.
+- **Anti-moat loop** — that same self-improving loop, but fed by public data anyone can get, so it pushes everyone toward the same average instead of ahead.
+- **Long tail** — the many rare, hard cases that each occur infrequently but together are common and expensive to get wrong.
+- **Agent-in-the-middle squeeze** — when an AI assistant buys for the customer, a brand can lose both the moment it would persuade a person and the moment the choice is made.
+- **Model-agnostic vs. model-dependent moat** — an advantage that survives model upgrades (harness, evals, workflows) versus one that fades when the base model catches up (a fine-tune, an architecture trick).
+- **P&L value-line** — which line of the profit-and-loss statement an AI feature moves (cost vs. growth); the cost line floors at zero, the growth line is multiplied by the valuation premium.
+- **Growth blindspot** — believing AI can hugely raise firm value yet spending it on efficiency, where the ceiling is low.
+- **Data liquidity** — how ready-to-use a company's data already is for a new purpose (clean, reusable, validated); the measurable form of a data moat.
+- **Data dependence (trust tax)** — how visibly a product relies on harvesting the user's own data; the more customers feel it, the more they discount its trust claims.
+
+## VALUE-LINE PRE-SCREEN — Is This Worth Defending?
+
+Before the defensibility analysis, run one screen: **which line of the P&L does this AI touch, and what's that line's ceiling?** The three lines aren't equal.
+
+- **Cost line — floored at zero.** Even the generous case (half the cost base is AI-addressable, cut it 10% = a ~5% total expense cut) moves firm value only ~10%. Real, but bounded — you can't cut a cost below zero.
+- **Growth line — no ceiling, and multiplied.** Investors price the valuation *multiple* on expected future growth, so a lever that touches the growth rate touches the multiple. In the authors' valuation model (run on wealth-management firms), a firm growing organically at 5% is worth ~50% more than an identical firm at 3% — a sustained 2-point growth lift ≈ +50% firm value before earnings even grow (◆; the mechanism generalizes, the exact figure is model- and industry-specific).
+- **The bias to screen for — the growth blindspot.** Executives believe AI can more than double firm value (a roundtable of senior financial-services execs put an AI-leveraged wealth firm at a ~135% premium in three years) yet almost all spend it on efficiency.
+
+**Why it matters:** a strong, defensible moat around a *cost-line* feature still can't move firm value much; the same effort aimed at the *growth line, behind a moat*, compounds — so screen the P&L line before you invest in defending it. **When this is wrong:** in a genuinely cost-constrained business (thin margins, survival mode) the cost line is the right target; and a growth lift with *no* moat is rented, not owned — it converges away (see the anti-moat loop below). *(Source: "Companies Are Using AI for Efficiency. They Should Use It to Grow.", Benartzi, Long & Puntoni, HBR, 1 Jun 2026. The 2.35× roundtable estimate is a senior-exec judgment ◆/⚠, not audited.)*
 
 ## THE PROCESS
 
@@ -216,7 +249,7 @@ The strongest AI switching costs combine 3+ of these. Single-dimension switching
 
 **Definition:** Embedded organizational processes that produce a sustained quality, cost, or speed advantage — and that take competitors years to replicate even after they understand them.
 
-**AI-product example (real moat):** Anthropic's RLHF + Constitutional AI training process. The recipe is partially public (papers, blog posts), but reproducing it requires the entire organizational stack: research culture, evaluation infrastructure, internal falsification capacity, alignment researchers who know which trade-offs matter. A competitor can read the papers and still fail because the process isn't in the papers — it's in the organization.
+**AI-product example (real moat):** Anthropic's RLHF + Constitutional AI training process. The recipe is partially public (papers, blog posts), but reproducing it requires the entire organizational stack: research culture, evaluation infrastructure, internal red-team capacity, alignment researchers who know which trade-offs matter. A competitor can read the papers and still fail because the process isn't in the papers — it's in the organization.
 
 **AI-product example (vanity):** "Our process is faster product iteration." Faster iteration is execution, not process power. Process power requires that the process produces structurally better outputs in a way competitors cannot match even with more money.
 
@@ -254,6 +287,11 @@ The reverse is also useful. If an AI moat type scores high but no Power maps to 
 - **Single moats are fragile.** Strongest products have 2+ moat types. Anthropic: context depth + trust + growing data flywheel. OpenAI: workflow lock-in + trust. Build with redundancy.
 - **Moat decay accelerates.** Initial erosion is slow. Once it starts, collapse is fast. Budget for moat maintenance and refresh before you need it.
 - **No moat, no strategy.** If you can't answer "why can't a competitor with the same model beat us?", you're competing on execution cost. That's not durable.
+- **Buying a capability is not building a moat.** Acquiring the technology doesn't create the durable advantage. A large study of ~17,000 corporate transactions found that buying technology does not, on its own, produce innovation (◆). Treat "we can just acquire it" as buying parity, not building a moat — the moat is what you compound *after* the purchase, not the purchase itself. *(Source: "3 Ways to Rethink Your Build-or-Buy Strategy," Srivastava, HBR, 9 Jun 2026.)*
+- **Not all data is a moat — only the rare, hard cases over costly judgment.** General models master the *common* cases fast. The part a rival can't copy is the pile of unusual, infrequent, expensive-to-get-wrong situations — the "long tail" (the many rare cases that each occur infrequently but together are common). The test you can actually check: does your data cover those rare hard cases, or only the common, easily-scraped ones? If only the common ones, the advantage is already slipping. In one field-service dataset (Bluon, HVAC repair), about a third of real issues were oddballs that fit no common topic, and 27 of 59 topics held fewer than 300 examples each — that thin, hard slice is where the advantage lives, not the common third a model already handles (◆; [VERIFY] the 135,000-call base — one Bluon page says "150,000 from 40 technicians"; author holds equity in Bluon, note the conflict wherever cited). *(Source: "AI's Impact on SaaS Will Be Uneven," Stanton, HBR, 27 May 2026.)*
+- **A data moat the customer can *feel* taxes its own trust premium.** When scoring a data advantage, add a question the volume/freshness/exclusivity checks miss: *does the value visibly depend on harvesting the user's own data?* If yes, discount the moat — customers who sense high data dependence discount your trust claims, eroding the very patronage the data was meant to compound. The data moat and the trust moat can pull against each other; the strongest position is a data advantage the customer doesn't experience as "they're mining me." *When wrong:* the tax only bites where the customer perceives the dependence AND has an exit — under real lock-in, or where the data use is invisible, it doesn't fire. *(Source: "Data Privacy Is a Growth Strategy," HBR, 2026; moderator ◆ [Journal of Marketing 2025](https://journals.sagepub.com/doi/10.1177/00222429251367342).)*
+- **Score data *liquidity*, not just data volume.** Readiness-to-use is a scoreable input the volume/exclusivity checks miss: an incumbent's agent ships faster than a startup's on identical model access because its data is already clean, reusable, and validated. *When wrong:* liquid data is a moat only if it covers the rare, hard cases (see the precision test above) and isn't cheaply scrape-able — high liquidity over commodity data is a fast anti-moat, not a moat. *(Source: "Data Transformation Is the CEO's Business," MIT Sloan Management Review, 21 May 2026 — Caterpillar; ◆ directional.)*
+- **Sharper still — score data *vintage*, not just liquidity.** Liquidity is how ready-to-use the data is; vintage is how far back it accumulated. A second independent case (Lenovo, electronics manufacturing) makes Caterpillar's point harder: the moat is behavioral history *time-indexed to your own operation* — supplier under-commitment patterns, two decades of failure data, customer order dynamics. A competitor with a better model still can't backfill it, because time can't be bought back. The most falsifiable form of the data-moat question: "how many years would a rival need to reproduce this history, even with a better model?" *When wrong:* vintage over commodity — scrape-able data is a fake moat, and the years count only if they cover the rare, hard cases. *(Second confirming case: Handfield, HBR, 27 May 2026 — ◆ directional, independent academic. Promotes the Q2-14 data-liquidity finding to a 2-for-2 cross-industry pattern.)*
 
 ## QUALITY GATE
 
@@ -394,6 +432,35 @@ A critical distinction: some moats survive model upgrades; others don't.
 
 **Prefer model-agnostic moats.** When the next model arrives in 6 months and is 30% better, you want defensibility that doesn't depend on fine-tuning or training. Build harness, evals, context, and data flywheels. These survive model upgrades. Fine-tuning and proprietary training data are temporary advantages.
 
+## Two 2026 Ways a "Moat" Can Be Fake
+
+Two failure modes surfaced in mid-2026 research. Each one looks like a moat and isn't. Run these checks whenever this skill has just identified a data/feedback-loop moat or a customer-relationship moat.
+
+### 1. The anti-moat loop — a feedback loop on public data erases your edge
+
+A data or feedback-loop moat has a condition the moat literature usually skips: the loop's *inputs* must be yours alone. Run the same "gets better as you use it" loop (a *compounding feedback loop* — a system that improves itself from the data its own use generates) on public signals every competitor's platform also takes in — competitor prices, web traffic, weather, public inventory — and the loop pushes you toward the industry average, not ahead of it. The faster the loop, the faster you land on the same answer as everyone else. "Gets better as you use it" and "turns into a commodity" are the same machine pointed at different fuel.
+
+**The check:** Are the inputs to this loop yours alone, or public signals every rival also takes in? If the honest answer is "mostly public," it isn't a moat — it's an *anti-moat loop* that erases what made you different.
+
+Evidence: in German gas-station markets, margins rose ~28% only when *both* competing stations ran the same pricing algorithm on the same shared signals; when only one did, there was no rise (✅ peer-reviewed — Assad, Clark, Ershov & Xu, *Journal of Political Economy* 2024, DOI [10.1086/726906](https://www.journals.uchicago.edu/doi/10.1086/726906)). Everyone landing on the same answer needs both sides running the same loop on the same fuel — which is exactly the line between an advantage and an anti-advantage.
+
+The first cheap fix is never a new vendor; it's feeding in one signal only you can see (behavior from your own channels, long-term relationship history, frontline operational data), plus naming one goal the off-the-shelf tool would never optimize for.
+
+*When this over-warns:* in a thin-margin commodity market, landing on the same answer can be the profit-maximizing move, and being deliberately different a luxury that leaves money on the table. Inputs being yours alone is necessary but not sufficient — a private signal that doesn't change the decision isn't an advantage either.
+*(Source: "Beware the Agentic Convergence Trap," van Esch, Cui & Black, HBR, 13 May 2026.)*
+
+### 2. The agent-in-the-middle squeeze — a relationship moat can fail on two fronts
+
+Once an AI assistant sits between your brand and the buyer (a person tells the assistant what they want and it does the searching and buying), a customer relationship you thought was safe has two separate ways to fail, and surviving one doesn't save you from the other:
+
+- **The persuasion front — where your brand convinces a person.** The assistant answers in a few sentences and cites two or three sources; the human never lands on your page. Your positioning and emotional pull never fire, because no human is reading. Getting seen stops being about ranking high and becomes about being *quoted* — you have to be the source the AI trusts enough to cite.
+- **The choice front — where the buying decision is made.** The assistant carries out the person's instruction ("a mattress under $800 that ships by Friday") and buys against those rules. It doesn't feel your brand. A relationship that wins the citation can still lose the sale, because what earns a citation isn't what wins an assistant's purchase.
+
+The only lasting defenses are structural: own the assistant, own the data the assistant needs to decide, or be the option so clearly trusted the AI can't route around you. A relationship that depends on a human reading or choosing is not safe from AI.
+
+*When this over-warns:* where no assistant sits in the purchase (the buyer is a human on your site), the classic relationship moat still holds. This front is also early — in 2026 you are defending against a buyer that barely exists yet.
+*(Source: "AI Is Upending Marketing on Two Fronts," Puntoni, HBR, 23 Feb 2026.)*
+
 ## OUTPUT FORMAT
 
 When you assess a product's moat, use this structure:
@@ -453,11 +520,11 @@ Moat Refresh Plan: [quarterly actions to maintain/deepen]
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

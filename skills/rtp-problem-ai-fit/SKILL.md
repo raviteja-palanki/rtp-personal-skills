@@ -1,7 +1,16 @@
 ---
-name: rtp-problem-ai-fit
-description: Determines whether a problem genuinely needs AI or if rules, search, and heuristics deliver better outcomes. Use when teams propose AI features, stakeholders say "use AI," or during discovery. Runs hypothesis-driven AI-necessity analysis.
+name: problem-ai-fit
+description: >
+  Determines whether a problem genuinely needs AI or if rules, search, and simple logic
+  deliver better outcomes — then, for problems that do need AI, decides which seat it takes:
+  the engine that produces the recommendation, or the helper that widens the evidence while
+  humans keep the judgment. Use when teams propose AI features, stakeholders say
+  "use AI," or during discovery. Runs hypothesis-driven AI-necessity analysis.
+  Pairs with: first-principles (find the real operation first), ai-use-case-readiness
+  (score the autonomy), build-or-buy (how to source it), determinism-compass (rules vs. patterns).
+imports: [first-principles]
 ---
+
 # Problem-AI Fit
 
 Determine if the problem needs AI, or if you're adding complexity without value.
@@ -52,9 +61,18 @@ Before starting, ask:
 >
 > *Default if no preference: Word Document.*
 
-Follow the [Universal Deliverable Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Deliverable Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ---
+
+## KEY TERMS (plain language)
+
+- **AI-Necessity Test** — the four-question check for *whether* a problem needs AI (judgment · learnable · cost-of-error · volume).
+- **The lookup-table test** — asking whether a table, decision tree, or rules engine could solve 80% of this before reaching for AI.
+- **Narrow vs. wide decision** — narrow = crisp goal, usable data, fast feedback; wide = competing priorities, ambiguous info, needs alignment.
+- **Decision engine vs. helper** — AI that *produces* the recommendation (engine, for narrow decisions) versus AI that *broadens the evidence* while humans keep judgment (helper, for wide ones).
+- **Analytical vs. generative AI** — analytical predicts/optimizes from structured data; generative writes/synthesizes from language.
+- **AI-washing** — dressing up a rules or lookup problem as "AI" for hype.
 
 ## Step 0: Ground in the Customer's Reality
 
@@ -130,6 +148,20 @@ Q4: Is the VOLUME high enough to justify the infrastructure?
 ```
 
 ---
+
+## Step 2.5: Which Seat Does AI Take — Engine or Helper?
+
+The fit score above is a go/no-go. For every problem that clears it, there's a second question enterprise PMs get wrong far more often: *what job does AI hold in the decision?* — and that depends on the decision's shape.
+
+- **Narrow decision** — clear, quantifiable objective; reliable, reusable data; fast feedback; codifiable boundaries; cheap to reverse. → AI is the **engine**: analytical AI (optimization, prediction, causal modeling) *produces the recommendation*. The human sets the objective, supplies quality inputs, stress-tests assumptions, defines guardrails, watches for drift. (Forecasting demand, detecting fraud, routing deliveries, scoring churn.)
+- **Wide decision** — competing financial, strategic, ethical, or political priorities; evolving or incomplete information; alignment matters as much as analysis. → AI is the **helper**: generative AI synthesizes inputs, surfaces assumptions, frames scenarios, articulates trade-offs — but the human keeps judgment *and* commitment. (Entering a market, repositioning a brand, redesigning an org.)
+
+**The six-question scorecard** (mostly-yes → narrow/engine; mostly-no → wide/helper): (1) *Objective clarity* — is the goal crisp and quantifiable, not just directionally appealing? (2) *Data readiness* — relevant, reliable, reusable data, not just anecdotes? (3) *Causal stability* — will historical relationships likely hold over the decision horizon? (4) *Boundary transparency* — are the boundaries codifiable, or mostly contextual/political? (5) *Feedback loop* — can you observe outcomes quickly and feed them into the next cycle? (6) *Reversibility* — can you reverse or iterate cheaply, or is it a one-way street?
+
+**The move that matters most — decompose first.** Don't classify the whole decision. A wide decision usually *contains* narrow subdecisions (a brand pivot contains message-testing, media-mix optimization, pricing experiments, demand forecasting). Ask "which subdecisions inside this wide one score narrow?" — those get the engine; the wide wrapper gets the helper.
+
+**Why it matters:** most "the AI failed" stories are really "we gave engine-grade automation to a wide decision whose narrow core we never separated out" — a team buys generative *fluency* for a problem that needed rigorous analytics (a narrow core) or slow human alignment (a wide wrapper), and the polish of the deliverable masks the absence of real conviction. **When this is wrong:** the classification line is itself a wide judgment — boundary cases (a "narrow" store-location choice that's actually politically charged) get the least guidance exactly where you need the most, so treat the scorecard as a lean, not a verdict; and it's silent on cost and latency, since routing every wide decision through generative synthesis plus an agentic harness isn't free.
+*(Source: "Calibrate AI Use to the Decision at Hand," Amorim, Saleh & Sundling, MIT Sloan Management Review, 6 May 2026. Adoption-impact gap it leans on: ~88% of firms use AI in ≥1 function but only ~39% report EBIT impact, mostly sub-5% — ◆ [McKinsey, State of AI 2025](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai). Note: `rtp-problem-type` is a different axis — technical-vs-adaptive org change — not narrow/wide.)*
 
 ## Step 3: State Your Hypothesis
 
@@ -511,6 +543,6 @@ When continuing to a downstream skill (ai-use-case-readiness, invisible-stack, d
 - Critical assumptions with evidence ratings
 - Open questions for the next skill
 
-Follow the Markdown Handoff format in the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 9.
+Follow the Markdown Handoff format in the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 9.
 
 File naming: `problem-ai-fit-handoff-[use-case-slug].md`

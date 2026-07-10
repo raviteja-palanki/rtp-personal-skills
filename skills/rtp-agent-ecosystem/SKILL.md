@@ -1,7 +1,20 @@
 ---
-name: rtp-agent-ecosystem
-description: 'Orchestration, state management, handoff for multi-agent systems. Patterns: CodeAct, Magentic, SLM-micro, computer-using, A2A, harness. Use when: architecting multi-agent systems, choosing protocols. Triggers: ''multi-agent'', ''agent protocol'', ''orchestration'''
+name: agent-ecosystem
+description: "When two or more AI agents must work together: who coordinates the work, how it passes between agents without losing context, and how progress survives a failure instead of starting over. Covers the six wiring patterns production teams actually use (each named and explained in plain terms inside), and the human twin of every handoff protocol — a named owner of the translation step. Use when: designing multi-agent systems, choosing coordination protocols, diagnosing agents that collide or lose work. Pairs with: agent-harness (the pipeline architecture), agent-spec (per-agent design), determinism-compass (what must never vary). Triggers: 'multi-agent', 'agent protocol', 'orchestration'"
+imports:
+  - determinism-compass
 ---
+
+## KEY TERMS (plain language)
+
+- **Multi-agent system** — two or more AIs working on the same job, each with its own role, that must coordinate instead of collide.
+- **Orchestration** — the layer that decides which agent acts, in what order, and what happens when one fails.
+- **Handoff** — one agent passing its work to the next; the point where context (what's been learned so far) is most easily lost.
+- **State management** — keeping a reliable record of where the work stands, so a failure doesn't force starting over.
+- **Design patterns (CodeAct, Magentic, etc.)** — the six named ways production teams wire agents together; each is explained where it appears below.
+- **A2A (agent-to-agent protocol)** — a standard language two agents from different vendors use to talk to each other.
+- **Bridger** — the named human owner of a handoff between teams (or between an agent team and a business team); the human counterpart of a handoff protocol.
+
 ## DEPTH DECISION
 
 **Go deep if:** You're designing a multi-agent system (2+), evaluating orchestration architecture, planning to scale beyond one agent, or addressing coordination failure modes.
@@ -12,7 +25,7 @@ description: 'Orchestration, state management, handoff for multi-agent systems. 
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -95,6 +108,8 @@ When Agent A completes work that Agent B needs, how does B know?
 4. **Polling:** B periodically asks "is your work done?" Inefficient but simple.
 
 Choose based on latency tolerance: real-time → request-reply with timeout, batch → pub-sub or queue.
+
+**The human precedent — why handoffs need a named owner.** The "context lost per handoff" problem has a clean non-technical twin: Linda Hill's innovation research finds the *human* tech/business handoff inside companies fails for structurally the same reason — no one owns the translation step, and translating work ("bridging") is unrewarded, so it never gets built. Her fix is the org-design version of the protocols above: name a specific bridging owner and reward the bridging itself, rather than hoping coordination emerges from proximity or goodwill. Use this when explaining agent-handoff protocols to non-technical stakeholders — a *bridger* is the human fix to the same failure a handoff protocol is the machine fix to. **When wrong:** it's an analogy, not an identity — don't over-claim the two failures share a mechanism (the machine loss is measured context; the human loss is accountability and information). *(Source: Linda Hill, HBR, Jun 2026 — ◆ research base, 24 industries / 23 countries.)*
 
 **Layer 5: Harness > Model**
 
@@ -247,11 +262,11 @@ This skill gives bad advice if:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

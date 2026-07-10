@@ -1,7 +1,9 @@
 ---
-name: rtp-agent-spec
-description: 'Agent spec: autonomy levels (0-4), confidence thresholds, handoff, recovery, state snapshots. Maps uncertainty cascade (90% × 5 steps = 59% end-to-end). Use when: multi-step agents, autonomy levels, checkpoints. Triggers: ''agent autonomy'', ''agent spec'''
+name: agent-spec
+description: "The design document for an AI agent: what it does at each step, how much it may act alone (levels 0–4), when it must hand back to a human, how it recovers from failure, and who owns the outcome. Includes the chain-reliability math every stakeholder underestimates: 90% reliable per step × 5 steps ≈ 59% reliable end-to-end. Use when: building multi-step agents, setting autonomy levels, placing checkpoints. Pairs with: autonomy-spectrum (choosing the level), agent-risk (worst-case screening), ai-prd (the product spec around it). Triggers: 'agent autonomy', 'agent spec'"
+imports: [trust-ladder, failure-modes, determinism-compass]
 ---
+
 # Agent Specification
 
 ## DEPTH DECISION
@@ -14,7 +16,7 @@ description: 'Agent spec: autonomy levels (0-4), confidence thresholds, handoff,
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -85,6 +87,16 @@ Real agents have a critical property: they make autonomous decisions that cascad
 
 The dangerous variant: designing agents that have no recovery path. The AI commits to a direction at step 1, and step 5 is locked. A single hallucination at step 2 corrupts the entire output.
 
+## KEY TERMS (plain language)
+
+- **Agent spec** — the design document that pins down what an agent does at each step, how much it can act alone, and how it recovers when it fails.
+- **Autonomy level (0–4)** — per step, from "AI suggests, human decides" (0) up to "fully autonomous" (4).
+- **Trust threshold** — the confidence score at which a step's autonomy level goes up or down.
+- **Handoff protocol** — what information passes from one step to the next (and what's deliberately dropped).
+- **Sprint contract** — an upfront agreement on exactly what the agent must build, the pass/fail tests, and when to stop iterating.
+- **Boundary matrix** — the table mapping each step to its autonomy level, failure mode, recovery cost, and blast radius.
+- **Accountable owner** — a named person set up (mindset / meaning / mechanisms) to actually *choose* to own the agent's output, not just a name in the audit log.
+
 ## THE PROCESS
 
 1. **Map the step graph.** List every discrete operation the agent will perform:
@@ -134,6 +146,14 @@ The dangerous variant: designing agents that have no recovery path. The AI commi
    - Failure mode (what breaks)
    - Recovery cost (time, manual effort, user friction)
    - Consequence magnitude (how many downstream steps are affected)
+
+8. **Define the accountable owner — not just a name in the audit log.** Your state snapshots (step 6) already log a user ID for the audit trail. A name in a log is not ownership. An *accountable owner* is a named person whose **mindset, meaning, and mechanisms** have been set up on purpose so they still *choose* to own the agent's output:
+   - **Mindset** — they feel they matter to the outcome (framing the agent as a colleague quietly tells them they don't).
+   - **Meaning** — they have a reason worth the effort of checking the agent's work.
+   - **Mechanisms** — they're judged on catching the agent's errors, not just on shipping its output fast.
+
+   A name plus decision rights without these three produces compliance, not ownership — the same *autonomy-creep* move THE TRAP warns about, one level up: relabeling "a user in the audit trail" as "an accountable human" to skip the work of making accountability real. **Why it matters:** a controlled trial (BCG, 1,261 people) found that framing the AI as an employee dropped personal accountability by ~9 points and led reviewers to catch ~18% fewer errors (⚠/◆) — so the "human owner" field in your spec is worthless unless these conditions are specified alongside it. **When this is wrong:** for a Level 4 (fully autonomous, near-zero consequence) step there is no human owner to protect — mark the owner field "none by design," don't pretend one exists.
+   *(Source: "Accountability Must Be Chosen, Not Mandated," Okposo, HBR, 29 Apr 2026; BCG trial via "Research: Why You Shouldn't Treat AI Agents Like Employees," HBR 2026.)*
 
 ## SPRINT CONTRACT PATTERN
 
@@ -410,11 +430,11 @@ This ritual prevents "I didn't know X was already done" and "I didn't know Y was
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

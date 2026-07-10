@@ -1,10 +1,30 @@
 ---
-name: rtp-ai-product-metrics
-description: Use when defining metrics for an AI product, designing dashboards, or choosing which signals matter beyond DAU/retention. AI products require different metrics. Traditional DAU/retention are lagging indicators. Leading indicators are acceptance rate, correction rate, regeneration rate, and cost-per-successful-outcome.
+name: ai-product-metrics
+description: >
+  Pick the leading indicators that actually predict AI product health — acceptance rate,
+  correction rate, regeneration rate, cost-per-successful-outcome, and the 5-stage AI
+  funnel (Surfaced → Invoked → Completed → Accepted → Retained). Traditional DAU and
+  retention metrics are lagging indicators that miss model regressions until it's too late.
+  Use when designing the metrics dashboard for an AI feature, debugging why DAU is stable
+  but users complain, mapping a North Star + AARRR for AI, or pushing back on vanity
+  metrics. Triggers on "AI metrics", "North Star metric", "acceptance rate", "AI funnel",
+  "AARRR for AI", "what to measure for AI feature".
+  Pairs with: eval-framework (the tests beneath the numbers), feedback-flywheel (turning
+  usage into improvement), fit-signal (product-market fit for AI).
+id: ai-product-metrics
+title: AI Product Metrics
+category: craft
+difficulty: intermediate
+imports:
+  - eval-framework
+  - feedback-flywheel
+author: ai-pm
+last_updated: 2026-03-28
 ---
+
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -25,6 +45,17 @@ Most PMs measure like it's 2010. AI products hide degradation in plain sight.
 
 ---
 
+## KEY TERMS (plain language)
+
+- **Leading vs. lagging indicator** — a signal that moves early (acceptance rate, correction rate) versus one that moves late (DAU, retention, revenue).
+- **Acceptance / correction / regeneration rate** — how often users accept, fix, or re-run AI output; the core leading signals of AI quality.
+- **Cost per successful outcome** — the cost of a user actually getting a useful result, not the cost per API call.
+- **North Star + AARRR** — the one company-level metric, plus the Acquisition / Activation / Retention / Revenue / Referral funnel.
+- **The AI funnel** — Surfaced → Invoked → Completed → Accepted → Retained; where AI-quality drop-offs happen.
+- **Value chain (enablement → creation → realization)** — asset quality (before use) → usage → revenue; the causal spine a dashboard should be ordered on.
+- **Goodhart's law / anti-metric** — when a measure becomes a target it stops being a good measure; build metrics that resist being gamed.
+- **Instrument blindness** — when the measure you already collect (e.g. satisfaction) is the one least able to detect the problem you care about.
+
 ## THE TRAP
 
 **The "Vanity Metrics" Trap**
@@ -44,6 +75,10 @@ You measure eval accuracy at 94%. Users say the product is broken. Why?
 - Accuracy is unweighted (wrong answer to important question == wrong answer to trivial question)
 - Doesn't measure "trust calibration" (does the model know when it's wrong?)
 - Ignores the distribution of errors (10 errors on 1000 simple questions, or 1 error on 10 hard questions?)
+
+**The "Satisfaction Blindness" Trap**
+
+A satisfaction/CSAT score cannot detect persona-driven harm — and for an AI-as-teammate surface (a writing critic, a code-review bot, an automated feedback tool) it is, in a controlled study, the *least sensitive* channel to that harm. High adoption and high friction routinely coexist: people keep using a tool they *have* to use while quietly working around it, and report neutral satisfaction the whole time. So pair any satisfaction number with a **friction proxy** as a required check, not a nice-to-have: turn-length ratio, rephrase rate, and override/argue-attempt rate. If friction rises while satisfaction stays flat, believe the friction. *(When wrong: these log proxies are once-removed from the underlying evidence and aren't validated to correlate at equal strength — a directional check, not proof. Source: "Does Your AI Have a Personality Problem?", HBR, 24 Jun 2026; self-report null + friction signals ◆.)*
 
 ---
 
@@ -287,6 +322,19 @@ AI FUNNEL (per primary feature)
 
 The discipline: every drop-off in the AI funnel ladders up to a drop-off in AARRR. If first-prompt acceptance is low, AARRR Activation is low. If accepted-to-retained conversion is low, AARRR Retention is low. The funnels aren't separate diagnoses — they're the same diagnosis at different altitudes.
 
+### The Value Chain Your Dashboard Should Be Ordered On: Enablement → Creation → Realization
+
+The funnels above measure *creation* (usage) and *realization* (revenue) well, but they don't name the tier *underneath* both: the quality of the AI asset itself, before anyone uses it. A board-legible AI dashboard has three tiers in causal order:
+
+- **Value enablement** — the quality of the asset *before* anyone uses it: eval pass rates, golden-dataset coverage, data freshness. (Caterpillar's version: the count of accurate "trifecta" records on the platform.)
+- **Value created** — usage and its trajectory: acceptance rate, invocations, how fast usage is growing (the AARRR + AI-funnel view above).
+- **Value realization** — revenue attributable to the AI solution (the income-statement line).
+
+The point is the *causal chain*: realization is downstream of creation, which is downstream of enablement. Reporting all three together is what lets leadership trace a multi-year platform investment to the P&L — and it's exactly the report that sustained a six-year program at Caterpillar when revenue alone would have looked flat for years. Enablement is the tier that survives long timelines because it moves first; most AI dashboards jump from leading indicators straight to business outcomes with no named asset-quality tier.
+
+**Why it matters:** without the enablement tier, a slow-to-realize platform investment looks like failure on the dashboard for years and gets killed before the revenue line turns. **When this is wrong:** this is one access-privileged case (the authors ran the program; internal figures are self-calculated). Cite the *triad structure* at full confidence as a reporting lens; treat Caterpillar's outcome numbers as directional. For a fast product cycle the tiers still apply, but the multi-year patience they enabled does not transfer.
+*(Source: "Data Transformation Is the CEO's Business," MIT Sloan Management Review, 21 May 2026 — CISR value-monitoring triad; anchor: Caterpillar services revenue $14B (2016) → $24B (2024) ◆, [Caterpillar 2024 Annual Report](https://www.caterpillar.com/en/investors/reports/annual-report/ceo-message.html).)*
+
 ---
 
 ## KEY DIAGNOSTIC QUESTIONS
@@ -487,11 +535,11 @@ Use this structure to build your product metrics dashboard. Adapt the metric nam
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

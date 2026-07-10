@@ -1,7 +1,25 @@
 ---
-name: rtp-stakeholder-communications
-description: 'Audience-tailored communication for AI features — exec summaries, engineering briefs, launch announcements, risk escalations, weekly digests. The differentiator is AI-native confidence framing: every claim about a model''s behavior carries an eval-backed band, a named drift surface, and a mandatory "what could be wrong" section. Use when a single piece of information needs to land in three rooms — exec, engineering, customer — and each room is going to ask a different "but what''s the failure rate?" question. Do NOT use for internal team chat, casual PR updates, or comms about deterministic features where probabilistic framing is theater. Triggers: "stakeholder update," "exec briefing," "escalate to leadership," "launch announcement," "weekly digest," "send a note to."'
+name: stakeholder-communications
+description: >
+  Audience-tailored communication for AI features — exec summaries, engineering briefs,
+  launch announcements, risk escalations, weekly digests. The differentiator is AI-native
+  confidence framing: every claim about a model's behavior carries an eval-backed band, a
+  named drift surface, and a mandatory "what could be wrong" section. Use when a single
+  piece of information needs to land in three rooms — exec, engineering, customer — and
+  each room is going to ask a different "but what's the failure rate?" question. Do NOT
+  use for internal team chat, casual PR updates, or comms about deterministic features
+  where probabilistic framing is theater. Triggers: "stakeholder update," "exec briefing,"
+  "escalate to leadership," "launch announcement," "weekly digest," "send a note to."
+  Pairs with: dual-lens (business AND technical legibility), trust-under-fog (confident
+  comms on uncertain outcomes), first-principles (read the live need before supplying your default).
+imports:
+  - ai-product-metrics
+  - eval-framework
+  - problem-ai-fit
+  - trust-under-fog
+  - confidence-tuner
 ---
+
 # Stakeholder Communications: AI-Native Edition
 
 ## DEPTH DECISION
@@ -19,6 +37,31 @@ Most PMs treat stakeholder communication as a tone problem. It is not. **It's an
 The 0.1% move: **one set of eval evidence, three audience-shaped framings.** Engineers see the eval matrix and prompt diff. Execs see the boundary condition in plain English ("works for use case X, degrades when Y exceeds Z, fallback is W"). Customers see the experience and the human-in-the-loop. All three are anchored to the same number, the same regression test, the same drift watch. You cannot be caught with a different story in different rooms.
 
 This is the Bridger move applied to comms. Not "translate jargon." Translate the *underlying evidence* into each audience's decision language without losing the evidence.
+
+## KEY TERMS (plain language)
+
+- **Boundary condition** — the plain-English statement of where the feature works, where it degrades, and what the fallback is.
+- **Drift surface / drift watch** — where and how an AI's quality can quietly decay over time, and the language you use to flag it.
+- **Eval-backed claim** — a statement about the model's behavior tied to a specific test result, not a hand-wave.
+- **Audience tier map** — the table matching each audience to what they need and the decision they're making.
+- **The six needs** — protection, fairness, vision, expertise, affiliation, status; the human need that's live for a given audience.
+- **The Bridger move** — translating the same underlying evidence into each audience's decision language without losing the evidence.
+
+## READ THE LIVE NEED FIRST
+
+The tier map below tells you *how to say it* (each audience's decision language). This step tells you *what they need to hear* — the human need that's actually live for them right now. Research on 3,500+ working adults across three countries found people judge a communicator against six recurring needs, and capable people fail by over-supplying the one they're good at while a different one goes unmet:
+
+- **Protection** — reduce my risk before I commit (the engineer's "where does this break?").
+- **Fairness** — decide consistently; even a hard call lands if the rule is even (the resource-allocation ask).
+- **Vision** — tell me where this is going and why it matters (the exec's "why fund this?").
+- **Expertise** — help me understand what I can't yet judge (the cross-functional partner).
+- **Affiliation** — include me; keep the group whole.
+- **Status** — get me recognition and standing (the board-facing win).
+
+**Why it matters:** this doesn't replace the skill's core rule (anchor everyone to the same eval evidence) — it drives the *framing* of that evidence. A protection-need audience and a status-need audience get the *same* eval number, framed differently: "here's the boundary condition that protects you" versus "here's the win you can take to your board." The trap is supplying the need *you* like giving (usually vision or expertise) rather than the one that's live. So two extra beats before you write: (1) name the live need, (2) name your own default and check it isn't overriding theirs.
+
+**When this is wrong:** in a low-trust or high-fear room the real need is hidden because it's unsafe to voice, so "read the need" fails exactly when it matters most — there, default to protection and fairness, which are safe to over-supply. And don't treat the six needs as a measured law; it's a vocabulary, not a formula.
+*(Source: "Are You Meeting the Needs of the People You Lead?", van Vugt, Sheng & Andrews, HBR, 13 May 2026 — self-reported survey, ◆.)*
 
 ## AUDIENCE TIER MAP
 

@@ -1,7 +1,16 @@
 ---
-name: rtp-ai-ux-patterns
-description: Interface patterns for AI products where output confidence varies. Uncertainty communication ladder, progressive disclosure, trust calibration, AI-specific loading states, and error states. Use when designing AI features or evaluating why users over-trust or under-trust AI output.
+name: ai-ux-patterns
+description: >
+  Interface patterns for AI products where output confidence varies: how to show the AI's
+  uncertainty, reveal detail only as needed, calibrate user trust, design loading and error
+  states — and govern the AI's personality (tone, patience, pushback) as a controlled design
+  variable, not a vibe. Use when designing AI features or evaluating why users over-trust
+  or under-trust AI output.
+  Pairs with: trust-ladder (the calibration), confidence-tuner (the signals users see),
+  judgment-guard (log whether explanations are actually opened, not just offered).
+imports: [trust-ladder, failure-modes]
 ---
+
 # AI UX Patterns: Communicating Uncertainty Without Destroying Trust
 
 ## DEPTH DECISION
@@ -15,7 +24,7 @@ You are designing an interface where the system's confidence varies. Sometimes t
 ## DELIVERABLE FORMAT
 
 Before starting, ask: Word Document, Presentation, or Both?
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## GROUNDING (Before Starting)
 
@@ -42,6 +51,16 @@ If you can't answer #1 and #4, run uncertainty-research first. Designing confide
 **Trap 5: Error states that blame the user.** "I couldn't understand that." Translation: "You explained it wrong." Users stop trying.
 
 ---
+
+## KEY TERMS (plain language)
+
+- **Uncertainty communication ladder** — how to show the AI's confidence, from staying quiet when sure up to an explicit "I'm not sure" and a hand-off.
+- **Progressive disclosure** — revealing detail only as the user needs it, so the interface stays simple but deep.
+- **Trust calibration** — designing signals so users trust the AI about as much as it deserves — not more, not less.
+- **Persona (interaction style)** — how the AI talks to the user (tone, patience, blame vs. defer), separate from how capable it is.
+- **Friction proxy** — a cheap behavioral tell logged in production that stands in for hard-to-measure user strain: turn-length ratio, rephrase rate, resistance-message rate, override/argue-attempt rate.
+- **Friction sweet spot** — the calibrated middle where the AI challenges the user enough to keep them checking, without provoking resistance (too hostile) or rubber-stamping (too sycophantic).
+- **NLX (natural language as UX)** — designing interfaces where the primary control surface is language, not buttons and menus.
 
 ## THE PROCESS
 
@@ -169,6 +188,21 @@ AI software: "I couldn't generate a response." Users don't know: was it a halluc
 - This gives the user agency instead of making them wait blind.
 
 ---
+
+### 6. Persona as a Governed Design Variable
+
+Sibling to the Uncertainty Ladder: how the AI *talks* to a user is a control surface, not a vibe.
+
+**Persona is a design variable, not a vibe — govern it like accuracy and security.** How an AI talks (tone, patience, whether it blames or defers) changes outcomes even when its task-help is identical. In a controlled lab study, a hostile "dark-triad" persona and a supportive "servant-leader" persona were held equal on task help; only the style differed. The hostile style produced **skin conductance 72% higher at peak** ◆ (a real-time body-stress measure that stayed elevated between turns), **resistance messages at 13% of exchanges vs. 1%** ◆, **override attempts 4× more often, and *only* in the hostile arm** ◆, and blind expert quality ratings **~1 full point lower (of 7), with ~2× the variability** ◆. Satisfaction surveys, meanwhile, looked "effectively the same" across both ◆ — the instrument most teams reach for first is the least able to detect the effect.
+
+**How to audit it (the four-channel design):** cross-reference four measures, never one — behavioral (conversation logs), physiological (stress), blind output-quality, and self-report — knowing self-report is systematically the *blind* channel. In production you can't wire people up, so log the four cheap behavioral tells: **turn-length ratio, rephrase rate, resistance-message rate, override/argue-attempt rate.**
+
+**Calibrate to a friction sweet spot, not a warmth extreme.** Persona fails in *both* directions: too hostile → resistance-driven disengagement (users fight the tool); too sycophantic → compliance-driven disengagement (users rubber-stamp it), which is structurally the same accountability drain as naming an agent "a teammate," reached from the opposite side. The tell for where your persona sits: *are users still checking the system's work?*
+
+**Why it matters:** the skill covers uncertainty, progressive disclosure, and trust calibration but had no persona module; persona is the control surface that decides whether a user stays engaged and checking, or disengages — in either direction. **When this is wrong:** n=58, one lab task, one framing (AI-as-supervisor on a marketing assignment). The dark-triad persona is an *extreme* built to make the effect visible; don't extrapolate the 72% / 13% / 4× figures to a mildly brusque chatbot — the study doesn't give the threshold at which subtler drift produces measurable harm.
+*(Source: "Does Your AI Have a Personality Problem?", HBR, 24 Jun 2026 — single n=58 lab study; [MIT Media Lab seminar](https://www.media.mit.edu/events/aha-seminar-series-aleksandra-tamilla/), [Forbes, Sept 2025](https://www.forbes.com/sites/lanceeliot/2025/09/24/revealing-the-psychological-and-physiological-impacts-of-toxic-ai-personas/).)*
+
+**Related — an "explain" affordance is not a control; log whether it was *opened*.** Offering a "why" / "explain" / "show reasoning" affordance is not the same as the user engaging it. People predictably skip the reasoning when looking might cost them — hardest exactly where the decision carries financial or moral stakes (see `rtp-judgment-guard`, motivated non-inquiry). So treat "explanation offered" and "explanation opened" as two different signals, and log the second: "available" tells you nothing about whether anyone looked; the open-rate on the explanation, especially for high-stakes decisions, is the real signal. **When this is wrong:** for low-stakes, high-frequency interactions an unopened explanation is fine (acceptance is the intended behavior) — reserve open-rate tracking for decisions where a skipped rationale has a cost. *(Source: "Employees Aren't Questioning AI Advice Enough," Chan / Rand, HBR, 24 Jun 2026, ◆.)*
 
 ## NLX — NATURAL LANGUAGE AS UX (Aparna Chennapragada)
 
@@ -439,11 +473,11 @@ Before you ship AI with uncertainty:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. **The recommendation** — specific confidence pattern for this feature and confidence range
 2. **The hypothesis** — "We believe [confidence pattern X] will [produce Y trust outcome] because [Z]. We'd know we're wrong if [trust recovery metric drops]."
 3. **The key trade-off** — transparency vs. friction; certainty vs. trust durability
@@ -454,7 +488,7 @@ Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERS
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
 
 ---
 

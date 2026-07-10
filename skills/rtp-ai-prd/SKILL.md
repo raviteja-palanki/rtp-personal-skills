@@ -1,7 +1,13 @@
 ---
-name: rtp-ai-prd
-description: 'PRD for probabilistic systems: model as spec, dual metrics, prompts as artifacts, thresholds, failures, cost, drift. Use when: shipped AI feature, architecture, capability launches. Triggers: ''AI PRD'', ''probabilistic spec'''
+name: ai-prd
+description: "A product spec for AI features — different from a normal spec because the output varies run to run. Pins down what a normal PRD never has to: confidence thresholds (when to show vs. double-check an answer), behavior on failure, cost per outcome, quality decay over time (drift), and the named human who owns the result. Use when: shipping any AI feature to production, capability launches. Pairs with: eval-framework (the definition of good), cost-model (the economics), ship-decision (the launch gate). Triggers: 'AI PRD', 'probabilistic spec'"
+imports:
+  - determinism-compass
+  - bias-spotter
+  - stress-test
+  - prompt-as-spec
 ---
+
 # AI-PRD: Probabilistic Product Specification
 
 ## DEPTH DECISION
@@ -14,7 +20,7 @@ description: 'PRD for probabilistic systems: model as spec, dual metrics, prompt
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -26,6 +32,17 @@ Then proceed with the skill-specific analysis below.
 You write AI PRDs like traditional software: feature works or fails, success = happy path. You spec output format, latency, constraints. **But AI doesn't fail binary.** It confidently returns wrong answers users trust. You miss: what happens at 60% confidence? What's hallucination rate? How does drift trigger retraining? These are **product decisions**, not implementation.
 
 Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thinking—"model classifies intent" without accuracy/threshold spec. (3) Launch theater—you'll "monitor later" because eval is expensive. Result: feature ships fragile, breaks at scale, drift goes undetected for weeks.
+
+## KEY TERMS (plain language)
+
+- **AI-PRD** — a product spec for AI features that (unlike a normal spec) must pin down confidence thresholds, failure behavior, cost, and drift, because the output varies.
+- **Confidence threshold** — the score above which you show the AI's answer, below which you ask for confirmation or fall back.
+- **Dual success metrics** — tracking both what users get (task completion) and what the model does (accuracy, hallucination rate) at the same time.
+- **Hallucination rate** — how often the model states something factually wrong.
+- **Confidence calibration** — whether "80% confident" actually means right 80% of the time.
+- **Drift** — the slow decay of an AI's accuracy in production as the world changes; needs monitoring and a retraining trigger.
+- **Behavior examples (good / bad / reject)** — concrete input→output examples that spec what the AI should do, get wrong, and refuse.
+- **Accountable owner** — the named human who must *choose* to own the AI's outcome, set up with the conditions that keep them engaged.
 
 ## THE PROCESS
 
@@ -59,6 +76,10 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
    - **Monitoring frequency:** daily, weekly (based on feature risk)
    - **Retraining trigger:** if accuracy drops > X% OR confidence-accuracy gap > Y%, automatically retrain or escalate
    - **Capability decay plan:** when next model generation ships, what assumptions change? What needs reverification?
+
+5b. **Name the accountable owner for every human-dependent recovery path.** Phase 2 routes failures to "human escalation," "human review," and "user action" — every one of those assumes a specific human will *choose* to engage. Spec who that is, and the conditions that keep them owning it, not just their title in an escalation table. An accountable owner is a named person whose **mindset** (they feel they matter to the outcome), **meaning** (they have a reason worth the effort of checking), and **mechanisms** (they're judged on catching the AI's errors, not on shipping fast) have been set up on purpose. **Why it matters:** a controlled trial (BCG, 1,261 people) found that framing the AI as an employee dropped personal accountability by ~9 points and led reviewers to catch ~18% fewer errors (⚠/◆) — so a recovery path that reads "escalate to human review" is only as real as that human's willingness to own it. A named owner without those three conditions is escalation theater. **When this is wrong:** for a fully autonomous, near-zero-consequence operation there is no human owner — write "owner: none by design," and don't spec a recovery path that secretly relies on one. *(Source: "Accountability Must Be Chosen, Not Mandated," Okposo, HBR, 29 Apr 2026; BCG trial via "Research: Why You Shouldn't Treat AI Agents Like Employees," HBR 2026.)*
+
+5c. **Default: named sign-off on AI-generated production artifacts.** Extending 5b: for any AI-generated code or decision that ships to production, name a specific human as reviewer and sign-off. This is both the accountability record *and* the closest thing to an eval for the quality automated tests can't score — deferred/lifecycle failure, code that looks fine at launch and breaks only when modified, integrated, secured, or scaled (see `rtp-eval-framework`, lifecycle quality). If the honest answer to "who owns the unmeasurable judgment after this change?" is "no one — the AI does it now," that is capability/judgment debt being booked as savings; name the owner or name the risk. **When wrong:** low-stakes, reversible, low-lifecycle features don't need a named signer — reserve it for production artifacts whose failure is costly or slow to surface. *(Source: "Big Tech's Looming Capability Crisis," Liu & Kovács, HBR, 2 Jun 2026 — Control #2.)*
 
 ### Phase 3: Evaluation Criteria as Acceptance Criteria
 
@@ -335,11 +356,11 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

@@ -1,7 +1,10 @@
 ---
-name: rtp-token-economics
-description: 'Pricing for per-token cost structure (flat-rate, per-token, outcome, seat, hybrid). Tradeoff: optimize 2 of 3 (quality, cost, latency). Use when: new products, pricing changes, scaling, unit economics at 10x. Triggers: ''pricing for AI'', ''token economics'', ''how to price'', ''usage-based vs flat-rate'''
+name: token-economics
+version: "2.0"
+description: "How to charge for an AI product when every single use has a real cost (unlike normal software): flat rate, per use, per seat, per outcome, or hybrid — and which budget sets your price ceiling, because a tool that replaces expert work is paid from the ~10×-larger salary budget, not the software budget. Also carries the trade-off rule: of quality, cost, and speed you can optimize two. Use when: pricing a new product, repricing, usage growing faster than revenue. Pairs with: cost-model (the cost side), moat-finder (is the value defensible). Triggers: 'pricing for AI', 'token economics', 'how to price', 'usage-based vs flat-rate'"
+imports: [stress-test, red-team]
 ---
+
 # Token Economics
 
 ## DEPTH DECISION
@@ -29,7 +32,7 @@ Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -165,6 +168,15 @@ A 90%-quality model that requires 1.1 regenerations per outcome costs the same a
 └──────────────────────────────────────────────────────────┘
 ```
 
+## KEY TERMS (plain language)
+
+- **Value metric** — the unit you charge for (a token, a seat, a call, or an outcome).
+- **Per-token / per-outcome / seat-based / flat-rate / hybrid** — the five ways to charge for AI (below).
+- **Marginal cost** — the real, variable cost of one more AI call; unlike normal software, it isn't near zero.
+- **Fair-use cap** — contract language ("up to N calls per seat") that defends against runaway usage costs.
+- **Salary budget vs. software budget** — the budget your value comes out of; the salary budget is ~10× larger and sets a higher price ceiling.
+- **The pricing triangle (quality / cost / latency)** — you can optimize two of the three; pricing has to respect that trade-off.
+
 ## Five Pricing Models
 
 **1. Flat-Rate** ($X/month, unlimited)
@@ -191,6 +203,15 @@ A 90%-quality model that requires 1.1 regenerations per outcome costs the same a
 - Works: Predictable base + unpredictable spikes
 - Fails: Complexity, threshold confusion, customer manipulation
 - Example: Anthropic, Datadog (base + metered)
+
+### Which Budget You're Pricing Against — The Ceiling Behind Outcome Pricing
+
+The five models above tell you *how* to charge. This tells you *how high* you can charge — set by the budget your value comes out of, not by the pricing mechanic.
+
+A tool that's just another piece of software is paid from the **software budget** (capped by IT-procurement norms — usually a low single-digit % of revenue). A tool that replaces a paid expert is paid from the **salary budget** (the fully-loaded cost of the person, plus the mistakes avoided) — roughly ten times larger. Same product, very different ceiling, depending on which budget line it displaces.
+
+**Why it matters:** this is the real reason per-outcome and value pricing command a premium — not that outcomes are "discrete," but that a judgment outcome crosses into the salary budget. It also reframes the per-seat → outcome shift (the "SaaSpocalypse"): not a pricing fashion, but software migrating from the software budget to the ~10×-larger salary budget by doing work a paid expert used to do. So before you pick a model, ask: *which budget does the buyer pay us from?* If it's still the software budget, per-seat is fine and outcome pricing won't lift your ceiling; if you genuinely displace expert labor, outcome/value pricing is how you capture the bigger budget. **When this is wrong:** only holds where the tool genuinely replaces expert labor — a record-lookup tool dressed up as "judgment software" stays on the software budget, and the salary-budget ceiling is a mirage that will price you out of the deal.
+*(Source: "AI's Impact on SaaS Will Be Uneven," Stanton, HBR, 27 May 2026; budget-migration mechanism also draws on "AI Is Rewriting the Economics of Outsourcing," Agrawal, HBR, 5 Jun 2026. See `cost-model` §3A for the cost-side pairing.)*
 
 ## Advanced: Batch vs. Real-Time Pricing
 
@@ -485,11 +506,11 @@ If this skill connects to downstream skills (e.g., build-or-buy, cost-model), ge
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

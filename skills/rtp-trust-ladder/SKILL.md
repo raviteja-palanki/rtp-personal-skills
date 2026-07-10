@@ -1,8 +1,9 @@
 ---
-name: rtp-trust-ladder
-description: 'Design autonomy levels that match CALIBRATED trust and failure severity. Use when: defining permission models, progressive autonomy, detecting over-reliance, repairing trust after errors. Do NOT use: to justify maximum trust, full autonomy without calibration, when mental models misalign.'
+name: "trust-ladder"
+description: "How much should users trust your AI — and does their trust match its real reliability? Designs autonomy that grows only with a proven track record, catches both failure directions (blind acceptance of AI output, and rejecting a tool that actually works), and repairs trust after a visible mistake — which drops trust 2–3× faster than it builds. Use when: defining permission models, staging autonomy, detecting over-reliance, post-incident trust repair. Do NOT use: to justify maximum trust or full autonomy without the track record. Pairs with: autonomy-spectrum (the levels), confidence-tuner (the signals users see), judgment-guard (keeping reviewers engaged). Triggers: 'calibrated trust', 'over-reliance', 'trust repair', 'progressive autonomy'"
+imports: ["determinism-compass"]
+version: "1.1"
 ---
-# Trust Ladder
 
 ## DEPTH DECISION
 
@@ -14,7 +15,7 @@ description: 'Design autonomy levels that match CALIBRATED trust and failure sev
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -77,6 +78,15 @@ Detection: **If user rejection rate < 5%, they're over-reliant.** Healthy produc
 - Research: 63% of users are more likely to rely on AI that displays confidence levels. This builds *calibrated* trust, not blind trust.
 - Show reasoning trace: Not just "transfer $5K." Say: "Transfer $5K because: (1) historical spend pattern suggests budget available, (2) vendor invoice matched, (3) approval authority confirmed."
 
+## KEY TERMS (plain language)
+
+- **Calibrated trust** — the goal: a user's confidence in the AI matches its actual reliability, so they verify the right amount (not too much, not too little).
+- **Automation complacency (over-trust)** — accepting AI outputs without checking, so failures go unseen until something breaks.
+- **Adoption friction (under-trust)** — rejecting the AI as too slow or unreliable, so it never gets used.
+- **Rejection rate** — how often users override the AI; a healthy, understood rejection rate is a sign of calibration, not failure.
+- **Calibrated suspicion** — the mirror image: when a system flags a human or an output, the flag routes to a human review, never to an automatic verdict.
+- **Trust repair** — rebuilding trust after a visible mistake, which drops trust 2–3× faster than it builds.
+
 ## CALIBRATED TRUST
 
 The goal is **calibrated trust**, not maximum trust. Over-trust is as dangerous as under-trust.
@@ -93,6 +103,10 @@ When a user reaches "maximum trust" (95%+ acceptance rate), they've stopped eval
 - "We got acceptance rate to 94%" is a failure flag, not a win.
 - "Users reject 22% of recommendations, and we know why each time" is healthy.
 - Calibration = system trust ↔ user vigilance alignment.
+
+### Worked example — a flag is a reason to review, not a verdict
+
+Calibrated trust has a mirror image: *calibrated suspicion*, for when a system flags a human (or an output) as suspect. The discipline is the same — a flag routes to a human look, never to an automatic decision. In a study of 6,380 first-round hiring screens, sessions were scored on three signals — unusual delays before answering, sudden shifts in vocabulary or fluency, and eye movement that didn't match someone actually recalling an answer — and two or more signals sent a session to a human for review, never to an automatic rejection; suspicion ran near 60% for new-grad software roles. **Why it matters:** the authors are blunt that suspicion alone — even when it turns out wrong — corrodes trust, so a flag must never stand in for proof. The moment a flag becomes an auto-reject, you've traded calibrated suspicion for exactly the blind over-trust (now placed in the flagging system) that this section warns against on the other side. **When this is wrong:** this illustrates the *discipline*, not a recommended detection stack — the three signals produce flags, not proof, and the study's authors sell screening software, so don't present them as a validated fraud detector. *(Source: "AI Has Broken Hiring. Here's How to Fix It.", Sunil & Saraf, HBR, 8 Jun 2026 — ◆ disclosed detection model, n=6,380.)*
 
 ## TRUST REPAIR MECHANISMS
 
@@ -392,11 +406,11 @@ This skill gives bad advice if:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

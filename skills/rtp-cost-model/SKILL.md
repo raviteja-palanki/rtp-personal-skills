@@ -1,7 +1,9 @@
 ---
-name: rtp-cost-model
-description: 'Use when modeling unit economics for an AI product, stress-testing costs at 10x, or finding margin cliffs and cost levers. AI product unit economics: cost stack (inference, retrieval, storage, compute, human review), stress-test at 10x, identify cost levers and margin cliffs. Maps cost per successful outcome, 80/20 levers, margin cliff scale. Triggers: ''unit economics'', ''AI cost model'''
+name: cost-model
+description: "What does your AI feature really cost — and does the math still work at 10× the usage? Maps the full cost stack (model calls, retrieval, storage, human review), prices the cost of a *successful* outcome rather than a single call, and finds where the margin breaks as you scale. Use when: pricing decisions, scaling plans, 'can we afford this' reviews. Pairs with: token-economics (how to charge), moat-finder (which profit line — cost or growth — to aim the AI at). Triggers: 'unit economics', 'AI cost model'"
+imports: [stress-test, token-economics, product-pricing]
 ---
+
 # Cost Model
 
 ## DEPTH DECISION
@@ -14,7 +16,7 @@ description: 'Use when modeling unit economics for an AI product, stress-testing
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -28,6 +30,15 @@ You will model inference cost in isolation. Reality: **inference is 20-30% of to
 You'll also assume costs scale linearly. They don't. Retrieval cost grows with corpus size. Eval cost grows with volume. Error correction compounds under load. Cache hit rates collapse as query diversity increases. By 10x scale, your $0.02-per-call assumption becomes $0.06-0.10. You'll have committed infrastructure before realizing margin is negative.
 
 ## THE PROCESS
+
+### KEY TERMS (plain language)
+
+- **Cost stack** — all the real costs behind an AI feature: inference, retrieval, storage, eval runs, human review, infrastructure.
+- **Cost per successful outcome** — the cost of a user actually getting a useful answer, including failed attempts and escalations — not the cost of a single call.
+- **Model routing** — sending easy queries to a cheap model and hard ones to an expensive model to cut cost.
+- **Cached prompt discount** — paying much less for repeated prompt prefixes the provider can cache.
+- **Margin at scale** — whether the feature is still profitable once volume, failures, and eval costs grow.
+- **Salary budget vs. software budget** — money for people and their work versus money for tools; the salary budget is ~10× larger, and which one pays sets your price ceiling.
 
 ### 1. Map Your Real Cost Stack
 
@@ -75,6 +86,16 @@ If your feature has 20% failure rate (common for RAG), the math changes dramatic
 - Successful outcomes cost 1.25x more than the naive calculation
 - You're paying full inference cost for failed attempts too
 - This is invisible in simple per-call models
+
+### 3A. Which Budget Pays For It — The Price Ceiling
+
+Cost-per-outcome (above) is the *cost* side. The *price* side is set by which budget the value comes out of — and that's often the bigger lever.
+
+**Salary budget vs. software budget.** A tool that replaces a paid expert comes out of the *salary* budget (the cost of the person, plus the mistakes avoided). A tool that's just another piece of software comes out of the *software* budget. The salary budget is roughly ten times larger. Same product, very different price ceiling, depending on which budget line it displaces. "Charging per outcome instead of per seat" isn't a fashion — it's software crossing into that bigger, salary-sized budget by doing judgment work a paid expert used to do. **Why it matters:** a feature with a thin margin at a per-seat price can have a healthy one once you re-price it against the labor it replaces; cost-per-outcome tells you whether you're *profitable*, not how high you can price. **When this is wrong:** only holds where the tool genuinely displaces expert labor — a record-lookup tool dressed up as "judgment software" stays on the software budget, and the bigger ceiling is a mirage. *(Source: "AI's Impact on SaaS Will Be Uneven," Stanton, HBR, 27 May 2026.)*
+
+**Reprice work by value, not by the hourly rate (vendor renewals and insource decisions).** The outsourcing era priced work by where labor was cheapest. On any vendor renewal or in-source decision, ask what the work is actually worth across five things — cost, quality, speed, risk, and control — not what an hour of offshore labor costs. Make the vendor show how AI changes each of the five, and put ownership of the prompts, code, and knowledge bases into the contract. **Why it matters:** the hourly rate hides where AI actually shifts value (usually quality, speed, and control), and whoever owns the prompts-and-data loop keeps the compounding asset. **When this is wrong:** for genuinely commodity work with no data or control value, the hourly rate is still the right basis. *(Source: "AI Is Rewriting the Economics of Outsourcing," Agrawal, HBR, 5 Jun 2026.)*
+
+**One-line placement check (before you optimize cost at all):** the cost line you're modeling here is *floored at zero* — even a generous AI cut moves firm value only ~10%. Before investing to shave it, check whether a *growth* line (uncapped, and multiplied by the valuation premium) is sitting unexamined; a sustained 2-point organic-growth lift ≈ +50% firm value (◆ the authors' wealth-management valuation model — the mechanism generalizes, the figure is theirs). Don't optimize the capped line while the multiplied one goes unaimed. *(Full math in `rtp-moat-finder`, the value-line pre-screen. Source: "Companies Are Using AI for Efficiency. They Should Use It to Grow.", HBR, 1 Jun 2026.)*
 
 ### 4. Model at 10x: The Real Degradation
 
@@ -368,11 +389,11 @@ Before committing resources:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

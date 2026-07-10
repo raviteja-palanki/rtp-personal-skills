@@ -1,7 +1,10 @@
 ---
-name: rtp-alignment-check
-description: Check if your organization is actually ready for AI — structure, roles, accountability — before spending on technology. 93% of AI failures are organizational, not technical. This skill maps the 5-link chain (Purpose → Strategy → Capability → Architecture → Systems) and finds which one is broken. Use when kicking off an AI initiative, inheriting a stalled project, evaluating why pilots fail to scale, assessing readiness before a major investment, or diagnosing production failures. Do NOT use to delay decisions or as a perfectionist checklist — it's diagnostic, not a maturity model.
+name: alignment-check
+description: >
+  Check if your organization is actually ready for AI — structure, roles, accountability — before spending on technology. 93% of AI failures are organizational, not technical. This skill maps the 5-link chain (Purpose → Strategy → Capability → Architecture → Systems) and finds which one is broken. Use when kicking off an AI initiative, inheriting a stalled project, evaluating why pilots fail to scale, assessing readiness before a major investment, or diagnosing production failures. Do NOT use to delay decisions or as a perfectionist checklist — it's diagnostic, not a maturity model. Pairs with: problem-type (technical fix vs. organizational change), responsible-ai-program (the governance layer), adoption-launch (the people side of readiness).
+imports: []
 ---
+
 # Alignment Check
 
 ## DEPTH DECISION
@@ -10,7 +13,7 @@ description: Check if your organization is actually ready for AI — structure, 
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: What problem is this AI initiative solving? Who owns it cross-functionally? What happens if it fails?
 2. Route depth: Are you diagnosing an existing failure (Comprehensive) or assessing readiness (Executive Summary)?
 3. Identify output format: Word Document, Presentation, or Both?
@@ -20,7 +23,7 @@ Then proceed with the skill-specific analysis below.
 ## DELIVERABLE FORMAT
 
 Before starting, ask for format: Word Document, Presentation, or Both.
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## THE TRAP
 
@@ -33,6 +36,13 @@ The trap is most seductive because:
 - Admitting organizational misalignment requires difficult conversations
 
 But here's the mechanism: A technology problem creates one failure mode (the model doesn't work). An organizational misalignment creates cascading failures: the model works but nobody adopts it, or it works but the business model breaks, or it works for one division but alienates another, or it works but compliance rejects it mid-rollout.
+
+## KEY TERMS (plain language)
+
+- **The 5-link chain** — Purpose → Strategy → Capability → Architecture → Systems; every link must hold, or the AI deployment fails even if the other four are perfect.
+- **Re-attachment** — re-creating named ownership one level up (with peer-visible reporting) *before* the old system-by-system ownership is cut, so accountability transfers instead of draining into the platform.
+- **Reusable data / context component** — a validated data building block or context bundle built once and consumed by many agents or products.
+- **Named owner** — a specific accountable person for a component, not "the team" or "the platform."
 
 ## THE 5-LINK CHAIN
 
@@ -110,6 +120,9 @@ Signs of broken Architecture:
 - Data isn't flowing from production back into retraining (model degradation is inevitable and undetected)
 - Privacy/compliance is a last-minute review, not a design constraint
 - The architecture was designed by technical people in isolation from ops/compliance/legal
+
+**Diagnostic — the shared-component ownership test (AI-platform era).** As enterprises move to a shared data/context platform, ask at this link: *does every reusable data or context component have a named business-side owner with a monthly quality report?* When a platform absorbs the old system-by-system ownership, accountability drains into the platform unless it's re-created one level up *before* the old bindings are cut. Caterpillar re-attached it as 14 named data domains with ~a dozen VP owners and monthly quality reports; peer visibility ("no executive would fund a rival customer database when a peer clearly owned customer data") is what actually killed the sprawl, not a policy document. **Why it matters:** this is the concrete Architecture-link test for the re-attachment move — the shared context component that fifty agents consume needs a single named owner. **When wrong:** it's a diagnostic, not a maturity gate — don't block a launch on it; a small team can legitimately have one owner across many components. The test is "is ownership named and visible," not "is there a VP per object."
+*(Source: "Data Transformation Is the CEO's Business," MIT Sloan Management Review, 21 May 2026 — Caterpillar; ◆ 14 domains / ~a dozen VP owners.)*
 
 ### Link 5: SYSTEMS
 **The question:** Does the organization have the operational processes to keep the AI working over time?
@@ -275,7 +288,7 @@ CONFIDENCE: High
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. State the recommendation (which link to fix first, what evidence is strongest)
 2. Name the key trade-off (building delay vs alignment gain)
 3. Acknowledge the biggest risk (organizational discomfort with hard conversations)

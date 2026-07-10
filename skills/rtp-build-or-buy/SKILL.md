@@ -1,7 +1,10 @@
 ---
-name: rtp-build-or-buy
-description: 'Build vs buy framework: prompt, in-context, RAG, fine-tune, vertical SaaS. 5 gates + in-context check: problem type, 200K context test, data, latency, cost, maintenance. Use when: scoping features, evaluating fine-tune ROI, comparing custom vs API costs. Triggers: ''build or buy'', ''fine-tune vs prompt'', ''RAG vs API'', ''in-context vs fine-tune'', ''should we train a model'''
+name: build-or-buy
+version: 2.0
+description: "Should you build this AI capability yourself or buy it? Six stop-at-the-first-'no' checks — problem type, can examples-in-the-prompt already do it, data, speed, cost, upkeep — across the four ways to get AI: prompt a general model, ground it in your own documents (RAG), train your own (fine-tune), or buy a finished product. Companion lenses decide which work is even worth owning. Use when: scoping features, vendor renewals, 'should we train a model' debates, comparing custom vs. API costs. Pairs with: moat-finder (is what you'd build defensible), cost-model (what it costs at scale). Triggers: 'build or buy', 'fine-tune vs prompt', 'RAG vs API', 'in-context vs fine-tune', 'should we train a model'"
+imports: [determinism-compass, stress-test, agent-harness]
 ---
+
 # Build or Buy
 
 ## DEPTH DECISION
@@ -25,13 +28,13 @@ Before starting, ask:
 >
 > *Default: Word Document.*
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ---
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 1 — at minimum:
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 1 — at minimum:
 
 1. **Who is the customer?** Specific segment — not "our users."
 2. **What problem?** In their words, not yours.
@@ -48,6 +51,20 @@ You will choose based on **team expertise, not problem fit.** If you have a prom
 There's a second trap: **treating 2021-era fine-tuning logic as gospel in 2026.** Context windows are now 200K+ tokens. Many problems that required fine-tuning three years ago are now solved in-context in two days — not six weeks. Most teams skip the in-context check entirely.
 
 This framework runs five gates plus the in-context check. Stop at the first "no." Pass all of them = BUILD (fine-tune). A "no" anywhere = stay in Prompt/In-Context/RAG/SaaS territory.
+
+## KEY TERMS (plain language)
+
+Read these once; the rest of the skill uses them.
+
+- **Build vs. buy** — make it yourself (custom model work) versus use an existing API or a vendor's product.
+- **Prompt + API** — just ask a general model with instructions; no training involved.
+- **In-context learning** — paste examples into the prompt so the model picks up the pattern on the spot, without any training.
+- **RAG (retrieval-augmented generation)** — fetch your own documents and hand them to the model so its answer is grounded in your data.
+- **Fine-tune** — train a base model further on your own labeled examples so it specializes.
+- **Vertical SaaS** — a ready-made product from a vendor that already solves this exact problem.
+- **Deterministic vs. probabilistic task** — one where a single "correct" answer exists and people agree (a look-up) versus one with many good answers (generation).
+- **P95 latency** — the response time 95% of users stay under; more honest than the average because it catches the slow tail.
+- **The five gates (plus the in-context check)** — problem type → in-context check → data → latency → cost → maintenance; six steps in all, stop at the first "no."
 
 ---
 
@@ -268,6 +285,60 @@ At $19/month × millions of developers, code completion API costs at scale reach
 
 ---
 
+## Companion Lenses: Which Work to Own, and Which Bought Software to Keep (2026)
+
+The five gates answer "how should we build this AI capability — prompt, RAG, fine-tune, or buy?" Three 2026 findings sit one level *up*: they help you decide which work is even worth owning, and which purchased software is safe to keep vs. worth replacing. Use them before the gates, then run the gates on whatever you decide to own. *(These are companion lenses, not new gates — they don't change the five-gate logic above.)*
+
+### Lens 0 — Buying a capability is not building an advantage (frame the asset first)
+
+Before choosing build vs. buy on a specific model, ask what kind of asset this is. Acquiring technology — buying the tool, the team, or the company — does not, on its own, create a durable advantage: a large study of ~17,000 corporate transactions found that buying technology doesn't produce innovation (◆).
+
+**Why it matters:** the advantage is what you *compound after* you own the capability (your data, your workflow, your feedback loop), not the purchase itself. So "we can just acquire it" answers a cost question, not a moat question — don't let it end the strategy conversation.
+
+**When this is wrong:** for pure speed-to-parity — where you just need the capability to exist and aren't expecting an edge from it — buying is exactly right and the moat question is beside the point.
+*(Source: "3 Ways to Rethink Your Build-or-Buy Strategy," Srivastava, HBR, 9 Jun 2026.)*
+
+### Lens 1 — Decide task by task, not function by function (the four task types)
+
+For any AI-enabled workflow, sort each *task* (not each whole department) into one of four types, each with its own sourcing answer:
+
+- **Routine, digital, high-volume** (case triage, tier-one IT support, claims intake) → automate in-house, or keep with a vendor at sharply lower cost.
+- **Knowledge-heavy, data-sensitive** (pricing, retention, procurement strategy) → keep in-house, because AI makes your own data and context more valuable.
+- **Specialized but occasional** (tax structuring, incident response, ERP migration) → stays outside, with smaller, higher-skill teams.
+- **Regulated, high-liability, judgment-heavy** (claims denials, legal sign-offs, lending decisions) → hybrid: AI-supported work, a named human accountable inside, outside expert review, governed through risk forums rather than contract targets.
+
+**Why it matters:** "outsource the whole function" is now the wrong unit. AI follows the work, not the org chart, so the right grain of the decision is the task — a single function can hold tasks that belong in all four boxes.
+
+**When this is wrong:** bringing routine work back in-house assumes you've kept the talent to manage both AI and vendors; a firm without it may do better with an AI-enabled vendor, and in regulated work the cost of a human owner plus outside review can exceed the old savings.
+*(Source: "AI Is Rewriting the Economics of Outsourcing," Agrawal, HBR, 5 Jun 2026.)*
+
+### Lens 2 — Which bought software is safe to keep vs. worth replacing (Stanton's survival grid)
+
+For any purchased SaaS tool, place it on two plain questions:
+- **Does it look up a stored answer, or estimate an unknown one?** (Look up last month's invoice = stored. Guess which supplier will miss a delivery = estimate.)
+- **Does it run on just your company's data, or on data pooled from many companies?**
+
+| | Your data only | Pooled across many companies |
+|---|---|---|
+| **Looks up a stored answer** | *Most at risk* — a workflow over a database; AI + a non-technical builder can rebuild it. Consolidate or build in-house. | Ask whether your own team could recreate a good-enough copy of the data. |
+| **Estimates an unknown answer** | *Exposed* — general models are catching up on single-company guesswork. Keep only if building it yourself would be costly. | *Stickiest* — the advantage is the rare, hard cases pooled from many customers that a general model hasn't seen enough of. |
+
+**Why it matters:** AI makes *easily-copied* software replaceable, not all software; this grid tells you which box a vendor sits in. For the stickiest box, compare the price to the *cost of replacing what it does* (the expert time and mistakes avoided), not to other software — that's a far higher ceiling.
+
+**When this is wrong:** where mistakes are cheap, a general model plus your own logs is "good enough" on the hard cases and the premium isn't worth paying; and the grid over-credits "pooled" data that's actually scrape-able or buyable.
+*(Source: "AI's Impact on SaaS Will Be Uneven," Stanton, HBR, 27 May 2026.)*
+
+### Lens 3 — Own what your operational history makes irreplaceable (the data-vintage question)
+
+For an AI system, add one build-vs-buy question the five gates and the traditional cost math both miss: **does this system's value depend on operational history only you possess — supplier behavior, years of failure data, customer order dynamics — and if so, how many years would a competitor need to reproduce that history, even with a better model than yours?**
+
+If the value rides on time-indexed behavioral history, build and own it. A vendor selling a generic "[domain] AI" is selling a *model*; it can't ship with *your* history pre-loaded, and it can't backfill it by signing a new customer — time can't be bought back. If the value is just the model's general capability, buy it; the history isn't the moat.
+
+**Why it matters:** the usual build-cost-vs-license-cost math prices the software and ignores the data vintage. Two independent cross-industry cases now make the same point — Caterpillar and Lenovo — and Lenovo states it most sharply: five years of patience bought a proprietary training-and-grounding corpus (two decades of manufacturing-failure data, supplier under-commitment patterns) no off-the-shelf platform replicates. The moat is the accumulated data, not the model wrapped around it. **When this is wrong:** for a capability where you just need parity fast and expect no edge from it, buy — the vintage question is beside the point. And "we have years of data" is a moat only if that data covers the *rare, hard cases* and isn't cheaply scrape-able (cross-check Lens 2); high-volume commodity history is not a moat.
+*(Sources: "How Lenovo Built an AI-Powered Supply Chain," Handfield, HBR, 27 May 2026 [◆; author has no financial tie to Lenovo]; "Data Transformation Is the CEO's Business," MIT SMR, 21 May 2026 — Caterpillar [◆].)*
+
+---
+
 ## Multi-Agent Harness: When Orchestration Kills Your ROI
 
 If you've decided to BUILD (fine-tune or RAG), you face one more question: single model call or multi-agent orchestration?
@@ -339,13 +410,13 @@ CONFIDENCE: [High / Medium / Low]
   What would change our mind: [specific signal or data point]
 ```
 
-Complete using the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Complete using the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ---
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 
 1. **State the path** — Which of the five options: Prompt, In-Context, RAG, Fine-Tune, or Vertical SaaS?
 2. **Name the gate that decided it** — Which gate was the forcing function?
@@ -357,7 +428,7 @@ Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERS
 
 ## GENERATE THE DELIVERABLE
 
-Use the output generation prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+Use the output generation prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
 
 **Visuals to generate for this skill:**
 1. **Gate decision flow** — Which gates passed, which one stopped the analysis, and why

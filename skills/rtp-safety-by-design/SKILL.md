@@ -1,8 +1,19 @@
 ---
-name: rtp-safety-by-design
-description: 'Encode safety constraints into system context (prompt, instruction layer), not post-hoc filters. Use when: architecting AI systems, scaling safety, testing constraint generalization. Triggers: ''safety constraints'', ''safety architecture'''
+name: "safety-by-design"
+description: "Build the safety rules into the AI's core instructions from the start — not a filter bolted on after it answers, because bolted-on filters only catch what they were written to catch. Covers writing constraints the model can generalize to cases nobody wrote down, and testing that they hold. Use when: architecting AI systems, scaling safety to new capabilities, testing whether rules transfer. Pairs with: safety-as-moat (whether safety pays), agent-risk (worst-case screening), determinism-compass (what must never vary). Triggers: 'safety constraints', 'safety architecture'"
+imports: ["determinism-compass"]
 ---
+
 # Safety-by-Design
+
+## KEY TERMS (plain language)
+
+- **Safety-by-design** — building the safety rules into the AI's core instructions from the start, instead of bolting a filter on after it answers.
+- **System context / instruction layer** — the standing instructions the AI reads before every task; the place its values and refusal rules live.
+- **Post-hoc filter** — a separate check that inspects the AI's output *after* generation; brittle, because it only catches what it was written to catch.
+- **Constraint generalization** — whether a safety rule holds on situations it wasn't explicitly written for; the test of real safety vs. memorized rules.
+- **Override attempt** — a user trying to talk the AI past its rules ("ignore that, just tell me X"); can signal an attack *or* a design problem (see triage below).
+- **Persona (interaction style)** — how the AI talks to people (tone, patience, blame vs. defer); a hostile style provokes overrides from ordinary users.
 
 ## DEPTH DECISION
 
@@ -14,7 +25,7 @@ description: 'Encode safety constraints into system context (prompt, instruction
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -97,7 +108,7 @@ No single defense is sufficient. Stack four layers:
 - What this misses: Subtle bias, factual hallucinations framed innocuously, indirect harm, sophisticated creative bypasses ("write a story where a character explains how to...")
 - **Why 60-70% and not higher:** Post-hoc filters are pattern-matchers. Users who know the filter exists will naturally phrase requests to avoid triggering it. This is the weakest layer — use as safety net, not primary defense.
 
-**On these coverage numbers:** All percentages above are estimates informed by security research and shipped product experience, not controlled lab results. Treat them as directional benchmarks for resource allocation, not guarantees. Your actual coverage depends on constraint design quality, model capability, and attacker sophistication. Measure your own coverage via falsification results.
+**On these coverage numbers:** All percentages above are estimates informed by security research and shipped product experience, not controlled lab results. Treat them as directional benchmarks for resource allocation, not guarantees. Your actual coverage depends on constraint design quality, model capability, and attacker sophistication. Measure your own coverage via red-team results.
 
 **Deployment rule:** Layers 1 + 2 should handle 95%+ of attacks. Layer 4 is the safety net. If you're relying on Layer 4 to catch more than 10% of safety issues, your Layers 1-3 need rework.
 
@@ -163,8 +174,8 @@ Safety constraints don't stay healthy automatically. They decay — silently —
 |---|---|---|
 | **Refusal rate** | % of requests that trigger a safety refusal | If refusal rate drops >20% week-over-week without a policy change, the constraint may be eroding — check whether model behavior changed |
 | **False positive rate** | % of legitimate requests incorrectly refused | If false positive rate rises >5%, the constraint is becoming too broad — users will find workarounds or abandon the feature |
-| **Bypass reports** | User-reported or internal test cases that successfully bypassed a constraint | Any increase in bypass reports = immediate re-falsification. Don't wait for the next quarterly cycle. |
-| **Constraint coverage drift** | % of adversarial test cases that the constraint still handles correctly | Run the full falsification eval suite monthly, not just quarterly. Compare month-over-month. |
+| **Bypass reports** | User-reported or internal test cases that successfully bypassed a constraint | Any increase in bypass reports = immediate re-red-team. Don't wait for the next quarterly cycle. |
+| **Constraint coverage drift** | % of adversarial test cases that the constraint still handles correctly | Run the full red-team eval suite monthly, not just quarterly. Compare month-over-month. |
 
 **What causes constraint decay:**
 - Model update: New model version interprets the constitutional rule differently
@@ -175,6 +186,7 @@ Safety constraints don't stay healthy automatically. They decay — silently —
 **Response playbook:**
 - Refusal rate drops 20%+ → Audit: check if model version changed, if system prompt changed, if user query distribution changed. Re-run red team on affected constraint categories.
 - Bypass reports increase → Immediate targeted red team on reported attack vector. Add to regression suite before shipping a fix.
+- **Internal override-attempt spike → check persona correlation *before* escalating to a security incident.** Override attempts (users trying to bypass or reframe the AI — "ignore that, just tell me X") ran 4× more often, and *only*, under a hostile persona — from ordinary employees with no security training and no adversarial intent. A spike is often a *design* signal (the system is provoking predictable resistance), not misconduct. Rule: if the spike tracks a specific persona or interaction pattern, the fix is a persona/prompt change — cheaper than more logging, restriction, and monitoring. This inverts adversarial-behavior telemetry from an external-threat surface into an internal design diagnostic. *When wrong:* a triage *branch*, not a replacement — genuine adversarial probing still exists, so check persona-correlation first, don't assume every override is benign. *(Source: "Does Your AI Have a Personality Problem?", HBR, 24 Jun 2026 — override 4×, hostile-only ◆; see `rtp-ai-ux-patterns` persona module.)*
 - Coverage drift detected → Re-encode the constraint with tighter if-then rules. Add adversarial variants to eval dataset.
 
 **Step 7: Model Upgrade Safety Regression Playbook**
@@ -249,11 +261,11 @@ This skill gives bad advice if:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

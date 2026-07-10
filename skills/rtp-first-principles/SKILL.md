@@ -1,7 +1,19 @@
 ---
-name: rtp-first-principles
-description: Decomposes any AI product problem to its ONE irreducible operation by stripping vendor features, marketing language, and implementation details. Use when evaluating new feature proposals, diagnosing why a product failed, starting any product analysis, or when someone says "we should add AI to X", "is this feature necessary", "what's the real problem here", or "break this down to basics". Also triggers on reviewing competitive features or when a team wants to migrate to a different model/technology. Do NOT use when the problem is already well-decomposed by the team, when speed of iteration matters more than depth (early prototyping phase), or when making a low-stakes decision with reversible consequences.
+name: first-principles
+description: >
+  Decomposes any AI product problem to its ONE irreducible operation by stripping vendor
+  features, marketing language, and implementation details. Use when evaluating new feature
+  proposals, diagnosing why a product failed, starting any product analysis, or when someone
+  says "we should add AI to X", "is this feature necessary", "what's the real problem here",
+  or "break this down to basics". Also triggers on reviewing competitive features or when
+  a team wants to migrate to a different model/technology. Do NOT use when the problem is
+  already well-decomposed by the team, when speed of iteration matters more than depth
+  (early prototyping phase), or when making a low-stakes decision with reversible consequences.
+  Pairs with: problem-ai-fit (does the atom need AI), determinism-compass (rules vs. patterns
+  vs. judgment), bias-spotter (why the wrong framing felt right).
+imports: []
 ---
+
 # First Principles
 
 ## DEPTH DECISION
@@ -10,7 +22,7 @@ description: Decomposes any AI product problem to its ONE irreducible operation 
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -47,6 +59,14 @@ Sometimes the right answer is:
 
 Ask: **"What's the simplest solution that solves 80% of cases?"** Often it's not AI. AI shines at the remaining 20% — the edge cases, ambiguous inputs, novel scenarios. Building a fancy neural classifier when a regex handles 95% of your traffic is overengineering.
 
+## KEY TERMS (plain language)
+
+- **Atomic operation** — the single irreducible thing the user actually needs to accomplish, stripped of interface, technology, and workflow.
+- **Load-bearing vs. decoration** — a component the atomic operation can't complete without, versus one you could remove and still succeed.
+- **Determinism spectrum** — from "solvable with rules" (no AI) through "pattern recognition" (AI) to "judgment under ambiguity" (AI + human).
+- **The lookup table test** — asking whether a table, decision tree, or rules engine could solve 80% of this before reaching for AI.
+- **Capability vs. need (supply vs. demand)** — what a system *can* do versus what the situation actually requires; value lives in the second.
+
 ## THE PROCESS
 
 1. **State the user's actual problem in one sentence.** No technology words allowed. If you can't state it without mentioning AI, LLMs, agents, or models — you haven't found the problem yet.
@@ -68,6 +88,21 @@ Ask: **"What's the simplest solution that solves 80% of cases?"** Often it's not
    - **What the model actually does:** Generates tokens, ranks items, classifies inputs
    - **What the product needs:** Answers questions correctly, finds relevant results, prevents harmful outputs
    - **Gap:** Everything between. Model generates 95% accurate medical advice, but product needs 99.5% because users act on it. Model can classify toxicity, but product needs to explain *why* it's flagged. Confusing these kills products.
+
+## THE UNDERLYING ATOM — Capability Is Supply, Need Is Demand
+
+Step 6 above separates what the model *can do* from what the product *needs*. That split is one instance of a deeper atom that runs across every domain, not just AI:
+
+> **Capability is supply. Need is demand. Every failure of a capable system — a model, a person, or an agent — is a strength applied where something else was needed.**
+
+- A **model** supplies fluent text when the product needed a verified fact → a hallucination users trust.
+- A **leader** supplies vision (their strength) when the team needed fairness (the live demand) → a good leader read as a bad one.
+- An **agent** takes full control because it *can* (supply) when the task needed a checkpoint (demand) → the "can ≠ should" autonomy failure.
+
+The move is the same in all three: don't apply your strongest capability just because you have it — first diagnose what the situation actually needs. This is why THE LOOKUP TABLE TEST works (AI is *capable* of the task, but the *need* is better met by rules plus human escalation), and it's the one line that heads both the autonomy design ("can ≠ should") and the Bridger archetype (read the stakeholder's live need before you supply your default).
+
+**Why it matters:** naming the atom lets you catch the error upstream, before you've built the wrong thing. "What can this do?" feels like progress but points at supply; "what does this actually need?" points at demand — and demand is what determines value. **When this is wrong:** don't push the "need" language onto the agent itself — an agent doesn't have needs the way a person does; the need belongs to the humans and the task around it (the "treat the AI as a colleague" trap).
+*(Human half: "Are You Meeting the Needs of the People You Lead?", van Vugt, Sheng & Andrews, HBR, 13 May 2026. Machine half: the "can ≠ should" autonomy rule.)*
 
 ## WHAT THE MODEL ACTUALLY DOES
 
@@ -233,11 +268,11 @@ Model can do X (benchmark: Y%). Product needs Z (requirement: W%). Gap = |W% - Y
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

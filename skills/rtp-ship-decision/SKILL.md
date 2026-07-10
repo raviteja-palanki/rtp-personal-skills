@@ -1,8 +1,20 @@
 ---
-name: rtp-ship-decision
-description: 'Go/no-go gate: safety tested, error rates acceptable, cost defensible at 10x, observability live, user education clear, failures mapped, fallback defined, formal go-no-go. Use when: 1 week before launch, production-ready. Triggers: ''ship gate'', ''launch checklist'''
+name: ship-decision
+description: "The formal go/no-go gate for launching an AI feature: quality tested on 150+ real cases, error rates within severity thresholds, cost still survivable at 10× usage, monitoring live before launch (not after), failure behavior mapped, fallback defined — plus a pre-agreed reward for the person who kills their own failing feature, so the bad news arrives before the spend. Use when: one week before any production launch. Pairs with: eval-framework (the test set), cost-model (the 10× math), stress-test (production readiness), agent-risk (can you pull the plug fast enough). Triggers: 'ship gate', 'launch checklist', 'go/no-go'"
+imports: [stress-test, safety-as-moat, failure-modes, cost-model]
 ---
+
 # Ship Decision
+
+## KEY TERMS (plain language)
+
+- **Go/no-go gate** — the formal decision point where a feature either ships or gets held; the checklist below is what has to pass.
+- **Ship-gate eval set** — 150+ real-world test cases the feature must pass 48 hours before launch, drawn from real usage, not cherry-picked demos.
+- **Severity thresholds** — the acceptable failure rate per class of error (catastrophic <0.1%, high <1%, medium <5%, low <10%).
+- **Observability** — the monitoring that tells you, in production, whether quality is quietly degrading before users complain.
+- **Fallback / rollback** — what the product does when the AI fails (fallback), and how you undo a bad launch fast (rollback).
+- **Cost defensible at 10×** — the unit economics still work if usage grows tenfold.
+- **The self-kill incentive** — a pre-agreed reward for the person who stops their own failing feature, so the kill signal arrives before the spend, not after.
 
 ## DEPTH DECISION
 
@@ -14,7 +26,7 @@ description: 'Go/no-go gate: safety tested, error rates acceptable, cost defensi
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -347,6 +359,7 @@ The ship decision doesn't end at launch. The first 24 hours reveal whether your 
 - **Calendar pressure:** "Launch window closes Friday" is not a reason to ship incomplete safety review. Delay to the next launch window.
 - **Team fatigue:** "The team is tired" is not a reason to skip observability setup. Tired teams ship broken features. Invest in setup.
 - **Competitive pressure:** "Competitors shipped already" is not a reason to cut corners. You're optimizing for 3 years, they're optimizing for 3 weeks.
+- **The kill decision has a social cost your checklist doesn't price.** Every gate above tells you *how* to reach a no-go — thresholds, kill-switches, rollback criteria. None of them makes a person *want* to bring you the news that their own feature should die. Sunk cost and ego make "this isn't working" personally expensive, and peers stay quiet to be kind — so the kill signal arrives late, after the spend. Fix it with an incentive, not just a framework: decide *in advance* what the person who kills their own initiative gets — explicit credit for the catch, protected reputation, or a direct reward (one leader in Linda Hill's research literally pays a bonus for killing your own idea). *When wrong:* if you don't *also* reward genuinely good ideas at comparable stakes, the self-kill reward gets gamed — people kill early just to collect it, skewing toward excessive caution. Single-source qualitative (Hill, HBR IdeaCast, 24 Jun 2026) — a WATCH-status addition, not a load-bearing rule.
 
 ## QUALITY GATE
 
@@ -375,11 +388,11 @@ This skill gives bad advice if:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk
@@ -389,7 +402,7 @@ Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERS
 
 ## GENERATE THE DELIVERABLE
 
-Follow the Deliverable Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11:
+Follow the Deliverable Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11:
 
 1. **Output format matching:** If the grounding questions called for an executive summary, a slide deck, or a specific document type, structure your deliverable accordingly.
 2. **Checklist completion:** Ensure all checkboxes from the QUALITY GATE section are addressed in the output. Make it scannable — use the checklist format directly if presenting to a go/no-go committee.

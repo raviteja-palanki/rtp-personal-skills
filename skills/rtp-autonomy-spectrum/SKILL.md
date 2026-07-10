@@ -1,7 +1,33 @@
 ---
-name: rtp-autonomy-spectrum
-description: 'Choose the right level of AI autonomy for every interaction — from autocomplete to multi-agent systems. Use when someone says "let''s build an agent", when designing any AI product, when evaluating competitors, or when deciding how much control to give AI. The core question: who decides what happens next — the code or the model? This skill gives you the 7-level spectrum to answer that for every feature, not just the product. Do NOT use for: evaluating model quality (use eval-framework), testing outputs (use stress-test), or incident response (use safety-by-design).'
+name: autonomy-spectrum
+version: 3.0.0
+author: RTP (Ravi Teja Palanki)
+plugin: rtp-agent-design
+updated: "April 5, 2026 (v3.0: comprehensive product intelligence map, model-agnostic design pattern, Descript exemplar)"
+description: >
+  Choose the right level of AI autonomy for every interaction — from autocomplete to
+  multi-agent systems. Use when someone says "let's build an agent", when designing any
+  AI product, when evaluating competitors, or when deciding how much control to give AI.
+  The core question: who decides what happens next — the code or the model? This skill
+  gives you the 7-level spectrum to answer that for every feature, not just the product.
+  Do NOT use for: evaluating model quality (use eval-framework), testing outputs
+  (use stress-test), or incident response (use safety-by-design).
+  Pairs with: agent-spec (per-step design), agent-risk (worst case + kill switch),
+  determinism-compass (what must never vary), problem-ai-fit (decompose the decision first).
+imports:
+  - determinism-compass
+  - tool-architecture
+frameworks:
+  - name: "The Agent Spectrum"
+    source: "AI Fluent — Ravi Teja Palanki (2026)"
+    canonical: "../../frameworks/governance/autonomy-ladder.md"
+  - name: "Four-Friction Model"
+    source: "Telang, Hydari, Iqbal — HBR (2026)"
+    canonical: "../../frameworks/governance/four-friction-model.md"
+  - name: "Autonomy Ladder (Sema4.ai adaptation)"
+    source: "Sema4.ai Research (2025)"
 ---
+
 # Autonomy Spectrum
 **Place every AI interaction at exactly the level it deserves — not the highest.**
 
@@ -19,7 +45,7 @@ description: 'Choose the right level of AI autonomy for every interaction — fr
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -40,6 +66,31 @@ The trap is most seductive when:
 - The model is expensive to run, so teams assume higher autonomy = cost savings (wrong; it increases operational cost)
 
 **The deeper trap:** Treating autonomy as a single number for your whole product. GitHub Copilot isn't "Level 4" — it's Level 1 (autocomplete), Level 3 (chat), and Level 6 (Workspace) simultaneously. The PM question is never "what level is our product?" It's "what level is each interaction? What would go wrong if the AI failed here? And who decides whether that's acceptable?"
+
+## KEY TERMS (plain language)
+
+- **Autonomy level** — how much the AI decides on its own, from autocomplete (you decide) up to a multi-agent system (the model decides what happens next).
+- **The structural shift (Levels 1–4 vs. 5–7)** — below the line, code controls the workflow; above it, the model controls the workflow, and cost, failure modes, and monitoring all change.
+- **Consequence magnitude** — how bad it is if the AI gets an action wrong, and whether it can be undone; the right basis for setting autonomy, not "what the model can do."
+- **Leash length** — how much the agent can do without a human stepping in (supervised → spot-check → exception-based → autonomous).
+- **Kill switch** — a built-in way to stop or reverse the agent fast.
+- **The verifiability cut line** — the boundary where you can still check how the system was set up; autonomy can rise to it, and must stop where it would need a human checking every output.
+- **Design-time vs. run-time verification** — checking the setup up front (goals, limits, thresholds) versus checking each individual output as it happens; the first scales, the second doesn't.
+
+## THE VERIFIABILITY CUT LINE — How Far Autonomy Can Go
+
+THE TRAP tells you to start from consequence, not capability. Here is the boundary that turns that into an operational rule.
+
+Checking every single output by hand doesn't scale — require a human to review every output and you cancel the efficiency that justified the AI. The fix is to move human judgment *up front*, to the **setup**: goals, limits, escalation paths, thresholds. So the rule:
+
+> **Autonomy may rise as far as you can still verify the *design* (the setup) — and must stop where it would require verifying every individual *output*, which doesn't scale.** You can hand off as far as you can check the setup, and no further.
+
+**Why it matters:** this explains why over-reaching rollouts get pulled back to a human-present mode. A real example: a shopping agent that auto-checked-out was pulled back within months — it had been pushed past the point where the setup alone could guarantee the outcome, into territory that needed a human checking each purchase, which isn't feasible. The cut line lets you predict that retreat *before* you ship, not after.
+
+**How it pairs with the leash:** the leash (Supervised → Autonomous, below) is *how much* you let the agent do; the cut line is *the ceiling the leash can never cross* — no track record earns autonomy past the point where you can no longer check the design.
+
+**When this is wrong:** "can I verify the design?" is itself a judgment call — a team can convince itself it verified a setup it didn't actually understand. The cut line sets the ceiling, not the guarantee; pair it with the consequence-magnitude table below.
+*(Source: "Beyond Verification: What Responsible AI Really Demands of Human Experts," Renieris, Kiron, Mills & Kleppe, MIT Sloan Management Review, 12 May 2026.)*
 
 ---
 
@@ -466,6 +517,8 @@ ChatGPT's Tools dropdown lets users explicitly choose: chat (L3), search (L3), c
 
 ## MAPPING YOUR PRODUCT — The Exercise
 
+> **Before mapping autonomy *per interaction*, decompose the underlying *decision* first.** Split it into its narrow subdecisions and its wide wrapper (see `rtp-problem-ai-fit`, engine-vs-helper): the narrow cores are where an engine-grade autonomy level is safe; the wide wrapper stays human-led however capable the model looks. *(Source: "Calibrate AI Use to the Decision at Hand," MIT Sloan Management Review, 6 May 2026.)*
+
 For each interaction in your product, fill this table:
 
 | Interaction | Current Level | Human Decision | AI Decision | Actions Taken | Consequence if Wrong | Target Level |
@@ -601,11 +654,11 @@ When your **board member** says: *"Where are we on AI agents?"* → Don't say "w
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ---
 

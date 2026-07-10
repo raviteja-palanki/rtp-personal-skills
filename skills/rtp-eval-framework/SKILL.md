@@ -1,12 +1,14 @@
 ---
-name: rtp-eval-framework
-description: 'Evaluation approach: what eval problem, what to measure from failures, evolve evals as product matures. Use when: launching features, diagnosing quality, setting monitoring. Triggers: ''how to evaluate'', ''eval framework'', ''quality metrics'''
+name: eval-framework
+description: "How do you know your AI is actually good? Designs the testing approach: what to measure, how to turn real production failures into repeatable tests, why the hard rare cases matter more than the common ones, and how tests must evolve as the product matures. Use when: launching a feature, diagnosing quality complaints, setting up monitoring. Pairs with: eval-driven-development (the tests as the spec), ai-product-metrics (the dashboard), judgment-guard (keeping the human reviewers sharp). Triggers: 'how to evaluate', 'eval framework', 'quality metrics'"
+imports: [feedback-flywheel, first-principles, stress-test]
 ---
+
 # Evaluation Framework
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -33,6 +35,21 @@ The trap has four variants:
 - **Premature automation.** You build an automated eval pipeline before you've looked at 50 traces. You're automating measurement of the wrong things.
 - **Tool-first thinking.** You believe an LLM-as-judge product or eval vendor will solve your problems. Eugene Yan: "This sidesteps the core problem and avoids the real work." Evals are a practice, not a product.
 - **Likert scale false precision.** Rating outputs 1-5 hides the real question: does this output work, or doesn't it? Annotators disagree on scale points; they rarely disagree on pass/fail.
+
+## KEY TERMS (plain language)
+
+- **Eval (evaluation)** — a repeatable test of whether an AI's output is good enough on the cases you care about.
+- **Failure mode** — a specific way the system gets things wrong (e.g. "invents a regulation that doesn't exist").
+- **Error analysis** — reading real traces one by one and noting what went wrong; the foundation of good evals.
+- **Open → axial → selective coding** — read traces and label freely (open), group the labels into failure categories (axial), then pick the few that matter most (selective).
+- **LLM-as-judge** — using a model to grade another model's output against one narrow pass/fail question.
+- **TPR / TNR (true-positive / true-negative rate)** — how often the judge correctly says "pass" on good output, and correctly says "fail" on bad output; both must be high.
+- **pass@k vs. pass^k** — succeeded on at least one of k tries (good for "is it possible?") versus succeeded on all k tries (the bar for shipping).
+- **Eval saturation** — when your tests get too easy and everything passes, so real problems stop showing up.
+- **Held-out / fresh test vs. leaked test** — a test with unseen cases (measures real reasoning) versus one whose cases are already known (a memorized answer passes).
+- **Golden set** — a fixed set of 50–100 curated cases kept as a stable regression anchor.
+- **Differentiation testing** — checking whether your competitive AI's answer is actually *different* from rivals', not just correct.
+- **Learning audit** — checking that the *conclusion* a team drew from a test run is right, before it becomes a decision to scale.
 
 ## THE PROCESS
 
@@ -200,6 +217,10 @@ When agents achieve high pass rates (85%+), your eval stops being useful — you
 
 Stale evals → false confidence → undetected production issues.
 
+**Why the hard cases specifically.** A test built from common, predictable cases measures *memory*; a test built from rare, awkward cases measures *reasoning*. A scripted, well-known benchmark is a *leaked test* — a memorized answer passes it; a fresh set of unusual cases is a *held-out test* that only real understanding survives (the same reason an adaptive interview beats a scripted one). Push cases into the rare region — the same place vendor demos quietly avoid. And note where those hard cases live: for a product whose advantage is proprietary data, "where our tests must be toughest" and "where our data advantage actually lives" are the *same map*, so eval-coverage of the hard tail doubles as the audit of whether the data moat is real. **When this is wrong:** don't make a test *only* of rare cases — it stops measuring the common situations most users actually hit; balance common and rare. *(Sources: "AI Has Broken Hiring," Sunil & Saraf, HBR, 8 Jun 2026; "AI's Impact on SaaS Will Be Uneven," Stanton, HBR, 27 May 2026.)*
+
+**Lifecycle (deferred-failure) quality — the axis a golden dataset can't hold.** Every eval above scores *artifact-time* quality: is this output correct, faithful, and safe on this case, today. There is a second axis these tests are structurally blind to: will this code survive being *modified, integrated, secured, and scaled* after the author has left? That failure has no example at ship time — the defect looks fine at launch — so no golden set can contain it and no pass rate can catch it. You can't score the judgment that prevents deferred failure, but you *can* record who staked their name on it: attach **provenance metadata** to each shipped artifact (which AI tools touched the code, who reviewed it, who signed off) and treat that record as the proxy instrument for the quality your suite can't reach. **Why it matters:** a code-gen eval suite can pass every case and still be accumulating capability debt, because the thing it can't score is exactly the thing that fails in year three — so "evals are green" must not be read as "quality is safe." **When this is wrong:** for low-lifecycle artifacts (a prototype, a one-off analysis) there is no deferred failure to guard against — don't add provenance overhead where nothing survives to fail later. *(Source: "Big Tech's Looming Capability Crisis," Liu & Kovács, HBR, 2 Jun 2026. Provenance standard: SLSA — Supply-chain Levels for Software Artifacts. Pairs with `rtp-judgment-guard`, the clocks.)*
+
 ### Validating Your LLM Judge
 
 If you use LLM-as-judge, treat it as a classifier — validate it like one.
@@ -237,6 +258,24 @@ Don't pick thresholds from thin air. Four inputs determine your bar:
 Before launch, ask: **What happens when users actively try to break this?** Not just edge cases — intentional attacks. Prompt injection, encoded inputs, policy-violating requests disguised as legitimate ones.
 
 You don't need a dedicated red team. Ask: Can I automate adversarial probing for my top 3 risk categories (harm, bias, policy violation)? If your agent survives 40 targeted attacks across varying complexity, you have baseline confidence. If it doesn't, you've found real failures to fix before users do.
+
+### Differentiation Testing — Is the Answer *Ours*? (for competitive agents)
+
+Everything above scores whether an output is *correct*. For any agent whose output competes against another firm's agent — pricing, promo timing, ranking, bidding — correctness misses a second thing: an agent can be perfectly correct, pass every test, and be strategically worthless because its correct answer is identical to every rival's correct answer. This isn't red-teaming (an attacker probes you) and isn't benchmarking (you against a fixed standard) — it's checking whether you've drifted into the same answer as the whole market. Three starter measures, each with a named owner:
+
+- **Decision overlap with rivals** — how closely your AI's decisions track observable competitor behavior over the last 90 days.
+- **Timing overlap** — what share of your AI's moves land in the same window as competitor actions.
+- **How much of your input is yours alone** — what share of the AI's inputs come from sources competitors can't access.
+
+**Why it matters:** rival AIs trained on the same public data chasing the same goal converge on the same decision, quietly erasing what made each firm different — so "we're looking more and more like everyone else" deserves the urgency of a falling customer-satisfaction score. **When this is wrong:** the measures are easy to name and hard to build (competitor-decision data at this detail is often unavailable), and in a thin-margin commodity market converging can be the profit-maximizing move — so treat a low score as a warning to investigate, not an automatic alarm.
+*(Source: "Beware the Agentic Convergence Trap," van Esch, Cui & Black, HBR, 13 May 2026; mechanism ✅ peer-reviewed, Assad et al., JPE 2024, DOI 10.1086/726906.)*
+
+### The Learning Audit — Check What You Concluded, Not Just What It Produced
+
+Every test above checks whether the *system's outputs* are correct. The more dangerous mistake is upstream: the organization mis-reads *its own conclusions* about a rollout — tracks the wrong numbers, ignores edge cases, declares success too early — and those wrong lessons compound at scale into money spent in the wrong place. Add a check on the human interpretation step: before a conclusion from a test run becomes a decision to scale up, a named expert reviews the *lesson*, not just the outputs. This sits above the output test and below the go/no-go call.
+
+**Why it matters:** a pilot "win" declared too early is a false lesson that gets very expensive once you scale it — the output evals can all be green while the conclusion drawn from them is wrong. **When this is wrong:** it's the least-developed of these ideas — ship it as a prompt with a named owner, not a finished rubric, and don't let it become one more gate that slows every decision.
+*(Source: "Beyond Verification," Renieris, Kiron, Mills & Kleppe, MIT Sloan Management Review, 12 May 2026.)*
 
 ### Connecting to Business Outcomes
 
@@ -305,11 +344,11 @@ Use these to figure out what YOUR product needs — not to check boxes:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

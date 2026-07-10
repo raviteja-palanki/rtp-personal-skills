@@ -1,16 +1,31 @@
 ---
-name: rtp-judgment-guard
-description: Prevent your team from losing the ability to think for themselves as they rely more on AI. Without designed friction, people accept AI outputs without engaging their own judgment. Over 6-18 months, expertise atrophies silently. This skill designs checkpoints that keep humans sharp. Use when deploying high-stakes AI (medical, financial, hiring decisions), designing AI-augmented workflows, noticing that users aren't questioning AI outputs anymore, or after observing expertise degradation in teams using automation. Do NOT use for low-stakes decisions where acceptance is fine, or when human expertise is already gone (you can't rebuild judgment instantly).
+name: judgment-guard
+description: >
+  Prevent your team from losing the ability to think for themselves as they rely more on AI. Without designed friction, people accept AI outputs without engaging their own judgment. Over 6-18 months, expertise atrophies silently. This skill designs checkpoints that keep humans sharp — across five distinct erosion mechanisms: the fast clock (one person), the slow clock (the org stops making experts), the relay clock (quality decaying down a chain of handoffs), ownership offloading, and chosen blindness (people avoiding the AI's reasoning because looking costs them). Use when deploying high-stakes AI (medical, financial, hiring decisions), designing AI-augmented workflows, noticing that users aren't questioning AI outputs anymore, or after observing expertise degradation in teams using automation. Do NOT use for low-stakes decisions where acceptance is fine, or when human expertise is already gone (you can't rebuild judgment instantly). Pairs with: trust-ladder (calibrated trust), agent-risk (the override assumption), ai-prd (named owners), eval-framework (the quality tests can't reach).
+imports: []
 ---
+
 # Judgment Guard
 
 ## DEPTH DECISION
 
 **Go deep if:** Designing a high-stakes workflow, noticing skill erosion, or rolling out AI to a team with deep domain expertise. **Skim to questions if:** Quick audit of whether checkpoints exist. **Skip if:** Low-stakes decisions where acceptance is intentional and beneficial.
 
+## KEY TERMS (plain language)
+
+- **Judgment atrophy** — the slow, silent loss of a person's ability to make a call on their own as they lean on AI.
+- **The fast clock vs. the slow clock** — one person or role losing their edge (fast, 6–18 months) versus the whole organization ceasing to produce experts at all (slow, years).
+- **Skill-keeping budget** — deliberately keeping people in some learning-by-doing loops even when automating would be cheaper, booked as an investment in future capability rather than waste.
+- **The 3M conditions (Mindset / Meaning / Mechanisms)** — the three things that keep a person *choosing* to own an AI's output: believing they matter to it, having a reason worth the effort, and being judged on catching errors.
+- **The 4 checkpoints** — rotation, calibration, override, and reasoning documentation; the deliberate friction that keeps a human sharp.
+- **Controlled trial (RCT)** — an experiment with a comparison group, so a measured difference can be trusted as caused, not coincidental.
+- **The third clock (relay clock)** — quality decaying as work passes through several people or AI steps in a row, each trusting the last one's output; distinct from the fast and slow clocks.
+- **Motivated non-inquiry** — choosing not to look at the AI's reasoning because looking might cost you (money or exposure); distinct from passively offloading the check.
+- **Provenance of record** — a tag marking the original human-verified source, so a later reader can return to the truth instead of a summary of a summary.
+
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: What expertise is at risk? What's the cost of that expertise degrading? How will users know they're losing judgment?
 2. Route depth: Are you building a new system (Comprehensive) or auditing an existing one (Executive Summary)?
 3. Identify output format: Word Document, Presentation, or Both?
@@ -20,7 +35,7 @@ Then proceed with the skill-specific analysis below.
 ## DELIVERABLE FORMAT
 
 Before starting, ask for format: Word Document, Presentation, or Both.
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## THE TRAP
 
@@ -49,6 +64,57 @@ If this expertise matters (medical diagnosis, underwriting, hiring decisions), r
 - Total: 9-15 months to get back to pre-AI capability
 
 And that's if the person hasn't left (many do, when they feel their expertise was devalued).
+
+## THE SECOND CLOCK — WHEN THE ORGANIZATION STOPS MAKING EXPERTS
+
+Everything above is the **fast clock**: one person or one role losing their edge over 6–18 months. There is a second, slower clock the checkpoints below don't catch.
+
+**Clock two — the organization stops producing experts at all.** Junior staff never build their own judgment, because the AI does the work they would have learned from; senior expertise fades from disuse. This is worse than the per-person version because it's invisible until the day you need an expert and discover you stopped making them three years ago. The 4 checkpoints keep *this* reviewer sharp; they do nothing for the *pipeline* that produces the next one.
+
+**The design rule — the skill-keeping budget.** On purpose, keep humans in selected skill-*building* loops even when automating would be cheaper, and record the efficiency you gave up as an investment in future capability, not waste. Name which loops (which tasks build the judgment you'll need to govern this system in three years), and write down the cost you're choosing to carry.
+
+**Why it matters:** as the technology gets more capable, the need for human expertise goes *up*, not down — someone still has to be able to ask whether the system is reliable, lawful, and right for the situation, and if you skip this you're left with a machine that can't be held responsible. **When this is wrong:** where the expertise is genuinely being retired (a new process has replaced it), you don't need to keep making those experts — book the loss and move on.
+*(Source: "Beyond Verification: What Responsible AI Really Demands of Human Experts," Renieris, Kiron, Mills & Kleppe, MIT Sloan Management Review, 12 May 2026 — panel poll, 84% ◆, in-panel opinion, not a population survey.)*
+
+### Why the clocks run at all — the engine, and the one control that slows both
+
+The reason expertise drains isn't laziness — it's an economics trap. AI cheapens the part of a job you can *measure* (code shipped, scans read) and by doing so raises the value of the part you *can't* (was it the right call, and who answers for it). A firm watching the metric sheds the unmeasurable half without noticing — booking two hidden liabilities as savings: **capability debt** (you cut the seniors who trained juniors, so the next experts never form — the slow clock as a balance-sheet item) and **judgment debt** (the experts you kept only *review*, so their calibration decays — the fast clock as a balance-sheet item). Software is worse than the classic case: a radiologist's error harms a named patient fast, but a coding error "looks fine at launch and only surfaces when the system is modified, integrated, secured, or scaled" — after the author has left — so the 6–18-month timeline above is the *optimistic* case.
+
+**The paired control that slows both clocks:** a named senior stakes their name on each AI-generated production release *with a junior working under them* — one act that fixes accountability AND is the apprenticeship that keeps the pipeline alive. So the skill-keeping budget should default to senior+junior pairing on releases, not just rotating the lone reviewer. **Why "just educate the leader" won't fix the slow clock:** a trained expert can be *poached*, so training is a gift to a competitor — capability debt is a coordination failure, not ignorance. The fix changes the payoff: make repeated AI-related failures trigger heavier review and named sign-off, so negligence gets expensive enough that keeping humans is the cheap choice.
+*(Source: "Big Tech's Looming Capability Crisis," Liu & Kovács, HBR, 2 Jun 2026. Complementarity per Agrawal, Gans & Goldfarb, *Prediction Machines*. Radiologist pay ~$570k/2025 ◆; Meta ~8,000 cut redirected to AI ⚠.)*
+
+## THE THIRD CLOCK — WHEN QUALITY DECAYS DOWN A CHAIN OF HANDOFFS
+
+The two clocks above track judgment fading *inside* one person (fast, 6–18 months) or *inside* one organization (slow, years). There is a third, and it runs sideways: quality decaying as a piece of work passes through several people — or several AI steps — in a row, where each actor trusts the last one's output and no one sees the whole chain.
+
+The mechanism is a chain reaction. The moment one person stops checking the AI's output — reasoning "the next step is AI anyway, so why bother" — the next person rationally does the same, and fidelity to the original truth drops link by link (Holweg and Davenport call the accumulated result *knowledge decay*). Worked example: a hiring pipeline where AI writes the job description, AI screens CVs against it, AI runs the interview against that, and the candidate's AI answers the AI interviewer — four checks meant to catch errors instead multiply their misses (the same shape as an agent chain, 90% reliable × 10 steps ≈ 35% end-to-end), except what compounds is not "did the step succeed" but "does the content still mean what it originally meant."
+
+**The check you can run:** map a real cross-team process end to end and count the AI-mediated handoffs. Three or more in a row with no human checkpoint on the *original* source between them is a knowledge-decay risk — flag it. The fix isn't to police AI use (you can't — most workers hide it). It's to tag the earliest ground-truth artifact (the real customer transcript, the real eval trace, the source document) as the *provenance of record*, and require every downstream AI-generated summary to carry a pointer back to it, so a later reader can always return to the truth instead of a summary of a summary.
+
+**Why it matters:** checking is a cost each person pays and a benefit the *whole chain* receives — individually rational choices produce a collectively bad outcome, so quality erodes even though no one is dishonest. Naming a single owner of the ground-truth artifact restores one person's stake in the whole chain's fidelity, which is the only thing that stops the link-by-link drop. **When this is wrong:** a chain of many AI passes that each *re-anchor* to the same source document (a well-built retrieval pipeline) holds fidelity nearly flat — count re-anchored passes as low-risk, not as handoffs; and where content is low-stakes (an internal brainstorm), decay doesn't matter. The article states the decay as an architectural inevitability but cites no measured rate — treat it as a mechanism to watch for, not a constant.
+*(Source: "Don't Let AI Slop Muck Up Your Company's Processes," Holweg & Davenport, HBR, 16 Jun 2026. Load-bearing incident: Deloitte Australia's ~AUD 440,000 government report with ~20 fabricated references, ◆.)*
+
+## OWNERSHIP IS A CHOICE — THE CONDITIONS TO PROTECT
+
+The 4 checkpoints below keep human *judgment* sharp. This module keeps human *ownership* alive — a different failure. Owning an outcome was never something you could hand off; it's a choice a person makes each day. So an AI in the chair doesn't take on ownership — it quietly removes the three conditions under which a human would have chosen it. Protect all three:
+
+- **Mindset** — the owner has to believe "I matter to this outcome." Treating the AI as a colleague (naming it "Kevin," "ALEX-3") destroys this by making the human feel unnecessary. *Break signal:* the owner calls themselves a rubber stamp.
+- **Meaning** — the owner needs a reason worth the effort of checking the AI's work. *Break signal:* nobody can say why carefully reviewing the AI matters.
+- **Mechanisms** — reviews and recognition must reward *catching the AI's mistakes*, not just shipping its output fast. *Break signal:* your routines reward speed of shipping AI output, not quality of oversight.
+
+**Why it matters:** a controlled trial (BCG, 1,261 people) found that treating the AI as an employee dropped personal accountability by about 9 percentage points and led reviewers to catch about 18% fewer errors (⚠/◆). A disclaimer won't fix that — it's a direct hit on whether a human still *chooses* to own the result, so you have to build the three conditions on purpose, the way you'd provision computing power. **When this is wrong:** where full hand-off is intended and human ownership isn't the goal, skip this — the conditions matter only when you're relying on a human to own the output.
+*(Source: "Accountability Must Be Chosen, Not Mandated," Okposo, HBR, 29 Apr 2026. The naming effect is corroborated by the same BCG trial cited above.)*
+
+## MOTIVATED NON-INQUIRY — WHEN PEOPLE CHOOSE NOT TO LOOK
+
+The Ownership module above covers *offloading*: people catch fewer errors because a colleague-like framing makes them feel less responsible (the BCG "employee"-naming effect, ~18% fewer errors). This is a different failure, and it points the opposite way. Here people *know* it's their call and still choose not to see the AI's reasoning — because the reasoning is where the risk to *them* lives.
+
+The evidence: in a controlled study of 2,512 participants acting as loan officers on real $10,000 decisions, 80% wanted the AI's risk score but only ~46% chose to view the reasoning behind it. Two things made people look *less*: tying their pay to the outcome made them ~20% more likely to skip the explanation, and warning them the explanation might reveal race or gender bias pushed avoidance up 10+ points. The tell that this is avoidance, not offloading: the skipping is *strongest* exactly where the person is most accountable (bonus on the line) and most exposed (bias warning present) — the opposite of what fatigue or diffused responsibility would predict.
+
+**The fix is different from offloading's fix.** Offloading is repaired by reassigning ownership and rewarding error-catching (the 3M module above). Avoidance is not — the person already knows it's their job; they're choosing blindness because not-knowing pays. The only fix is to remove the payoff to not-knowing: make the "why" a *mandatory, logged review step* before the decision can be finalized, not an optional link. A dashboard that shows "explanation available" is not evidence anyone looked — log whether it was actually *opened*. And a sharp warning: a bias-disclosure prompt ("this explanation may reveal bias") can *backfire* — in the study it triggered avoidance of the very information it was meant to surface; pair any bias warning with mandatory engagement.
+
+**Why it matters:** transparency features (explain buttons, audit trails) are not a judgment-erosion fix on their own — they can be quietly unused by the exact people whose incentives most need them used. So "we shipped an explain button" is not a control; "was it opened, by whom, on which decisions" is the thing to measure. **When this is wrong:** in low-stakes, low-bias-risk contexts (an internal dashboard where no one's pay or exposure is at stake) the cost that drives avoidance isn't present — don't force review where looking costs the viewer nothing; and forcing review everywhere raises overrides across the board — in the study, viewing the explanation made people ~6 points more likely to override the AI, which is the goal where the AI is wrong and a cost where it's right — so reserve the forcing function for decisions with real bias or compliance exposure.
+*(Source: "Employees Aren't Questioning AI Advice Enough," Chan / Rand, HBR, 24 Jun 2026 — ◆ single study, n=2,512, pre-replication. Regulatory stakes ✅ CFPB circular 2023-03, GDPR / EU AI Act.)*
 
 ## THE 4 CHECKPOINTS
 
@@ -238,7 +304,7 @@ CONFIDENCE: High
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. State the recommendation (which checkpoints to implement, in what order)
 2. Name the key trade-off (efficiency loss vs judgment maintenance)
 3. Acknowledge the biggest risk (organizational resistance, or checkpoint failure if not enforced)

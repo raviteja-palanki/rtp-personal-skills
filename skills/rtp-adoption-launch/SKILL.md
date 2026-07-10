@@ -1,7 +1,16 @@
 ---
-name: rtp-adoption-launch
-description: 'Treat AI adoption as a product launch — with personas, phases, and phase-specific support — not as a training program. Adoption curves are predictable: Surge (Month 1) → Dip (Months 3-4) → Rebound (Month 5+). Organizations that give one-time training see 50% churn at the dip. Adoption is not a training problem; it''s a product problem. Use when planning AI rollout, adoption is stalling, or designing change management.'
+name: adoption-launch
+description: >
+  Treat AI adoption as a product launch — with personas, phases, and phase-specific support — not as a training program.
+  Adoption curves are predictable: Surge (Month 1) → Dip (Months 3-4) → Rebound (Month 5+).
+  Organizations that give one-time training see 50% churn at the dip. Adoption is not a training problem;
+  it's a product problem. Use when planning AI rollout, adoption is stalling, or designing change management.
+  Pairs with: needs-guard (which psychological need the rollout threatens), attitudinal-segmentation
+  (embracers vs. skeptics), agent-risk (when someone has a rational reason to want it to fail),
+  purpose-dialogue (connecting the rollout to what people believe in).
+imports: [first-principles, needs-guard]
 ---
+
 # Adoption Launch
 
 Adoption curves for enterprise software are predictable. Yours will follow the same pattern. The question is not whether your team will hit the Month 3 dip — they will. The question is whether you've planned for it.
@@ -52,13 +61,13 @@ Before starting, ask:
 >
 > *Default if no preference: Word Document.*
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ---
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions — at minimum: Who are the users? What AI system? What's the deployment scope?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, or inline?
@@ -74,6 +83,15 @@ Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
 > **4. What's your adoption success metric?** Is it "% of users with access," "% using weekly," "% using daily," or "measured improvement in user outcomes"? (The answer should be the third or fourth, not the first two.)
 
 ---
+
+## KEY TERMS (plain language)
+
+- **The adoption curve (Surge → Dip → Rebound)** — the predictable path: fast Month-1 uptake, a Month 3–4 dip, then recovery from Month 5.
+- **Gate Zero** — the pre-check on whether the rollout was *co-created* with users or merely *announced* to them; an announced rollout starts fragile.
+- **Perception gap** — the distance between how enthusiastic leaders *think* people are and how they actually are (76% vs. 31%).
+- **Adoption personas** — Enthusiast / Pragmatist / Skeptic / Resister; archetypes by stance toward the tool, not by job title.
+- **Psychological safety** — feeling safe enough to experiment with a new tool without fear of blame or job loss.
+- **Adversarial-user risk** — when someone has a rational incentive to make the rollout fail (a real headcount threat); route to `rtp-agent-risk`, not to more training.
 
 ## THE TRAP
 
@@ -92,6 +110,18 @@ Training can't fix a product problem. The user isn't resisting because they don'
 **The fix:** Treat adoption like a product launch, not a training rollout. Identify your adoption personas (not just job titles — adoption personas). For each persona, design phase-specific value propositions and support. Month 1 support is different from Month 3 support. Most teams skip this and wonder why adoption collapses.
 
 ---
+
+## GATE ZERO — WAS THIS CO-CREATED OR ANNOUNCED? (run before you design the phases)
+
+The three phases below tell you *what* the adoption curve does. This gate tells you whether your Surge numbers can be trusted at all. Ask two questions before finalizing any rollout plan:
+
+1. **Was the AI strategy co-created with the people who will use it, or announced to them?** If announced, treat the Surge-phase adoption numbers as unreliable no matter how strong they look — leaders systematically believe adoption is happening before employees have even started. In one 2026 survey, **76% of executives believed employees were enthusiastic about AI; only 31% actually were** (◆).
+2. **Does the frontline-manager layer have safety/empathy support, or only the senior leaders?** People experience a rollout through their immediate manager, not the C-suite. If only senior leaders are bought in, the layer that actually decides whether someone feels safe to experiment is missing.
+
+**A distinct risk to screen for, separate from adoption friction:** ask "does anyone on this team have a rational incentive to want this rollout to fail?" If a rollout genuinely threatens headcount, that fear is *accurate*, not a perception gap — and co-creation is not a fix for an honest conflict of interest. Route that to `rtp-agent-risk` (adversarial-user risk), not to more training.
+
+**Why it matters:** adoption is gated by whether people feel *safe enough to experiment*, and experimenting with a tool that might replace you is a risk nobody takes when they don't feel safe ("why would anyone be enthusiastic about training their replacement?"). An announced rollout skips the step that builds that safety, so it enters the Surge phase already fragile — the Month-3 dip below isn't only novelty wearing off, it's fear that was present from day one. This is the causal variable the dip-causes list doesn't yet name. **When this is wrong:** where use is genuinely non-negotiable and universal (a tool everyone must use to do the core job), the safety dynamic is weaker and the curve is driven more by workflow fit than by fear; and where the fear is *accurate* (the AI really is eliminating the role), empathy and co-creation are the wrong lever — the honest move is a straight answer about the conflict, not a co-creation workshop.
+*(Source: "Empathetic Leadership Can Make or Break AI Adoption," Zaki, HBR, 30 Apr 2026. The 76%-vs-31% gap is ◆ [BCG 2026](https://www.bcg.com/publications/2026/ai-at-work-why-strategy-matters-more-than-tools); the "~60% plan to lay off non-adopters" companion finding is ⚠ reported.)*
 
 ## THE ADOPTION CURVE: Three Phases, Three Different User Needs
 
@@ -360,7 +390,7 @@ This skill gives bad advice if:
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 If adoption plans reveal need violations (e.g., "workers can't override AI decisions"), generate a markdown handoff to the `needs-guard` skill for deployment redesign.
 

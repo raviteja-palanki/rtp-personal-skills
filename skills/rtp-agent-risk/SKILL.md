@@ -1,7 +1,10 @@
 ---
-name: rtp-agent-risk
-description: 'For every agent: is the value worth the potential harm? And can you pull the plug fast enough? Proportionality analysis (value vs worst-case) + kill-switch design (manual, anomaly-triggered, time-elapsed). If you can''t kill it faster than harm cascades, don''t deploy it. Use for any agentic system (AI agents, automated workflows, autonomous processes), pre-launch risk reviews, or when debating autonomy levels. Skip for static systems (no autonomous actions) or systems with trivial harm potential.'
+name: agent-risk
+description: >
+  For every agent: is the value worth the potential harm? And can you pull the plug fast enough? Proportionality analysis (value vs worst-case) + kill-switch design (manual, anomaly-triggered, time-elapsed). If you can't kill it faster than harm cascades, don't deploy it. Use for any agentic system (AI agents, automated workflows, autonomous processes), pre-launch risk reviews, or when debating autonomy levels. Skip for static systems (no autonomous actions) or systems with trivial harm potential. Pairs with: autonomy-spectrum (choosing the level), agent-spec (checkpoints), judgment-guard (does the human overseer still choose to own it), adoption-launch (when insiders have a reason to want the rollout to fail).
+imports: [stress-test, failure-design, autonomy-spectrum]
 ---
+
 # Agent Risk
 
 ## DEPTH DECISION
@@ -10,7 +13,7 @@ description: 'For every agent: is the value worth the potential harm? And can yo
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: What actions does the agent take autonomously? What's the worst-case outcome? What's the business value?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, or both?
@@ -40,6 +43,16 @@ Amazon's revenue in that category dropped 40% that day. A human analyst spotted 
 Worst case: This was a pricing agent. If it had been a delivery agent (autonomously contracting with couriers), a healthcare agent (autonomously approving treatments), or a hiring agent (autonomously extending job offers), the cascade would be worse.
 
 What stopped the damage? Amazon had a **24-hour audit layer** — human analysts who reviewed agent actions daily. The audit caught it within a day. Imagine if they didn't have the audit.
+
+## KEY TERMS (plain language)
+
+- **Proportionality test** — weighing the value of an agent against its worst-case harm; deploy only if the upside clearly beats the downside.
+- **Harm cascade** — how fast damage spreads once an agent goes wrong; some cascade in seconds, some over weeks.
+- **Blast radius** — how far the damage reaches: one user, a segment, the whole system, or the whole ecosystem.
+- **Kill-switch** — a way to stop or reverse the agent; the skill lists five kinds (manual, anomaly-triggered, time-elapsed, scope-bounded, simulation).
+- **Alert fatigue** — so many alerts that people stop paying attention to them.
+- **The override assumption** — the (often wrong) assumption that a human who *has* a kill-switch will actually choose to use it.
+- **The 3M conditions (Mindset / Meaning / Mechanisms)** — the three things that keep a human still choosing to own an agent's output.
 
 ## THE PROCESS
 
@@ -133,6 +146,19 @@ Design multiple, independent kill switches. One human-controlled override is not
 - Manual (human can stop anytime) + Anomaly-triggered (automatic pause on deviation) + Simulation (preview before execute)
 - This triple layer catches failures at different stages
 
+### 3.5 THE OVERRIDE ASSUMPTION — Does the Human Still Choose to Own It?
+
+Every kill-switch above assumes the human will *choose* to watch and act. THE TRAP named half of this: "a human override in theory, but not in practice — humans miss the alert or are too slow." There is a deeper version the alert-fatigue framing misses. Alert fatigue is *too many alerts*. This is *too little ownership*: a human who sees the alert but has quietly stopped feeling responsible for the outcome, so they rubber-stamp instead of engage. The switch works — the human just doesn't pull it. No chaos test will catch this, because nothing is technically broken.
+
+Owning an outcome is a choice a person makes, not a control you install — and the way an agent is framed can remove their reason to make it. Before you count a human override as a real safety layer, confirm the owner still has the three conditions that keep ownership alive:
+
+- **Mindset** — they believe they matter to the outcome. (Naming the agent as a colleague — "Kevin," "ALEX-3" — quietly tells them they don't.)
+- **Meaning** — they have a reason worth the effort of checking the agent's work.
+- **Mechanisms** — reviews reward *catching the agent's errors*, not just shipping its output fast.
+
+**Why it matters:** a controlled trial (BCG, 1,261 people) found that framing the AI as an employee dropped personal accountability by about 9 percentage points and led reviewers to catch about 18% fewer errors (⚠/◆). That is a kill-switch that fails silently — and it means a demoralized or de-responsibilized human override should **not** be counted as a safety layer in the proportionality test. **When this is wrong:** where the human override is genuinely redundant (the agent is more reliable than the human and oversight is a formality), you don't need to protect ownership — but say so explicitly, and then don't lean on that human as a real control.
+*(Sources: "Accountability Must Be Chosen, Not Mandated," Okposo, HBR, 29 Apr 2026; the naming/accountability effect is the BCG randomized trial in "Research: Why You Shouldn't Treat AI Agents Like Employees," HBR, 2026.)*
+
 ### 4. KILL-SWITCH TESTING
 
 Ask: **"Have I tested the kill-switch? Can I actually stop the agent?"**
@@ -192,6 +218,15 @@ Answer these honestly to assess agent risk:
 6. **"Is the business value of this agent's autonomy worth the worst-case harm?"** Honest answer only.
    - **Red flag:** "Yes, definitely." (If you're certain, you haven't imagined the worst case hard enough.)
    - **Sharpening probe:** "What would have to be true for you to say no?"
+
+## ADVERSARIAL-USER RISK — When the People Inside Have a Reason to Want It to Fail
+
+The proportionality, cascade, and kill-switch analysis above screens whether the agent can cause harm and whether users are paying enough attention (§3.5). It misses a third surface: users who deliberately work *against* the rollout — feeding sensitive data to unauthorized tools, tampering with outputs to make the AI look worse, ignoring guidelines on purpose.
+
+Treat this as a named risk category with a base rate, not an edge case: in one 2026 enterprise survey, **29% of employees (44% of Gen Z) admitted to sabotaging their company's AI strategy** (◆).
+
+**Why it matters:** sabotage is a rational, self-protective response to a zero-sum frame — when people are placed in an "the AI or me" situation, protecting themselves is sensible, not bad faith. So the base rate to design against is "some insiders are actively adversarial," not "everyone is a cooperative user." A risk model that only asks "are people paying attention?" and never "does anyone have an incentive to make this fail?" is measuring half the surface. **The upstream fix is not anti-tamper controls — it's removing the zero-sum frame** (see `rtp-adoption-launch`, Gate Zero: co-created vs. announced); design anti-tamper only for the residual after that. **When this is wrong:** where the rollout genuinely doesn't threaten anyone's role or status (a tool that removes drudgery nobody wanted), the sabotage incentive is low — don't design heavy anti-tamper controls for a low-threat deployment.
+*(Source: "Empathetic Leadership Can Make or Break AI Adoption," Zaki, HBR, 30 Apr 2026. Sabotage base rate ◆ [Fortune, 8 Apr 2026](https://fortune.com/2026/04/08/gen-z-workers-sabotage-ai-rollout-backlash/) / [Writer survey](https://writer.com/blog/enterprise-ai-adoption-survey-results-press-release/).)*
 
 ## REALITY CHECK
 
@@ -277,7 +312,7 @@ CONFIDENCE: **High**
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Use the output prompt from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
 If this skill connects to downstream skills, also generate the markdown handoff file (if relevant to broader autonomy governance or safety-by-design).
 
 ## VISUAL SUMMARY

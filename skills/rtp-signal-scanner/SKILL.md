@@ -1,7 +1,15 @@
 ---
-name: rtp-signal-scanner
-description: 'Detect weak signals early — trends, threats, opportunities invisible in quarterly reviews but obvious in hindsight. Dual-speed sensing: real-time operational signals (what''s happening now) + long-term strategic signals (what''s emerging). Companies with systematic signal scanning achieve 5% financial lift. Use for annual planning, competitor monitoring, or when building early-warning systems into product strategy.'
+name: signal-scanner
+description: >
+  Detect weak signals early — trends, threats, opportunities invisible in quarterly reviews but obvious in hindsight.
+  Dual-speed sensing: real-time operational signals (what's happening now) + long-term strategic signals (what's emerging).
+  Companies with systematic signal scanning achieve 5% financial lift. Use for annual planning, competitor monitoring,
+  or when building early-warning systems into product strategy.
+  Pairs with: capability-tracking (build now vs. wait for the next model), moat-finder (is the
+  threat aimed at your moat), competitive-map (where the threat comes from).
+imports: [first-principles, strategy-canvas]
 ---
+
 # Signal Scanner
 
 Most companies are reactive. They respond to what's already obvious: a competitor ship, a customer churn, a market shift. By then, decision windows are closed.
@@ -72,13 +80,13 @@ Before starting, ask:
 >
 > *Default if no preference: Word Document.*
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ---
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions — at minimum: What's your market? Who are your customers? Who are your competitors?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, or inline?
@@ -118,6 +126,14 @@ But you also read: "Two of our best customers independently asked for Y integrat
 
 ---
 
+## KEY TERMS (plain language)
+
+- **Dual-speed sensing** — watching fast operational signals (weekly) and slow strategic signals (monthly) at the same time.
+- **Signal vs. noise** — a pattern repeated across many customers and intensifying (signal) versus a one-off blip (noise).
+- **The 5 signal categories** — customer behavior, competitive, technology capability, regulatory, and market-structure signals.
+- **AEO / GEO (answer-engine / generative-engine optimization)** — getting your brand cited inside AI-generated answers, the way SEO gets you ranked in search.
+- **AI-mediated discovery** — customers reaching you through an AI assistant's answer rather than a search click.
+
 ## THE 5 SIGNAL CATEGORIES
 
 Organize your scanning by category. This prevents both "noise overload" and "missed signals."
@@ -139,6 +155,14 @@ Organize your scanning by category. This prevents both "noise overload" and "mis
 - Support tickets on "performance" increase 40% month-over-month → scaling pain emerging
 - Feature requests shift from "do more" to "do less but better" → feature fatigue or focus shift
 - Usage engagement drops for power users → product regression or market shift
+
+**Before you optimize for AI answers, name which kind of AI is in the way.** When an AI sits between you and the buyer, it does one of two very different jobs — and the fix is different for each:
+- **It picks from a set list** — a shopping/procurement agent choosing among known options against a spec ("a mattress under $800 that ships Friday," or eight vetted providers). Your job is to *win the pick*: be the candidate the agent rates highest. A persuasion problem inside a bounded catalog.
+- **It writes an answer from scratch** — a doctor asks a clinical assistant about treatment options and the AI composes a paragraph from whatever sources it can pull. Your job is to *get pulled in at all*: be retrievable and citable in the first place. A corpus problem, upstream of the choice.
+
+Name the mode first — **does the AI select from a list, or synthesize from a corpus?** — because the tactics don't transfer: winning a pick is structured data, programmatic pricing, and being a rated candidate; getting quoted is machine-readable publishing, schema, and authority signals. **Why it matters:** the two mechanisms drain the same relationship through different doors, so a team that misdiagnoses spends its whole GEO budget on the wrong one. **When wrong:** for a purely human buyer on your own site with no AI in the loop, neither applies yet — don't over-invest against a buyer that barely exists. *(Source: "How Gen AI Is Disrupting B2B Buying Decisions," Joshi, Buche & Schwaer, HBR, 12 Jun 2026. ◆ Digitas/Publicis pilot: >80% of LLM sources for B2B fintech queries were the brands' own content; ◆ IDC forecast: 62% of B2B demand gen AI-led by 2028 — an analyst projection, not a measured result.)*
+
+**Emerging signal — AI-mediated discovery (track, don't celebrate):** Customers increasingly reach you through an AI assistant's answer rather than a search click. Being cited by AI is necessary, but right now it's a per-visit *downgrade*: in a 12-month first-party study of ~973 e-commerce sites, visits sent by an AI assistant converted below every other traditional channel — roughly 13% worse than normal search and ~86% worse than affiliate (◆ Kaiser & Schulze, *Marketing Science* 2026 — [SSRN 5585812](https://ssrn.com/abstract=5585812) · [Search Engine Land](https://searchengineland.com/llms-google-referral-conversion-study-463747)). **Why it matters:** "winning the AI citation" often means defending presence in a channel that *cannibalizes* a better one, not unlocking growth — so track AI-referral *share and its conversion*, not share alone. **When this is wrong:** it's one study's panel; the direction (AI-referral underperforms search today) is well-evidenced, the exact percentages are not settled, and the gap should narrow as AI shopping matures. *(Source: "AI Is Upending Marketing on Two Fronts," Puntoni, HBR, 23 Feb 2026.)*
 
 **Sensing cadence:** Weekly review of support tickets and churn data. Monthly synthesis.
 
@@ -394,7 +418,7 @@ This skill gives bad advice if:
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 If signals reveal strategic gaps or shifts, generate a markdown handoff to the `strategy-canvas` skill for strategy recalibration.
 

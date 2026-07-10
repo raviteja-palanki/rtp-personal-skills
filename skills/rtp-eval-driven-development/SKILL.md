@@ -1,7 +1,22 @@
 ---
-name: rtp-eval-driven-development
-description: Build AI features with the eval rubric AS the spec, not as a downstream gate. The eval defines what to build next — not whether what you built is acceptable. Use when shipping AI features with no clear definition of "done", when the team iterates on prompts without a quality compass, when error analysis must come before the next sprint, or when reviewers ask "how do you know this is good?". Triggers on "how do we test this AI feature", "when is it ready to ship", "eval framework", "quality gate", "definition of done for AI", "eval-driven", "ship criteria".
+name: eval-driven-development
+description: >
+  Build AI features with the eval rubric AS the spec, not as a downstream gate. The eval
+  defines what to build next — not whether what you built is acceptable. Use when shipping
+  AI features with no clear definition of "done", when the team iterates on prompts without
+  a quality compass, when error analysis must come before the next sprint, or when reviewers
+  ask "how do you know this is good?". Triggers on "how do we test this AI feature",
+  "when is it ready to ship", "eval framework", "quality gate", "definition of done for AI",
+  "eval-driven", "ship criteria".
+  Pairs with: eval-framework (the harness), ai-prd (the spec it feeds), ship-decision (the gate it arms).
+title: "Eval-Driven Development"
+plugin: "craft"
+version: "2.0"
+imports: ["eval-framework", "feedback-flywheel"]
+tags: ["evaluation", "testing", "ai-development", "quality"]
+status: "production"
 ---
+
 # Eval-Driven Development: The Eval Is Your Spec
 
 ## DEPTH DECISION
@@ -40,6 +55,15 @@ Most teams treat eval as a quality gate: build the feature, then check if it's g
 - The eval owner should be in sprint planning, not just in QA review.
 
 **The failure pattern:** Teams build evals once, run them periodically, and treat the results as health checks. This misses the core value — evals should actively drive what gets prioritized. If your evals aren't changing your backlog, they're decorative.
+
+## KEY TERMS (plain language)
+
+- **Eval-first development** — writing the eval (the definition of "good") before building, so the eval drives what you build next.
+- **Living spec** — an eval dataset treated as the evolving definition of the feature, updated as you learn.
+- **Criteria drift** — your definition of "good" shifting as you see more outputs; expected, but must be tracked.
+- **Goodhart's law** — when a measure becomes a target it stops being a good measure.
+- **Eval debt** — accumulated gaps where the eval no longer covers how the product is actually used.
+- **Process-entropy / ground-truth-of-record** — the risk that content reached your eval already degraded by several upstream AI passes; tag the original source so you can tell.
 
 ## THE TRAP
 
@@ -181,6 +205,15 @@ Eval debt is when you stop maintaining your eval suite. Signals:
 - Add eval maintenance to your definition of done. Can't ship without updating eval.
 - Run the eval automatically on every model/prompt change.
 - Review eval results weekly. Visible metrics. If nobody looks, they don't maintain it.
+
+### 7. The Process-Entropy Check — Has This Content Already Been Laundered Before It Reached Your Eval?
+
+Every eval above scores a *single* model's output. But content often arrives at your eval harness having already passed through several AI steps upstream — one AI summarized the transcript, another rewrote the summary, a third drafted the record you're now testing. Your eval faithfully scores the last hop and misses that the input was already three passes from the truth.
+
+Add one step before scoring: at the point where content *originates* (the raw interview, the real trace, the source filing), tag it as *ground-truth-of-record*. For any content reaching a decision, ask how many AI-mediated passes sit between that origin tag and the eval. If the answer is "we don't know," that *is* the finding — you're scoring a summary of a summary and calling it the source.
+
+**Why it matters:** an eval is only as trustworthy as the provenance of what it scores. A high score on already-degraded input is false confidence — the eval says "good" about content that has already drifted from what it originally meant, and nobody upstream flagged the drift because nobody owned the origin. **When this is wrong:** if every upstream pass *re-anchored* to the tagged source (retrieval-grounded, not free rewriting), chain length doesn't matter — count re-anchored passes as clean. Don't demand provenance tags on throwaway content that never reaches a decision.
+*(Source: "Don't Let AI Slop Muck Up Your Company's Processes," Holweg & Davenport, HBR, 16 Jun 2026. Signal: submissions to *Organization Science* up 42% since late-2022 while writing quality declined — ◆ [Forbes, 30 Apr 2026](https://www.forbes.com/sites/johndrake/2026/04/30/ai-slop-is-flooding-academic-journals-a-top-journal-measured-it/). Pairs with the "third clock" in `rtp-judgment-guard`.)*
 
 ## GOODHART'S LAW IN EVAL
 
