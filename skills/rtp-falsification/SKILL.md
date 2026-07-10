@@ -1,8 +1,37 @@
 ---
-name: rtp-falsification
-description: Tests any AI product recommendation by identifying conditions where it would be WRONG and pre-committing to what success actually looks like. Use when reviewing strategies, evaluating proposals, before committing resources, before launching features, or when someone is confident something "will work" without specifying what failure would look like. Triggers on 'this feature will improve X', 'we should launch this', 'our model will solve the problem', or 'we need to do this to compete'. Also use when reviewing metrics definitions (many teams measure what they can instead of what matters). Do NOT use to block action—use to de-risk it. Do NOT use on decisions that are genuinely cheap to reverse or in organizations where pre-committing to kill conditions is seen as political sabotage. Do NOT use during early exploration when the hypothesis is still forming.
+name: falsification
+description: >
+  Tests any AI product recommendation by identifying conditions where it would be WRONG
+  and pre-committing to what success actually looks like. Use when reviewing strategies,
+  evaluating proposals, before committing resources, before launching features, or when
+  someone is confident something "will work" without specifying what failure would look
+  like. Triggers on 'this feature will improve X', 'we should launch this', 'our model
+  will solve the problem', or 'we need to do this to compete'. Also use when reviewing
+  metrics definitions (many teams measure what they can instead of what matters). Do NOT
+  use to block action—use to de-risk it. Do NOT use on decisions that are genuinely cheap
+  to reverse or in organizations where pre-committing to kill conditions is seen as political
+  sabotage. Do NOT use during early exploration when the hypothesis is still forming.
+  Pairs with: bias-spotter (the bias making the claim feel safe), stress-test (the
+  technical failure surface; its pre-mortem is the strategic sibling of this skill's),
+  eval-driven-development (where pre-registered criteria live day to day),
+  ship-decision (the gate the kill conditions arm).
+imports: []
 ---
+
 # Falsification
+
+**The objective:** turn "this will work" into a claim that can lose — with named numbers, pre-agreed kill conditions, and stakeholders signed up to act on them *before* launch momentum makes honesty expensive. In a probabilistic system you can always find an example where the model got it right; the only defense against fooling yourself is deciding in advance what evidence would prove you wrong, then genuinely looking for it.
+
+## KEY TERMS (plain language)
+
+- **Falsifiable hypothesis** — a claim specific enough that evidence could prove it wrong ("reduce time-to-answer to under 90 seconds for 80% of queries"), versus one that can't lose ("improve the experience").
+- **Kill condition** — a measurable outcome, agreed before launch, that triggers a pre-committed action (pause, pivot, sunset). Not a vibe; a number with an owner.
+- **Pre-registration** — writing the pass/fail criteria down before seeing results, so the results can't quietly redefine success.
+- **Criteria drift** — deciding what "passing" means after looking at the output; confirmation bias wearing an eval's clothes (Shreya Shankar's term).
+- **Likert scale** — a 1–5 rating; subjective and drifting. Binary pass/fail is falsifiable; ratings are negotiable.
+- **Frozen / held-out test set** — a fixed set of test cases the model never trains on, kept stable so month-over-month scores are comparable.
+- **Distribution mismatch** — your test data doesn't resemble real production input (typos, slang, edge cases), so the test score flatters.
+- **Precision / recall** — of the things flagged, how many were right (precision); of the things that should be flagged, how many were caught (recall). "Accuracy" alone hides which one is broken.
 
 ## DEPTH DECISION
 
@@ -10,7 +39,7 @@ description: Tests any AI product recommendation by identifying conditions where
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -58,7 +87,7 @@ Teams building AI features systematically hide failure:
 
 ## PRE-MORTEM FOR AI FEATURES
 
-A pre-mortem forces you to imagine failure before you've invested 6 months and stakeholder credibility. This isn't pessimism—it's realism about what actually kills AI features.
+A pre-mortem forces you to imagine failure before you've invested 6 months and stakeholder credibility. This isn't pessimism—it's realism about what actually kills AI features. (Sibling note: `rtp-stress-test` carries the Shreyas-variant pre-mortem aimed at the *technical* failure surface — load, cost, latency. This one is aimed at the *hypothesis*: which claim breaks, and what kill condition catches it. Run whichever matches what you're protecting; don't run both on the same launch out of ritual.)
 
 **The Pre-Mortem Question:** "It's 6 months after we launched this AI feature. It failed. What happened?"
 
@@ -373,11 +402,11 @@ Last Updated: [Date]
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk
