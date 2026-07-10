@@ -1,8 +1,26 @@
 ---
-name: rtp-failure-modes
-description: 'Complete AI failure engineering: identify failure types (hallucination, injection, cascade, drift), quantify risk (cost × detectability), then design the response (confidence UX, correction paths, refusal boundaries, graceful degradation). Use to spec features, design telemetry, write failure acceptance criteria. Merges former failure-design skill.'
+name: failure-modes
+description: "What will go wrong with this AI feature, what does each failure cost, and what happens to the user when it does? Maps the full failure surface (six kinds of hallucination, injection, cascade, silent decay), prices each by cost and how long it stays invisible, then designs the response: honest uncertainty language, correction paths, when the AI should refuse, and the fallback chain when it breaks. Use when: speccing an AI feature, designing production monitoring, pre-launch failure audits, writing failure acceptance criteria. Pairs with: stress-test (the load/cost/latency surface), ai-ux-patterns (how failure looks to the user), trust-ladder (repairing trust after a visible miss), agent-risk (kill-switch when failure cascades). Merges former failure-design skill."
+imports: [stress-test]
+version: "2.0"
 ---
+
 # Failure Modes: Diagnostic & Design Framework
+
+**The objective:** know what will go wrong before users find out, and design the product's behavior for those moments on purpose. Teams spec the happy path and write one line for failure ("show error message"); this skill makes the failure surface a first-class design object — because in a probabilistic product, how you fail IS the product experience for a meaningful slice of every day.
+
+## KEY TERMS (plain language)
+
+- **Failure mode** — one specific way the system gets things wrong (invents a fact, returns stale data, refuses a fair request); named so it can be detected and designed for.
+- **Hallucination** — the model states something false as if true; this skill splits it into six subtypes because each is caught differently.
+- **Confident wrong** — false output delivered with full certainty; the most dangerous mode, because nothing prompts the user to check.
+- **Detection latency** — how long a failure stays invisible: immediate (user sees it), delayed (days), silent (months, or never without an audit).
+- **Cost asymmetry** — failures are not equal; a rare catastrophic miss outweighs frequent harmless ones, so budget by annual cost, not frequency.
+- **Cascade** — in a chain of agents, one step's bad output becomes the next step's trusted input, and errors compound instead of cancel.
+- **Graceful degradation** — the fallback ladder when AI fails: cached answer → simpler model → fixed rules → human → honest error. Each step trades capability for reliability.
+- **Refusal boundary** — the confidence line below which the AI says "I don't know" instead of guessing; a product decision, tuned empirically, not a technical constant.
+- **Confusion matrix (for confidence)** — checking whether high-confidence answers are actually right; if accuracy is low in the high-confidence bucket, that's your confident-wrong zone.
+- **Circuit breaker** — an automatic trip that stops a failing step from dragging down the whole pipeline.
 
 ## DEPTH DECISION
 
@@ -75,7 +93,7 @@ Ask: **How long until a silent failure is noticed?**
 
 **Failure Cost Asymmetry Table**
 
-Not all failures are equal. Use this to allocate mitigation budget:
+Not all failures are equal. Use this to allocate mitigation budget. (The numbers below are illustrative — a worked shape, not research findings. Build your own from your telemetry and incident history; the structure is the point.)
 
 | Failure | Frequency | Cost per Incident | Annual Risk | Mitigation Budget |
 |---------|-----------|------------------|------------|------------------|
