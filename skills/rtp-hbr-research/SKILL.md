@@ -1,12 +1,14 @@
 ---
 name: rtp-hbr-research
-description: Monthly research-synthesis engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full to a senior-practitioner bar, writes one citation-disciplined note per article (each number tagged by how solid it is, real-company claims backed by primary links, written in plain HBR-grade prose), finds new patterns by joining ideas across articles, checks every insight against what Ravi has already written, and routes each finding to three places: the AI-PM skills, Ravi's website writing, and the playbook. Runs monthly (June to December 2026 and onward). Use whenever Ravi adds new research to 3_Research/1_hbr-ai-2026/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", or asks what earlier research said.
+description: Monthly research-synthesis AND apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full to a senior-practitioner bar, writes one citation-disciplined note per article (each number tagged by how solid it is, real-company claims backed by primary links, written in plain HBR-grade prose), finds new patterns by joining ideas across articles, checks every insight against what Ravi has already written — then actually ships the insights, continuously, into the three places Ravi's thinking lives, the loop that compounds his canon month over month. Skills get raised to the gold-standard bar with every touch; website articles get strengthened, challenged, or newly written exactly where the evidence lands; the playbook gets tight in-voice additions; everything is versioned, tracked, and git-synced. Runs monthly (June to December 2026 and onward). Use whenever Ravi adds new research to 3_Research/1_hbr-ai-2026/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with the humanizer (the required prose pass), rtp-deep-dive-writer (new website articles), and rtp-claude-admin (governance sync).
 ---
-# HBR research synthesis engine v2.3
+# HBR research synthesis engine v3.0
+
+> v3.0 (10 JUL 2026): the apply loop, written from the June run's Stage-B experience and the Fable-5 QA pass over its output. The engine no longer stops at notes and maps: it now carries the full method for shipping each insight into the skills, the website, and the playbook, with the standing gates that a critical evaluation of 26 applied skills, 4 applied articles, and 4 playbook sections proved necessary (the WHY gate, plain-language legends, the business-clarity frontmatter bar, the primary-source gate, the container check, surface-appropriate notation, population scope on numbers, and the single-study concentration ledger). See "The apply loop" below. Also fixed a stale website path that would have failed the exact-target gate.
 
 ## What this does
 
-It turns top management research into insight Ravi can act on, across three places where his work lives: the AI-PM skills (65 skills plus CLAUDE.md and the orchestrator), his own website writing (the four series in `MAY2026-MD-FILES/`), and the playbook (`2_Playbook_AI/AI_Playbook.md`).
+It turns top management research into insight Ravi can act on, across three places where his work lives: the AI-PM skills (65 skills plus CLAUDE.md and the orchestrator), his own website writing (the four series in `1_My Series-MD-FILES/`), and the playbook (`2_Playbook_AI/AI_Playbook.md`).
 
 This is not a summarizer. It reads the way a top AI product manager reads: to understand each idea well enough to teach it, to find new patterns by joining ideas across articles, and to write notes so clearly that an editor would not change a word. It runs once a month. Each run's notes and patterns stay on disk, and the next run builds on them.
 
@@ -33,7 +35,7 @@ Engine home and working files:
 
 Outputs, the three places insights ship to:
 1. Skills: edit the source at `2_Skills/ai-pm-skills/<cluster>/<skill>/SKILL.md`, then sync to `.claude/skills/<skill>/SKILL.md` and `rtp-personal-skills-repo/skills/rtp-<skill>/SKILL.md`. Run `./scripts/skill-sync.sh` to confirm all three match.
-2. Website writing: edit the article at `1_Projects/1_my-personal-website/MAY2026-MD-FILES/<NN-series>/<article>.md`.
+2. Website writing: edit the article at `1_Projects/1_my-personal-website/1_My Series-MD-FILES/<NN-series>/<article>.md`.
 3. Playbook: edit the section in `1_Projects/2_Playbook_AI/AI_Playbook.md`.
 
 ## Start every run by reading the trackers
@@ -100,6 +102,8 @@ Wherever a real company is named (Walmart, Klarna, Intercom, Cloudflare, Microso
 
 The test for every line: an editor reads it and finds nothing to change. This is what makes the orchestrator good not just at AI but at teaching AI, with authority.
 
+The voice, named once so every card and every applied edit carries it: the world's best teacher explaining the way Feynman did (a smart outsider follows the mechanism on first read, because the writer actually understands it), with real technical and business depth underneath (the numbers, the architecture, the P&L line, never hand-waved), and a critical thinker's habit of connecting dots across divergent ideas (the insight two sources create together that neither states alone; that connection is the product, per "The main job" above). All three at once. Clarity without depth is a summary; depth without clarity is a paper; both without the connection is a book report.
+
 - Explain, do not gesture. Write connected prose with varied rhythm, the way HBR does. Clipped fragments and arrows gesture at a thought instead of delivering it. Use bullets and tables only for lists that are genuinely lists.
 - Plain words carry hard ideas. Pick the plainest word that holds the meaning. If a technical term is truly needed, explain the plain mechanism first, then name it, and only if the name earns its place.
 - Examples that teach. Anchor every abstract claim to a concrete case the reader knows. Let the example carry the idea ("Kevin the AI employee" teaches better than a coined term).
@@ -132,7 +136,7 @@ Final pass on every note: ask "what still makes this read like AI?" Name the rem
 Each note's part 9 routes the insight to all three. The application tracker then follows it to a real edit:
 
 1. AI-PM skills: the 65 skills plus CLAUDE.md and the orchestrator, plus any new skill that survives confirmation.
-2. Website writing: the specific article in `MAY2026-MD-FILES/`. Refine it in Ravi's voice. Sharpen, do not rewrite.
+2. Website writing: the specific article in `1_My Series-MD-FILES/`. Refine it in Ravi's voice. Sharpen, do not rewrite.
 3. Playbook: the routed section of `AI_Playbook.md`, with numbers tagged by tier.
 
 ## Folder layout (moved June 2026, so synthesis sits with its source PDFs)
@@ -168,7 +172,74 @@ Stage 1b, the humanizer pass (required, on the output). Run every note through t
 
 Stage 2, synthesize. Lead with the one or two structural insights that reorganize the field. Reconcile contradictions and note which source wins and why. Produce the maps that drive Stage 3: a skills map, a website-refine map, a playbook map. Then write a coverage ledger, one row per article (id, title, one-line thesis, primary routing), as proof that no note was dropped from the synthesis. Read the richest notes in full, not only their compressed summary, so their analysis survives intact. Cross-reference earlier runs for patterns that strengthened, faded, or flipped. Run the synthesis through the humanizer pass too. Ravi reviews before any edit lands.
 
-Stage 3, apply across the three places (small, clustered, one pass at a time). Version, edit, update the registry and changelog, and for skills sync all three locations. Each cluster is its own small job with a check at the end. Log every shipped edit in `APPLICATION-TRACKER.md`. No edit without a source.
+Stage 3, apply across the three places. This is now a full method of its own: see "The apply loop" below. The one-line version: build an Application Card per note, apply each batch's skill edits as soon as its cards land (apply-as-you-go, never a pile of synthesis waiting for a someday), run the website and playbook as consolidated passes, log every shipped edit in `APPLICATION-TRACKER.md`, and close with the git sync. No edit without a source.
+
+## The apply loop (from card to shipped edit)
+
+This is the engine's second half, and the reason it exists at all: research that never ships is overhead. The rhythm is monthly and simple from Ravi's side. He drops raw PDFs (HBR, MIT SMR, and any other high-quality source) into the quarter folder. The engine reads each in full and produces the note and its Application Card in one pass, as detailed as the card can usefully be. The cards then drive real edits to his local files: the AI-PM skills, the website series, and the playbook. The run closes with a git commit and push to `rtp-personal-skills-repo`. Nothing waits for a someday: each batch's skill edits ship as soon as its cards land (apply-as-you-go), and the website and playbook land as consolidated passes so multiple articles hitting one file arrive as distinct, non-colliding additions.
+
+### The Application Card, one per article (the atomic unit)
+
+Written to `runs/<month>/synthesis/cards/<id>-card.md`, in extremely plain language, with a `## Legend` glossing every framework term (new terms also merge into `synthesis/GLOSSARY.md`). Each card carries, per surface:
+
+- The exact target: the skill's full path, the website article's verified `.md` path, the exact playbook section. Verify the path exists on disk before writing it into the card; never infer it from an index.
+- The exact insertion prose, ready to paste, already written to the bar below (Why plus when-wrong included, tiers attached).
+- The evidence line for every number: tier (✅ audited, ◆ disclosed, ⚠ reported), primary link or [VERIFY] flag, and the population the number was measured on ("wealth-management firms," "n=58, one lab task"). A card that generalizes a figure beyond its population is wrong even when the number is right.
+- A "no edit" verdict where the insight is already covered. "No edit, covered by X" is a correct and common answer; restraint is part of the job.
+- A `.applied-card` marker on disk once its edits ship.
+
+### The standing gates (every edit, every surface)
+
+1. The WHY gate, highest priority. Every rule or insert lands as: the rule, why it holds (the mechanism), and when it is wrong or over-warns. Prescriptive-only inserts fail review, because an AI using the skill must be able to judge in context, not follow blindly.
+2. Plain language plus Legend. Lead with the plain mechanism, then name the term only if the name earns its place. Every touched skill carries a `## KEY TERMS (plain language)` legend covering the terms it actually uses.
+3. Business-clarity on the front matter. Any skill touched gets its `description` raised to the bar: what it does and when to use it in words any business stakeholder reads on first pass, plus a `Pairs with:` line naming companion skills and why (this feeds the orchestrator's companion map). Skill IDs never change; renames break the registry, the git repo, and every cross-reference.
+4. The primary-source gate. When any claim, number, or nuance is uncertain, read the original PDF, not the note. The note is secondary; the article is ground truth.
+5. Version before edit, always: snapshot to `versions/skills/{DDMMMYYYY}/` or `versions/projects/{DDMMMYYYY}/` first. Then log the shipped row in `APPLICATION-TRACKER.md` with its source.
+6. The container check, after every insert. Re-read the host section's heading and closing line: an insert that turns "three forces" into four must update both, or it reads as exactly what it is, a block dropped in by a machine.
+7. Surface-appropriate notation. Tier glyphs, [VERIFY] tags, and editorial instructions ("note the conflict") are internal working notation. On the website they must land as reader-facing prose ("disclosure: the study's author holds equity in Bluon"). Cards carry website insertions already in reader-facing form.
+8. The concentration ledger. When one study feeds three or more inserts across the canon, register it in `RUNNING-PATTERNS.md` as a named fragility, so a failed replication has a known blast radius.
+
+### Surface 1: the AI-PM skills (raise to the gold standard with every touch)
+
+Read the whole skill before editing it, not just the insertion point; the best enhancements of the June run came from reading skills in full. Place the insert where the skill's existing framework reaches for it, and make it cohere: a skill is a thought system, not a pile of research findings. With every touch, raise the whole file to the gold-standard bar: nuanced how-to-think direction in Ravi's thinking patterns, the authority of a senior world-class AI PM with technical and business depth and no hype, fully self-explanatory (plain mechanism first, legend for the terms, headings that say what is actually happening), Why plus when-wrong on every rule, tier and link on every number.
+
+Watch for accretion, the biggest structural risk of a monthly loop. When a skill approaches five appended modules, or three bullets repeat the same underlying test, consolidate before adding: merge, name the shared spine, or split the skill (flag the split for Ravi first). One deeply coherent skill beats a sediment of true facts.
+
+### Surface 2: the website series (strengthen, challenge, or write new)
+
+Three moves, chosen by what the evidence actually does to what Ravi has published:
+
+- Strengthen. New evidence supports a published view: append at the exact place the article already reaches for it, as a labeled section or callout in Ravi's voice. Enrich, never overwrite; the snapshot plus a pure-addition diff is the proof.
+- Challenge. New evidence cuts against a published claim: never silently rewrite it. Add a dated, labeled correction section ("The evidence has moved, [Month Year]") that states the original view, the new evidence with its tier, and Ravi's updated position. A public record that updates itself honestly is worth more than one that was quietly always right. Flag every challenge move for Ravi's sign-off before it ships; these are his published words.
+- Write new. Only when three or more sources converge on a theme no existing article holds (the part-11 signal, confirmed across siblings). Draft it with `rtp-deep-dive-writer` from the cards' evidence, and route it into the series index.
+
+All website edits are voice-critical: reader-facing attribution, no internal notation, and the four-exemplar voice sign-off pattern (ship a small diverse batch, get Ravi's sign-off, then fan out).
+
+### Surface 3: the playbook
+
+Land insights as distinct paragraphs in the exact section the card names, and when several articles hit one section, synthesize them into one tight in-voice piece rather than queueing paragraphs (the June run folded roughly fifteen queued paragraphs into four additions; that ratio is the standard). Run the container check on every touched section. Rebuild the HTML and PDF (`build_playbook.py`) at close-out, or log the rebuild as pending.
+
+### The QA pass (mandatory after every apply batch, before close-out)
+
+Applied work is not done work. A separate critical pass, ideally a fresh session or agent that did not write the edits, verifies every batch the way the Fable-5 pass verified the June run (which found nine defects in work that had already passed its own review). The checklist:
+
+1. Diff every changed file against its pre-edit snapshot. The diff must be pure addition on website articles and the playbook (zero deletions is the proof that "enrich, never overwrite" held), and coherent insertion on skills.
+2. Trace every inserted number back to the primary PDF text, not to the note. Open the PDF, find the sentence, confirm the figure, the population, and the framing direction all match. A number the article frames as a win must not land as a cost, and a figure measured on one population must not ship generalized.
+3. Never upgrade a tier. An analyst forecast is never ✅. A single study is ◆ at best. Anything press-only or disputed stays ⚠. When the run cannot ground a claim, it carries [VERIFY] or gets softened to a pattern; it never ships as fact. Web-verify (two independent sources) anything that ships to an external surface, and resolve every [VERIFY] flag before the website or playbook carries the claim.
+4. Run the container check on every touched section, confirm every touched skill's legend covers the terms its inserts actually use, confirm the front matter still parses as YAML, and confirm no internal notation leaked into published prose.
+5. Score the batch honestly: pass, needs-fix, or weak, per file, with the specific defect. Fix what can be fixed now (versioned), and put what needs Ravi's judgment on a named punch list. A QA pass that only praises is a failed QA pass.
+
+Why this is non-negotiable: hallucination in this system is rarely an invented fact; it is a real fact that drifted, a tier that got rounded up, a scope that got dropped, a frame that got inverted. Every one of those passed a writer's self-review in June. Only the adversarial re-read against the primary caught them.
+
+### The loop that improves the loop (the orchestrator learns from every run)
+
+Each run must leave the system smarter, not just the canon bigger. At close-out: log any real waste in `5_Knowledge/session-anti-patterns.md`; add patterns seen once or twice to `5_Knowledge/hypotheses.md`; promote anything confirmed three times to `5_Knowledge/rules.md`; and when a run teaches a durable lesson about how to run (a new gate, a failure class, a review discipline), fold it into this skill AND into the orchestrator (`rtp-orchestrator/SKILL.md`), versioned, so every future session starts from it. The June run added six gates this way; the QA pass above added four more. That is the compounding: the same loop that updates Ravi's writing updates the machinery that updates Ravi's writing.
+
+### Close-out: track, sync, push (a run is not done until this ships)
+
+1. Trackers: `APPLICATION-TRACKER.md` (every shipped edit with source), the run's progress file, `SKILL-REGISTRY.md` and `2_Skills/CHANGE_LOG.md` (with the why).
+2. Sync the three skill locations (`2_Skills/`, `.claude/skills/`, `rtp-personal-skills-repo/skills/rtp-*/`), via `./scripts/skill-sync.sh` on Ravi's machine or a manual copy in a sandbox (the script's paths are Mac-absolute and will not run in a mounted sandbox).
+3. Git: `git add -A`, commit with a message naming the run and the surfaces touched, then push to `github.com/raviteja-palanki/rtp-personal-skills`. If the environment has no credentials, commit locally and log the pending push in the tracker and `ACTION-PLAN.md`; the push is Ravi's one manual step.
 
 ## Running the army (orchestration, learned the hard way)
 
