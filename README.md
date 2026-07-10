@@ -10,6 +10,21 @@ This is the opposite. A second brain that researches before it answers, pushes b
 
 ---
 
+## The 30-second read
+
+If you're deciding whether to talk to me, this repo is the interview before the interview. It's my product judgment, externalized and version-controlled: **80 skills** that encode how I actually make AI product decisions, an **orchestrator** that composes them the way I would, and a **monthly research engine** that reads every new HBR and MIT Sloan Management Review study against my published positions and updates both — the skills and the writing — with evidence-tiered, primary-sourced edits.
+
+Three things about me it proves better than a resume can:
+
+1. **Integrative thinking is the engine.** My depth doesn't come from any single framework — it comes from connecting divergent ideas into one decision: the eval-coverage map and the data-moat audit are the same exercise; a pricing model is really a budget-migration question; a "safety feature" is a measured trust premium. Every skill in here carries a connection like that, and says where it breaks.
+2. **Evidence discipline, by construction.** Every number in this system carries a tier (audited / disclosed / reported), a primary link, and the population it was measured on. Every rule carries its mechanism and its when-wrong condition. Applied edits pass an adversarial QA pass that traces each figure back to the source PDF. This is the evals mindset applied to my own knowledge base.
+3. **It compounds.** The [research engine](skills/rtp-hbr-research/SKILL.md) runs monthly: raw PDFs in, application cards out, skills and published articles updated, lessons folded back into the machinery itself. What you're reading got sharper last month and will be sharper next month.
+
+**Ravi Teja Palanki** — Senior Technical PM, Honeywell · Perplexity AI Fellow 2025
+[ravitejapalanki.com](https://ravitejapalanki.com) · [linkedin.com/in/ravipalanki](https://www.linkedin.com/in/ravipalanki) · ravi.aifluentproduct@gmail.com
+
+---
+
 ## The idea, in one sentence
 
 **A second brain that thinks before it acts, deploys specialized agents to do the work, reviews their output, commands the entire installed plugin ecosystem (not just its own skills), and gets sharper every time it runs.**
@@ -241,6 +256,17 @@ The `ravi-personal-branding` skill exports as a [Google Labs DESIGN.md](https://
 
 ---
 
+## The Evidence Discipline — Why You Can Trust What's In Here
+
+Most AI-assisted knowledge bases rot: numbers drift from their sources, confident claims outlive their evidence, and nobody notices because nobody re-checks. This system is built against that failure, with four mechanisms:
+
+- **Every number is tiered.** ✅ audited (a filing, a peer-reviewed result) · ◆ disclosed (a company's own figure, a single study's finding, method noted) · ⚠ reported (press, unverified, disputed). Tiers never get rounded up. A run-rate is never revenue. An analyst forecast is never a fact.
+- **Every rule knows when it's wrong.** No skill in this repo gives advice without stating the conditions under which that advice fails. A framework that doesn't know its limits is more dangerous than no framework.
+- **Every applied edit survives an adversarial QA pass.** After research lands in a skill or an article, a separate critical pass diffs the change, traces each inserted number back to the primary PDF's actual sentence, and checks that a figure measured on one population didn't ship generalized. The pass exists because it keeps finding real defects in work that already looked done.
+- **The monthly loop updates the machinery, not just the content.** When a run teaches a lesson about how to run — a new failure class, a new gate — that lesson is written into the research engine and the orchestrator themselves. The system that improves my writing improves the system that improves my writing.
+
+---
+
 ## The Compounding Engine
 
 This part took the most iteration — and it's the part that makes everything else work.
@@ -265,11 +291,13 @@ I'm **Ravi Teja Palanki** — Senior Technical PM at Honeywell, Perplexity AI Fe
 
 I'm what the research calls a *bridger.* When engineering says *we need a validation layer*, design says *users need to feel in control*, and the business asks *what's the ROI at 10x scale* — I make each feel understood and challenged, then synthesize the path that serves all three. That instinct — translating across contexts, integrating across incentives — is the design principle behind every skill in this system.
 
+If this repo reads like the way you want product decisions made on your team, talk to me: **ravi.aifluentproduct@gmail.com** · [linkedin.com/in/ravipalanki](https://www.linkedin.com/in/ravipalanki) · my writing lives at [ravitejapalanki.com](https://ravitejapalanki.com) — four series on the agentic stack, harness engineering, AI evals, and the AI PM operating system, continuously updated by the same research engine that maintains these skills.
+
 ---
 
 ## Repo state at a glance
 
-- **80 skills** = 62 AI PM layer skills + 1 orchestrator + 17 general-purpose. All lint-clean, frontmatter audited, voice-consistent.
+- **80 skills** = 62 AI PM layer skills + 1 orchestrator + 17 general-purpose. Every skill carries a plain-language description any business stakeholder can read, a `Pairs with:` line naming its companion skills, a KEY TERMS legend for its framework vocabulary, and evidence-tiered numbers. A rolling gold-standard refinement pass (tracked in the source repo) is raising every file to the same bar.
 - **11 slash commands** + **6 multi-step sprint templates**.
 - **1 plugin marketplace** registration (installable from any machine via `/plugin marketplace add`).
 - **1 orchestrator** (v1.4.0) — Ravi's full second brain. Always on, every session. AI PM is the deepest expertise; same rigor applies to any domain.
@@ -281,4 +309,4 @@ License: All Rights Reserved. Use, study, learn from. Don't ship as your own.
 
 ---
 
-<sub>Built with Claude · 4 May 2026 · Compound Engineering · Orchestrator v1.4.0</sub>
+<sub>Built with Claude · Updated 10 Jul 2026 · Compound Engineering · Orchestrator v1.4.0 · Research engine v3.0</sub>
