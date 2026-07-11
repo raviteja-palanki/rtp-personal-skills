@@ -24,7 +24,7 @@ Restart Claude Code. Every skill works as `rtp-personal-skills:rtp-{name}`. Comm
 | **Craft** | 10 skills | AI-PRDs, agent specs, cost models, launch gates — documents that arrive pre-tested. |
 | **Plus** | 18 skills | The orchestrator, writing, presentations, design systems, research, admin. |
 
-11 slash commands chain skills into one decision. 6 sprint templates run multi-step work. Full detail: [ARCHITECTURE.md](ARCHITECTURE.md).
+11 slash commands chain skills into one decision. 6 templates run multi-step work in realistic sittings. Full detail: [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## The quality bar
 
