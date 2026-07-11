@@ -1,3 +1,5 @@
+> **Archived version — June 2026 (v1).** The living README is [README.md](README.md), rewritten July 2026 with the research-loop system. Kept for the record: this is what the repo said before the loop started maintaining it.
+
 <p align="center">
   <img src="diagrams/hero-badge.svg" alt="rtp-personal-skills" width="900"/>
 </p>
@@ -7,29 +9,6 @@
 Most people use AI like a calculator. Type a question, get an answer, move on. Nothing connects. Nothing compounds. Every conversation starts from zero.
 
 This is the opposite. A second brain that researches before it answers, pushes back when the direction is wrong, remembers what worked last time, and gets meaningfully sharper every session — across any domain, not just product management.
-
----
-
-## What this is
-
-My product judgment, written down and version-controlled.
-
-80 skills that encode how I make AI product decisions. When AI is the right answer and when rules are cheaper. How much autonomy an agent has earned. What a data moat actually is, and the two ways a "moat" turns out to be fake. What to check before you ship. An orchestrator composes them the way I would. A research engine reads every new HBR and MIT Sloan study each month and updates the skills — and my published writing — with what held up.
-
-Every rule in here states when it's wrong. Here is a real line from one skill, so you can judge the bar yourself:
-
-> *When this over-warns: in a thin-margin commodity market, landing on the same answer as everyone else can be the profit-maximizing move, and being deliberately different a luxury that leaves money on the table.*
-
-That's the standard. Advice that knows its limits.
-
-<p align="center">
-  <img src="diagrams/the-loop.svg" alt="The Loop — how this repository improves itself monthly" width="900"/>
-</p>
-
-**Ravi Teja Palanki** — Senior Technical PM at Honeywell · Perplexity AI Fellow 2025
-[ravitejapalanki.com](https://ravitejapalanki.com) · [LinkedIn](https://www.linkedin.com/in/ravipalanki) · ravi.aifluentproduct@gmail.com
-
-*(Earlier version of this page: [June 2026, v1](README-v1-JUN2026.md) — kept because a repo about honest updating should show its own.)*
 
 ---
 
@@ -264,17 +243,6 @@ The `ravi-personal-branding` skill exports as a [Google Labs DESIGN.md](https://
 
 ---
 
-## Why you can trust what's in here
-
-Knowledge bases rot. Numbers drift from their sources. Confident claims outlive their evidence. This repo is built against that:
-
-- Every number is tagged by how solid it is: ✅ audited · ◆ company-disclosed · ⚠ reported. A run-rate is never called revenue. A forecast is never called a fact.
-- Every rule carries its mechanism and its failure condition. If a skill can't say when its own advice is wrong, it doesn't ship.
-- After new research lands in a skill, a second adversarial pass traces every inserted number back to the source PDF's actual sentence. It keeps finding real defects in work that looked done. That's why it exists.
-- Lessons about how to run the system get written back into the system. The monthly loop updates the machinery, not just the content.
-
----
-
 ## The Compounding Engine
 
 This part took the most iteration — and it's the part that makes everything else work.
@@ -299,13 +267,11 @@ I'm **Ravi Teja Palanki** — Senior Technical PM at Honeywell, Perplexity AI Fe
 
 I'm what the research calls a *bridger.* When engineering says *we need a validation layer*, design says *users need to feel in control*, and the business asks *what's the ROI at 10x scale* — I make each feel understood and challenged, then synthesize the path that serves all three. That instinct — translating across contexts, integrating across incentives — is the design principle behind every skill in this system.
 
-If this is how you want product decisions made on your team: **ravi.aifluentproduct@gmail.com**. My writing is at [ravitejapalanki.com](https://ravitejapalanki.com) — four series, maintained by the same research engine as these skills.
-
 ---
 
 ## Repo state at a glance
 
-- **80 skills** = 62 AI PM layer skills + 1 orchestrator + 17 general-purpose. Every skill carries a plain-language description any business stakeholder can read, a `Pairs with:` line naming its companion skills, a KEY TERMS legend for its framework vocabulary, and evidence-tiered numbers. A rolling gold-standard refinement pass (tracked in the source repo) is raising every file to the same bar.
+- **80 skills** = 62 AI PM layer skills + 1 orchestrator + 17 general-purpose. All lint-clean, frontmatter audited, voice-consistent.
 - **11 slash commands** + **6 multi-step sprint templates**.
 - **1 plugin marketplace** registration (installable from any machine via `/plugin marketplace add`).
 - **1 orchestrator** (v1.4.0) — Ravi's full second brain. Always on, every session. AI PM is the deepest expertise; same rigor applies to any domain.
@@ -317,4 +283,4 @@ License: All Rights Reserved. Use, study, learn from. Don't ship as your own.
 
 ---
 
-<sub>Built with Claude · Updated 10 Jul 2026 · Compound Engineering · Orchestrator v1.4.0 · Research engine v3.0</sub>
+<sub>Built with Claude · 4 May 2026 · Compound Engineering · Orchestrator v1.4.0</sub>
