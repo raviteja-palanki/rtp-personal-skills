@@ -1,0 +1,49 @@
+<svg viewBox="0 0 1240 660" xmlns="http://www.w3.org/2000/svg" font-family="Inter, -apple-system, sans-serif" role="img" aria-label="A real request becoming a pre-tested PRD, stage by stage">
+<defs><filter id="s" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="1.5" dy="2.5" stdDeviation="3.5" flood-color="#00000015"/></filter></defs>
+<rect width="1240" height="660" rx="16" fill="#FAFAF8"/>
+<text x="620" y="48" text-anchor="middle" fill="#1B1B1F" font-size="26" font-weight="800">How a PRD arrives pre-tested</text>
+<rect x="170" y="72" width="900" height="44" rx="22" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5" filter="url(#s)"/>
+<text x="620" y="99" text-anchor="middle" fill="#374151" font-size="14" font-style="italic">&#8220;We need AI-powered insights on the manufacturing dashboard. VP wants it by Q3.&#8221;</text>
+<rect x="40" y="150" width="280" height="168" rx="14" fill="#FFFFFF" stroke="#14B8A6" stroke-width="2" filter="url(#s)"/>
+<rect x="40" y="150" width="280" height="38" rx="14" fill="#14B8A6"/><rect x="40" y="174" width="280" height="14" fill="#14B8A6"/>
+<text x="180.0" y="175" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Sense-Maker</text>
+<text x="180.0" y="214" text-anchor="middle" fill="#5F6B7A" font-size="12.5">The real problem isn't</text>
+<text x="180.0" y="234" text-anchor="middle" fill="#5F6B7A" font-size="12.5">insights — it's alert fatigue.</text>
+<text x="180.0" y="254" text-anchor="middle" fill="#5F6B7A" font-size="12.5">AI fit: 12/16. Pattern</text>
+<text x="180.0" y="274" text-anchor="middle" fill="#5F6B7A" font-size="12.5">recognition on sensor data.</text>
+<path d="M 320 234 L 331 234" stroke="#9CA3AF" stroke-width="2"/>
+<rect x="333" y="150" width="280" height="168" rx="14" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="2" filter="url(#s)"/>
+<rect x="333" y="150" width="280" height="38" rx="14" fill="#8B5CF6"/><rect x="333" y="174" width="280" height="14" fill="#8B5CF6"/>
+<text x="473.0" y="175" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Strategist</text>
+<text x="473.0" y="214" text-anchor="middle" fill="#5F6B7A" font-size="12.5">Ship anomaly detection</text>
+<text x="473.0" y="234" text-anchor="middle" fill="#5F6B7A" font-size="12.5">now. Earn predictive</text>
+<text x="473.0" y="254" text-anchor="middle" fill="#5F6B7A" font-size="12.5">at Month 3 — a roadmap</text>
+<text x="473.0" y="274" text-anchor="middle" fill="#5F6B7A" font-size="12.5">with an expiry date.</text>
+<path d="M 613 234 L 624 234" stroke="#9CA3AF" stroke-width="2"/>
+<rect x="626" y="150" width="280" height="168" rx="14" fill="#FFFFFF" stroke="#EC4899" stroke-width="2" filter="url(#s)"/>
+<rect x="626" y="150" width="280" height="38" rx="14" fill="#EC4899"/><rect x="626" y="174" width="280" height="14" fill="#EC4899"/>
+<text x="766.0" y="175" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Safety Expert</text>
+<text x="766.0" y="214" text-anchor="middle" fill="#5F6B7A" font-size="12.5">Level 2 autonomy: AI</text>
+<text x="766.0" y="234" text-anchor="middle" fill="#5F6B7A" font-size="12.5">suggests, human approves.</text>
+<text x="766.0" y="254" text-anchor="middle" fill="#5F6B7A" font-size="12.5">Kill switch: &lt;15% fewer</text>
+<text x="766.0" y="274" text-anchor="middle" fill="#5F6B7A" font-size="12.5">false alerts by day 45.</text>
+<path d="M 906 234 L 917 234" stroke="#9CA3AF" stroke-width="2"/>
+<rect x="919" y="150" width="280" height="168" rx="14" fill="#FFFFFF" stroke="#06B6D4" stroke-width="2" filter="url(#s)"/>
+<rect x="919" y="150" width="280" height="38" rx="14" fill="#06B6D4"/><rect x="919" y="174" width="280" height="14" fill="#06B6D4"/>
+<text x="1059.0" y="175" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Evals Expert</text>
+<text x="1059.0" y="214" text-anchor="middle" fill="#5F6B7A" font-size="12.5">Success defined before</text>
+<text x="1059.0" y="234" text-anchor="middle" fill="#5F6B7A" font-size="12.5">code: $42K/mo at 50 plants,</text>
+<text x="1059.0" y="254" text-anchor="middle" fill="#5F6B7A" font-size="12.5">ROI-positive only if it</text>
+<text x="1059.0" y="274" text-anchor="middle" fill="#5F6B7A" font-size="12.5">saves $180K/mo of time.</text>
+<path d="M 620 322 L 620 352" stroke="#9CA3AF" stroke-width="2.5"/><polygon points="612,352 620,366 628,352" fill="#9CA3AF"/>
+<rect x="130" y="372" width="980" height="196" rx="14" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2.5" filter="url(#s)"/>
+<text x="620" y="404" text-anchor="middle" fill="#B45309" font-size="18" font-weight="800">The AI-PRD — assembled by the Crafter, not written from scratch</text>
+<text x="200" y="436" fill="#374151" font-size="13.5">&#10003;  Problem reframed (fatigue, not insights)</text>
+<text x="200" y="462" fill="#374151" font-size="13.5">&#10003;  Autonomy level locked: L2, human approves</text>
+<text x="200" y="488" fill="#374151" font-size="13.5">&#10003;  Cost stress-tested at 10x scale</text>
+<text x="660" y="436" fill="#374151" font-size="13.5">&#10003;  Success measurable before a line of code</text>
+<text x="660" y="462" fill="#374151" font-size="13.5">&#10003;  Kill switch with a named trigger and date</text>
+<text x="660" y="488" fill="#374151" font-size="13.5">&#10003;  Failure behavior designed, not defaulted</text>
+<text x="620" y="540" text-anchor="middle" fill="#92400E" font-size="13.5" font-weight="700">The VP asked for a feature. What shipped was a decision — engineering review found zero open AI questions.</text>
+<text x="620" y="620" text-anchor="middle" fill="#9CA3AF" font-size="13">The thinking happened in the right order, so the document arrived already tested.</text>
+</svg>

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="diagrams/skill-map.svg" alt="81 skills. One brain. The full map: Think, Judge, Craft, Plus — composed by the orchestrator" width="1000"/>
+  <img src="diagrams/01-think-judge-craft.svg" alt="Think, Judge, Craft — the three layers of the system" width="950"/>
 </p>
 
 # rtp-personal-skills
@@ -19,6 +19,20 @@ Most PMs carry their thinking in their head, and it leaves when they do. I spent
 
 11 commands chain skills into one decision. 6 templates run multi-step work in realistic sittings. Full detail: [ARCHITECTURE.md](ARCHITECTURE.md).
 
+## How it works
+
+The orchestrator spawns specialist workers, runs them in parallel, and reviews everything before you see one answer:
+
+<p align="center">
+  <img src="diagrams/02-orchestrator-workers.svg" alt="The orchestrator spawns specialist worker agents and reviews their output" width="950"/>
+</p>
+
+Here's what that produces — one real request, end to end:
+
+<p align="center">
+  <img src="diagrams/03-pretested-prd.svg" alt="A real request becoming a pre-tested PRD, stage by stage" width="950"/>
+</p>
+
 ## Why it works
 
 - **Every rule states the conditions under which it fails.** Advice that doesn't know its limits is more dangerous than no advice — so nothing in here ships without its failure condition.
@@ -30,6 +44,12 @@ Most PMs carry their thinking in their head, and it leaves when they do. I spent
 **Ravi Teja Palanki** — Senior Technical PM at Honeywell · Perplexity AI Fellow 2025. 12+ years shipping enterprise products at Fortune 100 scale; now shipping Gen AI into production for safety-critical industrial environments, where a hallucination isn't an inconvenience — it's a compliance incident.
 
 [ravitejapalanki.com](https://ravitejapalanki.com) · [LinkedIn](https://www.linkedin.com/in/ravipalanki) · ravi.aifluentproduct@gmail.com
+
+## The full map
+
+<p align="center">
+  <img src="diagrams/skill-map.svg" alt="The full map — all 81 skills, named" width="1000"/>
+</p>
 
 ---
 

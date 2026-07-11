@@ -1,202 +1,197 @@
-<svg viewBox="0 0 1400 840" xmlns="http://www.w3.org/2000/svg" font-family="Inter, -apple-system, sans-serif" role="img" aria-label="The full map of 81 skills organized as Think, Judge, Craft, Plus, composed by the orchestrator">
-<title>81 skills. One brain.</title>
+<svg viewBox="0 0 1400 1616" xmlns="http://www.w3.org/2000/svg" font-family="Inter, -apple-system, sans-serif" role="img" aria-label="The full map of 81 skills">
 <defs><filter id="s" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="1.5" dy="2.5" stdDeviation="3.5" flood-color="#00000015"/></filter></defs>
-<rect width="1400" height="840" rx="16" fill="#FAFAF8"/>
-<text x="700" y="54" text-anchor="middle" fill="#1B1B1F" font-size="30" font-weight="800">81 skills. One brain.</text>
-<text x="700" y="82" text-anchor="middle" fill="#5F6B7A" font-size="15">How I make AI product decisions — mapped, versioned, composed</text>
+<rect width="1400" height="1616" rx="16" fill="#FAFAF8"/>
+<text x="700" y="54" text-anchor="middle" fill="#1B1B1F" font-size="30" font-weight="800">The full map: 81 skills</text>
+<text x="700" y="82" text-anchor="middle" fill="#5F6B7A" font-size="15">Every name below is a real, versioned skill. The orchestrator composes them.</text>
 <rect x="40" y="104" width="1320" height="46" rx="14" fill="#1B1B1F" filter="url(#s)"/>
-<text x="700" y="133" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">The Orchestrator — reads the situation, composes the right skills, reviews the output</text>
-<rect x="40" y="172" width="1320" height="156" rx="14" fill="#FFFFFF" stroke="#EDEDEA" stroke-width="1.5" filter="url(#s)"/>
-<rect x="40" y="172" width="195" height="156" rx="14" fill="#F0FDFA"/>
-<rect x="221" y="172" width="14" height="156" fill="#F0FDFA"/>
-<rect x="40" y="172" width="5" height="156" rx="2.5" fill="#14B8A6"/>
-<text x="64" y="236.0" fill="#0F766E" font-size="22" font-weight="800">THINK</text>
-<text x="64" y="257.0" fill="#14B8A6" font-size="13" font-weight="700">24 skills</text>
-<text x="64" y="276.0" fill="#5F6B7A" font-size="11">Is this even an AI problem?</text>
-<text x="64" y="291.0" fill="#5F6B7A" font-size="11">What bias makes it feel obvious?</text>
-<rect x="253" y="184" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="345.5" y="202" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">First principles</text>
-<rect x="447" y="184" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="539.5" y="202" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Bias spotter</text>
-<rect x="641" y="184" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="733.5" y="202" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Stress test</text>
-<rect x="835" y="184" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="927.5" y="202" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Problem type</text>
-<rect x="1029" y="184" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="1121.5" y="202" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Falsification</text>
-<rect x="1223" y="184" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="1315.5" y="202" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Judgment guard</text>
-<rect x="253" y="219" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="345.5" y="237" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Determinism compass</text>
-<rect x="447" y="219" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="539.5" y="237" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Dual lens</text>
-<rect x="641" y="219" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="733.5" y="237" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Gossip mode</text>
-<rect x="835" y="219" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="927.5" y="237" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Alignment check</text>
-<rect x="1029" y="219" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="1121.5" y="237" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Problem-AI fit</text>
-<rect x="1223" y="219" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="1315.5" y="237" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">JTBD analysis</text>
-<rect x="253" y="254" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="345.5" y="272" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Failure modes</text>
-<rect x="447" y="254" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="539.5" y="272" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Feedback flywheel</text>
-<rect x="641" y="254" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="733.5" y="272" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Feedback triage</text>
-<rect x="835" y="254" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="927.5" y="272" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Interview synthesis</text>
-<rect x="1029" y="254" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="1121.5" y="272" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Invisible stack</text>
-<rect x="1223" y="254" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="1315.5" y="272" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Needs guard</text>
-<rect x="253" y="289" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="345.5" y="307" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Opportunity tree</text>
-<rect x="447" y="289" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="539.5" y="307" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">AI product taste</text>
-<rect x="641" y="289" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="733.5" y="307" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Use-case readiness</text>
-<rect x="835" y="289" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="927.5" y="307" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">AI UX patterns</text>
-<rect x="1029" y="289" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="1121.5" y="307" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Attitudinal segments</text>
-<rect x="1223" y="289" width="185" height="27" rx="8" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.2"/>
-<text x="1315.5" y="307" text-anchor="middle" fill="#0F766E" font-size="12" font-weight="600">Uncertainty research</text>
-<rect x="40" y="342" width="1320" height="191" rx="14" fill="#FFFFFF" stroke="#EDEDEA" stroke-width="1.5" filter="url(#s)"/>
-<rect x="40" y="342" width="195" height="191" rx="14" fill="#F5F3FF"/>
-<rect x="221" y="342" width="14" height="191" fill="#F5F3FF"/>
-<rect x="40" y="342" width="5" height="191" rx="2.5" fill="#8B5CF6"/>
-<text x="64" y="423.5" fill="#6D28D9" font-size="22" font-weight="800">JUDGE</text>
-<text x="64" y="444.5" fill="#8B5CF6" font-size="13" font-weight="700">29 skills</text>
-<text x="64" y="463.5" fill="#5F6B7A" font-size="11">Autonomy, moats, pricing, safety,</text>
-<text x="64" y="478.5" fill="#5F6B7A" font-size="11">evals — earning the right to ship.</text>
-<rect x="253" y="354" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="345.5" y="372" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Moat finder</text>
-<rect x="447" y="354" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="539.5" y="372" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Build or buy</text>
-<rect x="641" y="354" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="733.5" y="372" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Token economics</text>
-<rect x="835" y="354" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="927.5" y="372" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Strategy canvas</text>
-<rect x="1029" y="354" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="1121.5" y="372" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Signal scanner</text>
-<rect x="1223" y="354" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="1315.5" y="372" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Capability tracking</text>
-<rect x="253" y="389" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="345.5" y="407" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Adoption launch</text>
-<rect x="447" y="389" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="539.5" y="407" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Portfolio management</text>
-<rect x="641" y="389" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="733.5" y="407" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Purpose dialogue</text>
-<rect x="835" y="389" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="927.5" y="407" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Trendslop check</text>
-<rect x="1029" y="389" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="1121.5" y="407" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Vision setting</text>
-<rect x="1223" y="389" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="1315.5" y="407" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Autonomy spectrum</text>
-<rect x="253" y="424" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="345.5" y="442" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Agent harness</text>
-<rect x="447" y="424" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="539.5" y="442" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Agent ecosystem</text>
-<rect x="641" y="424" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="733.5" y="442" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Tool architecture</text>
-<rect x="835" y="424" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="927.5" y="442" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Multi-modal design</text>
-<rect x="1029" y="424" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="1121.5" y="442" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Safety by design</text>
-<rect x="1223" y="424" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="1315.5" y="442" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Safety as moat</text>
-<rect x="253" y="459" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="345.5" y="477" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Trust ladder</text>
-<rect x="447" y="459" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="539.5" y="477" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Trust under fog</text>
-<rect x="641" y="459" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="733.5" y="477" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Agent risk</text>
-<rect x="835" y="459" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="927.5" y="477" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Breach ready</text>
-<rect x="1029" y="459" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="1121.5" y="477" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Responsible AI</text>
-<rect x="1223" y="459" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="1315.5" y="477" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Eval framework</text>
-<rect x="253" y="494" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="345.5" y="512" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Eval-driven development</text>
-<rect x="447" y="494" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="539.5" y="512" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">AI product metrics</text>
-<rect x="641" y="494" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="733.5" y="512" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Confidence tuner</text>
-<rect x="835" y="494" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="927.5" y="512" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Production observability</text>
-<rect x="1029" y="494" width="185" height="27" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.2"/>
-<text x="1121.5" y="512" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="600">Gen-AI experimentation</text>
-<rect x="40" y="547" width="1320" height="92" rx="14" fill="#FFFFFF" stroke="#EDEDEA" stroke-width="1.5" filter="url(#s)"/>
-<rect x="40" y="547" width="195" height="92" rx="14" fill="#FFFBEB"/>
-<rect x="221" y="547" width="14" height="92" fill="#FFFBEB"/>
-<rect x="40" y="547" width="5" height="92" rx="2.5" fill="#F59E0B"/>
-<text x="64" y="579.0" fill="#B45309" font-size="22" font-weight="800">CRAFT</text>
-<text x="64" y="600.0" fill="#F59E0B" font-size="13" font-weight="700">10 skills</text>
-<text x="64" y="619.0" fill="#5F6B7A" font-size="11">Documents that arrive pre-tested:</text>
-<text x="64" y="634.0" fill="#5F6B7A" font-size="11">PRDs, specs, cost models, gates.</text>
-<rect x="253" y="559" width="185" height="27" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.2"/>
-<text x="345.5" y="577" text-anchor="middle" fill="#B45309" font-size="12" font-weight="600">AI-PRD</text>
-<rect x="447" y="559" width="185" height="27" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.2"/>
-<text x="539.5" y="577" text-anchor="middle" fill="#B45309" font-size="12" font-weight="600">Agent spec</text>
-<rect x="641" y="559" width="185" height="27" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.2"/>
-<text x="733.5" y="577" text-anchor="middle" fill="#B45309" font-size="12" font-weight="600">Cost model</text>
-<rect x="835" y="559" width="185" height="27" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.2"/>
-<text x="927.5" y="577" text-anchor="middle" fill="#B45309" font-size="12" font-weight="600">Ship decision</text>
-<rect x="1029" y="559" width="185" height="27" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.2"/>
-<text x="1121.5" y="577" text-anchor="middle" fill="#B45309" font-size="12" font-weight="600">Stakeholder comms</text>
-<rect x="1223" y="559" width="185" height="27" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.2"/>
-<text x="1315.5" y="577" text-anchor="middle" fill="#B45309" font-size="12" font-weight="600">Context spec</text>
-<rect x="253" y="594" width="185" height="27" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.2"/>
-<text x="345.5" y="612" text-anchor="middle" fill="#B45309" font-size="12" font-weight="600">Prompt craft</text>
-<rect x="447" y="594" width="185" height="27" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.2"/>
-<text x="539.5" y="612" text-anchor="middle" fill="#B45309" font-size="12" font-weight="600">Prompt as product</text>
-<rect x="641" y="594" width="185" height="27" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.2"/>
-<text x="733.5" y="612" text-anchor="middle" fill="#B45309" font-size="12" font-weight="600">Competitive map</text>
-<rect x="835" y="594" width="185" height="27" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.2"/>
-<text x="927.5" y="612" text-anchor="middle" fill="#B45309" font-size="12" font-weight="600">Fit signal</text>
-<rect x="40" y="653" width="1320" height="121" rx="14" fill="#FFFFFF" stroke="#EDEDEA" stroke-width="1.5" filter="url(#s)"/>
-<rect x="40" y="653" width="195" height="121" rx="14" fill="#F9FAFB"/>
-<rect x="221" y="653" width="14" height="121" fill="#F9FAFB"/>
-<rect x="40" y="653" width="5" height="121" rx="2.5" fill="#6B7280"/>
-<text x="64" y="699.5" fill="#374151" font-size="22" font-weight="800">PLUS</text>
-<text x="64" y="720.5" fill="#6B7280" font-size="13" font-weight="700">17 skills</text>
-<text x="64" y="739.5" fill="#5F6B7A" font-size="11">Everything else I do: writing,</text>
-<text x="64" y="754.5" fill="#5F6B7A" font-size="11">design, research, governance.</text>
-<rect x="253" y="665" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="345.5" y="683" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Thinking skills</text>
-<rect x="447" y="665" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="539.5" y="683" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Email mastery</text>
-<rect x="641" y="665" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="733.5" y="683" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Personal branding</text>
-<rect x="835" y="665" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="927.5" y="683" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">UX design systems</text>
-<rect x="1029" y="665" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="1121.5" y="683" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Learn-site design</text>
-<rect x="1223" y="665" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="1315.5" y="683" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Deep-dive writer</text>
-<rect x="253" y="700" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="345.5" y="718" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Excalidraw SVG</text>
-<rect x="447" y="700" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="539.5" y="718" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Frontend slides</text>
-<rect x="641" y="700" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="733.5" y="718" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Cinematic presentations</text>
-<rect x="835" y="700" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="927.5" y="718" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">AI Fluent brand</text>
-<rect x="1029" y="700" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="1121.5" y="718" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Design spec</text>
-<rect x="1223" y="700" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="1315.5" y="718" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">README storytelling</text>
-<rect x="253" y="735" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="345.5" y="753" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Research synthesiser</text>
-<rect x="447" y="735" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="539.5" y="753" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">HBR research</text>
-<rect x="641" y="735" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="733.5" y="753" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Claude admin</text>
-<rect x="835" y="735" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="927.5" y="753" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Product thinking</text>
-<rect x="1029" y="735" width="185" height="27" rx="8" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2"/>
-<text x="1121.5" y="753" text-anchor="middle" fill="#374151" font-size="12" font-weight="600">Resume builder</text>
-<text x="700" y="806" text-anchor="middle" fill="#9CA3AF" font-size="12">Every rule states when it fails · every number carries its evidence tier · everything reads in plain language</text>
+<text x="700" y="133" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">The Orchestrator: reads the situation, composes the right skills, reviews the output</text>
+<rect x="40" y="172" width="1320" height="378" rx="14" fill="#FFFFFF" stroke="#EDEDEA" stroke-width="1.5" filter="url(#s)"/>
+<rect x="40" y="172" width="195" height="378" rx="14" fill="#F0FDFA"/><rect x="221" y="172" width="14" height="378" fill="#F0FDFA"/>
+<rect x="40" y="172" width="6" height="378" rx="3" fill="#14B8A6"/>
+<text x="66" y="218" fill="#0F766E" font-size="24" font-weight="800">THINK</text>
+<text x="66" y="244" fill="#14B8A6" font-size="14" font-weight="700">24 skills</text>
+<text x="259" y="202" fill="#14B8A6" font-size="12.5" font-weight="800" letter-spacing="1">FRAME THE PROBLEM</text>
+<rect x="257" y="212" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="396.0" y="234.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">First principles</text>
+<rect x="547" y="212" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="686.0" y="234.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Bias spotter</text>
+<rect x="837" y="212" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="976.0" y="234.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Stress test</text>
+<rect x="1127" y="212" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="1266.0" y="234.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Problem type</text>
+<rect x="257" y="256" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="396.0" y="278.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Falsification</text>
+<rect x="547" y="256" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="686.0" y="278.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Judgment guard</text>
+<rect x="837" y="256" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="976.0" y="278.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Determinism compass</text>
+<rect x="1127" y="256" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="1266.0" y="278.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Dual lens</text>
+<rect x="257" y="300" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="396.0" y="322.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Gossip mode</text>
+<rect x="547" y="300" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="686.0" y="322.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Alignment check</text>
+<text x="259" y="360" fill="#14B8A6" font-size="12.5" font-weight="800" letter-spacing="1">KNOW THE USER AND THE FIT</text>
+<rect x="257" y="370" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="396.0" y="392.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Problem-AI fit</text>
+<rect x="547" y="370" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="686.0" y="392.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">JTBD analysis</text>
+<rect x="837" y="370" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="976.0" y="392.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Failure modes</text>
+<rect x="1127" y="370" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="1266.0" y="392.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Feedback flywheel</text>
+<rect x="257" y="414" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="396.0" y="436.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Feedback triage</text>
+<rect x="547" y="414" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="686.0" y="436.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Interview synthesis</text>
+<rect x="837" y="414" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="976.0" y="436.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Invisible stack</text>
+<rect x="1127" y="414" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="1266.0" y="436.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Needs guard</text>
+<rect x="257" y="458" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="396.0" y="480.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Opportunity tree</text>
+<rect x="547" y="458" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="686.0" y="480.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">AI product taste</text>
+<rect x="837" y="458" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="976.0" y="480.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Use-case readiness</text>
+<rect x="1127" y="458" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="1266.0" y="480.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">AI UX patterns</text>
+<rect x="257" y="502" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="396.0" y="524.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Attitudinal segments</text>
+<rect x="547" y="502" width="278" height="34" rx="9" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.3"/>
+<text x="686.0" y="524.5" text-anchor="middle" fill="#0F766E" font-size="14" font-weight="600">Uncertainty research</text>
+<rect x="40" y="566" width="1320" height="518" rx="14" fill="#FFFFFF" stroke="#EDEDEA" stroke-width="1.5" filter="url(#s)"/>
+<rect x="40" y="566" width="195" height="518" rx="14" fill="#F5F3FF"/><rect x="221" y="566" width="14" height="518" fill="#F5F3FF"/>
+<rect x="40" y="566" width="6" height="518" rx="3" fill="#8B5CF6"/>
+<text x="66" y="612" fill="#6D28D9" font-size="24" font-weight="800">JUDGE</text>
+<text x="66" y="638" fill="#8B5CF6" font-size="14" font-weight="700">29 skills</text>
+<text x="259" y="596" fill="#8B5CF6" font-size="12.5" font-weight="800" letter-spacing="1">STRATEGY</text>
+<rect x="257" y="606" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="396.0" y="628.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Moat finder</text>
+<rect x="547" y="606" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="686.0" y="628.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Build or buy</text>
+<rect x="837" y="606" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="976.0" y="628.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Token economics</text>
+<rect x="1127" y="606" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="1266.0" y="628.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Strategy canvas</text>
+<rect x="257" y="650" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="396.0" y="672.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Signal scanner</text>
+<rect x="547" y="650" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="686.0" y="672.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Capability tracking</text>
+<rect x="837" y="650" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="976.0" y="672.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Adoption launch</text>
+<rect x="1127" y="650" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="1266.0" y="672.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Portfolio management</text>
+<rect x="257" y="694" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="396.0" y="716.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Purpose dialogue</text>
+<rect x="547" y="694" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="686.0" y="716.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Trendslop check</text>
+<rect x="837" y="694" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="976.0" y="716.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Vision setting</text>
+<text x="259" y="754" fill="#8B5CF6" font-size="12.5" font-weight="800" letter-spacing="1">AGENTS</text>
+<rect x="257" y="764" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="396.0" y="786.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Autonomy spectrum</text>
+<rect x="547" y="764" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="686.0" y="786.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Agent harness</text>
+<rect x="837" y="764" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="976.0" y="786.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Agent ecosystem</text>
+<rect x="1127" y="764" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="1266.0" y="786.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Tool architecture</text>
+<rect x="257" y="808" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="396.0" y="830.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Multi-modal design</text>
+<text x="259" y="868" fill="#8B5CF6" font-size="12.5" font-weight="800" letter-spacing="1">SAFETY AND TRUST</text>
+<rect x="257" y="878" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="396.0" y="900.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Safety by design</text>
+<rect x="547" y="878" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="686.0" y="900.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Safety as moat</text>
+<rect x="837" y="878" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="976.0" y="900.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Trust ladder</text>
+<rect x="1127" y="878" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="1266.0" y="900.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Trust under fog</text>
+<rect x="257" y="922" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="396.0" y="944.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Agent risk</text>
+<rect x="547" y="922" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="686.0" y="944.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Breach ready</text>
+<rect x="837" y="922" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="976.0" y="944.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Responsible AI</text>
+<text x="259" y="982" fill="#8B5CF6" font-size="12.5" font-weight="800" letter-spacing="1">EVALS AND QUALITY</text>
+<rect x="257" y="992" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="396.0" y="1014.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Eval framework</text>
+<rect x="547" y="992" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="686.0" y="1014.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Eval-driven development</text>
+<rect x="837" y="992" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="976.0" y="1014.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">AI product metrics</text>
+<rect x="1127" y="992" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="1266.0" y="1014.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Confidence tuner</text>
+<rect x="257" y="1036" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="396.0" y="1058.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Production observability</text>
+<rect x="547" y="1036" width="278" height="34" rx="9" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.3"/>
+<text x="686.0" y="1058.5" text-anchor="middle" fill="#6D28D9" font-size="14" font-weight="600">Gen-AI experimentation</text>
+<rect x="40" y="1100" width="1320" height="176" rx="14" fill="#FFFFFF" stroke="#EDEDEA" stroke-width="1.5" filter="url(#s)"/>
+<rect x="40" y="1100" width="195" height="176" rx="14" fill="#FFFBEB"/><rect x="221" y="1100" width="14" height="176" fill="#FFFBEB"/>
+<rect x="40" y="1100" width="6" height="176" rx="3" fill="#F59E0B"/>
+<text x="66" y="1146" fill="#B45309" font-size="24" font-weight="800">CRAFT</text>
+<text x="66" y="1172" fill="#F59E0B" font-size="14" font-weight="700">10 skills</text>
+<text x="259" y="1130" fill="#F59E0B" font-size="12.5" font-weight="800" letter-spacing="1">SHIP-READY DOCUMENTS</text>
+<rect x="257" y="1140" width="278" height="34" rx="9" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.3"/>
+<text x="396.0" y="1162.5" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600">AI-PRD</text>
+<rect x="547" y="1140" width="278" height="34" rx="9" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.3"/>
+<text x="686.0" y="1162.5" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600">Agent spec</text>
+<rect x="837" y="1140" width="278" height="34" rx="9" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.3"/>
+<text x="976.0" y="1162.5" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600">Cost model</text>
+<rect x="1127" y="1140" width="278" height="34" rx="9" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.3"/>
+<text x="1266.0" y="1162.5" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600">Ship decision</text>
+<rect x="257" y="1184" width="278" height="34" rx="9" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.3"/>
+<text x="396.0" y="1206.5" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600">Stakeholder comms</text>
+<rect x="547" y="1184" width="278" height="34" rx="9" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.3"/>
+<text x="686.0" y="1206.5" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600">Context spec</text>
+<rect x="837" y="1184" width="278" height="34" rx="9" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.3"/>
+<text x="976.0" y="1206.5" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600">Prompt craft</text>
+<rect x="1127" y="1184" width="278" height="34" rx="9" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.3"/>
+<text x="1266.0" y="1206.5" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600">Prompt as product</text>
+<rect x="257" y="1228" width="278" height="34" rx="9" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.3"/>
+<text x="396.0" y="1250.5" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600">Competitive map</text>
+<rect x="547" y="1228" width="278" height="34" rx="9" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.3"/>
+<text x="686.0" y="1250.5" text-anchor="middle" fill="#B45309" font-size="14" font-weight="600">Fit signal</text>
+<rect x="40" y="1292" width="1320" height="264" rx="14" fill="#FFFFFF" stroke="#EDEDEA" stroke-width="1.5" filter="url(#s)"/>
+<rect x="40" y="1292" width="195" height="264" rx="14" fill="#F9FAFB"/><rect x="221" y="1292" width="14" height="264" fill="#F9FAFB"/>
+<rect x="40" y="1292" width="6" height="264" rx="3" fill="#6B7280"/>
+<text x="66" y="1338" fill="#374151" font-size="24" font-weight="800">PLUS</text>
+<text x="66" y="1364" fill="#6B7280" font-size="14" font-weight="700">17 skills</text>
+<text x="259" y="1322" fill="#6B7280" font-size="12.5" font-weight="800" letter-spacing="1">EVERYTHING ELSE I DO</text>
+<rect x="257" y="1332" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="396.0" y="1354.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Thinking skills</text>
+<rect x="547" y="1332" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="686.0" y="1354.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Email mastery</text>
+<rect x="837" y="1332" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="976.0" y="1354.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Personal branding</text>
+<rect x="1127" y="1332" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="1266.0" y="1354.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">UX design systems</text>
+<rect x="257" y="1376" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="396.0" y="1398.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Learn-site design</text>
+<rect x="547" y="1376" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="686.0" y="1398.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Deep-dive writer</text>
+<rect x="837" y="1376" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="976.0" y="1398.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Excalidraw SVG</text>
+<rect x="1127" y="1376" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="1266.0" y="1398.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Frontend slides</text>
+<rect x="257" y="1420" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="396.0" y="1442.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Cinematic presentations</text>
+<rect x="547" y="1420" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="686.0" y="1442.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">AI Fluent brand</text>
+<rect x="837" y="1420" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="976.0" y="1442.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Design spec</text>
+<rect x="1127" y="1420" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="1266.0" y="1442.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">README storytelling</text>
+<rect x="257" y="1464" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="396.0" y="1486.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Research synthesiser</text>
+<rect x="547" y="1464" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="686.0" y="1486.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">HBR research</text>
+<rect x="837" y="1464" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="976.0" y="1486.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Claude admin</text>
+<rect x="1127" y="1464" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="1266.0" y="1486.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Product thinking</text>
+<rect x="257" y="1508" width="278" height="34" rx="9" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.3"/>
+<text x="396.0" y="1530.5" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Resume builder</text>
+<text x="700" y="1592" text-anchor="middle" fill="#9CA3AF" font-size="13">Every rule states when it fails. Every number carries its evidence tier. Everything reads in plain language.</text>
 </svg>
