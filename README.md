@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="diagrams/hero-badge.svg" alt="rtp-personal-skills" width="900"/>
+  <img src="diagrams/skill-map.svg" alt="81 skills. One brain. The full map: Think, Judge, Craft, Plus — composed by the orchestrator" width="1000"/>
 </p>
 
 # rtp-personal-skills
