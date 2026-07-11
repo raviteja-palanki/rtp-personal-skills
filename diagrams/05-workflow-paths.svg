@@ -236,6 +236,6 @@
     Slash command if it fits in one prompt. Sprint template if the work needs days.
   </text>
   <text x="60" y="977" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">
-    The orchestrator picks for you when you describe the situation. /design-ai-feature is the gauntlet — use when you want the full quality bar in one shot.
+    The orchestrator picks for you when you describe the situation. /design-ai-feature is the gauntlet — use when the feature deserves the full quality bar, one stage at a time.
   </text>
 </svg>
