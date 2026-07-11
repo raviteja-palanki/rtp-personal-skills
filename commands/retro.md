@@ -20,6 +20,8 @@ chains:
 
 Trigger phrases: "retro," "post-mortem," "what did we learn from [feature]," "post-ship review."
 
+**Run in two sittings, not one.** Sitting 1: pull the original AI-PRD and the production metrics, run the assumption audit (which assumptions held, which failed), and stop with a written audit summary. Sitting 2, fresh session: the lessons, the eval-pipeline updates, and the next-iteration backlog, with the audit as input. One giant retro session produces a status update wearing a retro's clothes; the gap between the sittings is where the honest read forms.
+
 Cadence:
 - **T+30:** First retro for any AI feature launch. Even if data is thin, the assumption audit is valuable.
 - **T+90:** Second retro for L4+ features. By then, real usage patterns and edge cases have surfaced.

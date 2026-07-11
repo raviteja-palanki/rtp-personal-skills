@@ -1,12 +1,37 @@
 ---
-name: rtp-feedback-flywheel
-description: Use when designing data flywheels — capturing user interactions, closing the correction→eval→prompt loop, or auditing feedback pipelines. Diagnostic tool for building data flywheels that turn user interactions into model improvements. Maps feedback signals, designs capture pipelines, closes the loop from correction→eval→prompt→improvement, bootstraps cold start, handles PII/privacy. At maturity 5, products improve 15-20% per quarter from usage data alone. This is your competitive moat.
+name: feedback-flywheel
+description: >
+  Turn what users do with your AI's output into the thing that improves the AI — automatically,
+  on a cadence, with owners. Most products collect feedback (thumbs, edits, regenerations) that
+  sits in a database and never reaches the model; this skill designs the closed loop: which
+  signals are worth trusting, who labels them how fast, and the weekly-to-quarterly pipeline
+  that converts corrections into eval cases, prompt changes, and measured improvement. A mature
+  flywheel is one of the strongest moats in AI — IF the loop's inputs are yours alone.
+  Use when: designing feedback capture, auditing why collected feedback changes nothing,
+  bootstrapping before you have users. Pairs with: eval-framework (where corrections become
+  test cases), moat-finder (the anti-moat check — a flywheel on public signals commoditizes you),
+  ai-product-metrics (the signals worth logging), gossip-mode (the informal-signal sibling).
+imports: [first-principles, stress-test]
 ---
+
 # Feedback Flywheel: The Diagnostic
+
+**The objective:** close the distance between "we collect feedback" and "the product got better because of it." Collection is easy and feels like progress; closure — signal reaching the model as a measured improvement — is rare and is the actual moat. This skill diagnoses where your loop is broken and designs the pipeline, the labeling capacity, and the ownership that fixes it.
+
+## KEY TERMS (plain language)
+
+- **Flywheel** — a loop that feeds itself: usage produces signals, signals improve the product, the better product attracts more usage.
+- **Signal-to-noise (SNR)** — how much of a feedback type is genuinely informative; a full user rewrite says more than a thumbs-down.
+- **Implicit vs. explicit feedback** — what users *do* (edit, regenerate, abandon) versus what they *say* (thumbs, ratings). Behavior is more abundant and often more honest.
+- **Gold / silver / bronze labels** — expert-verified corrections (gold), AI-graded judgments checked against gold (silver), simple heuristics like "deleted everything = fail" (bronze).
+- **Annotation velocity** — how fast collected feedback gets labeled into usable training/eval signal; the usual bottleneck.
+- **Cold start** — bootstrapping the loop before real users exist, with synthetic corrections and simulated behavior.
+- **Held-out test set** — cases kept outside the loop so you can tell real improvement from overfitting to your own feedback.
+- **LLM-as-judge** — a model grading outputs at scale, calibrated against gold labels.
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -17,7 +42,7 @@ Then proceed with the skill-specific analysis below.
 
 You designed a feedback system, not a flywheel. The bias is **disconnection**: your product logs thumbs-downs and user edits, the ML team trains on static evals, and nobody measures the delta between "feedback collected" and "model actually improved." You mistake collection for closure.
 
-Real trap: **99% of products at stages 1-3 collect feedback but only 10-20% actually reach the model as training signal.** The rest accumulates in databases, unlabeled. Data without annotation velocity and model feedback loops is inventory, not leverage.
+Real trap: **most products collect feedback that never reaches the model** — in practice only a small fraction of captured signal (think 10-20%, a practitioner rule of thumb ⚠, not a measured statistic) becomes training or eval input. The rest accumulates in databases, unlabeled. Data without annotation velocity and model feedback loops is inventory, not leverage.
 
 ## THE PROCESS
 
@@ -113,7 +138,11 @@ Continuous: LLM-as-judge on production flagged outputs using corrections as refe
 
 ## Data Flywheel as Competitive Moat
 
-At maturity 5, products improve 15-20% per quarter from usage data alone. This is the strongest moat in AI. Map where you are on the maturity curve (1-5) and what it takes to get to the next level.
+At maturity 5, a product can improve on the order of 15-20% per quarter from usage data alone (⚠ a practitioner-estimate order of magnitude, not a measured benchmark — your mileage depends on domain and signal quality). Done right, this is among the strongest moats in AI. Map where you are on the maturity curve (1-5) and what it takes to get to the next level.
+
+**The moat condition (don't skip this):** a flywheel is a moat only if the loop's *inputs are yours alone* — your users' corrections on your traffic. Run the same loop on signals every rival also ingests and it compounds you toward the industry average, not ahead of it (the anti-moat loop — full check in `rtp-moat-finder`). And per the rare-cases test there: a flywheel fed only by common, easy cases builds an advantage a frontier model erases; the corrections worth the most are the hard, rare ones.
+
+**When this is wrong:** early-stage products should not build Level 4-5 automation before product-market fit — a fast loop optimizing the wrong product is expensive thrash; get signal quality and a stable eval set first. And in low-volume or high-privacy domains, a deliberately manual Level 2-3 loop can be the correct end state, not a failure.
 
 ### Flywheel Maturity Levels
 
@@ -379,11 +408,11 @@ Target: [maturity level + timeline]
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

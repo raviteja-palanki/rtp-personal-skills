@@ -24,6 +24,8 @@ Trigger phrases: "strategy review," "quarterly review," "where are we strategica
 
 Cadence: quarterly. Run before the next planning cycle, not after — the output should change what you fund next quarter.
 
+**Run in two sittings, not one.** Sitting 1: the evidence gathering — strategy-canvas state, moat audit, competitive map, cost reality, signal scan — ending with the raw 25-point scorecard, no interpretation. Sitting 2, fresh session: the judgment — the strategic gaps and the three moves, argued from the scorecard. Separating evidence from judgment is what keeps the review from becoming a vibes check with a rubric attached.
+
 Do NOT use this for:
 - Single-feature strategy decisions (use `/design-ai-feature`)
 - Pricing-only reviews (use `pm-product-strategy:pricing-strategy`)

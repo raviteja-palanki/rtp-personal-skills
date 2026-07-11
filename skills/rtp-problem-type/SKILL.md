@@ -1,8 +1,20 @@
 ---
-name: rtp-problem-type
-description: Figure out if you're facing a technical problem (clear solution, known path) or an adaptive challenge (unclear solution, requires people to change). Most AI failures happen because teams treat adaptive challenges like technical problems — they keep "solving" something that requires organizational change, not a better algorithm. Use when the same problem recurs despite fixes, leadership says "just build it" but the barrier is organizational, a feature is technically perfect but adoption is failing, or when you notice the pattern "we tried everything and it didn't work." Do NOT use to avoid difficult decisions or to justify doing nothing — often the right move is both technical AND adaptive work, sequenced carefully.
+name: problem-type
+description: >
+  Figure out if you're facing a technical problem (clear solution, known path) or an adaptive challenge (unclear solution, requires people to change). Most AI failures happen because teams treat adaptive challenges like technical problems — they keep "solving" something that requires organizational change, not a better algorithm. Use when the same problem recurs despite fixes, leadership says "just build it" but the barrier is organizational, a feature is technically perfect but adoption is failing, or when you notice the pattern "we tried everything and it didn't work." Do NOT use to avoid difficult decisions or to justify doing nothing — often the right move is both technical AND adaptive work, sequenced carefully. Pairs with: alignment-check (which organizational link is broken), problem-ai-fit (a different axis — whether the problem needs AI at all), adoption-launch (the adaptive work, run as a product launch), needs-guard (the psychological need the change threatens).
+imports: []
 ---
+
 # Problem Type
+
+**The objective:** before solving anything, decide what kind of problem you're actually holding — one a better build fixes (technical), or one that requires people to change how they work (adaptive). Teams that misclassify keep shipping better solutions to the wrong problem class; the recurring failure isn't the algorithm, it's the diagnosis. This is a different axis from "does it need AI" (that's `problem-ai-fit`) — a problem can be perfectly AI-suitable and still fail because the barrier was organizational.
+
+## KEY TERMS (plain language)
+
+- **Technical problem** — the solution is discoverable and buildable; expertise and effort close it (a slow query, a missing feature).
+- **Adaptive challenge** — the solution requires people to change behavior or beliefs; no build closes it, only enabled change (Heifetz's distinction).
+- **Action bias** — building feels productive, so teams build; organizational change feels slow, so it gets skipped even when it's the actual fix.
+- **Compliance vs. change** — people doing the new thing when watched versus believing in it; the ambiguity that makes adaptive progress hard to measure.
 
 ## DEPTH DECISION
 
@@ -10,7 +22,7 @@ description: Figure out if you're facing a technical problem (clear solution, kn
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: What's the actual problem statement? Who's affected? What have we already tried?
 2. Route depth: Are you diagnosing a stuck initiative (Comprehensive) or classifying a new problem (Executive Summary)?
 3. Identify output format: Word Document, Presentation, or Both?
@@ -20,7 +32,7 @@ Then proceed with the skill-specific analysis below.
 ## DELIVERABLE FORMAT
 
 Before starting, ask for format: Word Document, Presentation, or Both.
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ## THE TRAP
 
@@ -255,7 +267,7 @@ CONFIDENCE: High
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
 1. State the classification (technical, adaptive, or both with sequencing)
 2. Name the key trade-off (speed of technical solutions vs correctness of diagnosis)
 3. Acknowledge the biggest risk (misdiagnosis, or over-analyzing when action is needed)

@@ -1,6 +1,6 @@
 <svg viewBox="0 0 1200 1000" width="1200" height="1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two ways through the system: 10 slash commands for single-prompt skill chains and 6 sprint templates for multi-step orchestration">
   <title>Workflow Paths — Slash Commands and Sprint Templates</title>
-  <desc>Two parallel categories. Slash commands chain skills into a single prompt — fast. Sprint templates organize multi-step work — deliberate. The /design-ai-feature gauntlet is the crown jewel: 10 RTP skills, STOP gates between every gate.</desc>
+  <desc>Two parallel categories. Slash commands chain skills into a single prompt — fast. Sprint templates organize multi-step work — deliberate. The /design-ai-feature gauntlet is the crown jewel: ten gates run in three bounded sittings (Fit, Shape, Build gate), with a STOP possible at any gate.</desc>
 
   <defs>
     <filter id="cardShadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -65,17 +65,17 @@
     /design-ai-feature
   </text>
   <text x="68" y="246" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="400" fill="#444444">
-    10-gate gauntlet. Chains 10 RTP skills with STOP gates between every step.
+    Ten gates in three sittings — Fit (15 min), Shape, Build gate. Each stage ends with a decision, not fatigue.
   </text>
   <text x="68" y="262" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#666666">
-    problem-ai-fit  →  jtbd-analysis  →  autonomy-spectrum  →  eval-framework  →  cost-model  →  ship-decision
+    Stage 1: is this an AI problem?  →  Stage 2: autonomy, architecture, UX  →  Stage 3: prompt, evals, cost, safety, PRD
   </text>
 
   <!-- Hero badge: 10 skills -->
   <g>
     <rect x="965" y="184" width="160" height="58" fill="#F3EFF8" stroke="#9478B8" stroke-width="1.5" rx="8"/>
-    <text x="1045" y="208" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#9478B8" text-anchor="middle">10 skills</text>
-    <text x="1045" y="228" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#7F5FA8" text-anchor="middle">chained · STOP gates</text>
+    <text x="1045" y="208" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#9478B8" text-anchor="middle">10 gates</text>
+    <text x="1045" y="228" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#7F5FA8" text-anchor="middle">3 sittings · STOP at any gate</text>
   </g>
 
   <!-- 9 remaining slash commands: 3x3 grid -->
@@ -236,6 +236,6 @@
     Slash command if it fits in one prompt. Sprint template if the work needs days.
   </text>
   <text x="60" y="977" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666">
-    The orchestrator picks for you when you describe the situation. /design-ai-feature is the gauntlet — use when you want the full quality bar in one shot.
+    The orchestrator picks for you when you describe the situation. /design-ai-feature is the gauntlet — use when the feature deserves the full quality bar, one stage at a time.
   </text>
 </svg>

@@ -1,0 +1,26 @@
+<svg viewBox="0 0 1240 330" xmlns="http://www.w3.org/2000/svg" font-family="Inter, -apple-system, sans-serif" role="img" aria-label="Think, Judge, Craft — the three layers of the system">
+<defs><filter id="s" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="1.5" dy="2.5" stdDeviation="3.5" flood-color="#00000015"/></filter></defs>
+<rect width="1240" height="330" rx="16" fill="#FAFAF8"/>
+<text x="620" y="52" text-anchor="middle" fill="#1B1B1F" font-size="28" font-weight="800">Think. Judge. Craft.</text>
+<rect x="60" y="90" width="300" height="160" rx="14" fill="#FFFFFF" stroke="#14B8A6" stroke-width="2" filter="url(#s)"/>
+<rect x="60" y="90" width="300" height="6" rx="3" fill="#14B8A6"/>
+<text x="210" y="136" text-anchor="middle" fill="#0F766E" font-size="24" font-weight="800">THINK</text>
+<text x="210" y="160" text-anchor="middle" fill="#14B8A6" font-size="14" font-weight="700">24 skills</text>
+<text x="210" y="190" text-anchor="middle" fill="#5F6B7A" font-size="13">Is this even an AI problem?</text>
+<text x="210" y="210" text-anchor="middle" fill="#5F6B7A" font-size="13">What is the user really hiring it for?</text>
+<rect x="470" y="90" width="300" height="160" rx="14" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="2" filter="url(#s)"/>
+<rect x="470" y="90" width="300" height="6" rx="3" fill="#8B5CF6"/>
+<text x="620" y="136" text-anchor="middle" fill="#6D28D9" font-size="24" font-weight="800">JUDGE</text>
+<text x="620" y="160" text-anchor="middle" fill="#8B5CF6" font-size="14" font-weight="700">29 skills</text>
+<text x="620" y="190" text-anchor="middle" fill="#5F6B7A" font-size="13">Autonomy, moats, pricing, safety, evals —</text>
+<text x="620" y="210" text-anchor="middle" fill="#5F6B7A" font-size="13">the calls that earn the right to ship.</text>
+<rect x="880" y="90" width="300" height="160" rx="14" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2" filter="url(#s)"/>
+<rect x="880" y="90" width="300" height="6" rx="3" fill="#F59E0B"/>
+<text x="1030" y="136" text-anchor="middle" fill="#B45309" font-size="24" font-weight="800">CRAFT</text>
+<text x="1030" y="160" text-anchor="middle" fill="#F59E0B" font-size="14" font-weight="700">10 skills</text>
+<text x="1030" y="190" text-anchor="middle" fill="#5F6B7A" font-size="13">PRDs, specs, cost models, launch gates —</text>
+<text x="1030" y="210" text-anchor="middle" fill="#5F6B7A" font-size="13">documents that arrive pre-tested.</text>
+<path d="M 366 170 L 462 170" stroke="#9CA3AF" stroke-width="2.5"/><polygon points="462,164 474,170 462,176" fill="#9CA3AF"/>
+<path d="M 776 170 L 872 170" stroke="#9CA3AF" stroke-width="2.5"/><polygon points="872,164 884,170 872,176" fill="#9CA3AF"/>
+<text x="620" y="300" text-anchor="middle" fill="#9CA3AF" font-size="13">Understand the problem before judging it. Judge it before writing a line of the spec.</text>
+</svg>

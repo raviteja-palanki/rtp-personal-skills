@@ -1,8 +1,36 @@
 ---
-name: rtp-dual-lens
-description: Ensures any AI concept is simultaneously actionable for business leaders AND technically validatable by engineers, preventing misalignment that leads to wasted sprints. Use when writing PRDs, strategy docs, presentations to mixed audiences, communicating with board, or when there's disagreement between business and engineering about "what we're building". Triggers on 'business doesn't understand what we're building', 'engineering doesn't see the business case', 'the spec doesn't match what we shipped', or when business and technical teams have conflicting interpretations of the same concept. Also use before committing quarterly roadmap resources. Do NOT use for pure engineering specifications (internal architecture docs), pure business memos (financial forecasts), or when both audiences are already deeply aligned. Do NOT use when speed matters more than cross-functional clarity, or in organizations with strong silos where bridge-building will be resisted.
+name: dual-lens
+version: "1.1"
+description: >
+  Ensures any AI concept is simultaneously actionable for business leaders AND technically
+  validatable by engineers, preventing misalignment that leads to wasted sprints. Use when
+  writing PRDs, strategy docs, presentations to mixed audiences, communicating with board,
+  or when there's disagreement between business and engineering about "what we're building".
+  Triggers on 'business doesn't understand what we're building', 'engineering doesn't see
+  the business case', 'the spec doesn't match what we shipped', or when business and technical
+  teams have conflicting interpretations of the same concept. Also use before committing
+  quarterly roadmap resources. Do NOT use for pure engineering specifications (internal
+  architecture docs), pure business memos (financial forecasts), or when both audiences
+  are already deeply aligned. Do NOT use when speed matters more than cross-functional
+  clarity, or in organizations with strong silos where bridge-building will be resisted.
+  Pairs with: stakeholder-communications (per-audience framing), first-principles (find
+  the one operation both lenses describe), trust-under-fog (when the business lens
+  demands certainty the technical lens can't give).
+imports: []
 ---
+
 # Dual-Lens
+
+**The objective:** make one AI concept mean the same thing in two rooms — actionable for the business leader AND checkable by the engineer — so a wasted sprint never starts. Most cross-functional failures aren't disagreement; they're two teams confidently building different interpretations of the same sentence. This skill writes both definitions and tests the bridge between them.
+
+## KEY TERMS (plain language)
+
+- **Curse of knowledge** — once you understand something, you can't imagine not understanding it; the reason your "clear" spec wasn't.
+- **Translation loss** — the nuance that disappears when one audience's language is converted into another's; it fails silently, in both directions.
+- **RAG (retrieval-augmented generation)** — the AI looks up your documents before answering, so knowledge can be updated daily without retraining the model.
+- **Context window** — how much text the model can consider at once; bigger costs more and gets slower.
+- **Streaming output** — showing the answer as it's generated instead of after; changes *perceived* speed without changing actual speed.
+- **Inference** — the act of the model producing an answer; the thing you pay for per use.
 
 ## DEPTH DECISION
 

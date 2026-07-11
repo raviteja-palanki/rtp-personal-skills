@@ -1,8 +1,26 @@
 ---
-name: rtp-stress-test
-description: 'Use when stress-testing an AI product at production scale — failure resilience, unit economics at 10x, tail latency, observability. Production-scale stress test: failure resilience, unit economics, tail latency, observability. Use before: launch, resource allocation, technical commitment, SLOs. Triggers: ''will this scale'', ''10x users'', ''cost at scale'', ''latency budget'', ''production readiness'''
+name: stress-test
+description: "Will this AI feature survive real production — ten times the users, hostile inputs, a degraded model provider, and a finance review? Six required checks (failure behavior, cost at volume, worst-case speed, monitoring, deliberate attack, multi-agent resilience) plus a pre-mortem that imagines the launch failed and works backward. The demo working is not evidence; user 10,000 is where the economics and the latency break. Use before: launch, resource commitments, promising unit economics, signing up to a response-time guarantee. Pairs with: ship-decision (the gate this feeds), cost-model (the deep cost math), agent-risk (kill-switch design), production-observability (what monitoring watches after launch). Triggers: 'will this scale', '10x users', 'cost at scale', 'latency budget', 'production readiness'"
+imports: []
 ---
+
 # Stress Test
+
+**The objective:** find out whether this AI feature survives real production — before you promise anyone it will. A demo proves possibility; this skill prices reality: what breaks at ten times the load, what it costs at real volume, how slow it is for the unluckiest 5% of users, whether you'd even notice quiet quality decay, and what a motivated attacker does to it. It exists because the failure never shows up in the pilot; it shows up at user 10,000, after the roadmap is committed.
+
+## KEY TERMS (plain language)
+
+- **P95 / P99 latency** — the response time your slowest 5% (or 1%) of requests experience; more honest than the average, because users remember the slow ones.
+- **SLO (service-level objective)** — the response-time or reliability promise you commit to; you can't commit to one you haven't measured.
+- **Unit economics** — whether one user's usage costs less than the value (or revenue) it produces.
+- **Token** — the unit AI models charge by; roughly a word fragment. Every request in and answer out is billed in tokens.
+- **Graceful degradation** — when a component fails, the product gets simpler instead of breaking (cached answer, smaller model, human handoff).
+- **Circuit breaker** — an automatic trip that stops a failing step from dragging down the whole pipeline; configured often, tested rarely.
+- **Drift / silent degradation** — quality decaying with no error thrown; the metrics look fine while power users quietly leave.
+- **Red teaming** — deliberately attacking your own system before users, competitors, and bored teenagers do.
+- **Prompt injection** — hiding instructions in content the AI reads (a document, a code comment, a URL) so it obeys the attacker instead of you.
+- **Normalcy bias** — the trap this skill exists to break: assuming production will behave like your dev environment.
+- **Pre-mortem** — imagining the launch already failed, then writing the post-mortem now, while you can still act on it.
 
 ## DEPTH DECISION
 
@@ -10,7 +28,7 @@ description: 'Use when stress-testing an AI product at production scale — fail
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -132,7 +150,7 @@ For multi-agent and harness-based systems (skip for single-model features):
 - **Context window saturation:** What happens when the agent hits max context? Anthropic found agents exhibit "context anxiety" — wrapping up prematurely, producing lower-quality output. Test at 80%, 90%, 95% of context capacity.
 - **State management under load:** Can the harness maintain state across 50+ sessions? Do file-based handoffs (progress files, git commits) stay consistent under concurrent access?
 - **Tool call failure:** What happens when an external tool (API, database, search) is down? Is there retry logic? Timeout handling? Fallback behavior?
-- **Cost explosion:** A multi-agent harness running 5-15 evaluator rounds per sprint costs 20x a single-agent call. Anthropic's full harness cost $200 for 6 hours vs $9 for a solo agent doing 20 minutes. Model this cost curve explicitly.
+- **Cost explosion:** A multi-agent harness running 5-15 evaluator rounds per sprint costs 20x a single-agent call. Anthropic's published harness experiment ran ~$200 for 6 hours of orchestrated agents vs ~$9 for a solo agent doing 20 minutes (◆ Anthropic engineering write-up; treat the exact figures as one team's disclosed run, the 10-20x ratio as the durable lesson). Model this cost curve explicitly.
 - **Evaluator reliability:** If you have a separate evaluator agent, what happens when IT hallucinates? The GAN-inspired pattern (Anthropic) separates generation from evaluation, but the evaluator needs its own quality checks.
 
 ## THE PRE-MORTEM (Shreyas Doshi variant)
@@ -300,11 +318,11 @@ Conditions (if conditional): [specific items + owner + deadline]
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

@@ -1,0 +1,53 @@
+<svg viewBox="0 0 1240 560" xmlns="http://www.w3.org/2000/svg" font-family="Inter, -apple-system, sans-serif" role="img" aria-label="The orchestrator spawns specialist worker agents and reviews their output">
+<defs><filter id="s" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="1.5" dy="2.5" stdDeviation="3.5" flood-color="#00000015"/></filter></defs>
+<rect width="1240" height="560" rx="16" fill="#FAFAF8"/>
+<text x="620" y="50" text-anchor="middle" fill="#1B1B1F" font-size="26" font-weight="800">One brain, many hands</text>
+<rect x="440" y="72" width="360" height="40" rx="20" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5" filter="url(#s)"/>
+<text x="620" y="97" text-anchor="middle" fill="#5F6B7A" font-size="14">Any product question arrives</text>
+<path d="M 620 112 L 620 136" stroke="#9CA3AF" stroke-width="2"/><polygon points="614,136 620,148 626,136" fill="#9CA3AF"/>
+<rect x="70" y="150" width="1100" height="52" rx="14" fill="#1B1B1F" filter="url(#s)"/>
+<text x="620" y="182" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">The Orchestrator — reads what you meant  ·  picks the depth  ·  composes the right specialists</text>
+<path d="M 176.0 202 L 176.0 240" stroke="#9CA3AF" stroke-width="2"/><polygon points="170.0,240 176.0,252 182.0,240" fill="#9CA3AF"/>
+<rect x="70" y="254" width="212" height="128" rx="14" fill="#FFFFFF" stroke="#14B8A6" stroke-width="2" filter="url(#s)"/>
+<rect x="70" y="254" width="212" height="38" rx="14" fill="#14B8A6"/><rect x="70" y="278" width="212" height="14" fill="#14B8A6"/>
+<text x="176.0" y="279" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Sense-Maker</text>
+<text x="176.0" y="320" text-anchor="middle" fill="#5F6B7A" font-size="12.5">Finds the real problem</text>
+<text x="176.0" y="338" text-anchor="middle" fill="#5F6B7A" font-size="12.5">behind the request</text>
+<text x="176.0" y="366" text-anchor="middle" fill="#0F766E" font-size="11.5" font-weight="700">runs in parallel</text>
+<path d="M 176.0 382 L 176.0 420" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5 4"/>
+<path d="M 398.0 202 L 398.0 240" stroke="#9CA3AF" stroke-width="2"/><polygon points="392.0,240 398.0,252 404.0,240" fill="#9CA3AF"/>
+<rect x="292" y="254" width="212" height="128" rx="14" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="2" filter="url(#s)"/>
+<rect x="292" y="254" width="212" height="38" rx="14" fill="#8B5CF6"/><rect x="292" y="278" width="212" height="14" fill="#8B5CF6"/>
+<text x="398.0" y="279" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Strategist</text>
+<text x="398.0" y="320" text-anchor="middle" fill="#5F6B7A" font-size="12.5">Where to invest,</text>
+<text x="398.0" y="338" text-anchor="middle" fill="#5F6B7A" font-size="12.5">what to kill</text>
+<text x="398.0" y="366" text-anchor="middle" fill="#6D28D9" font-size="11.5" font-weight="700">runs in parallel</text>
+<path d="M 398.0 382 L 398.0 420" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5 4"/>
+<path d="M 620.0 202 L 620.0 240" stroke="#9CA3AF" stroke-width="2"/><polygon points="614.0,240 620.0,252 626.0,240" fill="#9CA3AF"/>
+<rect x="514" y="254" width="212" height="128" rx="14" fill="#FFFFFF" stroke="#EC4899" stroke-width="2" filter="url(#s)"/>
+<rect x="514" y="254" width="212" height="38" rx="14" fill="#EC4899"/><rect x="514" y="278" width="212" height="14" fill="#EC4899"/>
+<text x="620.0" y="279" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Safety Expert</text>
+<text x="620.0" y="320" text-anchor="middle" fill="#5F6B7A" font-size="12.5">Makes it safe AND</text>
+<text x="620.0" y="338" text-anchor="middle" fill="#5F6B7A" font-size="12.5">gets people to use it</text>
+<text x="620.0" y="366" text-anchor="middle" fill="#9D174D" font-size="11.5" font-weight="700">runs in parallel</text>
+<path d="M 620.0 382 L 620.0 420" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5 4"/>
+<path d="M 842.0 202 L 842.0 240" stroke="#9CA3AF" stroke-width="2"/><polygon points="836.0,240 842.0,252 848.0,240" fill="#9CA3AF"/>
+<rect x="736" y="254" width="212" height="128" rx="14" fill="#FFFFFF" stroke="#06B6D4" stroke-width="2" filter="url(#s)"/>
+<rect x="736" y="254" width="212" height="38" rx="14" fill="#06B6D4"/><rect x="736" y="278" width="212" height="14" fill="#06B6D4"/>
+<text x="842.0" y="279" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Evals Expert</text>
+<text x="842.0" y="320" text-anchor="middle" fill="#5F6B7A" font-size="12.5">Proves it works with</text>
+<text x="842.0" y="338" text-anchor="middle" fill="#5F6B7A" font-size="12.5">evidence, not hope</text>
+<text x="842.0" y="366" text-anchor="middle" fill="#0E7490" font-size="11.5" font-weight="700">runs in parallel</text>
+<path d="M 842.0 382 L 842.0 420" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5 4"/>
+<path d="M 1064.0 202 L 1064.0 240" stroke="#9CA3AF" stroke-width="2"/><polygon points="1058.0,240 1064.0,252 1070.0,240" fill="#9CA3AF"/>
+<rect x="958" y="254" width="212" height="128" rx="14" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2" filter="url(#s)"/>
+<rect x="958" y="254" width="212" height="38" rx="14" fill="#F59E0B"/><rect x="958" y="278" width="212" height="14" fill="#F59E0B"/>
+<text x="1064.0" y="279" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Crafter</text>
+<text x="1064.0" y="320" text-anchor="middle" fill="#5F6B7A" font-size="12.5">Assembles the</text>
+<text x="1064.0" y="338" text-anchor="middle" fill="#5F6B7A" font-size="12.5">pre-tested document</text>
+<text x="1064.0" y="366" text-anchor="middle" fill="#B45309" font-size="11.5" font-weight="700">runs in parallel</text>
+<path d="M 1064.0 382 L 1064.0 420" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5 4"/>
+<rect x="70" y="424" width="1100" height="52" rx="14" fill="#FFFFFF" stroke="#1B1B1F" stroke-width="2" filter="url(#s)"/>
+<text x="620" y="456" text-anchor="middle" fill="#1B1B1F" font-size="15" font-weight="700">The orchestrator reviews every draft against the quality bar — you see one synthesized answer</text>
+<text x="620" y="522" text-anchor="middle" fill="#9CA3AF" font-size="13">Independent work runs in parallel. Nothing ships without review. The machinery stays invisible.</text>
+</svg>
