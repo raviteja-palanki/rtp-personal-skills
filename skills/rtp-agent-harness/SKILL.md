@@ -1,8 +1,32 @@
 ---
-name: rtp-agent-harness
-description: 'Harness architecture: Planner/Generator/Evaluator, eval separation, sprint contracts, context, communication. Use when: multi-agent pipelines, harness decision, costing. Triggers: ''agent harness'', ''planner generator evaluator'', ''orchestrate agents'''
+name: agent-harness
+description: "Should this AI feature get a harness — the engineered structure around a model (planning, checking, memory, guardrails) that turns impressive-in-demo into reliable-in-production — and if so, which parts are worth building when the next model generation may absorb them? Covers the Planner/Generator/Evaluator architecture, sprint contracts, the six design paradoxes, the dissolving ladder (what's scaffolding vs. what you keep forever), and the real cost shape (per-token prices collapse while total bills triple). Use when: designing multi-agent pipelines, deciding harness vs. single agent, costing an agent system. Pairs with: agent-ecosystem (coordination patterns), eval-framework (the Evaluator's tests), capability-tracking (build now vs. wait for the model), cost-model (the economics at scale). Triggers: 'agent harness', 'planner generator evaluator', 'orchestrate agents'"
+imports: [agent-ecosystem, eval-framework, stress-test]
 ---
+
 # Agent Harness Engineering
+
+**The objective:** decide whether the reliability a harness buys is worth the complexity and cost it adds — and build only the parts that stay valuable when the next model generation arrives. A harness is the difference between a demo and a production system; it is also 10-20x the cost of a bare model call. This skill makes that trade explicit.
+
+## KEY TERMS (plain language)
+
+- **Harness** — the engineered structure around a model: planning, checking, memory, retries, guardrails. The model is the engine; the harness is the car.
+- **Planner / Generator / Evaluator** — the three-role architecture: one part decides the approach, one produces the work, one independently judges it against the definition of done.
+- **Sprint contract** — the upfront agreement on exactly what the agent must produce, the pass/fail tests, and when to stop iterating.
+- **Eval separation** — the judge must be independent of the worker; a system grading its own output inflates itself.
+- **Scaffolding vs. permanent resident** — harness parts the next model generation will absorb (scaffolding) versus parts that stay yours forever (your evals, your domain context, your accountability records).
+- **Trace** — the full record of what an agent actually did, step by step; the raw material for improving it.
+- **Compaction** — compressing a long history so the agent keeps working without drowning in its own context.
+
+## FROM THE HARNESS SERIES (the 2026 canon — three imports that change decisions)
+
+*Source: Ravi's 8-article Harness Engineering series (`02-harness-engineering/`), distilled from production practice. These are the series' most decision-changing findings; the articles carry the full treatment.*
+
+**1. The dissolving ladder — sort every component before you build it.** Each harness capability is either *scaffolding* (the next model generation will do it natively — many planning loops, retry logic, and format enforcement have already crossed over) or a *permanent resident* (your eval suites, your proprietary domain context, your accountability and audit records — things no model release can ship because they're yours). **Why it matters:** teams grieve when a model release makes their scaffolding redundant, but that's the win condition — you rented reliability until the model caught up. Budget scaffolding as a bridge with an expiry, and invest permanence only in the residents. **When wrong:** in slow-moving or regulated domains, scaffolding can pay rent for years — expiry is a forecast, not a date; check `rtp-capability-tracking` before writing anything off. *(Article 08, "The Discipline That Makes Itself Unnecessary.")*
+
+**2. The six paradoxes — the design tensions you hold, not solve.** Intelligence vs. reliability (a smarter model is not a more consistent one) · constraints vs. autonomy (tighter rails make agents more useful, not less) · scaffolding vs. permanence (above) · specificity vs. generality (the more your harness fits one workflow, the less it transfers) · demo vs. production (what impresses in five minutes is unrelated to what survives five weeks) · segregation vs. lifecycle (separating the judge from the worker vs. keeping one system accountable end-to-end). **Why it matters:** every harness argument in a design review is one of these six; naming the paradox turns a fight into a trade-off decision. **When wrong:** don't treat the list as a checklist to satisfy — most designs deliberately sacrifice one side of several paradoxes; the failure is doing it unknowingly. *(Article 04, "Five Paradoxes" — plus the sixth added in revision.)*
+
+**3. The cost shape — prices collapse, bills triple.** Per-token prices keep falling, and total harness bills keep rising anyway, because a harness multiplies calls (planning, evaluation rounds, retries) faster than prices drop. Five cost centers most budgets miss: evaluator rounds, retry overhead, context/memory carry, trace storage and mining, and the human review layer. Watch for the break-even signs the series names — reliability incidents falling, human-review sampling shrinking, rework dropping — before scaling spend. **Why it matters:** budgeting a harness at the model's sticker price is the most common economic error in agent systems; the multiplier is the bill. **When wrong:** a thin harness on a cheap model for a low-stakes workflow can genuinely cost near sticker — the multiplier grows with evaluation depth, so match it to consequence. *(Article 05, "What It Costs, What It Returns.")*
 
 ## DEPTH DECISION
 
@@ -10,7 +34,7 @@ description: 'Harness architecture: Planner/Generator/Evaluator, eval separation
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -270,11 +294,11 @@ Quality Dimensions:
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk
