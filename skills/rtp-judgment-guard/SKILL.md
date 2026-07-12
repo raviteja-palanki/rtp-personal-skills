@@ -1,317 +1,215 @@
 ---
 name: judgment-guard
 description: >
-  Prevent your team from losing the ability to think for themselves as they rely more on AI. Without designed friction, people accept AI outputs without engaging their own judgment. Over 6-18 months, expertise atrophies silently. This skill designs checkpoints that keep humans sharp — across five distinct erosion mechanisms: the fast clock (one person), the slow clock (the org stops making experts), the relay clock (quality decaying down a chain of handoffs), ownership offloading, and chosen blindness (people avoiding the AI's reasoning because looking costs them). Use when deploying high-stakes AI (medical, financial, hiring decisions), designing AI-augmented workflows, noticing that users aren't questioning AI outputs anymore, or after observing expertise degradation in teams using automation. Do NOT use for low-stakes decisions where acceptance is fine, or when human expertise is already gone (you can't rebuild judgment instantly). Pairs with: trust-ladder (calibrated trust), agent-risk (the override assumption), ai-prd (named owners), eval-framework (the quality tests can't reach).
+  Decide, on purpose, where human judgment sits inside an AI system — because if you don't,
+  adoption decides for you and the default removes the human. Two cases. ATROPHY: leaning on AI
+  silently fades expert judgment over 6–18 months and stops an organization making new experts;
+  design deliberate friction (rotation, calibration, state-first override, repair, reasoning
+  capture) to keep humans sharp. COMPLEMENTARITY: in regulated, catastrophic-cost work (surgery,
+  aviation, lending) the human stays permanently because human and AI together are more precise
+  and more certain than either alone; design the labor split so each brings its best, the tail
+  not the average setting the floor. Use when deploying high-stakes AI, users stop questioning AI
+  outputs, designing human-in-the-loop for regulated work, or rolling AI into a team of experts.
+  Do NOT use for low-stakes work where full automation is intended.
+  Pairs with: determinism-compass, autonomy-spectrum, trust-ladder, agent-risk, safety-by-design.
 imports: []
 ---
 
 # Judgment Guard
 
-## DEPTH DECISION
+**The objective:** decide, deliberately, which human judgment you keep inside an AI system, how you keep it sharp, and when you fuse human and machine into one permanent joint system — for the leader rolling AI into expert, high-stakes, or regulated work. It turns a decision that adoption otherwise makes for you, by default and always against the human, into one you make on purpose.
 
-**Go deep if:** Designing a high-stakes workflow, noticing skill erosion, or rolling out AI to a team with deep domain expertise. **Skim to questions if:** Quick audit of whether checkpoints exist. **Skip if:** Low-stakes decisions where acceptance is intentional and beneficial.
+## The one idea
+
+**AI doesn't just do the work. It changes what your people become — and if you don't decide the change, the default decides it, and the default removes the human.** There are two versions of this, and a serious system needs both.
+
+**The atrophy case.** Every expert got good the same way: by doing the task, clumsily at first, over and over, until the judgment moved into their hands and became instinct. AI removes exactly that step — it does the reps for them. The work still ships, better and faster by every number on your dashboard, so it *looks* like pure gain. Underneath, the thing that made the expert an expert goes quiet from disuse, and no alarm rings. You find out the day the AI is finally wrong about something that matters, and no one in the room can still tell. The shape worth memorizing: **the cost of AI is paid twice — once, small and visible, when you keep a human sharp on purpose; or later, large and hidden, when you didn't.**
+
+**The complementarity case.** Sometimes you keep the human not because they're fading, but because the human and the machine are each irreplaceable and *together* they are better than either could ever be alone. A surgical robot holds the instrument to a tenth of a millimeter with no tremor; the surgeon reads the bleed the scan never showed and owns the life on the table. Neither alone is tolerable. Together they operate more precisely *and* with more conviction — the surgeon acts decisively *because* the system confirms, and the system is safe *because* the surgeon governs it. Here the human is permanent **by design**, and where a wrong answer is catastrophic and irreversible, no amount of AI maturity changes that.
+
+Same skill, one question underneath both: **which judgment stays human, and how do you engineer that on purpose** — before adoption answers it for you.
+
+## How to use this skill — three questions
+
+1. **Which judgment must stay human?** The stakes and the reversibility of a wrong call decide this. Everything downstream depends on it.
+2. **How do you keep that judgment from fading?** → **Case 1 (Atrophy)** below: the five ways it drains, and the checkpoints that stop each.
+3. **When must the human and AI be fused as one permanent system?** → **Case 2 (Complementarity)** below: the design for high-stakes, regulated work where the combination beats either alone.
+
+Most systems live mostly in one case. Read the diagnosis to find yours; read the design to build it.
 
 ## KEY TERMS (plain language)
 
 - **Judgment atrophy** — the slow, silent loss of a person's ability to make a call on their own as they lean on AI.
-- **The fast clock vs. the slow clock** — one person or role losing their edge (fast, 6–18 months) versus the whole organization ceasing to produce experts at all (slow, years).
-- **Skill-keeping budget** — deliberately keeping people in some learning-by-doing loops even when automating would be cheaper, booked as an investment in future capability rather than waste.
-- **The 3M conditions (Mindset / Meaning / Mechanisms)** — the three things that keep a person *choosing* to own an AI's output: believing they matter to it, having a reason worth the effort, and being judged on catching errors.
-- **The 4 checkpoints** — rotation, calibration, override, and reasoning documentation; the deliberate friction that keeps a human sharp.
-- **Controlled trial (RCT)** — an experiment with a comparison group, so a measured difference can be trusted as caused, not coincidental.
-- **The third clock (relay clock)** — quality decaying as work passes through several people or AI steps in a row, each trusting the last one's output; distinct from the fast and slow clocks.
-- **Motivated non-inquiry** — choosing not to look at the AI's reasoning because looking might cost you (money or exposure); distinct from passively offloading the check.
-- **Provenance of record** — a tag marking the original human-verified source, so a later reader can return to the truth instead of a summary of a summary.
+- **The cost paid twice** — you either pay a small, visible cost to keep a human sharp, or a large, hidden cost later when their judgment has quietly gone.
+- **The three clocks** — judgment fades inside one *person* (fast, 6–18 months), inside one *organization* that stops making experts (slow, years), or *down a chain* of AI handoffs where each step trusts the last (sideways).
+- **Skill-keeping budget** — deliberately keeping people in some learning-by-doing loops even when automating is cheaper, booked as an investment in future capability, not waste.
+- **Offloading vs. chosen blindness** — catching fewer errors because a colleague-like AI made you feel less responsible (offloading), versus knowing it's your call and choosing not to look at the AI's reasoning because looking would cost you (chosen blindness).
+- **The three-question diff** — after stating your own view, compare it to the AI's along three questions: what did it add, what did it get wrong, and what *looks right but isn't* (the costliest error — plausible, well-structured, wrong in a way only domain knowledge catches).
+- **Complementarity** — a joint human-AI system deliberately designed so each does what it is irreducibly best at, and the combination beats either alone.
+- **Tail risk** — the rare, worst-case outcome; in catastrophic-cost domains it sets the design, not the average performance.
+- **Convergence / divergence** — two independent judgments agreeing (the source of the joint system's extra conviction) versus disagreeing (the signal to stop and resolve, never average).
+- **Evidence tiers used below** — ✅ audited/peer-reviewed · ◆ company- or study-disclosed · ⚠ reported or practitioner estimate. Numbers marked *illustrative* are teaching devices, not measured facts.
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: What expertise is at risk? What's the cost of that expertise degrading? How will users know they're losing judgment?
-2. Route depth: Are you building a new system (Comprehensive) or auditing an existing one (Executive Summary)?
-3. Identify output format: Word Document, Presentation, or Both?
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum, answer: What expertise is at risk, and what does a wrong call cost — reversibly or not? How will anyone *know* judgment is fading? Then route depth (building a new system vs. auditing one) and output format (Document, Presentation, or Both).
 
-Then proceed with the skill-specific analysis below.
+---
 
-## DELIVERABLE FORMAT
+## CASE 1 — ATROPHY: when leaning on AI quietly fades the human
 
-Before starting, ask for format: Word Document, Presentation, or Both.
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
+### The trap
 
-## THE TRAP
+You will celebrate adoption. The bias is the **success illusion**: automation metrics feel like proof ("90% of tickets auto-routed!") while the real cost is invisible. Expertise doesn't erode visibly — it erodes in six-month increments, and the timeline is predictable:
 
-You will celebrate adoption. The bias is **sunk cost + success illusion** — teams feel good about automation metrics ("90% of tickets routed by AI!") while missing the invisible cost. Expertise doesn't atrophy visibly. It erodes in 6-month increments. By the time you notice, the expert radiologist can't read an X-ray without the AI's assistance. The veteran underwriter has forgotten how to spot fraud patterns. The customer success manager doesn't trust their own judgment anymore.
+- **Month 0–3 — Adoption.** People use the AI, catch its misses, learn the edge cases.
+- **Month 4–6 — Complacency.** "The AI usually works." Exceptions start sliding through.
+- **Month 7–12 — Delegation.** People manage exceptions instead of judging; "the AI said so" becomes authority.
+- **Month 13–18 — Dependency.** They can't make the call without it. The expert is now a manager of exceptions, not a practitioner.
 
-The trap is most seductive because:
-- Adoption metrics feel like success (they're not)
-- The atrophy is silent (no alarm bells)
-- Restoring judgment takes 2-3x longer than it took to lose it
-- It feels like a technology problem (blame the AI) when it's a design problem (you didn't build checkpoints)
+**Why it's so seductive, and why it's expensive:** adoption looks like success, the atrophy is silent, and restoring judgment costs two to three times what it took to lose — if the expert hasn't already left, feeling their expertise was devalued. It *feels* like a technology problem (blame the AI) when it's a design problem (you built no checkpoints).
 
-Here's the mechanism: Humans are adaptive. When a tool is 90% accurate, people stop paying attention to the 10% of cases where it fails. Their mind stops working through the problem. At month 6, they don't notice they've stopped thinking. At month 12, the AI breaks and they can't work without it. At month 18, they can't restore judgment because the neural pathways have atrophied — they've forgotten the heuristics, the edge cases, the intuitions.
+### The five drains (diagnosis)
 
-The timeline is predictable:
-- **Month 0-3:** Adoption. People use the AI, catch the 10% of failures, learn edge cases
-- **Month 4-6:** Complacency. People stop catching failures. "The AI usually works." Exceptions start sliding through
-- **Month 7-12:** Delegation. People are managing exceptions, not judging whether the AI is right. "The AI said so" becomes authority
-- **Month 13-18:** Dependency. People can't make the judgment without the AI. The expert is now a manager of exceptions, not a practitioner
+Judgment doesn't drain one way. Look for each — they run on different clocks and need different fixes.
 
-### The Cost
+**1. The fast clock — one person dulls (6–18 months).** The timeline above. A tool that's 90% accurate teaches people to stop attending to the 10% where it fails; the mind stops working the problem, and the heuristics fade.
 
-If this expertise matters (medical diagnosis, underwriting, hiring decisions), re-building judgment after 18 months of atrophy requires:
-- Expensive retraining (3-6 months)
-- Supervised practice (another 3 months)
-- Confidence restoration (another 3 months)
-- Total: 9-15 months to get back to pre-AI capability
+**2. The slow clock — the organization stops making experts (years).** Junior staff never build judgment because the AI does the work they'd have learned from; senior expertise fades from disuse. Worse than the per-person version because it's invisible until the day you need an expert and discover you stopped making them three years ago. **Why it happens:** an economics trap — AI cheapens the part of a job you can *measure* and raises the value of the part you can't, so a firm sheds the unmeasurable half without noticing, booking two liabilities as savings: **capability debt** (cut the seniors who trained juniors) and **judgment debt** (the experts you kept only *review*, so their calibration decays). Software is worse than the classic radiologist case: a coding error "looks fine at launch and only surfaces when the system is modified, scaled, or secured" — long after the author has left. **The one control that slows both:** a named senior stakes their name on each AI-generated production release *with a junior working under them* — one act that fixes accountability AND is the apprenticeship that keeps the pipeline alive. **When this is wrong:** where the expertise is genuinely being retired, book the loss and move on.
+*(Sources: MIT Sloan Management Review, Renieris et al., 12 May 2026 — 84% panel poll ◆, opinion not population survey. HBR, Liu & Kovács, "Big Tech's Looming Capability Crisis," 2 Jun 2026. Radiologist pay ~$570k/2025 ◆; Meta ~8,000 cut redirected to AI ⚠.)*
 
-And that's if the person hasn't left (many do, when they feel their expertise was devalued).
+**3. The relay clock — quality decays down a chain of handoffs (sideways).** The moment one person stops checking ("the next step is AI anyway"), the next rationally does the same, and fidelity to the original truth drops link by link (Holweg & Davenport call it *knowledge decay*). A hiring pipeline where AI writes the JD, AI screens CVs against it, AI runs the interview against that — four checks meant to catch errors instead multiply their misses. **The check:** map a real cross-team process and count AI-mediated handoffs; three or more in a row with no human check on the *original* source is a decay risk. **The fix:** you can't police AI use (people hide it) — instead tag the earliest ground-truth artifact (the real transcript, the source doc) as the **provenance of record**, and require every downstream summary to point back to it, so a reader can always return to the truth instead of a summary of a summary. **When this is wrong:** a chain that each time *re-anchors* to the same source (a well-built retrieval pipeline) holds fidelity nearly flat — count re-anchored passes as low-risk.
+*(Source: HBR, Holweg & Davenport, "Don't Let AI Slop Muck Up Your Company's Processes," 16 Jun 2026. Deloitte Australia's ~AUD 440,000 report with ~20 fabricated references ◆. No measured decay rate given — treat as a mechanism to watch, not a constant.)*
 
-## THE SECOND CLOCK — WHEN THE ORGANIZATION STOPS MAKING EXPERTS
+**4. Offloading ownership — the AI feels like a colleague, so the human feels off the hook.** Owning an outcome was never something you could hand off; it's a choice a person makes each day, and an AI in the chair quietly removes the three conditions under which they'd choose it. Protect all three: **Mindset** ("I matter to this outcome" — naming the AI "Kevin" destroys it; *break signal:* the owner calls themselves a rubber stamp), **Meaning** (a reason worth the effort of checking; *break signal:* no one can say why careful review matters), **Mechanisms** (reviews reward *catching the AI's mistakes*, not just shipping fast; *break signal:* your routines reward speed of shipping). **Why it matters:** a controlled trial (BCG, 1,261 people) found treating the AI as an employee dropped personal accountability ~9 points and led reviewers to catch ~18% fewer errors (⚠/◆) — a disclaimer won't fix a direct hit on whether a human still *chooses* to own the result. **When this is wrong:** where full hand-off is intended and human ownership isn't the goal, skip it.
+*(Source: HBR, Okposo, "Accountability Must Be Chosen, Not Mandated," 29 Apr 2026, corroborated by the same BCG trial.)*
 
-Everything above is the **fast clock**: one person or one role losing their edge over 6–18 months. There is a second, slower clock the checkpoints below don't catch.
+**5. Chosen blindness — people know it's their call and still choose not to look.** Different from offloading, and pointing the opposite way: here the reasoning is exactly where the risk to *them* lives. In a study of 2,512 people making real $10,000 loan decisions, 80% wanted the AI's score but only ~46% viewed the reasoning behind it; tying pay to the outcome made them ~20% more likely to skip it, and warning them the explanation might reveal bias pushed avoidance up 10+ points. The tell that it's avoidance, not fatigue: skipping is *strongest* exactly where the person is most accountable and most exposed. **The fix is different** — you can't reassign ownership (they already own it); you remove the payoff to not-knowing by making the "why" a *mandatory, logged* review before the decision finalizes. "Explanation available" is not evidence anyone looked — log whether it was *opened*. And a sharp warning: a bias-disclosure prompt can *backfire*, triggering avoidance of the very information it meant to surface — pair any bias warning with mandatory engagement. **When this is wrong:** in low-stakes, low-exposure contexts the cost that drives avoidance isn't present — don't force review where looking costs the viewer nothing.
+*(Source: HBR, Chan / Rand, "Employees Aren't Questioning AI Advice Enough," 24 Jun 2026 — ◆ single study, n=2,512, pre-replication. Regulatory stakes ✅ CFPB circular 2023-03, GDPR / EU AI Act. Note: viewing the explanation raised overrides of both *right and wrong* AI calls, not only wrong ones.)*
 
-**Clock two — the organization stops producing experts at all.** Junior staff never build their own judgment, because the AI does the work they would have learned from; senior expertise fades from disuse. This is worse than the per-person version because it's invisible until the day you need an expert and discover you stopped making them three years ago. The 4 checkpoints keep *this* reviewer sharp; they do nothing for the *pipeline* that produces the next one.
+### The five checkpoints (treatment)
 
-**The design rule — the skill-keeping budget.** On purpose, keep humans in selected skill-*building* loops even when automating would be cheaper, and record the efficiency you gave up as an investment in future capability, not waste. Name which loops (which tasks build the judgment you'll need to govern this system in three years), and write down the cost you're choosing to carry.
+Deliberate friction — not "slow the AI down," but "keep the human sharp." Choose what the stakes justify; two or three, enforced, beat five that aren't.
 
-**Why it matters:** as the technology gets more capable, the need for human expertise goes *up*, not down — someone still has to be able to ask whether the system is reliable, lawful, and right for the situation, and if you skip this you're left with a machine that can't be held responsible. **When this is wrong:** where the expertise is genuinely being retired (a new process has replaced it), you don't need to keep making those experts — book the loss and move on.
-*(Source: "Beyond Verification: What Responsible AI Really Demands of Human Experts," Renieris, Kiron, Mills & Kleppe, MIT Sloan Management Review, 12 May 2026 — panel poll, 84% ◆, in-panel opinion, not a population survey.)*
+**1. Rotation — keep two decision pathways alive.** No one uses the same AI tool for more than ~80% of their decisions for more than four weeks straight. A radiologist reads some scans unassisted, some with AI, some as peer reviewer of the AI's reads; rotate every four weeks (not daily — that's chaos). *Red flag:* "we can't rotate, they're too busy" — the AI has reached 100% dependency; fix that first.
 
-### Why the clocks run at all — the engine, and the one control that slows both
+**2. Calibration — measure the human against ground truth.** Monthly, give the team 10–20 cases where you already know the answer. Human judges blind (no AI answer first, to avoid anchoring), AI judges, reality shows who was right. *Red flag:* after six months, human accuracy is flat while AI accuracy improves — that gap is erosion.
 
-The reason expertise drains isn't laziness — it's an economics trap. AI cheapens the part of a job you can *measure* (code shipped, scans read) and by doing so raises the value of the part you *can't* (was it the right call, and who answers for it). A firm watching the metric sheds the unmeasurable half without noticing — booking two hidden liabilities as savings: **capability debt** (you cut the seniors who trained juniors, so the next experts never form — the slow clock as a balance-sheet item) and **judgment debt** (the experts you kept only *review*, so their calibration decays — the fast clock as a balance-sheet item). Software is worse than the classic case: a radiologist's error harms a named patient fast, but a coding error "looks fine at launch and only surfaces when the system is modified, integrated, secured, or scaled" — after the author has left — so the 6–18-month timeline above is the *optimistic* case.
+**3. Override — and its sharpest form, state your call first.** The strongest version of a human review is not "approve unless something looks off"; it is **state your own view before you see the AI's**, so there is something real to compare against. Gate the AI's output behind a required, timestamped "here's what I think and why" field — a stated position, not a click-through (a click without a prior stance is exactly the theater that mandatory review decays into, and it defeats chosen blindness by removing the ability to stay uncommitted). Then run the **three-question diff**: what did the AI add that you missed, what did it get wrong, and — the costliest — **what looks right but isn't**? Rank that third question highest: plausible, well-structured output resting on a wrong assumption is the error only domain judgment catches. *Red flag:* override rate under ~1% — either the AI is perfect (unlikely) or no one is engaging.
+*(State-first + the three-question diff and "looks right but isn't" as top severity: HBR, Duncan & Anderson, "Help Employees Get Better, Not Just Faster, with AI," 15 Jun 2026 — conceptual, built on the Dreyfus and Polanyi tradition; the "jagged frontier" calibration idea is ✅ Dell'Acqua/Mollick et al., HBS 24-013. The article's own 90%/10% and two-weeks-to-an-hour figures are ⚠ illustrative.)*
 
-**The paired control that slows both clocks:** a named senior stakes their name on each AI-generated production release *with a junior working under them* — one act that fixes accountability AND is the apprenticeship that keeps the pipeline alive. So the skill-keeping budget should default to senior+junior pairing on releases, not just rotating the lone reviewer. **Why "just educate the leader" won't fix the slow clock:** a trained expert can be *poached*, so training is a gift to a competitor — capability debt is a coordination failure, not ignorance. The fix changes the payoff: make repeated AI-related failures trigger heavier review and named sign-off, so negligence gets expensive enough that keeping humans is the cheap choice.
-*(Source: "Big Tech's Looming Capability Crisis," Liu & Kovács, HBR, 2 Jun 2026. Complementarity per Agrawal, Gans & Goldfarb, *Prediction Machines*. Radiologist pay ~$570k/2025 ◆; Meta ~8,000 cut redirected to AI ⚠.)*
+**4. Repair after a miss — before you re-engineer the process.** When an AI-assisted call goes wrong, the reflex is to fix the process. Do the *social* repair first, or the fix lands structurally sound and socially inert. Run an explicit reconciliation — both parties state what they could have done differently — opened with normalization ("there can be multiple good decisions; a call can be reasonable and still be beaten by how events unfold") so it doesn't collapse into blame. *Then* ask the process question — "*why* did this happen," not "what happened" — and change the system so the failure can't recur. This protects the Mindset condition above: skip it, and the person you most need to keep owning the outcome quietly stops. **When this is wrong:** where psychological safety is genuinely absent, the "what could I have done differently" confession can be weaponized — fix the safety first, or the repair backfires.
+*(Source: HBR, McCall, Wolfberg, Bilsborough, Pruna, "How Elite Sports Coaches Make High-Pressure Decisions," Jul–Aug 2026 — ⚠ anecdote-tier, 11 coaches, no numbers; cite the mechanic, not the quotes.)*
 
-## THE THIRD CLOCK — WHEN QUALITY DECAYS DOWN A CHAIN OF HANDOFFS
+**5. Reasoning documentation — capture the why, not just the decision.** "I decided [X] because [signals]; I ignored [Y] because [reason]; I'd change my mind if [condition]." Make capture automatic (a prompt after the decision, not extra work). Review monthly for patterns; quarterly, look for reasoning that has *disappeared* ("six months ago people flagged X; nobody mentions it now"). *Red flag:* reasoning drops in complexity over time — "AI seems good" — that's the signal, in the person's own words.
 
-The two clocks above track judgment fading *inside* one person (fast, 6–18 months) or *inside* one organization (slow, years). There is a third, and it runs sideways: quality decaying as a piece of work passes through several people — or several AI steps — in a row, where each actor trusts the last one's output and no one sees the whole chain.
+---
 
-The mechanism is a chain reaction. The moment one person stops checking the AI's output — reasoning "the next step is AI anyway, so why bother" — the next person rationally does the same, and fidelity to the original truth drops link by link (Holweg and Davenport call the accumulated result *knowledge decay*). Worked example: a hiring pipeline where AI writes the job description, AI screens CVs against it, AI runs the interview against that, and the candidate's AI answers the AI interviewer — four checks meant to catch errors instead multiply their misses (the same shape as an agent chain, 90% reliable × 10 steps ≈ 35% end-to-end), except what compounds is not "did the step succeed" but "does the content still mean what it originally meant."
+## CASE 2 — COMPLEMENTARITY: when the human stays because human + AI together beat either alone
 
-**The check you can run:** map a real cross-team process end to end and count the AI-mediated handoffs. Three or more in a row with no human checkpoint on the *original* source between them is a knowledge-decay risk — flag it. The fix isn't to police AI use (you can't — most workers hide it). It's to tag the earliest ground-truth artifact (the real customer transcript, the real eval trace, the source document) as the *provenance of record*, and require every downstream AI-generated summary to carry a pointer back to it, so a later reader can always return to the truth instead of a summary of a summary.
+Case 1 keeps a human sharp against a fading default. Case 2 is the opposite starting point: in a regulated or catastrophic-cost domain, the human is *permanent by design*, and the goal is to fuse human and AI so the combination is more precise **and** more certain than either alone. The neurosurgeon-plus-robot is the clean picture — the robot's tremor-free precision, the surgeon's judgment on the bleed the scan never showed, and an outcome someone is accountable for. Here is how to design it.
 
-**Why it matters:** checking is a cost each person pays and a benefit the *whole chain* receives — individually rational choices produce a collectively bad outcome, so quality erodes even though no one is dishonest. Naming a single owner of the ground-truth artifact restores one person's stake in the whole chain's fidelity, which is the only thing that stops the link-by-link drop. **When this is wrong:** a chain of many AI passes that each *re-anchor* to the same source document (a well-built retrieval pipeline) holds fidelity nearly flat — count re-anchored passes as low-risk, not as handoffs; and where content is low-stakes (an internal brainstorm), decay doesn't matter. The article states the decay as an architectural inevitability but cites no measured rate — treat it as a mechanism to watch for, not a constant.
-*(Source: "Don't Let AI Slop Muck Up Your Company's Processes," Holweg & Davenport, HBR, 16 Jun 2026. Load-bearing incident: Deloitte Australia's ~AUD 440,000 government report with ~20 fabricated references, ◆.)*
+### The Complementarity Design — four moves
 
-## OWNERSHIP IS A CHOICE — THE CONDITIONS TO PROTECT
+**1. Split by irreducible strength.** List the task's sub-decisions and give each to whoever cannot lose it. *AI:* precision, consistency, recall across millions of cases, no fatigue. *Human:* the novel situation, the context no data held, the call someone must answer for. Give the robot the tremor-free motion; give the surgeon the bleed and the accountability. **Why:** a joint system is only as strong as the fit between the split and each party's true edge — mismatch the split and you get the weaknesses of both.
 
-The 4 checkpoints below keep human *judgment* sharp. This module keeps human *ownership* alive — a different failure. Owning an outcome was never something you could hand off; it's a choice a person makes each day. So an AI in the chair doesn't take on ownership — it quietly removes the three conditions under which a human would have chosen it. Protect all three:
+**2. Set the floor by the tail, not the average.** Where the 0.1% is a dead patient or an unlawful denial, "the AI is more accurate on average" is the *wrong number* — you design for the worst plausible case. **This is precisely why mature AI does not remove the human here:** the tail, not the mean, sets the design, and the human is the tail's last defense. **When this is wrong:** where errors are cheap and reversible, designing for the tail is over-engineering — that's a Case 1 or a full-automation problem, not this one.
 
-- **Mindset** — the owner has to believe "I matter to this outcome." Treating the AI as a colleague (naming it "Kevin," "ALEX-3") destroys this by making the human feel unnecessary. *Break signal:* the owner calls themselves a rubber stamp.
-- **Meaning** — the owner needs a reason worth the effort of checking the AI's work. *Break signal:* nobody can say why carefully reviewing the AI matters.
-- **Mechanisms** — reviews and recognition must reward *catching the AI's mistakes*, not just shipping its output fast. *Break signal:* your routines reward speed of shipping AI output, not quality of oversight.
+**3. Make convergence your conviction, divergence a full stop.** Two independent judgments agreeing is *why* the joint call carries more conviction than either alone — the surgeon acts more decisively because the system confirms. When they disagree, that is the alarm: stop and resolve it, **never average it**. **Why:** averaging two judgments that disagree hides the very signal the joint system exists to surface, and manufactures false confidence in the middle.
 
-**Why it matters:** a controlled trial (BCG, 1,261 people) found that treating the AI as an employee dropped personal accountability by about 9 percentage points and led reviewers to catch about 18% fewer errors (⚠/◆). A disclaimer won't fix that — it's a direct hit on whether a human still *chooses* to own the result, so you have to build the three conditions on purpose, the way you'd provision computing power. **When this is wrong:** where full hand-off is intended and human ownership isn't the goal, skip this — the conditions matter only when you're relying on a human to own the output.
-*(Source: "Accountability Must Be Chosen, Not Mandated," Okposo, HBR, 29 Apr 2026. The naming effect is corroborated by the same BCG trial cited above.)*
+**4. Keep the human's hands on the hard part, not just their eyes on the screen.** This is where the two cases fuse: a permanent human who only *watches* still atrophies (Case 1), so assign them the sub-decision that keeps their judgment live — not the rubber-stamp seat. The atrophy checkpoints *serve* the complementarity design; a fused human must also be a sharp one. **Why:** oversight-by-watching decays into rubber-stamping within months; oversight-by-doing-the-hard-part stays calibrated.
 
-## MOTIVATED NON-INQUIRY — WHEN PEOPLE CHOOSE NOT TO LOOK
+**The regulated-domain rule, stated plainly:** where a wrong answer is catastrophic *and* irreversible *and* someone must be legally accountable, keep the human in the loop regardless of AI maturity — and still keep them few and elite, because scarcity is not the enemy here; a dull majority is. Complementarity is not a compromise between human and machine. It is a multiplier — done right, the pair is safer *and* more decisive than the sum.
 
-The Ownership module above covers *offloading*: people catch fewer errors because a colleague-like framing makes them feel less responsible (the BCG "employee"-naming effect, ~18% fewer errors). This is a different failure, and it points the opposite way. Here people *know* it's their call and still choose not to see the AI's reasoning — because the reasoning is where the risk to *them* lives.
+---
 
-The evidence: in a controlled study of 2,512 participants acting as loan officers on real $10,000 decisions, 80% wanted the AI's risk score but only ~46% chose to view the reasoning behind it. Two things made people look *less*: tying their pay to the outcome made them ~20% more likely to skip the explanation, and warning them the explanation might reveal race or gender bias pushed avoidance up 10+ points. The tell that this is avoidance, not offloading: the skipping is *strongest* exactly where the person is most accountable (bonus on the line) and most exposed (bias warning present) — the opposite of what fatigue or diffused responsibility would predict.
+## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-**The fix is different from offloading's fix.** Offloading is repaired by reassigning ownership and rewarding error-catching (the 3M module above). Avoidance is not — the person already knows it's their job; they're choosing blindness because not-knowing pays. The only fix is to remove the payoff to not-knowing: make the "why" a *mandatory, logged review step* before the decision can be finalized, not an optional link. A dashboard that shows "explanation available" is not evidence anyone looked — log whether it was actually *opened*. And a sharp warning: a bias-disclosure prompt ("this explanation may reveal bias") can *backfire* — in the study it triggered avoidance of the very information it was meant to surface; pair any bias warning with mandatory engagement.
+One skill can't design a whole human-AI system. Judgment-guard owns the *human-judgment seat* — which judgment stays human, how to keep it sharp (Case 1), and how to fuse it with the machine when the stakes demand both (Case 2). It hands the rest of the joint-system design to:
 
-**Why it matters:** transparency features (explain buttons, audit trails) are not a judgment-erosion fix on their own — they can be quietly unused by the exact people whose incentives most need them used. So "we shipped an explain button" is not a control; "was it opened, by whom, on which decisions" is the thing to measure. **When this is wrong:** in low-stakes, low-bias-risk contexts (an internal dashboard where no one's pay or exposure is at stake) the cost that drives avoidance isn't present — don't force review where looking costs the viewer nothing; and forcing review everywhere raises overrides across the board — in the study, viewing the explanation made people ~6 points more likely to override the AI, which is the goal where the AI is wrong and a cost where it's right — so reserve the forcing function for decisions with real bias or compliance exposure.
-*(Source: "Employees Aren't Questioning AI Advice Enough," Chan / Rand, HBR, 24 Jun 2026 — ◆ single study, n=2,512, pre-replication. Regulatory stakes ✅ CFPB circular 2023-03, GDPR / EU AI Act.)*
+- **`rtp-determinism-compass`** — which parts must be rule-bound and reproducible vs. which can tolerate the model's variance. (Decide this *before* you split the labor in Case 2.)
+- **`rtp-autonomy-spectrum`** — who holds the decision at each step. (In Case 2 the human keeps the final call by design; this skill sets where on the spectrum you sit.)
+- **`rtp-trust-ladder`** — how far to trust the AI's half, calibrated, and how trust is repaired after a miss. (The calibrated mirror of checkpoint 4.)
+- **`rtp-agent-risk`** — proportionality and the kill-switch when the cost of a wrong call is catastrophic. (Case 2's tail is agent-risk's home ground.)
+- **`rtp-safety-by-design`** — encode the constraints into the system so the joint pair can't be driven outside them.
 
-## THE 4 CHECKPOINTS
-
-To prevent judgment atrophy, design deliberate friction. These aren't "slow down the AI" — they're "keep the human sharp."
-
-### Checkpoint 1: ROTATION
-
-**The principle:** No one should use the same AI tool for more than 80% of their decisions for more than 4 weeks straight.
-
-**How it works:** Rotate specialists in and out of AI-augmented tasks. A radiologist reads 30% of scans unassisted, 30% with AI assistance, 40% as a peer reviewer of the AI's previous reads. Every 4 weeks, rotate the roles.
-
-**Why it works:** Rotation maintains two decision pathways. The human mind stays engaged in the unassisted work. The peer review catches when the AI is drifting.
-
-**Implementation:**
-- Map the decision tasks (this AI handles 70% of triage, human handles 30%)
-- Rotate every 4 weeks (not every day — rotating too fast creates chaos and people resent it)
-- Make sure each person has at least 20% of their time in "unassisted" work
-- Track accuracy of rotated personnel: if someone falls behind during their "human only" month, that's a signal judgment has eroded
-
-**Red flag:** "We can't rotate. Someone is too busy." This means the AI has reached 100% adoption and created permanent dependency. Fix this first.
-
-### Checkpoint 2: CALIBRATION EXERCISES
-
-**The principle:** Regularly assess whether the human's judgment matches the AI's and reality. If they diverge, there's atrophy.
-
-**How it works:** Monthly or quarterly, give the team 10-20 test cases where you already know the ground truth. Human makes a judgment. AI makes a judgment. Reality shows which was right. Compare.
-
-**Why it works:** Calibration exercises are the canary in the coal mine. If the human's accuracy is dropping while the AI's stays stable, expertise is atrophying.
-
-**Implementation:**
-- Create a test set of 20 cases covering easy, medium, hard, and edge cases
-- Ground truth is determined in advance (by an independent expert, or historical outcome data)
-- Humans judge blind (don't see AI's answer first, to avoid anchoring)
-- AI judges
-- Compare both to ground truth
-- Monthly review: track each person's calibration score
-
-**Scoring example (medical context):**
-- "The human said yes, AI said no, ground truth is yes" → human +1, AI +1, both right
-- "The human said yes, AI said yes, ground truth is no" → human 0, AI 0, both wrong
-- "The human said yes, AI said no, ground truth is no" → human 0, AI +1, AI right, human wrong (signal: atrophy)
-
-**Red flag:** After 6 months, human accuracy is flat while AI accuracy is improving. That's judgment erosion.
-
-### Checkpoint 3: OVERRIDE REQUIREMENTS
-
-**The principle:** Some decisions must require human override/reasoning, not just human review.
-
-Difference:
-- **Review:** "The AI decided yes, I will review it for 10 seconds and click approve unless I spot an obvious error"
-- **Override:** "The AI decided yes, I need to state my reasoning for whether I agree, and those two reasonings are logged and compared"
-
-**How it works:** For high-stakes decisions, require the human to either:
-1. State their own judgment independently (then compare to AI)
-2. Explicitly reason about why they're overriding the AI
-3. Flag cases where they disagree with the AI so the model can be audited
-
-**Why it works:** Override requirements force active engagement. You can't rubber-stamp if you have to explain why.
-
-**Implementation:**
-- Identify decisions where a human override is possible (not all decisions are — some are too fast)
-- Create a decision tree: if human disagrees with AI, document the reasoning
-- Make override reasons searchable and analyzable (quarterly: "what override patterns are we seeing?")
-- If an override gets overridden later (human was wrong, AI was right), log it and review with the human
-
-**Red flag:** Override rate is <1%. Either the AI is perfect (unlikely) or humans aren't engaging. If someone has been working with the AI for 6 months and has never overridden it, check their judgment.
-
-### Checkpoint 4: REASONING DOCUMENTATION
-
-**The principle:** Capture the human's reasoning, not just the decision.
-
-**How it works:** When a human makes a judgment, capture why. What signals did they use? What edge cases did they consider? What would they need to see to change their mind?
-
-**Why it works:** Documentation codifies tacit knowledge before it atrophies. When you reread your reasoning from 12 months ago, you can spot where your thinking has shifted (usually toward AI-dependency).
-
-**Implementation:**
-- Create a simple template for reasoning capture: "I decided [yes/no] because [signal 1], [signal 2], and [signal 3]. I ignored [signal 4] because [reasoning]. I would change my mind if [condition]."
-- Make this capture automatic (prompt after decision, not extra work)
-- Monthly review: aggregate reasoning to find patterns
-- Quarterly: find reasoning that's disappeared (e.g., "6 months ago, humans were flagging [X] as a concern, but nobody mentions it now")
-
-**Red flag:** Reasoning documentation drops in complexity over time. At month 0, reasoning is detailed. At month 12, reasoning becomes "AI seems good" or "I agree with the AI." That's the signal judgment is eroding.
+Run judgment-guard to decide the human's seat; run these to build the chair around it.
 
 ## REALITY CHECK
 
-- **Failure mode of this skill:** Designing checkpoints without enforcement. "We require override documentation" but nobody enforces it. Checkpoints only work if they're non-negotiable.
-- **Most expensive mistake:** Waiting 12 months to check. By then, judgment is hard to restore. Start monitoring at month 1.
-- **The social cost:** Some people will resent checkpoints ("I know my job, don't patronize me"). Frame as "we're protecting expertise" not "we're watching you."
-- **Cost of checkpoints:** ~10% of human time. This is cheap insurance against expertise erosion.
-- **When checkpoints backfire:** If the AI is genuinely better than the human (e.g., AI radiologist is more accurate than average radiologist), maintaining the human's independent judgment creates harm. In this case, the question is different: does the human need to be sharp, or do we need oversight? If oversight only, reduce judgment maintenance and build AI verification instead.
+- **The failure mode of this skill:** checkpoints without enforcement. "We require override documentation" that no one enforces is theater. Non-negotiable, or nothing.
+- **The most expensive mistake:** waiting 12 months to check. Start monitoring at month 1 — by month 12 the judgment is already hard to restore.
+- **The social cost:** some people resent checkpoints ("I know my job"). Frame as "we're protecting your expertise," not "we're watching you."
+- **The honest inversion:** if the AI is genuinely better than the human on the *average* case and the tail is cheap, maintaining independent human judgment can create harm — then you're building oversight, not restoring judgment (and you may be in Case 2's opposite: full automation with a human only on the tail).
 
 ## QUALITY GATE
 
-- [ ] The stakes of expertise loss are clear (what happens if this person can't judge anymore?)
-- [ ] Timeline of atrophy is mapped (6-18 months in this context)
-- [ ] All 4 checkpoints evaluated for relevance (rotation, calibration, override, documentation)
-- [ ] At least 2-3 checkpoints selected based on context
-- [ ] Implementation plan includes: who runs the checkpoint, how often, success metric
-- [ ] Monitoring plan specified: how will you know if judgment is eroding anyway?
+- [ ] Which judgment must stay human is decided, and *why* (stakes × reversibility), before anything else
+- [ ] The case is named: atrophy (Case 1), complementarity (Case 2), or a mix — and the design matches
+- [ ] Case 1: the specific drain(s) identified among the five, and checkpoints chosen to match (not a generic "add friction")
+- [ ] Case 1: at least the state-first override (checkpoint 3) and the repair-after-a-miss step (checkpoint 4) are present for high-stakes work
+- [ ] Case 2: the labor split is by irreducible strength, the floor is set by the tail, and divergence triggers a stop
+- [ ] Every checkpoint has an owner, a cadence, and a red-flag threshold; enforcement is named
+- [ ] Hand-offs to the companion skills (determinism-compass, autonomy-spectrum, trust-ladder, agent-risk, safety-by-design) are named where the design needs them
 
 ## DIAGNOSTIC QUESTIONS
 
-1. **When was the last time someone on the team overrode the AI's recommendation? If you can't remember, you have a problem.**
-   - If answer is "never" or ">6 months ago", judgment is probably eroding
-   - If answer is "this week", humans are still engaged
-   - Spectrum anchor: "Can't remember" → "Multiple times per week"
-
-2. **If we removed the AI tomorrow, could this person do their job at 70% efficiency?**
-   - Red flag: "No, they'd be completely lost"
-   - Green flag: "They'd be slower, but they know the fundamentals"
-   - Spectrum anchor: "Fully dependent (0% without AI)" → "Slightly faster with AI (90% without it)"
-
-3. **What's the most recent edge case this person caught that the AI missed?**
-   - Red flag: "Um... I'm not sure" or "A few months ago"
-   - Green flag: "Last week, the AI recommended [X] but I knew [situation] makes that wrong"
-   - Spectrum anchor: "Can't think of one" → "Multiple per week"
-
-4. **Has this person's accuracy changed in the last 6 months, compared to the AI?**
-   - Red flag: "Human accuracy flat or declining while AI accuracy improves"
-   - Green flag: "Human and AI accuracy both stable (or human is improving from feedback)"
-   - Spectrum anchor: "Diverging" → "Aligned"
-
-5. **If a new version of the AI makes a different decision than the previous version, does this person notice?**
-   - Red flag: "They just follow whatever AI says"
-   - Green flag: "They'd catch that and ask why the change"
-   - Spectrum anchor: "No (rubber-stamping)" → "Yes (paying attention)"
+1. **When did someone last override the AI?** "Can't remember / >6 months" → eroding. "This week" → still engaged.
+2. **If the AI vanished tomorrow, could this person do the job at 70%?** "No, they'd be lost" is a red flag; "slower, but they know the fundamentals" is green.
+3. **What's the most recent edge case this person caught that the AI missed?** A blank stare is the signal.
+4. **Has their accuracy moved against the AI's over six months?** Diverging (human flat, AI rising) is erosion.
+5. **(Case 2)** When human and AI disagree, does the system *stop* — or does it quietly average them into a confident middle?
 
 ## OUTPUT FORMAT
 
-Structure your output around the 4 checkpoints:
-
 ```
-## Judgment Maintenance Plan: [Role/Decision Type]
+## Judgment Design: [Role / Decision Type]
 
-**Expertise at risk:** [What judgment is at risk of atrophying, why it matters, cost of loss]
+**Which judgment stays human, and why:** [the sub-decisions, tied to stakes × reversibility]
+**Case:** [Atrophy / Complementarity / mixed] — [one line on why]
 
-**Timeline of concern:** In this context, judgment erodes in [X-Y months] if unchecked.
+**Case 1 — if atrophy applies**
+- Drain(s) present: [which of the five]
+- Timeline of concern: [erodes in X–Y months here]
+- Checkpoints (owner · cadence · red flag):
+  1. Rotation — … 2. Calibration — … 3. State-first override — … 4. Repair-after-a-miss — … 5. Reasoning capture — …
 
-**Current state (diagnostic):**
-- When was the last override? [answer + assessment]
-- If AI was removed tomorrow, capability would be? [% + gap]
-- Edge cases caught recently? [examples or gap]
-- Human vs AI accuracy trend? [diverging/aligned/improving]
+**Case 2 — if complementarity applies**
+- Labor split (by irreducible strength): AI does […]; human does […]
+- Tail the design must survive: [worst plausible case]
+- Convergence/divergence rule: [what happens when they disagree]
+- Which sub-decision keeps the human's hands (not just eyes) in it: […]
 
-**Checkpoints to implement:**
+**Hand-offs to the stack:** [determinism-compass / autonomy-spectrum / trust-ladder / agent-risk / safety-by-design — where each is needed]
 
-1. **Rotation:** [Specific schedule — % time in each mode, rotation frequency]
-2. **Calibration:** [Frequency, test set size, scoring method, red flag thresholds]
-3. **Override:** [Decision types requiring override reasoning, template, logging mechanism]
-4. **Documentation:** [Reasoning capture format, review frequency, degradation signal]
-
-**Monitoring dashboard:**
-| Metric | Baseline | Green flag | Red flag | Frequency |
-|--------|----------|-----------|----------|-----------|
-| Override rate | [X%] | [>Y%] | [<Z%] | Weekly |
-| Calibration accuracy | [X%] | [stays stable] | [drops 5%+] | Monthly |
-| Reasoning complexity | [average words] | [stays stable] | [drops 30%+] | Monthly |
-| Time to decision (unassisted) | [X sec] | [stays stable] | [increases 50%+] | Quarterly |
-
-**Success metric:** At 12 months, human judgment on rotation/calibration tasks has not degraded. At 18 months, human could restore to 80% efficiency within 2 weeks of removing AI.
+**Monitoring:**
+| Metric | Baseline | Green | Red | Frequency |
+|---|---|---|---|---|
+| Override rate | | >Y% | <Z% | Weekly |
+| Calibration accuracy | | stable | drops 5%+ | Monthly |
+| Reasoning complexity | | stable | drops 30%+ | Monthly |
+| (Case 2) divergence-resolved rate | | 100% stopped | any averaged | Per incident |
 ```
 
 ## WHEN WRONG
 
-- Low-stakes, high-frequency decisions where efficiency is primary goal and judgment isn't critical
-- Organization has already accepted full delegation (e.g., purely automating routine work, not AI-assisting expertise)
-- The human's prior judgment is biased and the AI is genuinely better (in this case, you're building oversight, not restoring judgment)
-- Timeline is so compressed (6-week project) that judgment maintenance is premature
-- The human has explicitly opted in to delegation and understands the trade-off
+- Low-stakes, high-frequency decisions where efficiency is the goal and judgment isn't critical.
+- The organization has deliberately chosen full delegation and the human isn't meant to own the output.
+- The human's prior judgment is genuinely biased and the AI is better on a tail that's cheap — build oversight, not restored judgment.
+- The timeline is so short (a six-week project) that judgment maintenance is premature.
 
 ---
 
 ## TRADE-OFF LEDGER
 
-BY CHOOSING to design judgment maintenance:
-  We are betting on: that this expertise is valuable and irreplaceable
-  We are giving up: 10% of human time to checkpoints (rotation, calibration, override reasoning, documentation)
-  This is reversible within: Not really — if judgment erodes for 18 months, restoring it takes 9-15 months. This is a one-way door.
-
-THE HIDDEN TRADE-OFF:
-  Checkpoints slow down the AI. A human reviewing the AI's decision takes longer than just accepting it. You're choosing speed in absolute terms for speed in sustained capability — you want faster, better decisions over 24 months, not just this month.
-
-CONFIDENCE: High
-  What would change our mind: An organization where the expertise is no longer strategically important (e.g., a new process has replaced the old expertise) or where the AI has proven it's more accurate than humans and humans should trust it (in which case, you're building oversight differently)
-
----
+**By designing judgment on purpose, you bet** that this expertise is valuable and — in Case 2 — irreplaceable. **You give up** ~10% of human time to checkpoints, and in Case 2 you refuse the cheaper fully-automated path. **Reversible?** Barely: judgment lost over 18 months takes 9–15 to rebuild — a one-way door. **The hidden trade:** you're choosing sustained capability and decisive, accountable decisions over the next 24 months, not the fastest possible decision this month. **Confidence: High. What would change it:** the expertise is being retired (Case 1 moot), or the AI has proven itself on a tail that's cheap and reversible (build oversight differently).
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
-1. State the recommendation (which checkpoints to implement, in what order)
-2. Name the key trade-off (efficiency loss vs judgment maintenance)
-3. Acknowledge the biggest risk (organizational resistance, or checkpoint failure if not enforced)
-4. Define the next action (owner of monitoring, first checkpoint launch date)
+Follow the Conclusion Protocol (Universal Skill Protocol, Section 6): state the recommendation (which judgment stays human, which case, which checkpoints or which labor split), name the key trade-off (efficiency vs. sustained, accountable judgment), acknowledge the biggest risk (checkpoints unenforced, or a labor split that mismatches each party's real edge), and define the next action (owner of monitoring, first checkpoint or first convergence-review date).
 
 ---
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram should show the atrophy timeline (month 0-18), the 4 checkpoints positioned on that timeline, the baseline metrics and red flag thresholds, and an inset showing how monitored vs unmonitored judgment diverges over time. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After the primary output, invoke the **excalidraw-svg** skill for one visual: the atrophy timeline (month 0–18) with the five checkpoints placed on it, beside the Case 2 panel — the labor split (AI precision × human judgment), the tail-set floor, and the convergence-or-stop rule — so a viewer sees both halves of the one idea at a glance. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
