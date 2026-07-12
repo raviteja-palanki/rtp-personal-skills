@@ -1,207 +1,178 @@
 ---
 name: bias-spotter
-description: >
-  Identifies the cognitive bias making a potentially flawed AI product decision feel
-  right or inevitable. Use when evaluating any recommendation, reviewing PRDs, assessing
-  feature proposals, before major resource commits, or when a decision feels 'obvious',
-  'everyone knows this is right', or 'the competitor did it so we should too'. Triggers
-  on phrases like 'that's just common sense', 'obviously we need to', 'this is our only
-  option', or when urgency is being cited as justification. Also use after hearing from
-  a senior person or consultant to audit for authority bias. Do NOT use as a decision blocker
-  (biases are always present), use it to improve reasoning before deciding. Do NOT use
-  when the team is already paralyzed by analysis and needs to commit.
-  Pairs with: falsification (what evidence would prove this wrong), first-principles
-  (strip the framing before auditing it), trendslop-check (when the bias is baked into
-  AI-generated strategy itself).
+description: "Names the cognitive bias making a flawed AI product decision feel obvious or inevitable — before the money is committed. The feeling of 'obviously right' is data, not truth: it has a named mechanism, and you can't introspect it away (finding no bias is itself the warning). Audit the decision, not your sense of being rational. The same pull attacks three stages: what you BUILD, how you MEASURE, and what the model itself CARRIES. Name it, price the risk in, mitigate — never block. Use when reviewing a PRD or feature proposal, before a resource commit, when a decision feels 'obvious' / 'the competitor did it', or after a senior person weighs in (authority bias). Do NOT use to block a decision or when the team is paralyzed and needs to commit. Pairs with: falsification (what would prove this wrong), first-principles (strip the framing first), trendslop-check (bias baked into AI-generated strategy). Triggers: 'that's just common sense', 'obviously we need to', 'this is our only option'."
 imports: []
 ---
 
 # Bias Spotter
 
-**The objective:** name the cognitive bias that is making a flawed decision feel obvious, before the money is committed. Every expensive AI product mistake felt right at the time — that feeling has a mechanism, and the mechanism has a name. This skill finds the name, states the evidence, and forces one mitigation per bias. It never blocks a decision; it prices the risk into it.
+**The objective:** name the cognitive bias making a flawed AI product decision feel obvious — before the money is committed — for anyone reviewing a recommendation, a PRD, or a resource bet. It never blocks a decision; it prices the risk into it.
+
+## The one idea
+
+Every expensive AI product mistake felt right at the time. The team that shipped the model that failed in production wasn't careless — the decision *felt* obvious, even rational, right up to the moment it broke. That feeling is the thing to distrust. It is not truth; it is data. And it has a mechanism, and the mechanism has a name.
+
+Here is the trap that makes this hard, and it is the reason you can't just "be more objective." You cannot introspect your way out of a bias. Look inward for your own biases and you will find none — not because they're absent, but because the looking is done by the same biased machine. That is **meta-blindness**, and its cruelest feature is that *finding no bias is itself the warning sign.* Feeling rational is not evidence of being rational.
+
+So the move is not "check my thinking." The move is: **audit the decision, not your feeling about it.** Name the mechanism pulling it toward "obvious," state the evidence, and force one mitigation. You are not trying to reach perfect rationality — that's a fantasy, and chasing it becomes analysis paralysis. You are trying to price a known risk into a decision you're going to make anyway.
+
+And the pull shows up at three different stages, each needing a different fix:
+
+- **What you BUILD** — decision biases. Which problem you pick, which solution you commit resources to. (Anchoring, sunk cost, bandwagon, novelty.)
+- **How you MEASURE** — evaluation biases. Whether you can even tell if it's working. This is where bias does the most damage in AI, because evals *look* objective — they're numbers. (Demo bias, confirmation, benchmark anchoring.)
+- **What the model CARRIES** — system biases. Baked into training data, propagating downstream whether you look or not. (Training-data bias, aggregation bias, automation bias.)
+
+One mechanism, three stages. Find the stage you're in, and audit there.
+
+## How to use this skill
+
+1. **Run the audit** — name the decision, walk the checklist, find the one or two biases actually driving it. (THE PROCESS below.)
+2. **Route to the stage** — is the risk in what you're building, how you're measuring, or what the model carries? Each of the three has its own bias set and its own fix. (THE THREE STAGES below.)
+3. **Invert and price it in** — look for the evidence that would prove you wrong, then restate the decision with one named mitigation per bias.
 
 ## KEY TERMS (plain language)
 
 - **Cognitive bias** — a systematic shortcut in human judgment that produces predictable errors; not stupidity, wiring.
-- **Bias blind spot (meta-blindness)** — the inability to see your own biases while actively looking for them; finding none is itself a warning sign.
+- **Meta-blindness (bias blind spot)** — the inability to see your own biases while actively looking for them; finding none is a warning sign, not a clean bill of health.
 - **Distribution shift / drift** — production data slowly stops resembling the data the model was tested on, so old accuracy numbers quietly expire.
 - **LLM-as-judge** — using one AI model to grade another's output; useful, but the judge has tastes (verbosity, its own style) that skew scores.
 - **BLEU / exact-match** — automated text-similarity scores; easy to measure, weakly related to whether users were actually helped.
 - **Stratified sample** — an eval set deliberately built to include the rare and hard cases in proportion, not just the common easy ones.
 - **Shadow deployment** — running the AI silently alongside the real process, comparing outputs without users seeing them; the honest dress rehearsal.
-- **Inversion test** — asking "if the opposite were true, what evidence would I expect?" and then actually looking for it.
+- **Inversion test** — asking "if the opposite were true, what evidence would I expect?" and then actually going to look for it.
+- **Growth blindspot** — defaulting an AI feature to cost-cutting in a high-margin business, where it barely moves the P&L, while believing AI could grow the business several times more if aimed at revenue.
+- **Evidence tiers used below** — ✅ audited/peer-reviewed · ◆ company- or study-disclosed · ⚠ practitioner/roundtable estimate. Numbers marked illustrative are teaching devices.
 
-## DEPTH DECISION
+## GROUNDING (Before Starting)
 
-**Go deep if:** Making a product decision under ambiguity (model selection, feature scope, rollout strategy). **Skim to questions if:** Quick bias check on a decision already made. **Skip if:** Decision is fully data-driven with clear metrics (A/B test results, hard SLA targets).
-
-## THE TRAP
-
-You will trust your intuition. The bias is **meta-blindness** — the inability to see your own biases while actively looking for them. You'll check for biases, find none, and conclude you're being rational. That conclusion is itself a bias (the bias blind spot).
-
-Most dangerous in AI product decisions because:
-- AI capabilities feel magical, triggering optimism bias
-- AI failures are probabilistic, triggering normalcy bias ("2% error rate is fine")
-- AI costs are deferred (per-token), triggering present bias
-- AI competition creates urgency, triggering action bias
-- **Automation bias:** You trust the AI output because a computer generated it, without validating against your actual use case
-- **Benchmark anchoring:** You trust a published 95% accuracy without knowing if the test distribution matches your production users
-- **Novelty bias:** You pursue an AI solution because it's cutting-edge, not because it solves the problem better than the alternative
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: state the decision in one sentence, and name what a wrong call costs. Then route depth (a full audit for a product decision under ambiguity — model selection, feature scope, rollout — vs. a quick check on a decision already made) and output format. Skip the deep pass when the decision is genuinely data-driven with a clean metric that self-corrects fast (a live A/B test).
 
 ## THE PROCESS
 
-1. **Name the decision.** State what's being decided in one sentence.
+1. **Name the decision.** One sentence. If you can't, you don't understand it yet.
+2. **Walk the checklist — answer honestly, don't just "check":**
+   - **Anchoring** — what was the first number or solution I heard, and am I adjusting from it?
+   - **Sunk cost** — is money or time already spent influencing this?
+   - **Confirmation** — am I seeking evidence for what I already believe?
+   - **Survivorship** — am I studying the successes and ignoring the failures?
+   - **Optimism** — am I assuming best-case model performance and adoption?
+   - **Authority** — am I deferring because a senior person or "expert" said so?
+   - **Bandwagon** — am I doing this because competitors are?
+   - **Present** — am I overweighting a fast win against a deferred cost?
+3. **Name the dominant bias.** Usually one or two are driving the decision. Name them, with the specific evidence.
+4. **Apply the inversion test.** "If the opposite of this recommendation were true, what evidence would I expect to see?" Then go look for it. (For a rigorous version, hand off to `falsification`.)
+5. **Restate the decision with the bias priced in.** "We recommend X. The dominant bias risk is Y. We've mitigated it by Z." One mitigation per named bias.
 
-2. **Run the bias checklist.** For each, answer honestly:
-   - **Anchoring:** What was the first number/solution I heard? Am I adjusting from it?
-   - **Sunk cost:** Have we already invested time/money that's influencing this?
-   - **Confirmation:** Am I seeking evidence that supports what I already believe?
-   - **Survivorship:** Am I looking at successful examples while ignoring failures?
-   - **Optimism:** Am I assuming best-case model performance and adoption?
-   - **Authority:** Am I deferring because a senior person or "expert" said so?
-   - **Bandwagon:** Am I deciding this because competitors/industry are doing it?
-   - **Present:** Am I overweighting short-term gains vs long-term costs?
+---
 
-3. **AI-specific biases to audit:**
-   - **Training data bias:** Does the model reflect edge cases, or just majority patterns? Tested on train distribution vs prod distribution?
-   - **Evaluation bias:** Are we measuring what matters (user outcomes) or what's easy to measure (benchmark scores)?
-   - **Demo bias:** Did the model succeed on a cherry-picked demo, or random samples?
-   - **Benchmark anchoring:** Are we trusting a published accuracy % without knowing the test set's relevance to our use case?
+# THE THREE STAGES — where the "obvious" feeling attacks
 
-4. **Identify the dominant bias.** Usually one or two biases are driving the decision. Name them explicitly.
+## Stage 1 — what you BUILD (decision biases)
 
-5. **Apply the inversion test.** Ask: "If the opposite of this recommendation were true, what evidence would I expect to see?" Then look for that evidence.
+These shape which problems you choose and which solutions you commit resources to.
 
-6. **Restate the decision with bias acknowledged.** "We recommend X. The dominant bias risk is [Y]. We've mitigated it by [Z]."
+- **Anchoring** — fixating on the first number you heard (a competitor's accuracy, a vendor's demo, a prior estimate).
+- **Sunk cost** — continuing an AI initiative because you've spent six months on it, not because it's right.
+- **Survivorship** — building for the customers you kept, not the ones you lost to a rival's better AI.
+- **Bandwagon** — choosing a technology because everyone in your space uses it (LLMs, vector DBs).
+- **Present bias** — shipping a fast MVP instead of eval infrastructure, then paying for it in production.
+- **Novelty bias** — adopting a new architecture because it's exciting, not because it solves your problem better.
+- **Growth blindspot** — the costly default in a high-margin business: pointing AI at cost-cutting, where it barely moves the P&L, instead of at revenue, where it has no ceiling. **Why it bites:** costs can only fall to zero, so even a generous cost-cutting case moves firm value ~10% and stops; a lift to the organic *growth* rate is unbounded and gets multiplied by the valuation premium markets pay for growth. Executives believe AI can more than double firm value yet almost all of them spend it on efficiency. **When wrong:** in a thin-margin or survival-mode business, cost-cutting *is* the growth lever — don't force the revenue framing there. And a growth lift only counts if its source can't be copied, or the efficiency trap just reappears on the growth lever. **Evidence:** the valuation arithmetic is conceptual/◆; the "2.35× / 135% premium in three years" is a ⚠ roundtable-of-execs belief, not an audited outcome — treat it as what leaders *think*, which is the point of naming the bias. (Source: Benartzi, Long & Puntoni, "Companies Are Using AI for Efficiency. They Should Use It to Grow," HBR, 1 Jun 2026. The deep P&L-placement lens lives in `moat-finder`.)
 
-## AI PRODUCT BIAS TAXONOMY
+## Stage 2 — how you MEASURE (evaluation biases)
 
-Biases in AI products fall into three categories. Identifying which category a bias belongs to clarifies how to mitigate it.
+Bias does its most damage here, because evals *look* objective — they're numbers, metrics, test sets — and that is exactly where confirmation bias hides best.
 
-### Decision Biases (affect what you build)
-These biases shape which problems you choose to solve and which solutions you commit resources to.
+- **Confirmation** — cherry-picking eval examples that confirm the model works; quietly dropping the ones where it fails.
+- **Demo bias** — evaluating on a curated set easier than production; the impressive live demo that doesn't represent real usage.
+- **Benchmark anchoring** — trusting a published accuracy number without testing on *your* user distribution.
+- **Optimism** — assuming 92% in eval means 92% in production, ignoring drift and distribution shift.
+- **Evaluation-gap bias** — measuring what's easy to track (benchmark scores) instead of what matters (user outcomes).
 
-- **Anchoring:** Fixating on the first number you heard (a competitor's accuracy, a vendor's demo result, a prior project's estimate)
-- **Sunk cost:** Continuing an AI initiative because you've already spent 6 months on it, not because it's the right choice
-- **Survivorship:** Building for the customers you kept, not the ones you lost to competitors because of poor AI performance
-- **Bandwagon:** Choosing a technology because every other company in your space uses it (LLMs, vector DBs, etc.)
-- **Present bias:** Optimizing for a fast MVP instead of investing in robust eval infrastructure, then paying for it in production
-- **Novelty bias:** Adopting a new AI architecture because it's novel and exciting, not because it solves your problem better
+**The red flags that give it away:** you tested on the 100 *easiest* examples, not the hardest; you trained and eval'd on the same happy-path distribution, then met the 50% of production queries never in training; you eval'd English-only and shipped globally; you used an LLM-as-judge that prefers verbose answers, so your eval looks great while users get bloat; you only investigated failures users *reported*, missing the plausible-sounding wrong answers they never caught. (For turning these into a real measurement plan, hand off to `eval-framework`.)
 
-### Evaluation Biases (affect how you measure)
-These biases corrupt how you assess whether a solution is actually working.
+## Stage 3 — what the model CARRIES (system biases)
 
-- **Confirmation bias:** Cherry-picking eval examples that confirm the model works; ignoring the ones where it fails
-- **Demo bias:** Evaluating on a curated dataset that's easier than production; showing impressive live demos that don't represent real usage
-- **Benchmark anchoring:** Trusting a published accuracy number without testing on your actual user distribution
-- **Optimism bias:** Assuming a model that works at 92% in eval will perform similarly in production (ignoring data drift, distribution shift)
-- **Evaluation gap bias:** Measuring what's easy to track (benchmark scores) instead of what matters (user outcomes, business impact)
+Embedded in the model's training and data; they propagate downstream whether or not you look.
 
-### System Biases (baked into the AI itself)
-These biases are embedded in the model's training process and data, and propagate downstream.
+- **Training-data bias** — the model learns majority patterns and fails on minorities and edge cases.
+- **Representation bias** — some demographics, languages, or regions are underrepresented in training.
+- **Measurement bias** — the metric you optimized doesn't align with what users need.
+- **Aggregation bias** — works well on average, fails systematically for a specific segment.
+- **Automation bias** — users and operators trust the output uncritically *because* it came from AI, with no human check.
 
-- **Training data bias:** The model learns majority patterns but fails on minorities, edge cases, or underrepresented groups
-- **Representation bias:** Certain demographics, languages, or regions are underrepresented in training data
-- **Measurement bias:** The metric you optimized for doesn't align with what users actually need
-- **Aggregation bias:** The model works well on average but fails systematically for specific user segments
-- **Automation bias:** Users and operators trust the model's output uncritically because it came from AI, without human validation
+**The compounding case — multi-agent systems.** When you chain agents, these biases don't just persist, they multiply: the first agent's training-data bias becomes the second's input bias; a confident-but-wrong upstream call gets *amplified* rather than corrected (confirmation bias between agents); a 5% error in agent 1 compounds to ~10% across a 2-agent chain because agent 2 is working from 95%-good inputs. Audit the chain, not just each agent.
 
-## BIAS IN EVALS
+## WORKED EXAMPLE — the AI support agent, four biases compounding
 
-Evaluation is where biases do their most damage in AI products because evals look objective — they're numbers, metrics, test sets. But evaluation processes are where confirmation bias hides most effectively. Watch for these red flags:
+**The decision:** "We'll build an AI agent to handle 50% of inbound support tickets."
 
-- **Cherry-picked eval examples:** "The model worked on 100 examples we tested." Did you test on the 100 hardest examples, or the 100 easiest? Did you test only on queries your support team knows how to answer?
-- **Train-eval distribution mismatch:** You train on millions of support tickets from your 500 happy customers, then eval on the same distribution. You ship and hit 50% of production queries that were never in training.
-- **Language and localization bias:** You eval on English-only, ship globally, and discover the model fails for Spanish, Arabic, and Chinese users. Evaluation bias masquerading as a surprise.
-- **LLM-as-judge bias:** You use GPT-4 to score your model's outputs. GPT-4 tends to prefer verbose, detailed responses and its own style. Your eval looks good. Your users see bloated answers.
-- **Sampling bias in error analysis:** You only investigate failures that users reported. You miss silent failures — queries where the model gave a plausible-sounding wrong answer, and users didn't realize it was wrong.
-- **Metric-outcome misalignment:** You optimize BLEU score or exact match accuracy. These metrics are easy to measure but don't correlate with user satisfaction or business outcomes.
+- **The demo** (demo + confirmation bias) — the team prototypes on questions the FAQ answers best; 92% accuracy; everyone feels confident. They looked, unconsciously, for examples where it would succeed.
+- **The eval** (confirmation + training-data bias) — they eval on the support team's historical FAQ set, mostly common questions. "92% proves we're ready." But that's the exact distribution the model was trained on, and the FAQ is only ~40% of real production queries — the easy 40%.
+- **Production** (survivorship bias) — the AI takes 40% of tickets; accuracy drops to 71%. The 60% of queries never in the FAQ — edge cases, multi-part questions, custom requests — were invisible during eval because they weren't in the data the team had ever successfully handled.
+- **The cost** — a month of worse support; rolled back to 10% of traffic; two weeks rebuilding the eval process.
 
-## BIAS IN MULTI-AGENT SYSTEMS
+Each bias was small. Together they compounded into a **21-point** accuracy drop. **The prevention:** eval on a stratified sample that includes low-frequency queries; eval on production traffic, not the FAQ; have a neutral party curate the eval set; report accuracy *by query complexity*, not just the average; run a two-week shadow deployment before real rollout.
 
-When you chain AI agents (one agent feeds its output to another), biases compound and propagate in ways that single-agent systems don't:
+## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-- **Upstream propagation:** The first agent's training data bias becomes the second agent's input bias. If the first agent systematically misunderstands a category, the second agent inherits that blindness.
-- **Coordination bias:** Agents develop implicit agreement with each other. If the first agent makes a confident (but slightly wrong) decision, the second agent amplifies it rather than correcting it. This is confirmation bias between agents.
-- **Selection bias in tool routing:** You have a router agent that decides which specialized agent to use. The router was trained to route to the most recently deployed agent (recency bias). Edge cases get routed to the wrong specialist.
-- **Error amplification:** Each agent introduces error. Those errors compound. A 5% error rate in agent 1 becomes ~10% in a 2-agent chain, not because the second agent is worse, but because it's working with 95% good inputs.
+Bias-spotter names the pull and prices it in. It hands the rigorous next steps off to:
 
-## WORKED EXAMPLE: AI CUSTOMER SUPPORT AGENT
+- **`rtp-falsification`** — the disciplined version of the inversion test: pre-commit the evidence that would prove the decision wrong, and go find it.
+- **`rtp-first-principles`** — strip the vendor framing and marketing language off a decision *before* you audit it, so you're auditing the real choice.
+- **`rtp-trendslop-check`** — when the bias isn't in your head but baked into the AI-generated strategy itself (the model defaulting to trendy advice).
+- **`rtp-moat-finder`** — home of the P&L-placement lens behind the growth blindspot: which line of the P&L an AI investment touches, and that line's ceiling.
+- **`rtp-stress-test`** — where the most expensive AI bias (optimism on model accuracy) gets converted into measured evidence at scale.
 
-A real production scenario that illustrates how multiple biases compound:
-
-**The decision:** "We're building an AI agent to handle 50% of inbound support tickets."
-
-**The demo (demo bias + confirmation bias):** The team builds a prototype on curated examples — questions their FAQ answers best. The demo shows 92% accuracy. Everyone sees it working and feels confident. Demo bias: ease of picking good examples. Confirmation bias: the team looked for examples where the model would succeed.
-
-**The eval (confirmation bias + training data bias):** They eval on the support team's historical FAQ dataset — mostly common questions. The team is happy. "92% accuracy proves we're ready." But this is confirmation bias: they eval on exactly the data distribution where the model was trained and where the support team already knew the answers. Training data bias: the FAQ represents 40% of real production queries (the easy ones).
-
-**Launch to production (survivorship bias):** Week 1, the system gets 40% of tickets. Support team notices: accuracy drops to 71%. Why? The 60% of queries that were never in the FAQ dataset — edge cases, complex multi-part questions, requests for custom solutions. These were invisible during eval because they weren't in the support team's training data. Survivorship bias: the team only looked at queries they successfully handled before, missing the ones they'd turned away or escalated.
-
-**The cost:** For a month, users got worse support. Half their queries went to the AI and got mediocre responses. The team rolled back to 10% of traffic and spent 2 weeks rebuilding the eval process.
-
-**Biases identified:**
-1. **Demo bias** (5% accuracy overstatement from cherry-picking)
-2. **Confirmation bias** (team looked for evidence that worked, not edge cases)
-3. **Training data bias** (model trained on easy questions, failed on hard ones)
-4. **Survivorship bias** (eval missed the 60% of queries the team had never solved)
-
-Each bias was small. Together they compounded into a 21-point accuracy drop.
-
-**How to prevent:** (a) Eval on a stratified sample that includes low-frequency queries, (b) Eval on production traffic patterns, not your FAQ, (c) Have a neutral party curate eval examples, (d) Report both average accuracy and accuracy by query complexity, (e) Run a shadow deployment for 2 weeks before real rollout.
+Run bias-spotter to name and price the bias; run these to prove, strip, and pressure-test the decision it's shaping.
 
 ## REALITY CHECK
 
-- **Failure mode:** Bias-spotting becomes analysis paralysis. Every decision has biases — the goal is to identify the consequential ones, not to achieve perfect rationality. Name the bias, acknowledge the risk, decide anyway.
-- **Social cost:** Calling out biases in group settings can feel like personal attacks. Frame as "the decision's bias risk" not "your bias."
-- **Diminishing returns:** Beyond 2-3 dominant biases, additional bias identification adds noise, not signal.
-- **The meta-trap:** Using bias-spotting to feel rational while still making the biased decision. "We identified automation bias in our thinking, so we're safe now." No — you identified it, then made the same decision anyway without mitigating it. Bias awareness is not bias elimination.
-- **Bias awareness is not bias elimination.** The goal is to change the decision or add safeguards, not just to name the bias and feel smarter.
-- **The most expensive bias in AI products is optimism bias on model accuracy.** It causes teams to underinvest in fallbacks, error handling, human escalation, and monitoring. A model that's 90% accurate needs more guardrails than a model that's 99% accurate, but teams often do the opposite.
+- **The meta-trap.** Using bias-spotting to *feel* rational while making the biased decision anyway. "We identified automation bias, so we're safe" — no, you named it and then shipped without mitigating it. **Bias awareness is not bias elimination**; the goal is to change the decision or add a safeguard.
+- **Diminishing returns.** Beyond two or three dominant biases, more identification adds noise, not signal. Find the consequential ones.
+- **Social cost.** Naming biases in a group can feel like a personal attack. Frame it as "the decision's bias risk," never "your bias."
+- **The single most expensive AI bias is optimism on model accuracy.** It makes teams *underinvest* in fallbacks, escalation, and monitoring — a 90%-accurate model needs *more* guardrails than a 99% one, and teams often do the reverse.
 
 ## QUALITY GATE
 
 - [ ] Decision stated in one sentence
-- [ ] Full bias checklist answered (not just "checked")
-- [ ] Dominant bias named with evidence
-- [ ] AI-specific biases audited for this decision
-- [ ] Inversion test applied — counter-evidence sought
-- [ ] Decision restated with bias risk acknowledged
-- [ ] One mitigation or guard specified per identified bias
+- [ ] Full checklist answered (not just "checked")
+- [ ] Dominant bias named with specific evidence
+- [ ] The stage identified — build, measure, or carry — and that stage's biases audited
+- [ ] Inversion test applied — counter-evidence actually sought
+- [ ] Decision restated with bias risk acknowledged and one mitigation per named bias
 
 ## OUTPUT FORMAT
-
-Use this structure to document your bias audit:
 
 ```
 ## Bias Audit: [Decision Name]
 
-**Decision:** [One sentence describing what's being decided]
-
-**Dominant biases:** [1-2 named biases with specific evidence]
-Example: "Anchoring bias (first quote was 95% accuracy on benchmark); benchmark anchoring (haven't tested on our multilingual queries)"
-
-**AI-specific biases relevant to this decision:**
-- [Name and evidence]
-- [Name and evidence]
-
-**Inversion test result:** [What counter-evidence was sought and what was found]
-Example: "If this model were actually worse than the alternative, what would we see? We'd see higher error rates on multilingual queries. We found exactly that in production shadow data."
-
-**Risk-adjusted recommendation:** [Decision restated with named mitigation]
-Example: "Proceed with model. Risk: automation bias from trusting accuracy numbers. Mitigation: 2-week shadow deployment tracking accuracy by language, with automatic rollback if multilingual accuracy drops below 80%."
+**Decision:** [one sentence]
+**Stage:** [what you build / how you measure / what the model carries]
+**Dominant biases:** [1–2 named biases with specific evidence]
+**Inversion test result:** [what counter-evidence was sought, and what was found]
+**Risk-adjusted recommendation:** [decision restated with named mitigation]
+  e.g. "Proceed. Risk: automation bias from trusting the accuracy number.
+        Mitigation: 2-week shadow deployment tracking accuracy by language,
+        auto-rollback if multilingual accuracy drops below 80%."
 ```
 
 ## WHEN WRONG
 
-- Low-stakes decisions where speed matters more than accuracy
-- Decisions with clear, measurable outcomes that will self-correct quickly
-- When used as a political tool to block decisions rather than improve them
-- When the team is already over-analyzing and needs to ship
-- When dealing with domain experts who have high signal (e.g., a radiologist's clinical judgment has high base rate accuracy; use bias-spotting to improve reasoning, not to second-guess)
+- Low-stakes decisions where speed matters more than accuracy.
+- Decisions with clear, measurable outcomes that will self-correct quickly.
+- When used as a political tool to block decisions rather than improve them.
+- When the team is already over-analyzing and needs to ship.
+- With genuine domain experts whose base-rate accuracy is high (a radiologist's clinical read) — use it to sharpen their reasoning, not to second-guess signal.
 
----
+## TRADE-OFF LEDGER
+
+By running a bias audit, you bet that a few minutes of naming and inverting now is cheaper than committing resources to a decision that felt obvious and wasn't. You give up a little speed and some social comfort. **Reversible?** Fully — this changes no code, only the reasoning behind a choice. **The hidden trade:** the failure mode isn't over-caution, it's the *meta-trap* — naming the bias and feeling smarter while shipping it anyway. The audit is only worth its cost if it ends in a changed decision or an added safeguard. **Confidence: High.** What would change it: a decision already governed by a fast, clean metric, where the audit is ceremony.
+
+## CONCLUSION
+
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5: state the recommendation (the decision, restated with the bias priced in), name the key trade-off (speed vs. pricing a known risk), acknowledge the biggest risk (the meta-trap — naming without mitigating), and define the next action (the one mitigation, with an owner).
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After the primary output, invoke the **excalidraw-svg** skill for one visual: the "obvious" feeling at the center, with three arrows to the three stages it attacks — BUILD (decision biases) · MEASURE (evaluation biases) · CARRY (system biases) — and the meta-blindness warning drawn as the trap around the whole thing ("finding no bias is the warning sign"). So a viewer sees one mechanism hitting three stages, and why you can't just look inward. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.

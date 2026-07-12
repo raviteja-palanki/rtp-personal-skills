@@ -1,262 +1,162 @@
 ---
 name: dual-lens
-version: "1.1"
-description: >
-  Ensures any AI concept is simultaneously actionable for business leaders AND technically
-  validatable by engineers, preventing misalignment that leads to wasted sprints. Use when
-  writing PRDs, strategy docs, presentations to mixed audiences, communicating with board,
-  or when there's disagreement between business and engineering about "what we're building".
-  Triggers on 'business doesn't understand what we're building', 'engineering doesn't see
-  the business case', 'the spec doesn't match what we shipped', or when business and technical
-  teams have conflicting interpretations of the same concept. Also use before committing
-  quarterly roadmap resources. Do NOT use for pure engineering specifications (internal
-  architecture docs), pure business memos (financial forecasts), or when both audiences
-  are already deeply aligned. Do NOT use when speed matters more than cross-functional
-  clarity, or in organizations with strong silos where bridge-building will be resisted.
-  Pairs with: stakeholder-communications (per-audience framing), first-principles (find
-  the one operation both lenses describe), trust-under-fog (when the business lens
-  demands certainty the technical lens can't give).
+description: "Makes one AI concept mean the same thing in two rooms — actionable for the business leader AND checkable by the engineer — so a wasted sprint never starts. Most cross-functional failures aren't disagreement; they're two teams confidently building different interpretations of one sentence, each sure they were clear (the curse of knowledge). Write both the business definition and the technical definition, then test the bridge between them. Use when writing a PRD, strategy doc, or mixed-audience presentation, or when business and engineering read the same spec and picture different things. Do NOT use for pure-engineering or pure-business docs, or when both sides are already aligned. Pairs with: stakeholder-communications (per-audience framing), first-principles (the one operation both lenses describe), trust-under-fog (business lens wants certainty the technical lens can't give). Triggers: 'business doesn't understand what we're building', 'engineering doesn't see the business case'."
 imports: []
 ---
 
 # Dual-Lens
 
-**The objective:** make one AI concept mean the same thing in two rooms — actionable for the business leader AND checkable by the engineer — so a wasted sprint never starts. Most cross-functional failures aren't disagreement; they're two teams confidently building different interpretations of the same sentence. This skill writes both definitions and tests the bridge between them.
+**The objective:** make one AI concept mean the same thing in two rooms — actionable for the business leader AND checkable by the engineer — so a wasted sprint never starts. For the PM writing the spec, strategy, or roadmap that both sides will act on.
+
+## The one idea
+
+Picture the same one-page spec in front of two people. The VP of Sales reads it and says "great, build this." The CTO reads the *same page* and says "that's not buildable." Neither misread it. Neither was careless. They read the identical words and pictured two different products — and both walked away certain they were aligned.
+
+That is the failure this skill exists to prevent, and the key insight is that **it is almost never disagreement.** Disagreement is loud and you can resolve it. This is silent: two teams confidently building different interpretations of one sentence, discovering the gap only when the demo doesn't match the deck and a sprint is already gone. The cause has a name — the **curse of knowledge**: once you understand something, you cannot imagine not understanding it, so your "clear" spec was clear only to you.
+
+AI makes the gap wider than in ordinary software, for three specific reasons: AI concepts have no visual analog (what does "attention mechanism" *look* like?); AI failure is probabilistic, so "95% accuracy" reads as "always works" to one room and "one in twenty is wrong — for whom?" to the other; and per-token cost has no precedent in most leaders' experience, so the economics don't translate on their own.
+
+So the move is not "explain it better in one language." It is: **write the concept twice — once for each room, both fully accurate — then test the bridge between them.** If a reader can go from the business definition to the technical definition and see how they're the same thing, the bridge holds. If the two read like documents about different products, you just found the wasted sprint before it started.
+
+## How to use this skill
+
+1. **Write both definitions and test the bridge** — the five-step process below. This is the spine.
+2. **Reach for the right framework** when a specific gap shows up — Model Empathy (what the model finds easy vs. hard), Translation Patterns (business phrase ↔ technical reality), Audience Patterns (what each stakeholder needs to hear).
+3. **Interrogate the bridge** with the diagnostic questions — most gaps hide as a business definition concealing a technical risk, or a technical definition concealing a business constraint.
 
 ## KEY TERMS (plain language)
 
 - **Curse of knowledge** — once you understand something, you can't imagine not understanding it; the reason your "clear" spec wasn't.
 - **Translation loss** — the nuance that disappears when one audience's language is converted into another's; it fails silently, in both directions.
-- **RAG (retrieval-augmented generation)** — the AI looks up your documents before answering, so knowledge can be updated daily without retraining the model.
-- **Context window** — how much text the model can consider at once; bigger costs more and gets slower.
+- **RAG (retrieval-augmented generation)** — the AI looks up your documents before answering, so knowledge updates daily without retraining the model.
+- **Context window** — how much text the model can consider at once; bigger costs more and runs slower.
 - **Streaming output** — showing the answer as it's generated instead of after; changes *perceived* speed without changing actual speed.
 - **Inference** — the act of the model producing an answer; the thing you pay for per use.
+- **P95 latency** — the response time the slowest 5% of requests feel; more honest than the average.
 
-## DEPTH DECISION
+## GROUNDING (Before Starting)
 
-**Go deep if:** Explaining a new AI concept (model choice, retrieval strategy, output format) to mixed audiences. **Skim to questions if:** Quick check that technical and business teams use the same language. **Skip if:** Decision is entirely within one domain (pure infra, pure commercial).
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: name the concept being defined, and name the two rooms that must act on it. Then route depth (a full two-definition brief for a new AI concept crossing into a roadmap commitment vs. a quick check that both teams use the same words) and output format. Skip it when the decision lives entirely in one domain (pure infra, pure commercial).
 
-## THE TRAP
+## THE PROCESS — write both, test the bridge
 
-You will communicate in one language. The bias is **curse of knowledge** — once you understand something, you can't imagine not understanding it. Engineers write specs that executives can't act on. Executives write strategies that engineers can't validate. Both sides think they were clear.
+1. **Write the business definition first.** One paragraph: what does this mean for revenue, risk, competitive position, or customer trust? No technical terms. If a CFO can't act on it, rewrite.
+2. **Write the technical definition second.** One paragraph: what does this mean for architecture, latency, cost per request, failure modes, monitoring? No business euphemisms. If a senior engineer can't validate it, rewrite.
+3. **Test the bridge.** Can someone read the business definition, then the technical one, and see how they connect? If they feel like separate documents about different things, the bridge is broken — fix it before anyone builds.
+4. **Add the translation layer.** For each key technical decision, write its business implication; for each key business requirement, its technical constraint. *"Using RAG instead of fine-tuning [technical] means we can update knowledge daily without retraining [business]." "Response under 2s [business] means streaming output and smaller context windows [technical]."*
+5. **Validate with both audiences.** Show the business definition to a business stakeholder ("can you act on this?") and the technical one to an engineer ("can you build from this?"). Their answers are the test, not your confidence.
 
-In AI products, the gap is wider than traditional software because:
-- AI concepts have no visual analog (what does "attention mechanism" look like?)
-- AI failure modes are probabilistic (executives hear "95% accuracy" and think "always works")
-- AI costs are novel (per-token pricing has no precedent in most leaders' experience)
+**The failure mode to guard against:** dumbing the business definition down until it's *wrong*. Dual-lens means both definitions are accurate — not that one is simplified into falsehood.
 
-### The Translation Loss Problem
+## THE THREE FRAMEWORKS — reach for the one that fits the gap
 
-The core failure mode is **translation loss** — when PMs translate between audiences, nuance disappears in both directions:
+### Model Empathy — when the gap is "what can the AI actually do?"
 
-- **Engineers → Executives:** Engineers say "We need to reduce latency by optimizing the context window." Executives hear "Make it faster." The actual business problem (users abandon chats after 3 seconds) gets replaced with a vague optimization direction.
+Don't say "accuracy." Map the task type to what models find easy vs. hard, then translate to a business constraint.
 
-- **Executives → Engineers:** Executives say "Reduce perceived wait time." Engineers interpret this as "Optimize inference speed." But the real solution might be streaming output, progress indicators, or early results rather than absolute speed.
+| Task type | Easy for the model | Hard for the model | PM implication |
+|---|---|---|---|
+| Classification | Binary calls on clear categories | Ambiguous categories, boundary cases | Fix the taxonomy before building; don't expect the model to learn nuance from examples alone |
+| Generation | Structured output (JSON, summaries), paraphrasing | Novel creative work, factual precision under uncertainty | Verify facts independently; use schemas to constrain format |
+| Reasoning | Single-hop logic, pattern-matching in training data | Multi-step chains, temporal constraints | Decompose into steps; validate each one |
+| Retrieval | Keyword and semantic similarity | Negation ("not red"), ordering ("before 2020"), counting ("exactly 3") | Pre-filter results; don't rely on the model to rank/filter |
+| Tool use | Single API calls, straightforward sequences | Multi-tool orchestration, error recovery | Build a tool harness; don't ask the model to debug failed calls |
 
-- **Technical Jargon → Business Impact:** "95% accuracy" hides critical nuance. If that 5% failure hits specific user segments (e.g., non-English names, edge cases), the impact isn't evenly distributed. One executive hears "we're ready"; another understands "5% of Black users experience wrong output."
+*Use it:* a stakeholder says "extract clauses from contracts." Translate: "That's classification — easy. But extracting *conflicting* clauses is reasoning + comparison — hard. Budget human review for ~15% of documents."
 
-Examples of translation loss:
-- "The model hallucinates" → Real problem: "Factual correctness varies by domain (medical: 2% hallucination rate vs. general knowledge: 8%)"
-- "We need better RAG" → Real problem: "Retrieval latency is 1.5s, pushing total response time above our 3s target"
-- "Scaling to 100k users" → Real problem: "Per-user cost rises from $0.02 to $0.08 at volume, breaking unit economics"
+### Translation Patterns — when the gap is a vague business phrase
 
-## THE PROCESS
+| Business language | Technical reality | PM action |
+|---|---|---|
+| "The AI is slow" | P95 latency exceeds 3s — context-window size or retrieval hitting rate limits | Diagnose which component: token count? API response? |
+| "Users don't trust it" | Acceptance rate 34% vs. 60% target; users override often | Is it hallucination, wrong domain, or unexplained choices? |
+| "Make it smarter" | Cut hallucination in [category] from 8% to 3%; raise F1 on edge cases | "Smarter" is not a metric — specify the failure mode and target |
+| "It costs too much" | $0.04/query exceeds the $0.02 unit-economics threshold at volume | Find the driver: API price, context length, or scaling assumption |
+| "We need more AI features" | Which user problem needs probabilistic output rules can't give? | Challenge scope creep; AI doesn't fix vague requirements |
 
-1. **Write the business definition first.** In one paragraph, answer: "What does this mean for revenue, risk, competitive position, or customer trust?" No technical terms. If a Fortune 500 CFO can't act on it, rewrite.
+### Audience Patterns — when the gap is "which room am I in?"
 
-2. **Write the technical definition second.** In one paragraph, answer: "What does this mean for architecture, latency, cost per request, failure modes, or monitoring?" No business euphemisms. If a senior engineer can't validate it, rewrite.
+Same concept, different lead for each stakeholder:
 
-3. **Test the bridge.** Ask: "Can someone read the business definition, then the technical definition, and understand how they connect?" If the two definitions feel like separate documents about different things — the bridge is broken.
+- **Board / C-suite** — lead with business impact, risk, competitive position. One number, one decision. *"Reduces churn 5% ($2M/yr), blocks two competitor moves. Risk: 5% of edge cases need human review — add 1 FTE."*
+- **Engineering leads** — lead with architecture, constraints, failure modes; specific, not visionary. *"RAG, not fine-tuning (avoids 3-week training cycles). Precision 95%, recall 80%, P95 under 2s for 50-page docs."*
+- **Data scientists** — lead with model performance, eval methodology, data quality; show the evals. *"94% accuracy on macro-F1, but minority-class recall drops to 68% — need stratified eval by segment before shipping."*
+- **Designers** — lead with user impact, uncertainty UX, failure states. *"Below 70% confidence, show a confidence band and a 'refine' option; surface conflicts with user input explicitly."*
+- **Customer success** — lead with visible behaviors, known limits, escalation paths. *"Handles standard contracts; will hallucinate on novel clauses. Flag anything under 80% confidence; manual review within 24h."*
 
-4. **Add the translation layer.** For each key technical decision, write the business implication. For each key business requirement, write the technical constraint.
-   - "Using RAG instead of fine-tuning [technical] means we can update knowledge daily without retraining [business implication]"
-   - "Reducing response time to under 2 seconds [business requirement] means we need streaming output and smaller context windows [technical constraint]"
+## DIAGNOSTIC QUESTIONS — is the bridge actually holding?
 
-5. **Validate with both audiences.** Show the business definition to a business stakeholder: "Can you act on this?" Show the technical definition to an engineer: "Can you build from this?"
+1. **Cross-audience clarity.** If the CTO and the VP of Sales read this simultaneously, would both know the next step? If Sales says "build this" and the CTO says "not buildable," the bridge is broken.
+2. **Does the business definition hide a technical risk?** "Real-time personalization" sounds simple until it means sub-100ms latency → caching → freshness trade-offs. "Hallucination-free AI" sounds good until you realize no model achieves it — you're actually building a verification harness. (Watch the word "straightforward" said before anyone has run a spike — the most expensive word in software.)
+3. **Does the technical definition hide a business constraint?** "RAG pipeline" hides the real requirement: "data must update daily without retraining." "3-second latency" hides "users abandon after 3 seconds — we measured it."
+4. **Failure-mode ownership.** When this fails, who owns it — product or engineering? "It depends" is the wrong answer. Right: "Hallucinations above 5% are product's problem (scope, data quality); below that, engineering's (model choice, inference)." If the launch plan has no rollback trigger, no monitoring threshold, and no named person paged at 2 a.m., that gap is the finding.
 
-6. **Add model empathy — understand model strengths/weaknesses.** When explaining AI capability, specify difficulty tier and use the Model Empathy Framework (see section below) to map what's easy/hard for the model to the business implications.
+## WORKED EXAMPLE — AI-powered contract review
+
+**Business definition:** "Cuts legal review time 60% by flagging high-risk clauses (indemnification gaps, unusual payment terms, IP issues) before human review. Saves $2M/yr in outside counsel. Risk: a missed high-risk clause creates liability; false flags waste lawyer time. Success: lawyers see 95% of real issues flagged with <10% false flags."
+
+**Technical definition:** "NER + multi-class classification on contract PDFs: PDF→text, chunk by section, embed, RAG-retrieve similar high-risk clauses, classify each section high/medium/low. Precision 95% on high-risk (a miss = liability); recall 80% (a false flag = extra review, acceptable). P95 latency 30s for a 50-page doc. Cost $0.15/document."
+
+**Bridge:** "The 60% time saving only holds at 95% precision — drop to 90% and lawyers verify more false flags, cutting savings from $2M to $1.2M (still good, different ROI story). 30s latency is fine because lawyers batch-queue reviews; real-time isn't needed. $0.15/doc → ~$30k/yr at 200 docs, far under the $2M savings."
+
+**Translation layer:** business "reduce review 60%" → technical "precision ≥95%"; technical "30s latency" → business "batch processing is fine, no streaming needed"; business "catch issues at draft stage" → technical "RAG from historical high-risk clauses, not generic fine-tuning."
+
+**Model empathy:** classification is easy; classification of *ambiguous* contract language is hard — unusual-but-legal terms will confuse it, so anything flagged "medium" still gets a lawyer.
+
+## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+
+Dual-lens gets one concept to mean the same thing in two rooms. It hands off to:
+
+- **`rtp-stakeholder-communications`** — once the concept is bridged, this tailors the *delivery* per audience (exec brief, eng brief, customer note) with AI-confidence framing. Dual-lens defines; this communicates.
+- **`rtp-first-principles`** — when the two lenses keep drifting, strip the concept to the single atomic operation both must describe; if you can't, the bridge has nothing to stand on.
+- **`rtp-trust-under-fog`** — when the business lens demands a certainty ("guarantee 99%") the technical lens honestly can't give; this handles communicating probabilistic reality without over-promising.
+- **`rtp-stress-test`** — when diagnostic Q2 surfaces a technical risk the business definition hid (latency, cost spiral, adversarial exposure); this prices it at production scale.
+
+Run dual-lens to align the meaning; run these to strip it, communicate it, or pressure-test what it hides.
 
 ## REALITY CHECK
 
-- **Failure mode:** Oversimplifying for business readers until the technical content is wrong. Dual-lens means both definitions are accurate, not that one is dumbed down.
-- **Time cost:** Writing two definitions takes 2x the time. For important concepts, this is an investment. For minor decisions, a single audience is fine.
-- **Cultural risk:** Some organizations punish PMs for "being too technical" or "being too business-y." Dual-lens requires organizational permission to speak both languages.
+- **Two definitions cost 2x the writing.** For a load-bearing concept, that's an investment; for a minor decision, one audience is fine.
+- **Some orgs punish speaking both languages** ("too technical," "too business-y"). Dual-lens needs the organizational permission to do it.
+- **The bridge is the deliverable, not the two definitions.** Two accurate definitions that don't connect are still two wasted sprints waiting to happen.
 
 ## QUALITY GATE
 
-- [ ] Business definition written — actionable by a non-technical leader
+- [ ] Business definition written — actionable by a non-technical leader, and still accurate
 - [ ] Technical definition written — validatable by a senior engineer
-- [ ] Bridge tested — both definitions connect to the same underlying concept
-- [ ] Translation layer added for key decisions
-- [ ] Validated with at least one representative from each audience
-
-## MODEL EMPATHY FRAMEWORK
-
-When explaining AI capability, don't just say "accuracy." Map the task type to what models find easy/hard, then translate that into business constraints:
-
-| Task Type | What Model Finds Easy | What Model Finds Hard | PM Implication |
-|-----------|---|---|---|
-| **Classification** | Binary yes/no on clear categories | Ambiguous categories, boundary cases, context-dependent decisions | Set clear taxonomy before building; don't ask models to learn nuance from examples alone |
-| **Generation** | Structured output (JSON, summaries), paraphrasing | Novel creative work, factual precision under uncertainty | Verify facts independently; use schemas to constrain output format |
-| **Reasoning** | Single-hop logic, pattern matching in training data | Multi-step reasoning, temporal chains, constraints | Decompose complex requests into steps; validate each step independently |
-| **Retrieval** | Keyword matching, semantic similarity on dense text | Negation ("not red"), temporal ordering ("before 2020"), counting ("exactly 3") | Pre-filter results; don't rely on models for filtering/ranking |
-| **Tool Use** | Single API calls, straightforward sequences | Multi-tool orchestration, error recovery, deciding which tool fits | Build a tool management harness; don't ask models to debug failed API calls |
-
-**How to use this:** When a stakeholder says "We need AI to extract clauses from contracts," translate: "That's classification (easy). But if we need to extract conflicting clauses (reasoning + comparison), that's hard. We'll need human review for 15% of documents."
-
-## TRANSLATION PATTERNS
-
-Common business-to-technical and technical-to-business translations:
-
-| Business Language | Technical Reality | PM Action |
-|---|---|---|
-| "The AI is slow" | P95 latency exceeds 3s, likely due to context window size or retrieval latency hitting rate limits | Measure and diagnose: Which component is slow? Token count? API response? |
-| "Users don't trust it" | Acceptance rate is 34% (target: 60%); correction rate is high; users override output frequently | Dig deeper: Is distrust about hallucinations? Wrong domain? Or visibility (users can't explain why AI chose X)? |
-| "Make it smarter" | Reduce hallucination rate in [specific category] from 8% to 3%; improve F1 score on edge cases | Specify the failure mode and acceptable improvement; "smarter" is not a metric |
-| "It costs too much" | Per-query cost at $0.04 exceeds the $0.02 unit economics threshold at current volume | Identify the cost driver: API pricing, latency (longer context = more tokens), or volume scaling assumptions |
-| "We need more AI features" | Which user problem requires probabilistic output that rules can't solve? | Challenge scope creep; AI doesn't fix vague requirements |
-
-## AUDIENCE-SPECIFIC COMMUNICATION PATTERNS
-
-Different stakeholders need different emphasis. Adapt your technical/business framing:
-
-**Board / C-Suite:**
-- Lead with business impact, risk, competitive position
-- One number. One decision.
-- Translate to: "This AI feature reduces churn by 5% ($2M annually) and blocks two competitor advantages. Risk: model failure in 5% of edge cases requires human review (add 1 FTE)."
-
-**Engineering Leads:**
-- Lead with architecture, constraints, failure modes
-- Be specific, not visionary
-- Translate to: "We're using RAG because fine-tuning would add 3-week training cycles. Precision target: 95% (miss a risk = liability). Recall target: 80%. P95 latency must be under 2s for 50-page documents."
-
-**Data Scientists:**
-- Lead with model performance, evaluation methodology, data quality
-- Show the evals
-- Translate to: "Classification accuracy is 94%, but we're measuring macro-F1. For minority classes, recall drops to 68%. We need stratified evaluation by user segment before shipping."
-
-**Designers:**
-- Lead with user impact, uncertainty UX, failure states
-- Show the edge cases
-- Translate to: "When confidence is below 70%, show a confidence band and offer 'Let me refine' option. When the model conflicts with user input, surface the conflict explicitly."
-
-**Customer Success:**
-- Lead with user-visible behaviors, known limitations, escalation paths
-- Translate to: "AI accurately handles standard contracts but will hallucinate on novel clauses. Flag any output with <80% confidence. Escalation: Manual review available within 24h."
-
-## DIAGNOSTIC QUESTIONS
-
-Use these to test whether the bridge is working:
-
-1. **Cross-audience clarity:** "If I showed this spec to our CTO and our VP Sales simultaneously, would they both know what to do next?"
-   - If VP Sales says "Build this," and CTO says "That's not buildable," the bridge is broken.
-
-2. **Feasibility check:** "Can an engineer estimate effort from the business definition alone? If yes, the bridge is working."
-   - If the business definition omits latency/cost constraints, effort estimates will be wildly wrong.
-
-3. **Hidden technical risk:** "Does the business definition hide technical risk?"
-   - Example: "Real-time personalization" sounds simple until you realize it requires sub-100ms latency, which requires caching, which requires freshness trade-offs.
-   - Example: "Hallucination-free AI" sounds good until you realize no model achieves this; you're actually building a verification harness.
-
-*Think through:* What technical constraints exist that stakeholders can see — and which ones are invisible until you're deep in implementation? Focus on latency, data access, integration complexity, and model reliability.
-
-*Low end:* The team has already scoped the technical approach. Known dependencies are documented. No surprises expected.
-
-*Mid range:* Some unknowns remain. The data pipeline exists but hasn't been tested at scale. Integration is feasible but untested with the target system.
-
-*High end:* Real-time personalization sounds simple until you realize it requires sub-100ms latency with live user context — which means re-architecting the data layer. Or vision processing assumes clean images; production uploads are blurry phone photos.
-
-*Red flag:* The technical team says "that should be straightforward" without having done a spike. "Straightforward" is the most expensive word in software.
-
-*Sharpen it:* "What's the cheapest experiment that would confirm or invalidate the technical risk? Can you build a 1-day prototype that tests the riskiest assumption?"
-
-4. **Hidden business constraints:** "Does the technical definition hide business constraints?"
-   - Example: "RAG pipeline" hides the actual business requirement: "Data must be updated daily without retraining." (RAG enables this; fine-tuning doesn't.)
-   - Example: "3-second latency" hides the constraint: "Users abandon after 3 seconds of waiting; we measured it."
-
-5. **Failure mode ownership:** "When this fails, who owns the problem—product or engineering?"
-   - Bad answer: "It depends."
-   - Good answer: "Model hallucinations below 5% are product's problem (scope, data quality). Below that, engineering's problem (model choice, inference optimization)."
-
-*Think through:* When this feature fails — and it will fail — who finds out? Who fixes it? Is there a runbook? Is there a person whose job it is to respond within 30 minutes?
-
-*Low end:* There's a named owner, a monitoring dashboard, an on-call rotation, and a documented escalation path. The team has already done a pre-mortem.
-
-*Mid range:* Someone informally "owns" this. Monitoring exists but isn't wired to alerts. Failure would be noticed within a day, not an hour.
-
-*High end:* Nobody explicitly owns AI failures. The feature silently degrades (outputs wrong answers, hallucinations increase) and nobody knows until a user escalates. There's no monitoring because "AI doesn't fail like traditional software."
-
-*Red flag:* The launch plan doesn't include a rollback trigger, a monitoring threshold, or a named person who gets paged at 2am.
-
-*Sharpen it:* "For the top 3 failure modes, who gets paged first? Is ownership assigned to a person (not a team) for the first 72 hours post-launch? What's the escalation sequence when the first on-call person is unavailable?"
-
-## WORKED EXAMPLE: AI-Powered Contract Review
-
-**Feature Concept:** "AI-powered contract review"
-
-**Business Definition:**
-"Reduces legal review time by 60% by flagging high-risk clauses (indemnification gaps, unusual payment terms, IP ownership issues) before human review. Saves $2M/year in outside counsel by catching issues at draft stage. Risk: Missed high-risk clauses create liability; false flags waste lawyer time. Success metric: Lawyers flag 95% of actual issues with <10% false flag rate."
-
-**Technical Definition:**
-"NER (Named Entity Recognition) + multi-class classification pipeline on contract PDFs. Converts PDFs to text, chunks by section, embeds sections, uses RAG to retrieve similar high-risk clauses from training set, classifies each section as high/medium/low risk. Precision target: 95% on high-risk classification (miss a risk = liability). Recall target: 80% (miss a non-risk = extra review, acceptable cost). P95 latency: 30s for 50-page document. Per-document cost: $0.15 (includes embedding + classification)."
-
-**Bridge:**
-"The 60% time reduction only works if precision is 95%. If we drop to 90%, lawyers see more false flags and spend extra time verifying. That cuts savings from $2M to $1.2M—still good, but changes ROI story. The 30s latency is acceptable because lawyers queue documents for review anyway; real-time isn't required. The $0.15 per-document cost scales to $30k/year at 200 documents/year, well under the $2M savings."
-
-**Translation Layer:**
-- Business requirement ("Reduce legal review time by 60%") → Technical constraint ("Precision ≥95% on high-risk classification")
-- Technical constraint ("30s latency per document") → Business implication ("Batch processing is fine; no need for streaming or real-time inference")
-- Business requirement ("Catch issues at draft stage") → Technical design choice ("RAG from historical high-risk clauses, not generic fine-tuning")
-
-**Model Empathy:**
-"Classification is easy for models. But classification of ambiguous contract language is hard — edge cases (unusual but legal payment terms) will confuse the model. We'll train on high/medium/low, but lawyers will still need to review anything flagged as medium."
-
----
-
-## WHEN WRONG
-
-- Pure engineering decisions with no business stakeholders
-- Pure business decisions with no technical implications
-- When both audiences are already deeply aligned (rare but possible)
-- When speed matters more than precision in communication
-
----
-
-## GENERATE THE DELIVERABLE
-
-Once you've worked through the diagnostic questions and built clarity between business and technical definitions, synthesize your output according to the Universal Skill Protocol Section 11.
-
-**Core deliverable:** Complete the template below, then create a visual summary using the **excalidraw-svg** skill. The diagram should show the bridge between business and technical definitions at a glance, making the dual-lens analysis immediately actionable for stakeholders. Reference the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md` for diagram standards (ravi-personal-branding palette, clear hierarchy, minimal text).
-
----
+- [ ] Bridge tested — both definitions demonstrably describe the same underlying concept
+- [ ] Translation layer added for each key decision (business↔technical)
+- [ ] Validated with at least one representative from each room
+- [ ] Diagnostics run — no business definition hiding a technical risk, no technical definition hiding a business constraint; failure ownership named
 
 ## OUTPUT FORMAT
-
-Use this template when writing specs, PRDs, or strategy docs that must work for both audiences:
 
 ```
 ## Dual-Lens Brief: [Concept Name]
 
-**Business Definition:**
-[1 paragraph, no technical terms. Answer: What does this mean for revenue, risk, competitive position, customer trust?]
-
-**Technical Definition:**
-[1 paragraph, no business euphemisms. Answer: What does this mean for architecture, latency, cost, failure modes?]
-
-**Bridge:**
-[2-3 sentences explaining how technical constraints drive business outcomes. Where do they trade off?]
-
-**Translation Layer:**
-[3-5 key mappings between business requirements and technical constraints]
-
-**Model Empathy:**
-[Which task type (classification, generation, reasoning, retrieval, tool use)? Easy or hard? What's the business implication?]
+**Business Definition:** [1 paragraph, no technical terms — revenue, risk, position, trust]
+**Technical Definition:** [1 paragraph, no business euphemisms — architecture, latency, cost, failure modes]
+**Bridge:** [2–3 sentences: how technical constraints drive business outcomes, and where they trade off]
+**Translation Layer:** [3–5 business↔technical mappings]
+**Model Empathy:** [task type · easy or hard · business implication]
+**Failure ownership:** [which failures are product's, which are engineering's, who is paged]
 ```
 
-**Example filled out above:** See "AI-Powered Contract Review" worked example above.
+## WHEN WRONG
 
----
+- Pure engineering decisions with no business stakeholders.
+- Pure business decisions with no technical implications.
+- When both audiences are already deeply aligned (rare, but possible).
+- When speed matters more than precision in communication.
+
+## TRADE-OFF LEDGER
+
+By writing the concept twice, you bet that a couple of hours of dual definition now is cheaper than a sprint spent building two different products from one sentence. You give up some velocity and the comfort of a single, familiar audience. **Reversible?** Fully — it changes words, not code. **The hidden trade:** the failure isn't over-explaining, it's *false alignment* — everyone nods at the one-pager and builds divergently, and the cost lands weeks later when the demo doesn't match the deck. **Confidence: High.** What would change it: a concept living entirely in one domain, where the second lens is ceremony.
+
+## CONCLUSION
+
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5: state the recommendation (the bridged concept, both lenses accurate), name the key trade-off (time to write twice vs. the wasted sprint avoided), acknowledge the biggest risk (false alignment — a bridge that reads fine but doesn't hold), and define the next action (validate each definition with its room, with a named owner).
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After the primary output, invoke the **excalidraw-svg** skill for one visual: the same concept in the center with two lenses — BUSINESS (revenue/risk/trust) and TECHNICAL (architecture/latency/cost) — drawn as two panels, and the BRIDGE explicitly between them showing one translation-layer mapping, so a viewer sees at a glance that these are two views of one thing, not two things. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
