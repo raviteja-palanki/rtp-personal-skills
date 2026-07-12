@@ -1,280 +1,137 @@
 ---
 name: problem-type
-description: >
-  Figure out if you're facing a technical problem (clear solution, known path) or an adaptive challenge (unclear solution, requires people to change). Most AI failures happen because teams treat adaptive challenges like technical problems — they keep "solving" something that requires organizational change, not a better algorithm. Use when the same problem recurs despite fixes, leadership says "just build it" but the barrier is organizational, a feature is technically perfect but adoption is failing, or when you notice the pattern "we tried everything and it didn't work." Do NOT use to avoid difficult decisions or to justify doing nothing — often the right move is both technical AND adaptive work, sequenced carefully. Pairs with: alignment-check (which organizational link is broken), problem-ai-fit (a different axis — whether the problem needs AI at all), adoption-launch (the adaptive work, run as a product launch), needs-guard (the psychological need the change threatens).
+description: "Decide what class of problem you're holding before you solve it: a technical problem (a better build closes it) or an adaptive challenge (only people changing how they work closes it). The most expensive AI mistakes aren't bad solutions — they're solving the wrong class: teams keep shipping better models to a problem no model can fix, and the tell is that it recurs after every fix. A different axis from 'does it need AI' (that's problem-ai-fit). Use when the same problem recurs despite fixes, leadership says 'just build it' but the barrier is organizational, or a feature is technically perfect and adoption still fails. Do NOT use to avoid hard decisions or justify inaction — often the answer is both, sequenced. Pairs with: problem-ai-fit (whether it needs AI at all), alignment-check (which org link is broken), adoption-launch (the adaptive work run as a launch), needs-guard (the psychological need the change threatens). Triggers: 'why isn't this being adopted', 'we tried everything', 'just build it'."
 imports: []
 ---
 
 # Problem Type
 
-**The objective:** before solving anything, decide what kind of problem you're actually holding — one a better build fixes (technical), or one that requires people to change how they work (adaptive). Teams that misclassify keep shipping better solutions to the wrong problem class; the recurring failure isn't the algorithm, it's the diagnosis. This is a different axis from "does it need AI" (that's `problem-ai-fit`) — a problem can be perfectly AI-suitable and still fail because the barrier was organizational.
+**The objective:** before you solve anything, decide what class of problem you're holding — one a better build closes (technical), or one that only closes when people change how they work (adaptive) — for the PM or leader watching a fix fail to stick. Misclassify, and you ship better and better solutions to a problem no solution can reach.
+
+## The one idea
+
+The sales team isn't using the AI recommendation engine. So the team does the obvious thing: builds a better model. Accuracy goes from 80% to 96% to 99%. Adoption stays at 15%. They try a sidebar, then a chatbot, then email summaries — all technically good, all ignored.
+
+Here is what everyone missed. The real reason a rep won't use it is that the AI recommended something once that embarrassed them in front of a customer, and now they don't trust it. No amount of accuracy fixes a trust wound. The team was solving a *technical* problem. The problem was *adaptive.*
+
+That is the one idea: **the most expensive mistake in AI is almost never a bad solution — it's solving the wrong class of problem.** There are two classes, and they close in completely different ways:
+
+- **Technical** — the solution can be found and built. Experts diagnose it, ship it, done. (A slow query, a missing feature, a high error rate.)
+- **Adaptive** — the solution requires people to change behavior or beliefs. No build closes it; you can only *enable* the change, and it takes months. (A team that won't trust the AI, a hiring org that can't let AI recommend candidates.)
+
+And here is the tell that you've misclassified, the single most useful signal in this whole skill: **a technical fix, when it's the right class, stays fixed. If you keep fixing it and it keeps coming back, the problem isn't what you think it is.** Recurrence-after-fix is the canary. The instinct when a technical fix fails is to build a *better* technical fix — which is exactly the trap, because building feels productive (action bias) while organizational change feels slow and messy, so teams skip the actual cure.
+
+One more thing this is *not*: it is not the question "does this even need AI?" — that's a different axis (`problem-ai-fit`). A problem can be perfectly AI-suitable and still fail, because the barrier was never technical at all.
+
+## How to use this skill
+
+1. **Run the five signals** — each pulls toward technical or adaptive. Count the votes. (THE FIVE SIGNALS below.)
+2. **If it's both — and most real AI problems are — sequence the work.** The adaptive conversation usually has to unlock the technical build, not follow it. (THE DANGEROUS MIDDLE below.)
+3. **Act to the class:** technical → define the solution and ship; adaptive → name the belief that must change and the leadership that must model it, and run it as a launch (`adoption-launch`).
 
 ## KEY TERMS (plain language)
 
-- **Technical problem** — the solution is discoverable and buildable; expertise and effort close it (a slow query, a missing feature).
-- **Adaptive challenge** — the solution requires people to change behavior or beliefs; no build closes it, only enabled change (Heifetz's distinction).
+- **Technical problem** — the solution is discoverable and buildable; expertise and effort close it.
+- **Adaptive challenge** — the solution requires people to change behavior or beliefs; no build closes it, only enabled change (Ron Heifetz's distinction, Harvard Kennedy School).
 - **Action bias** — building feels productive, so teams build; organizational change feels slow, so it gets skipped even when it's the actual fix.
-- **Compliance vs. change** — people doing the new thing when watched versus believing in it; the ambiguity that makes adaptive progress hard to measure.
-
-## DEPTH DECISION
-
-**Go deep if:** Same problem recurring despite multiple "solutions", adoption failures despite technical correctness, or diagnosing why a project keeps stalling. **Skim to questions if:** Quick classification during problem definition. **Skip if:** Problem is clearly technical (database query is slow) or clearly adaptive (organizational structure doesn't make sense).
+- **Compliance vs. change** — people doing the new thing when watched, versus believing in it; the ambiguity that makes adaptive progress hard to measure.
+- **The dangerous middle** — a problem that is genuinely both, where success depends entirely on sequencing the two kinds of work correctly.
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: What's the actual problem statement? Who's affected? What have we already tried?
-2. Route depth: Are you diagnosing a stuck initiative (Comprehensive) or classifying a new problem (Executive Summary)?
-3. Identify output format: Word Document, Presentation, or Both?
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum, state the problem (not the solution) in one sentence, name who's affected, and list what you've already tried. Then route depth (a full diagnosis of a stuck initiative vs. a quick classification of a new problem) and output format (Document, Presentation, or Both).
 
-Then proceed with the skill-specific analysis below.
+## THE TWO CLASSES (Heifetz)
 
-## DELIVERABLE FORMAT
+**Technical problem** — the solution exists or can be designed by experts; implementation is straightforward once known; resistance is minimal (people want the fix); authority can solve it directly. *Pattern: problem → expert diagnoses → solution deployed → solved.* Examples: slow database → optimize the query; high error rate → better training data; latency too high → add a caching layer.
 
-Before starting, ask for format: Word Document, Presentation, or Both.
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
+**Adaptive challenge** — the solution isn't known in advance and must be discovered through learning; implementation requires people to change behavior or belief; resistance is significant (people must give up old ways); it can't be delegated to experts, and leadership must *model* the change, not just authorize it. *Pattern: problem → no obvious solution → leadership names the direction → people work through it together over time → new behavior emerges.* Examples: a sales team that won't trust the AI → build credibility through transparency; support engineers who see AI as a threat → show how it amplifies their expertise.
 
-## THE TRAP
+## THE FIVE SIGNALS
 
-You will default to technical solutions. The bias is **sunk cost + action bias** — building something feels productive while organizational change feels slow. When a technical solution fails, the instinct is to build a better technical solution, not to ask "is this a technical problem at all?"
+Each signal pulls toward technical or adaptive. Read all five, then count.
 
-The trap is most seductive because:
-- Technical problems feel solvable (hire better engineers, better algorithms, more data)
-- Adaptive challenges feel messy (change how people think, organizational resistance, political)
-- Measuring technical progress is clean (better metrics, faster inference, higher accuracy)
-- Measuring adaptive change is ambiguous (did hearts and minds actually change, or did people just comply?)
-- Adaptive work is slower — it takes 6-12 months to change how people approach a problem
+1. **Has the same problem recurred despite fixes?** Technical fixes, when right, stay fixed. *Adaptive tell:* "We built 95%, then 97%, then 99% accuracy — adoption is still low." Every fix works and the problem persists, so the problem isn't what you think.
+2. **Are you building the same solution twice — or cycling through solutions?** *Adaptive tell:* "Recommendation engine → low adoption. Chatbot → low adoption. Email → low adoption." Every *technique* is failing, so it's not the technique.
+3. **Is the barrier explicit or implicit?** Technical barriers are measurable ("query takes 5s, SLA is 2s"). *Adaptive tell:* "They have access, they just don't use it, and we don't know why." Invisible barrier = adaptive territory.
+4. **Does authority solve it, or only enable it?** A CEO can order a database optimized. A CEO *cannot* order trust. *Adaptive tell:* "Leadership mandated it; adoption went 10%→40% and plateaued — compliance, not belief."
+5. **Is the solution obvious-but-unbuilt, or genuinely unclear?** Technical: everyone agrees what to do once they understand it. *Adaptive tell:* "Smart people have argued for six months about whether we should even use AI for hiring — we disagree on fundamentals, not implementation."
 
-Here's the mechanism: A technical problem has a solution the team can discover. Build it. Deploy it. Done. An adaptive challenge requires people to change their behavior or beliefs. You can't delegate that to engineers. You can only enable it.
+**Count the votes:** 3+ technical → technical; 3+ adaptive → adaptive; split → both (see below).
 
-**Classic example:** Sales reps aren't using the AI recommendation engine. The technical team builds a better model (higher accuracy). Adoption doesn't improve. The team builds more features. Still nothing. What if the real problem is that reps don't trust the AI because it once made a recommendation that embarrassed them in front of a customer? That's adaptive — it requires rebuilding trust, not rebuilding the model.
+## THE DANGEROUS MIDDLE — when it's both
 
-## THE HEIFETZ FRAMEWORK
+Most real AI problems are both. The question isn't "which one?" but "what's the sequence?" Get the sequence wrong and even correct work fails.
 
-Ron Heifetz (Harvard Kennedy School) distinguishes technical problems from adaptive challenges:
+**Example — "the model makes biased recommendations."** Technical component: it learned from biased data → collect better data, add fairness constraints, retrain (solvable). Adaptive component: the org hasn't agreed on what "fair" *means* here, and stakeholders define it differently (requires conversation).
 
-### Technical Problem
-- The solution exists or can be designed by experts
-- Implementation is straightforward (once the solution is known)
-- Resistance is minimal (people generally want the solution)
-- Can be solved by the people currently in charge
-- Authority figures solve it
-- Examples: Database is slow → optimize the query. Algorithm has high error rate → better training data. API latency is too high → caching layer.
+- **Wrong sequence (fails):** build a fairer model → deploy → conflict erupts because no one agreed on the definition → model gets reverted.
+- **Right sequence (works):** hold the adaptive conversation first ("what does fairness mean to us?" — six weeks, hard, ending in shared understanding, not perfect agreement) → build a model reflecting it → deploy → conflict is muted because people co-created the definition.
 
-**Pattern:** Problem → Expert diagnoses → Solution deployed → Problem solved
-
-### Adaptive Challenge
-- The solution is not known in advance; it must be discovered through learning
-- Implementation requires people to change behavior or beliefs
-- Resistance is significant (people must give up old ways, even if better ones exist)
-- Can only be solved by people working through it together (not delegated to experts)
-- Requires leadership to model the change, not just authorize it
-- Examples: Sales team doesn't trust AI → requires building credibility through transparency. Hiring team can't let AI recommend candidates → requires changing hiring beliefs. Support engineers see AI as a threat → requires showing how AI amplifies their expertise, not replaces it.
-
-**Pattern:** Problem → No obvious solution → Leadership articulates the direction → People work through it together over time → New behavior emerges
-
-## THE 5 DIAGNOSTIC SIGNALS
-
-To distinguish technical from adaptive, look for these signals:
-
-### Signal 1: HAS THE SAME PROBLEM RECURRED DESPITE FIXES?
-
-**Technical problem:** When you fix it, it stays fixed. You optimize the database query, and it's fast forever (until data volume changes and you optimize again).
-
-**Adaptive challenge:** The problem recurs even after technical fixes. This is the canary in the coal mine.
-
-**Red flag example:** "We built an AI model with 95% accuracy. Adoption was still low. We built a better model with 97% accuracy. Adoption is still low. We improved to 99% accuracy. Adoption is still low."
-
-This is not a technical problem. Every technical fix works and solves the problem. If you keep fixing it and the problem keeps coming back, the problem isn't what you think it is.
-
-### Signal 2: ARE YOU BUILDING THE SAME SOLUTION TWICE?
-
-**Technical problem:** Once solved, you don't rebuild it. You might optimize it, but you don't start from scratch.
-
-**Adaptive challenge:** You're cycling through solutions. "Let's try a different algorithm. Let's try a different deployment approach. Let's try different features. Let's try a different UI."
-
-**Red flag example:** "We tried a recommendation engine. Low adoption. We switched to a chatbot interface. Low adoption. We switched to email recommendations. Low adoption."
-
-This is not a technical problem. Every technical approach is failing. The problem isn't the technique — it's something about how people relate to the solution.
-
-### Signal 3: IS THE BARRIER EXPLICIT OR IMPLICIT?
-
-**Technical problem:** Barrier is explicit. "The query takes 5 seconds and our SLA is 2 seconds." Clear, measurable, objective.
-
-**Adaptive challenge:** Barrier is implicit. "We're not sure why people aren't adopting it. They have access to it, but they don't use it." Or: "The CFO says no to the investment, but won't say why." Or: "The team knows they should do this differently, but keep reverting to the old way."
-
-**Red flag example:** "The AI recommendations are better than what sales reps choose. Usage is still low. We don't know why."
-
-When the barrier is invisible, you're in adaptive territory.
-
-### Signal 4: DOES AUTHORITY SOLVE IT, OR ONLY ENABLE IT?
-
-**Technical problem:** Authority can solve it. "CEO says: optimize the database." Done. Engineers work on it, problem is solved.
-
-**Adaptive challenge:** Authority can only enable it. "CEO says: we need to trust the AI recommendations." If people don't internalize this, mandating it creates compliance, not belief. Sales reps use the AI tool because they're told to, but they still don't trust it. The mandate doesn't solve the adaptive challenge.
-
-**Red flag example:** "Leadership said we have to use the AI. Adoption increased from 10% to 40%, but it plateaued. People are complying, not believing."
-
-### Signal 5: IS THE SOLUTION OBVIOUS BUT NOT IMPLEMENTED, OR IS THE SOLUTION UNCLEAR?
-
-**Technical problem:** Once you understand it, the solution is clear. "We need to index this column." "We need more training data." Everyone agrees on what to do.
-
-**Adaptive challenge:** The solution is not obvious. Even smart people disagree. "Should we trust AI recommendations?" has no technical answer. People have different risk appetites, different experiences with AI, different incentive structures.
-
-**Red flag example:** "We've talked about whether to use AI for hiring decisions for 6 months. Smart people on the team still disagree on whether it's even a good idea. We're not disagreeing on implementation — we're disagreeing on the fundamentals."
-
-## WHEN PROBLEMS ARE BOTH (THE DANGEROUS MIDDLE)
-
-Most real AI problems are BOTH technical and adaptive. The framework isn't "which one is it?" but "what's the sequencing?"
-
-**Example: "AI model is making biased recommendations"**
-
-- **Technical component:** The model learns from biased training data. Solution: collect better data, add fairness constraints, retrain. This is solvable.
-- **Adaptive component:** The organization hasn't agreed on what "fair" means for this context. Different stakeholders have different definitions. This requires conversation.
-
-**Wrong sequencing (fails):**
-1. Build a more fair model
-2. Deploy it
-3. Conflict erupts because stakeholders didn't agree on the definition of fairness
-4. Model gets reverted
-
-**Right sequencing (works):**
-1. Have the adaptive conversation: what does fairness mean to us? (6 weeks, hard conversation, no final agreement but shared understanding)
-2. Build a model that reflects that shared understanding
-3. Deploy it
-4. Conflicts are reduced because people co-created the definition
+The rule: **the adaptive work usually unlocks the technical work.** Define the goal with people before you build the solution for them. If the two can run in parallel, start the one with the longer lead time first — and that's almost always the adaptive one.
 
 ## THE PROCESS
 
-1. **State the problem in one sentence, without saying "solve".**
-   Example: "Sales reps have low adoption of the AI recommendation engine"
-
-2. **For each of the 5 signals, mark as technical or adaptive.**
-   - Signal 1 (recurrence): Has this problem come back despite fixes? → This signal pulls toward [adaptive or technical]
-   - Signal 2 (cycling): Are we trying different solutions repeatedly? → [adaptive or technical]
-   - Signal 3 (barrier): Is the barrier explicit or implicit? → [adaptive or technical]
-   - Signal 4 (authority): Does the CEO ordering it solve it? → [adaptive or technical]
-   - Signal 5 (solution): Is the solution obvious or debated? → [adaptive or technical]
-
-3. **Count the votes.** If 3+ signals point to adaptive, it's adaptive. If 3+ point to technical, it's technical. If split, it's both.
-
-4. **If both, sequence the work.**
-   - Does the adaptive work unlock the technical work? (usually yes — define the goal before building the solution)
-   - Can they happen in parallel? (sometimes)
-   - If parallel, which has longer lead time? (start that one first)
-
-5. **For technical problems, define the solution and estimate effort.**
-   For adaptive challenges, define the change and the leadership approach.
+1. **State the problem in one sentence, without the word "solve."** ("Sales reps adopt the AI engine at 15% vs. a 60% target.")
+2. **Score each of the five signals** as technical or adaptive.
+3. **Count.** 3+ one way decides it; split means both.
+4. **If both, sequence:** does the adaptive work unlock the technical? (usually yes) Can they run in parallel? If so, start the longer-lead one first.
+5. **Act to the class:** technical → define the solution and estimate effort; adaptive → name the belief/behavior that must change and the leadership approach to enable it.
 
 ## DIAGNOSTIC QUESTIONS
 
-1. **When did this problem first appear, and what have we tried to fix it?**
-   - If: Same fix tried 3+ times with 0 success → Adaptive
-   - If: Different fixes, all technical, none working → Adaptive
-   - If: Fix deployed and worked → Technical
-   - Spectrum anchor: "Tried once, worked" → "Tried 5+ times, keeps recurring"
+- **When did this first appear, and what have you tried?** Same fix 3+ times with no success, or many *different* technical fixes all failing → adaptive. Fix deployed and it worked → technical.
+- **If you replaced the whole team but kept the process and tech, would the problem vanish?** Yes → the problem was structural (technical). No → it's people/belief-dependent (adaptive).
+- **What's the most honest answer to "why isn't this solved yet?"** "We can't agree on what to do" → adaptive. "It needs three weeks of engineering / more data" → technical.
+- **Could the smartest person in the company, with unlimited budget and six weeks, solve it?** Yes → technical. No, because of organizational barriers → adaptive. No even with unlimited resources → probably both.
+- **Can you define what success looks like?** If you *can't* — because the org hasn't agreed on the values — that inability is itself the signal it's adaptive.
 
-2. **If we removed the people (replaced team) and kept the process/tech, would the problem disappear?**
-   - If: Yes, problem was people-dependent → Adaptive
-   - If: No, problem is structural → Technical
-   - Spectrum anchor: "Process is the constraint" → "People/beliefs are the constraint"
+## WORKED EXAMPLE — "the AI feature isn't getting adopted"
 
-3. **What's the most honest answer to 'why isn't this solved yet?'**
-   - If: "We don't know how" or "We can't agree on what to do" → Adaptive
-   - If: "It requires 3 weeks of engineering" or "We need more data" → Technical
-   - Spectrum anchor: "Political/belief disagreement" → "Clear technical barrier"
+**Problem:** sales reps adopt the AI recommendation engine at 15% vs. a 60% target.
 
-4. **If you gave the smartest person in your company unlimited budget and 6 weeks, could they solve it?**
-   - If: Yes → Technical. If no because of organizational barriers → Adaptive.
-   - If: No, even with unlimited resources → Likely both, but check if you're missing something
-   - Spectrum anchor: "Yes, just throw resources at it" → "No, it's not a resource problem"
+- **S1 recurrence** — three model versions, 80%→96% accuracy, adoption flat → adaptive.
+- **S2 cycling** — sidebar, then chat, then email; all technically good, all low → adaptive.
+- **S3 barrier** — implicit; "they don't use it" and no one knows why → adaptive.
+- **S4 authority** — VP mandated it; 5%→15% then plateaued → adaptive (compliance, not belief).
+- **S5 solution** — engineers say UI, sales say trust, product says workflow → adaptive (disagreement on fundamentals).
 
-5. **What would success look like if the problem is adaptive vs technical?**
-   - Adaptive success: "People have changed how they think about [X]" or "People choose [Y] because they believe it"
-   - Technical success: "The metric moved from [X] to [Y]" or "The constraint was removed"
-   - If you can't define adaptive success (because the organization hasn't agreed on values), that's a sign it's adaptive
-   - Spectrum anchor: "Measured by metrics" → "Measured by beliefs/behavior change"
+**Diagnosis: 5/5 adaptive.** The real problem: reps fear the AI picks people they wouldn't, threatening their commission and their sense of competence — or one bad past recommendation killed trust. **What won't work:** a better model, a mandate, a nicer UI (all technical fixes to an adaptive problem). **What will:** understand the real fear (six weeks of listening); reposition AI as amplifying the rep's judgment, not replacing it; create an opt-in fast-track where early adopters prove it works; celebrate reps who *override* the AI and are right (signal that human judgment still counts). After that groundwork, the technical improvements land differently.
 
-6. **When was the last time someone questioned whether this problem should exist at all?**
-   - If: Recently, and people had different answers → Adaptive (lack of shared purpose)
-   - If: Nobody questions it, just the solution → Technical (purpose is clear)
-   - If: People keep questioning it and it's slowing you down → Adaptive, needs resolution
-   - Spectrum anchor: "Shared purpose" → "Disputed purpose"
+## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+
+Problem-type answers *what class of problem* you hold. It hands off to:
+
+- **`rtp-problem-ai-fit`** — the *different axis*: whether the problem needs AI at all, and if so, which seat AI takes — a decision *engine* for narrow, well-bounded decisions vs. a *helper* for wide, judgment-heavy ones (its engine-vs-helper / narrow-vs-wide decision-shape scorecard). Problem-type is the technical-vs-adaptive cut; problem-ai-fit is the needs-AI and role cut. Run both; they answer different questions. *(Cross-ref sanctioned by q2-11 card, MIT SMR, Amorim/Saleh/Sundling, 6 May 2026 — its substance lives in problem-ai-fit, not here.)*
+- **`rtp-alignment-check`** — when the problem is adaptive, this locates *which* organizational link (purpose → strategy → capability → architecture → systems) is actually broken.
+- **`rtp-adoption-launch`** — the adaptive work, run as a product launch with personas and phases, not a one-time training.
+- **`rtp-needs-guard`** — names the psychological need (competence, autonomy, belonging) the change threatens, which is usually the real engine of "resistance."
+
+Run problem-type to classify; run these to check the AI fit, find the broken link, and run the change.
 
 ## REALITY CHECK
 
-- **Failure mode of this skill:** Using it to avoid hard decisions. "This is an adaptive challenge, so we need to wait." No — you need to work both. Often the answer is "do the adaptive work and the technical work in parallel, but sequence them so adaptive unlocks technical."
-- **Most common mistake:** Treating all organizational resistance as adaptive. Sometimes the barrier is just poor communication (technical) or bad change management (you did the change right, but told people badly).
-- **Hidden cost of getting it wrong:** If you treat adaptive as technical, you'll build better and better solutions that don't get used. Waste of engineering. If you treat technical as adaptive, you'll have alignment meetings while the database is on fire.
-- **When to act fast:** If it's technical, solve it immediately. If it's adaptive, start the work immediately but recognize it takes longer. The worst case is treating it as technical and discovering 6 weeks in that it's adaptive.
+- **The failure mode of this skill:** using it to *avoid* action. "It's adaptive, so we wait." No — you work both; often the answer is adaptive and technical in parallel, sequenced so adaptive unlocks technical.
+- **The common misread:** treating all resistance as adaptive. Sometimes it's just poor communication or bad change management — you did the change right and told people badly. That's technical.
+- **The cost of getting it wrong:** treat adaptive as technical and you burn engineering on solutions no one uses (and each failure erodes trust further); treat technical as adaptive and you hold alignment meetings while the database is on fire.
 
 ## QUALITY GATE
 
-- [ ] Problem stated clearly (not the solution, the problem)
-- [ ] All 5 signals analyzed (not all have to be conclusive)
-- [ ] Primary classification made (technical, adaptive, or both)
-- [ ] If both: sequencing is clear (which comes first, can they be parallel?)
-- [ ] For technical: solution and effort estimate defined
-- [ ] For adaptive: the belief/behavior change is articulated, and the leadership approach is sketched
-- [ ] Next action is specified (start technical work, start adaptive conversation, or both)
-
-## WORKED EXAMPLE: "AI FEATURE ISN'T GETTING ADOPTED"
-
-**Problem:** "Sales reps have adopted the AI recommendation engine at 15% when we expected 60%."
-
-**Signal 1 (recurrence):** We've built 3 versions of the model. Accuracy improved from 80% to 96%. Adoption is still 15%. → Adaptive signal
-
-**Signal 2 (cycling):** We tried a sidebar widget, then a chat interface, then email summaries. All technically good. All low adoption. → Adaptive signal
-
-**Signal 3 (barrier):** Barrier is implicit. "People don't use it" but why? Unclear. → Adaptive signal
-
-**Signal 4 (authority):** Sales VP said "use the AI." Adoption went from 5% to 15%. But it plateaued. → Adaptive signal (mandate increased compliance, not belief)
-
-**Signal 5 (solution):** We disagree on what the solution is. Engineers think it's a UI problem. Sales thinks it's that reps don't trust the AI. Product thinks it's a workflow problem. → Adaptive signal
-
-**Diagnosis:** 5/5 signals → Adaptive challenge.
-
-**The real problem:** Sales reps think the AI will pick candidates they wouldn't pick, and they'll lose commission if the rep doesn't build relationships. Or: "The AI picked a candidate once who turned out to be a bad hire, so now I don't trust it." Or: "Using AI feels like admitting I don't know my job."
-
-**What won't work:**
-- Better model (technical fix to adaptive problem)
-- Mandate ("you have to use it")
-- Better UI (technical fix to adaptive problem)
-
-**What will work:**
-- Understand the real fear (6-week listening + research)
-- Show how AI amplifies the rep's job, not replaces it (positioning change)
-- Create a "fast track" where early adopters opt in and prove the AI works (builds credibility)
-- Celebrate reps who override the AI and are right (show that human judgment is still valued)
-- After 6 months of this work, the technical improvements (better model, better UI) will land differently because the adaptive groundwork has been done
-
----
+- [ ] Problem stated as a problem, not a solution
+- [ ] All five signals scored (not all need to be conclusive)
+- [ ] Primary classification made — technical, adaptive, or both
+- [ ] If both: the sequence is explicit (which unlocks which; what runs in parallel)
+- [ ] Technical → solution and effort estimate defined; Adaptive → the belief/behavior change and the leadership approach are named
+- [ ] Next action specified (start the build, start the adaptive conversation, or both)
 
 ## TRADE-OFF LEDGER
 
-BY CHOOSING to diagnose technical vs adaptive:
-  We are betting on: that misclassifying the problem type is more expensive than taking time to diagnose
-  We are giving up: 1-2 weeks of immediate technical "solutions" that will likely fail
-  This is reversible within: 1 week (if diagnosis is wrong, course-correct quickly)
-
-THE HIDDEN TRADE-OFF:
-  If it's adaptive and you treat it as technical, you'll spend engineering effort that won't compound. Worse, failed technical solutions erode trust. "We tried better algorithms and nothing worked" means people trust the AI even less. Better to diagnose early.
-
-CONFIDENCE: High
-  What would change our mind: If the problem is already clearly technical (database query timing) or clearly adaptive (organizational structure disagreement), skip the diagnosis and act
-
----
+By diagnosing the class before acting, you bet that misclassifying the problem is more expensive than the one to two weeks of diagnosis. You give up the immediate comfort of shipping a technical "solution" now. **Reversible?** Within a week — if the diagnosis is wrong, course-correct fast. **The hidden trade:** if it's adaptive and you treat it as technical, the engineering effort doesn't compound *and* each failed fix teaches the org to trust the AI less — "we tried better algorithms and nothing worked" is a worse position than where you started. **Confidence: High.** What would change it: a problem already clearly one class (a slow query, or a pure org-structure dispute) — skip the diagnosis and act.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
-1. State the classification (technical, adaptive, or both with sequencing)
-2. Name the key trade-off (speed of technical solutions vs correctness of diagnosis)
-3. Acknowledge the biggest risk (misdiagnosis, or over-analyzing when action is needed)
-4. Define the next action (technical work owner, adaptive work sponsor, decision point)
-
----
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5: state the classification (technical, adaptive, or both with the sequence), name the key trade-off (speed of a technical fix vs. correctness of the diagnosis), acknowledge the biggest risk (misdiagnosis — or over-analyzing when action is needed), and define the next action (technical owner, adaptive sponsor, and the decision point).
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram should show the 5 signals (recurrence, cycling, barrier, authority, solution) as a spectrum from technical to adaptive, the problem plotted on that spectrum, and if both, the sequencing/timeline showing which work happens when. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After the primary output, invoke the **excalidraw-svg** skill for one visual: the five signals drawn as a spectrum from TECHNICAL to ADAPTIVE with the problem plotted on it, and — if both — a small timeline underneath showing the adaptive work unlocking the technical build (sequence, not simultaneity). So a viewer sees the class and the sequence at a glance. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
