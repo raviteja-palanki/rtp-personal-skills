@@ -1,355 +1,244 @@
 ---
-name: rtp-fit-signal
-description: 'PMF for AI: trust accumulation (not engagement). Measures: trust curve inflecting, magic moment >60%, correction >50%, feedback loop weekly. Use when: active users, dependency, scale or pivot. Triggers: ''PMF'', ''product-market fit'''
+name: fit-signal
+description: >
+  Tell whether an AI product has earned real user dependence, or just survived a lucky stretch.
+  Standard PMF metrics — NPS, retention, DAU — get inflated by AI's own variance, so a team can
+  "confirm PMF" on users who are stress-testing the product, not depending on it. The one signal
+  immune to that variance is the trust curve: rising, plateauing confidence in AI output over
+  weeks, which luck can't fake because it takes many good experiences in a row. Builds a
+  fidelity-based trust score, the magic moment that predicts who reaches it, correction-rate
+  decay (and the resignation trap that fakes it), switching cost, and a four-verdict scorecard:
+  confirmed, emerging, uncertain, no fit. Use when you have 8+ weeks of active users and must
+  decide scale, iterate, or pivot — or when NPS looks fine but something feels off. Do NOT use
+  pre-launch, on deterministic products, or under 100 weekly active users.
+  Pairs with: falsification, feedback-flywheel, stress-test, uncertainty-research, ai-product-metrics.
+imports:
+  - falsification
+  - feedback-flywheel
+  - stress-test
 ---
-# Fit Signal: Detecting PMF in Non-Deterministic Systems
 
-## DEPTH DECISION
+# Fit Signal
 
-**Go deep if:** You have 8+ weeks of active users, need to decide whether to scale or pivot, or diagnosing why trust isn't accumulating.
+**The objective:** decide, with evidence instead of vibes, whether an AI product has earned real user dependence — for the team staring at "healthy" retention and NPS and still not sure whether to scale, keep iterating, or pivot.
 
-**Skim to Phase 2 if:** You have trust data already and just need to interpret it — trust curve is the core signal.
+## The one idea
 
-**Skip if:** <100 weekly active users, deterministic products (traditional PMF works), or batch/offline AI where users don't see output in real-time.
+A user opens your AI feature on Monday. It works — clean output, nothing to fix. Tuesday, same feature, a slightly different question, and it hallucinates. Wednesday, it works again. Averaged over a month, your NPS reads a healthy 42. Retention looks fine. The dashboard is green.
+
+The user still doesn't trust you. They just haven't left yet.
+
+That gap is the whole problem. **Every metric a PM defaults to for product-market fit — NPS, retention, DAU — assumes the product is the same experience every time it's used.** That assumption is what makes those metrics work: a stable product a user keeps returning to is one they've decided to depend on. AI breaks the assumption. The product is a different experience every time, so the metrics stop measuring fit and start measuring variance. Retention looks healthy because it's a cohort average, and averages smooth a bad Tuesday into a good Wednesday. NPS looks healthy because the person who had two good sessions this week answers the survey today, not on the day it failed them. You can clear every "PMF confirmed" threshold on a spreadsheet built from users who are stress-testing your product, not depending on it — checking back to see if it's gotten reliable yet, not because they've decided it has.
+
+The one signal that survives contact with variance is the **trust curve**: does a user's confidence in your output rise over weeks and hold high, or stay flat, or bounce around? That question is hard to fake, because holding high for eight straight weeks takes many individually good experiences in a row — no amount of lucky timing on one NPS survey can manufacture that. Everything else in this skill — the magic moment, correction-rate decay, switching cost — exists to explain what moves the trust curve, and to catch the one trap that fakes it: users who look calmer because they've stopped checking, not because they've started trusting.
+
+## How to use this skill — four questions
+
+1. **Is trust actually accumulating, or are you reading NPS and retention instead?** → Signal 1, the trust curve — the core measurement below.
+2. **What's the one interaction that turns a user trying you out into a user who comes back?** → Signal 2, the magic moment.
+3. **Are users correcting your output less because they trust it, or because they gave up checking?** → Signal 3, correction-rate decay and the resignation trap.
+4. **What's the actual verdict — scale, iterate, or pivot?** → The PMF scorecard, at the end.
+
+Read Signal 1 first regardless of which question brought you here — it's the spine the other three attach to.
+
+## KEY TERMS (plain language)
+
+- **Trust curve** — a user's (or cohort's) weekly trust score, plotted over 8+ weeks; the one PMF signal that isolates dependence from lucky timing.
+- **Fidelity score** — one number per AI output, on a single 0–1 scale: used as-is (1.0), minor edit (0.6), major rewrite (0.2), rejected or regenerated (0.0). The building block both the trust score and the correction rate are computed from.
+- **Trust score** — the average fidelity score across a week's outputs; a magnitude-weighted read of "how much did this user actually rely on what you gave them."
+- **The engagement mirage** — DAU, session length, and NPS all rising while users are actually stress-testing your reliability, not depending on it; it looks exactly like early PMF and isn't.
+- **Magic moment** — the specific interaction (completing N tasks, a successful edit-then-use cycle, sharing output) that precedes a user's trust curve inflecting upward; differs per cohort.
+- **Correction-rate decay** — the drop in how often outputs need a major edit or a regeneration as weeks pass; a real trust signal, unless it's the resignation trap.
+- **The resignation trap** — correction rate falls not because quality improved but because the user stopped checking; the tell is a flat or rising complaint rate alongside a falling correction rate.
+- **Switching cost** — how much friction it would take a trusting user to leave for a competitor; the indirect confirmation that fit is real, not just measured wrong.
+- **Evidence tiers used below** — ✅ audited/peer-reviewed · ◆ company- or study-disclosed · ⚠ illustrative teaching anchor. Every number, formula output, and threshold in this skill is ⚠: there is no published trust-curve benchmark literature yet. Run the formulas on your own cohort and set your own thresholds — the numbers here show the shape of a healthy curve, not someone else's cutoff.
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
+Go deep if you have 8+ weeks of active-user data and need to decide whether to scale, keep iterating, or pivot. Skim straight to Signal 1 if you already have trust data and just need the interpretation. Skip this skill entirely if you have under 100 weekly active users (the signal is too noisy to read), your product is deterministic (classic PMF frameworks already work), or it's batch/offline AI with no real-time feedback loop (there's no session for trust to build within).
 
-Then proceed with the skill-specific analysis below.
+Then follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md): name the customer and the problem, decide Executive Summary vs. full analysis, and pick the output format.
 
 ---
 
-## AI-Specific PMF Signals (Beyond Engagement Metrics)
+## THE FALSIFICATION HANDOFF — what would prove you don't have fit
 
-Traditional PMF signals (retention, NPS, DAU) break with AI. Look for these instead:
+Before you measure anything, write down what would prove you wrong. This is `falsification`'s discipline — import it for the full pre-registration method. Here are the four questions specific to AI-PMF:
 
-**Signal 1: Trust Progression** (most important)
-- Do users accept AI output at increasing rates over time?
-- New users: 40% acceptance. Week 4 users: 65% acceptance. Week 8 users: 72% acceptance.
-- If acceptance stays flat or declines: No PMF, something is systematically unreliable.
+- If you removed the AI component entirely, would users still use the product? (Yes → you have workflow-PMF, not AI-PMF.)
+- If you swapped in a competitor's model, would anyone notice? (No → the AI is commoditized, not a moat.)
+- If you doubled the price, would usage collapse? (Yes → they're here for the price, not the preference.)
+- If you went dark for a week, would users go find an alternative? (No → they don't depend on you yet.)
 
-**Signal 2: Accuracy Threshold for Switching**
-- At what confidence level do users switch from "manual work" to "use AI output"?
-- If users require >90% confidence to trust: You're not PMF, you're a verification tool (limited TAM).
-- If users confidently use 70% accuracy output: PMF signal (they've built trust).
-- Measure: % of outputs used directly (no edits) at each confidence level. 70%+ acceptance at 70% confidence = PMF threshold hit.
+Pre-commit to what you're measuring before you look: the trust curve's shape, the magic moment's hit rate, correction-rate decay, and switching cost. Deciding the bar after seeing the data is how teams talk themselves into PMF that isn't there.
 
-**Signal 3: Correction Rate Decay**
-- Users learn the system's failure patterns over time and over-correct less.
-- Week 1: 60% of outputs need correction. Week 8: 20% need correction.
-- Decay >50% = PMF signal. Decay <30% = users aren't learning, trust isn't accumulating.
-- But beware: Flat correction rate could mean (1) quality degraded, or (2) user has given up and accepts low-quality output (over-reliance). Monitor user complaint rate to distinguish.
+## SIGNAL 1 — THE TRUST CURVE (the core signal)
 
-## THE TRAP
+Classify every AI output into one of four categories, and use the same classification for both this signal and Signal 3 below — they're two different aggregations of the same event log, not two separate systems:
 
-You will measure product-market fit the way you'd measure traditional software fit: NPS (Net Promoter Score), retention curves, feature adoption. These break catastrophically with AI products because the experience is different every time.
+| Category | Fidelity score | Counts as a "correction"? |
+|---|---|---|
+| Used as-is | 1.0 | No |
+| Minor edit (small fix, <30% changed) | 0.6 | No |
+| Major edit (rewrite, >50% changed) | 0.2 | Yes |
+| Rejected / regenerated | 0.0 | Yes |
 
-The trap is **metric inversion through non-determinism**. Here's the sequence:
+**Trust score** (this signal) = the average fidelity score across a week's outputs — magnitude-weighted, so a run of minor edits drags it down gently. **Correction rate** (Signal 3) = the % that were major-edit-or-regenerated — a hard failure rate that a pile of minor edits doesn't touch. Track both: if trust score rises while correction rate stays flat, outputs are getting slightly better on average but not more reliable — a different problem than the reverse.
 
-1. User tries your AI feature on Monday. It works great. NPS +2 sentiment.
-2. Same user tries it on Tuesday with a slightly different query. It hallucinates. NPS -1 sentiment.
-3. Same user tries it on Wednesday. Works again. NPS +2 sentiment.
-4. You measure NPS over a month and get a "healthy 42." But the user hates you because they can't trust the product.
+```
+Worked example — 10 outputs this week:
+6 used as-is (1.0) + 2 minor edits (0.6) + 1 major edit (0.2) + 1 rejected (0.0)
+Trust score = (6×1.0 + 2×0.6 + 1×0.2 + 1×0.0) ÷ 10 = 7.4 ÷ 10 = 0.74
+Correction rate, same week = (1 major + 1 rejected) ÷ 10 = 20%
+```
 
-Your NPS is inflated by variance. Your retention looks healthy because retention is measured in cohorts, and cohorts average out bad weeks with good weeks. Your MAU looks stable when it's actually unstable (users trying it, leaving, coming back, leaving again).
+A stricter version also weights by downstream use — did the user act on the output, or just read it. Add that once the basic pipeline is trustworthy; it isn't needed to start.
 
-The dangerous variant: you declare PMF based on surface metrics (retention >40%, NPS >40) without noticing the underlying signal: **users are engaging with your product not because they've adopted it, but because they're stress-testing it.** They keep coming back hoping it works, not because they've decided it's reliable enough to depend on.
+Plot the trust score for 8+ weeks (⚠ illustrative shape of a healthy curve):
+```
+Wk 1: 0.42   Wk 2: 0.45   Wk 3: 0.48   Wk 4: 0.51
+Wk 5: 0.58 (inflection)   Wk 6: 0.62   Wk 7: 0.65   Wk 8: 0.67 (plateau)
+```
 
-This is especially pernicious because AI products *feel* like they're reaching PMF. Users are engaged, retention is decent, they talk about the product. But the engagement is fragile — it evaporates the moment a competitor offers higher reliability or lower variability.
+Read the shape, not any single week:
+- **Flat or declining** — no PMF. Something is systematically unreliable; more engagement won't fix it.
+- **Inflecting upward, plateauing above ~0.60 (⚠ illustrative bar — calibrate to your domain)** — the PMF signal. Users are learning to depend on you.
+- **Volatile, swinging 0.3–0.7** — variance is too high to trust. A more consistent competitor can take these users even at lower raw accuracy.
 
-## THE PROCESS
+Segment before you conclude anything: an overall trust score of 0.55 can hide 0.72 on use case A and 0.38 on use case B. That's not "PMF, needs work" — it's PMF for A and not for B, and the action is double down on A, then fix or kill B.
 
-### Phase 1: Establish the PMF Null Hypothesis (Import falsification)
+One companion threshold worth tracking alongside the curve: **the confidence level at which users switch from doing it manually to trusting your output.** If they need >90% confidence before using what you gave them, you've built a verification tool, not a dependency — useful, but a much smaller market. If they confidently use output at 70% confidence, that's a real trust signal, independent of the curve's shape.
 
-1. **Define what PMF would look like for your AI product.** Not "NPS > 40" (that's a symptom, not a cause). PMF is: "A meaningful fraction of users prefer our product to alternatives AND can't imagine going back."
+## SIGNAL 2 — THE MAGIC MOMENT (the conversion trigger)
 
-2. **Identify the kill conditions for PMF.** What would prove you DON'T have fit? Write these down:
-   - If we removed the AI component entirely, would users still use the product? (If yes, you don't have AI-PMF, you have workflow-PMF.)
-   - If we replaced our AI with a competitor's AI, would users notice? (If no, the AI is commoditized.)
-   - If we charged 2x our current price, would usage collapse? (If yes, they're using you on price, not preference.)
-   - If we went dark for a week, would users seek alternatives? (If no, they don't depend on you.)
+The magic moment is the specific interaction that precedes a user's trust curve turning upward — the thing that flips "trying this out" into "I use this weekly." It's usually one of: completing N outputs (trust through repetition), a successful edit-then-use cycle (overcomes first distrust), sharing output with a colleague (external validation), or returning on 3+ separate days (habit forming).
 
-3. **Pre-commit to success criteria.** Before you measure, decide what you're looking for:
-   - Trust curve: Is user confidence in the AI output increasing over time, or decreasing?
-   - Magic moment: Is there a specific interaction that converts new users to engaged users?
-   - Correction rate: Are users needing to correct/edit AI output less over time?
-   - Feedback velocity: Are users providing more feedback signals (edits, regenerations, ratings) or fewer?
-   - Switching cost: How much friction would it take to get a user to try a competitor?
+Find it by looking at the users whose trust curve actually inflected — what did they do in the two weeks before the turn that the flat-curve users didn't? Then measure it per cohort, because the moment isn't universal (⚠ illustrative):
 
-### Phase 2: Measure Trust Curve (The Core Signal)
+```
+Power users (5+ queries/day):  70% hit the moment → 78% 8-wk retention
+                                30% miss it        → 32% 8-wk retention
+Skeptics (1-2 queries/day):    45% hit the moment → 65% 8-wk retention
+                                55% miss it        → 28% 8-wk retention
+Occasional (<1/day):           20% hit the moment → 55% 8-wk retention
+                                80% miss it        → 18% 8-wk retention
+```
 
-Trust curve is the only signal that matters. It measures dependence, not engagement.
+The occasional cohort's 20% hit rate is the tell: this segment isn't reaching fit, so more marketing to them won't help — the fix is either redesigning their path to the moment or deprioritizing them for the cohort that already gets there. Once you know the moment, design toward it: a guided tour toward N completed outputs, a more discoverable edit flow, lower-friction sharing. Track the hit rate itself over time — a rising hit rate should precede a rising retention number by a few weeks; if it doesn't, the moment you found isn't the real one.
 
-4. **Define trust operationally:**
+## SIGNAL 3 — CORRECTION-RATE DECAY (and the resignation trap)
 
-   For each AI output, measure:
-   - **Acceptance:** User used output as-is (1.0) vs. edited (0.5) vs. rejected (0.0)
-   - **Edit depth:** If edited, % of output changed: no changes (1.0) → small fix (0.7) → rewrite (0.0)
-   - **Downstream use:** Did user actually use the output in their workflow, or just read it?
+Using the same four-category classification from Signal 1, correction rate = (major edits + regenerations) ÷ total outputs, tracked week over week.
 
-5. **Calculate trust score (simple formula):**
+```
+Healthy pattern (⚠ illustrative): Wk 1: 60% → Wk 2: 45% → Wk 4: 25% → Wk 8: 15%
+Concerning pattern:                Wk 1: 70% → Wk 4: 65% → Wk 8: 60%
+```
 
-   ```
-   Weekly Trust = (# accepted outputs / # total outputs) × (1 - avg_edit_depth)
+Target a 50–60% reduction from week 1 to week 8 (⚠ illustrative bar — set your own from your first cohort). Flat or rising correction rate means the product isn't getting more reliable in the user's hands, full stop.
 
-   Example:
-   - User generated 10 outputs this week
-   - 7 accepted as-is (0.7 acceptance)
-   - 2 edited slightly (0.8 edit depth each)
-   - 1 rejected (0.0 edit depth)
+**The trap:** falling correction rate can mean the user learned to trust you, or it can mean they gave up checking. Both look identical in the correction-rate number alone. Distinguish them with a second signal — complaint rate and downstream use. If corrections fall *and* complaints stay flat *and* users keep acting on the output, that's trust. If corrections fall while complaints rise or downstream use quietly drops, that's resignation: users accepting worse output because checking isn't worth their time anymore — a leading indicator of churn, not fit.
 
-   Average edit depth = (0 + 0 + 0.8 + 0.8 + 0) / 5 edits or rejections = 0.32
-   Trust = 0.70 × (1 - 0.32) = 0.48
-   ```
+Expect different baselines by use case — code generation should sit above 90% used-as-is-or-minor-edit, open-ended creative work closer to 60–70% (⚠ illustrative). A use case running 80% correction when you expected 40% means either the use case is wrong for AI or the product is failing it specifically.
 
-6. **Plot trust curve over time (minimum 8 weeks of data):**
-   ```
-   Week 1: Trust = 0.42 (users exploring, low confidence)
-   Week 2: Trust = 0.45 (marginal improvement)
-   Week 3: Trust = 0.48
-   Week 4: Trust = 0.51 (approaching inflection point)
-   Week 5: Trust = 0.58 (trust curve inflecting upward — PMF signal)
-   Week 6: Trust = 0.62
-   Week 7: Trust = 0.65
-   Week 8: Trust = 0.67 (plateauing at high trust)
-   ```
+## SWITCHING COST — the indirect confirmation
 
-7. **Interpret the trust curve:**
-   - **Flat or declining:** Users are not gaining confidence. PMF is NOT present. Something is systematically wrong (hallucination rate too high, quality inconsistent, product doesn't solve the problem).
-   - **Inflecting upward then plateauing high (>0.60):** PMF signal is present. Users are learning to trust the system and using it consistently.
-   - **Volatile (swinging between 0.3-0.7):** Variance is too high. Competitors can capture these users by offering more reliable output.
+If trust is real, leaving should be costly. Four behavioral proxies, roughly in order of how much they tell you (⚠ illustrative targets):
 
-8. **Segment trust by use case:**
-   - If overall trust is 0.55 but trust on "use case A" is 0.72 and "use case B" is 0.38, you have PMF for A, not for B. This tells you to double down on A and either fix B or kill it.
-
-### Phase 3: Identify the Magic Moment (Conversion Trigger)
-
-Magic moment is the specific interaction that converts "trying it out" to "I'll use this weekly."
-
-9. **Find what precedes trust curve inflection:**
-
-   For users whose trust curve goes from 0.3 → 0.6+ between week 1 and week 4, what did they do differently?
-
-   Look for:
-   - **Task completion:** Generated and used 5+ outputs (builds confidence through repetition)
-   - **Successful edit:** Edited output, used it, got positive result (overcomes distrust)
-   - **Export/share:** Shared output with colleague or used in their workflow (external validation)
-   - **Return cadence:** Used product on 3+ separate days (builds habit)
-
-10. **Calculate magic moment hit rate per cohort:**
-
-    ```
-    Cohort A (Power Users, >5 queries/day):
-      - Hit magic moment (completed 5 queries): 70% of users
-      - Of those, 8-week retention: 78%
-      - Of non-magic-moment users, retention: 32%
-      → Magic moment matters for power users
-
-    Cohort B (Skeptics, 1-2 queries/day):
-      - Hit magic moment (edit cycle + accept): 45% of users
-      - Of those, 8-week retention: 65%
-      - Of non-magic-moment users, retention: 28%
-      → Magic moment is critical for skeptics
-
-    Cohort C (Occasional, <1/day):
-      - Magic moment (sharing output): 20%
-      - Retention if hit: 55%
-      - Retention if not: 18%
-    ```
-
-    **Insight:** Only 20% of occasional users convert via magic moment. This cohort has low PMF. Focus on power users and skeptics instead.
-
-11. **Design the magic moment into the product.**
-    - If the magic moment is "completing 5 outputs," can you guide users there? (Tutorial, guided tour)
-    - If it's "successfully editing output," can you make the editing flow more discoverable?
-    - If it's "sharing output," can you reduce friction on sharing?
-
-12. **Track magic moment conversion rate over time:**
-    - Week 1: 20% of new users hit the magic moment → 40% retention
-    - Week 4: 50% of new users hit the magic moment → 65% retention
-    - Goal: >60% hitting magic moment, which predicts >70% retention
-
-### Phase 4: Measure Correction Rate Decay
-
-Correction rate is a forward-looking trust signal: as users learn the system, they need fewer corrections.
-
-13. **Define correction metrics:**
-    - **Major edit:** User rewrote >50% of AI output (high distrust)
-    - **Minor edit:** User changed <30% of output (light personalization, medium trust)
-    - **No edit:** User accepted output as-is (high trust)
-    - **Regeneration:** User rejected and asked AI to redo (distrust, learning signal)
-
-14. **Calculate correction rate per user:**
-    ```
-    Correction Rate (week N) = (major edits + regenerations) / total outputs
-
-    User A:
-      Week 1: 60% correction rate (6 edits out of 10 outputs)
-      Week 2: 45% correction rate
-      Week 4: 25% correction rate
-      Week 8: 15% correction rate
-
-    User B:
-      Week 1: 70% correction rate
-      Week 4: 65% correction rate
-      Week 8: 60% correction rate (declining trend but higher floor)
-    ```
-
-15. **Cohort analysis on correction decay:**
-    - Calculate median correction rate for new users, week 1 vs week 8
-    - Target: 50-60% reduction in correction rate (from 50% to 20-25%)
-    - If correction rate is flat or increasing, the product is not delivering reliable output
-
-16. **Interpret correction rate by use case:**
-    - Some use cases should have low correction rates (e.g., code generation) — >90% acceptance
-    - Some use cases should have moderate rates (e.g., creative writing) — 60-70% acceptance
-    - If a use case has 80% correction rate and you expected 40%, either the use case is wrong or the product is failing
-
-### Phase 5: Measure Feedback Flywheel Health (Import feedback-flywheel)
-
-Feedback flywheel measures whether user corrections are improving the system.
-
-17. **Capture the flywheel signals:**
-    - **Input signal:** User corrects AI output (e.g., "this code has a bug")
-    - **Processing:** Are you capturing this correction as training data?
-    - **Output signal:** Does the system improve based on corrections?
-    - **Measurement:** Do subsequent users see better performance?
-
-18. **Design the feedback loop closing mechanism:**
-    ```
-    Week 1-2: Collect user corrections (zero processing)
-    Week 3: Analyze top 10 correction patterns
-    Week 4: Update prompt, retrieval, or fine-tuning based on patterns
-    Week 5-6: Monitor if new users hit fewer of the same corrections
-    Week 7-8: Repeat
-    ```
-
-19. **Measure loop health with two metrics:**
-
-    **Feedback velocity:** How fast do user corrections turn into system improvements?
-    - Ideal: Weekly or bi-weekly
-    - Acceptable: Monthly
-    - Concerning: Quarterly or less frequently
-
-    **Correction absorption rate:** What percentage of user corrections lead to system improvements?
-    - Target: 60-80% of distinct correction patterns get addressed within 4 weeks
-    - If you're capturing lots of feedback but absorbing little, the flywheel is broken
-
-20. **Calculate flywheel multiplier (advanced):**
-    - Start cohort: 100 new users, avg correction rate 50%
-    - If correction rate decays at historical rate without flywheel: 25% by week 8
-    - If correction rate decays with active flywheel improvements: 18% by week 8
-    - Flywheel multiplier: 1.4x improvement velocity
-
-### Phase 6: Measure Switching Cost (Lock-in Signal)
-
-Switching cost is an indirect PMF signal. If users won't leave, they've found fit.
-
-21. **Estimate switching cost through behavioral proxies:**
-
-    | Proxy | Interpretation | Target |
-    |-------|----------------|--------|
-    | Users who deleted account in first 2 weeks | Very low switching cost (no product stickiness) | <15% |
-    | Users who tried a competitor and came back | High switching cost (prefer you even after testing alternatives) | >20% |
-    | Users who paid for premium tier | Highest switching cost (financial + workflow) | >5-10% |
-    | Users with >50 interactions | Moderate switching cost (workflow established) | >40% of retained users |
-
-22. **Design the switching cost test (optional):**
-    - Recruit 20-30 active users (trust score >0.60, used for 4+ weeks)
-    - Offer them a free trial of a competitor's product
-    - Measure: Do they return to your product after the trial?
-    - If >70% return, switching cost is real
-    - If <50% return, switching cost is weak (danger signal)
-
-23. **Calculate switching cost premium:**
-    - If users have switching cost, they tolerate price increases
-    - Estimate: If you raised price by 20%, what % of users would leave?
-    - If >10% leave, switching cost is insufficient to support premium pricing
-    - If <5% leave, switching cost is strong enough to defend price
-
-### Phase 7: Synthesize PMF Diagnosis (Import stress-test)
-
-24. **Create a PMF scorecard (the final verdict):**
-
-    ```
-    SIGNAL                      TARGET       ACTUAL       STATUS
-    ───────────────────────────────────────────────────────────
-    Trust Curve (8-week)        >0.60        0.67         ✓ PASS
-    Inflection point            By week 4-5  Week 4       ✓ PASS
-    Magic Moment Hit Rate       >60%         52%          ⚠ CAUTION
-    Correction Rate Decay       >50%         45%          ⚠ CAUTION
-    Feedback Loop Velocity      Weekly       Bi-weekly    ⚠ CAUTION
-    Switching Cost              <$200        $350         ✗ FAIL
-    LTV:CAC Ratio               >3:1         2.1:1        ⚠ CAUTION
-    ```
-
-25. **Read the scorecard:**
-
-    - **PMF CONFIRMED:** Trust >0.60 inflecting upward, magic moment >60%, feedback loop active, switching cost evidence present. **→ Scale with confidence. Ship adjacent features.**
-
-    - **PMF EMERGING:** Trust trending up (not yet at plateau), magic moment 40-60%, feedback loop just closing. **→ Invest heavily in magic moment UX. Re-measure in 4 weeks.**
-
-    - **PMF UNCERTAIN:** Trust flat or declining, magic moment <40%, feedback loop not closing, low switching cost. **→ Investigate root cause. Is output quality too low? Wrong problem? Bad UX? Fix OR pivot.**
-
-    - **NO PMF:** Trust crashing, churn >30%, magic moment <20%. **→ Kill feature or fundamentally pivot. More engagement won't help. This is a product-market FIT problem, not a scaling problem.**
+| Proxy | What it tells you | Illustrative target |
+|---|---|---|
+| Deleted account in first 2 weeks | No stickiness at all | <15% |
+| Tried a competitor, came back | Prefers you even after testing the alternative | >20% |
+| Paid for a premium tier | Financial plus workflow lock-in — the strongest signal | >5–10% |
+| 50+ interactions logged | Workflow is built around you | >40% of retained users |
+
+For a direct read rather than a proxy: give 20–30 trusting users (trust score >0.60, active 4+ weeks) a free trial of a competitor, and watch whether they come back. Above ~70% return is real switching cost; below ~50% is a danger signal regardless of what the dashboard says. The same logic works as a pricing test: estimate what fraction would leave at a 20% price increase — under 5% leaving means the switching cost can support a premium; over 10% means it can't yet.
+
+## THE FEEDBACK LOOP CHECK — import feedback-flywheel
+
+Correction-rate decay is only a trust signal if the corrections users give you are actually closing a loop — reaching someone, changing the prompt or retrieval or model, and showing up as fewer of the same corrections for the next cohort. If they're landing in a database nobody reads, "users correct less" may just be the resignation trap above, dressed up as good news.
+
+The full design of that loop — signal capture, annotation velocity, the weekly-to-quarterly cadence, when it's a real moat versus overhead — is `feedback-flywheel`'s job; import it. The one check to run here: pick last month's ten most common correction patterns and ask whether any of them changed the product. If the answer is no, don't credit a falling correction rate to trust — credit it to resignation until proven otherwise.
+
+## THE VERDICT — THE PMF SCORECARD
+
+Bring the signals together into one read. Fill ACTUAL from your own data; the TARGET column is ⚠ illustrative — replace it with the thresholds you pre-committed to in the falsification handoff.
+
+```
+SIGNAL                       TARGET        ACTUAL      STATUS
+Trust score (week 8)         >0.60         ___
+Inflection point             by week 4-5   ___
+Magic-moment hit rate        >60%          ___
+Correction-rate decay        >50%          ___
+Feedback loop                closing       ___
+Switching cost                real         ___
+```
+
+Four verdicts, four actions:
+
+- **PMF CONFIRMED** — trust >0.60 and inflecting, magic moment >60%, feedback loop closing, switching cost real. **Scale with confidence; ship adjacent features.** Before scaling, run `stress-test` (import) — a confirmed trust signal on 200 users says nothing about whether the system holds at 20,000.
+- **PMF EMERGING** — trust trending up but not plateaued, magic moment 40–60%, loop just starting to close. **Invest in the magic moment's UX; re-measure in 4 weeks.**
+- **PMF UNCERTAIN** — trust flat, magic moment <40%, loop not closing, switching cost weak. **Investigate the root cause — quality, wrong problem, or bad UX — before choosing fix or pivot.**
+- **NO FIT** — trust crashing, churn climbing, magic moment <20%. **Kill or fundamentally pivot the feature.** More engagement will not fix a fit problem — that's the mistake this skill exists to prevent.
+
+## WHERE THIS MEETS YOUR STACK
+
+Fit-signal owns the *diagnosis*: is this AI product actually earning dependence. It hands the surrounding work to:
+
+- **`ai-product-metrics`** — the raw acceptance, correction, and regeneration events this skill aggregates into a trust curve; that skill defines what to instrument, this skill tells you what the numbers mean for fit.
+- **`feedback-flywheel`** (import) — whether user corrections are actually closing into product improvement; without it, "correction rate fell" can't be trusted as a signal.
+- **`uncertainty-research`** — when the simple weekly-average trust score isn't rigorous enough (small samples, contested findings, a board that wants a defensible number), that skill's stratified and longitudinal methods measure trust properly.
+- **`falsification`** (import) — the pre-registration discipline behind the four kill-condition questions above; run it in full before measuring, not after you like what you see.
+- **`stress-test`** (import) — once the scorecard says CONFIRMED, this is the technical half: does the system hold at 10x the users, not just earn their trust at the current scale.
 
 ## REALITY CHECK
 
-- **Trust curve is noisy at small sample sizes.** With <100 active users per week, weekly measurements are meaningless. Measure bi-weekly or monthly until you have enough data.
-
-- **Variance in non-deterministic systems is real.** A 20-30% swing in trust score week-to-week is normal if you have a quality regression or an infrastructure spike latency. This is not a failure of the framework; it's a signal to investigate.
-
-- **Different use cases have different PMF curves.** Customer support triage and creative writing have different baseline trust curves. Don't expect all use cases to converge to the same metrics.
-
-- **PMF is not revenue.** You can have PMF (users love the product, use it consistently) but no revenue (freemium, weak monetization). Conversely, you can have revenue (users need you, captive market) without PMF (they'd switch if alternatives existed). Both are different challenges.
-
-- **Magic moment varies by user persona.** Power users and skeptics have different paths to trust. Don't force all users through the same magic moment. Measure per cohort and enable multiple paths.
-
-- **Feedback flywheel requires investment.** You can't declare "broken flywheel" until you've invested in closing the loop. If you're capturing feedback but not processing it, that's a resource issue, not a product issue.
+- **Trust curve is noisy under 100 weekly active users.** Measure bi-weekly or monthly instead of weekly until volume catches up — a weekly read at that size is mostly noise.
+- **A 20–30% week-to-week swing is normal**, not a framework failure, if there's been a quality regression or a latency spike. Investigate the cause; don't discard the method.
+- **Different use cases have different baseline curves.** Support triage and creative writing will never converge to the same numbers — don't force them to.
+- **PMF is not revenue.** You can have real trust and weak monetization (freemium), or real revenue with no trust (a captive market that would leave the moment it could). They're different problems; don't let one masquerade as evidence for the other.
+- **You can't call the feedback loop "broken" until you've funded it.** Capturing feedback without processing it is a resourcing gap, not proof the flywheel doesn't work.
 
 ## QUALITY GATE
 
-Before making any scaling decision:
+- [ ] 8+ weeks of data, 100+ weekly active users — enough volume for the signal to mean something
+- [ ] Kill conditions and success thresholds written down *before* looking at the data (the falsification handoff)
+- [ ] Trust curve calculated and its shape read — flat / inflecting-then-plateau / volatile — not just its latest value
+- [ ] Trust segmented by use case, not read as one blended number
+- [ ] Magic moment identified per cohort, with a hit rate, not assumed to be universal
+- [ ] Correction-rate decay checked against complaint rate and downstream use — the resignation trap ruled out, not ignored
+- [ ] Last month's correction patterns checked for whether any actually changed the product
+- [ ] Switching cost tested with at least one behavioral proxy or the competitor-trial test
+- [ ] Scorecard filled with real numbers, one of the four verdicts written down, next action named
 
-- [ ] **Measurement period:** 8+ weeks of data collected; minimum 100 weekly active users
-- [ ] **Trust curve calculated:** Weekly trust scores computed; inflection point identified or noted as absent
-- [ ] **Magic moment identified:** Specific interaction per cohort that precedes trust inflection; hit rate calculated
-- [ ] **Correction rate tracked:** Week 1 vs. week 8 comparison; >50% decay as target
-- [ ] **Feedback loop assessed:** Loop closure mechanism exists (weekly/bi-weekly cadence); 60%+ absorption target
-- [ ] **Switching cost tested:** Behavioral proxies measured OR 20+ users offered competitor trial
-- [ ] **PMF diagnosis completed:** Scorecard filled with actual measurements; diagnosis written (CONFIRMED/EMERGING/UNCERTAIN/NO FIT)
-- [ ] **Root cause documented (if not CONFIRMED):** Why is magic moment low? Why is correction rate flat? Why is trust not inflecting?
-- [ ] **Go/no-go decision made:** Scale (if PMF CONFIRMED), iterate (if EMERGING), pivot (if UNCERTAIN/NO FIT)
+## DIAGNOSTIC QUESTIONS
+
+1. **Has anyone plotted trust week-over-week, or only checked NPS and retention?** Only NPS/retention means you don't have a PMF read yet — you have an engagement mirage until proven otherwise.
+2. **When correction rate fell, did complaint rate fall with it?** Corrections down but complaints flat or up is resignation, not trust.
+3. **What's last month's magic-moment hit rate, by cohort?** A blank stare here means no one has looked — that's the diagnosis by itself.
+4. **If you went dark for a week, would users go find an alternative?** "No" means dependence hasn't happened yet, whatever the dashboard says.
+5. **Is trust uniform across use cases, or is a strong one hiding a weak one?** A single blended number can hide a kill-this/scale-that split that changes the whole roadmap.
 
 ## WHEN WRONG
 
-- Pre-product stage where you don't yet have users to measure
-- Deterministic products where output variance is low (no need for trust curve analysis)
-- Batch/offline AI where users don't see output in real-time (no interactive feedback loop)
-- Products with <50 weekly active users where signals are too noisy to be statistical
-- When PMF analysis is being used as a tool to delay shipping instead of to inform iteration
-- When "we'll measure PMF later" is an excuse to ship without defining success criteria upfront
+- Pre-launch, with no users yet to measure.
+- Deterministic products with low output variance — the classic PMF playbook (Sean Ellis, retention cohorts) already works; don't add this overhead.
+- Batch or offline AI with no real-time feedback loop — there's no session for trust to build within.
+- Under 100 weekly active users — the math above is just noise at that volume.
+- When "let's measure PMF properly" has become the reason nothing ships. This skill informs a decision; it isn't a substitute for making one.
 
 ---
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+**By trusting the curve over NPS and retention, you bet** that dependence, not sentiment, is what actually predicts whether this product survives contact with a more reliable competitor. **You give up** the comfort of the simpler metrics — trust measurement takes real instrumentation (fidelity scoring, per-cohort tracking) that an NPS survey doesn't require, and it will sometimes hand you an uncomfortable UNCERTAIN verdict when the dashboard says CONFIRMED. **Reversible?** Yes — this is a measurement choice, not a product commitment; you can adopt or drop the trust curve without touching the product itself. **The hidden trade:** you're choosing to find out now, from eight weeks of real behavior, whether users depend on you — instead of finding out in six months, from a churn spike, that they never did. **Confidence: High. What would change it:** a deterministic product, where the classic metrics already work, or a userbase too small for the curve to mean anything — in either case, use standard cohort retention or `stress-test` instead.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
+Follow the Conclusion Protocol (Universal Skill Protocol, Section 6): state the recommendation (scale, iterate, fix-or-pivot, or kill, tied to the scorecard's verdict), name the key trade-off (measurement rigor now vs. the comfort of metrics that lie), acknowledge the biggest risk (the resignation trap read as trust, or a kill condition abandoned once the team likes what early data shows), and define the next action (who owns the weekly trust-curve update, and the date of the next scorecard read).
 
 ---
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After the primary output, invoke the **excalidraw-svg** skill for one visual: the trust curve (weeks 1–8, the inflection marked) beside the magic-moment cohort bars and the four-verdict scorecard, so a viewer sees in one glance where the curve sits, what's driving it, and what to do next. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.

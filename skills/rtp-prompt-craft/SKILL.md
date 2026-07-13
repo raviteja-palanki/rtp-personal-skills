@@ -1,456 +1,117 @@
 ---
-name: rtp-prompt-craft
-description: How to actually write good prompts. The writing craft — hard constraints, structure-triggers-quality, test splits, cost economics, model-specific formatting. Distinct from prompt-as-product (which covers versioning and process). Use when writing or improving system prompts, optimizing prompt quality, or debugging why a prompt underperforms.
+name: prompt-craft
+description: "How to actually write good prompts — the writing craft, not the process. Prompts are engineering artifacts, not creative writing: the craft has principles, and the counterintuitive first move is to write what the model CANNOT do (hard constraints) before what it should, because LLMs are more consistent at avoiding specific patterns than following general positive ones. Covers the 6-step framework, technique selection, cost-per-success, and the vibe-coding PRD→prototype pattern. Distinct from prompt-as-product (versioning/deployment) and context-spec (what information reaches the window). Use when writing or improving a system prompt, or debugging why one underperforms. Do NOT use when the problem is task decomposition or a model capability gap, not wording. Pairs with: prompt-as-product (the lifecycle), context-spec (the architecture), eval-framework (measures both), judgment-guard (shared make-tacit-explicit backbone). Triggers: 'write a prompt', 'improve this prompt', 'system prompt', 'few-shot'."
+imports:
+  - determinism-compass
+  - prompt-as-product
+  - eval-framework
 ---
-## DEPTH DECISION
 
-**Go deep** if: you're writing a production system prompt, optimizing an underperforming prompt, or need to balance quality against cost. Read the full 6-step framework.
+# Prompt Craft
 
-**Skim to Step 1 + Step 4** if: you have a working prompt and need to tighten failure modes or reduce cost.
+**The objective:** write a system prompt that survives real production, and diagnose why one doesn't — for the PM who owns what the AI must never do, how it handles ambiguity, and what the user sees.
 
-**Skip** if: you need prompt versioning, A/B testing, or release process — that's `prompt-as-product`. This skill is the writing craft; that skill is the change management.
+## The one idea
+
+You write a prompt, test it on three examples, and it works — ship it. In production it fails on 40% of real inputs: the messy, ambiguous, adversarial ones you never tested. You patch by adding instructions; the prompt bloats to 3,000 tokens; cost is now 4× what you budgeted; and you cannot explain why a five-word change broke everything.
+
+The root cause is a category error: **prompts get treated as creative writing when they are engineering artifacts.** Creative writing has taste; engineering has *principles*, and violating them produces the same predictable failures every time (the kitchen-sink prompt where every task interferes with the others; the demo-magic prompt that works on clean data and dies on reality; the set-and-forget prompt that drifts as the world changes). The craft is learnable, testable, and repeatable — which is the whole reason it's a skill and not a knack.
+
+And the most counterintuitive principle is the one to lead with: **write what the model CANNOT do before what it should.** LLMs are measurably more consistent at *avoiding a specific pattern* than at *following a general positive instruction* — "never cite a source that isn't in the provided context" is a guardrail; "always be accurate" is a wish. So the compliance hierarchy runs hard constraints (NEVER/ALWAYS) > structural formatting (XML/templates) > positive instructions ("be helpful") > implicit hope. Most prompts are written backwards — vague positives first, hoping the model infers intent. Flip the order, and half the failures never happen.
+
+## How to use this skill
+
+1. **Run the 6-step framework** for a production system prompt — constraints → structure → meta-prompt → 20/60/20 test → evals → hill-climb. (THE 6 STEPS.)
+2. **Ship a reasoning trail** with any AI-assisted output, so a one-off correction becomes compounding calibration. (THE REASONING TRAIL.)
+3. **Vibe-code to think, not to ship** — turn a PRD into a clickable prototype in ~10 minutes to sharpen decisions before engineering invests. (VIBE-CODING.)
+
+*(If the question is versioning, A/B testing, or release process, that's `prompt-as-product` — this skill is the writing; that skill is the change management. If it's what *information* reaches the window, that's `context-spec` — the architecture, not the wording.)*
+
+## KEY TERMS (plain language)
+
+- **Hard constraint** — a specific NEVER/ALWAYS rule ("never cite a source not in context"); the highest-compliance instruction type.
+- **Structure-triggers-quality** — the prompt's *format* activates different training-data patterns; a well-structured document triggers higher-quality responses (XML for Claude, JSON/markdown for GPT).
+- **The 20/60/20 split** — a test set that is 20% happy path, 60% edge cases, 20% adversarial — because production traffic is mostly edge cases, not the demo.
+- **Hill-climb** — climb for quality first (longest, most detailed prompt that hits the target), then descend for cost (compress one element at a time, keeping only what holds the evals).
+- **Cost-per-success** — total API cost ÷ *successful* outcomes (not per call); at 60% acceptance, your real cost is ~1.67× the API cost.
+- **Meta-prompting** — using the model to optimize its own prompt from failure data (fixes wording, not architecture).
+- **Kitchen sink** — one mega-prompt doing classification + routing + generation + safety at once, each task interfering with the others.
+- **Reasoning trail** — a 3-line record shipped with AI-assisted output (what the AI produced / what you changed & why / one calibration sentence) that turns a correction into a reusable lesson.
+- **Evidence tiers below** — the cost-per-day and "5–10× faster" figures are ⚠ practitioner/illustrative; measure your own.
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). **Go deep** for a production system prompt or an underperforming one. **Skip** if you need versioning/A-B/release (that's `prompt-as-product`) or the problem is *what information reaches the model* (that's `context-spec`). Then route depth and output format.
 
-Then proceed with the skill-specific analysis below.
+## THE 6 STEPS
 
----
+1. **Start with hard constraints — lock down failure modes.** Write the top 3 things the model must NEVER do and the top 3 it must ALWAYS do, specific and testable. Hard constraints create guardrails; soft instructions create suggestions.
+2. **Structure triggers quality.** Use the target model's native format (Claude → XML tags `<hard_constraints>`, `<task_instructions>`, `<output_format>`, `<examples>`; GPT → JSON + markdown + role separation; open-source → simple markdown). *Why it's a PM concern, not just engineering:* what goes in each section is a product decision — the constraints (what it must never do), the edge-case handling (how to treat ambiguity), the output format (what the user sees). Engineering implements; product specifies.
+3. **Use meta-prompting** — after you have a working v1 and failure data, have the model rewrite itself ("identify the top 3 weaknesses, fix with hard constraints + specific examples + structure, predict each improvement, ≤150% of current tokens"). *When NOT to:* when the problem is conceptual (wrong task decomposition), not textual — meta-prompting optimizes wording, not architecture.
+4. **Test with the 20/60/20 split.** 10 cases per category (30 minimum): 20% happy path, 60% edge (malformed, ambiguous, multi-language, angry users, partial info — where production lives), 20% adversarial (extract the system prompt, inject competing instructions, bypass safety). Run, find the top 3 failure patterns, fix each *explicitly* in the prompt, re-run until edge-case pass rate >85%.
+5. **Build multi-dimensional evals.** Accuracy (domain-set), format compliance (95%+), safety (100% on known attacks), cost-per-success (below the PRD ceiling), latency (P95 within SLA). *The trap:* optimizing one dimension at the expense of others — +5% accuracy for 2× tokens is usually wrong.
+6. **Hill-climb — quality first, cost second.** Phase 1: write the longest, most detailed prompt that hits your quality target (5–8 examples, every edge handler; ignore cost). Phase 2: compress one element at a time, re-running the full eval after each removal — keep it if metrics hold, restore if they drop. *Cost economics (⚠ illustrative, Claude Sonnet rates):* a 2,500-token prompt at 100K daily calls ≈ $3K/day; compressed to 500 tokens ≈ $600/day — ~$72K/month for the optimization. *When longer is correct:* complex/high-stakes tasks where a wrong output costs more than the extra tokens.
 
-## THE RELATIONSHIP: PROMPT-CRAFT vs PROMPT-AS-PRODUCT
+**Technique selection** (match to the task): Chain-of-Thought for reasoning/math (only effective on large models); Few-Shot for style/format (highest variability — test systematically); Chain-of-Table for structured data; nested/pipelined prompts for multi-step (each does ONE thing); if unsure, start with the Step-2 template and iterate.
 
-These two skills are deliberately separated. Confusing them leads to teams that manage prompts rigorously but write them poorly — or write brilliant prompts with no process around them.
+## THE REASONING TRAIL — turn a correction into compounding calibration
 
-| Question | Which Skill |
-|----------|-------------|
-| How do I write a prompt that actually works? | **Prompt-Craft** (this skill) |
-| How do I version, test, and deploy prompt changes? | **Prompt-as-Product** |
-| Why is my prompt producing bad output? | **Prompt-Craft** — diagnose the writing |
-| Why did output quality drop after last week's change? | **Prompt-as-Product** — trace the version |
-| How do I structure a system prompt from scratch? | **Prompt-Craft** — use the 6-step framework |
-| How do I A/B test two prompt variants? | **Prompt-as-Product** — use the release process |
+Ship a three-line trail with any AI-assisted output: **(1)** what the AI produced first, **(2)** what you changed and why, **(3)** one calibration sentence naming where in *this* domain the AI is strong and where it's shaky ("good at X, unreliable on Y"). It works for any human-AI handoff — a prompt output, a code review, an eval writeup, an agent-output audit — because it captures the *delta between your criteria and the model's answer*, which is the reusable lesson. This is the same discipline as the prompt itself: **making tacit criteria explicit enough for a system (or a colleague) to act on** — the shared backbone with `judgment-guard`. *When wrong:* the trail only pays off if a manager actually reads it for coaching; rubber-stamped, it's documentation nobody reads. *Evidence:* conceptual; the "jagged frontier" calibration idea is ✅ Dell'Acqua/Mollick et al., HBS 24-013. *(Secondary application of HBR q2-20; primary home is judgment-guard's forced-pre-articulation checkpoint.)*
 
-**The workflow:** Prompt-Craft writes the prompt. Prompt-as-Product manages its lifecycle. Eval-Framework measures both.
+## VIBE-CODING — PRD to prototype in ~10 minutes (a thinking tool, not a product)
 
----
+Turn a PRD into a clickable prototype using Claude / Cursor / v0 / Bolt — so the team can react to the flow before engineering invests (the pattern associated with Colin Matthews / Aparna Chennapragada). **Use it** when the PRD is fresh and unvisualized, a stakeholder is misreading the spec, or an engineer questions whether the flow makes sense — let them click it. **Don't** when it's mostly backend, when production parity matters, or when you're trying to *ship* (this is throwaway).
 
-## THE TRAP
+The template that produces usable prototypes: *"Generate a [HTML/React/Streamlit] prototype of [feature] demonstrating [user flow]. Use Tailwind, match this design system [paste tokens]. Show the happy path, one specific edge case, the error state, and the empty state. Single file, realistic mock data (not Lorem ipsum), 2–3 sample interactions. PRD below: [paste]."* The four states cover ~95% of the UX surface, and demanding all four forces the model to design, not pitch; realistic mock data makes stakeholders react to the real data shape. **The discipline: stop at 3 iterations** — after that you're polishing a thinking tool instead of making decisions. Vibe-coding produces the *artifact* (a mockup); the 6-step framework produces the *brain* (the production system prompt) — don't confuse the prototype with the product, and note it tells you nothing about production unit economics.
 
-**The "Vibes-Based Prompting" Problem**
+## DIAGNOSTIC QUESTIONS
 
-You write a prompt, test it on 3 examples, declare it works. In production, it fails on 40% of real inputs — the messy, ambiguous, adversarial ones you never tested. You iterate by adding more instructions, the prompt bloats to 3,000 tokens, and now cost is 4x what you budgeted. You can't explain why a five-word change broke everything.
+- **Is your prompt doing ONE thing or many?** >2,000 tokens handling 3+ distinct tasks = kitchen sink → split into a pipeline.
+- **Are your hard constraints specific enough to be testable?** "Be appropriate" is untestable; "never cite a source not in the provided context" is binary. Can you write a test that fails if it's violated?
+- **What % of your test cases are edge cases?** 90/10 = testing the demo; 20/60/20 = matching production. Name 5 edge cases you've never tested.
+- **Can you trace a production failure to a specific prompt weakness?** "The output was bad" allows no diagnosis; "it hallucinated because the citation constraint was missing for this input pattern" does.
+- **What's your cost-per-success (not per call)?** If acceptance is 60%, effective cost is ~1.67× the API cost.
 
-Root cause: prompts are treated as creative writing instead of engineering artifacts. The craft has principles. Violating them produces the same predictable failures every time.
+## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-**Three failure modes:**
-1. **Kitchen Sink** — One massive prompt handling classification, routing, generation, and safety simultaneously. Each task interferes with the others.
-2. **Demo Magic** — Works on clean test data, fails on real production inputs. You tested the 20% easy path, not the 60% edge cases.
-3. **Set and Forget** — Shipped and never updated. User needs evolve, model capabilities change, edge cases accumulate. The prompt drifts from reality.
+Three "craft" skills act on the model's input; keep them distinct:
 
----
-
-## THE PROCESS: 6-STEP PROMPT OPTIMIZATION FRAMEWORK
-
-### Step 1: Start With Hard Constraints (Lock Down Failure Modes)
-
-Begin with what the model CANNOT do, not what it should do.
-
-**Pattern:**
-```
-NEVER:
-- [TOP 3 FAILURE MODES - BE SPECIFIC]
-- Use meta-phrases ("I can help you with that", "let me assist")
-- Provide information you are not certain about
-
-ALWAYS:
-- [TOP 3 SUCCESS BEHAVIORS - BE SPECIFIC]
-- Acknowledge uncertainty when present
-- Follow the output format exactly
-```
-
-**Why this works:** LLMs are more consistent at avoiding specific patterns than following general positive instructions. "Never fabricate citations" is more reliable than "Always be accurate." Hard constraints create guardrails; soft instructions create suggestions.
-
-**The hierarchy:**
-1. Hard constraints (NEVER/ALWAYS) — highest compliance
-2. Structural formatting (XML tags, templates) — high compliance
-3. Positive instructions ("Be helpful") — moderate compliance
-4. Implicit expectations (hoping the model infers intent) — lowest compliance
-
-Most prompts are written backwards — starting with vague positive instructions and hoping. Flip the order.
-
-### Step 2: Structure Triggers Quality (Format Signals Training Data)
-
-The format of your prompt affects which training data patterns the model activates. Well-structured documents trigger higher-quality responses.
-
-**Model-specific formatting:**
-- **Claude (Anthropic):** XML tags work best. `<system_constraints>`, `<task_instructions>`, `<examples>`. Claude's training emphasizes structured XML contexts.
-- **GPT-4 (OpenAI):** JSON structure and markdown headers. System/user/assistant role separation.
-- **Open-source models:** Simple markdown. Fewer structural assumptions in training.
-
-**The production template:**
-```xml
-<system_role>
-You are [SPECIFIC ROLE], not a general assistant.
-You [CORE FUNCTION] for [TARGET USER].
-</system_role>
-
-<hard_constraints>
-NEVER:
-- [Failure mode 1]
-- [Failure mode 2]
-- [Failure mode 3]
-
-ALWAYS:
-- [Success behavior 1]
-- [Success behavior 2]
-- [Success behavior 3]
-</hard_constraints>
-
-<context>
-Current user: [USER_CONTEXT]
-Available tools: [TOOL_LIST]
-Key limitations: [SPECIFIC_LIMITATIONS]
-</context>
-
-<task_instructions>
-Your job is to [CORE TASK] by:
-1. [Step 1 — specific action]
-2. [Step 2 — specific action]
-3. [Step 3 — specific action]
-
-If [edge_case_1], then [specific_response].
-If [edge_case_2], then [specific_response].
-</task_instructions>
-
-<output_format>
-[Exact structure the output must follow]
-</output_format>
-
-<examples>
-[2-3 examples: happy path, edge case, complex scenario]
-</examples>
-```
-
-**Why structure matters for PMs:** This isn't a developer concern. The PM decides what goes into each section — the hard constraints are product decisions (what the AI must never do), the edge cases are product decisions (how to handle ambiguity), the output format is a product decision (what the user sees). Engineering implements; product specifies.
-
-### Step 3: Use LLM Self-Improvement (Meta-Prompting)
-
-Don't optimize prompts manually through trial and error. Use the model itself:
-
-```
-You are a prompt optimization specialist.
-
-CURRENT PROMPT:
-[Paste the prompt]
-
-PERFORMANCE DATA:
-- Top 3 failure modes: [List them]
-- Target use case: [Describe]
-
-TASK:
-1. Identify the top 3 weaknesses in this prompt
-2. Rewrite to fix those weaknesses using:
-   - Hard constraints over soft instructions
-   - Specific examples over generic guidance
-   - Structured format over free text
-3. Predict the improvement for each change
-
-CONSTRAINTS:
-- Maintain core functionality
-- Cannot exceed 150% of current token count
-- Must include failure mode handling
-```
-
-**When to use:** After you have a working v1 prompt and performance data. Not on first drafts — you need failure modes to feed the meta-prompt.
-
-**When NOT to use:** When the problem is conceptual (wrong task decomposition), not textual (wrong phrasing). Meta-prompting optimizes wording. It doesn't fix architecture.
-
-### Step 4: Test With the 20/60/20 Split
-
-The most common prompt testing failure: over-testing happy paths, under-testing reality.
-
-**Build your test set as:**
-- **20% happy path** — Standard, clean, well-formatted inputs. The demo scenarios.
-- **60% edge cases** — Unusual inputs, malformed data, ambiguous requests, multi-language, angry users, partial information. This is where production lives.
-- **20% adversarial** — Attempts to break the prompt, extract system instructions, inject competing instructions, bypass safety constraints.
-
-**Why 60% edge cases?** Because production traffic is 60%+ edge cases. The clean demo inputs are the minority. Teams that test 80% happy path / 20% edge case ship prompts that fail on the majority of real interactions.
-
-**Process:**
-1. Write 10 test cases per category (30 total minimum)
-2. Run the prompt against all 30
-3. Identify the top 3 failure patterns
-4. Address each failure explicitly in the prompt (add to hard constraints or edge case handling)
-5. Re-run. Iterate until edge case pass rate > 85%
-
-### Step 5: Build Evaluation Criteria
-
-Define what "good" means before optimizing. Five dimensions:
-
-| Dimension | What to Measure | Target |
-|-----------|----------------|--------|
-| **Accuracy** | Does it get the right answer? | Domain-specific (set in PRD) |
-| **Format compliance** | Does output follow the required structure? | 95%+ |
-| **Safety** | Does it handle adversarial inputs correctly? | 100% on known attack patterns |
-| **Cost efficiency** | Token usage per successful output | Below cost ceiling (set in PRD) |
-| **Latency** | Response time acceptable for UX? | P95 within SLA |
-
-**The trap:** Optimizing one dimension at the expense of others. Improving accuracy by 5% while doubling token cost is usually wrong. The eval criteria must be multi-dimensional.
-
-### Step 6: Hill Climb — Quality First, Cost Second
-
-**Phase 1: Climb for quality**
-- Write the longest, most detailed prompt that achieves your quality target
-- Include extensive examples (5-8)
-- Add every edge case handler you've identified
-- Ignore token cost temporarily
-- Goal: hit your accuracy/safety/format targets
-
-**Phase 2: Descend for cost**
-- Systematically compress: remove one element at a time
-- After each removal, run the full eval suite
-- If metrics hold, keep the compression
-- If metrics drop, restore and try a different compression
-- Goal: minimum tokens that maintain quality targets
-
-**Cost economics (real numbers):**
-- Detailed prompt: 2,500 tokens @ 100K daily calls = ~$3,000/day (Claude Sonnet rates)
-- Compressed prompt: 500 tokens @ 100K daily calls = ~$600/day
-- That's $72K/month saved — worth the optimization effort
-
-**When longer is correct:** Complex tasks requiring extensive context, high-stakes decisions where additional examples prevent costly errors, tasks where the cost of a wrong output exceeds the cost of extra tokens.
-
----
-
-## VIBE-CODING — PRD TO PROTOTYPE IN 10 MINUTES
-
-The 6-step framework above is for production system prompts. This section is for a different use case: turning a PRD into a working prototype in under 10 minutes using Claude, Cursor, v0, or Bolt.
-
-The pattern is associated with Colin Matthews and Aparna Chennapragada — vibe-coding, PRD-to-prototype, AI-native prototyping. The principle: PMs no longer need an engineer to test whether a feature feels right. The PM writes a structured prompt, pastes the PRD, gets a working HTML/React/Streamlit prototype that demonstrates the user flow.
-
-This is not production code. It's a thinking tool. A way to externalize the PRD into something the team can click through, react to, and stress-test before engineering invests real time.
-
-### When to Vibe-Code
-
-Use the pattern when:
-- The PRD is fresh and the team has never seen the flow visualized
-- A stakeholder is misreading the spec because they can't picture it
-- A design review is coming up and a clickable artifact will sharpen feedback
-- An engineer is questioning whether the flow makes sense — let them click through it
-- You want to see your own design before committing to it
-
-Don't use the pattern when:
-- The feature is mostly backend logic with minimal UI
-- Production parity matters (the prototype's design will mislead)
-- You're trying to ship — vibe-coding is a thinking tool, not a delivery vehicle
-
-### The Prompt Template
-
-The structure below produces clickable prototypes in 5-10 minutes. Paste this into Claude (or your prototyping LLM of choice), filling the placeholders:
-
-```
-I have a PRD for [FEATURE_NAME]. Generate a [HTML | React | Streamlit] 
-prototype that demonstrates [SPECIFIC_USER_FLOW].
-
-Use Tailwind for styling. Match this design system:
-[PASTE DESIGN.md FRONTMATTER OR DESIGN TOKENS HERE]
-
-The prototype must show me:
-- The happy path: [DESCRIBE THE CORE USER FLOW]
-- The edge case: [DESCRIBE ONE SPECIFIC EDGE CASE — e.g., "what the user 
-  sees when the AI has low confidence"]
-- The error state: [DESCRIBE WHAT FAILURE LOOKS LIKE]
-- The empty state: [DESCRIBE WHAT THE USER SEES BEFORE INTERACTING]
-
-Constraints:
-- Single file, no external dependencies beyond Tailwind CDN
-- Runnable locally by opening the file in a browser
-- Use realistic mock data, not "Lorem ipsum"
-- Include 2-3 sample interactions that demonstrate the flow
-
-PRD attached below:
-[PASTE PRD]
-```
-
-The four placeholders (FEATURE_NAME, USER_FLOW, edge case, error state) are non-negotiable. Generic prompts produce generic prototypes. Specific prompts produce prototypes you can actually use to make decisions.
-
-### Why Each Section Matters
-
-**"[HTML | React | Streamlit]"** — Pick based on the audience. HTML for design reviews and stakeholder demos. React for engineering feasibility checks. Streamlit for data-heavy tools where the prototype needs real Python logic.
-
-**"Use Tailwind for styling"** — Tailwind is the universal default. Models are trained heavily on it. Output looks polished without specifying classes manually. If you're matching a specific design system that doesn't use Tailwind, swap accordingly.
-
-**"Match this design system"** — Critical. Without this, you get generic Bootstrap-looking output. With your DESIGN.md frontmatter, you get a prototype that looks like your product, which is what makes the artifact credible to stakeholders.
-
-**"Show me the happy path / edge case / error state / empty state"** — The four states cover ~95% of UX surface area. Generic prompts produce only the happy path; the edge cases are where the design decisions actually live. Demanding all four forces the model to think through the design, not just the marketing pitch.
-
-**"Realistic mock data, not Lorem ipsum"** — Lorem ipsum prototypes lie. Stakeholders react to the data shape and tone, not just the layout. Realistic mock data (real-looking customer names, real-looking dollar amounts, real-looking error messages) makes the prototype useful for real decisions.
-
-**"Include 2-3 sample interactions"** — A static screenshot prototype is less useful than a clickable one. Asking for sample interactions ("user types a query → sees AI response → clicks 'show more'") forces the model to wire up actual JavaScript or React state.
-
-### The 10-Minute Workflow
-
-1. **Minute 0-2:** Open Claude (or Cursor / v0 / Bolt). Paste the prompt template. Fill placeholders.
-2. **Minute 2-5:** Paste PRD. Hit send. Watch the model generate.
-3. **Minute 5-7:** Save the output as a file (`prototype.html` or `App.tsx`). Open in browser.
-4. **Minute 7-9:** Click through. Note what's right, what's wrong, what's missing.
-5. **Minute 9-10:** Send Claude a follow-up: "The error state looks like a dead end. Add a 'try again' affordance and show what happens when the user retries." Iterate 1-2 times.
-
-The discipline: stop at 3 iterations. After that, you're polishing a thinking tool, not making decisions. Move to the next prototype or commit to the design.
-
-### Connecting Vibe-Coding to the 6-Step Framework
-
-The 6-step framework (Steps 1-6 above) is for the production system prompt that runs *inside* the feature. Vibe-coding is for the demo prompt that *creates* the feature's prototype. Different layers:
-
-- **Vibe-coding produces the artifact** — a clickable React/HTML mockup of the feature
-- **Prompt-craft produces the brain** — the production system prompt that powers the feature's AI behavior
-
-A team using vibe-coding to externalize the PRD into a prototype, then using the 6-step framework to engineer the production prompt that powers the real version, ships features 5-10x faster than teams that wait for engineering before they can see the design.
-
-### What Vibe-Coding Doesn't Solve
-
-- **Architecture decisions.** The prototype answers "does this flow feel right?" — not "is this the right system design?"
-- **Performance and cost reality.** A prototype hitting Claude Sonnet at $0.003/1K tokens for a few demo interactions tells you nothing about production unit economics at 100K daily users.
-- **Edge case coverage.** The model generates the edge cases you ask for. The ones it didn't think of (and you didn't either) are still landmines.
-- **Production prompt engineering.** The system prompt inside the prototype is throwaway — likely 200 tokens of "you are a helpful assistant." When the real feature ships, you need the 6-step framework's hard constraints, structured templates, and 20/60/20 testing.
-
-The pattern is a thinking tool. Use it to make better PRDs and faster decisions. Don't confuse the prototype with the product.
-
----
-
-## KEY DIAGNOSTIC QUESTIONS
-
-**On Prompt Architecture:**
-- Is your prompt doing ONE thing or MANY things? (Kitchen Sink detector)
-
-*Think through:* Task decomposition
-*Low end:* Single prompt handles classification + generation + safety
-*High end:* Separate specialized prompts, each doing one thing well
-*Red flag:* Your prompt is > 2,000 tokens and handles 3+ distinct tasks
-*Sharpen it:* Could you split this into 2-3 prompts that pipeline together?
-
-- Are your hard constraints specific enough to be testable?
-
-*Think through:* Constraint precision
-*Low end:* "Be accurate" — untestable, means nothing
-*High end:* "Never cite a source that doesn't appear in the provided context" — binary, testable
-*Red flag:* Constraints use words like "appropriate," "reasonable," "helpful"
-*Sharpen it:* Can you write a test case that would fail if this constraint is violated?
-
-**On Testing Coverage:**
-- What percentage of your test cases are edge cases?
-
-*Think through:* Test distribution
-*Low end:* 90% happy path, 10% edge — you're testing the demo, not production
-*Mid range:* 50/50 — better, but adversarial coverage missing
-*High end:* 20/60/20 split — matches production reality
-*Red flag:* You've never tested with malformed input, multi-language, or adversarial prompts
-*Sharpen it:* Name 5 edge cases your prompt has never been tested on
-
-- Can you trace a production failure back to a specific prompt weakness?
-
-*Think through:* Failure traceability
-*Low end:* "The output was bad" — no diagnosis possible
-*High end:* "The model hallucinated because the hard constraint on citation was missing for this input pattern"
-*Red flag:* You fix failures by adding more instructions without understanding root cause
-
-**On Cost Awareness:**
-- What's your cost per successful output (not per API call)?
-
-*Think through:* Cost-per-success = total API cost / successful outcomes
-*Low end:* You track API cost but not success rate — so you don't know cost-per-success
-*High end:* Cost-per-success tracked daily, segmented by task type
-*Red flag:* Cost per success is 3x cost per call (meaning 2 out of 3 outputs fail)
-*Sharpen it:* If acceptance rate is 60%, your effective cost per useful output is 1.67x the API cost
-
----
-
-## PROMPTING TECHNIQUES — WHEN TO USE WHAT
-
-Not every technique works for every task. Match the technique to the problem:
-
-| Technique | Best For | Not For | Key Constraint |
-|-----------|----------|---------|----------------|
-| **Chain-of-Thought** | Math, logic, formal reasoning | Content generation, classification | Only effective on 100B+ parameter models |
-| **Chain-of-Table** | Structured data, table processing, financial analysis | Free-text tasks | Requires tabular input |
-| **Few-Shot Examples** | Style matching, format demonstration | Advanced reasoning (o1, R1 models) | Highest variability — test systematically |
-| **Multi-Shot Conversations** | Customer support, multi-turn flows | Single-turn tasks | Shows conversation patterns, not isolated examples |
-| **Nested/Pipelined Prompts** | Complex multi-step workflows | Simple single-step tasks | Each prompt does ONE thing |
-
-**The decision:** If your task is reasoning-heavy, use Chain-of-Thought. If it's format-heavy, use Few-Shot. If it's multi-step, use Nested Prompts. If you're not sure, start with the production template from Step 2 and iterate.
-
----
+- **`rtp-prompt-as-product`** *(import)* — the *lifecycle*: versioning, A/B testing, rollback, release process. Prompt-craft *writes* the prompt; prompt-as-product *manages its changes over time*. ("Why is output bad?" → here. "Why did quality drop after last week's change?" → there.)
+- **`rtp-context-spec`** — the *architecture*: what information reaches the window and its token budget. Different object from the prompt text; a perfect prompt on bad context still fails.
+- **`rtp-eval-framework`** *(import)* — measures both the prompt and its lifecycle; the 20/60/20 suite and the multi-dimensional evals live in its discipline.
+- **`rtp-judgment-guard`** *(shared backbone)* — prompting and professional judgment are the same discipline at different altitudes: both are making tacit criteria explicit enough for a system to act on. The reasoning trail is the bridge.
+- **`rtp-determinism-compass`** *(import)* — which parts of the output must be reproducible vs. can vary, which shapes how tight the constraints need to be.
 
 ## REALITY CHECK
 
-**What good prompt craft looks like:**
-- Every prompt starts with hard constraints (NEVER/ALWAYS)
-- Structure matches the target model (XML for Claude, JSON for GPT-4)
-- Test suite has 20/60/20 distribution (happy/edge/adversarial)
-- Cost-per-success is tracked and within budget
-- Prompt compression happened after quality targets were met
-- Each prompt does ONE thing — complex tasks are pipelined
-
-**What it doesn't look like:**
-- Vibes-based iteration ("this feels better")
-- Testing only on demo data
-- One mega-prompt handling everything
-- "Be helpful and accurate" as the core instruction
-- No cost tracking ("tokens are cheap")
-- Prompt written once and never revisited
-
----
+- **Good craft** starts every prompt with hard constraints, matches structure to the model, tests 20/60/20, tracks cost-per-success, and compresses *after* hitting quality — each prompt doing ONE thing.
+- **Not** vibes-based iteration ("this feels better"), demo-only testing, a mega-prompt handling everything, "be helpful and accurate" as the core instruction, or "tokens are cheap."
+- **When 3+ optimizations don't hit target, the problem probably isn't the prompt** — check model capability, context correctness, task decomposition, and whether the eval measures the right thing.
 
 ## QUALITY GATE
 
-**Prompt craft deliverables require:**
-1. Hard constraints defined (NEVER/ALWAYS — specific, testable)
-2. Structure matches target model (XML/JSON/Markdown as appropriate)
-3. Test suite built with 20/60/20 split (minimum 30 cases)
-4. Edge case pass rate > 85%
-5. Cost-per-success calculated and within budget
-6. Compression attempted after quality targets met
-
-**Blocks shipping if:**
-- No hard constraints (prompt relies entirely on positive instructions)
-- Test suite is < 20 cases or > 50% happy path
-- Edge case pass rate < 70%
-- Cost per success unknown or exceeds budget by > 20%
-- Single prompt handling 3+ distinct tasks (Kitchen Sink)
-
----
+- [ ] Hard constraints defined (NEVER/ALWAYS — specific, testable)
+- [ ] Structure matches the target model (XML/JSON/markdown)
+- [ ] Test suite built 20/60/20 (≥30 cases); edge-case pass rate >85%
+- [ ] Multi-dimensional evals (accuracy, format, safety, cost-per-success, latency)
+- [ ] Compression attempted after quality targets met; cost-per-success within budget
+- [ ] Each prompt does ONE thing (complex tasks pipelined, not kitchen-sinked)
 
 ## WHEN WRONG
 
-**This skill gives bad advice when:**
-- The problem is task decomposition, not prompt wording (you need to rethink the architecture, not rewrite the prompt)
-- The model genuinely can't do the task (no amount of prompting fixes a capability gap)
-- You're in early exploration and don't have enough failure data to optimize against
-- The prompt is fine but the retrieval/context feeding it is broken (garbage in, garbage out)
-- You need process governance — that's `prompt-as-product`, not this skill
-
-**Recovery:** If you've optimized the prompt 3+ times and quality still doesn't meet targets, the problem is probably not the prompt. Check: Is the model capable? Is the context correct? Is the task decomposition right? Is the eval measuring the right thing?
-
----
+- The problem is task decomposition or a model capability gap, not wording.
+- The retrieval/context feeding the prompt is broken (garbage in, garbage out) — that's `context-spec`.
+- Early exploration with too little failure data to optimize against.
+- You need process governance — that's `prompt-as-product`.
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+By treating prompts as engineering artifacts, you bet that principled craft (constraints-first, 20/60/20-tested, cost-per-success-tracked) beats vibes-based iteration — that the predictable failures are worth preventing up front. You give up the speed of "write it and ship it" for the discipline of a test suite and an eval. **Reversible?** Fully — a prompt is a text file. **The hidden trade:** the failure mode is *optimizing the prompt when the problem is elsewhere* (decomposition, context, capability) — the 3-strikes rule guards against it. **Confidence: High** — the compliance hierarchy and the edge-case-heavy reality of production are well-established. What would change it: a genuine capability gap no wording fixes, or a one-off throwaway where craft is overkill.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
-
----
+Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): the recommendation (the prompt, constraints-first and 20/60/20-tested), the key trade-off (craft discipline vs. ship-it speed), the biggest risk (optimizing wording when the real problem is decomposition, context, or capability), and the next action (the test suite + the cost-per-success number, with an owner).
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After the primary output, invoke the **excalidraw-svg** skill for one visual: the compliance hierarchy as a pyramid (hard constraints at the wide, high-compliance base → structure → positive instructions → implicit hope at the thin top), beside the 20/60/20 test split and the hill-climb curve (quality up, then cost down). So a viewer sees the two moves that prevent most failures: constrain first, test the edges. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
