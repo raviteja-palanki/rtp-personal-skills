@@ -1,337 +1,149 @@
 ---
-name: rtp-context-spec
-description: 'Context engineering: information architecture for reasoning (not prompts). Constitution → Observations → Knowledge → Tracks → Equipment → Execution. Failure modes, latency, Pre-Rot Threshold. Use when: architecting features, design review. Triggers: ''context engineering'', ''context architecture'''
+name: context-spec
+description: "Context engineering — the information architecture for reasoning, not the prompt. Everyone tunes the prompt and the model; the invisible 90% is how information flows from sources through layers into the window, and the killer fact is that models degrade at 50–60% of max context (the Pre-Rot Threshold), so context capacity ≠ context quality: a 128K window has a ~70K working budget. You engineer a token BUDGET across stacked layers, each with its own token cost, compaction strategy, and failure fallback — plus multi-agent context isolation and dynamic tool selection. Use when architecting an AI feature with retrieval, tools, or conversation state. Do NOT use for single-turn no-retrieval features (use determinism-compass). Pairs with: invisible-stack (it diagnoses the weak layer, this designs the build spec for all seven), prompt-craft (the prompt text vs. the architecture), determinism-compass, stress-test. Triggers: 'context engineering', 'context architecture', 'token budget', 'context window'."
+imports:
+  - invisible-stack
+  - determinism-compass
+  - stress-test
 ---
-# Context-Spec: Engineering Information Architecture
 
-## DEPTH DECISION
+# Context-Spec — Engineering Information Architecture
 
-**Go deep if:** Architecting an AI feature with retrieval, tools, or conversation state. You need to design the invisible stack before building.
+**The objective:** design the token budget and layer architecture that feeds an AI feature's reasoning — before engineers guess and production fails — for the PM architecting anything with retrieval, tools, or conversation state.
 
-**Skim to Quality Gate if:** Reviewing an existing context architecture or diagnosing production failures (you need the checklist, not the full methodology).
+## The one idea
 
-**Skip if:** Single-turn, no-retrieval feature or purely deterministic flow (use invisible-stack overview instead).
+The model has a 128K context window, so the team fills it — retrieve 20 documents, show the last 50 messages, include the full metrics dump. And quality gets *worse*. The team is baffled: more context should mean more to reason from.
+
+Here is the fact that explains it, and it's the whole skill: **context capacity is not context quality.** Models degrade measurably at **50–60% of their maximum window** (◆ demonstrated in Claude evals) — a 128K window has a real *working* budget of ~70K tokens, and past that, adding information makes the model *worse*, not better, as the signal drowns in noise. Call it the **Pre-Rot Threshold**. Fill the window and you're reasoning in the degradation zone before you ever hit 100%.
+
+So context engineering is not prompt writing — it is **information architecture for reasoning.** The prompt and the model are the visible part; the invisible 90% is *how information flows from its sources, through stacked layers, into the window* — and each layer (the system prompt, retrieved docs, tool results, observation history, conversation, scratchpad) has its own update frequency, reliability, latency, and token cost. You don't write a prompt; you engineer a **budget**: what gets which slice of ~70K tokens, when each layer compacts, and what happens when each one fails. Get the budget right and a small model reasons well; get it wrong and the best model reasons badly on a window stuffed past its Pre-Rot Threshold.
+
+## How to use this skill
+
+1. **Import invisible-stack first** — map all seven CONTEXT layers; this skill turns that map into a *token budget* with a number per layer. (THE PROCESS.)
+2. **Allocate against the Pre-Rot Threshold, not the max window** — ~50–60% of the window is your real budget; every layer's slice, compaction trigger, and failure fallback fits inside it. (CONTEXT BUDGET.)
+3. **Isolate agents and filter tools** — in a harness, each agent gets its own context scope; show the model 3–5 relevant tools, not the full catalog. (MULTI-AGENT ISOLATION + DYNAMIC TOOL SELECTION.)
+
+## KEY TERMS (plain language)
+
+- **Context engineering** — designing *what information reaches the model and how*, not the wording of the prompt; the architecture of the window.
+- **Pre-Rot Threshold** — the point (~50–60% of max window) past which more context *degrades* reasoning; your real working budget (◆ Claude evals).
+- **Layered action space** — the window isn't one blob; it's stacked layers (system prompt, retrieval, tool results, observations, conversation, scratchpad), each with a different update rate, reliability, latency, and token cost.
+- **Compaction** — shrinking a layer to fit budget: *summarize* (extractive, keep citations), *offload* (move old context to external memory, retrieve on need), *reset* (clean slate + a structured handoff file).
+- **Agent-as-tool** — when a tool result is large, spawn a sub-agent to extract the few relevant facts instead of dumping raw output into the main window (saves ~60–70% of tokens ⚠).
+- **File-based handoff** — passing state between agent sessions via files (sprint-contract.json, build-log.txt), not by ballooning the conversation.
+- **Multi-agent context isolation** — giving each agent in a harness only its own scope, so the evaluator can't make excuses for the generator it never should have seen.
+- **Dynamic tool selection** — presenting only the 3–5 tools relevant to the task, not the full 50, so the model doesn't burn context reading irrelevant options.
+- **Evidence tiers below** — ◆ Anthropic/Claude-disclosed · ⚠ practitioner estimate. Token-savings figures are ⚠; measure your own.
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
-
-Then proceed with the skill-specific analysis below.
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). **Go deep** when architecting a feature with retrieval, tools, or conversation state. **Skip** for single-turn no-retrieval features or purely deterministic flows (use `determinism-compass`). Then route depth and output format. **Import `invisible-stack` first** — it maps the seven layers; this skill operationalizes that map into token/latency budgets.
 
 ## THE TRAP
 
-You focus on the prompt and model. The real problem: the invisible 90% — how information flows from sources through layers to the model. You assume context capacity = context quality. **Wrong.** Models degrade measurably at 50-60% of max context window. At 128K tokens, performance drops around 50-60K tokens (proven in Claude evals). Add latency overhead, retrieval noise, and conversation bloat, and you're operating in the degradation zone before you hit 100%.
-
-The trap has variants:
-- **Over-spec:** 60-page docs that delay shipping.
-- **Under-spec:** Layers missing entirely. Engineers guess. Production fails.
-- **Context bloat:** "Retrieve 20 docs! Show the last 50 messages! Include full metrics!" → hits Pre-Rot Threshold by message 3.
+You focus on the prompt and the model; the real problem is the invisible 90% — how information flows through the layers — and the assumption that **context capacity = context quality (wrong).** Three variants: **over-spec** (60-page context docs that delay shipping), **under-spec** (layers missing entirely, engineers guess, production fails), and **context bloat** ("retrieve 20 docs, show the last 50 messages" → past the Pre-Rot Threshold by message 3).
 
 ## THE PROCESS
 
-### Import invisible-stack first
-Map all seven layers. Context-spec operationalizes that map into specific, implementable decisions for each layer **with latency and token costs**.
+Answer the practitioner questions first, in order:
 
-### KEY PRACTITIONER QUESTIONS (Answer these first)
+1. **What's the actual usable context?** Not the max window — the Pre-Rot Threshold (128K → ~60–70K working). Allocate a token budget per layer inside it.
+2. **Which tools are actually relevant?** Pre-filter to 3–5 for this task; don't show 50 and let the model waste context reading them.
+3. **Where does context rot happen?** Trace one request end-to-end; find the layer where quality degrades (stale docs? ballooning history?) and fix *that* layer first.
+4. **What can you compact?** Summarize retrieved docs, offload old conversation to external memory, strip tool results to essentials — every token saved is room for a better decision.
+5. **What's the fallback when a layer fails?** Retrieval timeout, tool error, Constitution conflict — specify the exact UX and what information is dropped.
 
-1. **What's the actual max context you can use?** If your model's context window is 128K, your real working budget is 60-70K tokens (Pre-Rot Threshold). Allocate: system prompt (5K) + retrieved docs (15K) + observation history (10K) + scratchpad (5K) + conversation (20K) + tool results (5K). What's your token per layer?
+**The layered action space** — the window is stacked layers with different properties (illustrative budgets on a 128K → ~70K working window): System prompt (immutable, ~5K, 100% reliable) · Retrieved docs (per-request, ~15K, ~500ms, ~95%) · Tool results (per-call, ~5K, ~2s, 80–90%) · Observation history (continuous, ~10K, <10ms, reliable) · Conversation (live, ~20K, noisy) · Scratchpad (session, ~5K). Each has its own failure recovery: system → revert; retrieval → degrade to model-only; tool → fallback/cache.
 
-2. **Which tools are actually relevant to this feature?** Don't present 50 tools. Pre-filter to 3-5 tools specific to this task. Does context engineering determine tool availability, or does the model waste context seeing irrelevant tools?
+**Anthropic context-management findings (◆ March 2026):** for long-running agents, periodic **full resets with a structured handoff file beat in-window compaction** (the reset cost is paid once per session; compaction's drift compounds with every summarization). The **agent-as-tool** pattern (sub-agent extracts facts from a >5K-token tool result) saves ~60–70% of tokens. **File-based communication** (agents read/write state files rather than passing summarized context) reduces pollution and makes handoffs explicit.
 
-3. **Where does context rot happen?** Trace one request end-to-end. At what layer does context quality degrade? Retrieved docs getting stale? Conversation history ballooning? Fix that layer first.
+## CONTEXT BUDGET
 
-4. **Can you compact any layer?** Can observation history be summarized? Can retrieved docs be compressed? Can tool results be stripped to essentials? Every token saved = room for better decisions.
-
-5. **What's the fallback when any layer fails?** Retrieval timeout? Tool error? Constitution conflict? Specify the exact UX and what information is dropped.
-
-### Layered Action Space Architecture
-
-Systems don't have "one context." They have stacked layers with different update frequencies, reliability, and token cost:
+Document token allocation per layer; the total must not exceed the Pre-Rot Threshold:
 
 ```
-System Prompt (immutable, 5K tokens)
-  ↓
-Retrieved Documents (refreshed per-request, 15K tokens, ~500ms latency)
-  ↓
-Tool Results (one-time, 5K tokens, ~2s latency, unreliable)
-  ↓
-Observation History (recent state, 10K tokens, <10ms latency, reliable)
-  ↓
-Conversation History (user-generated, 20K tokens, live, noisy)
-  ↓
-Scratchpad/Reasoning (model-generated, 5K tokens, current session only)
+## Context Budget: [Feature]   Total window: [X]K   Pre-Rot working budget: [Y]K (~50–60% of max)
+| Layer | Token budget | Update freq | Failure fallback |
+| Constitution | [X]K | monthly | revert to previous version |
+| Retrieved docs | [X]K | per-request | degrade to model-only |
+| Tool results | [X]K | per-call | cached/fallback |
+| Observation history | [X]K | continuous | summarize oldest |
+| Conversation | [X]K | live | compact after N messages |
+| Scratchpad | [X]K | session | clear on reset |
+| TOTAL | ≤[Y]K | | must stay under Pre-Rot |
+Compaction trigger: total > [Y]K → [summarize/offload/reset]   Reset every: [N msgs / M hrs]   Handoff files: [list]
 ```
 
-Each layer has different:
-- **Update frequency:** System once/month, retrieval once/request, tool results once/call, history continuously
-- **Reliability:** System 100%, retrieval 95%, tools 80-90%, history 100% (if properly stored)
-- **Token cost:** Varies; system is sunk, retrieval scales with query, tools are call-dependent
-- **Failure mode:** System failure = revert code, retrieval failure = degrade to model-only, tool failure = use fallback
+**Compaction strategy per layer:** *summarize* retrieved docs >5 pages (extractive, keep citations — ~60–70% savings ⚠); *offload* conversation >30 messages to external memory (~80% savings, +~200ms retrieval ⚠); *compress* verbose tool results to key facts (~50% ⚠).
 
-**Production example:** Claude Code context stack layers agent access to: system safety rules (immutable) → recent file edits (retrieved) → user session state (observation) → last 10 messages (conversation) → execution logs (tool results from local observability stack) → working memory (scratchpad). Each layer has independent failure recovery.
+## MULTI-AGENT ISOLATION & DYNAMIC TOOL SELECTION
 
-#### Anthropic Context Management Findings (March 2026)
+In a harness (planner → generator → evaluator), each agent gets its **own** context scope — bleeding causes bad decisions:
 
-**Context resets vs. compaction trade-off:** A reset provides a clean slate, at the cost of the handoff artifact having enough state for the next agent to pick up the work cleanly. Compaction (summarizing context) loses detail and introduces drift. For long-running agents, periodic full resets with structured handoff files are better than attempting to compress context in-window. The reset cost is paid once per session; the compaction cost compounds with every summarization.
+- **Planner:** brief + vision + constraints (no code, no tool results, ~15K) → outputs a sprint contract + architecture sketch.
+- **Generator:** the sprint contract + codebase state + tool access (~40K) → outputs code, tests, build logs.
+- **Evaluator:** success criteria + live app state + test results (no implementation details, ~20K) → outputs pass/fail + blockers.
 
-**Agent-as-Tool pattern:** When tool results exceed 5K tokens (search results, API responses, log dumps), spawn a sub-agent to extract relevant facts instead of sending raw results to the main agent. This saves 60-70% of tokens while preserving signal. Example: search returns 10K tokens → sub-agent extracts top 3 facts → 2K tokens back to main agent, same outcome.
+**The isolation that matters:** if the evaluator sees the generator's full history, it starts *making excuses* for it ("time pressure was tight, so this is acceptable") — isolate success criteria from implementation context. Hand off via files (planner writes `sprint-contract.json` → generator writes `build-log.txt` → evaluator reads only the snapshot + results, not the reasoning). **Dynamic tool selection:** present only the task's tools (a Python request shows Python tools, hides SQL) — count visible tools at runtime; >10 means pre-filter, and log tool visibility to check post-hoc whether a hidden tool would have helped.
 
-**File-based agent communication (harness model):** Instead of passing context through conversation history, write state to files (claude-progress.txt, feature-list.json, constraints.md). Each agent session starts by reading files, not by receiving summarized context. Reduces context pollution and makes handoffs explicit. Agents can append to shared files to track progress without bloating the conversation.
+## WORKED EXAMPLES
 
-### Multi-Agent Context Isolation
+**Simple — single-turn support bot** (128K window, ~90K Pre-Rot): system prompt 800 tokens (cached, 90% discount) + top-3 KB articles ~4K + question 200 + optional scratchpad 500 = ~5.5K used (6% utilization — no context pressure). *End-to-end:* retrieve 3 docs (0.4s) → assemble (system + docs + question ≈ 4.4K) → generate (0.8s) → guardrail (0.1s) = **1.3s, ~$0.003**. *Decisions:* if zero docs clear the relevance threshold (say 0.70), fall back to "here's our help center" — don't generate from model knowledge alone; set a retrieval timeout at 800ms → top-1 only if exceeded.
 
-In harness architectures (planner → generator → evaluator), each agent must have its own context scope. Context bleeding between agents causes poor decisions:
+**Complex — code-analysis agent** (128K → 70K Pre-Rot): Constitution 8K + retrieved files 20K + tool results 5K + observations 15K + conversation 18K + scratchpad 4K = **70K at threshold**. Trigger: >70K → summarize observations + reset conversation; handoff: `analysis-summary.json`, `test-results.txt`.
 
-- **Planner scope:** Brief + product vision + constraints. No code, no tool results. ~15K tokens. Planner outputs: sprint contract (JSON), architecture sketch.
-- **Generator scope:** Sprint contract + current codebase state + tool access (file I/O, compile, run). ~40K tokens. Generator outputs: code, test coverage, build logs.
-- **Evaluator scope:** Success criteria + live application state + test results. No implementation details. ~20K tokens. Evaluator outputs: pass/fail, blockers, quality metrics.
+## DIAGNOSTIC QUESTIONS
 
-**Context confusion risk:** If the evaluator sees the entire implementation history, it starts making excuses for the generator's mistakes ("the time pressure was tight, so this is acceptable"). Isolate success criteria from implementation context. If the planner sees raw code, it wastes tokens reading syntax instead of reasoning about architecture.
+- **What's my actual working budget** (the Pre-Rot Threshold, not the max)? Allocate all layers inside it.
+- **Which layer consumes the most tokens, and is that justified?** Measure a sample request end-to-end; is retrieval bloated, is conversation unbounded?
+- **What happens when a critical layer fails?** Specify the exact UX and fallback data for each.
+- **Am I showing the right tools or the full catalog?** Count visible tools; >10 → pre-filter.
+- **If I reset context entirely, what state must survive?** If you can't answer, you haven't modeled the agent's memory.
+- **Is latency budgeted?** Retrieval + tool + generation can eat most of a 6s SLA; where's the 10% retry margin?
 
-**File-based handoff:** Planner writes `sprint-contract.json` → Generator reads it, writes `build-log.txt` + `code-snapshot.json` → Evaluator reads only the snapshot and test results, not the generator's reasoning.
+## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-### Phase 1-7: Constitution through Template
-
-(Phases follow existing structure: Constitution, Observations, kNowledge, Tracks, Equipment, eXecution, Template)
-
-**Key differences from old spec:**
-- Add Pre-Rot Threshold: "At 50-60% of max context, performance degrades measurably. Allocate tokens accordingly."
-- For each layer, specify **token cost**, not just latency.
-- For Observations, Knowledge, Equipment: specify **compaction strategy** — when to summarize vs. offload to external memory vs. compress in-window.
-- For Equipment: specify **dynamic tool selection** — which tools are presented to the model and why (don't show the full 50-tool list).
-- For eXecution: specify **layered failure handling** — what information is preserved/dropped when a layer fails.
-
-### Context Compaction Strategies
-
-**When to summarize:** Retrieved docs >5 pages? Compress to extractive summary (preserve citations). Token savings: 60-70%.
-
-**When to offload:** Conversation history >30 messages? Move old messages to external memory (vector DB), retrieve only relevant context. Token savings: 80%+. Latency cost: +200ms retrieval.
-
-**When to compress:** Tool results verbose? Extract key facts, drop examples. Token savings: 50%+.
-
-**Agent-as-Tool patterns:** If tool result is too large, have the agent call a sub-tool to extract relevant facts. Example: "Search results are 10K tokens; agent calls a second tool to summarize top 3 results" → 2K tokens, same information.
-
-### Context Budget Template
-
-Use this template to document token allocation for each feature. Update during architecture review and before implementation:
-
-```
-## Context Budget: [Feature Name]
-Total model window: [X]K tokens
-Pre-Rot Threshold (working budget): [Y]K tokens (typically 50-60% of max)
-
-| Layer | Token Budget | Update Frequency | Failure Fallback | Notes |
-|-------|-------------|------------------|-----------------|-------|
-| Constitution (system prompt) | [X]K | Monthly | Revert to previous version | Safety rules, core behavior |
-| Retrieved documents | [X]K | Per-request | Degrade to model-only | Search results, docs, context |
-| Tool results | [X]K | Per-call | Use cached/fallback | API responses, execution logs |
-| Observation history | [X]K | Continuous | Summarize oldest entries | Recent state, prior decisions |
-| Conversation | [X]K | Live | Compact after N messages | User messages, model responses |
-| Scratchpad | [X]K | Session | Clear on reset | Working memory, reasoning |
-| **TOTAL** | **[Y]K** | | | Must not exceed Pre-Rot Threshold |
-
-**Compaction trigger:** When total context > [Y]K tokens
-**Compaction strategy:** [summarize/offload/reset]
-**Reset frequency:** Every [N] messages or [M] hours
-**Handoff files required on reset:** [list: sprint-contract.json, build-log.txt, etc.]
-```
-
-### Worked Examples
-
-#### Worked Example 1: Single-Turn Customer Support Bot (Simple Case)
-
-The simplest context spec. One user question, one knowledge base search, one response. No agents, no multi-turn, no tool calls.
-
-**Scenario:** SaaS company's help center bot. User asks a question → bot searches knowledge base → bot generates answer.
-
-**Context Stack:**
-
-| Layer | Content | Token Budget | Notes |
-|---|---|---|---|
-| System prompt | Product name, tone guidelines, response format rules, safety constraints | 800 tokens | Static. Cache this — 90% discount on cached tokens. |
-| Retrieved documents | Top 3 knowledge base articles matching user query | 4,000 tokens (max) | 3 articles × ~1,300 tokens each. If fewer than 3 match, budget shrinks. |
-| Conversation history | Current question only (single-turn) | 200 tokens | No history needed for single-turn. |
-| Scratchpad / reasoning | Internal chain-of-thought for answer synthesis | 500 tokens | Optional. Enable for complex questions, skip for FAQ-style queries. |
-| **Total context used** | | **5,500 tokens** | |
-| **Model context window** | | **128,000 tokens** | |
-| **Pre-Rot Threshold (70%)** | | **89,600 tokens** | |
-| **Utilization** | | **6.1%** | Extremely safe. No context pressure. |
-
-**End-to-end trace for one request:**
-
-```
-User: "How do I reset my password?"
-  ↓
-[Retrieval] Search knowledge base → 3 results (0.4s)
-  - "Password Reset Guide" (relevance: 0.94) — 1,200 tokens
-  - "Account Security FAQ" (relevance: 0.82) — 1,100 tokens
-  - "Two-Factor Setup" (relevance: 0.61) — 1,300 tokens
-  ↓
-[Context Assembly] System prompt (800) + 3 docs (3,600) + question (15) = 4,415 tokens
-  ↓
-[Generation] Model generates response (0.8s) — 150 output tokens
-  ↓
-[Guardrail] Check: response doesn't contain internal URLs, PII, or contradictions (0.1s)
-  ↓
-User sees: "To reset your password, go to Settings → Security → Reset Password..."
-
-Total latency: 1.3s | Total cost: ~$0.003 | Context utilization: 3.4%
-```
-
-**Decision points in this simple case:**
-1. **Retrieval failure** — If zero documents match (relevance < 0.5), fall back to: "I don't have a specific article on this. Here's our help center: [link]." Don't generate from model knowledge alone.
-2. **Low-relevance third result** — The third doc (relevance 0.61) might add noise. For production: set a relevance threshold (e.g., 0.70) and only include docs above it. This saves tokens and improves accuracy.
-3. **Latency spike** — If retrieval takes >1s, the response feels slow. Set a retrieval timeout at 800ms; if exceeded, generate from top-1 result only.
-
-#### Worked Example 2: Code Analysis Agent (Complex Case)
-
-```
-## Context Budget: Code Analysis Agent
-Total window: 128K tokens
-Pre-Rot Threshold: 70K tokens
-
-| Layer | Budget | Update Freq | Fallback | Notes |
-|-------|--------|-------------|----------|-------|
-| Constitution | 8K | Monthly | Revert | Safety + analysis rules |
-| Retrieved files | 20K | Per-request | Degrade | Codebase snippets (file read) |
-| Tool results | 5K | Per-call | Cached result | Compile errors, test output |
-| Observations | 15K | Continuous | Summarize | Recent findings, decisions |
-| Conversation | 18K | Live | Compact | User questions, analysis steps |
-| Scratchpad | 4K | Session | Clear | Working theories |
-| **TOTAL** | **70K** | | | At Pre-Rot Threshold |
-
-Trigger: >70K, then summarize observations and reset conversation.
-Handoff: analysis-summary.json, test-results.txt
-```
-
-### Dynamic Tool Selection
-
-Don't say "the model has access to 50 tools." Say "for this task, the model sees 3 tools: search, calculator, citation-lookup."
-
-**How to decide:**
-- Map each tool to task types (search → open-ended questions, calculator → math, citation → docs).
-- Pre-filter tools before the model sees them.
-- Log which tools were available; monitor if hidden tools would have helped (post-hoc analysis).
-
-**Production example:** Codex harness hides tools based on language context. Python request? Show Python-specific tools. SQL request? Hide Python tools. Saves context, improves accuracy.
-
-### Diagnostic Questions
-
-Ask these before finalizing context architecture. If you can't answer them clearly, the spec is incomplete:
-
-1. **What's my actual working context budget?** Not the model's max window — the Pre-Rot Threshold. At what token count does performance measurably degrade? (e.g., 128K window → 70-75K true working budget). Allocate all layers within this, not the max.
-
-2. **Which layer is consuming the most tokens? Is that allocation justified?** Run a sample request end-to-end. Measure: system prompt (8K), retrieved docs (25K), tool results (3K), conversation (18K), scratchpad (4K). Is retrieval bloated? Is conversation history unbounded?
-
-3. **What happens when a critical layer fails?** Retrieval timeout → degrade to what? Tool error → cached result or fail-open? Retrieved docs are stale → does the model hallucinate or return "information unavailable"? Specify exact UX and fallback data.
-
-4. **Am I presenting the right tools, or showing the full catalog?** Count visible tools at runtime. If >10, pre-filter. If <3, task may lack leverage. Log tool visibility per session; analyze post-hoc whether hidden tools would have helped.
-
-5. **If I reset context entirely, what state must survive?** Plan a reset strategy: every 20 messages? Every 2 hours? What goes into the handoff file (sprint-contract.json, build-log.txt, etc.)? What's discarded? If you can't answer this, you haven't modeled the agent's memory correctly.
-
-6. **Is latency budget included?** Retrieval (500ms) + tool call (2s) + generation (3s) = 5.5s total. If SLA is 6s, you're at 92% of budget. Add 10% margin for retries. Where does that margin come from?
-
-7. **Which layer is the bottleneck for quality?** Is performance limited by stale docs? Noisy tool results? Too much conversation history? Instrument and measure. Fix the bottleneck first, not the obvious layer.
-
-### Phase 8: Quality Gate
-
-Checklist (same as original, but add):
-- [ ] Pre-Rot Threshold identified and token budget allocated per layer
-- [ ] Layered Action Space documented (what updates when, failure modes per layer)
-- [ ] Compaction strategy for each layer with token savings quantified
-- [ ] Tool selection strategy: which tools shown to model, why (not "all tools")
-- [ ] External dependencies have fallback plan (assume at least one fails per week)
-- [ ] Multi-agent isolation defined (if harness architecture): planner scope, generator scope, evaluator scope
-- [ ] File-based handoff protocol documented (json/txt files passed between agents)
-- [ ] All diagnostic questions answered (7 questions from section above)
-
-## OUTPUT FORMAT
-
-Context-spec deliverables should include:
-
-1. **Architecture diagram** (text or simple visual):
-   - Layers stacked top-to-bottom
-   - Token budget per layer
-   - Update frequencies
-   - Fallback paths
-
-2. **Context Budget Table** (from template above):
-   - All 6-7 layers
-   - Token allocation (must total ≤ Pre-Rot Threshold)
-   - Update frequency and failure fallback for each
-
-3. **Layered Action Space callout:**
-   - System prompt (immutable): [what it controls]
-   - Retrieved docs (dynamic): [source, refresh rate, degradation plan]
-   - Tool results (call-dependent): [which tools, failure handling]
-   - Observation history (continuous): [what's tracked, compaction strategy]
-   - Conversation (live): [retention policy, summarization trigger]
-   - Scratchpad (session): [reset frequency, required handoff state]
-
-4. **Multi-agent handoff spec** (if applicable):
-   - Agent 1 inputs: [file/context types]
-   - Agent 1 outputs: [files written]
-   - Agent 2 inputs: [what agent 1 produced + local scope]
-   - Isolation boundaries: [what agent 2 does NOT see]
-
-5. **Compaction strategy:**
-   - Trigger: "When total > [Y]K tokens"
-   - Action: "Summarize [layer] and reset [layer], keeping [list of files]"
-   - Expected token savings: "From [A]K to [B]K"
-
-6. **Fallback playbook** (one row per critical failure):
-   - Failure: "Retrieval timeout"
-   - Immediate action: "Degrade to model-only with notice"
-   - Recovery: "Retry in next session"
-   - UX impact: "Response slower, less precise"
+- **`rtp-invisible-stack`** *(import — the pair)* — invisible-stack *diagnoses* which of the seven layers is capping quality; context-spec *designs* the build spec (token budget, compaction, fallback) for all seven. One finds, one designs — run in sequence.
+- **`rtp-prompt-craft`** — the *prompt text* (how to phrase the instruction) vs. this skill's *architecture* (what information reaches the model at all). Different objects; both matter.
+- **`rtp-determinism-compass`** *(import)* — which layers must be deterministic/reproducible vs. tolerate variance.
+- **`rtp-stress-test`** *(import)* — the latency and cost of the layer stack at production scale (700ms of stacked layers before generation even starts).
+- **`rtp-agent-spec` / `rtp-agent-harness`** — the multi-agent isolation here is the context half of harness design; those own orchestration and handoff contracts.
+- **Demand-side application (watch-tier):** the same muscle — *structure the context an AI ingests so it decides your way* — applies when the AI is your *buyer*, not your product (influencing an AI buyer is context engineering, not marketing: model decision-rules like position bias and a pull toward citable sources, not human biases). That's a distinct objective flagged as the **`marketing-to-ai-agents`** new-skill candidate; noted here, not folded deep. *(HBR q2-23, Hosanagar, 11 Jun 2026 — conceptual; primary skill target is prompt-as-product/context-spec, marker withheld.)*
 
 ## REALITY CHECK
 
-- **Latency tax compounds:** Retrieval (500ms) + tool results (2s) + generation (3s) = 5.5s. If your SLA is 6s, you're underwater before user sees output. Allocate latency budget top-down.
-- **Context quality ≠ context capacity:** 128K tokens looks great until you hit Pre-Rot Threshold at 50-60K. Design for your actual working budget.
-- **Observability sampling:** Don't log everything. Log 100% of failures, 10-20% of successes. Use sampling, not full logging.
-- **External API fragility:** 5 external APIs at 99.9% uptime = 0.5% downtime. Spec the fallback for each BEFORE building.
+- **Latency tax compounds** — retrieval (500ms) + tool (2s) + generation (3s) = 5.5s; on a 6s SLA you're underwater before the user sees output. Budget latency top-down.
+- **Context quality ≠ capacity** — 128K looks great until the Pre-Rot Threshold at ~60K; design for the working budget.
+- **Observability sampling** — log 100% of failures, 10–20% of successes; don't log everything.
+- **External-API fragility** — 5 APIs at 99.9% uptime = 0.5% downtime; spec each fallback before building.
+
+## QUALITY GATE
+
+- [ ] Pre-Rot Threshold identified; token budget allocated per layer within it
+- [ ] Layered action space documented (what updates when, failure mode per layer)
+- [ ] Compaction strategy per layer, with token savings quantified
+- [ ] Tool-selection strategy: which tools shown and why (not "all tools")
+- [ ] Every external dependency has a fallback (assume ≥1 fails per week)
+- [ ] Multi-agent isolation defined if a harness (planner/generator/evaluator scopes)
+- [ ] File-based handoff protocol documented; all diagnostic questions answered
 
 ## WHEN WRONG
 
-- Simple features with no retrieval, state, or external APIs (use determinism-compass instead).
+- Single-turn features with no retrieval, state, or external APIs (use `determinism-compass`).
 - Prototypes validating model capability, not production readiness.
-- Context-spec becomes delay-theatre instead of unblocking implementation.
-- Features 99% deterministic with thin AI layer (wrong tool).
-
----
-
-## GENERATE THE DELIVERABLE
-
-Follow the [Deliverable Protocol from Universal Skill Protocol Section 11](../../UNIVERSAL-SKILL-PROTOCOL.md) to package the context-spec analysis.
-
-Your deliverable should include:
-- **Executive summary:** 1-2 sentences on the context architecture choice and why it works for this feature
-- **Full context-spec document:** Diagram + budget table + layered action space callout + (if applicable) multi-agent handoff spec + compaction strategy + fallback playbook
-- **Implementation checklist:** Quality Gate items (8 boxes to check before engineering starts)
-- **(If warranted) Visual summary:** One Excalidraw SVG diagram showing the full layer stack, token allocation, and failure recovery paths
-
-Push back if the feature doesn't warrant this level of spec (single-turn, no retrieval → use determinism-compass instead).
-
----
+- When context-spec becomes delay-theatre instead of unblocking implementation.
+- Features 99% deterministic with a thin AI layer (wrong tool).
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+By engineering a token budget instead of filling the window, you bet that reasoning quality is set by *what* reaches the model within the Pre-Rot Threshold, not by *how much* — that a well-budgeted 70K beats a stuffed 128K. You give up the simplicity of "just put everything in the prompt" and take on the discipline of per-layer budgets, compaction, and fallbacks. **Reversible?** It's architecture — changing it later means re-plumbing the context flow, so it's cheaper to get right up front (that's the point of a spec). **The hidden trade:** the failure mode is *over-spec* — a 60-page context doc for a feature that needed a paragraph; match spec depth to the feature's real complexity. **Confidence: High** — the Pre-Rot degradation is measured, not opinion. What would change it: a single-turn feature with no retrieval or state, where there's no architecture to engineer.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
-
----
+Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): the recommendation (the layer budget and the Pre-Rot Threshold it fits within), the key trade-off (a well-budgeted small window vs. a stuffed large one), the biggest risk (the layer that rots first, or a dependency with no fallback), and the next action (the context-budget table + the compaction/reset trigger, with an owner). Deliver as a document (diagram + budget table + fallback playbook), a deck, or inline.
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After the primary output, invoke the **excalidraw-svg** skill for one visual: the stacked layers between sources and the model, each with its token budget, drawn against a window bar that marks the Pre-Rot Threshold (~60%) — so a viewer sees at a glance that the usable budget is well short of the max, and which layer is eating it. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
