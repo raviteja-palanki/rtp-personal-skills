@@ -1,272 +1,125 @@
 ---
 name: invisible-stack
-description: >
-  Every AI feature has a visible part — the model writing the answer — and a stack of
-  hidden parts that decide whether that answer is any good: which documents got retrieved,
-  what the safety layer allowed through, what the system remembered, which tools it called.
-  This skill maps those hidden layers, measures each one, and finds the single weakest layer
-  that is capping quality — because a perfect model fed bad context still ships a bad product.
-  Use when: reviewing an AI architecture, diagnosing why a demo works but production doesn't,
-  or writing a feature spec. Do NOT use for simple single-turn features with no retrieval,
-  memory, or tools. Pairs with: context-spec (this skill finds the weak layer; context-spec
-  writes the build spec for all seven — one diagnoses, one designs), eval-framework (every eval
-  failure traces to one broken layer here; run them together to route a failure to its owner),
-  production-observability (you can't fix a layer you can't see — it instruments each one),
-  failure-modes (each layer's break maps to a named failure: bad retrieval → hallucination,
-  missing guardrail → unsafe output).
+description: "Every AI feature has a visible part — the model writing the answer — and a stack of hidden parts (retrieval, safety, memory, tools) that decide whether that answer is any good. This maps those hidden layers (the seven CONTEXT layers), measures each, and finds the single weakest layer capping quality — because a perfect model fed bad context still ships a bad product. Use when reviewing an AI architecture or diagnosing why a demo works but production doesn't. Do NOT use for simple single-turn features with no retrieval, memory, or tools. Pairs with: context-spec (this finds the weak layer, that writes the build spec for all seven), eval-framework (every eval failure traces to one broken layer here), production-observability (instruments each layer), failure-modes (each layer's break maps to a named failure), moat-finder (skipping the stack is now a negative-flywheel survival risk). Triggers: 'demo works, production doesn't', 'AI architecture review', 'why is quality capped', 'RAG quality'."
 imports: [determinism-compass, stress-test]
-version: "2.0"
 ---
 
-# Invisible Stack: The Production-Quality Diagnostic
+# Invisible Stack — The Production-Quality Diagnostic
 
-**The objective:** find the one hidden layer that is capping your AI feature's quality, before you waste weeks tuning the wrong thing. The model is the part everyone watches; it is also rarely the part that's broken. This skill makes the invisible infrastructure — retrieval, context assembly, guardrails, memory, tools, monitoring — visible enough to measure, so a PM can point at the specific layer setting the ceiling and fix that, instead of swapping models and hoping.
+**The objective:** find the one hidden layer capping your AI feature's quality, before you waste weeks tuning the wrong thing — for the PM whose demo dazzles and whose production system disappoints.
+
+## The one idea
+
+A B2B document-analysis product is stuck at 65% satisfaction after six months. The team has spent those months on the model — new prompts, frontier model A vs. B — and nothing moves. Then someone measures the layer nobody was watching: retrieval was finding the right document only *half* the time. The model was never the problem; it was hallucinating to reconcile the irrelevant chunks retrieval kept handing it. Fix the retrieval, and satisfaction jumps to 82% — with no change to the model at all.
+
+That is the whole idea. **The model is the part everyone watches, and it is rarely the part that's broken.** Users see the chat box; they don't see retrieval, context assembly, guardrails, memory, tool calls, or monitoring — and *those* invisible layers are where production quality lives or dies. A useful frame is the **10/90 split** (⚠ illustrative, the ordering not the number): the model is maybe 10% of what determines quality, and the other 90% is the stack around it. It draws attention it doesn't deserve precisely because it's the one component you didn't build and can't easily change, while the layers you *can* control go unexamined — the **spotlight effect**.
+
+And the mechanism that makes this decisive is the **weakest-layer ceiling:** the layers run in sequence, and a later one cannot rebuild information an earlier one destroyed. The model cannot cite a document retrieval never found; perfect generation on top of 50%-accurate retrieval is still 50% right. So a system's quality is capped by its worst layer — which means the highest-leverage fix is almost never where attention naturally goes. This skill makes the invisible infrastructure visible enough to *measure*, so you can point at the specific layer setting the ceiling and fix that, instead of swapping models and hoping.
+
+## How to use this skill
+
+1. **Map the full stack** with the CONTEXT checklist — the layers you forget are the ones with no owner and no monitor, which is why they break in production. (THE PROCESS, step 1.)
+2. **Measure each layer** on coverage × accuracy × latency, and find the weakest one with a *number*, not a hunch. (MEASURING EACH LAYER.)
+3. **Fix upstream first** — design the invisible layers before the visible UI, and never optimize the model until you've audited the layers above it.
 
 ## KEY TERMS (plain language)
 
-- **The invisible stack** — every processing step between a user's request and the answer they see. The chat box is visible; retrieval, safety checks, memory, and tool calls are not.
-- **CONTEXT (the seven layers)** — the checklist for mapping the stack: **C**onstitution (rules and instructions), **O**bservations (live user/session data), k**N**owledge (retrieved documents), **T**racks (memory and conversation history), **E**quipment (tools and APIs), e**X**ecution (orchestration, retries, timeouts), **T**emplate (output formatting). Its whole job is to leave no layer unnamed.
-- **Retrieval / RAG** — the step that searches your documents and hands the most relevant ones to the model as context. RAG = retrieval-augmented generation.
-- **Weakest-layer ceiling** — the rule that a system's quality is capped by its worst layer, because a later layer can't rebuild information an earlier one destroyed (the model can't cite a document retrieval never found).
-- **Precision@5** — of the top 5 documents retrieval returns, how many are actually relevant. A plain quality score for search.
-- **P95 latency** — the response time 95% of requests beat; the "slow but not rare" case, more honest than an average.
-- **Embedding model** — the model that turns text into numbers so similar meanings sit near each other; its quality decides what retrieval is even able to find.
-- **Chunking** — how you cut documents into searchable pieces. Small chunks surface exact facts; large chunks preserve context. Different choices make a different product.
-- **Re-ranker** — a second-pass filter that reorders the first ~20 retrieved candidates down to the best few, trading a little latency for better relevance.
-- **Vector database** — the store that holds embeddings and answers "what's most similar to this query?" (Pinecone, Weaviate, Qdrant).
-- **Ablation test** — remove one layer, measure how much quality drops; that drop is the layer's real contribution.
-- **Drift detection** — monitoring that notices when production inputs or outputs quietly shift away from what the system was built for.
-- **Guardrail** — a check that blocks or rewrites unsafe or off-policy output before the user sees it.
-- **Spotlight effect** — the cognitive bias of over-weighting the one visible thing (the model) and under-weighting everything you can't see.
-- **Evidence tiers used below** — ✅ audited/peer-reviewed · ◆ company- or study-disclosed · ⚠ reported or practitioner estimate. Numbers marked *illustrative* are teaching devices, not measured facts — don't quote them as data.
-
-## DEPTH DECISION
-
-**Go deep if:** architecting an AI feature with retrieval, tools, or conversation state; reviewing production failures; or diagnosing why a demo works but production fails.
-
-**Skim to Weakest Layer if:** you have a system already built and just need to identify which layer is causing problems.
-
-**Skip if:** simple single-turn prompt-response features with no retrieval or context dependencies.
+- **The invisible stack** — every processing step between a user's request and the answer they see; the chat box is visible, retrieval/safety/memory/tools are not.
+- **CONTEXT (the seven layers)** — the mapping checklist: **C**onstitution (rules), **O**bservations (live session data), k**N**owledge (retrieved docs), **T**racks (memory/history), **E**quipment (tools/APIs), e**X**ecution (orchestration, retries), **T**emplate (output format). Its whole job is to leave no layer unnamed.
+- **Weakest-layer ceiling** — quality is capped by the worst layer, because a later layer can't rebuild what an earlier one lost.
+- **Retrieval / RAG** — the step that searches your documents and hands the best ones to the model; RAG = retrieval-augmented generation.
+- **Precision@5** — of the top 5 documents retrieval returns, how many are actually relevant.
+- **Embedding / chunking / re-ranker** — the model that turns text into comparable numbers; how you cut docs into searchable pieces (small = precise facts, large = context); a second-pass filter that reorders candidates to the best few.
+- **Ablation test** — remove a layer, measure the quality drop; that drop is the layer's real contribution.
+- **Spotlight effect** — over-weighting the one visible thing (the model), under-weighting everything you can't see.
+- **Evidence tiers used below** — ✅ audited · ◆ disclosed · ⚠ practitioner estimate. Numbers marked *illustrative* are teaching devices, not data.
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
-
-Then proceed with the skill-specific analysis below.
-
----
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: name the feature and whether it has retrieval, memory, or tools (if not, skip — there's no invisible stack). **Go deep** when architecting a feature with retrieval/tools/state, reviewing production failures, or diagnosing a demo-vs-production gap. Then route depth and output format.
 
 ## THE TRAP
 
-You will focus on the model. The bias is the **spotlight effect**: attention flows to the visible, impressive part — the model generating fluent responses — while the infrastructure that decides whether those responses are any good stays in the dark. Users see the chat interface. They don't see retrieval, context assembly, guardrails, caching, routing, or monitoring. Those invisible layers are where production quality lives or dies.
+You will focus on the model (the **spotlight effect**). The **10/90 split** is the corrective: the model is a small share of what determines quality; retrieval, context engineering, safety, caching, and monitoring are the rest (⚠ illustrative proportion — the ordering is the point). **When it over-warns:** a thin single-turn feature with no retrieval or memory really is mostly model — don't manufacture layers that aren't there.
 
-A useful rough framing is the **10/90 split**: in a production AI system the model is a small share of what determines quality — call it 10% — and the other 90% is retrieval, context engineering, safety, caching, and monitoring (⚠ illustrative proportion, not a measured constant; the ordering is the point, not the exact number). **Why it holds:** the model is the one component you didn't build and can't easily change, so it draws attention it doesn't deserve, while the layers you *can* control go unexamined. **When it over-warns:** for a thin single-turn feature with no retrieval or memory, there is almost no invisible stack and the model really is most of the system — don't manufacture layers that aren't there.
-
-## Retrieval Quality Is a PM Decision, Not Just Engineering
-
-Retrieval is the quiet failure point. A perfect model receiving bad context produces confident hallucinations, and no prompt tweak fixes it. That makes retrieval quality a product responsibility, not something to hand off with "the engineers will handle it."
-
-**Where output quality comes from (illustrative weighting ⚠ — a mental model for where to spend attention, not measured constants):**
-
-```
-Retrieval accuracy   — did we find the right documents at all?
-Information density   — do those documents actually contain the answer?
-Information order      — is the best document first, or buried at position 5?
-Clear structure        — are the documents formatted so facts are easy to extract?
-Instruction clarity    — does the prompt tell the model how to use them?
-```
-
-The list is ordered by leverage, top to bottom. The **defensible claim is ordinal, not cardinal**: retrieval accuracy dominates; structure and prompt-phrasing are real but lower-leverage. Don't cite exact percentages — the ranking is the insight.
-
-**What this means for you (the PM):**
-- If retrieval only finds the right document 60% of the time, 60% is roughly your quality ceiling — the model cannot answer from a document it never received. **Spend your first hour on retrieval accuracy.** Polishing document formatting is a smaller gain, further down the list.
-- **Embedding choice is a PM decision.** Different embedding models retrieve better for different domains (dense technical docs vs. short customer queries). Test retrieval quality on real queries before committing — this is not a "just implement it" detail, because it sets the ceiling above.
-- **Chunking is a PM decision.** 256-token chunks and 2K-token chunks are different products: small chunks surface precise facts, large chunks preserve context. Test with real queries before the engineering locks in.
-
-**Why these are PM decisions and not pure engineering:** each one silently sets the product's quality ceiling, and the trade-offs (precision vs. context, cost vs. accuracy) are product trade-offs wearing technical clothing. Hand them off unexamined and you've outsourced your ceiling.
+**Retrieval is the quiet failure point, and a PM decision — not "engineering will handle it."** A perfect model fed bad context produces confident hallucinations no prompt tweak fixes. Where output quality comes from, ordered by leverage (the claim is *ordinal*, not cardinal — don't cite percentages): retrieval accuracy (did we find the right docs at all?) ≫ information density ≫ order (best doc first, or buried?) ≫ structure ≫ prompt clarity. So if retrieval finds the right document 60% of the time, ~60% is your quality ceiling — spend your first hour there, not on formatting. **Embedding choice and chunking are PM decisions** because each silently sets that ceiling, and the trade-offs (precision vs. context, cost vs. accuracy) are product trade-offs wearing technical clothing; hand them off unexamined and you've outsourced your ceiling.
 
 ## THE PROCESS
 
-**1. Map the full stack.** For any AI feature, name every layer between "user input" and "user output." The CONTEXT framework is the checklist that keeps you from missing one:
-   - **C**onstitution — system instructions, behavioral constraints, safety rules
-   - **O**bservations — real-time data, user context, session state
-   - k**N**owledge — retrieved documents, knowledge bases, structured data
-   - **T**racks — workflow state, multi-step routing, conversation history
-   - **E**quipment — tools, APIs, MCP connectors, function calls
-   - e**X**ecution — orchestration logic, retry handling, timeout management
-   - **T**emplate — output formatting, response structure, prompt templates
-
-   **Why a checklist and not free recall:** the layers you forget are exactly the ones with no owner and no monitoring — which is why they're the ones that break in production. If you can't list all seven for your feature, the missing ones are your first finding.
-
-**2. Assess each layer.** For each: Does it exist? Who owns it? How is it monitored? What happens when it fails? A layer with no owner and no monitor is a production incident waiting for a date.
-
-**3. Identify the weakest layer.** A system's production quality equals the quality of its weakest layer. **Why:** the layers run in sequence, and a later one cannot rebuild information an earlier one lost — perfect generation on top of 50%-accurate retrieval is still 50% right. **When this frame misleads:** the fault isn't always one weak layer. Sometimes two adequate layers interact badly — a decent retriever and a decent formatter that disagree on structure — and the problem is the handoff, not either layer alone. If fixing the "weakest" layer doesn't move quality, look at the seams between layers, not the layers.
-
-**4. Design the invisible layers before the visible ones.** Reverse the natural order: start from the context architecture and work forward to the UI, not the other way. **Why:** the visible interface inherits whatever ceiling the invisible layers set, so a UI designed first has to be redesigned once you discover the real constraint. **When wrong:** for a genuinely thin feature, this reverses into over-engineering — design the UI and ship.
-
-## REALITY CHECK
-
-- Building the full seven-layer stack for every feature is over-engineering. Match stack depth to how much the feature can hurt someone if it's wrong.
-- Every layer adds latency. A seven-layer stack at 100ms per layer spends 700ms before the model even starts generating (illustrative arithmetic ⚠) — latency budget is a real constraint, handled below.
-- Invisible layers need their own monitoring. You cannot debug what you cannot see, which is why instrumentation (see `rtp-production-observability`) is part of building a layer, not an afterthought.
+1. **Map the full stack** — name every layer between input and output using the CONTEXT checklist (C/O/N/T/E/X/T above). Why a checklist and not free recall: the layers you forget are exactly the unowned, unmonitored ones that break in production. If you can't list all seven, the missing ones are your first finding.
+2. **Assess each layer** — does it exist? who owns it? how is it monitored? what happens when it fails? A layer with no owner and no monitor is a production incident waiting for a date.
+3. **Identify the weakest layer** — it sets the ceiling. *When this frame misleads:* sometimes the fault is two adequate layers interacting badly (a decent retriever and a decent formatter that disagree on structure) — if fixing the "weakest" layer doesn't move quality, look at the *seams*, not the layers.
+4. **Design invisible before visible, and re-architect before you automate.** Start from the context architecture and work forward to the UI — the interface inherits whatever ceiling the invisible layers set. And the stakes are now higher than build-quality: **automating a broken workflow is negative-flywheel, not just wasted effort.** Drop an agent on a messy process and it reproduces the mess at scale *and the feedback loop reinforces the bad pattern faster* — bad data in, bad pattern learned and compounded. "Re-architect before you automate" (Hammer's 1990 "obliterate, don't automate," sharpened by Christensen's disruption logic — conceptual, 30-year pedigree ◆) is now a strategic-survival variable, not a nicety: a rushed agent pilot on a messy process actively degrades your own long-tail data relative to a rival running it clean. *When wrong:* for a genuinely clean, well-instrumented workflow there's little to re-architect — don't manufacture a reengineering project to gate a simple automation. *(Full moat/competitive framing in `moat-finder`; secondary insight from HBR q2-21, Lee/Mantia/McNeill, forthcoming Jul–Aug 2026.)*
 
 ## MEASURING EACH LAYER
 
-Analysis without measurement is a guess. For every layer in the stack, run this three-question protocol:
+Analysis without measurement is a guess. For each layer, run three questions: **Coverage** (what share of queries does it touch? — a layer on 20% of traffic matters less than it feels; a layer on 80% is critical path), **Accuracy** (when it fires, how often is it right? — high coverage + low accuracy is the worst combination, wrong more often and harder to trace), **Latency** (how much time does it add? — users tolerate ~3–4s for a complex task ⚠; if the stack eats 2s before generation, 1–2s is all that's left).
 
-**Coverage — what share of queries does this layer touch?**
-- Example (retrieval): what % of queries can be answered from our knowledge base vs. falling back to the bare model?
-- **Why it matters:** a layer that fires on 20% of traffic contributes less than it feels like it does; a layer on 80% is critical path and deserves the attention.
+The thresholds below are **⚠ practitioner starting points, not laws** — tune to your domain (a safety-critical medical feature and an internal drafting tool have different tolerances for the same false-negative rate):
 
-**Accuracy — when it fires, how often is it right?**
-- Example: when retrieval returns a document, does the final answer use it correctly?
-- **Why it matters:** high coverage with low accuracy is worse than the reverse — you're wrong more often *and* it's spread across more traffic, so it's harder to trace.
+| Layer | Coverage | Accuracy | Latency | Suggested start (⚠ tune) |
+|---|---|---|---|---|
+| Constitution (rules) | % edge cases with an explicit rule | rule-violation rate | N/A | coverage >90%; violations <0.5% |
+| Retrieval (RAG) | % queries returning ≥1 relevant doc | Precision@5 | P95 retrieval | Precision@5 >70%; <500ms; empty <5% |
+| Validation (guardrails) | % output categories with a guardrail | false-positive + false-negative rate | added latency | FP <2%; FN <1% where safety-critical; +<200ms |
+| Orchestration (routing/tools) | % tool calls with error handling | success + fallback rate | end-to-end P95 | success >95%; fallback <10%; <2s |
+| Monitoring (observability) | % features with a live monitor | drift caught before users report | drift→alert time | >80% caught first; alert <1hr |
 
-**Latency — how much time does it add?**
-- Example: a safety filter adds 200ms P95; retrieval adds 800ms P95; together that's a full second before generation even starts.
-- **Why it matters:** users tolerate roughly 3–4 seconds for a complex AI task (⚠ practitioner rule of thumb; varies by task and expectation). If the stack eats 2 seconds before the model runs, 1–2 seconds is all that's left for generation.
+**Run the audit** before launch (mandatory), quarterly, and after any model upgrade (a swap silently reshuffles which layer is weakest): map → instrument each (any layer with zero instrumentation is your first finding) → baseline on a few hundred representative queries → stress-test with adversarial/edge cases → **ablate** (remove a layer, measure the drop — that's its real contribution; near-zero = a candidate to cut for latency/cost) → document per-layer gap/fix/owner/timeline, and re-run to confirm the improvement.
 
-**Per-layer measurement reference.** The thresholds below are **recommended starting points (⚠ practitioner defaults, not laws)** — tune them to your domain and re-baseline. **Why defaults and not fixed rules:** a safety-critical medical feature and an internal drafting tool have different tolerances for the same false-negative rate; a number that's reckless in one is wasteful in the other.
+## AUDIT CASE STUDY (illustrative ⚠)
 
-| Layer | Coverage metric | Accuracy metric | Latency metric | Suggested starting threshold (⚠ tune) | How to collect |
-|---|---|---|---|---|---|
-| Constitution (rules, system prompt) | % of known edge cases with an explicit rule | Rule-violation rate (outputs that break a constraint) | N/A (static) | Coverage >90% of known edge cases; violations <0.5% of outputs | Log violations; run an adversarial prompt suite monthly |
-| Retrieval (RAG, search) | % of queries returning ≥1 relevant document | Precision@5 | P95 retrieval latency | Precision@5 >70%; latency <500ms; empty retrieval <5% | Instrument the pipeline; hand-score ~100 sampled queries/week |
-| Validation (guardrails, filters) | % of output categories with an active guardrail | False-positive rate (good output blocked) + false-negative rate (bad output passed) | Guardrail latency added | FP <2%; FN <1% where safety-critical; +<200ms | Log every trigger with input/output; review blocks and passes weekly |
-| Orchestration (routing, tools) | % of tool calls with error handling | Tool-call success rate; fallback rate | End-to-end orchestration P95 | Success >95%; fallback <10%; routing <2s | Instrument each call; track retries, fallbacks, timeouts |
-| Monitoring (observability, drift) | % of production features with a live monitor | Drift caught before users report it | Time from drift to alert | >80% caught before user report; alert <1 hour | Deploy drift detection; compare system-detected vs. user-reported |
+The document-analysis product from "the one idea": stuck at ~65% satisfaction, months spent on the model with no movement. The audit found retrieval at ~50% precision (half the surfaced docs irrelevant), a strong model, and working safety/post-processing. **The model was never the problem** — retrieval was polluting the context and the model hallucinated to reconcile it. The fix was upstream (re-chunking + a better embedding model), lifting precision ~50%→81% and satisfaction ~65%→82%, no model change. **The durable lesson (not the numbers): never optimize the generation layer until you've audited the layers upstream of it.**
 
-*(This one table replaces the two overlapping ones the skill used to carry — a simple template and a detailed protocol that measured the same thing at two granularities.)*
+## HOW THE STACK SHOWS UP IN EVALS
 
-## AUDIT CASE STUDY
+When an eval fails, trace it to the layer that caused it instead of blaming the model — this is the same object `eval-framework` works on from the other end (error analysis *groups* failures; this skill *names the layer* each group belongs to), and each maps to a named entry in `failure-modes`: poor retrieval → **hallucination** (owner: retrieval/embedding/chunking — fix retrieval before the prompt); poor guardrails → **safety failure** (Constitution/validation — add the guardrail); poor caching → **cost blowup** (eXecution — cache/reshape); poor context assembly → **self-contradiction** (Tracks/session state — version or clear boundaries). **Every eval failure has a root layer** — naming it turns "the model is bad" into an assignable fix with an owner.
 
-**Illustrative scenario — a composite that shows the pattern, not a specific audited company; the numbers are illustrative ⚠:**
+## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-A B2B document-analysis product sits at 65% user satisfaction after six months. The team has spent those months on the generation model — new prompts, one frontier model vs. another — with no real movement.
+- **`rtp-context-spec`** — this skill *diagnoses* the weak layer; context-spec *writes the build spec* for all seven. One finds, one designs — run in sequence.
+- **`rtp-eval-framework`** — every eval failure traces to one broken layer here; run them together to route a failure group to its owning layer.
+- **`rtp-production-observability`** — you can't fix a layer you can't see; it instruments each layer (the monitoring row above is its home).
+- **`rtp-failure-modes`** — each layer's break maps to a named failure (bad retrieval → hallucination, missing guardrail → unsafe output).
+- **`rtp-cost-model` / `rtp-token-economics`** — the vector-DB and re-ranker choices are unit-economics decisions (hosted vs. self-hosted, latency vs. relevance); those skills do the cost math.
+- **`rtp-moat-finder`** — the negative-flywheel point (step 4): skipping the stack before automating isn't just wasteful, it degrades the data moat; moat-finder carries the full competitive framing.
 
-The audit runs the measurement protocol and finds:
-- Knowledge layer (retrieval): ~50% precision. Half the documents it surfaced were irrelevant to the query.
-- Generation model: strong. Given correct context, it produced excellent answers.
-- Safety layer and post-processor: working.
+## VECTOR DB & RE-RANKING (PM decisions, not engineering-only)
 
-The finding: the model was never the problem. Retrieval was polluting the context with irrelevant chunks, and the model was hallucinating to reconcile them. The fix was upstream — re-chunking plus a better embedding model — lifting retrieval precision from ~50% to ~81% and satisfaction from ~65% to ~82%, with no change to the generation model.
-
-**The lesson (this is the durable part, not the numbers):** never optimize the generation layer until you've audited the layers upstream of it. The weakest layer sets the ceiling for the whole system — so the highest-leverage fix is almost never where the attention naturally goes.
-
-### How to Run an Invisible Stack Audit
-
-**When:** before launch (mandatory), quarterly (recommended), and after any model upgrade or architecture change (mandatory — a model swap silently reshuffles which layer is weakest).
-
-1. **Map the stack.** List every layer between input and output: system prompt, retrieval, pre-processing, model call, post-processing, guardrails, caching, logging. If you can't list them all, you have an invisible-stack problem by definition.
-2. **Instrument each layer.** Verify each has latency, error rate, and at least one quality metric. Any layer with zero instrumentation is your first finding.
-3. **Measure baseline.** Run a representative query set (a few hundred queries is a reasonable starting scale ⚠) through the full stack and record per-layer metrics. This is your before.
-4. **Stress test.** Run a set of adversarial and edge-case queries. For each: does retrieval return garbage? Does the guardrail catch it? Does monitoring alert?
-5. **Compute layer contribution (ablation).** Remove a layer, measure the accuracy drop; that drop is the layer's real contribution. A layer contributing near-zero is a candidate for removal to cut latency and cost. **Why ablation and not opinion:** it replaces "this layer feels important" with a measured number.
-6. **Document findings.** Per layer: current metric, threshold, gap, recommended fix, owner, timeline. Re-run the same query set after fixes — the audit isn't done until the re-run confirms the improvement.
-
----
-
-## Vector DB Selection Is a PM Decision
-
-Vector database choice affects unit economics, latency, and competitive positioning — so it's a product decision, not an engineering-only one.
-
-**Trade-offs to own:**
-- **Hosted (Pinecone, Weaviate Cloud):** lower operational burden, predictable at small scale; vendor lock-in and higher per-query price at scale.
-- **Self-hosted (Weaviate, Qdrant, Milvus):** higher operational burden, lower cost at scale, an escape hatch if a vendor changes pricing; needs infra expertise.
-- **Hybrid:** start hosted, migrate self-hosted when volume justifies it.
-
-**Decision points (the numbers below are order-of-magnitude practitioner ranges ⚠, and pricing moves — [VERIFY] against current vendor pricing before committing):**
-- Acceptable latency per query? (hosted ~50–150ms, self-hosted ~100–200ms)
-- Long-term query-volume forecast? (hosted economics get painful somewhere north of ~1M queries/month)
-- Is vendor lock-in acceptable? If retrieval quality is your moat, lean self-hosted for control.
-- Cost-per-query budget? (roughly $0.001–0.01/query hosted vs. $0.0001–0.001 self-hosted at scale)
-
-**Why own this as a PM:** the "simplest" choice (hosted) can be the most expensive long-term, and the person who owns the unit economics has to see that before the migration cost is locked in. Map the economics across options first — `rtp-cost-model` and `rtp-token-economics` do that heavy lifting.
-
-## Re-ranking Strategies
-
-First-pass retrieval returns ~20 candidates; a re-ranker filters to the best few, trading latency for relevance.
-
-- **Quality:** retrieval-only tends to land the right answer somewhere in the candidate list; adding re-ranking pushes the *best* answer to the top far more often — a meaningful relevance gain (⚠ illustrative; magnitude depends on your retriever and domain).
-- **Latency:** a re-ranker adds ~100–200ms per query (⚠ practitioner range). Fine for a chat or research feature where users wait; too slow for autocomplete, which needs sub-50ms.
-- **The trade-off:** high-latency features (research assistant, summarization) should almost always re-rank; low-latency features (autocomplete) should skip it or use a lightweight re-ranker; medium ones (chat) should A/B test to find the tolerable line. **Why not always re-rank:** relevance and latency pull in opposite directions, and the right point on that line is set by the feature's latency budget, not by a universal rule.
-
-## How the Invisible Stack Shows Up in Evals
-
-When an eval fails, trace it to the layer that caused it instead of blaming the model. This is the same object `rtp-eval-framework` works on from the other end — error analysis groups failures; this skill names the layer each group belongs to — and each failure below has a matching entry in `rtp-failure-modes`:
-
-- **Poor retrieval → hallucination.** "The AI said X, but the docs never mentioned X." Owner: retrieval, embedding, chunking. Fix retrieval before touching the prompt.
-- **Poor guardrails → safety failure.** "The AI said something unsafe or off-brand." Owner: Constitution layer, output validation. Add the missing guardrail.
-- **Poor caching → cost blowup.** "We're burning tokens on cheap repeated queries." Owner: eXecution layer, cache strategy. Cache or reshape the query pattern.
-- **Poor context assembly → self-contradiction.** "The AI contradicted itself between turns." Owner: Tracks layer, session state. Version the state or clear session boundaries.
-
-**Every eval failure has a root layer.** Naming it is what turns "the model is bad" into an assignable fix with an owner.
-
-## OUTPUT FORMAT
-
-Use this template when auditing a feature:
-
-```
-## Invisible Stack Audit: [Feature Name]
-
-| Layer | Exists? | Owner | Monitoring | Failure Mode | Improvement Priority |
-|-------|---------|-------|-----------|--------------|-------------------|
-| Constitution | Yes/No | [name] | [metric] | [what breaks] | [1-5] |
-| Observations | Yes/No | [name] | [metric] | [what breaks] | [1-5] |
-| Knowledge | Yes/No | [name] | [metric] | [what breaks] | [1-5] |
-| Tracks | Yes/No | [name] | [metric] | [what breaks] | [1-5] |
-| Equipment | Yes/No | [name] | [metric] | [what breaks] | [1-5] |
-| Execution | Yes/No | [name] | [metric] | [what breaks] | [1-5] |
-| Template | Yes/No | [name] | [metric] | [what breaks] | [1-5] |
-
-Weakest layer: [identified with a measured number]
-Retrieval quality score: [measured %, with method]
-Latency budget: [total ms, per-layer breakdown]
-```
+**Vector DB** choice sets unit economics, latency, and lock-in (⚠ ranges, [VERIFY] current pricing): hosted (Pinecone/Weaviate Cloud — low ops, ~50–150ms, painful economics north of ~1M queries/mo, ~$0.001–0.01/query) vs. self-hosted (Weaviate/Qdrant/Milvus — higher ops, ~$0.0001–0.001/query at scale, an escape hatch if a vendor changes pricing) vs. hybrid (start hosted, migrate when volume justifies). If retrieval quality is your moat, lean self-hosted for control. **Re-ranking** filters ~20 first-pass candidates to the best few, adding ~100–200ms (⚠): almost always worth it for research/summarization (users wait), skip or go lightweight for autocomplete (needs sub-50ms), A/B for chat. Own these as a PM because the "simplest" choice (hosted) is often the most expensive long-term, and the person who owns the unit economics must see that before the migration cost is locked in.
 
 ## QUALITY GATE
 
-- [ ] Full stack mapped — every layer between input and output named (missing layers are findings, not omissions)
+- [ ] Full stack mapped — every layer between input and output named (missing layers are findings)
 - [ ] Each layer has an owner and a monitoring mechanism
-- [ ] Weakest layer identified with a measured number, not a hunch — and the seams between layers checked if fixing the weakest one doesn't move quality
+- [ ] Weakest layer identified with a measured number — and the seams checked if fixing it doesn't move quality
 - [ ] Latency budget allocated across layers
-- [ ] Vector DB choice justified with unit economics
-- [ ] Re-ranking decision (yes/no) made against the feature's latency budget
-
-## GENERATE THE DELIVERABLE
-
-Follow the Deliverable Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11. Deliverables take one of three formats:
-1. **Document:** an Invisible Stack Audit report with full layer mapping, per-layer baseline, findings, and an improvement roadmap with owners and timelines.
-2. **Presentation:** a deck summarizing the stack, the weakest layer, and the executive recommendation.
-3. **Spreadsheet:** a layer inventory with coverage/accuracy/latency and improvement priorities.
-
-Always include a stack diagram (the OUTPUT FORMAT template, or a visual via `rtp-excalidraw-svg`), the per-layer baseline with thresholds, and the gap-to-fix roadmap with owners.
+- [ ] Vector-DB choice justified with unit economics; re-ranking decision made against the latency budget
 
 ## WHEN WRONG
 
-- Simple prompt-and-response features with no retrieval or context — there's no invisible stack to audit.
+- Simple prompt-and-response features with no retrieval or context — there's no invisible stack.
 - Prototypes where the open question is still "can the model even do this?" — validate capability first.
-- When stack complexity has itself become the bottleneck, and the right move is to remove layers, not map more of them.
+- When stack complexity has itself become the bottleneck — the right move is to *remove* layers, not map more.
 
----
+## OUTPUT FORMAT
+
+```
+## Invisible Stack Audit: [Feature]
+| Layer | Exists? | Owner | Monitoring | Failure mode | Priority (1–5) |
+| C/O/N/T/E/X/T … |
+Weakest layer: [with a measured number]   Retrieval quality: [measured %, method]   Latency budget: [total, per-layer]
+```
+Deliver as a document (full audit + roadmap with owners/timelines), a deck (stack + weakest layer + exec rec), or a spreadsheet (layer inventory). Always include a stack diagram (via `excalidraw-svg`), the per-layer baseline vs. thresholds, and the gap-to-fix roadmap.
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+By auditing the invisible layers before touching the model, you bet that the ceiling is set upstream of where attention naturally goes — that a measured weak layer beats another model swap. You give up the satisfying, visible work of prompt-and-model tuning for the unglamorous work of instrumenting retrieval and guardrails. **Reversible?** Fully — it's diagnosis, not a rebuild. **The hidden trade:** the failure mode is *mapping as procrastination* — a seven-layer audit on a thin feature that needed none; match stack depth to how much a wrong answer can hurt. **Confidence: High** — the weakest-layer ceiling is arithmetic, not opinion. What would change it: a genuinely single-turn feature where the model really is the system.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
-
----
+Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): the recommendation (the weakest layer, named with a number, and the upstream fix), the key trade-off (fixing the invisible layer vs. the visible model), the biggest risk (a seam problem masquerading as a weak-layer problem, or a model swap that reshuffles the weakest layer), and the next action (owner + date for the fix, and the re-run that confirms it).
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable far more useful at a glance. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After the primary output, invoke the **excalidraw-svg** skill for one visual: the seven CONTEXT layers stacked between "user input" and "user output," each with its coverage/accuracy/latency, and the **weakest layer highlighted** as the ceiling — so a viewer sees at a glance that the visible model sits on top of an invisible stack that decides its quality. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
