@@ -1,360 +1,163 @@
 ---
-name: rtp-jtbd-analysis
-description: Demand-side Jobs-to-be-Done analysis for AI features — the structural reframe most PMs miss. Use when teams jump from "build X" to "ship X" without naming what users are actually hiring the AI to do. Runs the four-forces diagram, the switch interview script, and the surface-job vs hidden-job map. Output is a job statement plus a design implication, not a 40-page customer empathy deck.
+name: jtbd-analysis
+description: "Demand-side Jobs-to-be-Done for AI features — the reframe most PMs miss: users don't hire the AI for the surface task they name, they hire it for the hidden job (offloading cognition, sharing blame, reducing anxiety, looking competent). Design for the surface job and the feature dies in production; design for the hidden job and users defend it even when it's wrong. Runs the four-forces diagram, the switch-interview script, and the surface-vs-hidden map — output is a job statement plus a design implication, not a 40-page empathy deck. Use when scoping a new AI feature, or when a working feature has flat adoption. Do NOT use for commodity, mandated, or captive tools with no real switch decision. Pairs with: problem-ai-fit (is AI the right hire), uncertainty-research (scaling the switch interviews), failure-modes (which failures the hidden job makes catastrophic), opportunity-solution-tree (the job as top-of-tree outcome). Triggers: 'what should this AI do', flat adoption despite working as designed."
+imports:
+  - problem-ai-fit
+  - first-principles
+  - uncertainty-research
 ---
+
 # JTBD Analysis
 
-Decipher what users are actually hiring an AI feature to do — and design for the hidden job, not the surface one.
+**The objective:** decipher what users are actually hiring an AI feature to do — and design for that, not for the task they name — for the PM scoping a new AI feature or staring at a working one nobody adopts.
 
-> "People don't want a quarter-inch drill. They want a quarter-inch hole." — Theodore Levitt, often misquoted but still right.
->
-> The 0.1% AI PM correction: people don't want the hole either. They want the picture on the wall. They want the partner to feel proud. They want the room to feel done.
+## The one idea
 
----
+> "People don't want a quarter-inch drill. They want a quarter-inch hole." — Theodore Levitt.
 
-## DEPTH DECISION
+The 0.1% AI-PM correction: people don't want the hole either. They want the picture on the wall, the partner to feel proud, the room to feel *done.*
 
-**Go deep if:** A new AI feature is being scoped, an existing AI feature has flat adoption despite working as designed, or the team is debating "what should this AI do?" before they've named what users are hiring it for.
+Here is the whole idea in one example. A developer using GitHub Copilot will tell you the job is "complete my code." That's the cover story. The real job is *feel less alone while coding; stay in flow; avoid the shame of asking a stupid question on Stack Overflow.* The functional task is what they say. The **hidden job** — emotional, social, cognitive — is the actual demand.
 
-**Skim to the four forces if:** You already have a job statement and just need to test whether switching forces are strong enough to drive adoption.
+This matters more for AI than for any product category before it, and here's the mechanism: every other category competes on *capability*. AI competes on whether the user trusts you with their **cognitive load** — and that load is almost always about emotional regulation, social positioning, or anxiety reduction. AI is the first technology that reaches those layers directly. So the PM who designs for the surface job ships a feature that works on the demo and dies in production. The one who designs for the hidden job builds something users *defend even when it's wrong* — because it's still doing the real job (sharing the blame, preserving the audit trail, keeping them in flow) even on a turn where the output was bad.
 
-**Skip if:** The feature is a commodity (procurement-driven B2B buys, regulated must-haves, contract renewals — see RED TEAM), or the user has no choice in the matter (mandated tools, captive workflows).
+Miss the hidden job and you're competing on benchmarks. Hit it and you're competing on relationship. That's the reframe.
 
----
+## How to use this skill
 
-## DELIVERABLE FORMAT
+1. **Map surface vs. hidden job** — for the feature in scope, name the task the user says and the emotional/social/cognitive job underneath. (THE SURFACE/HIDDEN MAP.)
+2. **Run the four forces** — switching happens only when push + pull beat anxiety + habit; for AI, anxiety is 2–3× what PMs assume, so develop it hardest. (THE FOUR FORCES.)
+3. **Validate with switch interviews** — reconstruct the timeline from "thought of switching" to "first use" with 5–8 users who actually switched. (THE SWITCH INTERVIEW.)
+4. **End on a design implication** — the one Monday-morning change that comes from designing for the hidden job instead of the surface one. Without it, the analysis is decoration.
 
-Before starting, ask:
+## KEY TERMS (plain language)
 
-> **What format would you like?**
-> 1. **Word Document** — Job statement, four-forces diagram, surface vs hidden job map, design implication. Best for spec reviews and PRD appendices.
-> 2. **Presentation** — Visual deck for stakeholder alignment. Best for kickoffs.
-> 3. **Inline** — Text output ready to paste into a PRD. Best for fast iteration.
->
-> *Default if no preference: Inline.*
+- **Surface job** — the functional task the user names ("summarize this doc"). Goes in the PRD.
+- **Hidden job** — the emotional, social, or cognitive shift they're actually hiring the AI for ("have a defensible answer if my boss asks what's in there"). Goes in the design.
+- **The four forces** — Bob Moesta's switch model: push (away from the old way) + pull (toward the new) must beat anxiety (about the new) + habit (of the old) for a switch to happen.
+- **Switch interview** — a JTBD interview that reconstructs the timeline of a real switch, hunting the struggle moment, not a feature review.
+- **The struggle moment** — the specific event that made the old way intolerable ("my boss asked me to summarize 200 pages by Monday"); the trigger a switch traces back to.
+- **Anxiety asymmetry** — when both acting and not-acting can hurt the user (shut down a $2M asset on a false alarm, or miss the real failure); the AI is often hired to share that blame.
+- **Audit-defensibility** — the hidden job of producing a paper trail that survives a deposition, independent of whether the AI was right.
 
----
+## GROUNDING (Before Starting)
 
-## THE STRUCTURAL INSIGHT
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: name the feature and who's hiring it, and what "adoption" would look like. Then route depth and output format:
 
-Bob Moesta's demand-side reframe says: people don't buy products, they hire them to do a job. Most PMs stop there. They write a "job statement," call it customer-centric, and move on.
+- **Go deep** when a new AI feature is being scoped, an existing one has flat adoption despite working as designed, or the team is debating "what should this AI do?" before naming what it's hired for.
+- **Skim to the four forces** when you already have a job statement and just need to test whether the switching forces are strong enough.
+- **Skip** for commodity, mandated, or captive tools where the user has no real switch decision (see RED TEAM).
 
-**The 0.1% AI PM angle: AI changes the job being hired.**
+Output format: **Inline** (paste into a PRD, the default), **Word** (spec-review appendix), or **Presentation** (stakeholder kickoff).
 
-Users don't hire AI for the surface task. They hire it for cognitive offloading, decision deferral, social proof, or anxiety reduction. The functional job is the cover story. The hidden job is the actual demand.
+## THE SURFACE/HIDDEN MAP
 
-| Feature | Surface Job (what user says) | Hidden Job (what AI is hired for) |
+The structural move: the surface job goes in the PRD, the hidden job goes in the design.
+
+| Feature | Surface job (what the user says) | Hidden job (what the AI is hired for) |
 |---|---|---|
-| GitHub Copilot | "Complete my code" | "Feel less alone while coding. Stay in flow. Avoid the shame of asking a stupid question on Stack Overflow." |
-| ChatGPT for writing | "Draft this email" | "Defer the decision about tone. Get permission to use these words. Lower the activation energy." |
-| Notion AI summarize | "Summarize this doc" | "Avoid reading 40 pages. Have a defensible answer if my boss asks 'what's in there?'" |
-| Predictive maintenance dashboard | "Predict when the asset fails" | "Have a defensible audit trail. Avoid being the operator who 'should have caught it.'" |
-| AI-powered legal review | "Find risky clauses" | "Outsource the blame if I miss something. Reduce the cognitive load of reading dense contracts." |
+| GitHub Copilot | "Complete my code" | Feel less alone; stay in flow; avoid the shame of a "stupid" Stack Overflow question |
+| ChatGPT for writing | "Draft this email" | Defer the decision about tone; get permission to use these words; lower activation energy |
+| Notion AI summarize | "Summarize this doc" | Avoid reading 40 pages; have a defensible answer when the boss asks "what's in there?" |
+| Predictive maintenance | "Predict when the asset fails" | Have a defensible record; avoid being the operator who "should have caught it" |
+| AI legal review | "Find risky clauses" | Share the blame if something's missed; reduce the load of reading dense contracts |
 
-The product manager who designs for the surface job ships a feature that works on the demo and dies in production. The one who designs for the hidden job builds something users defend even when it's wrong.
-
-**Why this matters specifically for AI:** every other product category competes on capability. AI competes on whether the user trusts you with their cognitive load. The hidden job is almost always about emotional regulation, social positioning, or anxiety reduction — and AI is the first technology that reaches those layers directly. Miss the hidden job and you're competing on benchmarks. Hit the hidden job and you're competing on relationship.
-
----
-
-## THE FOUR FORCES
-
-Bob Moesta's force diagram. Switching is rational only when push + pull outweigh anxiety + habit. For AI features, anxiety is usually the dominant force — and most PMs ignore it.
-
-```
-                    THE SWITCH
-                        │
-        ┌───────────────┼───────────────┐
-        │                               │
-    PUSH FORCES                    PULL FORCES
-    (away from current)            (toward new)
-        │                               │
-        │  • Current solution is        │  • New solution promises
-        │    failing in a specific way  │    a specific better outcome
-        │  • A new event made it        │  • Someone they trust uses it
-        │    intolerable (cost spike,   │  • The story of the new
-        │    new boss, audit, etc.)     │    solution feels true
-        │                               │
-        └───────────────┬───────────────┘
-                        │
-                    [SWITCH HAPPENS]
-                        │
-        ┌───────────────┼───────────────┐
-        │                               │
-    ANXIETY                          HABIT
-    (about new)                      (of current)
-        │                               │
-        │  • What if AI hallucinates?   │  • Muscle memory of old tool
-        │  • What if my boss audits     │  • Sunk cost in current setup
-        │    the AI's recommendation?   │  • Fear of looking stupid
-        │  • What if I lose the skill?  │    while learning new
-        │  • What if I'm liable?        │  • Team isn't ready
-        │                               │
-        └───────────────────────────────┘
-
-           Rule: PUSH + PULL > ANXIETY + HABIT
-           For AI features: ANXIETY is usually 2-3x larger than PMs assume.
-```
-
-**The trap most PMs fall into:** they spend 90% of design energy on PULL (how good the AI is) and 10% on ANXIETY (what could go wrong, who is liable, what happens if it's confidently wrong). For enterprise AI, the ratio should be inverted. The pull is real but anxiety is what blocks adoption.
-
-**A working rule for enterprise AI:** if you can't name the top three anxieties in one sentence each, you haven't done the job analysis. Reread the four forces and try again.
-
----
-
-## SWITCH INTERVIEW METHODOLOGY
-
-The classic JTBD switch interview reconstructs the timeline from "thought of switching" to "first use." For AI features, you're hunting for the moment the user decided to trust an AI with a task they previously did themselves.
-
-### The 6-Question Script
-
-Run this with 5-8 users who recently switched to your AI feature (or a competitor's). Don't run it with users who never adopted — they can't tell you what triggered the switch.
-
-**1. When did you first realize you needed something different?**
-> *Listening for:* the trigger event. Not "when did you hear about us" — when did the old way become intolerable. There's almost always a specific moment. "My boss asked me to summarize this 200-page report by Monday." "We had a near-miss audit and I realized I had no defensible record."
-
-**2. What had you tried before?**
-> *Listening for:* the consideration set. Most users tried 2-3 things before yours. What did they reject and why? This reveals the competitive frame they actually used (often nothing like the one in your strategy doc).
-
-**3. What were you anxious about when you considered the new approach?**
-> *Listening for:* anxiety forces. For AI: hallucination, liability, skill atrophy, team backlash, audit trail. Users rarely volunteer these — you have to ask directly. Follow up: "What would have made you walk away?"
-
-**4. What pushed you to actually try it — what made the anxiety smaller than the push?**
-> *Listening for:* the activating force. Often a peer, a deadline, a permission ("my manager said it was OK"), or a low-stakes test ("I'll just try it on this one task").
-
-**5. When you used it the first time, what surprised you?**
-> *Listening for:* the gap between expected and actual experience. For AI features: did it feel magical, or did it feel like the user was managing the AI? This is the diagnostic for whether the hidden job got served.
-
-**6. What would have to be true for you to stop using it?**
-> *Listening for:* the fragility of the switch. AI adoption is not durable until 30 days of consistent use. Switching costs are low. What pulls them back to the old way?
-
-### What to Listen For (the meta-skill)
-
-**The struggle moment, not the feature evaluation.** Users will try to give you a product review ("the UI was clean"). Redirect them to the timeline. "Walk me through the day you decided to try it."
-
-**Emotional language is data, not noise.** "I was embarrassed I didn't know that." "I felt relieved when I saw the answer." These are hidden-job signals. Write them down verbatim.
-
-**The thing they didn't say.** If a user describes adopting an AI tool and never mentions trust, accuracy, or risk — they have a job that doesn't depend on those. (This is rare in enterprise. When it happens, it's usually a casual-stakes use case like brainstorming or first drafts.)
-
-**The moment of social proof.** Almost every enterprise AI switch traces back to a person, not a product. "My colleague at our Bangalore site used it." "My manager mentioned it in a 1:1." The hidden job often includes "looking competent in front of someone specific."
-
----
-
-## AI-SPECIFIC JOB MAPPING
-
-For each AI feature in scope, fill out this map. The structural move: surface job goes in the PRD, hidden job goes in the design.
+**The template to fill for your feature:**
 
 ```
 FEATURE: [name]
-
-SURFACE JOB
-  When [situation],
-  I want to [functional task],
-  so I can [stated outcome].
-
-HIDDEN JOB
-  When [situation],
-  I want to [emotional / social / cognitive shift],
-  so I can [actual outcome — feel, be perceived as, defer].
-
+SURFACE JOB   When [situation], I want to [functional task], so I can [stated outcome].
+HIDDEN JOB    When [situation], I want to [emotional/social/cognitive shift], so I can [actual outcome — feel, be perceived as, defer].
 DESIGN IMPLICATION
-  If we design only for surface job: [what we'd build]
-  If we design for hidden job: [what we'd build]
-  The difference: [the structural change in the product]
+  Design only for surface → [what we'd build]
+  Design for hidden       → [what we'd build]
+  The difference          → [the structural change that decides adoption]
 ```
 
-### Worked example: GitHub Copilot
+**Worked example — GitHub Copilot.** *Surface:* autocomplete boilerplate to save typing. *Hidden:* when I'm stuck and don't want to admit it, give me a non-judgmental partner who offers a starting point so I stay in flow without asking a colleague. *Design implication:* the hidden-job design never makes the user feel stupid for accepting a suggestion — zero-friction rejection, no suggestions that highlight gaps, no punishment for accepting a wrong one. The real Copilot UI does the second. That's why it works.
 
-```
-SURFACE JOB
-  When I'm writing a function I've written before,
-  I want to autocomplete the boilerplate,
-  so I can save typing time.
+**Worked example — AI support-draft response.** *Surface:* draft a reply to save time. *Hidden:* with 40 tickets queued and a manager tracking resolution time, I want plausible assurance I considered each ticket, so I can move fast without feeling like a bad agent. *Design implication:* preserve the agent's authorship — easy edits, show AI-vs-human contribution, give them an audit log to show their manager. Get it wrong and agents reject every draft because they won't attach "an AI response" to their name; get it right and they send 3× more tickets per hour and feel better about it.
 
-HIDDEN JOB
-  When I'm stuck on a function and don't want to admit it,
-  I want a non-judgmental partner who will offer a starting point,
-  so I can stay in flow without breaking my focus to ask a colleague
-  or search Stack Overflow.
+## THE FOUR FORCES
 
-DESIGN IMPLICATION
-  Surface-job design: faster autocomplete, better keyword matching.
-  Hidden-job design: never make the user feel stupid for accepting a
-  suggestion. Don't show suggestions that highlight gaps. Make rejection
-  zero-friction. Never punish the user for accepting a wrong suggestion.
+A switch is rational only when **push + pull > anxiety + habit.** For AI, anxiety is usually the dominant force — and the one PMs underweight.
 
-  The actual GitHub Copilot UI does the second. That's why it works.
-```
+- **Push** (away from the current way) — the old solution is failing in a specific way; a new event made it intolerable (a cost spike, a new boss, an audit).
+- **Pull** (toward the new) — a specific better outcome; someone they trust already uses it; the story of the new way feels true.
+- **Anxiety** (about the new) — *what if the AI hallucinates? what if my boss audits its recommendation? what if I lose the skill? what if I'm liable?*
+- **Habit** (of the current) — muscle memory, sunk cost, fear of looking stupid while learning, a team that isn't ready.
 
-### Worked example: AI-powered customer support draft response
+**The trap:** PMs spend 90% of design energy on pull (how good the AI is) and 10% on anxiety (what goes wrong, who's liable, what happens when it's confidently wrong). For enterprise AI, invert it — the pull is real, but anxiety is what blocks adoption. **The working rule:** if you can't name the top three anxieties in one sentence each, you haven't done the job analysis yet.
 
-```
-SURFACE JOB
-  When a customer ticket comes in,
-  I want a draft response,
-  so I can save time.
+## THE SWITCH INTERVIEW
 
-HIDDEN JOB
-  When I have 40 tickets in my queue and a manager who tracks resolution time,
-  I want plausible deniability that I considered every ticket carefully,
-  so I can move fast without feeling like I'm being a bad agent.
+Reconstruct the timeline from "thought of switching" to "first use." You're hunting the moment a user decided to trust an AI with a task they used to do themselves. Run it with 5–8 users who *recently switched* (to you or a competitor) — not users who never adopted; they can't tell you what triggered a switch.
 
-DESIGN IMPLICATION
-  Surface-job design: high-quality draft, good tone matching.
-  Hidden-job design: the draft should preserve the agent's authorship — let
-  them edit easily, show what was AI vs what they added, give them an audit
-  log they can show their manager. The agent is hiring AI to be a faster
-  version of themselves, not a replacement.
+1. **When did you first realize you needed something different?** → the trigger event (the struggle moment), not "when did you hear about us."
+2. **What had you tried before?** → the real consideration set (usually nothing like your strategy doc's competitive frame).
+3. **What were you anxious about?** → the anxiety forces (hallucination, liability, skill atrophy, audit trail); they rarely volunteer these — ask directly, then "what would have made you walk away?"
+4. **What pushed you to actually try it?** → the activating force (a peer, a deadline, a manager's permission, a low-stakes test).
+5. **When you first used it, what surprised you?** → the gap between expected and actual; did it feel magical, or like managing the AI? The diagnostic for whether the hidden job got served.
+6. **What would have to be true for you to stop?** → the fragility of the switch (AI adoption isn't durable until ~30 days of consistent use).
 
-  Get this wrong and agents reject every draft because they don't trust
-  having "an AI response" attached to their name. Get this right and they
-  send 3x more tickets per hour and feel better about their work.
-```
+**What to listen for:** the *struggle moment*, not a feature review ("walk me through the day you decided to try it"). Emotional language is data, not noise — "I was embarrassed I didn't know that" is a hidden-job signal; write it verbatim. The *thing they didn't say* — if trust, accuracy, and risk never come up, they have a low-stakes job. And the *moment of social proof* — almost every enterprise switch traces to a person, not a product ("my manager mentioned it in a 1:1"); the hidden job often includes "looking competent in front of someone specific."
 
----
+## REAL-WORLD ENTERPRISE EXAMPLE — industrial predictive maintenance
 
-## REAL-WORLD ENTERPRISE EXAMPLE — Fortune 100 / world-class AI-native startup scale
+A predictive-maintenance recommendation system for industrial assets — turbines, compressors, HVAC fleets across plants. Real Fortune-100 territory, and the kind of feature where the surface job is obvious and the hidden job is where the design lives or dies.
 
-Predictive maintenance recommendation system for industrial assets — turbines, compressors, HVAC fleets across plants. Real a Fortune 100 enterprise territory. The kind of feature where the surface job is obvious and the hidden job is where the design lives or dies.
+**Surface job (the demo job):** *when a turbine's vibration drifts, predict failure 7 days out so I can schedule maintenance before unplanned downtime.* This is the job in the RFP — and the one that makes the system fail in production.
 
-### Surface job (the demo job)
+**Hidden job — the plant operator: anxiety asymmetry.** *When the system flags a possible failure, give me a defensible record that I acted on it (or didn't, with reason), so I'm not the operator who "should have caught it" — and also not the one who shut down a $2M asset on a false alarm and got blamed for that too.* Both action and inaction can hurt them. They aren't hiring the AI to predict failure; they're hiring it to **share the blame.**
 
-```
-When a turbine's vibration profile starts to drift,
-I want the system to predict failure 7 days out,
-so I can schedule maintenance before unplanned downtime.
-```
+**Hidden job — plant management: audit-defensibility.** *When an asset fails or is taken down, give me a data-driven audit trail, so I can answer corporate, insurers, and regulators with evidence instead of judgment.* They don't care that the AI is right 92% of the time; they care that it produces a paper trail that survives a deposition.
 
-This is the job in the marketing deck. It's the job in the RFP. It's also the job that makes the system fail in production.
+**The design implication.** Most vendors build the surface job: high-accuracy models, clean dashboards, scheduling integration. The hidden-job design is what wins the renewal — every recommendation timestamped, version-locked, exportable; operators record their disposition (acted / declined / deferred) with a one-line reason (that *is* the audit log); confidence shown in plain language ("high confidence," not "0.87") with low-confidence cases flagged "review with engineer," not "predicted failure"; refusal allowed ("not enough data to predict this asset" beats a guess); and when an operator declines a recommendation that turns out right, the system surfaces it to the model team for retraining, **not** to management. The moat in industrial AI is not better models — it's understanding the operator's hidden job: share the blame, preserve the audit trail, never make them look stupid in front of management. Vendors who ship better accuracy without that insight lose the renewal.
 
-### Hidden job for the plant operator
+## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-```
-When the system flags a possible failure,
-I want a defensible record that I acted on it (or didn't, with reason),
-so I can avoid being the operator who "should have caught it" if something
-goes wrong — and also avoid being the operator who shut down a $2M asset
-on a false alarm and got blamed for that too.
-```
+JTBD names the job. The chain around it: **JTBD names the job → problem-ai-fit confirms AI is the right hire → opportunity-solution-tree picks where to bet → failure-modes designs for what hurts most.**
 
-The operator's hidden job is **anxiety asymmetry management**. Both action and inaction can hurt them. They're not hiring the AI to predict failure — they're hiring it to share the blame. This changes the design completely.
+- **`rtp-problem-ai-fit`** *(import)* — JTBD says what job is being hired; this checks whether AI is the right hire for it. Run JTBD first when the problem is unclear; run problem-ai-fit when the AI assumption needs testing.
+- **`rtp-uncertainty-research`** *(import)* — the switch interview is one method; this is how you scale validation to a real research design.
+- **`rtp-failure-modes`** — the hidden job tells you which failures hurt most: if the hidden job is "preserve the audit trail," silent degradation is catastrophic and confident-wrong is survivable (the log catches it); if it's "save me from feeling stupid," refusals hurt more than errors.
+- **`rtp-opportunity-solution-tree`** — the job statement becomes the desired outcome at the top of the tree, and the hidden job filters which opportunities are worth pursuing.
 
-### Hidden job for plant management
+## RED TEAM — when this skill gives bad advice
 
-```
-When an asset fails (or is taken down for maintenance),
-I want a defensible audit trail showing the decision was data-driven,
-so I can answer to corporate / insurers / regulators with evidence
-instead of judgment calls.
-```
-
-Management's hidden job is **audit-defensibility**. They don't care if the AI is right 92% of the time — they care that the system produces a paper trail that survives a deposition.
-
-### The design implication
-
-Surface-job design (what most vendors build):
-- High-accuracy prediction models
-- Clean dashboards
-- Maintenance scheduling integration
-
-Hidden-job design (what actually wins the renewal):
-- Every recommendation is timestamped, version-locked, and exportable
-- Operators can record their disposition (acted / declined / deferred) with a one-line reason — this becomes the audit log
-- The system shows confidence level in plain language ("high confidence" not "0.87"), and explicitly flags low-confidence cases as "review with engineer" instead of "predicted failure"
-- Refusal is allowed: the system says "I don't have enough data to predict this asset" instead of guessing
-- Disagreement is captured: when an operator declines a recommendation that turns out to be right, the system doesn't surface that to management — it surfaces it to the model team for retraining
-
-a Fortune 100 enterprise's competitive moat in industrial AI is not better models. It's that we understand the operator's hidden job — share the blame, preserve the audit trail, never make them look stupid in front of management. Vendors who ship better accuracy without that insight lose the renewal.
-
----
-
-## DELIVERABLE FORMAT
-
-Every JTBD analysis produces four artifacts. If you can't produce all four, the analysis isn't done.
-
-### 1. Job Statement (one paragraph)
-
-> When [situation], I want to [job], so I can [outcome]. The hidden job underneath: [emotional / social / cognitive shift].
-
-Two layers, surface and hidden, in five sentences total.
-
-### 2. Four-Forces Diagram
-
-Push, pull, anxiety, habit — each with 2-4 specific forces. For enterprise AI, anxiety must be at least as developed as pull. If anxiety has fewer entries than pull, the analysis is incomplete.
-
-### 3. Surface vs Hidden Job Map
-
-The table format from this skill, filled out for the specific feature. Includes the design implication: what would change if we designed for the hidden job.
-
-### 4. Design Implication (one paragraph)
-
-> If we design only for the surface job, we'd build X. If we design for the hidden job, we'd build Y. The difference is Z, and Z is what determines whether this feature gets adopted past the pilot.
-
-This last artifact is what makes the JTBD work load-bearing. Without it, the analysis is decoration.
-
----
-
-## CROSS-LINK WITH ADJACENT SKILLS
-
-This skill doesn't run alone. It connects to:
-
-- **`problem-ai-fit`** — JTBD identifies what job is being hired. Problem-AI-fit checks whether AI is the right hire for that job. Run JTBD first when the problem is unclear; run problem-ai-fit when the AI assumption needs testing.
-- **`uncertainty-research`** — once you have a job statement, the switch interview methodology in this skill becomes one of the research methods. The research designs in uncertainty-research are how you scale validation.
-- **`failure-modes`** — the hidden job tells you which failures hurt most. If the hidden job is "preserve audit trail," then silent degradation is catastrophic and confident-wrong is acceptable (because the audit log catches it). If the hidden job is "save me from feeling stupid," then refusals hurt more than errors.
-- **`opportunity-solution-tree`** — a job statement becomes the desired outcome at the top of the tree. The hidden job filters which opportunities are worth pursuing.
-
-The chain: JTBD names the job → problem-ai-fit confirms AI is the right hire → opportunity-solution-tree picks where to bet → failure-modes designs for what hurts most.
-
----
-
-## RED TEAM
-
-This skill gives bad advice when:
-
-**The product is a commodity with no real switch decision.** Procurement-driven B2B buys (corporate Office 365 licenses, enterprise CRM mandated by IT, regulatory compliance tools) don't have a "moment of switch" — the buyer is forced. JTBD's force model assumes voluntary adoption. For mandated tools, use stakeholder-mapping instead and figure out who has political incentive to make it succeed.
-
-**The user is captive.** Internal tools where employees have no choice (HR systems, expense reporting, mandatory safety platforms) don't generate the kind of struggle moments JTBD is designed to capture. The feature ships because it has to. JTBD will produce hollow job statements that read well but don't change the design.
-
-**The feature is competing on price, not job.** When buyers pick the cheapest option that meets a checklist, JTBD adds noise. The job is "satisfy procurement at lowest cost." Run cost-modeling and competitive-position instead.
-
-**The user can't articulate their own job.** Sometimes the user is too close to the problem to see it. They'll describe the surface job over and over and resist the hidden-job framing. In these cases, behavior beats words: instrument the workflow, watch what they actually do, and infer the job from their actions. Switch interviews still work, but you have to mine the silence as much as the words.
-
-**The "AI" framing is a distraction.** If the feature is genuinely deterministic (lookup, rule-based routing, simple classification), forcing it through an AI-job lens generates artificial complexity. Use straight JTBD without the AI overlay. The hidden job still matters; the AI-specific anxieties might not.
-
----
+- **A commodity with no real switch.** Procurement-driven B2B buys (mandated CRM, compliance tools) have no "moment of switch" — the buyer is forced. Use stakeholder-mapping to find who has the political incentive to make it succeed.
+- **A captive user.** Internal tools employees can't opt out of (HR, expense, mandatory safety platforms) don't generate struggle moments; JTBD produces hollow job statements that read well and change nothing.
+- **Competing on price, not job.** When buyers pick the cheapest option that clears a checklist, the job is "satisfy procurement at lowest cost" — run cost-model and competitive-map instead.
+- **The user can't articulate their own job.** Too close to see it, they repeat the surface job. Behavior beats words: instrument the workflow, watch what they do, infer the job from actions; mine the silence as much as the words.
+- **The "AI" framing is a distraction.** If the feature is genuinely deterministic (lookup, rule-based routing), the hidden job still matters but the AI-specific anxieties may not — use straight JTBD without the AI overlay.
 
 ## WHEN WRONG
 
-This skill produces overconfident output when:
-
-- **You only interviewed users who switched to your product.** You're getting survivorship bias. Add interviews with users who switched away from competitors to nothing — they reveal the anxiety and habit forces most clearly.
-- **The hidden job feels obvious to the team.** If everyone in the room agrees on the hidden job in the first 10 minutes, it's probably the surface job in disguise. Real hidden jobs feel slightly uncomfortable to name out loud — they often involve users hiring the AI to manage how they're perceived, defer responsibility, or avoid effort. Push past the polite framing.
-- **You skipped the four-forces analysis.** A job statement without the force diagram is a poem, not a tool. The force diagram is what makes the job statement actionable.
-
----
+- **You only interviewed users who switched *to* you** — survivorship bias. Add users who switched away from a competitor to nothing; they reveal anxiety and habit most clearly.
+- **The hidden job feels obvious to the whole room in 10 minutes** — it's probably the surface job in disguise. Real hidden jobs feel slightly uncomfortable to say out loud (users hiring the AI to manage perception, defer responsibility, avoid effort). Push past the polite framing.
+- **You skipped the four forces** — a job statement without the force diagram is a poem, not a tool.
 
 ## QUALITY GATE
 
-Before shipping the JTBD analysis, verify:
-
 - [ ] Job statement is two layers (surface + hidden), not one
-- [ ] Four forces diagram has at least 2 entries per quadrant
-- [ ] Anxiety quadrant is at least as developed as pull
-- [ ] Surface vs hidden job map includes a design implication that would change the product
-- [ ] At least 5 switch interviews informed the analysis (not "we think users want X")
-- [ ] The hidden job names emotional, social, or cognitive demand — not just functional
-- [ ] The analysis ends with a Monday-morning design change, not a customer empathy slide
+- [ ] Four-forces diagram has ≥2 entries per quadrant, and anxiety is at least as developed as pull
+- [ ] Surface-vs-hidden map includes a design implication that would change the product
+- [ ] At least 5 switch interviews informed it (not "we think users want X")
+- [ ] The hidden job names an emotional, social, or cognitive demand — not just a functional one
+- [ ] It ends with a Monday-morning design change, not an empathy slide
 
-If any box is unchecked, the JTBD work isn't done.
+## TRADE-OFF LEDGER
 
----
+By designing for the hidden job, you bet that adoption is won on trust and emotional fit, not on benchmark capability. You give up the clean, defensible "we shipped the requested feature" story and take on the harder, softer work of naming what users won't say out loud. **Reversible?** Yes — it reshapes design priorities, not architecture. **The hidden trade:** the failure mode is *projection* — the team inventing a flattering hidden job instead of mining a real one, which is why the switch interviews (not the whiteboard) are load-bearing. **Confidence: High** for voluntary-adoption AI; **Low** for commodity/mandated/captive tools (see RED TEAM), where the switch model doesn't apply. What would change it: no real switch decision exists.
 
 ## CONCLUSION
 
 A complete JTBD analysis ends with one sentence:
 
-> "We're going to redesign [feature] to serve the hidden job of [job], because right now we're designing for the surface job of [task] and it's why adoption is [observed pattern]."
+> "We're going to redesign [feature] to serve the hidden job of [job], because right now we're designing for the surface job of [task], and that's why adoption is [observed pattern]."
 
-That sentence is the deliverable. Everything else is the working.
+That sentence is the deliverable; everything else is the working. If the team can't write it, restart at the switch interviews — the job analysis isn't done. Then follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): recommendation, key trade-off, biggest risk, next action.
 
-If the team can't write that sentence at the end, restart at the switch interviews — the job analysis isn't done yet.
+## VISUAL SUMMARY
+
+After the primary output, invoke the **excalidraw-svg** skill for one visual: the surface job and the hidden job stacked (what they say / what they're hiring it for), with the four forces drawn as the switch scale beneath — push + pull on one side, anxiety + habit (anxiety enlarged) on the other — so a viewer sees that adoption turns on serving the hidden job and shrinking the anxiety, not on adding capability. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
