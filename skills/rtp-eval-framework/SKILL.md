@@ -6,6 +6,20 @@ imports: [feedback-flywheel, first-principles, stress-test]
 
 # Evaluation Framework
 
+**The objective:** find out whether your AI product is actually good — for *these* users, in *this* domain — by turning real failures into repeatable tests, for the PM who owns the quality bar and has no way to know if the feature works beyond "the demo looked fine."
+
+## The one idea
+
+You shipped the feature. Benchmarks: 92nd percentile. Error logs: clean. Uptime: 99.97%. And users are quietly leaving — because the answers are confidently wrong in exactly the cases that matter. Everything looked fine; the product was failing.
+
+That gap has one cause: **nobody defined what "good" means for *this* product, *these* users, *this* domain — and nobody built the system to measure it.** An eval is not a benchmark. A benchmark scores the model's generic capability; an eval scores whether *your* product works. This skill builds the second thing. Three framings from the practitioner literature carry the whole framework — hold them before any technique:
+
+**1. You're on a three-era ladder, and most teams are stuck on rung one.** *Benchmark* evaluation (MMLU, HumanEval — tells you about the model, nothing about your product) → *Product* evaluation (golden datasets, rubrics, LLM judges, CI/CD gates — where "advanced" teams live) → *Trajectory* evaluation (was the 10-step agent path safe, efficient, faithful — not just "did it finish"). Each era layers on the last; it doesn't replace it. If all you have is benchmarks, your agents are running unmonitored in the real world.
+
+**2. Most eval failures are context failures, not model failures.** When an output is bad, trace the root cause through the **three gulfs**: *Comprehension* (the system misunderstood the input — bad retrieval, missing state; a kNowledge/Equipment-layer failure), *Specification* (your instructions were ambiguous or unbounded — a Constitution/Template-layer failure), *Generalization* (the model genuinely can't do it). With frontier models, the third is the *rarest*. So the first question on a failing eval is "is the context right?", not "is the model good enough?" — which is why this skill routes to `invisible-stack` and `context-spec`, not to a model swap.
+
+**3. The dangerous failures look like successes.** Four faces, all exploiting the gap between what you *measure* and what you *mean*: **Completion Fallacy** (the email got sent ≠ the email was right), **Corrupt Success** (hit the goal, violated a rule — a compliance bomb your success metric marks as a pass), **Agent Gaslighting** ("I've booked your flight" — the booking API was never called; fabricated *execution* evidence, worse than a hallucination), and **Saturation Blindness** (a 100% pass rate means your evals stopped challenging the system, not that it's perfect). Every eval system has these gaps; the master skill is knowing where *yours* are.
+
 ## GROUNDING (Before Starting)
 
 Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
@@ -311,6 +325,31 @@ Use these to figure out what YOUR product needs — not to check boxes:
 - **Have I decomposed my agent into sub-agents?** Which components actually need AI evaluation vs. deterministic testing? Don't eval everything equally — focus expensive evaluation on high-risk components.
 - **What's my quality bar source?** Customer tolerance × leadership commitments × competitive floor × model baseline. If you can't name all four inputs, your threshold is arbitrary.
 - **What happens when users actively try to break this?** If you haven't tested adversarial inputs, you're launching blind.
+
+## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+
+This skill produces three things — a failure taxonomy, an eval suite, and a quality bar. Trace where each travels; the eval is rarely the last stop.
+
+**Diagnose the real root cause (the context bridge — where most eval failures actually land):**
+- `rtp-invisible-stack` — when the three gulfs point at Comprehension (bad retrieval, missing state), the fix is a *layer*, not the model. invisible-stack finds the weakest layer capping quality; a bad eval score is usually its symptom, and swapping models won't move it.
+- `rtp-context-spec` — when the gulf is Specification (ambiguous instruction, context past its Pre-Rot Threshold), the fix is the context budget / system-prompt architecture. Route the failing eval there before touching the model.
+- `rtp-failure-modes` — the deep taxonomy of *how* AI breaks; error analysis here *names* the failures, failure-modes *designs the response* (confidence UX, refusal boundary, graceful degradation). Route to design, don't re-teach the taxonomy.
+
+**Turn the eval into a spec and a gate (imports + downstream):**
+- `rtp-eval-driven-development` — the eval suite IS the spec: EDD runs the fix→failing-test→regression loop against it and carries the capability→regression lifecycle (a hard eval, once mastered, *graduates* into a guardrail rather than being deleted). This skill defines "good"; EDD holds the line change by change.
+- `rtp-feedback-flywheel` *(import)* — production failures become new golden-set entries; the flywheel is what keeps the taxonomy from going stale (and is the structural answer to Saturation Blindness).
+- `rtp-confidence-tuner` — the TPR/TNR judge validation in this skill is confidence-tuner's home discipline; hand the calibrated judge there to design the confidence signals users actually see, and to set the auto-approve-vs-human threshold.
+
+**Where the eval runs and gets watched (two hops downstream):**
+- `rtp-production-observability` — the async weekly judge becomes live *quality-aware alerting* (alert on eval-score drift, not just p99 latency). The eval suite is the instrument; observability is the standing watch.
+- `rtp-ai-product-metrics` — cost-per-successful-task prices the eval pipeline, and turns internal pass rates into the business translation execs read ("context recall −4%" → "support tickets +12%").
+
+**The offensive use — the eval as a discovery instrument, not just a gate:**
+- `rtp-feedback-triage` / `rtp-opportunity-solution-tree` — a failure *cluster* (15% of failures on one intent) isn't only a bug; it's a product-roadmap blind spot. Route the cluster to triage; the recurring unmet need becomes an OST opportunity. The eval dashboard is a demand-signal aggregator, not just a defense.
+- `rtp-interview-synthesis` — the same open→axial→selective coding runs on user interviews; one craft, two data sources (cross-linked in the body above).
+
+**Arbitrates:**
+- When a green dashboard meets a Saturation-Blindness warning, the eval's own definition of "done" outranks "everything looks fine." A 100% pass rate is a signal the suite stopped challenging the system, not proof the product is safe — refresh the hard tail before trusting the green.
 
 ## REALITY CHECK
 

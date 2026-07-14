@@ -1,6 +1,6 @@
 {
   "name": "rtp-personal-skills",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Ravi Teja Palanki's second brain — installable as a Claude Code plugin. 80 skills: rtp-aipm-orchestrator v1.4.0 (always on) + 62 AI PM skills across 7 specialist layers + 17 general-purpose skills. 11 slash commands including /rtp-setup.",
   "author": {
     "name": "Ravi Teja Palanki (RTP)",
