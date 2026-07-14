@@ -1,294 +1,173 @@
 ---
 name: agent-harness
-description: "Should this AI feature get a harness — the engineered structure around a model (planning, checking, memory, guardrails) that turns impressive-in-demo into reliable-in-production — and if so, which parts are worth building when the next model generation may absorb them? Covers the Planner/Generator/Evaluator architecture, sprint contracts, the six design paradoxes, the dissolving ladder (what's scaffolding vs. what you keep forever), and the real cost shape (per-token prices collapse while total bills triple). Use when: designing multi-agent pipelines, deciding harness vs. single agent, costing an agent system. Pairs with: agent-ecosystem (coordination patterns), eval-framework (the Evaluator's tests), capability-tracking (build now vs. wait for the model), cost-model (the economics at scale). Triggers: 'agent harness', 'planner generator evaluator', 'orchestrate agents'"
-imports: [agent-ecosystem, eval-framework, stress-test]
+description: "The machine that turns a model's reasoning into work that ships — and how to diagnose it when it breaks. Covers the MHTE frame (Model / Harness / Tools / Environment), the five clusters inside the harness (Identity, Memory Policy, Orchestration, Interception, Observability & Evals) plus Governance, the Session/Harness/Sandbox runtime objects, the six production failure signatures, the Anatomy Atlas (symptom -> cluster -> fix), phase-relative perception, the four shippable reliability patterns (structured retry, strict output, narrow gate, executable artifacts) + the feedback flywheel, and the six design paradoxes. Use when: diagnosing why an agent fails, designing or reviewing a harness, deciding what to change this sprint, evaluating a vendor's harness. Sibling skill: harness-operating-model (the economics, org, and longevity of running a harness program). Pairs with: agent-ecosystem (multi-agent orchestration depth), tool-architecture (the tool contract + sandbox), invisible-stack / context-spec (the memory/context layer), production-observability (the observability cluster), eval-framework / eval-driven-development (the evals cluster), safety-by-design (guardrail enforcement). Triggers: 'agent harness', 'why did the agent fail', 'MHTE', 'harness anatomy', 'harness patterns', 'planner generator evaluator'."
+imports: [agent-ecosystem, tool-architecture, eval-framework, production-observability]
 ---
 
-# Agent Harness Engineering
+# Harness Architecture, Diagnosis & Patterns
 
-**The objective:** decide whether the reliability a harness buys is worth the complexity and cost it adds — and build only the parts that stay valuable when the next model generation arrives. A harness is the difference between a demo and a production system; it is also 10-20x the cost of a bare model call. This skill makes that trade explicit.
+**The objective:** name the machine around the model precisely enough that, when an agent fails at 2 AM, you can point at the layer and the phase that broke *before* anyone proposes a model swap — and know the small, deterministic change that fixes it. This skill is the *machine*. Its sibling, `harness-operating-model`, is the *program* (what it costs, who owns it, what survives model generations). Build the machine here; fund and staff it there.
+
+## THE ONE IDEA
+
+**The model sets the ceiling of what your agent can do; the harness sets the floor of what it reliably does. Your users live on the floor.** You rent the ceiling from a vendor — it's the same one your competitor rents. You build the floor yourself. That single reframe reorganizes every agent post-mortem, and three consequences fall out of it:
+
+1. **The user is the only fixed point; everything else is a nameable moving part.** When a demo passes and production fails on the same prompt, the request didn't change and the user didn't change. What changed sits *underneath* the agent — the harness, the tools, the environment. Diagnose the moving part, not the model.
+2. **"The model failed" is almost always false.** Across 2026's production surveys, most "model failures" are harness failures — lost state, premature stopping, unverified completion, stale context, a missing guardrail. A smarter model in a naive harness is *confident failure at higher speed*. Treat the 90/10 (harness/model) split as a strategic heuristic, not a measured law — but if your eval spend runs model benchmarks while your failures live in the harness, you're shining a flashlight on the one layer that already works.
+3. **A change you can't locate on the map is a change you can't make twice.** Every fix must land on a named layer and a named cluster. That's what turns an incident review from theology ("probably the model") into engineering ("Cluster 2 wrote a stale checkpoint at the context-assembly phase").
+
+The proof this is real, not rhetoric: [Harness-Bench (July 2026)](https://arxiv.org/html/2605.27922v1) ran 106 tasks across six harness configs and eight model backends and found the *same model* performs materially differently under different harnesses, same tasks, same budget. The vendor question stops being "which model did you use?" and becomes "which model, under which harness, with which tools, budget, sandbox, memory, evals, and stop policy?"
 
 ## KEY TERMS (plain language)
 
-- **Harness** — the engineered structure around a model: planning, checking, memory, retries, guardrails. The model is the engine; the harness is the car.
-- **Planner / Generator / Evaluator** — the three-role architecture: one part decides the approach, one produces the work, one independently judges it against the definition of done.
-- **Sprint contract** — the upfront agreement on exactly what the agent must produce, the pass/fail tests, and when to stop iterating.
-- **Eval separation** — the judge must be independent of the worker; a system grading its own output inflates itself.
-- **Scaffolding vs. permanent resident** — harness parts the next model generation will absorb (scaffolding) versus parts that stay yours forever (your evals, your domain context, your accountability records).
-- **Trace** — the full record of what an agent actually did, step by step; the raw material for improving it.
-- **Compaction** — compressing a long history so the agent keeps working without drowning in its own context.
+- **Harness** — everything wrapped around the model that turns its reasoning into work that ships: identity, memory, the loop, guardrails, the feedback that catches mistakes. The model is the engine; the harness is the car.
+- **MHTE** — Model / Harness / Tools / Environment. Four peer layers, a chain of responsibility: *the model proposes, the harness decides, the tool acts, the environment constrains.*
+- **The five clusters** — the working parts inside the harness: Identity, Memory Policy, Orchestration, Interception, Observability & Evals. (Governance is the sixth, elevated in 2026.)
+- **Session / Harness / Sandbox** — the three runtime objects you inspect when paged: *Session is memory* (the append-only event log, outside the model), *Harness is decision* (the loop), *Sandbox is blast radius* (the bounded room the agent acts in).
+- **Three memories** — history (the full event log), working context (the slice placed in front of the model this turn), durable artifacts (files/checkpoints a future session recovers). An agent has no single "memory."
+- **Context durability / context rot** — how reliably an agent performs across many tool calls and resets (durability); the quality decay as the working context fills, *even with relevant material* (rot). Quality falls long before the window is full.
+- **Guides (feedforward) vs sensors (feedback)** — guides shape what the model sees *before* it acts (fail silently); sensors check the world *after* it acts and block the next step (fail loudly). Reliability lives in the sensors.
+- **Hook vs guardrail** — a hook is any lifecycle checkpoint (observe, log, enrich, route); a guardrail is the subset that enforces a policy (block, rewrite, require approval). Every guardrail is a hook; not every hook is a guardrail.
+- **Harness vs runtime** — the harness is what you *design* (prompts, skills, loop, hooks, evals); the runtime is the plumbing that runs it in production (durable execution, checkpoints, multi-tenancy). You build the harness; you usually buy the runtime.
 
-## FROM THE HARNESS SERIES (the 2026 canon — three imports that change decisions)
+## THE FOUR-LAYER MODEL (MHTE) — Where the Harness Lives
 
-*Source: Ravi's 8-article Harness Engineering series (`02-harness-engineering/`), distilled from production practice. These are the series' most decision-changing findings; the articles carry the full treatment.*
+Anthropic's March 2026 [NIST RFI response](https://www.anthropic.com/news/anthropic-nist-rfi-response) set the shared vocabulary: **Agent = Model + Harness + Tools + Environment.** The model reasons, the harness orchestrates, the tools act, the environment contains. The harness is "the natural home for observability and verification."
 
-**1. The dissolving ladder — sort every component before you build it.** Each harness capability is either *scaffolding* (the next model generation will do it natively — many planning loops, retry logic, and format enforcement have already crossed over) or a *permanent resident* (your eval suites, your proprietary domain context, your accountability and audit records — things no model release can ship because they're yours). **Why it matters:** teams grieve when a model release makes their scaffolding redundant, but that's the win condition — you rented reliability until the model caught up. Budget scaffolding as a bridge with an expiry, and invest permanence only in the residents. **When wrong:** in slow-moving or regulated domains, scaffolding can pay rent for years — expiry is a forecast, not a date; check `rtp-capability-tracking` before writing anything off. *(Article 08, "The Discipline That Makes Itself Unnecessary.")*
+| Layer | Role | Owns |
+|---|---|---|
+| **M — Model** | The brain. Reasoning, planning, generation. Stateless, context-window-bound. | Vendor product. |
+| **H — Harness** | The control plane. Session continuity, guardrails, evaluation, recovery, the loop. | **You** — the one layer without a default owner. |
+| **T — Tools** | The hands. API calls, file edits, queries. Scoped by least privilege. | Platform engineering. |
+| **E — Environment** | The room. Filesystem, sandbox, shell, network, credentials, anything that survives a restart. | Security / infrastructure. |
 
-**2. The six paradoxes — the design tensions you hold, not solve.** Intelligence vs. reliability (a smarter model is not a more consistent one) · constraints vs. autonomy (tighter rails make agents more useful, not less) · scaffolding vs. permanence (above) · specificity vs. generality (the more your harness fits one workflow, the less it transfers) · demo vs. production (what impresses in five minutes is unrelated to what survives five weeks) · segregation vs. lifecycle (separating the judge from the worker vs. keeping one system accountable end-to-end). **Why it matters:** every harness argument in a design review is one of these six; naming the paradox turns a fight into a trade-off decision. **When wrong:** don't treat the list as a checklist to satisfy — most designs deliberately sacrifice one side of several paradoxes; the failure is doing it unknowingly. *(Article 04, "Five Paradoxes" — plus the sixth added in revision.)*
+Two disciplines make MHTE pay off:
 
-**3. The cost shape — prices collapse, bills triple.** Per-token prices keep falling, and total harness bills keep rising anyway, because a harness multiplies calls (planning, evaluation rounds, retries) faster than prices drop. Five cost centers most budgets miss: evaluator rounds, retry overhead, context/memory carry, trace storage and mining, and the human review layer. Watch for the break-even signs the series names — reliability incidents falling, human-review sampling shrinking, rework dropping — before scaling spend. **Why it matters:** budgeting a harness at the model's sticker price is the most common economic error in agent systems; the multiplier is the bill. **When wrong:** a thin harness on a cheap model for a low-stakes workflow can genuinely cost near sticker — the multiplier grows with evaluation depth, so match it to consequence. *(Article 05, "What It Costs, What It Returns.")*
+- **The strict-edge rule.** Every artifact belongs to *exactly one* layer. If you can honestly place something in two, one placement is wrong — and that ambiguity is a bug in your mental model before it's a bug in the code. Blur a tool into the harness and a permission bug shows up as "the harness did something weird"; blur a memory file into the model and a stale file on disk shows up as "the model forgot."
+- **Each outer layer is a safety net for the one it wraps.** Model hallucinates → the harness evaluator catches it. Harness misconfigures a call → the tool's permission scope limits it. Tool misbehaves → the environment sandbox contains the blast radius.
 
-## DEPTH DECISION
+**The nested disciplines** (name where the field is, and where you are): Prompt engineering (2023, single-turn) → Context engineering (2024–25, multi-turn, single agent) → **Harness engineering (2025–26, multi-agent, multi-session — you are here)** → Environment engineering (2026+, runtime boundaries). Each contains the previous. Owning only the innermost circle while your failures live in the outer two is the 1990s developer who wrote beautiful functions and had no answer for how the system failed.
 
-**Go deep if:** Designing a multi-agent system where quality must exceed single-agent capability, or when evaluating whether the complexity and cost of a harness is justified. **Skim to diagnostic questions if:** Quick check on whether your feature needs a harness vs single agent. **Skip if:** Single-turn Q&A, simple retrieval, or early exploration where you haven't validated the problem yet.
+## THE FIVE CLUSTERS INSIDE THE HARNESS (+ Governance)
 
-## GROUNDING (Before Starting)
+The harness is not one box. It's a control plane with five clusters, each owning a class of decision and each the origin (or catch point) of a class of failure.
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
+1. **Identity** — the operating contract established on boot: who the agent is, its task, which tools it may use, what's forbidden. *Identity declares the contract; Interception enforces it.* A system prompt can *say* "no refunds over ₹5,000"; only a hook makes a ₹50,000 refund architecturally impossible. The shortest cluster to describe, the most underestimated for leverage — every session inherits its answers.
+2. **Memory Policy** — what the model sees this turn: context assembly, compaction cadence, boot-time injection (AGENTS.md style), retrieval policy. This is where context rot lives or dies. It is a *database-architecture* problem that happens to live in the harness, not a prompt problem. The sharp design idea: **the session is not the context window** — keep the durable log outside the model, keep window-assembly logic inside the harness, and never let a summarization step be the only copy of anything.
+3. **Orchestration** — what happens next after a response, a tool result, a failed check: continue, retry, delegate, escalate, resume tomorrow, or stop. Home of the **Ralph Loop** (intercept the exit signal, check completion *independently* — not by asking the model — reopen with clean context + a progress pointer) and the **Planner/Generator/Evaluator** pattern (one plans, one executes, a *separate* evaluator gates each output — the model grading its own work is the same reasoning running twice). The evaluator need not be another agent: a schema validator, test suite, or policy engine is often the cheapest independent verification. Model routing lives here too — most teams already run multiple models, so routing is the *first* thing Orchestration owns, not a later optimization.
+4. **Interception (Hooks)** — the checkpoints between loop steps that ask *should this be allowed?* LangChain's six primitives name the surface: `before_agent`, `before_model`, `wrap_model_call`, `wrap_tool_call`, `after_model`, `after_agent`. **This is where product policy becomes enforceable system behavior.** Compliance lives here, not in a longer system prompt — "you can't prompt your way to HIPAA compliance." The 2026 attack surface makes the placement critical: injection now arrives through five doors (user input, browsed web content, code output, other agents' messages, tool results), and the simplest tool-description injection succeeded ~93% of the time across frontier models — a prompt-layer refusal does not survive that; a runtime hook does.
+5. **Observability & Evals** — the part of the harness that watches the harness, and turns yesterday's failure into tomorrow's test. Observability is the raw trace layer; evals are the judgment on top. **This cluster improves all the others** — it's the engine of the feedback flywheel. An observable harness without evals is one you can watch but not improve; an eval suite without observability is a judgment you can't explain.
 
-Then proceed with the skill-specific analysis below.
+**Governance (elevated 2026)** — the sixth row the field added after shipping the other five and realizing the on-call rotation was the missing organ: a named owner per cluster, an audit chain that survives the rotation, escalation tied to reversibility class. Treated as a peer, not an afterthought. (The org design of this ownership is the sibling skill's territory.)
 
-## THE FOUR-LAYER MODEL (Where the Harness Lives)
+### The Anatomy Atlas — Symptom → Missing Cluster → Fix
 
-Anthropic's March 2026 NIST RFI and April 2026 policy research established the canonical framing: **Agent = Model + Harness + Tools + Environment**. The model supplies intelligence. The harness supplies orchestration, continuity, guardrails, and self-correction. Tools supply the actionable surface. The environment supplies the hard runtime boundaries.
+The one table an incident review starts from. Bring the diagnosis to a *layer*, not a prompt.
 
-These layers are distinct because failures cascade across them in ways that model-centric thinking misses. A well-trained model can still be exploited through a poorly configured harness, an overly permissive tool, or an exposed environment. The harness is the *control plane* — it doesn't replace the model's intelligence, expose raw tools, or own the sandbox. It coordinates all three.
+| Cluster | What you hear in the war-room | Root gap | The engineered fix |
+|---|---|---|---|
+| **Identity + Memory** | "It forgot what we agreed 15 min ago." "Every session starts from zero." | Silent instruction drop; window overflow on the highest-value tasks. | Dynamic compaction with importance scoring; session persistence across restart; content-addressed boot files. |
+| **Tools** | "It made up a customer ID." "Wrong API, wrong shape." | No schema validation at the boundary; over-broad tool surface. | Permissioned registry; JSON-schema validation on args/returns; reversibility class (read/write/irreversible). |
+| **Orchestration** | "Declared done while step 3 failed." "Looped 40 times, burned $80." | No explicit stop rule; success declared by the agent that did the work. | Structured loop with rubric-gated completion; hard step/cost budgets; handoff contracts. |
+| **Interception** | "Confident garbage shipped." "Refund fired before approval." | Safety in the prompt, not the runtime; no sensor after the model spoke. | Guides feed forward (context, allowlists); sensors feed back (schema check, test runner, LLM-judge, human-in-loop). |
+| **Observability** | "Can't tell which turn regressed." "Trace log has three fields." | Undebuggable runs; regressions caught in prod, not on the PR. | Structured trace per decision + tool call + retry; per-tenant cost meters; yesterday's incident → today's regression eval. |
+| **Governance** | "Who owns this at 2 AM?" "Compliance found it after the customer did." | No first-class authority layer; ownership diffuses to whoever answered the page. | Named owner per cluster; audit chain that survives the rotation; escalation tied to reversibility. |
 
-**Why this matters for your harness decision:** When an agent fails, diagnose by layer. Most production failures are harness failures (poor session continuity, missing guardrails, no evaluation loop) — not model failures. Upgrading the model when the harness is broken is the most expensive mistake in enterprise AI.
+*(The field's survey taxonomy calls the same map **ETCLOVG** — Execution env, Tool interface, Context, Lifecycle/orchestration, Observability, Verification, Governance. Same map, different labels; use whichever vocabulary the room already speaks.)*
 
-**The nested disciplines:** Prompt engineering (single-turn) → Context engineering (multi-turn, single agent) → Harness engineering (multi-agent, multi-session) → Environment engineering (runtime boundaries, persistence). Each layer contains the previous ones. Context engineering lives *inside* the harness — the harness decides when and how context is managed. Understanding this progression prevents the common mistake of treating them as separate concerns.
+## SESSION / HARNESS / SANDBOX — The Runtime Objects You Inspect
 
-## THE TRAP
+MHTE tells you *which layer owns the failure*; Session/Harness/Sandbox tells you *which concrete object to inspect*. **Session is memory** (the append-only log, outside the model, outliving every call). **Harness is decision** (the loop). **Sandbox is blast radius** (the scoped room). The five clusters live inside Harness; they are *how* it decides.
 
-You assume more agents = better output. **Mistake**: Harness systems are 10-22x more expensive, 5-10x slower, and introduce cascade failure modes that don't exist in single-agent systems. The trap is **complexity theater** — building an impressive architecture when a well-prompted single agent with good context engineering would deliver 80% of the quality at 5% of the cost.
+The seven-step production loop every real agent runs (print it above the monitor): load objective/policy/memory/workspace → route to a model → call the model with bounded context → gate every tool request (permission, identity, risk, budget) → execute the tool/sandbox action → record the event in the durable log → decide (continue / retry / branch / escalate / stop). Earlier agents ran three steps (think, act, observe); the extra four — ask permission, record, verify, decide — are where reliability lives.
 
-### The Hidden Trap: Evaluator Hallucination
+## DIAGNOSE BY PHASE, NOT BY GUT
 
-The most dangerous assumption in harness design is that the evaluator agent is trustworthy. When you separate generation from evaluation (GAN-inspired pattern), you've solved the "agents praise their own work" problem — but created a new one: **evaluators can hallucinate that bad work is good**. Your evaluator needs its own quality checks (deterministic graders, code-based assertions, Playwright-style functional tests), or you've just moved the problem one agent downstream.
+### The six failure signatures
 
-## THE PROCESS
+Each is an *observable symptom* first, then the diagnostic question it forces:
 
-### 1. The Harness Decision: Single Agent vs Multi-Agent
+1. **Premature stop** — declares done before the work is done. *Session-continuity failure.* → *What evidence allowed the system to declare completion?*
+2. **Infinite loop** — retries the same (or subtly varied) failed action until budget runs out. *Retry-architecture failure; no circuit breaker.* → *What changes between retries, and what ends the loop?*
+3. **Silent drift** — does the wrong work correctly (last quarter's rules, a stale spec). *Context-refresh failure.* → *Which source of truth defined the current objective?*
+4. **Shared-vocabulary failure** — answers correctly against its prompt, incorrectly against what the org means ("active users" differs in product vs marketing). *A boundary failure between the agent and the org's language.* The fix is a glossary, and the harness is where it lives. → *Whose definition did the agent use?*
+5. **Unauthorized action** — reaches a plausible decision, then does something it shouldn't (sends instead of drafts, refunds beyond threshold). *Permission-design failure — instructions where enforcement was needed.* → *Which control permitted the action?*
+6. **Sub-agent divergence** (new, 2026) — an orchestrator fans out to a fleet of parallel workers (Claude Code caps ~1,000); each worker is fine, but their copies of the situation quietly stop matching, and the merge drops correct work or hits an unresolvable conflict. *Coordination failure.* → *Which shared state and merge rule coordinated the parallel work?*
 
-**Use a harness when ALL THREE are true:**
-- Quality requirement exceeds what a single agent can achieve with best-in-class prompting
-- The task is naturally decomposable into distinct roles (planning, execution, evaluation)
-- You can afford 10-22x the cost and 5-10x the latency
+**The debug order (start from evidence, not the model):** outcome (expected vs actual) → session (what state/evidence existed) → harness (which policy selected the next action or allowed the stop) → tool (did it execute and return the expected shape) → environment (was execution constrained/interrupted) → model (given the exact context, was the reasoning itself wrong). Skipping steps means days on the wrong layer; a boring checklist beats a smart guess.
 
-**Stay single-agent when ANY of these are true:**
-- Task is achievable with good context engineering + single model call
-- Latency budget is <10 seconds
-- Cost per query must stay under $0.10
-- You can't staff ongoing harness maintenance
+### Phase-relative perception — one file, four lenses
 
-### 2. The Initializer Pattern (Before the First Sprint)
+The idea that makes attribution honest: artifacts are *segregated by responsibility* (each belongs to one layer) but *perceived through all four* depending on the run's phase. An `AGENTS.md`: at **boot** the Harness reads it (it's Environment); at **context assembly** its contents become prompt text (Memory Policy decides how much); at **inference** the Model sees only tokens; at the **tool phase** an `fs-read` treats it as bytes. Same file, four perceptions — which is why "the model hallucinated" often traces to the Memory Policy cluster (wrong content injected), the Environment (stale file), or Tools (schema mismatch). On every post-mortem, name the **phase** first (*in what phase did this become visible? in what phase did it become inevitable?* — often different phases, different owners), then the layer.
 
-Before ANY agent begins work, a mature harness runs an **initializer step** — an agent (or the same model wearing the "senior architect" hat) that reads the current state and creates clean starting conditions. This is the single highest-leverage harness pattern, responsible for taking Anthropic's long-running agents from ~45% to 92%+ success rates.
+## THE FOUR SHIPPABLE PATTERNS (+ the flywheel that makes them compound)
 
-**What the initializer does:**
-1. Reads the current state (files, git history, last progress note)
-2. Creates or updates a requirements/feature list with every remaining task and success criteria
-3. Writes a progress artifact (`claude-progress.txt` or equivalent) documenting exactly where work left off
-4. Commits a clean git snapshot as a rollback point
+Small, deterministic changes that beat model upgrades — each implementable in a sprint, each pinned to a cluster. Guides feed forward; sensors feed back.
 
-**Why this matters:** Without an initializer, every new session starts from scratch — the agent has no memory of yesterday. With an initializer, the same model, same tools, same sandbox suddenly achieves 2x+ success rates because it starts with perfect context about what's been done and what's left.
+1. **Structured retry > naive retry** (Interception + Orchestration). Naive retry resends the identical prompt and hopes — a coin flip, because the model's prior for that input hasn't moved. Structured retry parses the error, extracts the violation, and feeds it back as *new* information ("`amount` was a string '$42.50'; return an integer in cents"). Teams that ship it see drift drop ~60% on the same model. *The specificity of your error signal IS the specificity of your feedback loop* — a generic "error 500" is back to the coin flip.
+2. **Strict structured output** (Interception). Not a formatting convenience — a reliability pattern. Strict-mode schema enforcement shrinks the set of things the model is *allowed* to say; invalid paths are pruned at generation, not caught at parse. Three specifics separate a reliability schema from a formatting one: `additionalProperties: false`, regex-bounded strings (a bare `date: string` is a hand grenade; a pattern is a contract), and enums everywhere the value set is finite. Complementary with structured retry: strict mode kills *format* failures at the token level; structured retry handles *semantic* ones (valid integer, but negative). Version the schema like a public API.
+3. **The narrow gate** (Memory Policy / Tools). Every tool is a decision the model makes every turn; you are not restricting the agent, you are freeing it from choices it was getting wrong. Vercel cut ~80% of tools and got fewer steps, fewer tokens, faster responses. Shopify's heuristic: past 20–50 tools the boundaries blur. Reveal tools *as needed* (skills = progressive disclosure), name each for its exact verb, and add *negative examples* ("do NOT use this when…") — a tool that says what it's *not* for is a decision the model no longer gets wrong. Tool sprawl is an org problem (each team ships its own tool); the cut is a negotiation, so run it as a product decision with the registry as a single owned surface, or the next sprint reverses it.
+4. **Emit artifacts, not answers** (Orchestration + Interception). For any output consumed by another system or verified against criteria, prefer an *executable* artifact (a function, query, diff, test) over prose or even JSON. It buys three properties nothing else does: **stateful checkpointing** (progress survives a crash), **formal verification** (the output can be tested, not just read), **deterministic replay** (the exact failure path reconstructs). When the artifact *is* the migration script, the sandbox catches the constraint violation before approval. The artifact is the eval.
 
-**The cost is negligible:** A few hundred extra tokens at session start. The savings from eliminated rework dwarf this. For enterprise workflows spanning multiple sessions (overnight reconciliation, multi-day compliance audits), the initializer is non-negotiable.
+**The meta-move — the feedback flywheel** (Observability & Evals). The three patterns land on a dashboard by Friday; they *compound* only when wired into a loop: every failing trace (early exit, retry-exhausted, wrong tool, failed validation) is mined into a concrete eval, tagged by cluster, added to the suite — so the next occurrence is caught on a PR, not in production. Start with the twenty cases that cover real user failures, not a thousand noisy ones. Without the flywheel, findings scatter across Slack; with it, each becomes a permanent regression test. *A small set of well-tagged evals beats thousands of noisy ones.* (Depth: `eval-driven-development`, `production-observability`.)
 
-**Spec it in every RFP:** "How does your agent handle session continuity? Show me your initializer pattern and progress artifact strategy."
+**Every pattern is a calibration, not a law.** Each harness edit ships with three tags: the model it was built for, the date it was validated, and the trigger that retires it. Anthropic's own context-reset for Sonnet 4.5's "context anxiety" became dead weight one generation later on Opus 4.5. A workaround with no expiry is technical debt. (The strategy of *which* to build vs. let dissolve is the sibling skill.)
 
-### 3. Three-Agent Architecture (Anthropic Pattern)
+## THE SIX PARADOXES (the judgment that governs harness decisions)
 
-| Agent | Role | Context | Output |
-|-------|------|---------|--------|
-| **Planner** | Converts brief → spec with testable criteria | Full brief, constraints, examples | Detailed spec with acceptance criteria |
-| **Generator** | Implements the spec in iterative sprints | Spec + tool access + file system | Working output (code, content, artifacts) |
-| **Evaluator** | Tests output against spec criteria | Spec + output + eval rubric | Pass/fail per criterion + improvement notes |
+Every consequential harness decision is a *tension to hold*, not a choice to resolve. Name the paradox and a design fight becomes a trade-off decision. The program breaks the moment any one is resolved prematurely.
 
-**The GAN Insight:** Separating generation from evaluation prevents the "self-praise" problem. An agent evaluating its own work is like a student grading their own exam — they'll find reasons to pass. The evaluator must be architecturally separate with its own context.
+| # | Paradox | The move |
+|---|---|---|
+| I | **Intelligence vs. Reliability** — a smarter model isn't a steadier one; a stronger prior confabulates more fluently. | Cap the smartest model with the sharpest verifier. Separate *capability* metrics (best day) from *reliability* metrics (worst day); compare models on the *distance* between them. |
+| II | **Constraints vs. Autonomy** — an unbounded agent is a liability nobody trusts with real work; bounds *expand* the surface you can ship. | Permission by reversibility class: broad autonomy on read-only verbs, signature on irreversible ones. Ask "what *can't* this do, and who decided?" |
+| III | **Scaffolding vs. Permanence** — every component has a timer; some the model will absorb, some are forever yours. | Keep a two-column list; retire scaffolding aggressively, invest in permanence relentlessly. *(Developed in depth in `harness-operating-model` → the dissolving ladder.)* |
+| IV | **Specificity vs. Generality** — no general-purpose *differentiating* harness works; the winners are per-workflow. | Ship a narrow harness per high-value workflow; graduate shared primitives only after two workflows prove them. *(Buy the governance layer, build the differentiating one — sibling skill.)* |
+| V | **Demo vs. Production** — what impresses in a Loom is unrelated to what survives five weeks; the gap is failure-mode coverage. | Gate launches on the failure-mode inventory, not demo polish. Ask a vendor: what happens on timeout mid-tool-call, on concurrent users, on a downstream 500, on adversarial input? |
+| VI | **Segregation vs. Lifecycle** — the four layers are strictly separated *and* inseparable during a run. | Own each cluster with a named engineer; walk the phase-relative diagram on every post-mortem. This is the paradox that makes the other five legible. |
 
-### 3. Sprint Contracts
+Multi-agent has its own graduation rule: stay narrow until you know the surface; graduate to multi-agent only when *each sub-agent has a narrow job, each has an explicit eval, and the harness can attribute a failure to the correct agent.* Premature multi-agent multiplies failure modes before you understand any one of them. (Coordination depth: `agent-ecosystem`.)
 
-Before the Generator begins work, the Generator and Evaluator negotiate explicit success criteria:
+## HARNESS vs RUNTIME (know what you bought)
 
-```
-Sprint Contract:
-- Criterion 1: [Specific, testable condition] → Pass/Fail
-- Criterion 2: [Measurable threshold] → Pass/Fail
-- Max iterations: [3-5 typical]
-- Kill condition: [When to stop iterating and escalate]
-```
+The harness is what you design; the **runtime** is the plumbing that runs it — durable execution that survives a crash, checkpoints that resume a long job, multi-tenancy, time-travel replay. You build the harness; you usually *buy* the runtime (LangSmith Deployment, AWS Bedrock AgentCore, Google Vertex Agent Engine) — and most enterprises never name what they bought, thinking they bought a harness. A **meta-harness** (Anthropic's Managed Agents) is a third shape: it rents the hard infrastructure (durable sessions, sandboxes, the loop) through stable interfaces while leaving the judgment — your evals, policies, workflows — in your hands. When an agent fails in production, the failure now lives in one of *five* places: Model, Harness, Tools, Environment, or the runtime that holds them. (The build/buy economics and lock-in wedge are the sibling skill's job.)
 
-**Why contracts matter:** Without pre-negotiated criteria, the evaluator invents criteria post-hoc, the generator never converges, and you burn 15 eval rounds at $0.80/round.
+## WHERE THIS SKILL ENDS — the boundary, and the siblings it routes to
 
-### 5. Deterministic Lifecycle Hooks
+This skill is the **machine**: the anatomy, the diagnosis, the patterns, the design judgment. It deliberately stops at four edges, each owned by another skill — route there rather than duplicating:
 
-Lifecycle hooks are fixed-order checklists that always execute at specific moments — like an airplane pilot's pre-takeoff and post-landing procedures. The harness hard-codes these regardless of what the model decides to do.
+- **The economics, org, and longevity of a harness *program* → `harness-operating-model`** (the sibling): cost shape, reliability dividend, the maturity ladder + Monday kit, the four org models, the Harness PM role, permanent-residents vs the dissolving ladder, the moat. *This skill decides what to build; that one decides how to fund, staff, and future-proof it.*
+- **The tool contract and the sandbox depth → `tool-architecture`**: schema, permission scope, reversibility class, MCP/A2A, the registry pattern, environment boundaries. (This is where the "Tools-the-Contract" bonus material lives.)
+- **Multi-agent orchestration depth → `agent-ecosystem`**; **autonomy levels & confidence thresholds → `agent-spec` / `trust-ladder`**.
+- **The Memory Policy / context layer depth → `invisible-stack` / `context-spec`**; **guardrail enforcement & safety architecture → `safety-by-design`**; **the Observability & Evals cluster → `production-observability` + `eval-framework` / `eval-driven-development`**.
 
-**Session-start hooks (always run first):**
-- Load persistent rules (CLAUDE.md, policy files)
-- Read progress artifact from last session
-- Run quick self-check for missing data or stale state
-- Verify tool access and permissions
-
-**Session-end hooks (always run last):**
-- Write final progress summary
-- Commit clean git snapshot
-- Run lightweight validation (did we complete what we planned?)
-- Archive logs and export to observability
-
-**Sprint-boundary hooks (between PGE cycles):**
-- Reset context (Anthropic finding: resets > compaction)
-- Load only the spec + current sprint state
-- Verify sprint contract criteria are still valid
-
-**Why hooks matter for governance:** They cost almost zero extra tokens but create perfect consistency. Policy updates propagate instantly. Audit logs are always clean. The model never has to "remember" to do these things — the harness enforces them automatically. Compliance teams love hooks because they're deterministic in a probabilistic system.
-
-### 6. Context Management for Harnesses
-
-**The Pre-Rot Threshold:** Models degrade at 50-60% of max context, not 100%. Plan your context budget accordingly.
-
-| Strategy | When to Use | Mechanism |
-|----------|------------|-----------|
-| **Context resets** | Between sprints | Clear context, load only spec + current sprint state |
-| **File-based communication** | Agent-to-agent handoffs | Write state to files; next agent reads fresh |
-| **Shared state file** | Coordination across agents | Single source of truth (progress.md, state.json) |
-| **Compaction** | Within long sprints | Summarize context, discard verbose history |
-
-**Critical Anthropic finding:** Context resets > compaction. A fresh context with relevant state loaded from files consistently outperforms a compacted context with accumulated noise.
-
-### 5. Harness Cost Economics
-
-**Single Agent (baseline):**
-- 20 minutes of work, ~$9 total
-- Quality: Good for straightforward tasks
-
-**Full Harness (Planner + Generator + Evaluator):**
-- 6 hours of work, ~$200 total
-- Quality: Dramatically better for complex, multi-criteria tasks
-- Cost breakdown: Planning ~$15, Generation ~$120, Evaluation ~$65
-
-**The 22x Question:** Is the quality improvement worth 22x the cost for YOUR use case? Answer with this matrix:
-
-| Task Complexity | Quality Gap (Single vs Harness) | Recommendation |
-|----------------|-------------------------------|----------------|
-| Simple (one clear output) | <10% improvement | Single agent |
-| Medium (multi-step, some ambiguity) | 15-30% improvement | Single agent + eval pass |
-| Complex (multi-criteria, high quality bar) | 40-60% improvement | Full harness |
-| Critical (safety, legal, financial) | Harness or human review | Full harness + human gate |
-
-### 6. Failure Modes Specific to Harnesses
-
-| Failure | Cause | Detection | Mitigation |
-|---------|-------|-----------|------------|
-| **Infinite eval loop** | Evaluator criteria too strict or shifting | Count iterations per sprint; alert at max | Sprint contracts with max iterations + kill condition |
-| **Evaluator hallucination** | Evaluator passes bad work confidently | Cross-validate with deterministic checks | Hybrid eval: LLM + code-based graders |
-| **Context saturation** | Accumulated state exceeds useful context | Monitor token count; track quality vs context size | Hard resets between sprints; file-based handoffs |
-| **Coordination drift** | Planner spec diverges from generator understanding | Diff spec against generator's interpretation | Shared state file; planner reviews generator plan |
-| **Cost explosion** | Eval rounds multiply beyond budget | Token metering per sprint; cost alerts | Budget caps per sprint; escalate-to-human threshold |
-
-### 7. Four Quality Dimensions (Anthropic Framework)
-
-Evaluate harness output across all four — not just "does it work":
-
-| Dimension | What It Measures | How to Eval |
-|-----------|-----------------|------------|
-| **Design Quality** | Does the output solve the right problem well? | Human review against spec |
-| **Originality** | Is it creative/novel or template-derivative? | Comparative analysis |
-| **Craft** | Attention to detail, polish, edge cases | Code-based checks + human spot-check |
-| **Functionality** | Does it actually work end-to-end? | Automated functional tests (Playwright-style) |
-
-### 8. Model Evolution Impact
-
-Your harness must survive model upgrades. Design for it:
-
-- **Pin model versions** per agent role (don't let one upgrade break the chain)
-- **Eval regression suite** that runs before any model swap
-- **Agent role abstraction** so you can swap models per role (cheaper model for planning, frontier for generation)
-- **The harness IS the moat** — when the model improves, your harness extracts more value. Competitors with raw API calls get the same model but without the orchestration.
-
-### The Self-Dissolving Harness (Model-Harness Training Loop)
-
-The deepest insight from April 2026 practitioner discourse: **what the harness does today gets trained into the model tomorrow**. As models internalize capabilities that the harness currently scaffolds (better memory, longer context, self-correction), some harness components become unnecessary. A well-designed harness generates traces that feed model fine-tuning, which makes the harness simpler, which generates better traces — a compounding loop.
-
-**What this means for design:**
-- Build harnesses that can be SIMPLIFIED, not just extended. Design each component as removable.
-- Treat observability as a data flywheel: every harness trace is potential training data for model improvement.
-- Expect 15-30% of harness scaffolding to become unnecessary within 12 months as models improve.
-- The winning strategy is not a static harness but a *meta-harness* — a decoupled design that evolves as models internalize capabilities. Anthropic's Managed Agents is exactly this: a harness that can improve underneath you without breaking your interfaces.
-
-**The paradox for PMs:** You're investing in infrastructure designed to become unnecessary. That's not a bug — it's the feature. The harness's value is precisely that it's temporary: it solves today's reliability gap while feeding the improvement loop that closes the gap permanently. Organizations that skip the harness waiting for "smarter models" never collect the traces that make models smarter for THEIR use cases.
+The spine: **this skill names and diagnoses the machine and prescribes the sprint-level fix; every cluster's *depth* and the *program* around it live one hop away.** Never let a diagnosis end at "the harness broke" — name the cluster, name the phase, and route to the owner.
 
 ## DIAGNOSTIC QUESTIONS
 
-1. **"Does this task genuinely need multiple agents, or am I adding complexity for its own sake?"** (If a single agent with better prompting could get to 80%, start there.)
-2. **"What's my cost per successful outcome with vs without a harness?"** (Run the math. If harness is 22x more expensive but only 30% better, reconsider.)
-3. **"How will I know if the evaluator is wrong?"** (If the answer is "I won't," you need deterministic cross-checks.)
-4. **"What's my sprint contract for this task?"** (If you can't write explicit pass/fail criteria before generation begins, the evaluator will invent them — badly.)
-5. **"How do I handle context across agent boundaries?"** (File-based > shared memory > context passing. Document the handoff contract.)
-6. **"What happens when one agent in the chain fails?"** (Circuit breaker? Fallback? Human escalation? Document it.)
-7. **"Is my harness model-agnostic?"** (Can I swap the generator model without rebuilding the pipeline? If not, you've coupled to a vendor.)
-8. **"What's my context durability rate?"** (% of tasks completing successfully after 50+ tool calls without human restart. Target: >85%. This is your leading indicator of harness health — more predictive than one-shot accuracy.)
-9. **"Do I have an initializer pattern?"** (If sessions start cold without reading prior progress artifacts, your multi-session success rate will be <50%. The initializer is the highest-ROI harness addition.)
-10. **"Should I build, buy, or hybrid?"** (Managed harnesses like Anthropic Managed Agents handle orchestration + sandbox + recovery. Your outer layer adds domain-specific governance. Hybrid is the Fortune 100 default for 70-80% of use cases.)
-
-## OUTPUT FORMAT
-
-```
-## Agent Harness Spec: [Feature Name]
-
-Architecture Decision: [Single Agent / Single + Eval Pass / Full Harness]
-Justification: [Why this complexity level is warranted]
-
-Agent Roles:
-| Agent | Model | Context Budget | Max Tokens | Role |
-|-------|-------|---------------|------------|------|
-
-Sprint Contract Template:
-- Criterion 1: [testable condition]
-- Criterion 2: [measurable threshold]
-- Max iterations: [N]
-- Kill condition: [when to stop]
-
-Context Strategy:
-- Agent-to-agent: [file-based / shared state / context passing]
-- Reset cadence: [per sprint / per task / never]
-- Pre-Rot Threshold: [X% of max context]
-
-Cost Model:
-- Per-task: $[X] (single agent) vs $[Y] (harness)
-- Monthly at [N] tasks/day: $[Z]
-- Break-even quality threshold: [what improvement justifies the cost]
-
-Failure Modes:
-| Mode | Detection | Mitigation | Owner |
-|------|-----------|------------|-------|
-
-Quality Dimensions:
-| Dimension | Eval Method | Threshold | Weight |
-|-----------|------------|-----------|--------|
-```
-
-## REALITY CHECK
-
-- **Harness overhead is real.** Don't build a 3-agent system for a task a well-prompted single agent can handle. The best harness is the simplest one that meets quality requirements.
-- **Evaluators are not oracles.** LLM-based evaluators have the same failure modes as generators. Cross-validate with deterministic checks (code runs? Tests pass? Output matches schema?).
-- **Sprint contracts prevent drift.** Without explicit criteria negotiated upfront, eval loops diverge. Agents argue with themselves, burning tokens on style preferences rather than substance.
-- **File-based communication scales.** In-context handoffs break at scale. File-based agent communication (Anthropic pattern) survives context resets and is auditable.
-- **The 80/20 of harness ROI:** Most quality improvement comes from adding ONE evaluator pass, not from complex multi-agent orchestration. Start with single-agent + eval, only upgrade to full harness when eval reveals systematic gaps.
-- **Harness maintenance is a product cost.** Budget for it. Prompt changes, model upgrades, eval dataset refreshes — someone owns this ongoing.
+1. When your agent last failed, can you name the *layer* (MHTE) and the *phase* (boot / context-assembly / inference / tool / observability) it broke in — or did the review end at "probably the model"?
+2. Draw your harness as five clusters. Which has no named file, service, or owner? (Most teams are strong on Identity + Orchestration, weak on Memory Policy + Evals.)
+3. For your highest-volume call: is there a structured retry (not a naive one), strict-mode output, and a narrow tool gate? If not, that's this sprint.
+4. Does completion get checked by the *system* (rubric, test, independent evaluator) or by the agent grading its own work?
+5. Is every guardrail a *runtime hook*, or does a refusal you actually need live in the system prompt?
+6. Does a failing production trace become a tagged regression eval within a sprint — or does it scatter across Slack?
+7. Can you swap the model without rewriting the product? (If not, you've coupled to a vendor; a model recall is now a product outage.)
+8. What's your context durability rate (% completing after 50+ tool calls without human restart)? Target >85%. No standard benchmark measures it — you have to test it yourself.
 
 ## QUALITY GATE
 
-- [ ] Harness vs single-agent decision documented with cost-quality justification
-- [ ] Agent roles defined with clear boundaries (no role overlap)
-- [ ] Sprint contracts specify testable pass/fail criteria before generation
-- [ ] Context strategy documented: handoff mechanism, reset cadence, Pre-Rot threshold
-- [ ] Evaluator cross-validated with at least one deterministic check per criterion
-- [ ] Cost model calculated: per-task, monthly, and break-even quality threshold
-- [ ] Failure modes mapped with circuit breakers and escalation paths
-- [ ] Model pinning strategy documented (per agent, upgrade protocol)
+- [ ] Failure attribution is done by layer + phase, using the debug order, not by gut.
+- [ ] The harness is mapped to five clusters + Governance, each with a named owner/file/service.
+- [ ] Highest-volume call has structured retry + strict output + a narrow, negatively-scoped tool gate.
+- [ ] Completion is gated by independent verification (rubric / test / separate evaluator), with a max-iteration + cost budget + escalation path.
+- [ ] Guardrails are runtime hooks (or IAM), never prompt-only; PII/injection defended at Interception, not in the prompt.
+- [ ] A trace→eval flywheel exists: failing traces become tagged regression evals; the suite is small and high-signal.
+- [ ] Every model-specific workaround carries its three tags (model, validated-date, retire-trigger).
+- [ ] The design names which paradox(es) it is deliberately trading, and the harness is model-agnostic enough to survive a model swap.
 
 ## WHEN WRONG
 
-- Early exploration where you're validating desirability, not building production systems
-- Simple tasks where single-agent + good prompting achieves sufficient quality
-- Latency-critical features where harness overhead exceeds user tolerance
-- When harness complexity becomes a delay tactic — "we need to design the architecture" as a way to avoid shipping
-- Pre-PMF: don't build a harness until you know someone wants what it produces
+This skill over-applies when: you're pre-PMF (validate desirability before building a harness); the task is single-turn Q&A or simple retrieval (assertions, not a harness); latency budget can't absorb the loop; or "we need to design the architecture" has become a delay tactic for not shipping. And a real caveat to consequence #2: model capability is a genuine contributor — a weaker base model can be the true ceiling. The 90/10 split is a heuristic for *where to look first*, not a claim that the model never matters. If a capable model succeeds in a short demo and fails in sustained operation with lost state, premature stopping, or unverifiable completion, investigate the harness first; if it fails the same *reasoning* task on its best single-shot try, the model may actually be the ceiling.
 
 ---
 
@@ -298,14 +177,10 @@ Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVE
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5: state the recommendation, name the key trade-off, acknowledge the biggest risk, define the next action.
 
 ---
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary — ideally the MHTE frame with the five clusters inside the Harness and the Anatomy Atlas (symptom → cluster → fix). Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
