@@ -1,6 +1,6 @@
 ---
 name: problem-type
-description: "Decide what class of problem you're holding before you solve it: a technical problem (a better build closes it) or an adaptive challenge (only people changing how they work closes it). The most expensive AI mistakes aren't bad solutions — they're solving the wrong class: teams keep shipping better models to a problem no model can fix, and the tell is that it recurs after every fix. A different axis from 'does it need AI' (that's problem-ai-fit). Use when the same problem recurs despite fixes, leadership says 'just build it' but the barrier is organizational, or a feature is technically perfect and adoption still fails. Do NOT use to avoid hard decisions or justify inaction — often the answer is both, sequenced. Pairs with: problem-ai-fit (whether it needs AI at all), alignment-check (which org link is broken), adoption-launch (the adaptive work run as a launch), needs-guard (the psychological need the change threatens). Triggers: 'why isn't this being adopted', 'we tried everything', 'just build it'."
+description: "Decide what class of problem you're holding before you solve it: a technical problem (a better build closes it) or an adaptive challenge (only people changing how they work closes it). The most expensive AI mistakes solve the wrong class — teams ship better models at a problem no model can fix; recurrence after every fix is the tell. A different axis from 'does it need AI' (that's problem-ai-fit). Use when the same problem recurs despite fixes, leadership says 'just build it' but the barrier is organizational, or a feature is technically perfect and adoption still fails. Never to justify inaction — often the answer is both, sequenced. Pairs with: problem-ai-fit (whether it needs AI at all), falsification (pre-commit the timeline), alignment-check (which org link is broken), adoption-launch (the adaptive work run as a launch), needs-guard (the psychological need the change threatens). Triggers: 'why isn't this being adopted', 'we tried everything', 'just build it'."
 imports: []
 ---
 
@@ -43,9 +43,11 @@ Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). 
 
 ## THE TWO CLASSES (Heifetz)
 
-**Technical problem** — the solution exists or can be designed by experts; implementation is straightforward once known; resistance is minimal (people want the fix); authority can solve it directly. *Pattern: problem → expert diagnoses → solution deployed → solved.* Examples: slow database → optimize the query; high error rate → better training data; latency too high → add a caching layer.
-
-**Adaptive challenge** — the solution isn't known in advance and must be discovered through learning; implementation requires people to change behavior or belief; resistance is significant (people must give up old ways); it can't be delegated to experts, and leadership must *model* the change, not just authorize it. *Pattern: problem → no obvious solution → leadership names the direction → people work through it together over time → new behavior emerges.* Examples: a sales team that won't trust the AI → build credibility through transparency; support engineers who see AI as a threat → show how it amplifies their expertise.
+| | **Technical problem** | **Adaptive challenge** |
+|---|---|---|
+| **Definition** | The solution exists or can be designed by experts. Resistance is minimal — people want the fix. Authority can solve it directly. | The solution isn't known in advance; it's discovered through learning. Resistance is significant — people must give up old ways. It can't be delegated to experts: leadership must *model* the change, not just authorize it. |
+| **Pattern** | problem → expert diagnoses → solution deployed → solved | problem → no obvious solution → leadership names the direction → people work through it together over time → new behavior emerges |
+| **Examples** | Slow database → optimize the query. High error rate → better training data. Latency too high → add a caching layer. | A sales team that won't trust the AI → build credibility through transparency. Support engineers who see AI as a threat → show how it amplifies their expertise. |
 
 ## THE FIVE SIGNALS
 
@@ -96,18 +98,35 @@ The rule: **the adaptive work usually unlocks the technical work.** Define the g
 - **S4 authority** — VP mandated it; 5%→15% then plateaued → adaptive (compliance, not belief).
 - **S5 solution** — engineers say UI, sales say trust, product says workflow → adaptive (disagreement on fundamentals).
 
-**Diagnosis: 5/5 adaptive.** The real problem: reps fear the AI picks people they wouldn't, threatening their commission and their sense of competence — or one bad past recommendation killed trust. **What won't work:** a better model, a mandate, a nicer UI (all technical fixes to an adaptive problem). **What will:** understand the real fear (six weeks of listening); reposition AI as amplifying the rep's judgment, not replacing it; create an opt-in fast-track where early adopters prove it works; celebrate reps who *override* the AI and are right (signal that human judgment still counts). After that groundwork, the technical improvements land differently.
+**Diagnosis: 5/5 adaptive.** The real problem: reps fear the AI picks people they wouldn't, threatening their commission and their sense of competence — or one bad past recommendation killed trust.
+
+**What won't work:** a better model, a mandate, a nicer UI — all technical fixes to an adaptive problem.
+
+**What will:**
+- Understand the real fear (six weeks of listening).
+- Reposition AI as amplifying the rep's judgment, not replacing it.
+- Create an opt-in fast-track where early adopters prove it works.
+- Celebrate reps who *override* the AI and are right — the signal that human judgment still counts.
+
+After that groundwork, the technical improvements land differently.
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-Problem-type answers *what class of problem* you hold. It hands off to:
+Problem-type answers *what class of problem* you hold. It hands off to a different-axis check, three skills that act on an adaptive verdict, and one skill that guards against the diagnosis being misused.
 
-- **`rtp-problem-ai-fit`** — the *different axis*: whether the problem needs AI at all, and if so, which seat AI takes — a decision *engine* for narrow, well-bounded decisions vs. a *helper* for wide, judgment-heavy ones (its engine-vs-helper / narrow-vs-wide decision-shape scorecard). Problem-type is the technical-vs-adaptive cut; problem-ai-fit is the needs-AI and role cut. Run both; they answer different questions. *(Cross-ref sanctioned by q2-11 card, MIT SMR, Amorim/Saleh/Sundling, 6 May 2026 — its substance lives in problem-ai-fit, not here.)*
-- **`rtp-alignment-check`** — when the problem is adaptive, this locates *which* organizational link (purpose → strategy → capability → architecture → systems) is actually broken.
-- **`rtp-adoption-launch`** — the adaptive work, run as a product launch with personas and phases, not a one-time training.
+**A different axis (run both, don't substitute one for the other):**
+- **`rtp-problem-ai-fit`** — whether the problem needs AI at all, and if so, which seat AI takes — a decision *engine* for narrow, well-bounded decisions vs. a *helper* for wide, judgment-heavy ones. Problem-type is the technical-vs-adaptive cut; problem-ai-fit is the needs-AI and role cut. *(Cross-ref sanctioned by q2-11 card, MIT SMR, Amorim/Saleh/Sundling, 6 May 2026 — its substance lives in problem-ai-fit, not here.)*
+
+**Acts on an adaptive verdict:**
+- **`rtp-alignment-check`** — locates *which* organizational link (purpose → strategy → capability → architecture → systems) is actually broken.
+- **`rtp-adoption-launch`** — runs the adaptive work as a product launch with personas and phases, not a one-time training.
 - **`rtp-needs-guard`** — names the psychological need (competence, autonomy, belonging) the change threatens, which is usually the real engine of "resistance."
 
-Run problem-type to classify; run these to check the AI fit, find the broken link, and run the change.
+**Guards the diagnosis itself:**
+- **`rtp-bias-spotter`** — the action bias named in KEY TERMS above is the exact mechanism bias-spotter's Stage 1 audits. If you're not sure whether you genuinely diagnosed adaptive or just found a comfortable reason to avoid the harder technical build, run its checklist on your own call.
+- **`rtp-falsification`** — the REALITY CHECK below names the failure mode of this skill: "it's adaptive, so we wait," used to justify indefinite delay. Falsification is the fix — pre-commit to what evidence, by what date, would prove "we need six more weeks of listening" wrong instead of just true forever.
+
+Run problem-type to classify; run the second and third groups to act on and stress-test that classification.
 
 ## REALITY CHECK
 

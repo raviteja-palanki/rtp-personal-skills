@@ -128,16 +128,27 @@ The logic is reasoning, not lookup — but this is the default decision tree. **
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-Gossip-mode is the *informal* intake. It imports and hands off to:
+Gossip-mode is a router by design — the extraction schema names eight destinations, so this section is necessarily wider than most skills' (a router-shaped skill earns a wider stack section; don't read the count as padding).
 
-- **`rtp-feedback-flywheel`** *(import)* — the eval-pipeline routing machinery a caught regression feeds into.
-- **`rtp-eval-framework`** *(import)* — where a production failure case becomes a golden-set entry.
-- **`rtp-feedback-triage`** — the *formal* sibling: structured customer feedback at volume, scored and ranked. Gossip-mode catches the sideways single signal; feedback-triage processes the batch.
-- **`rtp-interview-synthesis`** — for structured transcripts rather than a hallway remark.
-- **`rtp-production-observability`** — when the vented signal is actually an ops incident (the latency spike), route it here as a real alert, not a note.
-- **`rtp-signal-scanner`** — when the sideways signal is competitive intel headed for the next strategy review.
+**Imports:**
+- **`rtp-feedback-flywheel`** — the eval-pipeline routing machinery a caught regression feeds into.
+- **`rtp-eval-framework`** — where a production failure case becomes a golden-set entry.
 
-Run gossip-mode to catch and route the informal signal; run these to process it formally once it's caught.
+**Formal siblings — same intake, structured input instead of a hallway remark:**
+- **`rtp-feedback-triage`** — structured customer feedback at volume, scored and ranked. Gossip-mode catches the sideways single signal; feedback-triage processes the batch.
+- **`rtp-interview-synthesis`** — for structured transcripts.
+
+**Receives a routed signal, named in the schema but missing from this list until now:**
+- **`rtp-production-observability`** — signal 4: the vented signal is actually an ops incident (the latency spike); route it as a real alert, not a note.
+- **`rtp-signal-scanner`** — signal 7: competitive intel headed for the next strategy review.
+- **`rtp-competitive-map`** — signal 7, when the rumor is credible enough to update the actual landscape, not just queue it.
+- **`rtp-capability-tracking`** — signals 3 and 6: a model-version drift or a capability shift updates the half-life log this skill owns, not just a mental note.
+- **`rtp-cost-model`** — signals 3 and 4: when "the numbers moved" turns out to mean unit economics broke, not just one input ticking up.
+- **`rtp-prompt-as-product`** — signal 2: a prompt-version regression is exactly the version/regression-test/rollback discipline that skill owns.
+- **`rtp-stakeholder-communications`** — signal 5: when a stakeholder-dynamics read changes what a room needs to hear next, this is where that gets drafted.
+- **`rtp-jtbd-analysis`** and **`rtp-ai-prd`** — signal 8: an acceptable-failure-mode preference (refuse > guess) refines JTBD's gain criteria and the AI-PRD's failure-mode section directly.
+
+That's every signal type in the schema mapped to a skill except signal 1 (eval regression — `eval-framework` already covers it as an import). Run gossip-mode to catch and route the informal signal; run the skill above that owns wherever it landed.
 
 ## QUALITY BAR
 

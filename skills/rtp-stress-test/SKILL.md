@@ -1,6 +1,6 @@
 ---
 name: stress-test
-description: "Will this AI feature survive real production — 10x the users, hostile inputs, a degraded model provider, a finance review — or only the demo? A pilot hides two failures: the one in the numbers (load, cost at volume, worst-case latency, quiet quality decay, a motivated attacker — six required checks) and the one the numbers hide (shipped on time, telemetry green, users quietly leaving because the AI is subtly wrong in their highest-stakes work — a pre-mortem catches it). The break is built to arrive at the worst moment: user 10,000, after the roadmap is committed and the promise made. Use before a launch, a resource commitment, a unit-economics promise, or a response-time guarantee. Pairs with: ship-decision (the gate this feeds), cost-model (deep cost math), agent-risk (kill-switch design), production-observability (post-launch monitoring), failure-modes (what breaks). Triggers: 'will this scale', '10x users', 'cost at scale', 'latency budget', 'production readiness'."
+description: "Will this AI feature survive real production — 10x the users, hostile inputs, a degraded model provider, a finance review — or only the demo? A pilot hides two failures: the one in the numbers (load, cost at volume, worst-case latency, quiet quality decay, a motivated attacker — six required checks) and the one the numbers hide (shipped on time, telemetry green, users quietly leaving because the AI is subtly wrong in their highest-stakes work — a pre-mortem catches it). The break is built to arrive at the worst moment: user 10,000, after the roadmap is committed and the promise made. Use before a launch, a resource commitment, a unit-economics promise, or a response-time guarantee. Pairs with: ship-decision (the gate this feeds), cost-model (deep cost math), agent-risk (kill-switch design), production-observability (post-launch watch), failure-modes (what breaks), fit-signal (trust after launch). Triggers: 'will this scale', '10x users', 'cost at scale', 'latency budget', 'production readiness'."
 imports: []
 ---
 
@@ -71,7 +71,12 @@ AI makes this worse than traditional software, because AI does not scale linearl
 
 Run every one. All six are required — a pass on five and a fail on one is still a fail.
 
-**Dimension 1 — Failure at scale.** What happens at 10x load? What happens when the model hallucinates (not *if* — *when*), and how large is the consequence of one bad response? Is there graceful degradation, or does the system fail open? What do users see during a 30–60 minute provider outage? And — the sneaky one — can you detect quality *silently* degrading, with no error thrown, before users complain?
+**Dimension 1 — Failure at scale.**
+- **Load:** what happens at 10x concurrent load?
+- **Hallucination:** what happens when the model hallucinates (not *if* — *when*) — how large is the consequence of one bad response?
+- **Degradation path:** graceful degradation, or does the system fail open?
+- **Outage:** what do users see during a 30–60 minute provider outage?
+- **The sneaky one:** can you detect quality *silently* degrading — no error thrown — before users complain?
 
 **Dimension 2 — Cost at volume.** Compute it, don't feel it: `(tokens/request) × (requests/user/day) × (users) × (token price)`, then add the overhead teams forget — retries (a 5–15% retry rate is normal), context padding, embedding generation, vector-DB hosting and queries, eval runs, log storage — and subtract cached-prompt savings. Model the 10x case as planning, not aspiration. The test: does per-user unit economics survive a 3x token-price increase?
 
@@ -83,9 +88,19 @@ Run every one. All six are required — a pass on five and a fail on one is stil
 | Model response | 200–2,000 | Temperature, max_tokens |
 | **Total** | **~2,200–16,000** | **P50 vs P95 can differ 4x** |
 
-**Dimension 3 — Worst-case latency (P95, not average).** What is the 95th-percentile response time? For streaming, the P95 time-to-first-token? What happens under concurrent load? Set a latency budget per component (retrieval Xms, inference Xms, post-processing Xms) so you know which part to fix. Describe the actual experience of the slowest 5% — that is the experience you are shipping, not the average.
+**Dimension 3 — Worst-case latency (P95, not average).**
+- **P95 response time** — measured, not estimated.
+- **P95 time-to-first-token** — for streaming responses specifically.
+- **Under concurrent load** — what happens to both when real traffic overlaps?
+- **Per-component budget** — retrieval Xms, inference Xms, post-processing Xms, so you know which part to fix when it slips.
+- **The actual experience:** describe what the slowest 5% of users feel. That is the experience you are shipping, not the average.
 
-**Dimension 4 — Monitoring and observability.** Can you detect quality degradation *before* a user reports it? Are you logging inputs/outputs for eval, with PII handled? Is there drift detection on model behavior over time? Can you reproduce any failure from logs? And concretely: who gets paged at 2 a.m., and does their runbook actually work? "We'll figure it out" means you figure it out at 2 a.m. under pressure.
+**Dimension 4 — Monitoring and observability.**
+- **Early detection:** can you catch quality degradation *before* a user reports it?
+- **Logging:** are inputs/outputs logged for eval, with PII handled correctly?
+- **Drift detection:** is model behavior tracked over time, or only checked at launch?
+- **Reproducibility:** can you reconstruct any failure from logs alone?
+- **The 2 a.m. test:** who gets paged, and does their runbook actually work? "We'll figure it out" means you figure it out at 2 a.m., under pressure, in front of users.
 
 **Dimension 5 — Adversarial testing (red team).** Not "can users break it" but a structured attack. First, name your product's top three risk categories (e.g., data leakage, policy violation, prompt injection, confidential-info extraction). Then generate 40+ attacks across five difficulty levels, score each (prompt, response, pass/fail, severity), and set the bar before you start.
 
@@ -99,7 +114,13 @@ Run every one. All six are required — a pass on five and a fail on one is stil
 
 The bar: survives 40/40 → baseline launch confidence. Fails 1–3 low-severity → launch with monitoring and a hotfix plan. Fails any high-severity → no launch until fixed. Fails any critical → escalate to security. (Structured red teaming: ◆ Anthropic / practitioner frameworks — the level ladder is the durable part.)
 
-**Dimension 6 — Agent / harness resilience** *(skip for single-model features).* When one agent in a chain fails, does the whole pipeline break or does the circuit breaker trip to a fallback — and have you actually *tested* that the breaker trips (most are configured, never tested)? What happens at 80/90/95% of context capacity? Can the harness hold state across 50+ sessions and concurrent file-based handoffs? What happens when an external tool is down? And the cost curve: Anthropic's published harness run cost ~$200 for 6 hours of orchestrated agents versus ~$9 for a solo agent doing 20 minutes (◆ Anthropic engineering write-up; treat the exact figures as one disclosed run, the ~10–20x ratio as the durable lesson). If a separate evaluator agent can itself hallucinate, it needs its own quality check.
+**Dimension 6 — Agent / harness resilience** *(skip for single-model features).*
+- **Circuit breaker:** when one agent in a chain fails, does the pipeline break or trip to a fallback — and have you *tested* the trip, not just configured it? Most are configured, never tested.
+- **Context saturation:** what happens at 80/90/95% of context capacity?
+- **State durability:** can the harness hold state across 50+ sessions and concurrent file-based handoffs?
+- **Tool failure:** what happens when an external tool it depends on is down?
+- **The cost curve:** Anthropic's published harness run cost ~$200 for 6 hours of orchestrated agents versus ~$9 for a solo agent doing 20 minutes (◆ Anthropic engineering write-up; treat the exact figures as one disclosed run, the ~10–20x ratio as the durable lesson).
+- **The evaluator's own risk:** if a separate evaluator agent can itself hallucinate, it needs its own quality check — don't let the judge grade itself unsupervised.
 
 ## Scoring matrix
 
@@ -124,9 +145,23 @@ The six dimensions catch the failures that show up *in production* — load, cos
 
 **Q1 — What was the failure?** Specific, not "users didn't adopt it." Write it like the doc that goes to leadership: *"Adoption hit 18% of target users in week 1, peaked at 22% in week 4, then declined to 11% by month 4 as users found the feature gave subtly wrong answers in their highest-stakes workflows."* Vagueness here is the tell that you don't yet understand the risk.
 
-**Q2 — What signals did we miss?** In hindsight, what was visible in week 2 that you'd have caught if you were looking? Not user complaints — that's lagging. Leading signals for AI features usually hide in one of these: an eval pass-rate plateau or quiet decline (the suite was scoped wrong); cost-per-successful-outcome creeping up while DAU stays flat (users silently re-running outputs); acceptance rate stable but edit rate rising (more rework than at launch); the power-user cohort declining first (they notice degradation weeks before aggregate metrics do); support ticket *complexity* rising while volume looks normal. Name the specific signal — and if today's dashboard wouldn't show it, that's the gap to close before launch.
+**Q2 — What signals did we miss?** In hindsight, what was visible in week 2 that you'd have caught if you were looking? Not user complaints — that's lagging. Leading signals for AI features usually hide in one of these:
+- **Eval pass-rate plateau or quiet decline** — the suite was scoped wrong.
+- **Cost-per-successful-outcome creeping up while DAU stays flat** — users are silently re-running outputs.
+- **Acceptance rate stable but edit rate rising** — more rework than at launch, hidden behind a flat headline number.
+- **The power-user cohort declining first** — they notice degradation weeks before aggregate metrics do.
+- **Support-ticket *complexity* rising while volume looks normal** — the same ticket count is hiding harder problems.
 
-**Q3 — Which assumption broke?** List your top five load-bearing assumptions and, for each, the evidence that would tell you it's breaking. Common ones: "the model's eval accuracy will hold in production" (breaks when the distribution shifts); "users will read the confidence signal" (breaks when they normalize to the warning UI); "cost per query stays under $X" (breaks as conversations lengthen); "the provider won't deprecate our model version" (breaks 12–18 months in); "adversarial use will be rare" (breaks the moment a jailbreak hits social). If you can't write the breaking-evidence statement, you're flying blind on that assumption.
+Name the specific signal — and if today's dashboard wouldn't show it, that's the gap to close before launch.
+
+**Q3 — Which assumption broke?** List your top five load-bearing assumptions and, for each, the evidence that would tell you it's breaking. Common ones:
+- *"The model's eval accuracy will hold in production."* Breaks when the input distribution shifts.
+- *"Users will read the confidence signal."* Breaks when they normalize to the warning UI and stop seeing it.
+- *"Cost per query stays under $X."* Breaks as conversations lengthen.
+- *"The provider won't deprecate our model version."* Breaks 12–18 months in, on their schedule, not yours.
+- *"Adversarial use will be rare."* Breaks the moment one jailbreak hits social media.
+
+If you can't write the breaking-evidence statement for an assumption, you're flying blind on it.
 
 **Q4 — What would we have done differently if we'd seen it Tuesday?** Specific Tuesday-morning actions a PM can put on a sprint plan — "add eval cases for the financial-services context where we lost the most users; set an alert on edit-rate cohort drift; ship behind a flag to the power-user cohort for a 4-week beta." If it reads as "we'd have been more careful," rewrite it until it's an action.
 
@@ -155,16 +190,26 @@ Fix it with an incentive, not just a framework: decide *in advance* what the per
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-Stress-test is the *pricing* step: it tells you what reality costs before you commit. It hands the surrounding decisions off to:
+Stress-test is the *pricing* step: it tells you what reality costs before you commit anyone to it. It sits between "the demo works" and "users depend on it" — which means it hands off in three directions: sideways to skills that go deeper on one dimension, downstream to what happens after the verdict, and one arbitration rule for when a deadline and a Fail collide.
 
-- **`rtp-ship-decision`** — the go/no-go gate this feeds. Stress-test produces the evidence; ship-decision makes the call and owns the rollback criteria. (The self-kill incentive lives here as its primary home.)
-- **`rtp-cost-model`** — the deep unit-economics math behind Dimension 2 when the cost curve is the crux, not just one input.
+**Goes deeper on one dimension:**
+- **`rtp-cost-model`** — the full unit-economics math behind Dimension 2, when the cost curve itself is the crux and not just one input among six.
 - **`rtp-agent-risk`** — proportionality and kill-switch design when a wrong call is catastrophic; the home of Dimension 6's worst case.
-- **`rtp-production-observability`** — what actually watches the system after launch; turns Dimension 4 from a checklist into a live monitoring plan.
-- **`rtp-failure-modes`** — the taxonomy of *how* AI breaks (hallucination subtypes, cascades, drift); use it to make Dimension 1 and the pre-mortem specific rather than generic.
+- **`rtp-failure-modes`** — the taxonomy of *how* AI breaks (hallucination subtypes, cascades, drift); use it to make Dimension 1 and the pre-mortem specific instead of generic.
 - **`rtp-safety-by-design`** — encodes the constraints your red team (Dimension 5) proved you need, so they hold by construction instead of by filter.
 
-Run stress-test to price reality; run these to decide, monitor, and harden around the price.
+**Acts on this skill's verdict:**
+- **`rtp-ship-decision`** — the go/no-go gate this feeds directly. Stress-test produces the evidence; ship-decision makes the call, owns the rollback criteria, and inherits the self-kill incentive as its primary home.
+- **`rtp-production-observability`** — turns Dimension 4 from a one-time checklist into the live monitoring plan that runs every day the feature is in front of users, not just at launch.
+- **`rtp-fit-signal`** — the second-order handoff most teams miss. A GO verdict here is what lets a feature reach the real users whose trust `fit-signal` then measures, weeks later. Stress-test answers "can it survive load?"; fit-signal answers "does it earn dependence?" A feature can pass every dimension here and still fail fit-signal's trust curve — that's not a contradiction, it's two different questions asked in sequence.
+
+**Shares the human-gate problem:**
+- **`rtp-judgment-guard`** — the human gate closing Case 2 ("will anyone say it fails?") is the same design problem judgment-guard solves for AI decisions generally: a state-first override and a reward for surfacing bad news instead of burying it. Borrow its checkpoint machinery when you design the self-kill incentive rather than reinventing it.
+
+**Arbitrates:**
+- Stress-test's verdict overrides schedule and resourcing pressure from `rtp-ai-portfolio-management` when a pre-mortem finding is unrecoverable. A committed roadmap is evidence of a promise, not evidence the feature is ready — "we already announced the date" is a breaking assumption to log under Q3, not a reason to skip Dimension 5.
+
+Run stress-test to price reality; run the first group to go deeper on one number, the second group to decide and monitor around the price, and treat the arbitration rule as the tie-breaker when a deadline and a Fail collide.
 
 ## WORKED EXAMPLE
 

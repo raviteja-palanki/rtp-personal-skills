@@ -1,6 +1,6 @@
 ---
 name: dual-lens
-description: "Makes one AI concept mean the same thing in two rooms — actionable for the business leader AND checkable by the engineer — so a wasted sprint never starts. Most cross-functional failures aren't disagreement; they're two teams confidently building different interpretations of one sentence, each sure they were clear (the curse of knowledge). Write both the business definition and the technical definition, then test the bridge between them. Use when writing a PRD, strategy doc, or mixed-audience presentation, or when business and engineering read the same spec and picture different things. Do NOT use for pure-engineering or pure-business docs, or when both sides are already aligned. Pairs with: stakeholder-communications (per-audience framing), first-principles (the one operation both lenses describe), trust-under-fog (business lens wants certainty the technical lens can't give). Triggers: 'business doesn't understand what we're building', 'engineering doesn't see the business case'."
+description: "Makes one AI concept mean the same thing in two rooms — actionable for the business leader AND checkable by the engineer — so a wasted sprint never starts. Most cross-functional failures aren't disagreement — they're two teams confidently building different readings of one sentence (the curse of knowledge). Write both the business definition and the technical definition, then test the bridge between them. Use when writing a PRD, strategy doc, or mixed-audience presentation, or when business and engineering read the same spec and picture different things. Skip pure-engineering or pure-business docs, or when both sides already agree. Pairs with: problem-ai-fit (feasibility decided first), stakeholder-communications (per-audience framing), first-principles (the one operation both lenses describe), trust-under-fog (business lens wants certainty the technical lens can't give). Triggers: 'business doesn't understand what we're building', 'engineering doesn't see the business case'."
 imports: []
 ---
 
@@ -14,7 +14,10 @@ Picture the same one-page spec in front of two people. The VP of Sales reads it 
 
 That is the failure this skill exists to prevent, and the key insight is that **it is almost never disagreement.** Disagreement is loud and you can resolve it. This is silent: two teams confidently building different interpretations of one sentence, discovering the gap only when the demo doesn't match the deck and a sprint is already gone. The cause has a name — the **curse of knowledge**: once you understand something, you cannot imagine not understanding it, so your "clear" spec was clear only to you.
 
-AI makes the gap wider than in ordinary software, for three specific reasons: AI concepts have no visual analog (what does "attention mechanism" *look* like?); AI failure is probabilistic, so "95% accuracy" reads as "always works" to one room and "one in twenty is wrong — for whom?" to the other; and per-token cost has no precedent in most leaders' experience, so the economics don't translate on their own.
+AI makes the gap wider than in ordinary software, for three specific reasons:
+- **No visual analog.** What does "attention mechanism" *look* like? Ordinary software has screens and diagrams to point at; this doesn't.
+- **Probabilistic failure.** "95% accuracy" reads as "always works" to one room and "one in twenty is wrong — for whom?" to the other.
+- **No cost precedent.** Per-token cost has no analog in most leaders' experience, so the economics don't translate on their own.
 
 So the move is not "explain it better in one language." It is: **write the concept twice — once for each room, both fully accurate — then test the bridge between them.** If a reader can go from the business definition to the technical definition and see how they're the same thing, the bridge holds. If the two read like documents about different products, you just found the wasted sprint before it started.
 
@@ -99,20 +102,30 @@ Same concept, different lead for each stakeholder:
 
 **Bridge:** "The 60% time saving only holds at 95% precision — drop to 90% and lawyers verify more false flags, cutting savings from $2M to $1.2M (still good, different ROI story). 30s latency is fine because lawyers batch-queue reviews; real-time isn't needed. $0.15/doc → ~$30k/yr at 200 docs, far under the $2M savings."
 
-**Translation layer:** business "reduce review 60%" → technical "precision ≥95%"; technical "30s latency" → business "batch processing is fine, no streaming needed"; business "catch issues at draft stage" → technical "RAG from historical high-risk clauses, not generic fine-tuning."
+**Translation layer:**
+- Business *"reduce review 60%"* → technical *"precision ≥95%."*
+- Technical *"30s latency"* → business *"batch processing is fine, no streaming needed."*
+- Business *"catch issues at draft stage"* → technical *"RAG from historical high-risk clauses, not generic fine-tuning."*
 
 **Model empathy:** classification is easy; classification of *ambiguous* contract language is hard — unusual-but-legal terms will confuse it, so anything flagged "medium" still gets a lawyer.
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-Dual-lens gets one concept to mean the same thing in two rooms. It hands off to:
+Dual-lens gets one concept to mean the same thing in two rooms. That puts it *after* the capability question is settled and *before* the delivery happens — a translation layer, not a decision-maker — so it hands off in both directions.
 
-- **`rtp-stakeholder-communications`** — once the concept is bridged, this tailors the *delivery* per audience (exec brief, eng brief, customer note) with AI-confidence framing. Dual-lens defines; this communicates.
+**Assumes this is already decided (a boundary, not a hand-off):**
+- **`rtp-problem-ai-fit`** — dual-lens translates a capability call that's already been made. If the real question is still "can AI even do this?", that's problem-ai-fit's job — writing two beautiful, aligned definitions of a feature that shouldn't be built is a wasted bridge, not a solved one.
+
+**Goes deeper on one gap:**
 - **`rtp-first-principles`** — when the two lenses keep drifting, strip the concept to the single atomic operation both must describe; if you can't, the bridge has nothing to stand on.
 - **`rtp-trust-under-fog`** — when the business lens demands a certainty ("guarantee 99%") the technical lens honestly can't give; this handles communicating probabilistic reality without over-promising.
 - **`rtp-stress-test`** — when diagnostic Q2 surfaces a technical risk the business definition hid (latency, cost spiral, adversarial exposure); this prices it at production scale.
 
-Run dual-lens to align the meaning; run these to strip it, communicate it, or pressure-test what it hides.
+**Acts on what this skill decides:**
+- **`rtp-stakeholder-communications`** — once the concept is bridged, this tailors the *delivery* per audience (exec brief, eng brief, customer note) with AI-confidence framing. Dual-lens defines; this communicates.
+- **The failure-ownership answer travels forward.** Diagnostic Q4 forces a named owner ("hallucinations above 5% are product's; below that, engineering's") — that answer is exactly what `rtp-stress-test`'s Dimension 4 and `rtp-production-observability`'s on-call runbook later assume already exists. Decide it once, here, so it isn't re-litigated at 2 a.m. by whoever's on call.
+
+Run dual-lens to align the meaning; run the first group to check the meaning is worth aligning at all or needs to go deeper; run the second group once the bridge holds and it's time to deliver and monitor.
 
 ## REALITY CHECK
 

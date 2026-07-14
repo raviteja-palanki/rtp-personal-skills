@@ -1,6 +1,6 @@
 ---
 name: falsification
-description: "Turns 'this will work' into a claim that can lose — named numbers, pre-agreed kill conditions, and stakeholders signed up to act on them before launch momentum makes honesty expensive. In a probabilistic system you can always find an example where the model got it right, so the only defense against fooling yourself is deciding in advance what evidence would prove you wrong, then genuinely looking for it. Use when reviewing a strategy or proposal, before committing resources or launching, or when someone is sure it 'will work' without saying what failure looks like. Do NOT use to block action (use it to de-risk), on cheaply reversible decisions, or during early exploration. Pairs with: bias-spotter (the bias making the claim feel safe), stress-test (the technical pre-mortem sibling), eval-driven-development (where pre-registered criteria live daily), ship-decision (the gate the kill conditions arm). Triggers: 'this will improve X', 'we should launch this', 'we need this to compete'."
+description: "Turns 'this will work' into a claim that can lose — named numbers, pre-agreed kill conditions, and stakeholders signed up to act before launch momentum makes honesty expensive. In a probabilistic system you can always find an example where the model got it right, so the only defense is deciding in advance what evidence would prove you wrong, then genuinely looking for it. Use when reviewing a strategy, before committing resources or launching, or when someone is sure it 'will work' without saying what failure looks like. Never to block action (de-risk with it) or on cheap, reversible decisions. Pairs with: bias-spotter (the bias making the claim feel safe), problem-type (its antidote to 'we'll wait'), stress-test (the technical pre-mortem sibling), eval-driven-development (pre-registered criteria, daily), ship-decision (the gate the kill conditions arm). Triggers: 'this will improve X', 'we should launch this', 'we need this to compete'."
 imports: []
 ---
 
@@ -115,11 +115,13 @@ Every row is a claim that sounds good in a meeting and fails in production. The 
 Falsification makes a claim able to lose. It works next to:
 
 - **`rtp-bias-spotter`** — names the *bias* making the claim feel safe (optimism, confirmation, demo bias); falsification then builds the test that would catch it.
+- **`rtp-problem-type`** — its REALITY CHECK names its own worst failure mode: "it's adaptive, so we wait," indefinitely. Falsification is the direct antidote — pre-commit what evidence, by what date, would prove the wait isn't just stalling dressed as patience.
+- **`rtp-judgment-guard`** — the same defense mechanism at a different scale. Judgment-guard's state-first override commits an individual to a call *before* seeing the AI's answer, so the answer can't bias the judgment; falsification's pre-commitment does the identical thing for an organization, committing stakeholders to kill conditions before launch momentum can bias the will to act on them.
 - **`rtp-stress-test`** — the technical pre-mortem sibling: it protects against load/cost/latency breaking; this protects against the *hypothesis* being wrong. Same discipline, different failure surface.
 - **`rtp-eval-driven-development`** — where the pre-registered criteria live day to day; falsification sets the bar, EDD runs the loop against it.
 - **`rtp-ship-decision`** — the gate the kill conditions arm. Falsification writes the no-go triggers; ship-decision is where they're honored (and where the incentive to *voice* a kill lives).
 
-Run falsification to make the claim losable; run these to name the bias, price the technical risk, operate the evals, and arm the gate.
+Run falsification to make the claim losable; run these to name the bias, resolve a misdiagnosis, borrow the commitment mechanism, price the technical risk, operate the evals, and arm the gate.
 
 ## DIAGNOSTIC QUESTIONS
 

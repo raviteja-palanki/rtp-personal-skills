@@ -8,7 +8,7 @@ description: >
   weeks, which luck can't fake because it takes many good experiences in a row. Builds a
   fidelity-based trust score, the magic moment that predicts who reaches it, correction-rate
   decay (and the resignation trap that fakes it), switching cost, and a four-verdict scorecard:
-  confirmed, emerging, uncertain, no fit. Use when you have 8+ weeks of active users and must
+  confirmed, emerging, uncertain, absent. Use when you have 8+ weeks of active users and must
   decide scale, iterate, or pivot — or when NPS looks fine but something feels off. Do NOT use
   pre-launch, on deterministic products, or under 100 weekly active users.
   Pairs with: falsification, feedback-flywheel, stress-test, uncertainty-research, ai-product-metrics.
@@ -26,7 +26,7 @@ imports:
 
 A user opens your AI feature on Monday. It works — clean output, nothing to fix. Tuesday, same feature, a slightly different question, and it hallucinates. Wednesday, it works again. Averaged over a month, your NPS reads a healthy 42. Retention looks fine. The dashboard is green.
 
-The user still doesn't trust you. They just haven't left yet.
+The user still doesn't trust you. They just haven't left yet. And six months from now, someone who was never in the room for any of this reads that 42 in a portfolio review and green-lights another two quarters of investment on a foundation that was never actually there.
 
 That gap is the whole problem. **Every metric a PM defaults to for product-market fit — NPS, retention, DAU — assumes the product is the same experience every time it's used.** That assumption is what makes those metrics work: a stable product a user keeps returning to is one they've decided to depend on. AI breaks the assumption. The product is a different experience every time, so the metrics stop measuring fit and start measuring variance. Retention looks healthy because it's a cohort average, and averages smooth a bad Tuesday into a good Wednesday. NPS looks healthy because the person who had two good sessions this week answers the survey today, not on the day it failed them. You can clear every "PMF confirmed" threshold on a spreadsheet built from users who are stress-testing your product, not depending on it — checking back to see if it's gotten reliable yet, not because they've decided it has.
 
@@ -55,7 +55,9 @@ Read Signal 1 first regardless of which question brought you here — it's the s
 
 ## GROUNDING (Before Starting)
 
-Go deep if you have 8+ weeks of active-user data and need to decide whether to scale, keep iterating, or pivot. Skim straight to Signal 1 if you already have trust data and just need the interpretation. Skip this skill entirely if you have under 100 weekly active users (the signal is too noisy to read), your product is deterministic (classic PMF frameworks already work), or it's batch/offline AI with no real-time feedback loop (there's no session for trust to build within).
+- **Go deep if:** you have 8+ weeks of active-user data and need to decide whether to scale, keep iterating, or pivot.
+- **Skim straight to Signal 1 if:** you already have trust data and just need the interpretation.
+- **Skip this skill if:** you have under 100 weekly active users (too noisy to read), your product is deterministic (classic PMF frameworks already work), or it's batch/offline AI with no real-time feedback loop (no session for trust to build within).
 
 Then follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md): name the customer and the problem, decide Executive Summary vs. full analysis, and pick the output format.
 
@@ -83,7 +85,9 @@ Classify every AI output into one of four categories, and use the same classific
 | Major edit (rewrite, >50% changed) | 0.2 | Yes |
 | Rejected / regenerated | 0.0 | Yes |
 
-**Trust score** (this signal) = the average fidelity score across a week's outputs — magnitude-weighted, so a run of minor edits drags it down gently. **Correction rate** (Signal 3) = the % that were major-edit-or-regenerated — a hard failure rate that a pile of minor edits doesn't touch. Track both: if trust score rises while correction rate stays flat, outputs are getting slightly better on average but not more reliable — a different problem than the reverse.
+- **Trust score** (this signal) = the average fidelity score across a week's outputs — magnitude-weighted, so a run of minor edits drags it down gently rather than sharply.
+- **Correction rate** (Signal 3) = the % of outputs that were major-edit-or-regenerated — a hard failure rate that a pile of minor edits doesn't touch.
+- **Why track both:** if trust score rises while correction rate stays flat, outputs are getting slightly better on average but not more reliable — a different problem than the reverse (correction rate falling while trust score stalls means fewer big failures but no real gain in quality).
 
 ```
 Worked example — 10 outputs this week:
@@ -137,7 +141,11 @@ Concerning pattern:                Wk 1: 70% → Wk 4: 65% → Wk 8: 60%
 
 Target a 50–60% reduction from week 1 to week 8 (⚠ illustrative bar — set your own from your first cohort). Flat or rising correction rate means the product isn't getting more reliable in the user's hands, full stop.
 
-**The trap:** falling correction rate can mean the user learned to trust you, or it can mean they gave up checking. Both look identical in the correction-rate number alone. Distinguish them with a second signal — complaint rate and downstream use. If corrections fall *and* complaints stay flat *and* users keep acting on the output, that's trust. If corrections fall while complaints rise or downstream use quietly drops, that's resignation: users accepting worse output because checking isn't worth their time anymore — a leading indicator of churn, not fit.
+**The trap:** falling correction rate can mean the user learned to trust you, or it can mean they gave up checking — both look identical in the correction-rate number alone.
+
+- **Distinguish with:** complaint rate and downstream use — the two signals correction rate alone can't tell apart.
+- **Reads as trust if:** corrections fall, complaints stay flat, and users keep acting on the output.
+- **Reads as resignation if:** corrections fall while complaints rise or downstream use quietly drops — users accepting worse output because checking isn't worth their time anymore. This is a leading indicator of churn, not fit.
 
 Expect different baselines by use case — code generation should sit above 90% used-as-is-or-minor-edit, open-ended creative work closer to 60–70% (⚠ illustrative). A use case running 80% correction when you expected 40% means either the use case is wrong for AI or the product is failing it specifically.
 
@@ -152,17 +160,22 @@ If trust is real, leaving should be costly. Four behavioral proxies, roughly in 
 | Paid for a premium tier | Financial plus workflow lock-in — the strongest signal | >5–10% |
 | 50+ interactions logged | Workflow is built around you | >40% of retained users |
 
-For a direct read rather than a proxy: give 20–30 trusting users (trust score >0.60, active 4+ weeks) a free trial of a competitor, and watch whether they come back. Above ~70% return is real switching cost; below ~50% is a danger signal regardless of what the dashboard says. The same logic works as a pricing test: estimate what fraction would leave at a 20% price increase — under 5% leaving means the switching cost can support a premium; over 10% means it can't yet.
+Two direct tests, when a proxy isn't enough:
+
+- **The competitor-trial test:** give 20–30 trusting users (trust score >0.60, active 4+ weeks) a free trial of a competitor, and watch whether they come back. Above ~70% return is real switching cost. Below ~50% is a danger signal regardless of what the dashboard says.
+- **The pricing test:** estimate what fraction of users would leave at a 20% price increase. Under 5% leaving means the switching cost can support a premium. Over 10% means it can't yet.
 
 ## THE FEEDBACK LOOP CHECK — import feedback-flywheel
 
 Correction-rate decay is only a trust signal if the corrections users give you are actually closing a loop — reaching someone, changing the prompt or retrieval or model, and showing up as fewer of the same corrections for the next cohort. If they're landing in a database nobody reads, "users correct less" may just be the resignation trap above, dressed up as good news.
 
-The full design of that loop — signal capture, annotation velocity, the weekly-to-quarterly cadence, when it's a real moat versus overhead — is `feedback-flywheel`'s job; import it. The one check to run here: pick last month's ten most common correction patterns and ask whether any of them changed the product. If the answer is no, don't credit a falling correction rate to trust — credit it to resignation until proven otherwise.
+The full design of that loop — signal capture, annotation velocity, the weekly-to-quarterly cadence, when it's a real moat versus overhead — is `feedback-flywheel`'s job; import it for that.
+
+**The one check to run here:** pick last month's ten most common correction patterns and ask whether any of them changed the product. No → don't credit a falling correction rate to trust; credit it to resignation until proven otherwise.
 
 ## THE VERDICT — THE PMF SCORECARD
 
-Bring the signals together into one read. Fill ACTUAL from your own data; the TARGET column is ⚠ illustrative — replace it with the thresholds you pre-committed to in the falsification handoff.
+Bring the four signals together into one read. Fill ACTUAL from your own data; TARGET is ⚠ illustrative — replace it with what you pre-committed to in the falsification handoff, and re-check those four kill-questions here, now, before you call anything CONFIRMED.
 
 ```
 SIGNAL                       TARGET        ACTUAL      STATUS
@@ -174,22 +187,53 @@ Feedback loop                closing       ___
 Switching cost                real         ___
 ```
 
-Four verdicts, four actions:
+Four verdicts. Each carries its own flip-condition and hand-off as its own line — a scale, kill, or pivot call without the thing that would reverse it is a call nobody downstream can safely act on.
 
-- **PMF CONFIRMED** — trust >0.60 and inflecting, magic moment >60%, feedback loop closing, switching cost real. **Scale with confidence; ship adjacent features.** Before scaling, run `stress-test` (import) — a confirmed trust signal on 200 users says nothing about whether the system holds at 20,000.
-- **PMF EMERGING** — trust trending up but not plateaued, magic moment 40–60%, loop just starting to close. **Invest in the magic moment's UX; re-measure in 4 weeks.**
-- **PMF UNCERTAIN** — trust flat, magic moment <40%, loop not closing, switching cost weak. **Investigate the root cause — quality, wrong problem, or bad UX — before choosing fix or pivot.**
-- **NO FIT** — trust crashing, churn climbing, magic moment <20%. **Kill or fundamentally pivot the feature.** More engagement will not fix a fit problem — that's the mistake this skill exists to prevent.
+**PMF CONFIRMED**
+- Criteria: trust >0.60 and inflecting, magic moment >60%, feedback loop closing, switching cost real.
+- Flips back to UNCERTAIN if: any of the four falsification kill-questions now answers "yes." A clean scorecard sitting on top of a failed kill-question is the single most common way teams talk themselves into PMF that isn't there — check the questions, not just the numbers.
+- Action: scale with confidence; ship adjacent features.
+- Hands off to: `ai-portfolio-management`, `stakeholder-communications`, `stress-test` (see WHERE THIS MEETS YOUR STACK for what each does with it).
+
+**PMF EMERGING**
+- Criteria: trust trending up but not plateaued, magic moment 40–60%, feedback loop just starting to close.
+- Flips to CONFIRMED if: the next four weeks hold the same slope. Flips to UNCERTAIN if: it flattens.
+- Action: invest in the magic moment's UX; re-measure in 4 weeks.
+- Hands off to: `gen-ai-experimentation` — run the re-measurement as a real experiment, not an informal check-back.
+
+**PMF UNCERTAIN**
+- Criteria: trust flat, magic moment <40%, feedback loop not closing, switching cost weak.
+- Resolves (doesn't flip) when: you find which signal is actually broken. Trust flat with a working magic moment points to output quality, not onboarding. A working trust curve with nobody hitting the magic moment points to onboarding, not the model. If you suspect the wrong problem entirely, that's an earlier question this scorecard assumed was already answered.
+- Action: diagnose before choosing fix or pivot — don't guess.
+- Hands off to: `failure-modes` (quality root cause), `problem-ai-fit` (wrong-problem root cause).
+
+**PMF ABSENT**
+- Criteria: trust crashing, churn climbing, magic moment <20%.
+- No flip-condition worth waiting on.
+- Action: kill or fundamentally pivot the feature now. More engagement will not fix a fit problem — that's the mistake this entire skill exists to prevent.
+- The bet underneath every verdict above, not just this one: dependence, not sentiment, predicts whether this product survives contact with a more reliable competitor. That bet costs something real — trust measurement takes instrumentation an NPS survey doesn't require, and it will sometimes hand you an uncomfortable verdict when the dashboard looks fine. Worth paying: the alternative is a churn spike in six months telling you what eight weeks of the trust curve would have told you today.
 
 ## WHERE THIS MEETS YOUR STACK
 
-Fit-signal owns the *diagnosis*: is this AI product actually earning dependence. It hands the surrounding work to:
+Fit-signal owns one job: is this AI product actually earning dependence. Everything upstream feeds that answer; everything downstream acts on it — and knowing which is which matters, because "related skill" and "the literal next stop for this verdict" are different claims.
 
-- **`ai-product-metrics`** — the raw acceptance, correction, and regeneration events this skill aggregates into a trust curve; that skill defines what to instrument, this skill tells you what the numbers mean for fit.
-- **`feedback-flywheel`** (import) — whether user corrections are actually closing into product improvement; without it, "correction rate fell" can't be trusted as a signal.
-- **`uncertainty-research`** — when the simple weekly-average trust score isn't rigorous enough (small samples, contested findings, a board that wants a defensible number), that skill's stratified and longitudinal methods measure trust properly.
-- **`falsification`** (import) — the pre-registration discipline behind the four kill-condition questions above; run it in full before measuring, not after you like what you see.
-- **`stress-test`** (import) — once the scorecard says CONFIRMED, this is the technical half: does the system hold at 10x the users, not just earn their trust at the current scale.
+**Feeds this skill:**
+- `ai-product-metrics` — instruments the raw acceptance, correction, and regeneration events this skill turns into a trust curve. That skill defines what to log; this skill says what the numbers mean for fit.
+- `uncertainty-research` — replaces the simple weekly average with stratified, longitudinal methods when the stakes (a board, a contested finding, a sample too small to trust) demand more rigor than this skill's basic formula gives you.
+
+**This skill imports:**
+- `falsification` — the pre-registration discipline behind the four kill-conditions.
+- `feedback-flywheel` — whether corrections are actually closing into improvement, or just accumulating.
+- `stress-test` — the technical scale-check once a verdict is CONFIRMED.
+
+**Acts on this skill's verdict, one hop downstream:**
+- `ai-portfolio-management` — turns a CONFIRMED verdict into an actual resourcing decision inside a portfolio of competing bets, not a private "we're good" between the PM and the model.
+- `stakeholder-communications` — carries whatever verdict you have to a room that wasn't there for the measurement; the discipline is stating the trust score and its inflection week, not a bare "we have PMF."
+- `gen-ai-experimentation` — structures an EMERGING verdict's 4-week re-test as a real experiment with a defined stop condition, not an informal check-back.
+- `failure-modes` / `problem-ai-fit` — where an UNCERTAIN verdict's root cause actually gets diagnosed, not just named.
+
+**Arbitrates when this skill disagrees with another:**
+- `ship-decision` — the gate that resolves a CONFIRMED trust curve against a failed `stress-test`. That tension is real, and neither skill alone should be trusted to break the tie.
 
 ## REALITY CHECK
 
@@ -211,14 +255,6 @@ Fit-signal owns the *diagnosis*: is this AI product actually earning dependence.
 - [ ] Switching cost tested with at least one behavioral proxy or the competitor-trial test
 - [ ] Scorecard filled with real numbers, one of the four verdicts written down, next action named
 
-## DIAGNOSTIC QUESTIONS
-
-1. **Has anyone plotted trust week-over-week, or only checked NPS and retention?** Only NPS/retention means you don't have a PMF read yet — you have an engagement mirage until proven otherwise.
-2. **When correction rate fell, did complaint rate fall with it?** Corrections down but complaints flat or up is resignation, not trust.
-3. **What's last month's magic-moment hit rate, by cohort?** A blank stare here means no one has looked — that's the diagnosis by itself.
-4. **If you went dark for a week, would users go find an alternative?** "No" means dependence hasn't happened yet, whatever the dashboard says.
-5. **Is trust uniform across use cases, or is a strong one hiding a weak one?** A single blended number can hide a kill-this/scale-that split that changes the whole roadmap.
-
 ## WHEN WRONG
 
 - Pre-launch, with no users yet to measure.
@@ -229,13 +265,9 @@ Fit-signal owns the *diagnosis*: is this AI product actually earning dependence.
 
 ---
 
-## TRADE-OFF LEDGER
-
-**By trusting the curve over NPS and retention, you bet** that dependence, not sentiment, is what actually predicts whether this product survives contact with a more reliable competitor. **You give up** the comfort of the simpler metrics — trust measurement takes real instrumentation (fidelity scoring, per-cohort tracking) that an NPS survey doesn't require, and it will sometimes hand you an uncomfortable UNCERTAIN verdict when the dashboard says CONFIRMED. **Reversible?** Yes — this is a measurement choice, not a product commitment; you can adopt or drop the trust curve without touching the product itself. **The hidden trade:** you're choosing to find out now, from eight weeks of real behavior, whether users depend on you — instead of finding out in six months, from a churn spike, that they never did. **Confidence: High. What would change it:** a deterministic product, where the classic metrics already work, or a userbase too small for the curve to mean anything — in either case, use standard cohort retention or `stress-test` instead.
-
 ## CONCLUSION
 
-Follow the Conclusion Protocol (Universal Skill Protocol, Section 6): state the recommendation (scale, iterate, fix-or-pivot, or kill, tied to the scorecard's verdict), name the key trade-off (measurement rigor now vs. the comfort of metrics that lie), acknowledge the biggest risk (the resignation trap read as trust, or a kill condition abandoned once the team likes what early data shows), and define the next action (who owns the weekly trust-curve update, and the date of the next scorecard read).
+Follow the Conclusion Protocol (Universal Skill Protocol, Section 6): state the recommendation (scale, iterate, fix-or-pivot, or kill — with its flip-condition carried over from the scorecard verdict, not left behind), name the key trade-off (measurement rigor now, from `## THE VERDICT`, vs. the comfort of metrics that lie), acknowledge the biggest risk (the resignation trap read as trust, or a kill condition abandoned once the team likes what early data shows), and define the next action (who owns the weekly trust-curve update, and the date of the next scorecard read).
 
 ---
 

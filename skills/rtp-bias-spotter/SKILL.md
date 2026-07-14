@@ -1,6 +1,6 @@
 ---
 name: bias-spotter
-description: "Names the cognitive bias making a flawed AI product decision feel obvious or inevitable — before the money is committed. The feeling of 'obviously right' is data, not truth: it has a named mechanism, and you can't introspect it away (finding no bias is itself the warning). Audit the decision, not your sense of being rational. The same pull attacks three stages: what you BUILD, how you MEASURE, and what the model itself CARRIES. Name it, price the risk in, mitigate — never block. Use when reviewing a PRD or feature proposal, before a resource commit, when a decision feels 'obvious' / 'the competitor did it', or after a senior person weighs in (authority bias). Do NOT use to block a decision or when the team is paralyzed and needs to commit. Pairs with: falsification (what would prove this wrong), first-principles (strip the framing first), trendslop-check (bias baked into AI-generated strategy). Triggers: 'that's just common sense', 'obviously we need to', 'this is our only option'."
+description: "Names the cognitive bias making a flawed AI product decision feel obvious or inevitable — before the money is committed. The feeling of 'obviously right' is data, not truth: it has a named mechanism, and you can't introspect it away (finding no bias is itself the warning). Audit the decision, not your sense of being rational. The same pull attacks three stages: what you BUILD, how you MEASURE, and what the model itself CARRIES. Name it, price the risk in, mitigate — never block. Use when reviewing a PRD or feature proposal, before a resource commit, when a decision feels 'obvious' / 'the competitor did it', or after a senior person weighs in. Never to block a decision, or stall a team that needs to commit. Pairs with: falsification (what would prove this wrong), first-principles (strip the framing first), eval-framework (fixes Stage 2's red flags), trendslop-check (bias baked into AI-generated strategy). Triggers: 'that's just common sense', 'obviously we need to', 'this is our only option'."
 imports: []
 ---
 
@@ -77,7 +77,10 @@ These shape which problems you choose and which solutions you commit resources t
 - **Bandwagon** — choosing a technology because everyone in your space uses it (LLMs, vector DBs).
 - **Present bias** — shipping a fast MVP instead of eval infrastructure, then paying for it in production.
 - **Novelty bias** — adopting a new architecture because it's exciting, not because it solves your problem better.
-- **Growth blindspot** — the costly default in a high-margin business: pointing AI at cost-cutting, where it barely moves the P&L, instead of at revenue, where it has no ceiling. **Why it bites:** costs can only fall to zero, so even a generous cost-cutting case moves firm value ~10% and stops; a lift to the organic *growth* rate is unbounded and gets multiplied by the valuation premium markets pay for growth. Executives believe AI can more than double firm value yet almost all of them spend it on efficiency. **When wrong:** in a thin-margin or survival-mode business, cost-cutting *is* the growth lever — don't force the revenue framing there. And a growth lift only counts if its source can't be copied, or the efficiency trap just reappears on the growth lever. **Evidence:** the valuation arithmetic is conceptual/◆; the "2.35× / 135% premium in three years" is a ⚠ roundtable-of-execs belief, not an audited outcome — treat it as what leaders *think*, which is the point of naming the bias. (Source: Benartzi, Long & Puntoni, "Companies Are Using AI for Efficiency. They Should Use It to Grow," HBR, 1 Jun 2026. The deep P&L-placement lens lives in `moat-finder`.)
+- **Growth blindspot** — the costly default in a high-margin business: pointing AI at cost-cutting, where it barely moves the P&L, instead of at revenue, where it has no ceiling.
+  - **Why it bites:** costs can only fall to zero, so even a generous cost-cutting case moves firm value ~10% and stops. A lift to the organic *growth* rate is unbounded and gets multiplied by the valuation premium markets pay for growth. Executives believe AI can more than double firm value, yet almost all of them spend it on efficiency.
+  - **When wrong:** in a thin-margin or survival-mode business, cost-cutting *is* the growth lever — don't force the revenue framing there. And a growth lift only counts if its source can't be copied, or the efficiency trap just reappears on the growth lever.
+  - **Evidence:** the valuation arithmetic is conceptual/◆; the "2.35× / 135% premium in three years" is a ⚠ roundtable-of-execs belief, not an audited outcome — treat it as what leaders *think*, which is the point of naming the bias. (Source: Benartzi, Long & Puntoni, "Companies Are Using AI for Efficiency. They Should Use It to Grow," HBR, 1 Jun 2026. The deep P&L-placement lens lives in `moat-finder`.)
 
 ## Stage 2 — how you MEASURE (evaluation biases)
 
@@ -89,7 +92,14 @@ Bias does its most damage here, because evals *look* objective — they're numbe
 - **Optimism** — assuming 92% in eval means 92% in production, ignoring drift and distribution shift.
 - **Evaluation-gap bias** — measuring what's easy to track (benchmark scores) instead of what matters (user outcomes).
 
-**The red flags that give it away:** you tested on the 100 *easiest* examples, not the hardest; you trained and eval'd on the same happy-path distribution, then met the 50% of production queries never in training; you eval'd English-only and shipped globally; you used an LLM-as-judge that prefers verbose answers, so your eval looks great while users get bloat; you only investigated failures users *reported*, missing the plausible-sounding wrong answers they never caught. (For turning these into a real measurement plan, hand off to `eval-framework`.)
+**The red flags that give it away:**
+- You tested on the 100 *easiest* examples, not the hardest.
+- You trained and eval'd on the same happy-path distribution, then met the 50% of production queries never in training.
+- You eval'd English-only and shipped globally.
+- You used an LLM-as-judge that prefers verbose answers, so your eval looks great while users get bloat.
+- You only investigated failures users *reported*, missing the plausible-sounding wrong answers they never caught.
+
+For turning these into a real measurement plan, hand off to `eval-framework`.
 
 ## Stage 3 — what the model CARRIES (system biases)
 
@@ -101,7 +111,12 @@ Embedded in the model's training and data; they propagate downstream whether or 
 - **Aggregation bias** — works well on average, fails systematically for a specific segment.
 - **Automation bias** — users and operators trust the output uncritically *because* it came from AI, with no human check.
 
-**The compounding case — multi-agent systems.** When you chain agents, these biases don't just persist, they multiply: the first agent's training-data bias becomes the second's input bias; a confident-but-wrong upstream call gets *amplified* rather than corrected (confirmation bias between agents); a 5% error in agent 1 compounds to ~10% across a 2-agent chain because agent 2 is working from 95%-good inputs. Audit the chain, not just each agent.
+**The compounding case — multi-agent systems.** When you chain agents, these biases don't just persist, they multiply:
+- The first agent's training-data bias becomes the second's input bias.
+- A confident-but-wrong upstream call gets *amplified* rather than corrected — confirmation bias between agents.
+- A 5% error in agent 1 compounds to ~10% across a 2-agent chain, because agent 2 is working from 95%-good inputs.
+
+Audit the chain, not just each agent.
 
 ## WORKED EXAMPLE — the AI support agent, four biases compounding
 
@@ -116,15 +131,21 @@ Each bias was small. Together they compounded into a **21-point** accuracy drop.
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-Bias-spotter names the pull and prices it in. It hands the rigorous next steps off to:
+Bias-spotter names the pull and prices it in — it never makes the call itself. That means it always hands off: to a discipline that goes deeper on one stage, and in two cases to the skill that builds the structural fix rather than just naming the risk.
 
-- **`rtp-falsification`** — the disciplined version of the inversion test: pre-commit the evidence that would prove the decision wrong, and go find it.
+**Goes deeper on one stage:**
+- **`rtp-falsification`** — the disciplined version of the inversion test (Stage 1): pre-commit the evidence that would prove the decision wrong, and go find it.
+- **`rtp-problem-type`** — when Stage 1's action bias or optimism bias is driving a decision, check whether the real issue is a misdiagnosed adaptive challenge dressed up as a technical one. Bias-spotter names the pull; problem-type resolves that specific confusion.
 - **`rtp-first-principles`** — strip the vendor framing and marketing language off a decision *before* you audit it, so you're auditing the real choice.
+- **`rtp-eval-framework`** — Stage 2's red flags are symptoms; this is where you build the measurement plan that stops producing them (stratified samples, production-distribution eval sets, reporting by complexity, not just average).
 - **`rtp-trendslop-check`** — when the bias isn't in your head but baked into the AI-generated strategy itself (the model defaulting to trendy advice).
-- **`rtp-moat-finder`** — home of the P&L-placement lens behind the growth blindspot: which line of the P&L an AI investment touches, and that line's ceiling.
 - **`rtp-stress-test`** — where the most expensive AI bias (optimism on model accuracy) gets converted into measured evidence at scale.
 
-Run bias-spotter to name and price the bias; run these to prove, strip, and pressure-test the decision it's shaping.
+**Where the diagnosis becomes a structural fix, not just an awareness exercise:**
+- **`rtp-moat-finder`** — home of the P&L-placement lens behind the growth blindspot: which line of the P&L an AI investment touches, and that line's ceiling. The second-order risk: an uncorrected growth blindspot doesn't stay a one-decision problem — it skews an entire portfolio toward safe cost-cutting bets. If you're scoring multiple initiatives, run `rtp-ai-portfolio-management` and check whether growth blindspot is shaping the whole slate, not just the one in front of you.
+- **`rtp-judgment-guard`** — Stage 3's automation bias ("users trust the output uncritically because it's AI") is a *name*, not a fix. Judgment-guard is where you design the checkpoint — state-first override, a forced second opinion — that actually breaks the uncritical-trust pattern instead of just flagging that it exists.
+
+Run bias-spotter to name and price the bias; run the first group to prove, strip, and pressure-test the decision it's shaping; run the second group when naming the bias isn't enough and the fix has to be structural.
 
 ## REALITY CHECK
 
