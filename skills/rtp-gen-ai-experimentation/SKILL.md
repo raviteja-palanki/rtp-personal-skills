@@ -1,7 +1,9 @@
 ---
 name: rtp-gen-ai-experimentation
-description: 'Use when planning gen-AI experiments, structuring pilots vs A/B tests, or validating productivity gains before scaling. Design and run organisational experiments to validate gen AI before scaling. Covers the Productivity J-Curve, how to structure experiments vs pilots vs A/B tests, causal vs correlational insights, ecosystem experimentation, and how to build an internal experimentation capability. Triggers: ''gen AI experiment'', ''AI pilot design'', ''productivity J-curve'', ''organisational experiment'', ''test AI before scaling'', ''AI adoption testing'''
+description: "Run gen-AI experiments at BOTH altitudes: the macro/organisational question (should we scale this AI capability into the workforce? — Productivity J-Curve, pilots vs experiments vs A/B tests, control groups, causal impact) AND the micro/product question (is this model/prompt/config change actually better? — offline evals → shadow → online A/B → progressive rollout, with kill switches). The unifying rule: production evidence is the ultimate arbiter at both altitudes — it overrides benchmarks, offline evals, and team opinion. Triggers: 'gen AI experiment', 'AI pilot design', 'productivity J-curve', 'organisational experiment', 'test AI before scaling', 'AI adoption testing', 'shadow deployment', 'A/B test the model', 'canary rollout', 'is the new prompt better'. Pairs with: eval-driven-development (offline gate the online test builds on), production-observability (where online experiments are measured), ai-product-metrics (the business metrics online tests move), confidence-tuner (the judge that scores offline evals), ship-decision (the go/no-go the experiment arms)."
+imports: ["eval-driven-development", "eval-framework", "production-observability"]
 ---
+
 # Gen AI Experimentation
 
 ## DEPTH DECISION
@@ -14,7 +16,25 @@ description: 'Use when planning gen-AI experiments, structuring pilots vs A/B te
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+
+---
+
+## THE ONE IDEA
+
+**"Experimentation" for gen AI happens at two altitudes, and confusing them wastes money at both.** Teams run a rigorous macro study to decide whether to adopt a tool, then change the prompt weekly with zero micro discipline — or they A/B-test prompts obsessively while never asking whether the capability was worth having. You need both loops, and they answer different questions:
+
+| | **Macro — Organisational** | **Micro — Product/Technical** |
+|---|---|---|
+| The question | Should we *scale this AI capability* into the workforce/ecosystem? | Is *this model/prompt/config change* actually better? |
+| Unit of analysis | A person / team | An output / trajectory |
+| The arbiter | Causal impact study with a control group | Offline evals → shadow → online A/B → progressive rollout |
+| Timescale | Weeks–months | Hours–days |
+| The trap it kills | Mistaking a pilot's enthusiasm for evidence | Shipping a change because the offline number went up |
+
+They nest: the macro experiment validates that a capability is worth having; the micro loop runs continuously *inside* that validated capability to improve it safely. The existing content below is the macro altitude (the HBR organisational-experiment framework). The new section **"Product Experimentation"** is the micro altitude (from the AI Evals series).
+
+**The rule that unifies both: production evidence is the ultimate arbiter.** Offline evals say a change is *probably* better; a benchmark says a model *looks* better; the team *believes* it's better. Only online, on real traffic, tells you it *definitely* is — and it overrides all three. Every experiment, at either altitude, is a machine for replacing opinion with production evidence.
 
 ---
 
@@ -196,6 +216,35 @@ A successful experiment does not automatically mean you should scale. Before sca
 
 ---
 
+## PRODUCT EXPERIMENTATION — offline → shadow → online → progressive (the micro altitude)
+
+Everything above answers "should we scale this capability into the org?" This section answers the question you'll ask a hundred times more often: **"is this specific change — new model, new prompt, new retrieval config — actually better?"** The discipline is a promotion pipeline where each stage buys more certainty at more risk.
+
+**The certainty ladder:**
+
+1. **Offline evals (pre-deploy).** Run the change against your golden dataset and challenge tier (`eval-driven-development`). Fast, cheap, safe — but it only says *probably* better. Offline evals are a gate, not a verdict. They catch regressions before real users ever see them; they do not prove real-world lift.
+2. **Shadow deployment.** Duplicate live production traffic to the candidate version *without serving its output to users*. Both the current model (serving users) and the candidate (silent) process the same real requests; you log and compare. The safest way to test on real traffic — zero user risk — and the first time you see the change on the *actual* input distribution rather than your curated eval set.
+3. **Online A/B / canary.** Route a fraction of real traffic to the candidate and compare on *both* automated quality scores *and* business metrics (acceptance, task completion, support tickets). This is the arbiter. It overrides the offline number — a change can win offline and lose online because the eval set never matched reality.
+4. **Progressive rollout.** Widen exposure through gates — a common sequencing is shadow → canary → progressive % → full, with each step gated on the same metrics holding. Never flip 0→100%.
+
+**Wire the kill switch before you flip any traffic.** The rollback condition must be a rule the gateway evaluates on a rolling window (e.g., "safety-eval below floor OR error-rate +2% over 10 min → auto-revert"), configured *before* the change goes live. A kill switch you have to build during the incident is not a kill switch. Canary now extends beyond models to prompts, retrieval pipelines, and agents — version and gate each the same way (`prompt-as-product`).
+
+**Gate agents per-step, not just end-to-end (Pass^k).** A 10-step agent with 95% per-step reliability succeeds end-to-end only ~60% of the time; at 90% per-step it's ~35%. An end-to-end online metric hides *which* step is bleeding reliability. Gate the reliability of each transition (the Transition Failure Matrix from `eval-driven-development`), and price/scale by chain length. Before any prod deploy of an agent, run it in a **stateful eval sandbox** (WebArena-, GAIA2-style environments that simulate the full task) — the online test tells you if it's better; the sandbox tells you if it's *safe to let touch production at all*.
+
+*(Sources: [Shadow/canary/A-B for LLMs, 2026](https://tianpan.co/blog/2026-04-09-llm-gradual-rollout-shadow-canary-ab-testing); [Four controlled deployment strategies, MarkTechPost 2026](https://www.marktechpost.com/2026/03/21/safely-deploying-ml-models-to-production-four-controlled-strategies-a-b-canary-interleaved-shadow-testing/). Grounded in AI Evals L3-T23 / L3-T25.)*
+
+## WHERE THIS MEETS YOUR STACK
+
+- **Offline gate → `eval-driven-development` / `eval-framework`.** The offline stage of the certainty ladder *is* the eval suite. The online test only earns its cost if the offline gate already passed.
+- **Online measurement → `production-observability` / `ai-product-metrics`.** Shadow and A/B results are read through traces (per-version spans) and the metrics dashboard. The experiment is only as trustworthy as the observability measuring it.
+- **The judge scoring both altitudes → `confidence-tuner`.** Whether offline or online, if an AI judge scores the outputs, its TPR/TNR must be validated or the "winner" may be an artifact of judge bias.
+- **The kill switch and per-step autonomy gates → `agent-risk` / `tool-architecture` / `ship-decision`.** The rollback rule and the sandbox-before-prod discipline are the same controls those skills design; the experiment is where you exercise them.
+- **The macro altitude connects to → `adoption-launch` / `alignment-check`.** The organisational experiment's "should we scale" verdict feeds the adoption plan and the readiness check.
+
+The spine: **the macro experiment decides whether the capability is worth having; the micro pipeline decides whether each change to it is real — and production evidence is the judge at both altitudes.**
+
+---
+
 ## OUTPUT FORMAT
 
 ```
@@ -241,15 +290,21 @@ Scaling Decision Framework:
 - **Experiment runs too short:** Results from a 2-week experiment capture novelty effects, not real productivity change. Extend the timeline.
 - **No control group:** Without a control group, you have an expensive anecdote, not evidence.
 
+**Micro / product altitude:**
+- **Shipping on the offline number.** The eval improved, so you shipped — and users saw no change (or worse). Offline is a gate, not a verdict; let online traffic be the arbiter.
+- **0→100% flip with no kill switch.** You promoted the change everywhere at once, and when it regressed you had no rolling-window rollback rule wired in. Progressive rollout + pre-configured kill switch, always.
+- **End-to-end agent metric hiding a bleeding step.** The overall success rate looked fine while one transition quietly failed 30% of the time. Gate per-step (Pass^k), not just end-to-end.
+- **Confusing the altitudes.** Running a rigorous org study to adopt a tool, then changing its prompt weekly with zero micro discipline — or A/B-testing prompts obsessively on a capability the org never validated. Run both loops.
+
 ---
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6.
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6.
 
 ---
 

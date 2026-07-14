@@ -8,13 +8,8 @@ description: >
   ask "how do you know this is good?". Triggers on "how do we test this AI feature",
   "when is it ready to ship", "eval framework", "quality gate", "definition of done for AI",
   "eval-driven", "ship criteria".
-  Pairs with: eval-framework (the harness), ai-prd (the spec it feeds), ship-decision (the gate it arms).
-title: "Eval-Driven Development"
-plugin: "craft"
-version: "2.0"
+  Pairs with: eval-framework (the harness), confidence-tuner (validates the judge that scores the gate), ai-prd (the spec it feeds), ship-decision (the gate it arms), production-observability (where the loop closes).
 imports: ["eval-framework", "feedback-flywheel"]
-tags: ["evaluation", "testing", "ai-development", "quality"]
-status: "production"
 ---
 
 # Eval-Driven Development: The Eval Is Your Spec
@@ -40,7 +35,19 @@ Before starting, ask:
 
 If the user specifies format in their request, skip the question.
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+
+## THE ONE IDEA
+
+**Eval-driven development is not "write tests first for AI." It is an operating model in which one artifact — the eval suite — carries three things that used to live in three different documents: the *definition of done*, the *team's quality-ownership*, and the *regression safety net*. When those co-evolve through a single artifact, the product compounds. When they don't, it rots.**
+
+Three consequences reorganize how you run it:
+
+1. **The eval suite is the new PRD.** The 30-page spec shrinks to a 1-page intent doc plus a living eval suite (Data → Task → Scores). The PM's craft doesn't shrink — it shifts from writing prose to curating datasets, designing rubrics, and interpreting evidence. And *who owns quality climbs a ladder*: Example → System → Constraint → Intent (see below).
+2. **An eval case has a lifecycle — it graduates, it doesn't die.** A case is born as a *capability target* (something we can't do yet). When the system masters it, you don't delete it — you *promote it to a regression guardrail* (something we must never lose). That graduation is what stops the suite from going stale and what defends against saturation blindness.
+3. **The gate is multi-dimensional, not one number.** Safety is an absolute veto; task-success is a threshold; cost/latency are budgets. "2% better on task" must never buy its way past a safety regression. A single blended score is how unsafe product ships looking green.
+
+Everything below is the machinery for these three. The existing "eval is your backlog prioritizer" thesis is consequence #1 seen from the sprint board.
 
 ## THE CORE THESIS: EVAL IS YOUR BACKLOG PRIORITIZER
 
@@ -64,6 +71,11 @@ Most teams treat eval as a quality gate: build the feature, then check if it's g
 - **Goodhart's law** — when a measure becomes a target it stops being a good measure.
 - **Eval debt** — accumulated gaps where the eval no longer covers how the product is actually used.
 - **Process-entropy / ground-truth-of-record** — the risk that content reached your eval already degraded by several upstream AI passes; tag the original source so you can tell.
+- **Intent Architecture ladder** — how the PM's quality-ownership evolves: Example (write rubrics) → System (design CI/CD + monitoring) → Constraint (govern agents: gates, kill switches) → Intent (define goals the system honors unwatched).
+- **Data–Task–Scores** — the three artifacts that replace the 30-page PRD: versioned dataset (real traces), the task being evaluated, and calibrated rubric scores.
+- **Capability → regression graduation** — the lifecycle of an eval case: born as a target the system can't yet hit, promoted (not deleted) into a regression guardrail once mastered.
+- **Multi-dimensional gate** — a ship gate with separate rules per dimension: safety = absolute veto, task-success = threshold, cost/latency = budget. Never one blended number.
+- **HHH** — Helpful / Harmless / Honest: the meta-rubric that forces multi-dimensional scoring so you can tell *which* dimension failed.
 
 ## THE TRAP
 
@@ -215,6 +227,63 @@ Add one step before scoring: at the point where content *originates* (the raw in
 **Why it matters:** an eval is only as trustworthy as the provenance of what it scores. A high score on already-degraded input is false confidence — the eval says "good" about content that has already drifted from what it originally meant, and nobody upstream flagged the drift because nobody owned the origin. **When this is wrong:** if every upstream pass *re-anchored* to the tagged source (retrieval-grounded, not free rewriting), chain length doesn't matter — count re-anchored passes as clean. Don't demand provenance tags on throwaway content that never reaches a decision.
 *(Source: "Don't Let AI Slop Muck Up Your Company's Processes," Holweg & Davenport, HBR, 16 Jun 2026. Signal: submissions to *Organization Science* up 42% since late-2022 while writing quality declined — ◆ [Forbes, 30 Apr 2026](https://www.forbes.com/sites/johndrake/2026/04/30/ai-slop-is-flooding-academic-journals-a-top-journal-measured-it/). Pairs with the "third clock" in `rtp-judgment-guard`.)*
 
+## EVALS ARE THE NEW PRD — THE INTENT ARCHITECTURE LADDER
+
+In deterministic software the PRD was the spec and the test suite verified it — cleanly separable, because software either passes or fails. AI breaks that: the same input yields different outputs, so the spec can't be a binary prose document. It has to be a *distribution-aware measurement system*. The eval suite becomes the spec.
+
+The operational shift: the PRD shrinks to a **1-page intent doc** (what we're building, who for, why — refuse to make it longer) plus a **living eval suite** built from three artifacts — **Data** (versioned real traces), **Task** (the action being scored), **Scores** (calibrated multi-dimensional rubrics). The PM's leverage is identical; the artifact is different. Less prose specification, more dataset curation, rubric design, judge calibration, annotation review.
+
+As this becomes real, the PM's *quality-ownership climbs a ladder* — this is the frame most teams are missing about where their own role is going:
+
+| Rung | What the PM owns | What "the spec" looks like |
+|---|---|---|
+| **Example** | Writes rubrics, labels cases | "Here are 50 outputs I graded A/B/C" |
+| **System** | Designs the CI/CD gate + monitoring | "Here's the pipeline that scores every change" |
+| **Constraint** | Governs the agent: gates, kill switches, network guards | "Here's what it may never do, enforced" |
+| **Intent** | Defines goals/rules/verification the system honors *with no human watching* | "Here's the outcome; the system proves it met it" |
+
+Name which rung you're on. Most teams claim to be doing eval-driven development while sitting at Example (a folder of graded screenshots) and wondering why it doesn't scale. The climb from Example to System is where eval-driven development actually starts paying off; the climb to Constraint/Intent is what agentic products demand.
+
+**Multi-dimensional by construction (HHH).** A single "quality" score collapses distinct concerns. Decompose against **Helpful / Harmless / Honest** so a bad output tells you *which* dimension failed — Helpful into accuracy/completeness/relevance, Harmless into safety/policy/bias, Honest into citation/uncertainty/hallucination. This decomposition is what makes the gate below possible. *(Source: Anthropic — [Constitutional AI / HHH](https://www.anthropic.com/research/constitutional-ai); operational framing from Ravi's AI PM OS "Evals as the New PRD.")*
+
+## THE EVAL LIFECYCLE: CAPABILITY TARGET → REGRESSION GUARDRAIL
+
+The single most common way an eval suite rots: teams treat a mastered case as *finished* and quietly stop running it. That's backwards. An eval case has a lifecycle, and the endpoint is not deletion — it's promotion.
+
+- **Birth — capability target.** A case the system *can't* pass yet. It defines the next sprint (consequence #1: the eval is the backlog). Its job is to be *hard* — to expose a gap.
+- **Graduation — regression guardrail.** Once the system reliably passes it, the case doesn't retire. It moves into the frozen regression set — the "we must never lose this" tier that runs on every change forever. Its job flips from *exposing a gap* to *defending a win*.
+
+This lifecycle is the structural fix for **saturation blindness** — the trap where a suite hits 100% pass and everyone celebrates, not noticing the suite stopped *challenging* the system months ago (100% pass means you've lost the improvement signal, not achieved perfection). The fix is a two-tier suite in permanent motion: a **frozen regression tier** (graduated cases + a golden set that never rotates — your minimum bar) and a **live challenge tier** that must always contain cases the system is *failing* (fed by adversarial probes, synthetic edge cases, and real production failures). Rule of thumb: if your challenge tier is at 100% pass, it's not done — it's empty. Inject harder cases until it hurts again.
+
+This is why regression evals in CI/CD matter (industry-standard now: re-run a fixed suite against a stable golden dataset on every release to catch quality regressions before deploy). The graduated tier *is* that fixed suite; the challenge tier is what keeps you moving. *(Sources: [Braintrust — Eval-Driven Development](https://www.braintrust.dev/articles/eval-driven-development); [promptfoo regression evals in CI/CD, 2026](https://medium.com/@alexrodriguesj/testing-llm-prompts-like-code-regression-evals-in-ci-cd-with-promptfoo-5242b4dcb9be).)*
+
+## MULTI-DIMENSIONAL CI/CD GATING (safety veto ≠ task threshold)
+
+The ship gate is where eval-driven development becomes enforcement — and the failure mode is subtle: **a single blended score lets a task-success gain buy its way past a safety regression.** "The new prompt is 2% better on task and only slightly worse on safety, net positive, ship it" is how unsafe product ships looking green. The average is the enemy.
+
+Gate each dimension by its own rule:
+
+| Dimension | Gate type | Behavior on a change |
+|---|---|---|
+| **Safety / policy (Harmless)** | **Absolute veto** | Any regression below the floor blocks the release. No trade against task-success. Non-negotiable. |
+| **Task-success (Helpful)** | **Threshold** | Must clear the bar and not regress the golden set beyond tolerance. |
+| **Honesty / calibration** | **Threshold** | Hallucination / citation quality within bounds. |
+| **Cost / latency** | **Budget** | Ship if within budget; flag if trending toward the cliff. |
+
+Two operational notes. First, the gate is only as trustworthy as the *judge* behind each score — a miscalibrated judge makes the whole gate theater, so calibrate it (`confidence-tuner`, Layer 2) before you arm the gate. Second, the veto dimensions map directly to `ship-decision`: safety veto here is the same veto that skill enforces at launch.
+
+## THE ELITE OPERATING LOOP (the 5 systems)
+
+The teams that make eval-driven development compound run a five-part loop, not a checklist. It's worth naming because each part fixes a specific way the practice degrades:
+
+1. **Transition Failure Matrix** — pin every failure to the *exact* state transition it occurred at (e.g. "Generate SQL → Execute SQL"), not to a vague "the agent got confused." Precise localization is what makes the fix targeted.
+2. **Benevolent Dictator** — one person makes the final binary pass/fail call on ambiguous cases. Not a committee. Quality standards averaged across a committee regress to blandness; a single owner keeps the bar sharp.
+3. **Binary + Written Critique** — score pass/fail (a "3 vs 4" on a Likert scale is noise), but *attach a written critique* of why. The binary forces clarity; the critique captures what the number loses and becomes training data for the rubric and the judge.
+4. **TPR/TNR Judge Calibration** — prove the automated judge against human labels before trusting it (this is the `confidence-tuner` handoff). An uncalibrated judge silently corrupts every number in the loop.
+5. **Custom (vibe-coded) annotation tools** — bespoke review interfaces that render the artifact *as it really is* (the email as an email, the trace as a trace). Teams that build these cut annotation cycle time dramatically versus generic spreadsheets — and cycle time is the real constraint on how fast the loop turns.
+
+The capstone of learning this skill is running the whole loop on *one* real use case end-to-end — matrix → dictator → binary+critique → calibrated judge → custom tool → back to the matrix. The loop is the moat: a competitor copies your framework in an afternoon but not the hundreds of graded edge cases and the calibrated judge the loop produced.
+
 ## GOODHART'S LAW IN EVAL
 
 "When a measure becomes a target, it ceases to be a good measure." — Goodhart's Law
@@ -350,7 +419,7 @@ Before you declare an eval "done":
 
 ## GENERATE THE DELIVERABLE
 
-Use the output generation prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+Use the output generation prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
 
 If this skill connects to downstream skills (e.g., prompt-as-product, ship-decision), generate the markdown handoff file as well.
 
@@ -363,6 +432,10 @@ Before you use an eval to ship a feature:
 - [ ] Your eval scores correlate with real user metrics (not just lab performance).
 - [ ] You have an eval owner and a cadence for updating it (weekly, at minimum).
 - [ ] You can articulate what each failure category means and how you'd fix it.
+- [ ] Your gate is **multi-dimensional** — safety is an absolute veto, not averaged against task-success.
+- [ ] Mastered hard cases are **graduated into the regression tier**, not deleted; your challenge tier still contains cases you're failing.
+- [ ] The judge scoring your gate is **calibrated** (TPR/TNR) — see `confidence-tuner`.
+- [ ] You can name which **Intent Architecture rung** you're on (Example / System / Constraint / Intent).
 
 ## WHEN WRONG
 
@@ -390,6 +463,21 @@ Before you use an eval to ship a feature:
 - Your eval says 78% (acceptable). But users are unhappy.
 - Trigger: The metric doesn't measure what users care about.
 - Recovery: Go back to users. What are they actually dissatisfied with? Change the eval metric to measure that, not what's easy to measure.
+
+---
+
+## WHERE THIS MEETS YOUR STACK
+
+Eval-driven development is the *operating model*; it hands off in every direction:
+
+- **The gate is only as honest as its judge → `confidence-tuner` (Layer 2).** Every threshold and veto here is computed by a scorer. Calibrate that scorer's TPR/TNR *before* you let it gate a release, or you're enforcing a spec you can't trust.
+- **The eval suite IS the spec → `ai-prd` / `ai-prd-flow`.** The 1-page intent doc is the upstream half; this skill is the living other half. Don't write a 30-page PRD for a probabilistic feature — write the intent doc and the eval suite.
+- **The gate arms the launch decision → `ship-decision`.** The safety veto here is the same veto enforced at GA. This skill decides *per-change*; ship-decision decides *per-launch* on the same dimensions.
+- **The loop closes in production → `production-observability` / `feedback-flywheel`.** Graduated cases and challenge cases both come from real traces. Production failures feed the challenge tier; the observability layer is where you catch that the live system drifted below a graduated guardrail.
+- **What the agent may never do → `safety-by-design` / `agent-risk` / `tool-architecture`.** The Constraint rung of the Intent ladder (gates, kill switches, permission boundaries) is designed in those skills; eval-driven development is how you *verify* those constraints hold.
+- **The numbers this produces feed the dashboard → `ai-product-metrics`.** Eval pass rates, per-dimension scores, and cost-per-successful-outcome are the leading indicators that skill puts in front of the team and translates for execs.
+
+The spine: **this skill turns "how do we know it's good?" into an enforced, evolving, multi-dimensional gate — but it borrows its trustworthiness from `confidence-tuner` upstream and lends its authority to `ship-decision` downstream.**
 
 ---
 

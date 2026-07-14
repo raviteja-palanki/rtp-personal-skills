@@ -1,7 +1,29 @@
 ---
 name: rtp-production-observability
-description: Catch silent AI degradation in production before users leave. Monitor latency, cost, quality drift, usage patterns, and error categorization with real-time alerts — not weekly dashboards. AI systems degrade silently in ways traditional logging misses (model drift, prompt regressions, distribution shift). Use when shipping an AI feature to production, debugging "it worked yesterday" reports, designing alerts for AI systems, or auditing whether you'd catch a degradation before users complain. Triggers on "AI in production", "monitoring AI", "model drift", "quality regression", "production observability", "alerts for AI", "silent failure".
+description: >
+  Catch silent AI degradation in production before users leave. Monitor latency, cost,
+  quality drift, usage patterns, and error categorization with real-time alerts — not
+  weekly dashboards. AI systems degrade silently in ways traditional logging misses
+  (model drift, prompt regressions, distribution shift). Use when shipping an AI feature
+  to production, debugging "it worked yesterday" reports, designing alerts for AI
+  systems, or auditing whether you'd catch a degradation before users complain.
+  Triggers on "AI in production", "monitoring AI", "model drift", "quality regression",
+  "production observability", "alerts for AI", "silent failure", "traces", "spans",
+  "failure genealogy", "why did the agent fail".
+  Also carries what ops-grade monitoring skips: the trace (not the request) as the unit of
+  AI observability, quality-aware alerting on eval-score drift (the PM's signal, not just
+  p99 latency), separating "the model failed" from "the harness failed the model", and
+  failure-mode genealogy (thousands of traces → the ~3 root causes behind ~80% of failures).
+  Pairs with: eval-framework (the scores you attach to spans and alert on), confidence-tuner
+  (the judge that produces those scores must be calibrated), invisible-stack / context-spec
+  (where most "model" failures actually route), feedback-flywheel (production traces are the
+  raw material that closes the loop), eval-driven-development (traces feed the challenge tier).
+imports:
+  - stress-test
+  - eval-framework
+  - feedback-flywheel
 ---
+
 ## DEPTH DECISION
 
 Can you detect when your AI product degraded in the past hour? Or do you find out when users complain?
@@ -14,9 +36,21 @@ Silent failure is the AI product killer.
 
 ---
 
+## THE ONE IDEA
+
+**In a deterministic system you monitor whether it's *up*. In an AI system you monitor whether it's *right* — and "right" degrades silently, continuously, and statistically. That single difference forces three shifts most teams never make:**
+
+1. **The unit of observation is the trace, not the request.** A request log tells you *what happened*; a trace tells you *why* — the full reasoning path, every tool call, retrieval, and model invocation as nested spans. You cannot debug a wrong answer from a status code. (This is now the industry standard: OpenTelemetry graduated CNCF with **GenAI semantic conventions**, and the canonical 2026 pattern is *eval-score-as-span-attribute* — quality lives inside the trace.)
+2. **The signal that matters is eval-score drift, not p99 latency.** Latency and cost are the SRE's job and they move loudly. Quality drift moves silently — "context recall −4% this week" — and it's *the PM's job to alert on it*. A green latency dashboard over a rotting quality score is exactly the silent failure that kills AI products.
+3. **Most "model failures" are context failures — attribute correctly or you'll fix the wrong thing.** With frontier models, degradation usually traces to the *harness* (context overflow, retrieval stuffing, a prompt regression), not the model's raw capability. "The harness failed the model" is a different bug than "the model failed," and it routes to a different team.
+
+And the integrative point that reframes the whole skill: **observability is not a downstream ops chore — it's the *top* of the feedback flywheel.** Production traces are the raw material that feeds the eval challenge tier (`eval-driven-development`), the correction clusters that reveal unmet needs (`ai-product-metrics`), and the recalibration set for the judge (`confidence-tuner`). Read defensively, the trace catches a regression. Read offensively, the trace *is* the discovery pipeline.
+
+---
+
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, spreadsheet, or inline?
@@ -175,7 +209,52 @@ Optimize:
 
 ---
 
+## TRACES & SPANS: THE UNIT OF AI OBSERVABILITY
+
+The per-request logging above tells you *what* happened. To debug *why*, you need the trace — and this is the shift ops-grade monitoring misses.
+
+- **A trace is the full path of one request through your system.** A **span** is one step inside it — an LLM call, a retrieval, a tool invocation, a guardrail check. Nested spans reconstruct the reasoning path. Analogy: the **trace is a patient's full medical chart; each span is one test result**. You don't diagnose from the discharge code; you read the chart.
+- **This is now standardized — instrument against it.** OpenTelemetry graduated the CNCF with **GenAI semantic conventions**; each tool call, model invocation, and retrieval step becomes a child span with standard attributes (model name, token counts). Instrument against the open convention, not a vendor SDK, so you keep the migration door open.
+- **Attach eval scores to spans (eval-as-span-attribute).** The canonical 2026 pattern: quality metrics live *inside* the trace, not in a separate dashboard. That's what makes "correlate a quality regression to the exact config/prompt change that caused it" a query instead of an archaeology project — and it's the join that turns the two skills together: `eval-framework` produces the score, observability records it on the span.
+
+*(Sources: [OpenTelemetry GenAI semantic conventions, Greptime 2026](https://greptime.com/blogs/2026-05-09-opentelemetry-genai-semantic-conventions); [OTel graduation + GenAI observability, 2026](https://www.webhani.com/blog/opentelemetry-graduation-genai-observability-2026).)*
+
+## TRACE DEBUGGING: LOGIC BUG vs MEMORY BUG (and "the harness failed the model")
+
+When a trace shows a wrong output, resist the reflex to blame the model. Classify the failure first:
+
+- **Logic bug** — the agent followed a *wrong procedure* (bad plan, wrong tool, flawed reasoning step). The fix is in the instructions/architecture.
+- **Memory bug** — the agent followed the *right procedure but lost the context* it needed (dropped an earlier fact, forgot a constraint). The fix is in state/memory management.
+- **The harness failed the model** — the classic false accusation. Example: retrieval stuffed 12 documents / 47K tokens into a 64K window; the relevant fact was there but *drowned*. The model didn't fail — the context pipeline did. With frontier models this is the *majority* case. It routes to `invisible-stack` / `context-spec`, not to a model swap.
+
+**Slice with high-cardinality queries.** Aggregate metrics hide the failure; the trace store lets you slice by user, tenant, error type, model/prompt version, and time. Degradation almost always concentrates in a slice (one tenant, one task type, one prompt version) before it shows in the average. Find the slice, read its traces, classify the bug.
+
+## QUALITY-AWARE ALERTING: alert on eval-score drift, not just p99
+
+The SRE team already alerts on latency and cost — those move loudly. The PM's unique contribution is **alerting on quality drift**, which moves silently. Alert on the eval score itself: "context recall −4% this week," "hallucination-rate +1.5% on tenant X," "acceptance −3% since prompt v7." Run a lightweight eval continuously on a sample of production traffic and treat its drift as a first-class signal.
+
+**Tier the alerts, or fatigue kills them:**
+
+| Tier | Trigger | Route |
+|---|---|---|
+| **Critical** | Safety / policy breach, availability drop | Page someone now |
+| **Warning** | Quality drift (eval-score regression, guardrail FP-rate rising) | Daily digest, investigate same-day |
+| **Informational** | Usage-pattern shifts, cost trend toward the cliff | Weekly review |
+
+Two AI-specific monitors ops teams forget: the **guardrail false-positive rate** (a guardrail that over-blocks trains users to route around it — a Layer-1 alert-fatigue problem manifesting in production), and **agent gaslighting** — the agent *claims* it did the thing ("I've booked the meeting"), but the trace shows the API was never called. Detect it by comparing the agent's stated actions against the actual tool/API-call spans in the trace. Fabricated execution evidence passes every text-only quality check; only the trace catches it.
+
+## FAILURE-MODE GENEALOGY: from thousands of traces to ~3 root causes
+
+Defensive observability catches one regression. Offensive observability does something no single trace can: **aggregate thousands of failing traces and cluster them by root cause.** The pattern that repeats across mature teams — roughly **80% of failures trace back to ~3 architectural root causes** (⚠ practitioner heuristic, not a law — measure your own distribution). Those root causes are *invisible in any single trace*; they only emerge in aggregate. One overflowing retrieval step, one ambiguous instruction, one missing state handoff — each generating hundreds of surface-different failures.
+
+This is the observability payoff that feeds the rest of the stack: the genealogy is your architectural fix-list (ranked by volume), your challenge-tier seed (`eval-driven-development`), and your demand-signal map (`ai-product-metrics`'s "evals as discovery"). The review queue and the failure clusters are the same raw material seen from two skills. *(B6 "production-grade trace scoring" framing: score traces to protect **users**, not to decorate dashboards — the genealogy is what turns scoring into action.)*
+
 ## KEY DIAGNOSTIC QUESTIONS
+
+**On Tracing & Attribution:**
+- When an output is wrong, can you pull its full trace (every span) — or only its request log?
+- Are eval scores attached to spans, so you can correlate a quality drop to the exact change?
+- For your last "the model got worse" incident, was it the model or the harness (context overflow, retrieval, prompt regression)? How did you tell them apart?
 
 **On Logging Completeness:**
 - Can you tell me the cost per output for requests in the last hour? (Real answer, not estimate.)
@@ -231,6 +310,10 @@ Optimize:
 6. ✓ Correlation analysis (what changed when metrics moved?)
 7. ✓ Rollback automation (< 5 min to respond to alert)
 8. ✓ Log retention policy (cost-effective, not forever)
+9. ✓ Trace capture with nested spans (OpenTelemetry GenAI conventions), eval scores attached to spans
+10. ✓ Quality-drift alerting on eval score (not just latency/cost), tiered critical/warning/informational
+11. ✓ Failure attribution discipline (logic bug vs memory bug vs harness-failed-the-model)
+12. ✓ Agent-gaslighting check (stated actions reconciled against actual API-call spans)
 
 **Blocks shipping if:**
 - No baseline cost-per-output to compare against
@@ -259,13 +342,27 @@ Optimize:
 
 ---
 
+## WHERE THIS MEETS YOUR STACK
+
+Observability is the top of the feedback flywheel — it hands the rest of the domain its raw material:
+
+- **The quality scores you alert on come from → `eval-framework`, and are only trustworthy if the judge is calibrated → `confidence-tuner`.** Alerting on a drifting eval score is worthless if the judge producing it is itself drifting. Calibrate the judge; then trust the alert.
+- **Most "model degraded" incidents route to → `invisible-stack` / `context-spec`.** The "harness failed the model" attribution is the same context-failure bridge that runs through the whole eval domain: before proposing a model swap, read the trace and check the context pipeline (retrieval, window, prompt).
+- **Failure-mode genealogy feeds → `eval-driven-development` (challenge tier) and `ai-product-metrics` (evals as discovery).** The clustered root causes are your next-sprint fix-list, your new hard eval cases, and your unmet-need map — one artifact, three consumers.
+- **Production traces feed → `feedback-flywheel`.** This is the loop closing: traces → labeled failures → eval dataset → next model/prompt → new traces. Observability is where the flywheel gets its fuel.
+- **What the agent is allowed to do (and the kill-switch you trip on a critical alert) → `agent-risk` / `tool-architecture` / `safety-by-design`.** A critical-tier alert is only useful if you can *act* on it fast; the rollback/kill-switch design lives in those skills.
+
+The spine: **observability turns silent, statistical degradation into a signal you can attribute, alert on, and feed back — it is the sensor layer the entire eval loop runs on.**
+
+---
+
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
 1. State the recommendation
 2. Name the key trade-off
 3. Acknowledge the biggest risk

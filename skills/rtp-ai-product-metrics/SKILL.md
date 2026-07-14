@@ -2,24 +2,26 @@
 name: ai-product-metrics
 description: >
   Pick the leading indicators that actually predict AI product health — acceptance rate,
-  correction rate, regeneration rate, cost-per-successful-outcome, and the 5-stage AI
-  funnel (Surfaced → Invoked → Completed → Accepted → Retained). Traditional DAU and
-  retention metrics are lagging indicators that miss model regressions until it's too late.
+  correction rate, regeneration rate, conversational burden, cost-per-successful-outcome,
+  and the 5-stage AI funnel (Surfaced → Invoked → Completed → Accepted → Retained).
+  Traditional DAU and retention metrics are lagging indicators that miss model regressions
+  until it's too late. Also carries the two moves most metrics decks skip: reading the
+  dashboard as a demand-signal aggregator (evals as discovery), and the executive-translation
+  layer that turns an eval-score move into the business number a CFO/GC/COO/CHRO acts on.
   Use when designing the metrics dashboard for an AI feature, debugging why DAU is stable
-  but users complain, mapping a North Star + AARRR for AI, or pushing back on vanity
-  metrics. Triggers on "AI metrics", "North Star metric", "acceptance rate", "AI funnel",
-  "AARRR for AI", "what to measure for AI feature".
+  but users complain, mapping a North Star + AARRR for AI, translating eval scores for a
+  board review, or pushing back on vanity metrics. Triggers on "AI metrics", "North Star
+  metric", "acceptance rate", "AI funnel", "AARRR for AI", "cost per successful outcome",
+  "what to measure for AI feature".
   Pairs with: eval-framework (the tests beneath the numbers), feedback-flywheel (turning
-  usage into improvement), fit-signal (product-market fit for AI).
-id: ai-product-metrics
-title: AI Product Metrics
-category: craft
-difficulty: intermediate
+  usage into improvement), confidence-tuner (whether the judge behind a score can be
+  trusted), cost-model / token-economics (pricing the cost-per-outcome denominator),
+  stakeholder-communications (the exec-translation layer), fit-signal (product-market fit
+  for AI).
 imports:
   - eval-framework
   - feedback-flywheel
-author: ai-pm
-last_updated: 2026-03-28
+  - confidence-tuner
 ---
 
 ## GROUNDING (Before Starting)
@@ -33,15 +35,25 @@ Then proceed with the skill-specific analysis below.
 
 ---
 
-## DEPTH DECISION
+## THE ONE IDEA
 
-Are you measuring what users actually care about, or what's easy to track?
+**A metric earns its place on an AI dashboard only if it moves when the product genuinely succeeds or fails for a real user. Everything else is a lagging proxy (DAU, retention) or a gameable one (accuracy %, session count).** That single test reorganizes the whole dashboard, and three consequences fall out of it:
+
+1. **Measure cost per *successful outcome*, not per token or per call.** The denominator is "a user actually got a useful result," never "the model emitted something." This is now where the market is heading — 2026 pricing repriced from seats to outcomes (see the cost section).
+2. **Read the dashboard as a demand-signal aggregator, not just a health monitor.** Correction clusters and the review queue are a live stream of unmet needs — offense, not just defense. Most decks use metrics only to catch regressions; the sharp move is using them to find the roadmap.
+3. **Ship the executive-translation layer, or the evidence stays invisible.** An eval-score move ("context recall −4%") means nothing to a CFO until it's translated to the number they act on ("support tickets +12%, ~$X margin"). The metric and its translation are one artifact, not two.
+
+**Where are you on the maturity ladder?** (the series' *Three Eras of Evaluation*, applied to metrics)
+
+- **Era 1 — Benchmark metrics.** MMLU, leaderboard scores. Say nothing about *your* product. If your dashboard is model benchmarks, you're not measuring your product yet.
+- **Era 2 — Product metrics.** Acceptance rate, cost-per-successful-outcome, the AI funnel, pass^k. Where most "advanced" teams live. Most of this skill lives here.
+- **Era 3 — Trajectory metrics.** For agents: was the 10-step *path* safe, efficient, faithful — not just the final answer. Conversational burden and per-step pass^k are the entry points.
+
+Each era layers on; it doesn't replace the prior one. Name where your dashboard actually is before adding metrics.
 
 **Red flag**: "Our DAU is up, retention is up." But users are regenerating outputs constantly, correcting AI mistakes, or doing manual work despite having AI.
 
-**Green flag**: You track acceptance rate, correction patterns, cost-per-successful-task, and hallucination drift. You catch product degradation before DAU drops.
-
-Most PMs measure like it's 2010. AI products hide degradation in plain sight.
+**Green flag**: You track acceptance rate, correction patterns, conversational burden, and cost-per-successful-outcome — and every top-line number has a translated business equivalent next to it. You catch degradation before DAU drops, and you mine corrections for the next feature.
 
 ---
 
@@ -50,6 +62,9 @@ Most PMs measure like it's 2010. AI products hide degradation in plain sight.
 - **Leading vs. lagging indicator** — a signal that moves early (acceptance rate, correction rate) versus one that moves late (DAU, retention, revenue).
 - **Acceptance / correction / regeneration rate** — how often users accept, fix, or re-run AI output; the core leading signals of AI quality.
 - **Cost per successful outcome** — the cost of a user actually getting a useful result, not the cost per API call.
+- **Conversational burden** — how much effort the user spends getting the AI to do its job (turns-to-success, rephrases, corrections). 15 turns of re-prompting can "succeed" while the product fails; a trajectory-era metric that bridges evals and UX.
+- **Evals as discovery** — using the metrics dashboard and correction/review queue as a demand-signal aggregator: a cluster of failures on one intent is a roadmap blind spot, not just a bug.
+- **Executive translation** — the layer that maps an eval-score or leading-indicator move into the number each stakeholder acts on (CFO margin, GC compliance posture, COO escalation, CHRO skill-mix).
 - **North Star + AARRR** — the one company-level metric, plus the Acquisition / Activation / Retention / Revenue / Referral funnel.
 - **The AI funnel** — Surfaced → Invoked → Completed → Accepted → Retained; where AI-quality drop-offs happen.
 - **Value chain (enablement → creation → realization)** — asset quality (before use) → usage → revenue; the causal spine a dashboard should be ordered on.
@@ -91,6 +106,7 @@ These predict product health before revenue metrics move:
 - **Acceptance Rate**: What % of AI outputs do users accept as-is? (Target: 70%+)
 - **Regeneration Rate**: How often do users re-run the same prompt? (Target: < 10%)
 - **Correction Rate**: What % of outputs do users edit before using? (Target varies by domain)
+- **Conversational Burden**: Turns-to-success — how many exchanges (re-prompts, corrections, clarifications) before the user gets a usable result? (Target: as few as the task honestly needs; watch the *trend*, not an absolute.) A task that "succeeds" in 15 turns is a failure the acceptance rate alone will miss. This is the trajectory-era metric — it measures the *path*, not just the endpoint.
 - **Abandonment Rate**: Tasks users start but never complete with the AI
 - **Cost-per-Successful-Outcome**: Actual money spent per task the user marks "done"
 
@@ -106,6 +122,9 @@ These predict product health before revenue metrics move:
 - Token efficiency (are prompts getting bloated?)
 - Cost per output (includes model cost + infrastructure)
 - Cost per successful outcome (adjusted for acceptance rate)
+
+**The market is repricing around this exact denominator.** Cost-per-successful-outcome stopped being a purely internal metric in 2026 — it became the *price*. Hybrid/outcome-based pricing rose from 27% to 41% of AI vendors between 2025 and 2026 ⚠, with published per-outcome prices: HubSpot's Customer Agent at $0.50 per resolved conversation (halved from $1.00), Intercom at $0.99 per resolution, Help Scout at $0.75 ◆. The implication for your dashboard: if a competitor can name their price per successful outcome and you can't name your *cost* per successful outcome, you can't defend your margin or your pricing. This metric is now a strategic instrument, not just an ops number. *(When wrong: outcome pricing is the hardest model to operationalize — you have to define "success" unambiguously and handle partial success/disputes; if "success" is fuzzy, the metric is fuzzy too. Tier: vendor-published prices ◆, market-share shift ⚠.)*
+*(Sources: [Bessemer — AI Pricing & Monetization Playbook](https://www.bvp.com/atlas/the-ai-pricing-and-monetization-playbook); [Flexprice — 7 Pricing Metrics That Capture AI Value, 2026](https://flexprice.io/blog/7-pricing-metrics-capture-ai-product-value).)*
 
 **4. Build Cohort Dashboards**
 
@@ -337,6 +356,61 @@ The point is the *causal chain*: realization is downstream of creation, which is
 
 ---
 
+## THE DASHBOARD IS A DEMAND-SIGNAL AGGREGATOR (Evals as Discovery)
+
+Every section above uses metrics *defensively* — to catch regressions before DAU drops. That's half the value. The sharper, more contrarian half: **a metrics dashboard is a live map of unmet needs. Read it offensively and it becomes your roadmap.**
+
+The mechanism is simple. When users correct, regenerate, or abandon, they are telling you exactly where the product fails to do the job. Aggregate those failures and they *cluster* — and a cluster is not a bug, it's a demand signal.
+
+- **The correction stream is user research that already happened.** Every edit is a user showing you the gap between what the AI produced and what they needed. You don't have to schedule interviews; the edit distance already logged it.
+- **The review queue is a stream of unmet needs.** The traces a human had to step in on are the exact tasks the product can't yet do alone. That queue *is* the "what should we build next" list.
+- **A cluster is a roadmap item, not a defect.** When ~15% of failures pile onto one intent or task type, that's not a QA ticket — it's a product blind spot big enough to be a feature. The team that treats it as "fix the bug" patches a symptom; the team that treats it as "we've discovered an unmet need" ships the thing users were straining to get.
+
+**The move:** add a *failure-clustering* view to the dashboard — group corrections/regenerations/abandonments by intent, task type, and persona, ranked by volume × severity. Review it in the same cadence as the health metrics, but ask a different question: not "what regressed?" but "what are users repeatedly failing to get, and is that a feature?" This is where the metrics work feeds `feedback-flywheel`, `jtbd-analysis`, and `opportunity-solution-tree` — the dashboard stops being a rear-view mirror and becomes a discovery instrument.
+
+*(When wrong: a cluster can be a genuine defect, not a demand signal — a retrieval bug that mangles one intent looks identical to unmet demand for that intent until you read the traces. Cluster detection routes you to the traces; it doesn't diagnose for you. See `production-observability` for trace-level root-causing before you promote a cluster to the roadmap.)*
+
+---
+
+## THE EXECUTIVE-TRANSLATION LAYER (the metrics execs actually read)
+
+Here is the failure that kills objectively-successful AI initiatives: the metrics are healthy, the eval scores climb, cost-per-outcome drops 65% — and the initiative still loses executive support, because none of that was ever translated into the language the executive makes decisions in. **An eval-score move is invisible until it becomes a business number.** The metric and its translation are one artifact, not two.
+
+### Eval score → business outcome
+
+The first translation is the most-skipped: connect a leading indicator to the lagging business outcome it predicts, with the mechanism named.
+
+- "Context recall −4% this week" → "support tickets +12% next week, ≈ $X in deflection lost." *(This is "evals are the new PRD" applied to the dashboard: the score is only worth reporting if you can state what business number it moves.)*
+- "Acceptance rate −3% on complex tasks" → "power-user churn risk up; those cohorts drive Y% of expansion revenue."
+- "Cost-per-successful-outcome +15%" → "gross margin −Z points at current volume."
+
+Build this mapping once, keep it on the dashboard, and every metric review becomes a business review.
+
+### The four stakeholder translations
+
+Each executive speaks a different language and holds a different decision framework. The PM is the only role holding all of them at once — the Bridger archetype, operationalized on the dashboard. Pair every technical metric with its translated equivalent:
+
+| Stakeholder | They care about | Translate your metric into |
+|---|---|---|
+| **CFO** | gross margin, unit economics | cost-per-successful-outcome trend → "margin protection: −65% cost/outcome = $X/mo recovery, $Y NPV over 24mo" |
+| **GC** | regulatory exposure, evidence | eval pass rates on safety/HHH-Harmless → "compliance posture: 99.2% with audit trail, the evidence base if a regulator asks" |
+| **COO** | cycle time, escalation, capacity | intervention/acceptance rate → "escalation pattern: 18%→9% intervention = 50% fewer human escalations = N hours/week freed" |
+| **CHRO** | skill-mix, role transitions | automation-by-tier → "workforce shift: tier-1 73% AI-resolved, high-judgment work stays human, ramp time −60%" |
+
+**Translation is bidirectional.** The round-trip is the discipline: the CFO's margin concern becomes a cost-model workstream; the GC's compliance concern becomes an eval-coverage workstream. Stakeholder concerns become technical roadmap items, not just questions to survive.
+
+**Translation is honest, not spin.** The cautionary case: Klarna's 2024 "AI replaced 700+ agents" headline was a CHRO-pleasing translation that didn't survive contact with reality — by 2025 they were re-hiring for nuance. Spin works once; translation compounds trust. If a translation only lands because it's flattering, it's spin. *(Source: [Klarna rehiring humans, CNBC, Mar 2025](https://www.cnbc.com/2025/03/14/klarna-rehiring-humans-cs.html).)*
+
+### Make the dashboard bilingual
+
+The practical artifact: every metric tile carries two labels — the technical name and its translated meaning. "Intervention Rate: 9% — *escalation pattern; predicts human-capacity load*." "Cost/successful outcome: $0.42 — *unit-economics floor; the number your price must clear*." A bilingual dashboard trains the whole team in translation by surface design, and it means any executive who glances at it reads it in their own language. This is the layer `stakeholder-communications` picks up for board-grade narrative.
+
+### Human-review cost is a line item — model it
+
+The executive question that catches teams flat-footed: "what does quality *cost* us to maintain?" Model it explicitly — **expert hourly rate × traces reviewed × review frequency.** That number is the denominator the eval flywheel is paid to shrink: the ROI of an automated LLM judge is real only when it cuts human-review volume substantially *at equal quality* (which is a `confidence-tuner` question — the judge's TPR/TNR has to be proven before you trust it to replace a reviewer). Report human-review cost and its trend next to cost-per-outcome; a flat or rising review cost while volume grows is the signal your judges aren't yet trustworthy enough to lean on.
+
+---
+
 ## KEY DIAGNOSTIC QUESTIONS
 
 **On Leading Indicators:**
@@ -358,6 +432,11 @@ The point is the *causal chain*: realization is downstream of creation, which is
 - If acceptance rate drops, can you trace it to a specific change? (Prompt, model, feature)
 - Do you monitor metrics BEFORE and AFTER every release?
 - Can you explain why a metric changed, or are you just reacting?
+
+**On Translation & Discovery:**
+- For each top-line metric, can you state the business number it moves? (If not, execs can't act on it.)
+- When users correct or abandon, do those failures cluster — and do you review the clusters as roadmap candidates, not just bugs?
+- What does maintaining quality cost you? (Expert rate × traces reviewed × frequency — the number your judges are paid to shrink.)
 
 ---
 
@@ -434,9 +513,12 @@ Use this structure to build your product metrics dashboard. Adapt the metric nam
 | Acceptance Rate | — | 70%+ | — | Drop > 3% |
 | Regeneration Rate | — | < 10% | — | Rise > 20% |
 | Correction Rate | — | [Domain-specific] | — | TBD |
+| Conversational Burden (turns-to-success) | — | [Task-specific] | — | Rise > 15% |
 | Abandonment Rate | — | < 5% | — | Rise > 2% |
 | Cost per Output | — | [Budget] | — | Rise > 10% |
 | Cost per Successful Outcome | — | [Budget] | — | Rise > 15% |
+
+Each leading-indicator row should carry a **translated label** (the bilingual-dashboard discipline) — e.g. "Cost per Successful Outcome — *unit-economics floor; the number your price must clear*." And pair the health view with a **failure-clustering view** (corrections/regens/abandonments grouped by intent × persona, ranked by volume × severity) so the same dashboard does discovery, not just monitoring.
 
 #### Consistency Metrics
 
@@ -530,6 +612,22 @@ Use this structure to build your product metrics dashboard. Adapt the metric nam
 - Monthly eval refresh with production traces
 
 **Common pitfall**: Building a dashboard is not enough. You need to *act* on it. Set specific owners for each alert threshold. Weekly metric reviews. Monthly asks: "What changed this week? Why? What do we do about it?"
+
+---
+
+## WHERE THIS MEETS YOUR STACK
+
+Metrics are a diagnosis layer, not a fix layer. A number tells you *something is wrong*; where you go next is what separates a dashboard-watcher from a PM. The two-hop routing:
+
+- **A leading indicator drops and won't recover with a model swap → it's usually a context failure, not a model failure.** The series' hardest-won lesson: most eval/metric regressions trace to the *context* (retrieval, instructions, prompt), not the model's raw capability. Falling acceptance rate → route to `invisible-stack` / `context-spec` to audit the kNowledge and Constitution layers *before* anyone proposes a bigger model. First hop: the metric. Second hop: the context stack that actually produces it.
+- **A metric won't move because the score behind it isn't trustworthy → `confidence-tuner`.** If acceptance is measured by an LLM judge, "90% agreement" can be a vanity number when failures are rare. Validate the judge's TPR/TNR separately before you believe *any* trend built on it. A metric is only as honest as the judge underneath.
+- **Cost-per-successful-outcome is the denominator two other skills own the numerator of.** Route the cost side to `cost-model` (unit economics at 10×) and `token-economics` (how the pricing model has to align with the cost structure). This skill defines the metric; those two make it defensible at scale.
+- **Conversational burden rising → `ai-ux-patterns`.** High turns-to-success is a UX-and-trust problem (uncertainty communication, progressive disclosure), not just a model-quality problem. The metric surfaces it; the UX patterns fix it.
+- **A failure cluster on the dashboard → `feedback-flywheel`, `jtbd-analysis`, `opportunity-solution-tree`.** Once "evals as discovery" flags a cluster, these are where a demand signal becomes a roadmap item.
+- **Translating scores for a board → `stakeholder-communications`.** This skill builds the bilingual dashboard and the four translations; that skill turns them into the narrative arc a board review needs.
+- **Metric passes but production still degrades silently → `production-observability`.** Dashboards aggregate; traces diagnose. Root-cause a cluster at the trace level there before promoting it to the roadmap (or blaming the model when the *harness* failed it).
+
+The spine: **this skill decides *what* to measure; the stack decides *what to do* when a measurement moves.** Never let a red number end at "investigate" — route it.
 
 ---
 

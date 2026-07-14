@@ -1,7 +1,23 @@
 ---
 name: rtp-confidence-tuner
-description: Design trust signals so users neither over-rely on AI nor ignore it. 49% error reduction achievable through confidence alerts alone. Show endorsements when AI is confident and correct domain. Show warnings when AI is uncertain or outside training distribution. Calibrate, don't just display. Use when designing confidence indicators for any AI system, reducing automation bias or alert fatigue, designing UX for probabilistic systems, or when users are misaligning with AI reliability. Skip for systems with near-100% accuracy (no calibration needed) or for static, deterministic systems.
+description: >
+  Calibrate confidence at both layers of the AI stack — the model's confidence shown to the
+  USER (trust calibration: Endorse/Caution/Warn signals so users neither over-rely nor ignore
+  the AI), and the JUDGE's confidence behind an eval score (TPR/TNR/kappa calibration so an
+  automated evaluator can actually be trusted). Same discipline — does a stated confidence
+  track truth? — at two layers, and the judge layer sits upstream: you cannot honestly
+  calibrate a user's trust on top of an unvalidated scoreboard. Use when designing confidence
+  indicators or trust signals, reducing automation bias or alert fatigue, validating an
+  LLM-as-judge before you rely on its scores, setting auto-approve vs send-to-human thresholds,
+  or debugging why a green dashboard ships red product. Skip for deterministic systems with no
+  confidence concept and no automated judge.
+  Pairs with: eval-framework (the judge lives inside the eval system), ai-product-metrics
+  (the judge validates the numbers on that dashboard), trust-ladder (autonomy sets the
+  calibration bar), production-observability (monitoring judge drift), prompt-as-product
+  (the judge prompt is a versioned artifact).
+imports: [trust-ladder, eval-framework, ai-product-metrics]
 ---
+
 # Confidence Tuner
 
 ## DEPTH DECISION
@@ -10,12 +26,35 @@ description: Design trust signals so users neither over-rely on AI nor ignore it
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: What type of decisions does the AI make? What's the cost of false positives vs false negatives? How technical are the users?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, or both?
 
 Then proceed with the skill-specific analysis below.
+
+## THE ONE IDEA
+
+**Calibration is a single discipline — *does a stated confidence signal actually track truth?* — and it runs at two layers of the AI stack. Get the layers backwards and everything downstream is theater.**
+
+| | **Layer 1 — Model → User** | **Layer 2 — Judge → Eval pipeline** |
+|---|---|---|
+| Whose confidence? | The model's, shown to the user | The AI judge's verdict behind an eval score |
+| Checked against what "truth"? | Real outcomes / labeled data | Human-expert labels |
+| Who gets hurt when it's wrong? | The human (automation bias, or skeptical rejection) | The whole team — you optimize toward a lying scoreboard and ship green-dashboard/red-reality |
+| The instrument | Calibration curve → Endorse/Caution/Warn | TPR / TNR / Cohen's kappa → bias-corrected scores |
+
+**The non-obvious part — Layer 2 is upstream of Layer 1.** The acceptance rate, accuracy, and quality numbers you'd use to *build* a user-facing confidence signal are themselves produced by the judge. If the judge is uncalibrated, those numbers are fiction — and a beautifully designed Endorse/Caution/Warn badge just paints fiction green. **Order of operations: validate the judge (Layer 2) before you design the user's trust signal (Layer 1).** Most teams do the opposite — they ship pretty confidence UI resting on a scoreboard nobody ever checked against a known weight.
+
+This skill's original content (below) is the mature, worked treatment of **Layer 1**. The section **"Layer 2 — Calibrating the Judge"** adds the layer that has to come first. Read Layer 2 first if you have an automated evaluator; read Layer 1 first if a human sees every output.
+
+**Calibrate proportionally.** The bar is not uniform — it scales with autonomy and consequence. A Level 1–3 suggestion tool (a human reviews every output) tolerates a looser judge and simpler signals. A Level 5–7 agent that *acts before anyone looks* needs fail-case TPR above 0.90 on safety-critical failures. Don't over-engineer calibration for a low-stakes autocomplete; don't under-engineer it for an autonomous agent. (This is the `trust-ladder` / `autonomy-spectrum` link, made concrete.)
+
+---
+
+# LAYER 1 — CALIBRATING THE USER'S TRUST (Model → User)
+
+*The model emits a confidence; the user has to know how much to trust it. This is the layer most teams reach for first — and it only works if the numbers underneath it have already been validated at Layer 2.*
 
 ## THE TRAP
 
@@ -194,6 +233,69 @@ Example (content moderation):
 
 **Make the escalation easy:** Don't require users to think about what to do next. The signal + next action should be obvious.
 
+---
+
+# LAYER 2 — CALIBRATING THE JUDGE (before you calibrate the user)
+
+*If any number on your dashboard — accuracy, acceptance rate, pass rate — is produced by an AI judge rather than by a human or a deterministic check, then that judge is the instrument every Layer 1 signal rests on. An uncalibrated judge means every confidence badge above it is confidently wrong.*
+
+### The judge is a measurement instrument, not a truth source
+
+An LLM judge that produces a score is a bathroom scale you have never checked against a known weight. You don't trust a scale because it shows a number; you trust it because you've verified it against a known weight and you know its bias. Same with a judge: the question is never *"does the judge work?"* — it's *"do I know **how** it fails?"* A scale that reads three pounds light on every measurement is usable (correct for the bias). A scale that drifts randomly is worthless. A scale you never check is dangerous precisely because it *usually seems about right*.
+
+### Measure TPR and TNR separately — never "agreement %"
+
+The single most common judge mistake is reporting one number: *"our judge agrees with humans 88% of the time."* That number is a vanity metric whenever failures are rare. If 5% of outputs are bad, a judge that rubber-stamps *everything* scores 95% agreement while catching zero real failures.
+
+Split it into two rates — the smoke-detector test:
+
+- **True Positive Rate (TPR)** — when there *is* a real failure, how often does the judge catch it? *Does the alarm beep when there's actual fire?* **This is the metric that protects users.**
+- **True Negative Rate (TNR)** — when the output is actually good, how often does the judge correctly pass it? *Does the alarm stay quiet when you're just cooking?* Low TNR = false alarms = engineers investigate non-issues and eventually rip the batteries out (stop trusting the dashboard).
+
+The failure mode is documented and systematic: recent research finds LLM judges can identify *valid* outputs at **TPR > 96% while catching *invalid* ones at TNR < 25%** — an "agreeableness bias" that inflates apparent reliability in exactly the class-imbalanced setting real products live in. An 88%-agreement judge with fail-case TPR of 0.65 is missing a third of the failures that could become a compliance incident. *The dashboard says green; the product leaks risk.*
+
+Add **Cohen's kappa** — chance-corrected agreement — as the headline. Human-human kappa on hard rubrics averages ~0.80; a judge above ~0.75 is trustworthy for release decisions on a narrow workflow, below ~0.40 is noise dressed as signal. *(Tier: TPR>96%/TNR<25% and kappa benchmarks are ⚠ research-reported, not universal constants — measure your own; the asymmetry is the durable lesson.)*
+
+### Correct the raw scores by the judge's known error
+
+Once you know the judge's TPR and TNR from a labeled test set, you can *correct* the pass rate it reports on unlabeled production traffic. If the judge is systematically 10% too lenient on safety, the corrected estimate accounts for that. The `judgy`-style bias correction is the operational move: you don't need a perfect judge, you need a judge whose bias you've *measured* — then you subtract it. This is the scale that reads three pounds light: usable, because you know by how much.
+
+### The five-step calibration workflow
+
+None of this needs ML expertise — it needs domain knowledge, labeled examples, and discipline:
+
+1. **Build a calibration set** — 300–400 production examples across the full quality spectrum, *including the ambiguous cases near the pass/fail boundary* (that's where judges break). Domain experts label each. This is the golden dataset for your *judge*. Split: ~200 train / 100 test / 100 held back for periodic re-checks.
+2. **Run the judge against the test split** — now you have two parallel labels per case: human and judge.
+3. **Compute the confusion matrix** — TP/TN/FP/FN → TPR and TNR, sliced by the failure types that would block shipment.
+4. **Correct for judge error** on unlabeled traffic (the bias correction above).
+5. **Monitor and recalibrate** — track judge-human agreement over time; recalibrate when the product changes, the rubric changes, or **the judge model changes**.
+
+### New judge model = new instrument
+
+The trap that makes teams debug the wrong thing: you upgrade the judge model (cheaper, faster) and the pass rate drops seven points. You assume the *product* regressed. It didn't — the *judge* got stricter on tone and more lenient on missing caveats. This is non-determinism applied to the evaluator itself. **Rule: new judge model, new calibration.** Dual-run old and new judges on a frozen calibration set, review the disagreement clusters, and only cut over when the new judge clears your TPR/TNR bar on the slices that matter.
+
+### The judge's own biases — probe for them by name
+
+A judge carries systematic biases that raw agreement hides. Probe each explicitly:
+
+- **Verbosity bias** — longer answers score higher regardless of quality.
+- **Position / swap bias** — in pairwise comparisons the first (or second) option is favored; check *swap consistency* (reverse the order — does the verdict flip?).
+- **Self-preference / family bias** — the judge favors outputs from its own model family. This nearly makes teams pick the wrong generator model. Not measuring it is now sloppy.
+- **Domain blindness** — the legal-tech judge that scored contract summaries "complete" while every one silently omitted the indemnification clause. It could spot *wrong* information but not *missing* information. The fix was decomposing "complete" into commercial / risk-disclosure / obligation completeness — recall on omitted liability clauses jumped 0.41 → 0.89.
+
+### Grader-hacking is the calibration killer — assume it
+
+A calibrated judge is calibrated *as of the last check, against a static distribution*. The moment the judge's verdict becomes a target — the generator is optimized to please it — calibration decays. This isn't hypothetical: research shows a bare *"Thought process:"* prefix or even punctuation-only responses can push judges to **35–90% false-positive rates**, and benign wrappers that leave harmful text untouched flip judges 57–100% of the time. Goodhart's law, live: *when the measure becomes the target it stops being a good measure.* Consequence: calibration is a maintained instrument, not a one-time gate. Re-validate on a fresh, adversarially-seeded set on a schedule — and treat the judge prompt as a versioned artifact (`prompt-as-product`), because a five-word change to it silently re-scores your entire history.
+
+### Threshold calibration: auto-approve vs. send-to-human (HITL vs. HOTL)
+
+The judge's confidence also sets *where the human enters*. This is a product decision on two axes — **risk × volume**:
+
+- **Human-in-the-loop (HITL)** — synchronous; a human approves before the action lands. For low-volume, high-consequence work (a $2M contract clause, a clinical flag). The judge routes; the human decides.
+- **Human-on-the-loop (HOTL)** — asynchronous audit; the system acts, humans sample and correct after. For high-volume, lower-consequence work (tagging support tickets). The judge auto-approves above a threshold; humans audit a sample and feed corrections back into recalibration.
+
+Set the auto-approve threshold too low and you drown the humans (alert fatigue, Layer-1 problem); too high and failures ship. The threshold is not a constant — it moves with the judge's measured TNR and the consequence of the miss.
+
 ## DIAGNOSTIC QUESTIONS
 
 Answer these before designing your confidence display:
@@ -221,6 +323,20 @@ Answer these before designing your confidence display:
 6. **"What's the cost of a false positive vs false negative here?"** Where should you be more conservative?
    - **Red flag:** "I don't know." (This determines where to set confidence thresholds.)
    - **Sharpening probe:** "Is it worse to over-warn (alert fatigue) or under-warn (missed issues)?"
+
+**Layer 2 (the judge behind your numbers):**
+
+7. **"Is any number on your dashboard produced by an AI judge — and have you checked its fail-case TPR?"**
+   - **Red flag:** "Our judge agrees with humans 88% of the time." (Agreement % is a vanity metric when failures are rare. Ask for TPR and TNR separately.)
+   - **Sharpening probe:** "When there's a *real* failure, what fraction does the judge catch? What's your kappa?"
+
+8. **"When did you last recalibrate — and did the judge model change since?"**
+   - **Red flag:** "We upgraded the judge model last month; pass rate dropped, so the product must have regressed." (New judge = new instrument. You may be debugging the product for the judge's drift.)
+   - **Sharpening probe:** "Have you dual-run old vs. new judge on a frozen calibration set?"
+
+9. **"Have you probed the judge for verbosity, position, self-preference, and grader-hacking?"**
+   - **Red flag:** "The judge is an LLM, it's objective." (It carries systematic biases; a bare 'Thought process:' prefix can spike its false-positive rate.)
+   - **Sharpening probe:** "Does the verdict flip when you swap candidate order? Does it favor its own model family?"
 
 ## REALITY CHECK
 
@@ -252,10 +368,11 @@ Three factors:
 
 Together: 35% + 10% + 4% = 49% error reduction.
 
-This is empirical from healthcare, content moderation, and financial risk systems. Not theoretical.
+*(Evidence tier: the 49% headline and its 35/10/4 decomposition are ⚠ practitioner/illustrative — a directional pattern drawn from calibrated-alert studies in healthcare, content moderation, and financial risk, not a single audited number you can cite. Use it to motivate the design, not as a promised outcome. Measure your own error-reduction against your own baseline.)*
 
 ## QUALITY GATE
 
+**Layer 1 — user trust:**
 - [ ] Calibration curve created (confidence vs actual accuracy, per domain)
 - [ ] Three-signal system designed (Endorse, Caution, Warn with clear UX)
 - [ ] Domain-accuracy matrix built (threshold varies by domain)
@@ -264,12 +381,40 @@ This is empirical from healthcare, content moderation, and financial risk system
 - [ ] User testing done (can users understand each signal without explanation?)
 - [ ] Monitoring plan in place (false-positive rate, user behavior, end-to-end outcomes tracked)
 
+**Layer 2 — judge trust (do these FIRST if any dashboard number comes from an AI judge):**
+- [ ] Judge validated on a labeled calibration set (300–400 cases incl. boundary cases)
+- [ ] TPR and TNR reported *separately* on the failure slices that block shipment (not just "agreement %")
+- [ ] Cohen's kappa computed (>0.75 for release decisions on a narrow workflow)
+- [ ] Judge bias probed (verbosity, position/swap-consistency, self-preference/family)
+- [ ] Raw scores bias-corrected by the judge's known TPR/TNR (judgy-style)
+- [ ] Recalibration cadence set + judge prompt version-controlled; dual-run on any judge-model change
+
 ## WHEN WRONG
 
 This skill gives bad advice when:
 - **The model has near-perfect accuracy** (>99%) — confidence signals are unnecessary overhead
 - **Users are already well-calibrated** (rare; test this before assuming)
 - **The domain is so simple that confidence is obvious** (e.g., model predicts "invoice" or "not invoice," and users understand domain perfectly)
+
+**Where the two-layer framing itself breaks (be honest about the edges):**
+- **No AI judge in the loop.** If your evals are pure human review or deterministic checks, Layer 2 collapses to inter-rater reliability / test correctness — the *judge-bias* content (verbosity, self-preference, grader-hacking) doesn't apply, though the calibration discipline still does.
+- **The model exposes no usable confidence signal.** Many models don't, or their logprobs are meaningless for the task. Then Layer 1 needs a *proxy* confidence (an auxiliary estimator, or the judge's own confidence) — which makes Layer 1 depend on Layer 2 even more directly. Don't fake a calibration curve from numbers that don't mean anything.
+- **Treating calibration as a one-time gate.** The most expensive error: calibrate once, ship, and assume the number holds. Grader-hacking and distribution drift decay it silently. If you can't commit to a recalibration cadence, don't build decisions on the judge that require high calibration — lower the autonomy instead.
+
+## WHERE THIS MEETS YOUR STACK
+
+Calibration is a diagnosis-and-trust layer; it hands off in both directions. The routing:
+
+- **An uncalibrated judge makes every downstream number suspect → `ai-product-metrics` and `eval-framework`.** The acceptance rate, pass rate, and quality scores those skills report are only as honest as the judge behind them. Calibrate the judge here *first*; then those dashboards mean something. This is the upstream dependency the one-idea spine names.
+- **The calibration bar is set by autonomy and consequence → `trust-ladder` / `autonomy-spectrum` / `agent-risk`.** How much TPR you need, and whether a human sits in-the-loop or on-the-loop, is a function of how much the system can do before anyone looks. Don't set the bar here in isolation.
+- **The judge prompt is a versioned artifact → `prompt-as-product`.** A five-word change to the judge silently re-scores your entire history. Version it, diff it, and re-run calibration on any change — the same discipline you'd apply to a production prompt.
+- **Calibration decays; catch the decay in production → `production-observability`.** Monitor judge-human agreement over time as a first-class metric (not just latency/cost). A drop in agreement is drift or grader-hacking; it should page someone.
+- **The calibration set is a moat → `moat-finder` / `feedback-flywheel`.** Competitors install the same eval framework in an afternoon; they can't replicate the 300–400 expert-argued edge cases you labeled. Route production disagreements back into the set (the flywheel) so the moat compounds.
+- **Threshold → who acts → `tool-architecture`.** Where the auto-approve line sits is also a permissions decision: what the system is allowed to do unsupervised above that confidence is a consequence-gating question, not just a UX one.
+
+The spine: **Layer 2 makes the numbers trustworthy; Layer 1 makes the user trust them correctly; the rest of the stack decides how much to bet on that trust.** Never let a confidence signal — user-facing or judge — go unvalidated and then get treated as truth.
+
+---
 
 ## TRADE-OFF LEDGER
 
@@ -286,7 +431,7 @@ CONFIDENCE: **High**
 
 ## CONCLUSION
 
-**The recommendation:** For any AI system making decisions users act on, design calibrated confidence signals (Endorse/Caution/Warn) in place of raw scores. Do not deploy with raw confidence numbers.
+**The recommendation:** For any AI system making decisions users act on, design calibrated confidence signals (Endorse/Caution/Warn) in place of raw scores. Do not deploy with raw confidence numbers. And if any number feeding those signals comes from an AI judge, calibrate the judge (Layer 2: TPR/TNR/kappa) *before* you design the user signal — a confidence badge resting on an unvalidated scoreboard is worse than no badge, because it manufactures false trust.
 
 **The hypothesis:** We believe that **users will make 49% fewer errors when using calibrated confidence signals** because signals are self-explanatory, are domain-aware, and create clear escalation paths.
 
@@ -308,7 +453,7 @@ CONFIDENCE: **High**
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
 If this skill connects to downstream skills, also generate the markdown handoff file (if relevant to production observability or eval-driven development).
 
 ## VISUAL SUMMARY

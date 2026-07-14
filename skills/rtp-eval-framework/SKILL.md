@@ -1,6 +1,6 @@
 ---
 name: eval-framework
-description: "How do you know your AI is actually good? Designs the testing approach: what to measure, how to turn real production failures into repeatable tests, why the hard rare cases matter more than the common ones, and how tests must evolve as the product matures. Use when: launching a feature, diagnosing quality complaints, setting up monitoring. Pairs with: eval-driven-development (the tests as the spec), ai-product-metrics (the dashboard), judgment-guard (keeping the human reviewers sharp). Triggers: 'how to evaluate', 'eval framework', 'quality metrics'"
+description: "How do you know your AI is actually good? Designs the testing approach: what to measure, how to turn real production failures into repeatable tests, why the hard rare cases matter more than the common ones, and how tests must evolve as the product matures. Use when: launching a feature, diagnosing quality complaints, setting up monitoring. Pairs with: eval-driven-development (the tests as the spec), ai-product-metrics (the dashboard), confidence-tuner (calibrating the LLM judge), production-observability (where evals run in prod), judgment-guard (keeping the human reviewers sharp). Triggers: 'how to evaluate', 'eval framework', 'quality metrics'"
 imports: [feedback-flywheel, first-principles, stress-test]
 ---
 
