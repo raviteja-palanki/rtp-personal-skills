@@ -105,11 +105,21 @@ Collected over 6 weeks across in-app feedback, support tickets, and CS notes.
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
+Feedback-triage produces two different outputs that travel to two different places: individual items route to fix teams; the AI-failure *rate* routes to a feature-viability decision. Trace both.
+
+**Where the fix gets designed and held (boundary):**
 - **`rtp-failure-modes`** *(import, boundary)* — this skill *routes* incoming feedback by sub-type; failure-modes carries the *deep taxonomy* of how AI breaks and designs the fix. Route here, design there — don't re-teach the taxonomy.
-- **`rtp-eval-framework`** *(import)* — every recurring AI failure becomes a regression test; the triage report is the input to eval expansion.
+- **`rtp-eval-framework`** *(import)* — every recurring AI failure becomes a regression test; the triage report is the input to eval expansion. When the fix is a prompt change, that regression test is what `prompt-as-product` runs before the change ships — so a routed failure becomes a permanent guardrail, not a one-time patch.
 - **`rtp-ai-product-metrics`** *(import)* — the AI-failure rate is itself a metric; track it over time, set a threshold.
+
+**Where a theme goes for depth or discovery:**
 - **`rtp-interview-synthesis`** — when a theme needs depth, run synthesis on a sample of users who reported it.
 - **`rtp-opportunity-solution-tree`** — future-capability signals become opportunities in the next OST cycle.
+
+**Where the AI-failure RATE escalates (the two-hop most triage misses):**
+- **`rtp-ship-decision`** — the worked example asks the real question — "does the feature stay in market, or get walked back to draft mode?" A structural AI-failure rate (>~25%) isn't a sprint of fixes, it's a re-opened go/no-go. Triage produces the rate as evidence; ship-decision is where the walk-back call actually gets made and owned. Routing individual items without escalating a structural rate is the trap — you fix ten tickets while the feature quietly loses the market.
+
+**Siblings and segment-aware operation:**
 - **`rtp-gossip-mode`** / **`rtp-attitudinal-segmentation`** *(siblings)* — gossip catches the *informal single* signal; this processes the *structured batch*; and run this **segment-aware** (Skeptics weight a confidently-wrong answer far more than Embracers) rather than aggregated.
 
 ## RED TEAM — when this is overhead, not insight

@@ -55,6 +55,7 @@ Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). 
 Three "craft" skills touch the prompt; the cuts are deliberate:
 
 - **`rtp-prompt-craft`** — *writes* the prompt (the writing craft); this skill *manages its changes over time* (the lifecycle). "Why is the output bad?" → prompt-craft. "Why did quality drop after last week's change?" → here.
+- **`rtp-context-spec`** — the third leg of the craft triad: it *designs* the context architecture (what information reaches the window, the token budget). A prompt change is often also a context change — reorder the layers or alter what the system prompt pulls in and you changed the architecture, which earns this same versioned release. Diff both, regress both; a "prompt tweak" that quietly re-plumbed the context is the change most likely to pass evals and break production.
 - **`rtp-eval-driven-development` / `rtp-eval-framework`** *(import)* — EDD *defines what "good" means* and owns the eval-improvement discipline; prompt-as-product *governs how you change the prompt* in response. The anti-pattern is running this without an eval framework — managing changes without knowing if they're improvements. (EDD runs first; this runs throughout development.)
 - **`rtp-production-observability`** — the by-version acceptance/correction/cost monitoring and the <1-hour detection SLA live there; this skill is what those alerts protect.
 - **`rtp-determinism-compass`** *(import)* — how much output stability the change must preserve.

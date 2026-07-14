@@ -78,13 +78,21 @@ Domain-specific taste means understanding what *this* user cares about (not what
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-Taste decides *what good means*. It hands the rest off to:
+Taste decides *what good means*. Trace where that bar travels: it becomes eval cases, and those eval cases are what a trust curve later proves right or wrong.
 
+**Where the bar gets set and held:**
 - **`rtp-eval-framework` / `rtp-eval-driven-development`** — taste sets the bar; evals *measure against it and hold the line*. The taste spec's magic-moment and fatal-failure definitions become eval cases. Without this handoff, taste stays aspirational.
-- **`rtp-jtbd-analysis`** *(distinct objective)* — JTBD names *what job* the user hires the AI for; taste calibrates *how good the output must feel* to do that job. Different questions; run JTBD first.
-- **`rtp-ai-product-metrics`** — acceptance rate, correction rate, and regeneration rate are the *measurable shadow* of taste; low acceptance despite high accuracy is the signature of a taste gap.
 - **`rtp-confidence-tuner`** — "honest about uncertainty" is a core taste element; this designs the trust signals that express it without over- or under-warning.
 - **`rtp-prompt-craft`** *(boundary)* — owns the craft of *writing* prompts; taste owns the *decision* of what quality bar to express in them (the framing lever above).
+
+**The distinct-but-adjacent question:**
+- **`rtp-jtbd-analysis`** *(distinct objective)* — JTBD names *what job* the user hires the AI for; taste calibrates *how good the output must feel* to do that job. Different questions; run JTBD first.
+
+**Where a taste gap becomes visible, two hops downstream:**
+- **`rtp-ai-product-metrics`** — acceptance, correction, and regeneration rates are the *measurable shadow* of taste; low acceptance despite high accuracy is the immediate signature of a taste gap.
+- **`rtp-fit-signal`** — taste's own open loop, closed. This skill warns that a taste gap is *invisible until it's absence* (churn, flat NPS) — fit-signal's trust curve is the instrument that catches that absence weeks later. A strong eval score with a trust curve that never inflects is a taste gap the dashboard hid. Feed the magic moment into fit-signal's magic-moment cohort measurement so it tests the right thing.
+
+**Imports (run before setting a bar):**
 - **`rtp-first-principles`, `rtp-dual-lens`** *(imports)* — strip the feature to its atomic job before setting a bar; translate the bar so business and engineering mean the same "good."
 
 ## DIAGNOSTIC QUESTIONS

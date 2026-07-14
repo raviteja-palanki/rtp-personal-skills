@@ -112,16 +112,31 @@ A predictive-maintenance recommendation system for industrial assets — turbine
 
 **Hidden job — plant management: audit-defensibility.** *When an asset fails or is taken down, give me a data-driven audit trail, so I can answer corporate, insurers, and regulators with evidence instead of judgment.* They don't care that the AI is right 92% of the time; they care that it produces a paper trail that survives a deposition.
 
-**The design implication.** Most vendors build the surface job: high-accuracy models, clean dashboards, scheduling integration. The hidden-job design is what wins the renewal — every recommendation timestamped, version-locked, exportable; operators record their disposition (acted / declined / deferred) with a one-line reason (that *is* the audit log); confidence shown in plain language ("high confidence," not "0.87") with low-confidence cases flagged "review with engineer," not "predicted failure"; refusal allowed ("not enough data to predict this asset" beats a guess); and when an operator declines a recommendation that turns out right, the system surfaces it to the model team for retraining, **not** to management. The moat in industrial AI is not better models — it's understanding the operator's hidden job: share the blame, preserve the audit trail, never make them look stupid in front of management. Vendors who ship better accuracy without that insight lose the renewal.
+**The design implication.** Most vendors build the surface job: high-accuracy models, clean dashboards, scheduling integration. The hidden-job design is what wins the renewal — five moves, each serving blame-sharing or audit-defensibility over raw accuracy:
+
+- **Timestamp everything** — every recommendation version-locked and exportable, so it survives a deposition.
+- **Record the operator's disposition** — acted / declined / deferred, each with a one-line reason. That record *is* the audit log.
+- **Show confidence in plain language** — "high confidence," not "0.87"; flag low-confidence cases "review with engineer," not "predicted failure."
+- **Allow refusal** — "not enough data to predict this asset" beats a confident guess that blows up the operator's credibility.
+- **Route a wrong decline to the model team, not to management** — when an operator overrides a recommendation that turns out right, that's retraining data, not a performance flag.
+
+The moat in industrial AI is not better models — it's the operator's hidden job: share the blame, preserve the audit trail, never make them look stupid in front of management. Vendors who ship better accuracy without that insight lose the renewal.
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-JTBD names the job. The chain around it: **JTBD names the job → problem-ai-fit confirms AI is the right hire → opportunity-solution-tree picks where to bet → failure-modes designs for what hurts most.**
+JTBD produces one thing — a job statement (surface + hidden + design implication). Trace where it travels, not just what sits beside it.
 
-- **`rtp-problem-ai-fit`** *(import)* — JTBD says what job is being hired; this checks whether AI is the right hire for it. Run JTBD first when the problem is unclear; run problem-ai-fit when the AI assumption needs testing.
-- **`rtp-uncertainty-research`** *(import)* — the switch interview is one method; this is how you scale validation to a real research design.
-- **`rtp-failure-modes`** — the hidden job tells you which failures hurt most: if the hidden job is "preserve the audit trail," silent degradation is catastrophic and confident-wrong is survivable (the log catches it); if it's "save me from feeling stupid," refusals hurt more than errors.
-- **`rtp-opportunity-solution-tree`** — the job statement becomes the desired outcome at the top of the tree, and the hidden job filters which opportunities are worth pursuing.
+**The forward chain — who acts on the job statement first:**
+- **`rtp-problem-ai-fit`** *(import)* — takes the named job and checks whether AI is even the right hire for it. Run JTBD first when the problem is unclear; run problem-ai-fit when the AI assumption needs testing. Writing two beautiful job layers for a feature AI shouldn't own is a wasted analysis, not a solved one.
+- **`rtp-opportunity-solution-tree`** — the job statement becomes the desired outcome at the top of the tree; the hidden job is the filter that decides which opportunities are worth pursuing.
+- **`rtp-uncertainty-research`** *(import)* — the switch interview is one method; this scales it into a real research design when 5–8 interviews aren't enough to trust the finding.
+
+**The second-order path — where the hidden job resurfaces once you've built:**
+- **`rtp-failure-modes`** — the hidden job decides which failures are catastrophic: "preserve the audit trail" makes silent degradation fatal and confident-wrong survivable (the log catches it); "save me from feeling stupid" makes a refusal hurt more than an error. The hidden job is the input that turns a generic failure taxonomy into a prioritized one.
+- **`rtp-fit-signal`** — the non-obvious two-hop most teams miss. Weeks after launch, fit-signal measures whether users *depend* on the feature — and what they depend on is the hidden job being served reliably. A feature that passed JTBD but fails fit-signal's trust curve is evidence the hidden job was mis-named or stopped being served, not that the surface feature broke. Feed the hidden job into fit-signal's magic-moment definition so it measures dependence on the real job, not the cover story.
+
+**The upstream informal feeder (reciprocal with gossip-mode):**
+- **`rtp-gossip-mode`** — a hidden job isn't found once and frozen. An operator saying "I'd rather it refuse than guess" in a standup is live anxiety-and-tolerance data (gossip-mode's signal 8) that refreshes this map between formal switch-interview rounds. Gossip-mode catches the sideways signal and routes it here; this skill is where it lands as a revised gain criterion.
 
 ## RED TEAM — when this skill gives bad advice
 

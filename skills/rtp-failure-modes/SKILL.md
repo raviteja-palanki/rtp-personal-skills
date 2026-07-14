@@ -114,6 +114,7 @@ Failure-modes is the **taxonomy home** — how AI breaks, and how to design for 
 - **`rtp-trust-ladder`** — repairing trust after a visible miss (the recovery half of a failure).
 - **`rtp-agent-risk`** — the kill-switch and proportionality when a cascade turns catastrophic.
 - **`rtp-problem-ai-fit`** *(upstream)* — decides whether to use AI at all; this assumes yes.
+- **`rtp-jtbd-analysis`** *(upstream — supplies the cost asymmetry)* — this skill prioritizes by failure cost, but *which* failure is catastrophic vs. survivable is decided by the hidden job the user hired the AI for. An "audit-trail" hidden job makes silent degradation fatal; a "feel-competent" hidden job makes a wrong refusal hurt more than an error. Import the hidden job before you rank the failures by cost, or you'll price the wrong one highest.
 
 ## REALITY CHECK
 

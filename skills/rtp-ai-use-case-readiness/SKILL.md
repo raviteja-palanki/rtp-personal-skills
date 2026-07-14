@@ -156,12 +156,24 @@ THE ASSUMPTION THAT SCARES ME MOST: [name it; test first]
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-- **`rtp-problem-ai-fit`** *(upstream)* — confirms AI is the right approach at all; this skill then sizes the *level*. Carry its customer grounding forward.
-- **`rtp-autonomy-spectrum`** *(import)* — the quick 0–7 level reference for fast checks; this skill is the thorough diagnostic behind it.
-- **`rtp-determinism-compass`** *(import)* — for the deterministic portions of a hybrid design, and when governance questions dominate.
-- **`rtp-cost-model`** — when economic leverage or the level-4+ control burden needs real unit-economics analysis.
-- **`rtp-invisible-stack`** *(downstream)* — once the level is set, design the technical architecture; autonomy constrains architecture, not the reverse.
-- **Scoping note (the substrate question sits upstream):** this skill scores individual *use cases* and assumes the data foundation exists. Whether the *substrate* is ready at all — data vintage, liquidity, reuse, ownership — is a separate, upstream question; its pieces live in `build-or-buy`'s data-recency lens and `moat-finder`'s data-liquidity score (both sourced to the Caterpillar and Lenovo "years of data before any model" cases). A dedicated data-foundation-readiness diagnostic is a watch-tier candidate. *(Cross-ref per q2-14 / q2-27 cards, MIT SMR & HBR, May 2026 — substance lands in those skills, not here.)*
+This skill outputs one thing — a right-sized autonomy level, stated as a hypothesis. Trace where that level travels, because "level X is right" is a decision three other skills then have to build, encode, and defend.
+
+**Upstream (settled before you size the level):**
+- **`rtp-opportunity-solution-tree`** — usually the skill that *hands you the use case*: a "probabilistic-with-evals" opportunity the tree greenlit arrives here to have its autonomy right-sized. The tree decided *what's worth building*; this decides *how much agency* it gets.
+- **`rtp-problem-ai-fit`** — confirms AI is the right approach at all; this skill then sizes the *level*. Carry its customer grounding forward. Sizing autonomy for a use case AI shouldn't own is motion without progress.
+- **The substrate question sits even further upstream:** this skill scores individual *use cases* and assumes the data foundation exists. Whether the *substrate* is ready — data vintage, liquidity, reuse, ownership — is a separate question whose pieces live in `build-or-buy`'s data-recency lens and `moat-finder`'s data-liquidity score (both sourced to the Caterpillar/Lenovo "years of data before any model" cases). A dedicated data-foundation-readiness diagnostic is a watch-tier candidate. *(Cross-ref per q2-14 / q2-27, MIT SMR & HBR, May 2026 — substance lands there, not here.)*
+
+**Imports (run inside the diagnostic):**
+- **`rtp-autonomy-spectrum`** *(import)* — the quick 0–7 level reference for fast checks; this skill is the thorough diagnostic behind it. (Confirm on autonomy-spectrum's own pass that it carries the full per-level teaching, so this skill's pointer stays honest.)
+- **`rtp-determinism-compass`** *(import)* — for the deterministic portions of a hybrid design, and when governance questions dominate the call.
+
+**The downstream chain — who acts on the level, two hops out:**
+- **`rtp-invisible-stack`** — the first stop: once the level is set, design the seven-layer architecture to fit it. Autonomy constrains architecture, not the reverse — a level-2 use case doesn't need an agent harness, and building one is the autonomy theater this skill exists to prevent.
+- **`rtp-agent-spec`** — the second hop the level actually lands in: "level X, human reviews Y" becomes an encoded autonomy level, confidence threshold, and handoff/recovery spec. Without that translation the readiness verdict stays a slide, not a system; the floor/ceiling gap becomes agent-spec's escalation design.
+- **`rtp-cost-model`** — prices the control burden the level implies; a level-4+ recommendation is only real if its unit economics survive the human-in-the-loop review cost.
+
+**Arbitrates the level against a downstream push for more autonomy:**
+- **`rtp-agent-risk`** — when the value case argues for higher autonomy than the cost-of-error and verifiability answers allow, agent-risk's proportionality-and-kill-switch test is where the ceiling holds. Where a wrong action is catastrophic and irreversible, this skill's ceiling overrides the autonomy the demo could justify — and that verdict then arms `rtp-ship-decision`'s go/no-go gate.
 
 ## REALITY CHECK
 

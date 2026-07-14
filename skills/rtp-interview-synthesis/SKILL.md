@@ -80,10 +80,16 @@ From those: a **persona signal** ("the mental-model-first operator," in 5 of 8 �
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-- **`rtp-eval-framework`** *(import, the signature bridge)* — selective codes become eval test candidates; this synthesizes *human conversations*, eval-framework synthesizes *AI traces* — same coding machinery, different input. The codes are the connection between discovery and evaluation.
+The signature is a two-hop: codes made here become eval failure-modes when the AI ships. Trace the whole path, upstream and down.
+
+**Feeds this skill (where the transcripts come from):**
 - **`rtp-uncertainty-research`** *(import)* — describes *how* to collect interviews (sampling, study design); this describes how to *synthesize* them.
 - **`rtp-jtbd-analysis`** *(import)* — switch interviews get coded here, then mapped to the four forces there; synthesis is one of JTBD's input methods.
-- **`rtp-failure-modes`** — the anxiety codes name what scares users most; design and eval for exactly those.
+- **`rtp-feedback-triage`** — when triage flags a theme that "needs depth," a sample of the users who reported it becomes an interview set to synthesize. Triage tells you *which* theme is worth the transcripts; this is where the transcripts turn into codes.
+
+**Where the codes travel next (the signature bridge):**
+- **`rtp-eval-framework`** *(import, the signature bridge)* — selective codes become eval test candidates; this synthesizes *human conversations*, eval-framework synthesizes *AI traces* — same coding machinery, different input. The codes are the connection between discovery and evaluation, and the audit trail runs from a dated interview to a specific eval.
+- **`rtp-failure-modes`** — the anxiety codes name what scares users most; design and eval for exactly those. An anxiety code is a failure-mode the design must defend against, not just a quote.
 
 ## RED TEAM — when this produces noise
 

@@ -85,6 +85,7 @@ Six sections, in order: **(1) Positioning snapshot** (the statement, 3 sentences
 - **`rtp-cost-model` / `rtp-token-economics`** — the deep unit-economics reversal behind the "different economics = different markets" call.
 - **`rtp-strategy-canvas`** — competitive-map is an input to strategy; the canvas turns the defensible market into the plan and the conditional bets.
 - **`rtp-signal-scanner`** — detects the weak signals (a competitor's new model, a pricing move) that expire this map; budget quarterly refreshes.
+- **`rtp-gossip-mode`** *(informal upstream)* — signal-scanner is the *systematic* refresh; gossip-mode is the *informal* one. "Heard at a meetup that [competitor] is doing X" or "a customer said they're also evaluating [rival]" is competitive intel (gossip's signal 7) that catches a move *between* quarterly refreshes — with a confidence tag, low for a rumor, higher for a direct customer signal. Gossip catches it sideways and routes it here; this map is where it lands as an updated dimension.
 - **`rtp-first-principles`** *(import)* — for feature-level "is this actually different?" cuts beneath the positioning claims.
 - **`rtp-trust-under-fog`** — when the "trust matters here" dimension is load-bearing and you're communicating a probabilistic advantage to a certainty-seeking buyer.
 

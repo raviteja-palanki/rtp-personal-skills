@@ -83,6 +83,7 @@ When an eval fails, trace it to the layer that caused it instead of blaming the 
 - **`rtp-failure-modes`** — each layer's break maps to a named failure (bad retrieval → hallucination, missing guardrail → unsafe output).
 - **`rtp-cost-model` / `rtp-token-economics`** — the vector-DB and re-ranker choices are unit-economics decisions (hosted vs. self-hosted, latency vs. relevance); those skills do the cost math.
 - **`rtp-moat-finder`** — the negative-flywheel point (step 4): skipping the stack before automating isn't just wasteful, it degrades the data moat; moat-finder carries the full competitive framing.
+- **`rtp-ai-use-case-readiness`** *(upstream)* — the skill that usually hands you the feature to architect. It sets the autonomy level; that level constrains which layers even exist — a level-2 use case has no Equipment (tools) or heavy eXecution layer to audit, a level-5 agent has both and they dominate the stack. Take the level as the input; don't design a seven-layer stack for a feature that only needed two. (The chain: opportunity-solution-tree greenlights → use-case-readiness sizes autonomy → this skill designs the stack to fit.)
 
 ## VECTOR DB & RE-RANKING (PM decisions, not engineering-only)
 

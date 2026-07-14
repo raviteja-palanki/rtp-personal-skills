@@ -68,13 +68,22 @@ Five opportunities from interviews + ticket data: (1) alert fatigue — 78% of a
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
-The chain: **outcome → opportunities → solutions → AI-feasibility filter → experiments → eval design.**
+The chain: **outcome → opportunities → solutions → AI-feasibility filter → experiments → eval design → the roadmap it hands to whoever builds the bet.** Trace both ends — where opportunities come from, and where a greenlit bet goes next.
 
+**Feeds the tree (where opportunities come from):**
 - **`rtp-jtbd-analysis`** *(import)* — a JTBD job statement becomes the desired outcome at the top of the tree; the hidden job filters which opportunities are worth pursuing.
+- **`rtp-feedback-triage`** — its future-capability signals (the "I use a different tool for that" bucket) are pre-sourced, evidence-backed opportunities that drop straight into Layer 2. Triage catches them in the batch; the tree is where they become bets.
+
+**Runs inside the filter (imports):**
 - **`rtp-determinism-compass`** *(import)* — the deterministic-vs-probabilistic classification is *its* home; this skill applies it as a coarse feasibility label. Sharpen labels there.
 - **`rtp-problem-ai-fit`** *(import)* — the feasibility filter here is the *coarse* cut; problem-ai-fit is the *fine* cut for every probabilistic solution before you commit.
 - **`rtp-eval-framework`** *(import)* — every "probabilistic-with-evals" solution needs an eval design; that's where the eval surface gets built. A label without a 1-paragraph-specific eval design belongs in the "unevaluable" bucket until it's real.
 - **`rtp-uncertainty-research`** — the experiments at the leaves use its research methods.
+
+**Acts on the greenlit bet (the two-hop the tree usually drops):**
+- **`rtp-ai-use-case-readiness`** — a "probabilistic-with-evals" label says the bet is *worth building*; it does not say *how autonomous* to build it. Hand each greenlit opportunity to readiness to right-size its autonomy level before it gets scoped. The tree picks *what*; readiness picks *how much agency*.
+- **`rtp-ai-prd`** — the greenlit, autonomy-sized bet becomes a spec here. Skip this hop and the OST is a plan nobody writes down.
+- **`rtp-ai-portfolio-management`** — the "no" list isn't only this tree's rejections; at portfolio scale it's the defer/kill ledger across competing bets. Feed the no's up so the same opportunity isn't re-litigated in three separate trees.
 
 ## RED TEAM — when the OST is ceremony
 

@@ -75,6 +75,7 @@ Place yourself on the curve (⚠ percentages illustrative): **L1** collecting, n
 - **`rtp-moat-finder`** — the anti-moat check: is the loop fed by signals only you have, and by the rare/hard cases? A flywheel on public signals is not a moat.
 - **`rtp-ai-product-metrics`** — which signals are even worth logging (acceptance / correction / regeneration rates are the flywheel's raw material).
 - **`rtp-gossip-mode`** *(sibling)* — catches the *informal* single signal sideways; this is the *structured, automated* loop at volume.
+- **`rtp-fit-signal`** — the loop's health is visible two hops downstream in the trust curve: a genuinely *closing* loop (corrections compounding into model gains) shows up as a trust curve that keeps rising over quarters; a *collecting-only* loop shows a flat curve despite busy "engagement." fit-signal points back here when it needs to know whether corrections are actually closing or just accumulating — this skill is that diagnosis.
 - **`rtp-stress-test`, `rtp-first-principles`** *(imports)* — stress the loop's cost/throughput at scale; strip "we collect feedback" to the one atomic question ("did signal reach the model as a measured gain?").
 
 ## DIAGNOSTIC QUESTIONS (weekly)

@@ -104,6 +104,7 @@ Run all of these **segment-aware, not aggregated** — that's the whole point:
 
 - **`rtp-feedback-triage`** *(import)* — the AI-failure axis hits each segment differently; Skeptics weight a confidently-wrong answer far more than Embracers do.
 - **`rtp-ai-product-metrics`** *(import)* — Skeptics generate more refusals, overrides, and support contacts; aggregated against an Embracer-heavy base, they *look* "less successful" when they're actually producing more signal. Segment the dashboards or you'll kill the segment training your model.
+- **`rtp-fit-signal`** *(downstream verdict)* — the two-hop the dashboard hides: a *blended* trust curve can read CONFIRMED while Skeptics never inflected and are quietly churning under the aggregate. A CONFIRMED fit on an Embracer-heavy base isn't fit — it's a sampling artifact. The rule this skill hands forward: measure the trust curve per segment, or the PMF verdict is an average that describes no real user.
 - **`rtp-confidence-tuner`** — per-segment confidence thresholds (Skeptics want over-refusal, Embracers over-attempt); one global threshold is worse for both.
 - **`rtp-uncertainty-research`** *(import)* — stratify the recruit; a 25-Embracer / 5-Skeptic trust study misses Skeptic dynamics entirely.
 - **`rtp-jtbd-analysis`** *(import)* — Embracers and Skeptics often share the *job* but have radically different *anxieties* about hiring the AI for it; run JTBD segment-aware to surface the anxiety differential.

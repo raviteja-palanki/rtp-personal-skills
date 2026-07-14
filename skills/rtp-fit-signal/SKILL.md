@@ -218,6 +218,8 @@ Four verdicts. Each carries its own flip-condition and hand-off as its own line 
 Fit-signal owns one job: is this AI product actually earning dependence. Everything upstream feeds that answer; everything downstream acts on it — and knowing which is which matters, because "related skill" and "the literal next stop for this verdict" are different claims.
 
 **Feeds this skill:**
+- `jtbd-analysis` — names the hidden job the feature was hired for, which is *what* dependence is dependence on. Feed its hidden job into this skill's magic-moment definition so the trust curve measures the real job being served, not the surface task the user first named. A trust curve that never inflects, for a feature that passed JTBD, usually means the hidden job was mis-identified.
+- `ai-product-taste` — defines the magic moment and the domain quality bar that this skill then measures dependence on. Taste warns a quality gap is invisible until it shows up as churn; this skill's trust curve is where that absence becomes a number. If taste named the magic moment, measure the cohort hit-rate on *that* moment, not a generic satisfaction score.
 - `ai-product-metrics` — instruments the raw acceptance, correction, and regeneration events this skill turns into a trust curve. That skill defines what to log; this skill says what the numbers mean for fit.
 - `uncertainty-research` — replaces the simple weekly average with stratified, longitudinal methods when the stakes (a board, a contested finding, a sample too small to trust) demand more rigor than this skill's basic formula gives you.
 
@@ -240,6 +242,7 @@ Fit-signal owns one job: is this AI product actually earning dependence. Everyth
 - **Trust curve is noisy under 100 weekly active users.** Measure bi-weekly or monthly instead of weekly until volume catches up — a weekly read at that size is mostly noise.
 - **A 20–30% week-to-week swing is normal**, not a framework failure, if there's been a quality regression or a latency spike. Investigate the cause; don't discard the method.
 - **Different use cases have different baseline curves.** Support triage and creative writing will never converge to the same numbers — don't force them to.
+- **Different attitudinal segments have different curves too — and a blend hides it.** `attitudinal-segmentation` is the upstream cut: measure the trust curve per segment (Embracer / Neutral / Skeptic), because a CONFIRMED aggregate on an Embracer-heavy base can be masking Skeptics who never inflected and are churning. Segment the curve or the verdict describes no real user.
 - **PMF is not revenue.** You can have real trust and weak monetization (freemium), or real revenue with no trust (a captive market that would leave the moment it could). They're different problems; don't let one masquerade as evidence for the other.
 - **You can't call the feedback loop "broken" until you've funded it.** Capturing feedback without processing it is a resourcing gap, not proof the flywheel doesn't work.
 

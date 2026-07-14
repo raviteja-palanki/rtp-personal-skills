@@ -107,6 +107,7 @@ In a harness (planner → generator → evaluator), each agent gets its **own** 
 
 - **`rtp-invisible-stack`** *(import — the pair)* — invisible-stack *diagnoses* which of the seven layers is capping quality; context-spec *designs* the build spec (token budget, compaction, fallback) for all seven. One finds, one designs — run in sequence.
 - **`rtp-prompt-craft`** — the *prompt text* (how to phrase the instruction) vs. this skill's *architecture* (what information reaches the model at all). Different objects; both matter.
+- **`rtp-prompt-as-product`** — completes the craft triad: this skill *designs* the context budget (the system-prompt layer included); prompt-as-product *governs changes to it* over time. A change to the token budget or the system prompt is a versioned release with the same blast radius as any prompt change — run it through that skill's regression + A/B process, don't hand-edit the architecture in production.
 - **`rtp-determinism-compass`** *(import)* — which layers must be deterministic/reproducible vs. tolerate variance.
 - **`rtp-stress-test`** *(import)* — the latency and cost of the layer stack at production scale (700ms of stacked layers before generation even starts).
 - **`rtp-agent-spec` / `rtp-agent-harness`** — the multi-agent isolation here is the context half of harness design; those own orchestration and handoff contracts.

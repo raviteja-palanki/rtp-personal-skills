@@ -79,6 +79,7 @@ Three "craft" skills act on the model's input; keep them distinct:
 - **`rtp-prompt-as-product`** *(import)* — the *lifecycle*: versioning, A/B testing, rollback, release process. Prompt-craft *writes* the prompt; prompt-as-product *manages its changes over time*. ("Why is output bad?" → here. "Why did quality drop after last week's change?" → there.)
 - **`rtp-context-spec`** — the *architecture*: what information reaches the window and its token budget. Different object from the prompt text; a perfect prompt on bad context still fails.
 - **`rtp-eval-framework`** *(import)* — measures both the prompt and its lifecycle; the 20/60/20 suite and the multi-dimensional evals live in its discipline.
+- **`rtp-ai-product-taste`** *(supplies the bar)* — taste decides *what quality bar to express*; this skill owns *how to write it into the prompt*. The "museum-quality" framing lever (framing words that lift acceptance) sits exactly on this boundary — taste hands over the bar, prompt-craft turns it into the constraint-and-structure that makes the model hit it. Import the bar before you write the constraints, or you'll craft a precise prompt for the wrong target.
 - **`rtp-judgment-guard`** *(shared backbone)* — prompting and professional judgment are the same discipline at different altitudes: both are making tacit criteria explicit enough for a system to act on. The reasoning trail is the bridge.
 - **`rtp-determinism-compass`** *(import)* — which parts of the output must be reproducible vs. can vary, which shapes how tight the constraints need to be.
 
