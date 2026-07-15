@@ -1,251 +1,126 @@
 ---
 name: rtp-tool-architecture
-description: 'Design tool access and permission boundaries to control consequence magnitude. Use when: selecting agent tools, read vs write access, sandboxing, audit infrastructure. Do NOT use: runtime enforcement (use determinism-compass), post-incident forensics (use stress-test).'
+description: "Design an agent's tools as contracts — because a tool is where a model's reasoning becomes an action in the real world, and its load-bearing field isn't what it does, it's what it can't undo. Covers the tool contract (name, schema, identity/auth, authority, reversibility class), read-wide/write-narrow asymmetry, least-privilege escalation, the permissioned registry as a single owned surface, MCP (agent→tools) and A2A (agent→agent) with their 2026 trust shifts, tool presentation as context, and escape hatches (circuit breaker, kill switch, rollback). Use when: selecting an agent's tools, setting read vs write access, designing an MCP/A2A surface, auditing permissions, or specifying the tool layer of a harness. Pairs with: agent-harness (the T layer of MHTE; the narrow-gate pattern), harness-operating-model (governance ownership), safety-by-design (enforcement architecture), agent-ecosystem (multi-agent A2A depth), agent-spec (autonomy levels). Triggers: 'tool access', 'tool permissions', 'MCP', 'A2A', 'agent tools', 'tool contract', 'least privilege agent'."
+imports:
+  - determinism-compass
+  - agent-harness
+  - safety-by-design
 ---
+
 # Tool Architecture
 
-## DEPTH DECISION
+**The objective:** design the layer where an agent's reasoning turns into consequences — its tools — so that a wrong decision costs a recoverable event, not an irreversible one. This is the **T** in MHTE (Agent = Model + Harness + Tools + Environment): the harness decides *when and how* to act; the tool is *the act*; the environment is *where it lands*. Get the tool contract right and most "the agent misbehaved" incidents become "the agent tried something the contract wouldn't let it do."
 
-**Go deep if:** You're shipping agents to production, designing tool governance across multiple agents, building an MCP ecosystem, or need to audit tool access extensively.
+## THE ONE IDEA
 
-**Skim to diagnostic questions if:** You want a quick permission audit for an existing agent.
+**A tool is a contract between the agent and the world, and its most important field is not what it *does* — it's what it *can't undo*.** Two tools can look identical in a schema and be worlds apart in consequence: `draft_email` and `send_email` differ by one irreversible bit. Design the tool layer around that bit and three consequences follow:
 
-**Skip if:** Single agent with limited tool access, or tool access already governed by external system.
+1. **Classify by reversibility, then grant read-wide / write-narrow.** Observation (read) and action (write) are different categories — read is cheap to be wrong about, write carries consequence magnitude. Grant broad autonomy on read-only verbs; require a signature on irreversible ones. Symmetric permission ("if it can read, it can write") is the most common tool-design error.
+2. **Enforcement lives in the tool/permission layer, not the prompt.** "Don't refund over ₹5,000" in a system prompt is a soft request the model can talk itself out of; the ₹5,000 cap enforced in the tool's permission scope is architecturally impossible to breach. A tool that says what it is *not for* and cannot exceed its scope is a decision the model never gets wrong. (You can't prompt your way to a hard boundary.)
+3. **The registry is a single owned surface, or it becomes tool sprawl.** Tools accumulate because every team ships its own; past ~20–50 tools the model's selection blurs (⚠ Shopify practitioner heuristic). The fix is a permissioned registry with one owner — the same narrow-gate discipline `agent-harness` teaches, seen from the tool side: fewer, sharper, negatively-scoped tools raise reliability *before* they save cost.
 
-## GROUNDING (Before Starting)
+The spine in one line: **name the contract, classify the reversibility, grant the minimum, own the registry, and keep a way to kill it.**
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
+## KEY TERMS (plain language)
 
-Then proceed with the skill-specific analysis below.
+- **Tool contract** — the full agreement a tool exposes: its name, its schema (typed args + returns), its identity/auth (whose credentials it acts under), its authority (what it's permitted to touch), and its reversibility class. If you can name all five without reading the harness, the tool is in the right layer.
+- **Reversibility class** — the load-bearing field: read-only / write-reversible / write-audited / delete-irreversible / cascade (triggers other actions). It sets the gate.
+- **Read-wide / write-narrow** — grant broad read access, narrow write access; asymmetric by design.
+- **Least-privilege escalation** — start at the minimum access and earn wider access phase by phase, each phase audited before the next.
+- **Permissioned registry** — the single, owned catalog of tools with their schemas, scopes, and reversibility classes; the surface that prevents sprawl.
+- **MCP (Model Context Protocol)** — the open standard for how an agent calls *outside tools*. Schema, discovery, auth delegation, sandboxed execution.
+- **A2A (Agent-to-Agent)** — the open standard for how one agent talks to *another*; 2026 adds Signed Agent Cards (cryptographic identity in the protocol).
+- **Escape hatch** — the pre-wired way to stop a tool: circuit breaker, kill switch, rollback window, gradual disable.
 
-## WHERE TOOLS SIT (The T in MHTE)
+## THE TOOL CONTRACT — the five fields every tool declares
 
-In Anthropic's four-layer model (Agent = Model + Harness + Tools + Environment), tools are the **actionable surface** — the discrete, invokable functions or services the agent is allowed to call. They define *what* the agent can affect. The harness decides *when and how* tools are invoked. The environment defines *where* they execute and what persists.
+A tool is not a function you expose; it is a contract you sign on the agent's behalf. Five fields, each a place a failure originates:
 
-Tools follow least-privilege scoping because overly broad tools shift risk downstream — a tool that can "run any shell command" effectively bypasses every harness guardrail. Single-purpose tool design (one tool per action, never a general-purpose shell) is now standard practice in production harnesses. Tools are invoked *by* the harness; their results feed back into the model *via* the harness. This separation is what makes tool governance possible.
+1. **Name & schema.** One tool, one verb, typed args and returns (`get_invoice_by_id`, not `query_data`). The schema is a contract with *both* the model and every downstream consumer — version it like a public API. Never copy the schema into the harness prompt; the harness *references* it, or the two drift and a tool call silently fails.
+2. **Identity / authentication.** Whose credentials does the tool act under? The 2026 bar: an agent holds *its own* principal (account, scoped permissions, audit trail) — not a human's borrowed credentials. An agent on borrowed credentials is an audit finding waiting for its auditor. Credentials should never be reachable from the sandbox the agent's code runs in — vault them, proxy the call, keep the harness unaware of the secret (engineer the boundary; don't instruct the model to respect it).
+3. **Authority.** What is this tool permitted to touch — all users, one user, one dataset, dev-only? Authority is scoped per compartment, not granted globally.
+4. **Reversibility class.** The field that sets the gate (see below). Tag every tool.
+5. **Failure mode.** What does it do when it fails — return an error shape, time out, partially complete? A tool whose failure mode you can't name is a tool whose incidents you can't triage.
 
-## THE TRAP
+## CLASSIFY BY MUTATION, GATE BY REVERSIBILITY
 
-You grant tools symmetrically: "if agent can read, it can write." The trap: observation (read) and action (write) are different categories. Read is safe. Write has consequence magnitude. Production requires asymmetric access: read widely, write narrowly.
+Every tool sits in one class, and the class sets the gate:
 
-## THE PROCESS
+| Reversibility class | Examples | The gate |
+|---|---|---|
+| **Read-only** | file read, API query, search | Broad autonomy; rate-limit only. |
+| **Write (reversible)** | draft email, dev-DB edit, temp file | Autonomous with post-log; easy undo. |
+| **Write (audited)** | prod config, publish to staging | Threshold + audit entry; costly to undo. |
+| **Delete (irreversible)** | drop table, purge logs | Human signature or hard confidence gate. No autonomous path. |
+| **Cascade** | deploy, trigger workflow, broadcast | Manual approval, period — one bug fans out to many systems. |
 
-**Layer 1: Inventory tools by mutation**
+**The rule that survives every review:** if an action is low-risk, reversible, and easy to verify, let the agent act autonomously; if it is irreversible, high-consequence, privacy-sensitive, or customer-facing, a control must *enforce* the check — deterministically for clear policy, human-in-the-loop for the rest. (This is the same "let the model reason vs. add a deterministic gate" matrix `agent-harness` applies at the Interception cluster; here it's applied at the tool boundary.)
 
-Classify every tool your agent will touch:
+## LEAST-PRIVILEGE ESCALATION — earn access, don't grant it
 
-1. **Read-only** (no state change): file read, API query, search, observe
-2. **Write (reversible)** (state changes, can undo): modify dev database, draft email, create temporary files
-3. **Write (audited)** (state changes, can undo but costly): modify production config, publish to staging
-4. **Delete (irreversible)** (cannot undo): delete files, drop database table, purge logs
-5. **Cascade** (triggers other actions): deploy code, trigger workflow, send broadcast message
+Start minimal; widen only after each phase is audited and error-free: (1) read-only on public data → (2) read on private data → (3) write on dev/sandbox → (4) write on prod behind a pre-approval gate → (5) write on prod with post-audit, high-confidence only. Default is *revoke*; access is *granted explicitly and reviewed quarterly*. The failure this prevents is **permission inflation** — an agent gets write on one table, then related tables, and a year later touches the whole database and nobody decided that.
 
-**Layer 2: Define permission scopes**
+## MCP AND A2A — the two protocols, and their 2026 trust shifts
 
-For each tool, bind access to constraints:
+Read them together: **MCP is how an agent calls outside tools; A2A is how one agent talks to another.** Both moved work *into the harness/tool boundary* in 2026 — this is where identity and state now get enforced.
 
-- **Scope:** what resources can the tool touch? (all users, single user, specific dataset, dev-only)
-- **Rate limit:** how often can it be called? (per second, per hour, per decision)
-- **Approval gate:** does this require pre-approval, post-logging, neither?
-- **Sandbox:** does this tool modify prod or a safe replica?
-- **Rollback window:** if it fails, how long do we have to fix it? (5min, 1hr, never)
+- **MCP** — standard tool interface (discovery, JSON schema, auth delegation, sandboxed execution). The **July 2026 release candidate removed the protocol-level session** (no more `Mcp-Session-Id`): any request is routable to any server instance, so state that used to be implicit must be passed as *explicit tool arguments* (a `basket_id`, a `browser_id`). Audit implication: tag every MCP server with the version it targets and its state-handle strategy; treat each server as both a portability boundary and an attack surface (audit it like an IAM review — the simplest tool-description injection succeeded ~93% of the time across frontier models ⚠).
+- **A2A** — agent-to-agent identity and task delegation. **v1.0 (2026) ships Signed Agent Cards** — a cryptographic ID one agent proves to another, not something claimed in a prompt. This splits one question into two audit trails: A2A answers *"who is this agent?"*; MCP's stateless core answers *"what did it know when it acted?"* Name an owner for each.
 
-**Layer 3: Construct the tool permit**
+**PM decision:** standards (MCP/A2A) buy interoperability and easy tool-swaps at the cost of some latency/abstraction; custom connectors buy control at the cost of lock-in. Pick per workload. And remember every tool you expose costs context — tool descriptions consume tokens the model could spend reasoning, so *tool presentation is context engineering.* The mechanism (dynamic, task-scoped tool loading; skills as progressive disclosure) is the **narrow-gate pattern owned by `agent-harness`** — apply it here, don't re-teach it.
 
-For each (agent, tool, context) combination, specify:
+## ESCAPE HATCHES — design the kill before you need it
 
-```
-TOOL: modify_user_settings
-AGENTS: [personalization-agent, admin-agent]
-SCOPE: [single-user only, not org-wide]
-RATE: 1 per second, 100 per hour
-APPROVAL: None (confidence >80%) | Post-log (confidence <80%)
-SANDBOX: staging DB replica for testing; prod for confirmed actions
-AUDIT: [agent_id, action, target_user, old_value, new_value, timestamp, confidence]
-ROLLBACK: User can revert via UI within 24h
-```
+For every consequential tool, pre-wire the stop: **circuit breaker** (error rate > X% → disable for all agents), **human override** (any action reversible within a window), **kill switch** (consequence-magnitude threshold breached → lock immediately), **gradual disable** (revoke one user / one agent / one context at a time). A kill switch you build during the incident is not a kill switch. (Whether you can pull it faster than harm cascades is the proportionality question in `agent-risk`.)
 
-**Layer 4: Implement least privilege escalation**
+## WHERE THIS SKILL MEETS YOUR STACK
 
-Start with minimal access. Earn wider access.
+Tool architecture is one layer of the agent; it hands off cleanly:
 
-- **Phase 1:** Read-only tools on public data
-- **Phase 2:** Read tools on private data (with encryption in transit)
-- **Phase 3:** Write tools on dev/sandbox (non-production)
-- **Phase 4:** Write tools on prod with pre-approval gates
-- **Phase 5:** Write tools on prod with post-audit (high confidence only)
+- **The whole machine + the narrow-gate pattern → `agent-harness`.** Tools are the T in MHTE; the harness owns *when/which* tool fires and the narrow-gate/skills discipline. This skill owns the *contract and permissions of each tool*; that skill owns the loop that calls them. (This is where the harness "Tool is the Contract" material is fully at home.)
+- **Who owns the registry, and the governance of it → `harness-operating-model`** (the Harness PM, the audit chain).
+- **Enforcement architecture (guardrails, vaulted credentials, injection defense) → `safety-by-design`**; **can you kill it faster than harm cascades → `agent-risk`.**
+- **Multi-agent orchestration + A2A depth → `agent-ecosystem`**; **how much autonomy a tool's reversibility class warrants → `agent-spec` / `trust-ladder`.**
+- **What must stay deterministic vs. tolerate model judgment → `determinism-compass`.**
 
-Escalate only after each phase is audited and error-free.
+The spine: **this skill decides what each tool may do and undo; the harness decides when to call it, safety-by-design decides how to enforce it, and the operating model decides who owns it.**
 
-**Layer 5: MCP at Scale**
+## DIAGNOSTIC QUESTIONS
 
-Model Context Protocol has become the universal standard for AI-tool connections. MCP handles:
-
-- **Tool discovery:** What tools are available? Model learns capabilities from introspection.
-- **Schema negotiation:** What are the exact parameters, types, error codes? Each tool publishes JSON schema.
-- **Authentication delegation:** Tools authenticate independently. Model never touches credentials.
-- **Sandboxed execution:** Each tool runs in its own process, isolated from the model and other tools.
-
-At 97M+ monthly downloads, MCP is the de facto standard. Adoption pattern: (1) Use pre-built connectors (GitHub, Slack, Postgres, Google Drive, Jira, HubSpot). (2) Build custom connectors for proprietary tools. (3) Compose complex workflows from standardized connectors.
-
-**PM decision:** Which tools to expose? More tools = more tokens spent describing them = less context for actual task work. Every tool shown to the model consumes ~500 tokens of description overhead. Selective tool exposure is actually a form of context optimization.
-
-**Layer 5b: A2A Protocol Patterns**
-
-Agent-to-Agent protocol enables cross-agent communication and task delegation. Key patterns:
-
-- **Capability advertisement:** Agent A declares to Agent B: "I can do X, Y, Z. Here's my schema."
-- **Task negotiation:** Agent A proposes a task. Agent B accepts/rejects based on confidence, quota, or delegation rules.
-- **Result verification:** Agent A doesn't trust Agent B's output blindly. Both agents verify results using shared checkpoints.
-- **Error propagation boundaries:** If Agent B fails, Agent A decides: retry, escalate, degrade gracefully, or abort entire task.
-
-**Critical PM decision:** Which agent-to-agent connections create value vs which create cascade risk? A2A enables loose coupling at organization scale. But a single failed agent in the chain can break the entire workflow. Implement explicit handoff checkpoints (human review, verification step, rollback trigger) before trusting multi-agent systems in production.
-
-**Layer 5c: AG-UI Protocol for User Interface**
-
-Agent-to-User-Interface (AG-UI) protocol streams agent state and actions to the frontend in real-time. Enables:
-
-- **Real-time progress visibility:** User sees agent reasoning as it unfolds ("searching for...", "analyzing...", "deciding between...").
-- **Human-in-the-loop checkpoints:** Agent reaches decision point, pauses, shows options, waits for user confirmation.
-- **Transparent decision display:** When agent picks Tool A over Tool B, show the scoring. When confidence is low, flag it visually.
-
-Implementation pattern: Agent publishes state updates to event stream. Frontend subscribes. User sees execution as it happens, can interrupt at any point.
-
-**Layer 5d: Tool Presentation as Context Engineering**
-
-Which tools you show the model IS context engineering. The constraint:
-
-- 1 tool: ~200 tokens of schema description
-- 5 tools: ~1000 tokens
-- 20 tools: ~4000 tokens
-- 100 tools: ~20000 tokens
-
-At 20K tokens of tool description, you've lost 20% of a 100K token context window just to tell the model what it can do.
-
-**Strategic approach:** Dynamic tool selection. Classify incoming tasks. For task type "send_email", load only email tools. For "code_review", load only code tools. For "data_analysis", load only data tools.
-
-**Impact:** This alone improves agent quality 15-25% by freeing context for reasoning. The model can think deeper about fewer, relevant tools. Test: compare agent quality with 50 tools always loaded vs 5 tools selected per task. Newer models benefit even more from this (they're more context-sensitive).
-
-**Layer 5e: Playwright MCP for Visual Testing**
-
-Browser automation MCP (Playwright) enables agents to test their own output visually, not just code-level. Patterns:
-
-- **Generative agents** build UIs (HTML, React, CSS). Playwright agent tests: "Does the generated button actually click?" "Does the form validation work?"
-- **Evaluator agents** assess UX quality. Playwright agent navigates the live running application, takes screenshots, compares to golden images.
-- **Regression testing** by agents. After deployment, agent runs Playwright tests against new environment, alerts if visual regressions detected.
-
-This is distinct from traditional automated testing: agent can reason about visual appeal, layout consistency, accessibility, not just functional correctness.
-
-**Layer 6: MCP and A2A Protocol Awareness**
-
-Modern tool architectures converge on these protocols for agent-to-tool communication:
-
-- **MCP (Model Context Protocol):** Standardized agent-to-tool interface. 97M+ downloads. Each tool is a connector (GitHub, Slack, Postgres, Google Drive). Adoption: buy a connector or build one. Advantage: interoperability, easier to swap tools. Disadvantage: abstraction overhead (~10-20ms per call), less control.
-
-- **A2A (Agent-to-Agent):** Agent-to-agent communication across trust boundaries. Enables multi-vendor orchestration (my agent calls your agent calls their agent). Emerging standard. Advantage: loosely coupled, organization-scale. Disadvantage: versioning, error handling, protocol negotiation.
-
-**PM decision point:** Are you betting on standard protocols (MCP, A2A) for long-term maintainability, or building custom connectors for short-term speed? Standards add latency; proprietary connectors add lock-in.
-
-**Layer 7: Tool Selection Strategies**
-
-When an agent has multiple tools that could do the job, which does it pick?
-
-1. **Primary selection:** Agent picks the first matching tool (simplest, fastest, but naive)
-2. **Scoring (preferred):** Agent scores all matching tools by: (accuracy expected, latency, cost) and picks highest score
-3. **Fallback chain:** Try tool A; if fails, try tool B. Graceful degradation.
-4. **User-directed:** Agent proposes tools, user picks. High confidence overhead.
-
-Implement scoring for read tools (low cost). Use primary selection for common-path tools (optimization). Require fallback chains for critical paths.
-
-**Layer 8: Tool Composition Patterns**
-
-How do agents combine multiple tool calls into a workflow?
-
-- **Sequential:** Tool A outputs feed Tool B inputs. Simple, but failures propagate.
-- **Parallel:** Multiple independent tool calls, combine results. Faster, but requires merge logic.
-- **Conditional:** IF tool A returns X, call tool B; ELSE call tool C. Adds complexity.
-- **Iterative:** Loop over results, refine. Tool A generates candidates, Tool B scores, loop until threshold met.
-- **Fan-out/fan-in:** Call tool A once, tool B N times on results, merge. Useful for batch operations.
-
-Most agents use sequential + conditional. Avoid iterative unless explicitly scoped (max 3 loops).
-
-**Layer 8.5: Design escape hatches**
-
-For every tool, design a way to kill it:
-
-- **Circuit breaker:** if error rate > X%, disable tool for all agents
-- **Human override:** any agent action can be reversed by human within time window
-- **Kill switch:** if consequence magnitude threshold breached, lock tool immediately
-- **Gradual rollback:** disable access progressively (one user, one agent, one context)
-
-## REALITY CHECK
-
-**Failure modes:**
-
-1. **Permission inflation:** Agent gets write access to one table, slowly gets access to related tables, now has access to entire database and no one knows.
-   → FIX: Document every tool access grant. Review quarterly. Revoke by default, grant explicitly.
-
-2. **Sandbox drift:** You test in sandbox, deploy to prod, sandbox rules don't apply. Agent does what it did in test (and it was safe there, unsafe here).
-   → FIX: Prod tools must have explicit isolation. Read prod, write sandbox. If write prod, require approval or high confidence.
-
-3. **Audit trail gone dark:** Tool logs "action happened" but not "why agent decided to act" or "what confidence level triggered it?"
-   → FIX: Log decision metadata alongside action (confidence, approval_route, error_rate, alternatives_considered).
-
-4. **Cascade trap:** Agent calls Tool A (modify config), Tool A triggers Tool B (restart service), Tool B triggers Tool C (reload data). One bug in A breaks three systems.
-   → FIX: Cascade tools need manual approval. Period. Or require explicit opt-in by user.
-
-5. **Rate limit ambush:** You limit writes to 100/hour. At 80/hour, agent is fine. At 90/hour, system degrades. Agent doesn't know until it hits the wall.
-   → FIX: Implement soft limits (warn at 70%, slow down at 80%, block at 100%). Agent knows when it's approaching boundary.
-
-**Cost at 10x scale:**
-- 1 tool: you hand code permissions, works fine
-- 10 tools: patterns emerge, you need a permission matrix
-- 100 tools: you need a policy language (RBAC, ABAC, policy-as-code)
-- 1000 tools: you're building a full capability model with formal verification
-
-**Latency impact:**
-- No gates: +0ms, maximum consequence magnitude
-- Pre-approval: +100-500ms (wait for human signature)
-- Post-audit logging: +10-50ms (write to audit DB)
-- Permission check (on-the-fly): +1-5ms per tool call (cache hits matter)
+1. For your riskiest tool, can you state its reversibility class and the gate that matches it? (If a delete or cascade tool has an autonomous path, that's the finding.)
+2. Does the agent act under its *own* scoped principal, or borrowed human credentials? Are credentials reachable from the sandbox where its code runs?
+3. Is your permission model read-wide / write-narrow, or symmetric by default?
+4. Is there one owned registry, or do tools accrete per team? How many tools does the agent see per turn — and how many does it actually use?
+5. For every consequential tool, name the escape hatch. Which is untested?
+6. For each MCP server: do you control it, what does it expose, which MCP version does it target, and how does it carry state now that the protocol session is gone?
 
 ## QUALITY GATE
 
-- [ ] Every tool is classified by mutation type (read, write-reversible, write-audited, delete, cascade)
-- [ ] Permissions are scoped: (agent, tool, resource, rate, approval_gate, sandbox)
-- [ ] Audit logs capture: action + decision metadata (confidence, gate applied, approval route)
-- [ ] Escalation path is explicit: read → sandbox write → prod write with approval → prod write with post-audit
-- [ ] Escape hatches exist: circuit breaker, rollback window, kill switch, gradual disable
+- [ ] Every tool declares its five-field contract (name/schema, identity/auth, authority, reversibility class, failure mode).
+- [ ] Tools are classified by reversibility; the gate matches the class (no autonomous path for delete/cascade).
+- [ ] Permissions are read-wide/write-narrow, scoped per compartment, revoke-by-default, reviewed quarterly.
+- [ ] The agent acts under its own scoped principal; credentials are vaulted and unreachable from the code sandbox.
+- [ ] Tools live in one owned, permissioned registry; the exposed set per task is narrow (narrow-gate via `agent-harness`).
+- [ ] MCP servers are inventoried (owner, exposure, version, state-handle strategy); A2A identities have a named owner.
+- [ ] Every consequential tool has a pre-wired, tested escape hatch (circuit breaker / kill switch / rollback / gradual disable).
+- [ ] Audit logs capture action + decision metadata (confidence, gate applied, approval route, old/new value).
 
 ## WHEN WRONG
 
-This skill gives bad advice if:
-
-1. Pure-reading agent (no mutations). Use determinism-compass for read policies.
-2. No audit infrastructure. Build logging first.
-3. Writes always reversible. Focus on rate limiting instead.
-4. Users expect zero latency. Approval gates add time. Accept tradeoff.
-5. Tools are user-facing, not agent-facing. Use different permission model.
+This skill over-applies when: the agent is pure-read with no mutations (rate-limit and move on — the reversibility machinery is overhead); there's no audit infrastructure yet (build logging first, or the permits are unenforceable); or the tools are user-facing rather than agent-facing (a different permission model). And a real caveat on the numbers here — the ~20–50-tool blur point, the injection-success rate, and the per-tool token overhead are practitioner-reported field patterns (⚠), not audited constants; use them to shape the design, then measure your own. Approval gates also add latency (a signature is +100–500ms); if users expect zero latency on a low-consequence action, that gate is friction, not safety — match the gate to the reversibility class, not to every call.
 
 ---
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5: state the recommendation, name the key trade-off, acknowledge the biggest risk, define the next action.
 
 ---
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary — ideally the reversibility ladder (read → write-reversible → write-audited → delete → cascade) with the matching gate on each rung. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
