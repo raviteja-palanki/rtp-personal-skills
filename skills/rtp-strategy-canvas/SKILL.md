@@ -80,6 +80,24 @@ NEXT REVIEW     | a specific date, ≤90 days out
 
 One page. If it doesn't fit on one page, you haven't made the choices yet.
 
+## WHAT THIS SKILL CONSUMES & PRODUCES
+
+Strategy is the *conductor* — it takes the outputs of the discovery and analysis skills and turns them into one page of choices that the build skills execute against.
+
+**Consumes (inputs):**
+- **The objective/metric to move** — from `north-star-metric` or the business goal.
+- **User understanding** — the job and the trust curve, from `jtbd-analysis` + `adoption-launch`.
+- **The named, scored moat** — from `moat-finder` (the Superpowers step).
+- **What's volatile / build-now-vs-wait** — from `capability-tracking`.
+- **The unit economics behind a bet** — from `cost-model` / `token-economics`.
+- **Competitor parity signals** — from `competitive-map` / `signal-scanner`.
+
+**Produces (outputs):**
+- **The one-page canvas** (objective · stable/volatile · moat · conditional bets · reset triggers · half-life) → the source of truth every downstream skill reads.
+- **The portfolio pillars** → `ai-portfolio-management`; **the vision** → `vision-setting`; **the roadmap** → the discovery/roadmap skills.
+- **The strategic frame for each feature** → `ai-prd` (a PRD that doesn't trace to a canvas bet is off-strategy).
+- **The board/stakeholder narrative** → `stakeholder-communications`; **the quarterly reset** → the `strategy-review` command.
+
 ## WHERE THIS SKILL MEETS YOUR STACK
 
 This skill is the *conductor* — it runs the seven steps and hands each one's depth to its owner. Route, don't re-teach:
