@@ -1,20 +1,6 @@
 ---
 name: rtp-confidence-tuner
-description: >
-  Calibrate confidence at both layers of the AI stack — the model's confidence shown to the
-  USER (trust calibration: Endorse/Caution/Warn signals so users neither over-rely nor ignore
-  the AI), and the JUDGE's confidence behind an eval score (TPR/TNR/kappa calibration so an
-  automated evaluator can actually be trusted). Same discipline — does a stated confidence
-  track truth? — at two layers, and the judge layer sits upstream: you cannot honestly
-  calibrate a user's trust on top of an unvalidated scoreboard. Use when designing confidence
-  indicators or trust signals, reducing automation bias or alert fatigue, validating an
-  LLM-as-judge before you rely on its scores, setting auto-approve vs send-to-human thresholds,
-  or debugging why a green dashboard ships red product. Skip for deterministic systems with no
-  confidence concept and no automated judge.
-  Pairs with: eval-framework (the judge lives inside the eval system), ai-product-metrics
-  (the judge validates the numbers on that dashboard), trust-ladder (autonomy sets the
-  calibration bar), production-observability (monitoring judge drift), prompt-as-product
-  (the judge prompt is a versioned artifact).
+description: "Calibrate confidence at both layers of the AI stack — the model's confidence shown to the USER (trust calibration: Endorse/Caution/Warn so users neither over-rely nor ignore the AI), and the JUDGE's confidence behind an eval score (TPR/TNR/kappa, so an automated evaluator can be trusted). Same discipline — does a stated confidence track truth? — at two layers, and the judge layer sits upstream: you can't honestly calibrate a user's trust on top of an unvalidated scoreboard. Use when designing confidence signals, reducing automation bias, validating an LLM-as-judge before relying on it, setting auto-approve vs send-to-human thresholds, or debugging why a green dashboard ships red product. Pairs with: eval-framework, ai-product-metrics, trust-ladder, production-observability, prompt-as-product. Triggers: "confidence signal", "trust calibration", "LLM as judge", "TPR TNR", "automation bias", "auto-approve threshold"."
 imports: [trust-ladder, eval-framework, ai-product-metrics]
 ---
 

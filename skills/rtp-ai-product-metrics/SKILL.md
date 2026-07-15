@@ -1,23 +1,6 @@
 ---
 name: ai-product-metrics
-description: >
-  Pick the leading indicators that actually predict AI product health — acceptance rate,
-  correction rate, regeneration rate, conversational burden, cost-per-successful-outcome,
-  and the 5-stage AI funnel (Surfaced → Invoked → Completed → Accepted → Retained).
-  Traditional DAU and retention metrics are lagging indicators that miss model regressions
-  until it's too late. Also carries the two moves most metrics decks skip: reading the
-  dashboard as a demand-signal aggregator (evals as discovery), and the executive-translation
-  layer that turns an eval-score move into the business number a CFO/GC/COO/CHRO acts on.
-  Use when designing the metrics dashboard for an AI feature, debugging why DAU is stable
-  but users complain, mapping a North Star + AARRR for AI, translating eval scores for a
-  board review, or pushing back on vanity metrics. Triggers on "AI metrics", "North Star
-  metric", "acceptance rate", "AI funnel", "AARRR for AI", "cost per successful outcome",
-  "what to measure for AI feature".
-  Pairs with: eval-framework (the tests beneath the numbers), feedback-flywheel (turning
-  usage into improvement), confidence-tuner (whether the judge behind a score can be
-  trusted), cost-model / token-economics (pricing the cost-per-outcome denominator),
-  stakeholder-communications (the exec-translation layer), fit-signal (product-market fit
-  for AI).
+description: "Pick the leading indicators that actually predict AI product health — acceptance, correction, regeneration, conversational burden, cost-per-successful-outcome, and the 5-stage AI funnel (Surfaced -> Invoked -> Completed -> Accepted -> Retained) — because DAU and retention are lagging indicators that miss model regressions. Also carries the two moves most metrics decks skip: reading the dashboard as a demand-signal aggregator (evals as discovery), and the executive-translation layer that turns an eval-score move into the business number a CFO/GC/COO/CHRO acts on. Use when designing an AI metrics dashboard, debugging why DAU is stable but users complain, mapping North Star + AARRR for AI, or translating eval scores for a board. Pairs with: eval-framework, feedback-flywheel, confidence-tuner (is the judge trusted), cost-model/token-economics, stakeholder-communications, fit-signal. Triggers: "AI metrics", "North Star metric", "acceptance rate", "AI funnel", "cost per successful outcome"."
 imports:
   - eval-framework
   - feedback-flywheel

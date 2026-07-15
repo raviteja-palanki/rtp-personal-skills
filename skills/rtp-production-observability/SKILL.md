@@ -1,23 +1,6 @@
 ---
 name: rtp-production-observability
-description: >
-  Catch silent AI degradation in production before users leave. Monitor latency, cost,
-  quality drift, usage patterns, and error categorization with real-time alerts — not
-  weekly dashboards. AI systems degrade silently in ways traditional logging misses
-  (model drift, prompt regressions, distribution shift). Use when shipping an AI feature
-  to production, debugging "it worked yesterday" reports, designing alerts for AI
-  systems, or auditing whether you'd catch a degradation before users complain.
-  Triggers on "AI in production", "monitoring AI", "model drift", "quality regression",
-  "production observability", "alerts for AI", "silent failure", "traces", "spans",
-  "failure genealogy", "why did the agent fail".
-  Also carries what ops-grade monitoring skips: the trace (not the request) as the unit of
-  AI observability, quality-aware alerting on eval-score drift (the PM's signal, not just
-  p99 latency), separating "the model failed" from "the harness failed the model", and
-  failure-mode genealogy (thousands of traces → the ~3 root causes behind ~80% of failures).
-  Pairs with: eval-framework (the scores you attach to spans and alert on), confidence-tuner
-  (the judge that produces those scores must be calibrated), invisible-stack / context-spec
-  (where most "model" failures actually route), feedback-flywheel (production traces are the
-  raw material that closes the loop), eval-driven-development (traces feed the challenge tier).
+description: "Catch silent AI degradation in production before users leave — AI systems degrade silently (model drift, prompt regressions, distribution shift) in ways traditional logging misses. Covers the trace (not the request) as the unit of AI observability, quality-aware alerting on eval-score drift (the PM's signal, not just p99 latency), separating "the model failed" from "the harness failed the model", trace debugging (logic vs memory bug), agent-gaslighting detection, and failure-mode genealogy (thousands of traces -> the ~3 root causes behind most failures). Use when shipping an AI feature to production, debugging "it worked yesterday", designing alerts, or auditing whether you'd catch a degradation before users complain. Pairs with: eval-framework, confidence-tuner (calibrating the judge behind the scores), invisible-stack/context-spec, feedback-flywheel, eval-driven-development. Triggers: "monitoring AI", "model drift", "quality regression", "production observability", "traces", "why did the agent fail"."
 imports:
   - stress-test
   - eval-framework

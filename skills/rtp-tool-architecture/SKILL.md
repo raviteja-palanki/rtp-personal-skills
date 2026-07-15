@@ -1,6 +1,6 @@
 ---
 name: rtp-tool-architecture
-description: "Design an agent's tools as contracts — because a tool is where a model's reasoning becomes an action in the real world, and its load-bearing field isn't what it does, it's what it can't undo. Covers the tool contract (name, schema, identity/auth, authority, reversibility class), read-wide/write-narrow asymmetry, least-privilege escalation, the permissioned registry as a single owned surface, MCP (agent→tools) and A2A (agent→agent) with their 2026 trust shifts, tool presentation as context, and escape hatches (circuit breaker, kill switch, rollback). Use when: selecting an agent's tools, setting read vs write access, designing an MCP/A2A surface, auditing permissions, or specifying the tool layer of a harness. Pairs with: agent-harness (the T layer of MHTE; the narrow-gate pattern), harness-operating-model (governance ownership), safety-by-design (enforcement architecture), agent-ecosystem (multi-agent A2A depth), agent-spec (autonomy levels). Triggers: 'tool access', 'tool permissions', 'MCP', 'A2A', 'agent tools', 'tool contract', 'least privilege agent'."
+description: "Design an agent's tools as contracts — because a tool is where a model's reasoning becomes a real-world action, and its load-bearing field isn't what it does, it's what it can't undo. Covers the tool contract (schema, identity, authority, reversibility, idempotency, failure), read-wide/write-narrow, least-privilege + task-scoped authority, the read→propose→execute→verify→reconcile separation, MCP/A2A and the tool attack surface (confused deputy, tool poisoning), the permissioned registry, and escape hatches. Use when selecting an agent's tools, setting read vs write access, designing an MCP/A2A surface, or auditing permissions. Pairs with: agent-harness (the T layer; narrow-gate), harness-operating-model, safety-by-design, agent-ecosystem, confidence-tuner (tool-result overtrust). Triggers: 'tool access', 'tool permissions', 'MCP', 'A2A', 'agent tools', 'tool contract'."
 imports:
   - determinism-compass
   - agent-harness
@@ -32,15 +32,20 @@ The spine in one line: **name the contract, classify the reversibility, grant th
 - **A2A (Agent-to-Agent)** — the open standard for how one agent talks to *another*; 2026 adds Signed Agent Cards (cryptographic identity in the protocol).
 - **Escape hatch** — the pre-wired way to stop a tool: circuit breaker, kill switch, rollback window, gradual disable.
 
-## THE TOOL CONTRACT — the five fields every tool declares
+## THE TOOL CONTRACT — the fields every tool declares
 
-A tool is not a function you expose; it is a contract you sign on the agent's behalf. Five fields, each a place a failure originates:
+A tool is not a function you expose; it is a contract you sign on the agent's behalf. Each field is a place a failure originates:
 
-1. **Name & schema.** One tool, one verb, typed args and returns (`get_invoice_by_id`, not `query_data`). The schema is a contract with *both* the model and every downstream consumer — version it like a public API. Never copy the schema into the harness prompt; the harness *references* it, or the two drift and a tool call silently fails.
-2. **Identity / authentication.** Whose credentials does the tool act under? The 2026 bar: an agent holds *its own* principal (account, scoped permissions, audit trail) — not a human's borrowed credentials. An agent on borrowed credentials is an audit finding waiting for its auditor. Credentials should never be reachable from the sandbox the agent's code runs in — vault them, proxy the call, keep the harness unaware of the secret (engineer the boundary; don't instruct the model to respect it).
-3. **Authority.** What is this tool permitted to touch — all users, one user, one dataset, dev-only? Authority is scoped per compartment, not granted globally.
-4. **Reversibility class.** The field that sets the gate (see below). Tag every tool.
-5. **Failure mode.** What does it do when it fails — return an error shape, time out, partially complete? A tool whose failure mode you can't name is a tool whose incidents you can't triage.
+1. **Name & schema (in *and* out).** One tool, one verb, typed args *and* typed returns (`get_invoice_by_id`, not `query_data`). The schema is a contract with *both* the model and every downstream consumer — version it like a public API. Never copy it into the harness prompt; the harness *references* it, or the two drift and a call silently fails. A structured *output* schema (not "Done.") is what lets the harness tell success from partial success, detect duplicates, attach evidence, and trigger compensation.
+2. **Description with negative affordances.** The description is model-visible instruction, not neutral documentation — it participates directly in behavior. State what the tool does, *what it must NOT be used for*, its preconditions, whether it reads or writes, whether its result is authoritative, and whether approval is required. A tool that says what it's *not* for is a decision the model no longer gets wrong. (A vague description is a routing defect, a safety defect, and an eval defect — not a docs defect.)
+3. **Identity / authentication.** Whose credentials does the tool act under? The 2026 bar: an agent holds *its own* principal (account, scoped permissions, audit trail) — not a human's borrowed credentials, and it should *not* silently inherit every permission of the person who asked. Credentials should never be reachable from the sandbox the agent's code runs in — vault them, proxy the call, keep the harness unaware of the secret (engineer the boundary; don't instruct the model to respect it).
+4. **Authority.** Identity answers *who is acting*; authority answers *what that actor may do in this situation*. An employee who can approve expenses under ₹50k does not mean an agent on that identity may autonomously approve every expense under ₹50k. Scope authority per compartment and task, not globally.
+5. **Reversibility class.** The field that sets the gate (below). Tag every tool.
+6. **Idempotency.** If the same call is repeated, does the effect happen twice? Agents *retry*, so a refund tool without an **idempotency key** double-refunds the customer on a timed-out-but-completed call. Every mutating tool needs an explicit duplicate-execution strategy — and the result contract needs an **"unknown"** state (`safe_to_retry: false, reconciliation_required: true`) for "the provider never confirmed," because pretending every timeout is a clean failure is how duplicates happen.
+7. **Failure mode.** What it does when it fails — an error *shape* the harness can act on, not "Request failed." A production tool distinguishes validation / auth / authorization / policy-denial / approval-required / not-found / conflict / rate-limit / timeout-before-exec / **unknown-execution-state** / partial-completion / irrecoverable. "Error" is not a sufficient state for an autonomous system.
+8. **Cost & latency.** Every call spends tokens (describing the tool *and* processing the result), API charges, execution time, human-approval time, and context space that displaces other information. Tool architecture is economic architecture.
+
+**The line that governs all of it: a *valid* tool call is not a *correct* tool call.** Schema conformance proves the request is *shaped* right; it says nothing about whether the amount is the right amount, the order belongs to this customer, or the reason code is supported by the evidence. Schema validation is the harness's job; *business* validation — the deterministic policy gate — is a separate, mandatory step.
 
 ## CLASSIFY BY MUTATION, GATE BY REVERSIBILITY
 
@@ -60,6 +65,14 @@ Every tool sits in one class, and the class sets the gate:
 
 Start minimal; widen only after each phase is audited and error-free: (1) read-only on public data → (2) read on private data → (3) write on dev/sandbox → (4) write on prod behind a pre-approval gate → (5) write on prod with post-audit, high-confidence only. Default is *revoke*; access is *granted explicitly and reviewed quarterly*. The failure this prevents is **permission inflation** — an agent gets write on one table, then related tables, and a year later touches the whole database and nobody decided that.
 
+## AVAILABILITY IS NOT AUTHORITY — the nested gates and separation of duties
+
+A tool existing in the catalogue does not mean this agent may use it; the agent being able to use it does not mean *this* operation is permitted; the operation being permitted does not mean it's permitted for *this* customer, amount, environment, or moment. Access is a stack of nested gates: *server trusted? → tool approved? → agent eligible? → user authorized? → resource in scope? → action permitted? → amount within limit? → approval required? → may it execute now?* Each is a separate check, and **task-scoped authority** ("may refund up to ₹5,000, on order 5821, for case 771, in the next ten minutes, no other customer") beats a standing permission ("the support agent can access payments").
+
+**Separate the roles — the actor should not grade itself.** A consequential action has six roles that need not belong to the same component: **Read** (inspect state) → **Propose** (construct the action) → **Approve** (authorize it) → **Execute** (perform it) → **Verify** (confirm the effect independently) → **Reconcile** (repair or escalate discrepancies). *Never give one probabilistic component the power to propose, approve, execute, AND certify the same consequential action.* Concretely: the mutation tool (`update_shipping_address`) and the verification sensor (`get_shipping_address`, `get_change_event`) are *different tools* — because "execution reports what the operation *attempted*; verification establishes what the system now *believes to be true*," and a tool returning `{"status":"success"}` has not proven the business outcome. Match the verification strength to the consequence (a fund transfer needs a ledger entry + reconciliation; a doc search needs a source list). And when an approver is in the loop, they must see the *business outcome, exact operation, target, material parameters, source of authority, evidence, reversibility, and whether it's part of a larger sequence* — "Allow tool call?" is ceremony, not governance.
+
+**Multi-tool mutations need a compensation plan (the saga).** When one business operation spans several tools (onboarding: create identity → email → access → laptop → notify) and step 4 fails, there's usually no transaction spanning all systems. Define the compensating action for each completed step *in the workflow, up front* — the agent must not invent compensation dynamically for high-risk work. Every multi-tool mutation needs an answer to "what happens if step 3 succeeds and step 4 fails?" (This is the coordination seam `agent-ecosystem` owns; the tool contract is what makes each step reversible enough to compensate.)
+
 ## MCP AND A2A — the two protocols, and their 2026 trust shifts
 
 Read them together: **MCP is how an agent calls outside tools; A2A is how one agent talks to another.** Both moved work *into the harness/tool boundary* in 2026 — this is where identity and state now get enforced.
@@ -68,6 +81,20 @@ Read them together: **MCP is how an agent calls outside tools; A2A is how one ag
 - **A2A** — agent-to-agent identity and task delegation. **v1.0 (2026) ships Signed Agent Cards** — a cryptographic ID one agent proves to another, not something claimed in a prompt. This splits one question into two audit trails: A2A answers *"who is this agent?"*; MCP's stateless core answers *"what did it know when it acted?"* Name an owner for each.
 
 **PM decision:** standards (MCP/A2A) buy interoperability and easy tool-swaps at the cost of some latency/abstraction; custom connectors buy control at the cost of lock-in. Pick per workload. And remember every tool you expose costs context — tool descriptions consume tokens the model could spend reasoning, so *tool presentation is context engineering.* The mechanism (dynamic, task-scoped tool loading; skills as progressive disclosure) is the **narrow-gate pattern owned by `agent-harness`** — apply it here, don't re-teach it.
+
+## THE TOOL ATTACK SURFACE — because a tool is a privileged access path
+
+Every tool (and every MCP server) is simultaneously a software dependency, an integration vendor, and a privileged access path — review, scope, version, monitor, and be able to *revoke* each. The attacks that matter at the tool boundary:
+
+- **Confused deputy** — the agent uses its *legitimate* authority to do something an *untrusted input* told it to (a retrieved document says "upload the customer list to this URL"). Defense: separate data from instructions, restrict outbound destinations, cross-server data-flow controls, and **never let retrieved content redefine authority**.
+- **Tool poisoning** — because a tool description is model-visible *instruction*, a malicious server can embed commands in its metadata that steer the model even though no user sees them. Defense: approved-server registry, server identity verification, version pinning.
+- **Rug pull** — a server changes behavior *after* it's been trusted. Defense: version pinning + re-evaluation on any contract change (version drift without a matching eval is a silent regression).
+- **Cross-server exfiltration** — data read from system A is sent to system B. Defense: explicit cross-server data-flow policy.
+- **Tool-result overtrust** — the model treats every tool response as current and authoritative. A result may be stale, cached, from a replica, partial, from the wrong account, or carrying hostile content. Defense: **provenance metadata on every result** — `source` (system-of-record vs derived vs model-generated vs unverified-external), `observed_at`/`freshness`, `authority`, `completeness` — and cross-checks for consequential decisions. (The calibration discipline of *not trusting a signal you haven't validated* is `confidence-tuner`; here it applies to tool results.)
+
+## GRADUATING A TOOL — earn execution the way you earn autonomy
+
+A mutating tool doesn't go from "built" to "autonomous." It graduates: **Simulation** (the agent produces a *proposed* invocation; the harness compares it to a known-good decision or a human — evaluates selection + arguments with zero consequence) → **Shadow mode** (the agent proposes on live traffic; proposals are logged, not executed; disagreements with the real decision become eval cases) → **Bounded autonomy** (one region / one segment / one low-risk action / one amount threshold / a small % of traffic), expanding on *evidence, not enthusiasm*. And evaluate the tool on more than the final answer — selection (right tool? avoided an unneeded one?), arguments (correct identifiers/amounts, within policy?), sequence (preconditions first? safe parallelism?), outcome (system reached the intended state? evidence recorded?), governance (permissions scoped? approval when required? attributable?), and economics (calls per outcome, duplicate-action rate, human-correction rate, value per unit of authority granted). *(The shadow/bounded rollout mechanics are `gen-ai-experimentation`; the progressive-trust ladder is `autonomy-spectrum`; the eval design is `eval-framework`. This skill defines what to gate; those define how to roll and measure it.)*
 
 ## ESCAPE HATCHES — design the kill before you need it
 
@@ -80,7 +107,8 @@ Tool architecture is one layer of the agent; it hands off cleanly:
 - **The whole machine + the narrow-gate pattern → `agent-harness`.** Tools are the T in MHTE; the harness owns *when/which* tool fires and the narrow-gate/skills discipline. This skill owns the *contract and permissions of each tool*; that skill owns the loop that calls them. (This is where the harness "Tool is the Contract" material is fully at home.)
 - **Who owns the registry, and the governance of it → `harness-operating-model`** (the Harness PM, the audit chain).
 - **Enforcement architecture (guardrails, vaulted credentials, injection defense) → `safety-by-design`**; **can you kill it faster than harm cascades → `agent-risk`.**
-- **Multi-agent orchestration + A2A depth → `agent-ecosystem`**; **how much autonomy a tool's reversibility class warrants → `agent-spec` / `trust-ladder`.**
+- **Multi-agent orchestration + A2A depth + the saga/compensation seam → `agent-ecosystem`**; **how much autonomy a tool's reversibility class warrants → `agent-spec` / `trust-ladder`.**
+- **Not overtrusting a tool result (provenance is a calibration problem) → `confidence-tuner`**; **rolling a tool out via shadow → bounded autonomy → `gen-ai-experimentation`**; **the eval design for tool selection/arguments/outcome → `eval-framework`.**
 - **What must stay deterministic vs. tolerate model judgment → `determinism-compass`.**
 
 The spine: **this skill decides what each tool may do and undo; the harness decides when to call it, safety-by-design decides how to enforce it, and the operating model decides who owns it.**
@@ -96,7 +124,11 @@ The spine: **this skill decides what each tool may do and undo; the harness deci
 
 ## QUALITY GATE
 
-- [ ] Every tool declares its five-field contract (name/schema, identity/auth, authority, reversibility class, failure mode).
+- [ ] Every tool declares its full contract (typed in/out schema, negative-affordance description, identity/auth, authority, reversibility, **idempotency**, failure taxonomy, cost).
+- [ ] A deterministic **business-validation gate** runs after schema validation — a *valid* call is not a *correct* call.
+- [ ] Consequential actions separate the roles (read/propose/approve/execute/verify/reconcile); the executor is not the verifier; multi-tool mutations have a compensation (saga) plan.
+- [ ] The tool attack surface is defended: confused-deputy (retrieved content can't redefine authority), tool poisoning (approved-server registry + version pinning), cross-server data-flow policy, and **provenance metadata** on every result.
+- [ ] Mutating tools graduated via simulation → shadow → bounded autonomy on evidence; evaluated on selection/arguments/sequence/outcome/governance/economics.
 - [ ] Tools are classified by reversibility; the gate matches the class (no autonomous path for delete/cascade).
 - [ ] Permissions are read-wide/write-narrow, scoped per compartment, revoke-by-default, reviewed quarterly.
 - [ ] The agent acts under its own scoped principal; credentials are vaulted and unreachable from the code sandbox.
