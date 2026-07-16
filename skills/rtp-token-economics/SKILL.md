@@ -1,6 +1,6 @@
 ---
 name: rtp-token-economics
-description: "How to charge for an AI product, where your best users are your most expensive users and the work is done by the model, not the seat. Answers the two questions SaaS never had to: which value metric tracks your cost-and-value distribution (the six 2026 models — hybrid tiered, usage, credit pools, outcome-based, seat + add-on, freemium), and which budget you're billing against (software vs the ~10×-larger salary budget). Carries the pricing transition arc (per-seat dies → tiered → outcome → services-as-software), the packaging decision (bundle / add-on / standalone), the quality-cost-latency trade-off, and the margin-discipline moves (rate-limit staircase, trust trap). Consumes cost-per-outcome at P90 from cost-model; produces the pricing decision that sets the launch motion. Use when pricing, repricing, or when usage grows faster than revenue. Pairs with: cost-model, moat-finder, adoption-launch. Triggers: 'pricing for AI', 'how to price', 'token economics', 'usage-based vs flat-rate', 'per-seat is dying'."
+description: "How to charge for an AI product, where your best users are your most expensive users and the work is done by the model, not the seat. Built on six first-principles axioms (cost is power-law physics; incentives must align with value not consumption; budgets are hierarchical; margin lives in the applied/harness layer; opacity kills trust; negative margins are temporary subsidies). Answers the two questions SaaS never had to: which value metric (the six 2026 models, ranked), and which budget (software vs the ~10× salary budget). Carries the agentic value-metric decision tree, the transition arc with stage gates, spend-visibility + routing as survival infrastructure, the Default-FAIL gate for outcome pricing, a mandatory margin-floor check at P90, and 2026 case law. Consumes cost-per-outcome@P90 from cost-model; produces the pricing decision + spend-control design. Pairs with: cost-model, moat-finder, adoption-launch. Triggers: 'pricing for AI', 'how to price', 'token economics', 'per-seat is dying'."
 imports: [stress-test, red-team]
 ---
 
@@ -10,111 +10,169 @@ imports: [stress-test, red-team]
 
 In normal software, one more user costs almost nothing, so you charge per seat and forget it — margins run 70-90%. In AI, every prompt, document, and agent run burns compute, so **your best users are your most expensive users**, and margins run 20-60%. That single fact breaks per-seat pricing and forces two questions SaaS never had to ask: **which value metric tracks your cost-and-value distribution**, and **which budget are you billing against**. Get the metric wrong and power users bankrupt you (Cursor's $7,225 invoice; GitHub Copilot losing money per user at launch). Get the budget wrong and you either leave 10× on the table or price yourself out of the deal.
 
+## FIRST PRINCIPLES OF AI PRICING (reason from these, not from SaaS)
+
+Before you pick a model, reason from the ground up. Six basics keep this skill sound when new models ship, open-weight models get cheaper, or funding tightens.
+
+1. **Cost is real, and lopsided.** Every token is real energy, chip time, and scarce-GPU cost — never free, never uniform. A tiny fraction of users, sessions, and agents run up most of the bill. **The average user is a lie.** The only number that decides survival is cost at the **90th/99th percentile, after all the real overhead** (harness loops, regenerations, tool calls, failed attempts, support).
+2. **Incentives must align with value created, not consumption.** Per-seat: seller wants seats, buyer wants usage — breaks when AI does the work. Pure per-token: seller wants tokens, buyer feels taxed for thinking. Outcome/services-as-software: both want correct, completed work. The ultimate unit is the **economic surplus created** (usually displaced expensive human labor).
+3. **Budgets stack, and they're sticky.** The software/IT budget is small, closely watched, and capped. The salary/labor budget is ~10× bigger and opens up *once you can prove you replace a person or make one do 10× the work*. Stay in the software budget and your ceiling stays permanently low.
+4. **The raw model is becoming a cheap commodity; the money is in the layer around it.** Open-weight models (DeepSeek-class, at 1/30–1/100th the price) set a permanent price floor on plain inference. The margin you keep comes from what you build *on top* — smart routing, checking the work, domain context. Price only the model and you have no lasting pricing power.
+5. **Complexity and opacity destroy trust and sales velocity.** Hidden limits, seat cliffs, opaque credit burn, bill shock → freezes, renegotiations, churn. Simple, transparent, predictable-with-clear-overage beats clever.
+6. **Negative unit economics are temporary subsidies.** Capital is currently funding deep negative margins. When conviction on payback weakens, only products with **positive contribution margin after full real cost** survive. "Grow into margins" is a dangerous delusion.
+
 ## THE TRAP
 
 You will copy SaaS pricing and be wrong within six months. The bias is **inherited mental models** — every product you know charges per seat, so you will too. But per-seat charges your most expensive user the same as your cheapest, and in AI those differ by 10-100×. Flat-rate subsidizes power users until the margin bleeds out; pure per-token kills adoption because users feel taxed for thinking; outcome pricing only works where the outcome is unambiguous *and* you can measure it. There is no safe default — the model has to match your actual usage distribution and the budget you displace.
 
 ## KEY TERMS (plain, industry-standard)
 
-- **Value metric** — the unit you charge for: a seat, a token, a credit, or an outcome. The most consequential choice; it decides who overpays and who bankrupts you.
-- **The P90 user** — the 90th-percentile user by cost. Price against them, not the average; the average user is irrelevant to whether you survive.
-- **Software budget vs salary budget** — the budget your value comes out of. Software is a low single-digit % of revenue (IT procurement); salary is the fully-loaded cost of the person you replace — roughly 10× larger. Same product, very different ceiling.
-- **Pricing transition arc (the "SaaSpocalypse")** — per-seat → tiered usage → outcome-based → abstracted-value → services-as-software. Per-seat dies at scale; the arc is mandatory, the only question is proactive or in crisis.
-- **Services-as-Software** — the customer pays for the work the AI does (a resolved ticket, a processed invoice), the way they'd pay an outsourced service, not for a license. Foundation Capital's default B2B-AI frame for 2026.
-- **Fair-use cap / the rate-limit gambit** — contract language ("up to N calls per seat") that throttles the top <5% toward per-token, where cost is covered precisely (Anthropic's move).
-- **Quality-cost-latency triangle** — you can optimize two; pricing must respect the trade-off.
+- **Value metric** — the unit you charge for: a seat, a token, a credit, an agent-run, or an outcome. The most consequential choice.
+- **The P90/P99 user** — the 90th/99th-percentile user by cost. Price against them, not the average; the average is irrelevant to survival.
+- **Software budget vs salary budget** — the budget your value comes from. Software is a low single-digit % of revenue; salary is the loaded cost of the person you replace — ~10× larger.
+- **Applied / harness layer** — everything above the raw model call (routing, verification, context compression, caching) — where margin is protected against the open-weights floor.
+- **Default-FAIL measurement** — an outcome counts as success only if it provably passed an auditable, shared definition; the default is failure until proven (mirrors the harness `feature_list.json passes=false` pattern).
+- **Contribution margin floor** — revenue minus *full* variable cost (harness multiplier, regenerations, support) at P90. If negative at expected scale, the pricing is a subsidy.
+- **Spend visibility / token shock** — real-time cost instrumentation + soft/hard limits. Token prices fell ~67% in 2025 yet many bills *rose* — from missing routing and runaway agents, not model price.
+- **Pricing transition arc ("SaaSpocalypse")** — per-seat → tiered → outcome → abstracted-value → services-as-software.
+- **Services-as-Software** — the customer pays for the work done, like an outsourced service, not a license. Foundation Capital's default B2B-AI frame for 2026.
 
 ## WHAT THIS SKILL CONSUMES & PRODUCES
 
-Pricing does not stand alone — it sits between the cost side and the go-to-market side. Name the handoffs before you start.
+Pricing sits between the cost side and the go-to-market side. Name the handoffs before you start.
 
 **Consumes (inputs):**
-- **Cost per successful outcome at P90** — from `cost-model`, not the mean, and *after* regenerations and harness overhead. If you cannot get this number, stop and measure it first.
+- **Cost per successful outcome at P90/P99** — from `cost-model`, *after* the harness multiplier, regenerations, tool calls, and failed trajectories. If you cannot get this number, stop and measure it first.
 - **Usage distribution** — P10/P50/P90/P99 requests and cost per user, from 30+ days of instrumentation.
+- **The routing strategy + spend instrumentation design** — from `cost-model` / the harness: how requests route by complexity, and whether real-time spend tracking exists.
 - **Competitive pricing** — what the alternative charges and how it breaks, from `competitive-map`.
-- **Which budget the buyer pays from** — software or salary (Step 0 below).
-- **Segment + architecture** — B2B API / B2B SaaS / B2C / enterprise platform, and Copilot / Agent / Augmentation, from `strategy-canvas`.
+- **Which budget the buyer pays from** — software or salary (Step 0).
+- **Segment + architecture** — B2B API / SaaS / B2C / platform, and Assist / Copilot / Agent / Autonomous, from `strategy-canvas`.
 
 **Produces (outputs):**
 - **The pricing decision** = value metric × pricing model × packaging, with the transition arc planned.
-- **The launch motion** → `adoption-launch`: a bundle ships as a feature update; an add-on ships as a new SKU; a standalone ships as a full GTM. Do not run a bundle motion for an add-on product.
-- **The margin target** the cost side must hit → back to `cost-model`.
+- **The spend-control design** → ships *with* the pricing: the spend dashboard, soft/hard limits, and approval gates (survival infrastructure, not a follow-up).
+- **The launch motion** → `adoption-launch`: bundle = feature update; add-on = new SKU; standalone = full GTM.
+- **The margin target + margin-floor result** → back to `cost-model`.
 - **The pricing-as-strategy narrative** → `stakeholder-communications` / the board.
 
 ## STEP 0 — WHICH BUDGET ARE YOU BILLING? (THE CEILING)
 
-Before any pricing mechanic, answer this — it sets how *high* you can charge, which the mechanic cannot. A tool that is just more software is paid from the **software budget** (capped by IT-procurement norms). A tool that does the work of a paid expert is paid from the **salary budget** — the loaded cost of the person plus the mistakes avoided — roughly ten times larger.
+Before any pricing mechanic, answer this — it sets how *high* you can charge. A tool that is just more software is paid from the **software budget** (capped by IT-procurement norms). A tool that does the work of a paid expert is paid from the **salary budget** — the loaded cost of the person plus mistakes avoided — roughly ten times larger.
 
-This is the real reason outcome and value pricing command a premium: not that outcomes are "discrete," but that a judgment outcome crosses into the salary budget. It is also the agentic-era reframe of the per-seat death — an agent isn't a seat, it does a person's job, so its pricing *migrates* from the software budget to the salary budget. **When wrong:** the salary-budget ceiling only holds where you genuinely replace expert labor. A record-lookup tool dressed up as "judgment software" stays on the software budget, and the higher ceiling is a mirage that will price you out. *(Stanton, "AI's Impact on SaaS Will Be Uneven," HBR, 27 May 2026; Agrawal, "AI Is Rewriting the Economics of Outsourcing," HBR, 5 Jun 2026.)*
+This is the real reason outcome and value pricing command a premium: a judgment outcome crosses into the salary budget. It is also the agentic-era reframe of the per-seat death — an agent isn't a seat, it does a person's job, so its pricing *migrates* to the salary budget. **When wrong:** the salary ceiling only holds where you genuinely replace expert labor. A record-lookup tool dressed as "judgment software" stays on the software budget, and the higher ceiling is a mirage that prices you out. *(Stanton, HBR, 27 May 2026; Agrawal, HBR, 5 Jun 2026.)*
+
+## THE AGENTIC SHIFT — VALUE METRIC × BUDGET DECISION TREE
+
+The deepest structural change of 2026: agents break the old math, and **better agents make per-seat worse** (they do multi-seat work, so you sell fewer seats as the product improves). Route by what the AI actually does:
+
+| What the AI does | Value metric | Budget | Notes |
+|---|---|---|---|
+| **Assist / Copilot** (suggests, human acts) | Seat + AI add-on, or hybrid | Software (+ some labor) | Seat still viable — usage variance is bounded |
+| **Agent** (multi-step work, human approves) | Credit pools designed around **agent-runs**, or outcome | Crossing into labor | Per-seat is actively anti-aligned here; price the run |
+| **Autonomous labor** (replaces headcount) | **Services-as-software / pay-for-work** | Salary/labor | Bill the salary budget; the outcome *is* the product |
 
 ## THE SIX PRICING MODELS (2026)
 
-Mapped across the 50 highest-valued AI companies. **Pure-play pricing is dying — nearly half run two or three of these at once** (a consumer subscription, a usage-based API, a free tier). Pick per product line, not per company.
+Mapped across the 50 highest-valued AI companies. **Pure-play pricing is dying — nearly half run two or three at once.** Pick per product line, not per company.
 
 | Model | Mechanism | Fits | How it breaks | Example |
 |---|---|---|---|---|
-| **1. Hybrid tiered subscription** | Tiers with rising usage limits + model access | Consumer AI; the default | Undisclosed limits → users feel gaslit hitting a wall | Claude Free→Pro $17→Max $100/$200; ChatGPT |
-| **2. Usage-based / per-token** | Pay per unit of compute | B2B APIs, developers | Surprise four-figure bills; thin moat (inference fell ~78% in 2025) | Anthropic/OpenAI API |
-| **3. Credit / token pools** | Flat sub buys a credit pool that depletes by action | Multi-feature products with varied cost | Trust revolt when a predictable plan turns variable | Cursor (the $7,225 invoice), Midjourney |
-| **4. Outcome-based** | Pay per successful outcome | Clean, measurable outcomes | Revenue drops on a bad model week; measurement infra rarely exists | Intercom Fin $0.99/resolution |
-| **5. Seat-based + AI add-on** | Per-seat base, AI in a premium tier/add-on | Established SaaS adding AI | Your heaviest users pay the same as your lightest | Notion, GitHub Copilot, Canva (+300%) |
-| **6. Freemium / reverse trial** | Give AI away to build habit, monetize upgrades | PLG, consumer scale | Brutal compute burn; <2-3% conversion = too generous | OpenAI (900M weekly), Perplexity |
+| **1. Hybrid tiered subscription** | Tiers with rising limits + model access | Consumer AI; the default | Undisclosed limits → users feel gaslit hitting a wall | Claude Free→Pro $17→Max $100/$200 |
+| **2. Usage-based / per-token** | Pay per unit of compute | B2B APIs, developers | Surprise bills; thin moat (inference fell ~78% in 2025) | Anthropic/OpenAI API |
+| **3. Credit / token pools** | Flat sub buys a depleting credit pool | Multi-feature / agentic products | Trust revolt when a predictable plan turns variable | Cursor (the $7,225 invoice) |
+| **4. Outcome-based** | Pay per successful outcome | Clean, measurable, Default-FAIL outcomes | Revenue drops on a bad model week; needs measurement infra | Intercom Fin $0.99/resolution |
+| **5. Seat-based + AI add-on** | Per-seat base, AI in a premium tier | Established SaaS adding Assist features | Heaviest users pay the same as lightest | Notion, GitHub Copilot, Harvey |
+| **6. Freemium / reverse trial** | Give AI away to build habit | PLG, consumer scale | Brutal burn; <2-3% conversion = too generous | OpenAI (900M weekly), Perplexity |
 
-Reverse trial (full access 14 days → downgrade) beats a permanently crippled free tier — users feel the premium quality before the wall, which converts better.
+**Preference order (long-term alignment, from the axioms):** Outcome / Services-as-Software **>** agent-run credits **>** hybrid with transparent overage **>** pure usage **>** pure seat (a temporary bridge only). Reverse trial beats a permanently crippled free tier.
 
 ## THE THREE INPUTS THAT PICK THE MODEL
 
-1. **Cost structure.** Tokens as a % of *gross margin* (not revenue), computed at P90. >50% → usage-based or outcome mandatory; 20-50% → hybrid; <20% → seat-based survivable.
-2. **Usage distribution.** P90 ÷ P10 request ratio. Under ~2× → flat-rate works; over ~5× → flat-rate fails and you need tiered, credits, or outcome. (Gini > 0.6 = flat-rate is risky.)
-3. **Competitive landscape.** No competitor → optimize for margin. Competitor on per-seat → you can win on usage-based if it's fairer. Competitor on per-token → match unless quality justifies a premium. The trap: don't copy a competitor's tiers off their pricing page — derive tiers from *your* usage data.
+1. **Cost structure.** Tokens as a % of *gross margin* (not revenue), at P90. >50% → usage or outcome mandatory; 20-50% → hybrid; <20% → seat survivable.
+2. **Usage distribution.** P90 ÷ P10 request ratio. Under ~2× → flat-rate works; over ~5× → flat-rate fails (coding copilots run ~32× median-to-P99). Gini > 0.6 = flat-rate is risky.
+3. **Competitive landscape.** No competitor → optimize margin. Competitor on per-seat → win on fairer usage-based. Competitor on per-token → match unless quality justifies a premium. Derive tiers from *your* usage data, never off a competitor's page.
 
-## THE PRICING TRANSITION ARC — PLAN IT BEFORE THE CRISIS
+## APPLIED-LAYER / ROUTING AS PRICING POWER
 
-Per-seat pricing dies because AI cost distributions are log-normal, not uniform. The response is an arc, and each step is a 1-2 quarter project:
+Pure model pass-through has no moat: open-weights set a permanent price floor, so a product that only marks up inference gets squeezed to zero. **Margin and pricing power now live in the applied/harness layer** — routing by complexity (studies show ~8× cost differences for the same output quality), verification loops, context compression, batching, and caching. This is the tight link to `harness-operating-model` and `cost-model`: the harness efficiency you build *is* the margin you protect. Under-invest here and every pricing model in this skill fails against a cheaper open-weights competitor.
 
-**per-seat (legacy) → tiered usage → outcome-based → abstracted-value (credits) → services-as-software.**
+## THE PRICING TRANSITION ARC — STAGE-GATED, AND WATCH THE SUBSIDY
 
-Two rules that decide whether the arc costs you a quarter or a customer. **Price for the actual usage profile, not the headline.** Klarna priced for "AI replaces 853 FTEs"; reality was ~65% AI / 35% human nuance, and both sides renegotiated. **Start before per-seat fails.** The team that adds tiered caps proactively has runway; the team that waits for the CFO's question has three bad options — retroactive overage (renewal risk), absorb the loss (margin damage), or full redesign (12-month sales cycle). Cursor's transition was reactive and public; the brand paid for it.
+Per-seat dies because AI costs are wildly uneven across users. The response is a stage-aware arc:
+
+- **Pre-PMF:** reverse trial + a generous hybrid. Optimize for habit and learning the usage distribution, not margin.
+- **Growth:** credits + spend visibility + soft limits. Add tiered caps *before* per-seat fails — proactively, not in crisis.
+- **Leadership:** committed spend / outcome / services-as-software. Bill the salary budget.
+
+Two rules decide whether a transition costs a quarter or a customer. **Price for the actual usage profile, not the headline** (Klarna priced for "AI replaces 853 FTEs"; reality was ~65% AI / 35% human, and both sides renegotiated). **Start before per-seat fails** (Cursor's reactive flip was public and the brand paid). **The capital warning:** many high-growth products run on subsidized unit economics — plan explicitly for the day capital reprices. "We'll grow into margins" is the trap.
 
 ## THE PACKAGING DECISION — BUNDLE / ADD-ON / STANDALONE
 
-Separate from the value metric: *do you charge for the AI separately at all?* Three signals decide it (Broe's 44-incumbent study: 59% bundle, 23% add-on, 18% standalone).
+Separate from the value metric: *do you charge for the AI separately at all?* Three signals (Broe's 44-incumbent study: 59% bundle, 23% add-on, 18% standalone).
 
-- **Marginal cost at P90.** <5% of revenue → bundle is safe. 5-20% → bundle with fair-use, or hybrid. >20% → add-on or usage-based mandatory (bundling means losing money on power users).
-- **New value vs improvement.** Fill in "Before our AI, users could ___." If it's "do this manually / worse," it's an *improvement* → **bundle** (charging separately invites a competitor to include it free). If it's "couldn't do this at all," it's *new value* → **add-on**, or **standalone** only if it reaches a genuinely new buyer (Cursor pattern).
-- **Separable willingness-to-pay.** When sales mentions AI, does the prospect ask "what's the price for that?" (separable WTP → add-on) or "is that included?" (table stakes → bundle).
-
-The most-miscalled path is standalone: if it's sold to the same buyer, same cycle, same logo, it's an add-on with bad packaging.
+- **Marginal cost at P90.** <5% of revenue → bundle is safe. 5-20% → bundle with fair-use, or hybrid. >20% → add-on or usage-based mandatory.
+- **New value vs improvement.** Fill in "Before our AI, users could ___." "Do this manually/worse" = *improvement* → **bundle**. "Couldn't do this at all" = *new value* → **add-on**, or **standalone** only if it reaches a genuinely new buyer.
+- **Separable WTP.** When sales mentions AI, does the prospect ask "what's the price for that?" (→ add-on) or "is that included?" (→ bundle). Standalone sold to the same buyer/cycle/logo is just an add-on with bad packaging.
 
 ## THE QUALITY-COST-LATENCY TRIANGLE
 
-Pick two; the third suffers. Flat-rate buys quality + latency (unlimited, no guilt) but cost spirals. Per-token buys cost + latency but quality drops (users avoid hard questions). Outcome buys quality + cost but the user waits. The trap: optimizing for cost control quietly destroys quality perception — users stop asking complex questions. Translate each vertex into what the customer actually sees and instrument it before you price: **quality = acceptance rate** (% used as-is), **cost = price per outcome** (not per token), **latency = time to first useful token** (P50/P95, measured client-side). And watch the multiplier: **a regeneration doubles the real cost per outcome** — quality failures are cost failures, not just UX ones.
+Pick two; the third suffers. Flat-rate buys quality + latency but cost spirals. Per-token buys cost + latency but quality drops (users avoid hard questions). Outcome buys quality + cost but the user waits. Translate and instrument each vertex before pricing: **quality = acceptance rate** (% used as-is), **cost = price per outcome** (not per token), **latency = time to first useful token** (P50/P95, client-side). And watch the multiplier: **a regeneration doubles the real cost per outcome** — quality failures are cost failures.
 
-## THE MARGIN-DISCIPLINE MOVES (AGENTIC ERA)
+## SPEND VISIBILITY + LIMITS — SURVIVAL INFRASTRUCTURE, NOT A FEATURE
 
-- **The rate-limit staircase.** Want heavy usage, but throttle the top <5% toward the per-token API where cost is covered precisely (Anthropic's $17 → $100 → $200 + weekly limits). Undisclosed limits buy margin flexibility at the cost of trust — decide that trade knowingly.
-- **The trust trap.** Never convert a predictable plan to a variable one without over-communicating. Cursor flipped flat-500-requests to credit pools and the CEO published a public apology twelve days later. Pricing changes are sticky and trust is fragile.
-- **Outcome pricing's real blocker is measurement.** Outcome-based only works where the outcome is unambiguous *and* instrumented (a resolved ticket, a merged PR). For most categories the measurement infrastructure doesn't exist yet — build it before you promise to price on it.
+This is the #1 operational failure destroying ROI and renewals right now. Token prices fell ~67% in 2025 yet enterprise bills *rose* — because of missing routing and runaway agents, not model price (one runaway agent loop reportedly burned ~$500M in a month; whole enterprise AI budgets gone in 3-4 months on unmetered API rates). Ship these *with* the pricing, never after:
+
+- **Real-time spend instrumentation** — cost per user/feature/agent-run, visible to the buyer.
+- **Soft limits (alert) + hard limits (block) + approval gates** for expensive agent runs.
+- **No seat-threshold cliffs.** The hybrid failure mode: crossing a seat count (e.g. ~150) strips included usage and forces full API rates — a 3-3.5× overnight jump ($400K → $1.4M/yr in one real case). Design transparent staircases, not cliffs.
+
+## DEFAULT-FAIL MEASUREMENT — THE HARD GATE FOR OUTCOME PRICING
+
+Outcome pricing is theater without measurement. It is viable **only** when both parties share a **Default-FAIL, instrumented, auditable definition of success** — the outcome is a failure until it provably passed (mirrors the harness pattern). Intercom Fin works because "resolved" is defined (customer confirms, or no follow-up in 24h) and Intercom takes the LLM cost risk. Salesforce Agentforce charges $2 only on a full resolution with no human escalation and no negative feedback. **If you cannot measure the outcome cleanly, do not price on it** — flag `OPEN: outcome not yet measurable` and ship a different model until the instrumentation exists.
+
+## THE MARGIN-DISCIPLINE MOVES + THE MANDATORY MARGIN FLOOR
+
+- **The rate-limit staircase.** Want heavy usage, but throttle the top <5% toward the per-token API where cost is covered precisely (Anthropic's $17 → $100 → $200 + weekly limits). Undisclosed limits buy flexibility at the cost of trust — decide that trade knowingly.
+- **The trust trap.** Never convert a predictable plan to variable without over-communicating. Cursor flipped flat-500 to credit pools and the CEO apologized twelve days later. Contrast: Snowflake/Twilio shipped metering + visibility *before* scaling usage pricing and hit 127-158% net revenue retention. **Visibility first.**
+- **THE MARGIN FLOOR (do this before locking any pricing).** Compute contribution margin at P90 after the full harness multiplier, regenerations, support, and the open-weights floor. **If it's negative at expected scale, redesign the architecture or the pricing first — do not ship.** This enforces the sustainability axiom and stops the "grow into margins" delusion.
 
 ## THE COST SIDE LIVES IN `cost-model` — NOT HERE
 
-Pricing *consumes* cost numbers; it does not compute them. The full cost mechanics — the harness multiplier (a Planner/Generator/Evaluator loop is 10-22× a single call), hidden costs (hallucination correction, retrieval, fine-tuning, support escalation), model routing, prompt caching (~90% off cached tokens), and batch APIs (~50% off) — all live in `cost-model`. Pull one number from there before you price: **cost per successful outcome at P90, after regenerations and harness overhead.** If that number isn't available, you have a measurement problem, not a pricing problem — fix it first.
+Pricing *consumes* cost numbers; it does not compute them. The full mechanics — the harness multiplier (a Planner/Generator/Evaluator loop is 10-22× a single call), hidden costs, model routing, prompt caching (~90% off cached tokens), and batch APIs (~50% off) — live in `cost-model`. Pull one number before you price: **cost per successful outcome at P90, after regenerations and harness overhead.** If it isn't available, you have a measurement problem, not a pricing problem — fix it first.
+
+## CASE LAW (2026) — STRESS-TEST EVERY DECISION AGAINST THESE
+
+| Model | Got it right | Classic failure | The lesson |
+|---|---|---|---|
+| Hybrid tiered | Anthropic Free/Pro/Max staircase | Anthropic ~150-seat cliff ($400K→$1.4M) | Transparent staircase, no hidden cliffs |
+| Usage / per-token | Snowflake / Twilio (visibility first) | Surprise bills, no routing (Uber-scale burn) | Ship spend visibility *before* scaling |
+| Credit pools | Cursor (post-fix), Linear ($20 credits) | Cursor mid-2025 flip ($7,225 invoice) | Never flip predictable→variable without over-comms |
+| Outcome-based | **Intercom Fin $0.99/res**, Salesforce Agentforce $2/res, Zendesk $1.50-2, Sierra | Any outcome without a Default-FAIL definition | Default-FAIL definition + take the cost risk |
+| Seat + add-on | Harvey (~$1,200/seat, huge surplus) | Pure-seat Copilot (lost money per power user) | Seat is a temporary bridge for AI features |
+| Agentic / hybrid | Microsoft Copilot Credits (seat + ~$0.01/credit) | Pure seat on multi-step agents | Price the agent-run; better agents kill seat math |
+
+Test any proposal: *would it survive a Cursor-style power-user week, or an Anthropic 150-seat cliff?*
 
 ## WHERE YOU ARE — OUTPUT
 
 ```
 ## Pricing Decision: [Product / line]
 
-Which budget: [software (~low single-digit % of rev) | salary (~10×) — and the evidence you displace expert work]
-Value metric × model × packaging: [e.g., outcome × per-resolution × add-on]
+Which budget: [software (~low single-digit % rev) | salary (~10×) — evidence you displace expert work]
+What the AI does: [Assist | Copilot | Agent | Autonomous] → implied metric [seat | agent-run credit | outcome]
+Value metric × model × packaging: [e.g., outcome × per-resolution × add-on]  (preference order respected?)
 Chosen from: cost structure [tokens % of P90 margin] · usage spread [P90/P10] · competition
-Transition arc: [today → 12mo → 24mo], next step = [the 1-2 quarter project]
-Quality-cost-latency: [which two optimized, which sacrificed, how instrumented]
-Margin check: [gross margin at P90 today | at 10× usage | at 100× — where it breaks]
+Transition arc: [stage: pre-PMF/growth/leadership] · next step = [the 1-2 quarter project]
+Spend-control shipping with it: [real-time dashboard · soft/hard limits · approval gates · no seat cliff]
+Outcome measurable? [Default-FAIL definition, or OPEN: not yet measurable → use model X meanwhile]
+MARGIN FLOOR: gross margin at P90 after full harness+regen+support = ___%  [ship only if >0 at scale]
+  at 10× usage: ___%   at 100×: ___%  (where it breaks)
+Applied-layer margin move: [routing by complexity | caching | verification — vs the open-weights floor]
 Trust guardrail: [comms plan if changing a predictable plan to variable]
 ```
 
-Flag anything still open as `OPEN: [the decision] — [what evidence would settle it]` (e.g., "OPEN: is the outcome measurable enough to price on? — needs 30 days of resolution-attribution data").
+Flag anything open as `OPEN: [decision] — [evidence that would settle it]`.
 
 ## WHEN WRONG
 
@@ -131,4 +189,4 @@ Before starting, follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-
 
 ## VISUAL SUMMARY
 
-After the primary output, invoke the **excalidraw-svg** skill for one visual — the six-model matrix (cost transparency × customer alignment, segment fit annotated) or the pricing transition arc with the trigger for each step. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After the primary output, invoke the **excalidraw-svg** skill for one visual — the six-model matrix (cost transparency × customer alignment, segment fit annotated) or the pricing transition arc with the trigger for each stage. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
