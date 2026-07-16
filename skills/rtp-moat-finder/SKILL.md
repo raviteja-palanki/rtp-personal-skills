@@ -12,7 +12,7 @@ The model is never the moat. Everyone rents the same frontier models, and every 
 
 ## THE TRAP
 
-You will confuse *impressive* with *defensible*. The bias is recency: a novel capability feels like a moat precisely because it is new. Three months later every competitor ships the same thing and you are racing on execution cost, which is not a strategy. In AI, moats are invisible until they hold or break — a proprietary dataset, a deep integration, a safety brand can all look defensible on launch day and be commodities by month eighteen. The test that cuts through the theater: **"Why can't a competitor with the same model beat us next quarter?"** If the honest answer names a feature, you have no moat yet. The teams that win know their moat *before* they build — roughly 5-17% of AI products survive 18 months in market, and the survivors almost all carry three or more compounding moats (⚠ directional).
+You will confuse *impressive* with *defensible*. The bias is recency: a novel capability feels like a moat precisely because it is new. Three months later every competitor ships the same thing and you are racing on execution cost, which is not a strategy. In AI, moats are invisible until they hold or break — a proprietary dataset, a deep integration, a safety brand can all look defensible on launch day and be commodities by month eighteen. Two tests cut through the theater. **"Why can't a competitor with the same model beat us next quarter?"** — if the honest answer names a feature, you have no moat yet. And the one operators use right now: **"Would anyone actually miss us if we disappeared tomorrow?"** — if the answer is no, you don't own the workflow or the experience, and there is nothing to defend. The teams that win know their moat *before* they build — roughly 5-17% of AI products survive 18 months in market, and the survivors almost all carry three or more compounding moats (⚠ directional).
 
 ## KEY TERMS (plain language)
 
@@ -59,15 +59,19 @@ The frontier model is a commodity. What is not commoditized is what the team bui
 
 | Moat | Mechanism | The real-vs-vanity test | Decay clock |
 |---|---|---|---|
-| **1. Proprietary data** | Data a competitor cannot legally or operationally replicate (customer interactions, domain labels, exclusive licensing) | Does it cover the *rare, hard cases* seen across many customers — or only the common, scrape-able body? | 12-24 mo; collapses to the mean if the loop is fed by public data |
+| **1. Proprietary data + the ability to use it** | Specialized, accumulated data a rival can't legally or operationally replicate (customer interactions, domain labels, exclusive licensing) *plus* a proven ability to turn it into a measurable business result | Does it cover the *rare, hard cases* seen across many customers — or only the common, scrape-able body? | 12-24 mo; collapses to the mean if the loop is fed by public data |
 | **2. Workflow integration depth** | Deep ties to the customer's systems; the Indispensability Index | Would migration cost multiple quarters of disruption, not an afternoon of copy-paste? | 18-36 mo; collapses in ~6 mo if a standard emerges |
-| **3. Harness mastery** | The orchestration + memory + skills + context + evals layer that turns model capability into reliable outcomes | Would a rival need 6+ months to rebuild it — and can you *measure* it beats a simpler baseline? | 24+ mo; accelerates if you publish the architecture |
-| **4. Brand & trust** | Privacy architecture, compliance posture, regulated-industry track record | Do buyers with equivalent alternatives still pay a premium (provable in win rates)? | 5-10 yrs if consistent; **binary** — one major incident erases it |
+| **3. Harness mastery** | Everything you build *around* the model call: tools, memory, context management, permissions, evals, retries, routing, caching, approvals, budgets, failure recovery, observability — the system that turns raw model output into reliable work | Would a rival need 6+ months to rebuild it — and can you *measure* it beats a simpler or open harness on the same model? | 24+ mo; accelerates if you publish the architecture |
+| **4. Trust & reliability** | A track record of *working in production* — reliability, safety, audit trails, approval steps, failure recovery, spend controls (the "proof it won't blow up" buyers now pay for) | Do buyers who saw a flashier demo still pick you because you don't fail in production (provable in win rates)? | 5-10 yrs if consistent; **binary** — one major incident erases it |
 | **5. Network effects** | Multi-tenant patterns where each new customer makes the product better for the others | Does each new user make the product better for *existing* users within weeks (not just add to storage)? | Hardest to build, most durable once built |
 
-Examples that anchor each: proprietary data — Duolingo's labeled interaction loop, Harvey's legal corpus (◆). Workflow — the enterprise deployment wired into 5 critical systems. Harness — the team that invested in a mature harness in 2024-25 now out-optimizing teams that didn't. Brand & trust — Apple's Private Cloud Compute, Anthropic's safety posture, SOC 2 / HIPAA / FedRAMP with measurable enterprise-sales effects (◆). Network effects — ServiceNow's 85B annual workflows of training signal no competitor has (◆).
+Examples that anchor each: proprietary data — Duolingo's labeled interaction loop, Harvey's legal corpus (◆). Workflow — the enterprise deployment wired into 5 critical systems. Harness — the team that invested in a mature harness in 2024-25 now out-optimizing teams that didn't. Trust & reliability — Apple's Private Cloud Compute, Anthropic's safety posture, SOC 2 / HIPAA / FedRAMP with measurable enterprise-sales effects (◆). Network effects — ServiceNow's 85B annual workflows of training signal no competitor has (◆).
 
-**Harness mastery absorbs three things people list separately.** Your *eval-dataset* moat (thousands of curated production failures a rival with the same model does not have) and your *context-engineering* moat (retrieval and prompt architecture invisible in the API output) are not separate moats — they are faces of harness mastery. Score them together. The tell that it is real and not vanity: you can *measure* it beats a simpler baseline. If you cannot measure the lift, you cannot defend it either.
+**Harness mastery absorbs three things people list separately.** Your *eval-dataset* moat (thousands of curated production failures a rival with the same model does not have) and your *context-engineering* moat (retrieval and prompt architecture invisible in the API output) are not separate moats — they are faces of harness mastery. Score them together. The tell that it is real and not vanity: you can *measure* it beats a simpler baseline. If you cannot measure the lift, you cannot defend it either. This is the moat operators name most often in 2026 — the model is interchangeable, the system around it is not.
+
+**Why trust & reliability is rising fast.** Once the model is good enough, the thing that wins the deal is no longer intelligence — it is *confidence*: does it work every time, can you see why, can it not blow up the budget. Enterprise money is flowing to the product that fails less in production, not the one that demos best. The proof is a clean track record and win rates against flashier competitors — not a safety page.
+
+**How operators rank these right now (mid-2026):** harness first (the model is interchangeable; the system around it is not), then specialized data + workflow depth, with trust & reliability rising fast and distribution/ecosystem treated as a first-class force. The weighting above reflects that. The deeper dynamics below — Vertical-Infinite, Living Software, cycle-time — are still ahead of the public conversation; they are your edge, keep them.
 
 **Apple Intelligence stacks four of the five** — workflow (deep iOS), harness (PCC), brand & trust (privacy architecture), network effects (every iOS user produces signal) — skipping only proprietary external data, because the ecosystem is closed. Four of five is dominant.
 
@@ -79,6 +83,10 @@ Total the five scores (max 25). This is a heuristic, not an audited threshold �
 - **8-11 — thin.** One moat is probably carrying the rest; a competitor who matches it exposes you.
 - **< 8 — exposure.** You are shipping commodity AI on a commodity model.
 - **Fewer than three moats scoring ≥ 3 — fragile**, regardless of total. A team with one deep moat is exposed the moment a rival replicates that one thing; a team with three forces the rival to replicate three, each taking years.
+
+**Score harness mastery and trust & reliability strictly.** They only earn a 4 or 5 with a *measured* lift over a simpler baseline and a *production* track record — never on a demo or an intention. These two are where 2026 buyers actually spend, so the bar to claim them is higher.
+
+**The most common surviving combination in 2026** is harness + specialized data + workflow depth (with trust & reliability often the fourth). Keep the "three or more moats scoring ≥ 3" filter as the survival test.
 
 The move each quarter: **find the weakest moat that matters and make it next quarter's investment.** A team scoring 5 on workflow but 1 on harness invests in harness, not in deepening workflow further. Run the scorecard in the same review as the harness metrics and the value model.
 
@@ -126,7 +134,14 @@ Run these whenever you have just identified a data, feedback-loop, or relationsh
 
 ## THE FORCE THE PENTAGON PREDATES — DISTRIBUTION
 
-The five-moat pentagon is about what you build. The 2026 research adds a force it under-weights: **distribution is often a stronger moat than the AI itself, and it is the incumbent's structural weapon.** Incumbents push native assistants onto every surface so the default is "good enough" without the user ever leaving; the corollary is a warning — *if your product needs another company's data access or distribution to work, assume that access gets harder, not easier.* Agentic AI can invert this for startups in narrow windows, but the window closes. Treat distribution as a sixth question the pentagon does not score: *can you reach users somewhere a competitor cannot cheaply follow?* *(Newer and less settled than the five — [AI Moats in 2026, Valtorian](https://www.valtorian.com/blog/ai-moats-2026); [How Agentic AI Supercharges Startups and Threatens Incumbents, HBR, Jul 2026](https://hbr.org/2026/07/how-agentic-ai-supercharges-startups-and-threatens-incumbents).)*
+The five-moat pentagon is about what you build. The 2026 research adds a force it under-weights: **distribution is often a stronger moat than the AI itself, and it is the incumbent's structural weapon.** Incumbents push native assistants onto every surface so the default is "good enough" without the user ever leaving; the corollary is a warning — *if your product needs another company's data access or distribution to work, assume that access gets harder, not easier.*
+
+Score distribution with three plain questions the pentagon doesn't ask:
+- **Do you own a default surface or a developer ecosystem** — a place users already are, or tools/APIs that others build on?
+- **Does more usage make the product better for other users**, or only for you? (The first is a real ecosystem effect; the second is just your own data pile.)
+- **Is your reach partner-dependent — and is that access getting harder?**
+
+One live move worth naming: **open-sourcing your harness or tools can be a distribution play, not charity.** More builders adopt it → more usage → faster iteration and an ecosystem competitors have to fight — the CUDA and Android pattern (the read on xAI open-sourcing Grok Build). *(Newer and less settled than the five — [AI Moats in 2026, Valtorian](https://www.valtorian.com/blog/ai-moats-2026); [How Agentic AI Supercharges Startups and Threatens Incumbents, HBR, Jul 2026](https://hbr.org/2026/07/how-agentic-ai-supercharges-startups-and-threatens-incumbents).)*
 
 ## THE ACQUISITION = MOAT TEST
 

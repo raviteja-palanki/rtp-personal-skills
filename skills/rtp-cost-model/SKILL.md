@@ -1,44 +1,59 @@
 ---
-name: cost-model
-description: "What does your AI feature really cost — and does the math still work at 10× the usage? Maps the full cost stack (model calls, retrieval, storage, human review), prices the cost of a *successful* outcome rather than a single call, and finds where the margin breaks as you scale. Use when: pricing decisions, scaling plans, 'can we afford this' reviews. Pairs with: token-economics (how to charge), moat-finder (which profit line — cost or growth — to aim the AI at). Triggers: 'unit economics', 'AI cost model'"
-imports: [stress-test, token-economics, product-pricing]
+name: rtp-cost-model
+description: "What does your AI feature really cost — and does the math still work at 10× the usage? Maps the full cost stack (model calls, retrieval, storage, human review, eval) and prices the cost of a *successful* outcome — including failures, escalations, and the agentic call multiplier (one task now fires 10-20 calls). Owns the cost mechanics the money system needs — harness multiplier, model routing, prompt caching, batch — and hands the P90 cost-per-outcome to token-economics for pricing. Covers the Jevons trap (cheaper tokens, bigger bills), the 10× degradation table, routing ROI and its maturity ladder, eval-cost-at-scale, and the margin gate with a price-erosion stress test. Use when: pricing decisions, scaling plans, 'can we afford this' reviews. Pairs with: token-economics (how to charge), moat-finder (cost vs growth line), ship-decision (the margin gate). Triggers: 'unit economics', 'AI cost model', 'cost per outcome'"
+imports: [stress-test, token-economics]
 ---
 
 # Cost Model
+
+## THE ONE IDEA
+
+**The cost that matters is never the token — it's the cost of a *successful outcome*.** One outcome hides what the token count doesn't show: in an agentic flow it takes 10-20 model calls, inference is only ~20-30% of the real bill, and you pay for every failed attempt whether or not the user got a good answer. Model that real number — at P90, at 10× usage, at your true call multiplier — or you'll ship a margin you can't defend in a scaling review. This skill owns the cost math; `token-economics` turns the answer into a price.
 
 ## DEPTH DECISION
 
 **Go deep** if: you're pricing an AI feature, doing go/no-go on a launch, or your margin is unclear at 10x scale. Read sections 1-6.
 
-**Skim to KEY DIAGNOSTIC QUESTIONS** if: you have an existing cost model and want to pressure-test assumptions. The 8 questions will surface blind spots fast.
+**Skim to KEY DIAGNOSTIC QUESTIONS** if: you have an existing cost model and want to pressure-test assumptions. The diagnostic questions will surface blind spots fast.
 
 **Skip** if: the feature is a loss-leader by design, or you're in early prototype where unit economics are irrelevant.
 
-## GROUNDING (Before Starting)
-
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
-
-Then proceed with the skill-specific analysis below.
-
 ## THE TRAP
 
-You will model inference cost in isolation. Reality: **inference is 20-30% of total cost.** The other 70% hides in retrieval (embedding + vector DB + re-ranking), storage, compute overhead, human review pipelines, and eval infrastructure.
+**The Jevons trap — cheaper tokens, bigger bills.** The price of a token fell roughly 75× since 2023, and enterprise AI spend went *up*, not down. The reason: as each call got cheaper, teams used far more of them. One user task no longer means one model call — an agent plans, acts, checks, and retries, so a single task now fires **10-20 calls**; retrieval (RAG) inflates the context 3-5×; and always-on monitors run 24/7. The teams that win built routing, caching, and harness discipline in from day one; everyone else gets Cursor-style bill shock (reported multi-million annual run-rates with no matching productivity, ⚠ production signal). So "just measure tokens" is not enough — the number that survives a P&L review is **cost per successful outcome**, and the biggest driver of it in 2026 is how many calls one task quietly triggers.
 
-You'll also assume costs scale linearly. They don't. Retrieval cost grows with corpus size. Eval cost grows with volume. Error correction compounds under load. Cache hit rates collapse as query diversity increases. By 10x scale, your $0.02-per-call assumption becomes $0.06-0.10. You'll have committed infrastructure before realizing margin is negative.
+You will model inference cost in isolation. Reality: **inference is usually only 20-30% of total cost.** The other 70% hides in retrieval (embedding + vector DB + re-ranking), storage, compute overhead, human review pipelines, and eval infrastructure.
+
+You'll also assume costs scale linearly. They don't. Retrieval cost grows with corpus size. Eval cost grows with volume. Error correction compounds under load. Cache hit rates collapse as query diversity increases. By 10× scale, your $0.02-per-call assumption becomes $0.06-0.10 — before the agentic multiplier above. You'll have committed infrastructure before realizing margin is negative.
+
+## WHAT THIS SKILL CONSUMES & PRODUCES
+
+Cost-model is the **cost engine** of the money system: it owns the full cost mechanics, and the pricing skill consumes its answer. Naming the edges also closes a live boundary — the harness multiplier, model routing, caching, and batch economics live *here*, not in `token-economics`.
+
+**Consumes (inputs):**
+- **Usage telemetry** — calls and cost per user at P50/P90/P99, plus the agentic call multiplier, from your instrumentation.
+- **The harness architecture** — how many agents, evals, retries, and human gates a task runs through, from `agent-harness` (the machine) and `harness-operating-model` (the program).
+- **Current model prices** — the live per-token rates and cache/batch discounts.
+- **The failure taxonomy** — how and how often outcomes fail, from `production-observability` / `eval-framework`.
+
+**Produces (outputs):**
+- **Cost per successful outcome at P90** — the single number `token-economics` needs to price (this is the hand-off that closes the routing debt).
+- **The cost-moat read** → `moat-finder` (is our routing/harness efficiency a real cost advantage, or parity?).
+- **The margin gate** → `ship-decision` (positive at 10× or don't ship).
+- **The cost dashboard** — the live KPIs below, for ongoing telemetry.
 
 ## THE PROCESS
 
 ### KEY TERMS (plain language)
 
 - **Cost stack** — all the real costs behind an AI feature: inference, retrieval, storage, eval runs, human review, infrastructure.
-- **Cost per successful outcome** — the cost of a user actually getting a useful answer, including failed attempts and escalations — not the cost of a single call.
+- **Cost per successful outcome** — the cost of a user actually getting a useful answer, including failed attempts and escalations — not the cost of a single call. This is the north-star number; report it to the board, not "cost per call."
+- **Agentic call multiplier** — how many model calls one user task actually triggers (plan → act → observe → verify → retry). Was ~1 in a chatbot; is 10-20 in a real agent. Track it over time — it is the fastest-moving driver of your cost.
 - **Model routing** — sending easy queries to a cheap model and hard ones to an expensive model to cut cost.
+- **Cache hit rate** — the share of your prompt tokens served from cache (much cheaper). A first-class dashboard metric; target **>70%**.
 - **Cached prompt discount** — paying much less for repeated prompt prefixes the provider can cache.
 - **Margin at scale** — whether the feature is still profitable once volume, failures, and eval costs grow.
-- **Salary budget vs. software budget** — money for people and their work versus money for tools; the salary budget is ~10× larger, and which one pays sets your price ceiling.
+- **Salary budget vs. software budget** — the price ceiling is set by which P&L line the outcome displaces: expert-judgment labor (uncapped, risk-adjusted) versus another software seat (capped). Same product, 5-10× different ceiling when it genuinely does judgment work. The mirage to avoid: a pure record-lookup tool dressed as "AI judgment" stays on the software budget.
 
 ### 1. Map Your Real Cost Stack
 
@@ -48,10 +63,11 @@ Don't start with tokens. Start with every system that touches your feature:
 **Retrieval layer:** Vector embeddings (queries + documents), vector DB hosting, re-ranking models, hybrid search
 **Storage layer:** Document storage, vector embeddings at scale, cache storage, logs
 **Compute layer:** Orchestration, retries, timeouts, fallback routing, load balancing
+**Orchestration & retry overhead:** state management, tool-calling glue, multi-model handoffs, retry/fallback loops — no longer negligible in agentic or RAG-heavy flows, where one task fans out into many calls
 **Human layer:** QA review, safety review, user feedback loops, annotation for improving retrieval
 **Eval layer:** Daily evaluation runs, quality monitoring, drift detection, cost auditing
 
-For each layer, ask: **At what scale does this become expensive?** Embedding costs are negligible at 1M documents but substantial at 100M.
+For each layer, ask: **At what scale does this become expensive?** Embedding costs are negligible at 1M documents but substantial at 100M. The sharper version of the scale question: *at what corpus size or query diversity does retrieval cost exceed what caching saves?*
 
 ### 2. Build the Cost Calculation: Real Numbers
 
@@ -73,6 +89,8 @@ Start with actual pricing. For a document search feature:
 
 **Key insight:** Human review alone is 28% of cost. Inference is only 8%. This changes how you optimize.
 
+*The numbers above are an illustrative 2025/early-2026 production example, not a template to copy.* Two rules: (1) **replace this table with your own telemetry within 30 days of launch** — real cost lives in your traces, not in an example; (2) add a **P90 cost-per-outcome** column next to the average — the average hides the outlier users and tasks that actually blow the margin.
+
 ### 3. Calculate Cost Per Successful Outcome (Not Per Call)
 
 Inference cost per call is misleading. What matters is cost per user getting a useful answer.
@@ -87,11 +105,15 @@ If your feature has 20% failure rate (common for RAG), the math changes dramatic
 - You're paying full inference cost for failed attempts too
 - This is invisible in simple per-call models
 
+**Instrument this from day one, not after.** Track a **failure taxonomy** — retrieval miss, hallucination, policy violation, timeout — and the **human escalation rate**, from launch. You cannot price or fix what you cannot name. Report **cost per completed/accepted outcome** as the north-star metric to the board; "cost per call" is the vanity number that hides the problem.
+
 ### 3A. Which Budget Pays For It — The Price Ceiling
 
 Cost-per-outcome (above) is the *cost* side. The *price* side is set by which budget the value comes out of — and that's often the bigger lever.
 
 **Salary budget vs. software budget.** A tool that replaces a paid expert comes out of the *salary* budget (the cost of the person, plus the mistakes avoided). A tool that's just another piece of software comes out of the *software* budget. The salary budget is roughly ten times larger. Same product, very different price ceiling, depending on which budget line it displaces. "Charging per outcome instead of per seat" isn't a fashion — it's software crossing into that bigger, salary-sized budget by doing judgment work a paid expert used to do. **Why it matters:** a feature with a thin margin at a per-seat price can have a healthy one once you re-price it against the labor it replaces; cost-per-outcome tells you whether you're *profitable*, not how high you can price. **When this is wrong:** only holds where the tool genuinely displaces expert labor — a record-lookup tool dressed up as "judgment software" stays on the software budget, and the bigger ceiling is a mirage. *(Source: "AI's Impact on SaaS Will Be Uneven," Stanton, HBR, 27 May 2026.)*
+
+**The edge case that keeps you on the software budget.** When the AI only *speeds up* an existing workflow without changing who owns the judgment or the risk, the ceiling stays software-budget — no matter how impressive the demo. The 10× labor-displacement ceiling only opens when your prompts + proprietary context + ownership of the outcome become a compounding asset the buyer can't easily rebuild. Speed alone doesn't cross budgets; owned judgment does.
 
 **Reprice work by value, not by the hourly rate (vendor renewals and insource decisions).** The outsourcing era priced work by where labor was cheapest. On any vendor renewal or in-source decision, ask what the work is actually worth across five things — cost, quality, speed, risk, and control — not what an hour of offshore labor costs. Make the vendor show how AI changes each of the five, and put ownership of the prompts, code, and knowledge bases into the contract. **Why it matters:** the hourly rate hides where AI actually shifts value (usually quality, speed, and control), and whoever owns the prompts-and-data loop keeps the compounding asset. **When this is wrong:** for genuinely commodity work with no data or control value, the hourly rate is still the right basis. *(Source: "AI Is Rewriting the Economics of Outsourcing," Agrawal, HBR, 5 Jun 2026.)*
 
@@ -119,6 +141,19 @@ When you go from 1,000 to 10,000 users, these change:
 - + Eval scaling: +$0.012
 - × 1.15 (higher human review rate under quality pressure)
 - **= $0.094 per successful outcome (2.3x baseline)**
+
+### 4A. Agentic Multi-Call Inflation & the Jevons Reality (read this before you trust any per-call number)
+
+The degradation table above assumes *one call per task*. Agents break that assumption, and it is the fastest way naive math turns into negative margin.
+
+**What inflates the cost:**
+- **One task → 10-20 calls.** A real agent plans, acts, observes, verifies, and retries. Each loop is another call. Your "call multiplier" is the number to watch — and to track over time (it was ~1 six months ago and climbs as you add autonomy).
+- **RAG context bloat.** Retrieval stuffs 3-5× more tokens into every call, and you pay for all of them.
+- **Always-on monitors.** Background agents and watchers run 24/7 whether or not a user is active.
+
+**The counter — cost control is system design, not a cheaper model.** The levers that keep the multiplier manageable are architectural: **route** by complexity (cheap model for easy calls), **cache** aggressively (>70% hit rate), and **prune the harness** (early exit, fewer retries, tighter context). Production teams running billions of tokens report the same lesson: the win comes from routing + context discipline + guardrails measured against *cost per accepted outcome*, not from chasing the cheapest model (⚠ production signal).
+
+**The decision:** before you ship an agentic flow, compute cost at your *real* call multiplier, not one call. If the multiplier × per-call cost breaks the margin, the fix is fewer/cheaper calls by design — cap retries, route, cache, prune — not a model swap.
 
 ### 5. Harness Cost Economics: Agent Architectures & ROI (Critical Decision Framework)
 
@@ -172,7 +207,9 @@ Matrix:
 - If failure cost < 10x task cost, stick with solo.
 - In between: Solo+Eval is the sweet spot.
 
-### 5A. Model Routing ROI (40-60% Cost Reduction)
+**Two 2026 notes.** (1) Budget the **orchestration overhead** as its own line — state machines, tool-calling glue, retry logic, and parallel-agent fan-out (Cursor-Composer-style) add real cost on top of the model calls. (2) A harness loop that *measurably lowers the human-escalation rate over time* stops being a cost center and becomes a **reliability moat** — a compounding asset once models commoditize. Design the loop for that, and track the escalation-rate trend. The *how-to-build-it* side lives in `agent-harness` (the machine) and `harness-operating-model` (the program); this skill only prices it.
+
+### 5A. Model Routing ROI
 
 Most of your queries are easy. Use that.
 
@@ -181,10 +218,10 @@ Most of your queries are easy. Use that.
 - 15-25% are "medium" (need full context, Sonnet-level reasoning)
 - 5-10% are "hard" (new problem, Opus-level reasoning, research needed)
 
-**Cost per model (2025 pricing):**
-- Claude Haiku: $0.80 / 1M input, $4.00 / 1M output
-- Claude 3.5 Sonnet: $3.00 / 1M input, $15.00 / 1M output
-- Claude 3 Opus: $15.00 / 1M input, $75.00 / 1M output
+**Cost per model** *(illustrative tiers — always re-check live prices for the current generation, e.g. Haiku 4.5 / Sonnet 5 / Opus 4.8 / GPT-5.x; the shape holds, the numbers move):*
+- Cheap tier (Haiku-class): ~$0.80 / 1M input, ~$4.00 / 1M output
+- Mid tier (Sonnet-class): ~$3.00 / 1M input, ~$15.00 / 1M output
+- Frontier tier (Opus-class): ~$15.00 / 1M input, ~$75.00 / 1M output
 
 **Naive approach (use Opus for everything):**
 - Cost per 1000-token request: ~$0.05
@@ -202,15 +239,17 @@ Most of your queries are easy. Use that.
 - Misrouting risk (5% of "medium" sent to Haiku): Quality loss measurable
 - Break-even: Routing pays off if you have >10K requests / day
 
-**Implementation strategy:**
-1. Start with simple heuristics (token count, keyword patterns): low cost, 70% accuracy
-2. Build lightweight classifier (Haiku-size) if heuristics fail: +$0.0005 cost, +5% accuracy
-3. Don't over-invest in routing precision; 75% routing accuracy is often sufficient
+**Implementation maturity ladder (don't skip steps, don't over-build):**
+1. **Heuristics** — token count, keyword patterns. Low cost, ~70% accuracy. Start here.
+2. **Lightweight classifier** (cheap-tier model) if heuristics stall: +~$0.0005/request, +~5% accuracy.
+3. **Learned router with stability checks** — only if volume justifies it. A router is only worth it when the models behave *differently enough* on your traffic and the routing is *stable when a query is paraphrased* — otherwise you're adding cost and flakiness for little gain (⚠ DeepMind routing research, Jul 2026). Require **>75% routing accuracy** as the minimum-viable bar, and **measure the misroute → escalation rate** — publish it.
 
-**Hidden cost of bad routing:**
-- 5% of medium queries go to Haiku → 15-20% accuracy drop
-- Users get bad answers → escalation / retry → full cost again (Opus)
-- Effective cost: Haiku + Opus + support overhead
+**Hidden cost of bad routing (it compounds):**
+- 5% of medium queries go to the cheap model → 15-20% accuracy drop
+- Users get bad answers → escalation / retry → full frontier cost *again* + support
+- Effective cost: cheap model + frontier model + support overhead — worse than never routing. This is why routing accuracy is a tracked metric, not a set-and-forget.
+
+Validated at scale in 2026: production routing reports **46-76% cost reduction** (balanced/eco modes) and up to **~80% lower cost at the same quality** via orchestration; one ops team ran 2M+ requests across 14 models for a fraction of single-frontier cost (⚠ vendor/production claims — treat as directional, verify on your traffic).
 
 ### 5B. Identify Your Cost Levers (Ranked by Reality)
 
@@ -223,11 +262,12 @@ Most powerful in production:
 | **Cache query patterns** | Identify 20% of queries repeat; cache results for 24h | -18% effective cost | Low (caching layer) | Low (deterministic queries only) |
 | **Embedding optimization** | Switch to smaller embedding model, re-rank for quality | -25% embedding cost | Medium (re-test quality) | Medium (retrieval quality dips slightly) |
 | **Batch human review** | Async batching of reviews instead of real-time | -40% human cost | Medium (UX: slower feedback) | Low (review quality same) |
-| **Cheaper inference model** | Use Claude Haiku for everything | -60% | Low (API swap) | **CRITICAL** (hallucination, accuracy) |
+| **Orchestration pruning / early exit** | Cap retries, stop the agent loop once the answer is good enough, tighten context | -20-40% on agentic flows | Medium (harness logic) | Medium (stop too early → worse answer; gate with evals) |
+| **Cheaper inference model** | Use the cheap-tier model for everything | -60% | Low (API swap) | **CRITICAL** (hallucination, accuracy) |
 
-**The reality:** Combine smart routing (70% cheap model) + hybrid retrieval pruning (8 vs 20 docs) + embedding optimization = 50% total cost reduction with acceptable quality tradeoff.
+**The reality:** Combine smart routing (70% cheap model) + hybrid retrieval pruning (8 vs 20 docs) + embedding optimization = ~50% total cost reduction with acceptable quality tradeoff. On agentic flows, add orchestration pruning — it's often the biggest single lever once the call multiplier is high.
 
-Never use "cheaper model for everything" alone. It fails.
+**Rank levers by impact on cost per *successful outcome*, not per call** — a lever that cuts per-call cost but raises the failure rate can make the real number worse. Every aggressive lever needs a named countermeasure (evals, a reranker, or a human gate). Never use "cheaper model for everything" alone — it fails.
 
 ### 6. Eval Cost at Scale (Hidden Product Line Item)
 
@@ -268,7 +308,7 @@ Eval is not infrastructure overhead. It's a feature. It costs money. Budget for 
 
 **Never skip eval to save money. If you can't afford to eval, you can't afford the feature.**
 
-### 6A. Cached Prompt Discounts (40-70% Cost Reduction)
+### 6A. Cached Prompt Discounts
 
 Anthropic offers 90% discount on cached tokens. Design context to exploit it.
 
@@ -343,6 +383,8 @@ Output: Same model, reuses cached system + docs, only charges for query
 
 If margin is negative at 10x, the feature doesn't work. Period. Either the costs are wrong, the revenue model is wrong, or the feature shouldn't ship.
 
+**Stress-test the revenue side too, not just cost.** Re-run the margin with **30% price erosion** — open-weight and self-hosted competitors are already pushing prices down on easy and medium work. And run it at your **P90 cost per outcome**, not the average — that's the scenario the power users put you in. A margin that only survives at average cost and today's price is not a margin you can defend in a scaling review.
+
 ## KEY DIAGNOSTIC QUESTIONS
 
 Ask yourself:
@@ -355,6 +397,8 @@ Ask yourself:
 - **Can I tier my model routing by query complexity?** (70% cheap model for easy queries is 35% cost reduction)
 - **What happens to cache hit rate at 10x query volume?** (It collapses. Plan for 15-25%, not 40%+)
 - **What's my eval infrastructure cost, and does it scale?** (At 100K queries/day, eval costs can exceed inference)
+- **What's my agentic call multiplier today vs. 6 months ago?** (If it's climbing, your cost is climbing even as token prices fall — the Jevons trap.)
+- **What share of my cost comes from the top 5% of power users?** (Usage is power-law; a handful of users can drive most of the bill. Price and cap for them, not the average.)
 
 ## REALITY CHECK
 
@@ -363,6 +407,7 @@ Ask yourself:
 - **Human review costs scale with volume, not linearly.** At 1,000 queries/day you review 10. At 100,000 queries/day you need systematic ML-assisted review. Cost multiplies 20x.
 - **Model routing is your best lever.** If 70% of queries are simple, use a cheap model. This is safe and reduces cost by 35-50%.
 - **Cache hit rates collapse at scale.** You can't predict them. Plan for 25% at 10x volume, not 45%.
+- **Open-weights + routing pressure is already here.** Frontier labs are losing share on easy and medium queries to cheaper open models. Raw model access is not a cost moat — your durable cost advantage is **harness efficiency + proprietary context + measured reliability**, not which API you call.
 
 ## QUALITY GATE
 
@@ -375,6 +420,9 @@ Before committing resources:
 - [ ] **Margin calculated at scale:** If negative, feature doesn't ship without cost reduction
 - [ ] **Cost levers chosen and modeled:** Primary lever picked (smart routing, retrieval pruning, or both) with realistic impact
 - [ ] **Failure rate measured or estimated:** Not assumed zero
+- [ ] **Live KPIs instrumented and baselined:** cost per successful outcome, routing accuracy, cache hit rate (>70%), human escalation rate, agentic call multiplier
+- [ ] **Revenue stress-tested:** margin still positive at P90 cost and 30% price erosion
+- [ ] **Hand-off to `token-economics` complete:** the P90 cost-per-outcome number is delivered, and *what outcome we charge for* is decided
 - [ ] **Board or stakeholder sign-off:** On the cost model and margin acceptance (profitable or approved loss)
 
 ## WHEN WRONG
@@ -384,20 +432,35 @@ Before committing resources:
 - **When inference dominates all other costs.** Rare. Usually means you've under-estimated retrieval or human cost.
 - **When you're comparing models without stress-testing scale.** Claude 3.5 Sonnet vs. Haiku looks like 3x cost difference until you add model routing; then it's 35%.
 - **When you assume you can control failure rates.** You can't, at scale. Plan for degradation.
+- **When speed-to-market or compliance outranks cost.** For a pure distribution play or a regulatory must-have, cost is secondary — build the model to know the number, but don't let it block the decision.
+- **When self-hosting changes the whole stack.** Open-weight, self-hosted economics are predictable opex (fixed GPUs) rather than variable API spend — a different model entirely. Re-run the math on that basis before comparing.
+
+## THE COST DASHBOARD (the one-pager to run monthly)
+
+Ship the feature with a live dashboard, not a one-time spreadsheet. Five KPIs make the whole operating system glanceable for a PM or board:
+
+```
+COST MODEL — [Feature]                         [month]
+Cost per successful outcome   $____   (P50 __ / P90 __)   trend __
+Agentic call multiplier       __ calls/task     vs 6mo ago __
+Routing accuracy              __%   (min viable >75%)  misroute→escalation __%
+Cache hit rate                __%   (target >70%)
+Human escalation rate         __%   trend __
+Eval spend as % of inference  __%   (flag if >20%)
+Gross margin at P90           __%   (at 30% price erosion __%)
+```
+
+If any line is blank, the cost model isn't instrumented yet — that's the first task, not the analysis.
 
 ---
 
-## TRADE-OFF LEDGER
+## GROUNDING, TRADE-OFFS & CONCLUSION
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
-
-## CONCLUSION
-
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
+Before starting, follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) Section 1 grounding questions (who is the customer, what problem, what are we saying YES and NO to) and confirm output format (document / deck / spreadsheet / inline). Close with the Trade-Off Ledger (Section 3) and the Conclusion Protocol (Section 5):
 1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
+2. Name the key trade-off — usually **harness complexity vs. the reliability moat it buys vs. near-term cost**
+3. Acknowledge the biggest risk — you ship on "acceptable" per-call economics, hit 10× usage or an agentic flow, and discover the real cost per successful outcome is 2-3× higher as escalation and eval lines explode (the Cursor-style compression already visible in 2026)
+4. Define the single next action — **instrument cost-per-successful-outcome + routing accuracy + the call multiplier this sprint**, then re-run the margin
 
 ---
 
