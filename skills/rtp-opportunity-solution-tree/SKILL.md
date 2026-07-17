@@ -64,7 +64,7 @@ Five opportunities from interviews + ticket data: (1) alert fatigue — 78% of a
 
 **Filter applied:** #1 splits into severity scoring (**deterministic** — reliability engineers can whiteboard the rule) + AI confidence ranking (**probabilistic-with-evals** — eval surface: operator acceptance over 4 weeks + expert review of the bottom 50%; ship threshold: 70% acceptance, <5% confident-wrong on Tier-1). #4 (audit trail) is **deterministic** — a database and a form; *build it, keep it off the AI roadmap.* #5 (parts staging via prediction) is **unevaluable as scoped** — "did the right part arrive in time" is downstream of supply-chain decisions outside your control; narrow it ("predict failures for 5 asset classes where we control parts supply") before spending AI bandwidth, and ship the deterministic cross-customer pooling first.
 
-**The roadmap that emerges** sequences deterministic wins (severity scoring, audit trail) in Q1 alongside an eval-first AI pilot, then earns fleet-wide AI rollout in Q3 only if the pilot passes. **What got cut:** parts-staging-via-prediction is parked until the eval surface is real. That's the OST doing its job — saying no.
+**The roadmap that emerges** sequences deterministic wins (severity scoring, audit trail) in Q1 alongside an eval-driven-development AI pilot, then earns fleet-wide AI rollout in Q3 only if the pilot passes. **What got cut:** parts-staging-via-prediction is parked until the eval surface is real. That's the OST doing its job — saying no.
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
@@ -111,7 +111,7 @@ The chain: **outcome → opportunities → solutions → AI-feasibility filter �
 
 ## TRADE-OFF LEDGER
 
-By adding the feasibility filter, you bet that the constraint on AI roadmaps is *what can actually be built and measured*, not idea generation — so a tree that says no is worth more than one that greenlights everything. You give up the comfort of a full-looking backlog and take on the discipline of eval-first labeling. **Reversible?** Fully — it's planning, not a build. **The hidden trade:** the failure mode is *optimism laundering* — labeling an unevaluable opportunity "probabilistic-with-evals" to keep it alive, which just moves the quiet death from planning to month 9; the empty-"no"-list check and the 1-paragraph-eval test guard against it. **Confidence: High** — the "no" mechanism is the scarcest and most valuable part of AI planning. What would change it: a single-direction team in execution mode, where the tree is ceremony.
+By adding the feasibility filter, you bet that the constraint on AI roadmaps is *what can actually be built and measured*, not idea generation — so a tree that says no is worth more than one that greenlights everything. You give up the comfort of a full-looking backlog and take on the discipline of eval-driven-development labeling. **Reversible?** Fully — it's planning, not a build. **The hidden trade:** the failure mode is *optimism laundering* — labeling an unevaluable opportunity "probabilistic-with-evals" to keep it alive, which just moves the quiet death from planning to month 9; the empty-"no"-list check and the 1-paragraph-eval test guard against it. **Confidence: High** — the "no" mechanism is the scarcest and most valuable part of AI planning. What would change it: a single-direction team in execution mode, where the tree is ceremony.
 
 ## CONCLUSION
 

@@ -1,7 +1,10 @@
 ---
 name: rtp-breach-ready
-description: 'Design systems that SURVIVE being hacked — because "if," not "when." Prevention-only security fails. Resilience means: can you operate 48 hours without digital systems? Can you isolate damage? Can you restore from manual backup? FedEx survived NotPetya because of resilience planning. Use when designing systems that handle sensitive data, post-incident reviews, business continuity planning, or any system where downtime has non-trivial cost. Skip if the system has trivial impact if breached (internal tool with no sensitive data).'
+description: >
+  Design systems that SURVIVE being hacked — because "if," not "when." Prevention-only security fails. Resilience means: can you operate 48 hours without digital systems? Can you isolate damage? Can you restore from manual backup? FedEx survived NotPetya because of resilience planning. Use when designing systems that handle sensitive data, post-incident reviews, business continuity planning, or any system where downtime has non-trivial cost. Skip if the system has trivial impact if breached (internal tool with no sensitive data).
+imports: [stress-test, failure-modes]
 ---
+
 # Breach Ready
 
 ## DEPTH DECISION
@@ -10,7 +13,7 @@ description: 'Design systems that SURVIVE being hacked — because "if," not "wh
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: What data does this system handle? What's the cost of 1 hour of downtime? What's your regulatory exposure?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, or both?
@@ -263,7 +266,7 @@ CONFIDENCE: **High**
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Use the output prompt from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
 If this skill connects to downstream skills, also generate the markdown handoff file (if relevant to business continuity strategy or incident response planning).
 
 ## VISUAL SUMMARY

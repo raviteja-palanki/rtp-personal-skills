@@ -1,7 +1,10 @@
 ---
 name: rtp-trust-under-fog
-description: Communicate confidently when outcomes are genuinely uncertain — without over-promising or under-delivering. Boards want guarantees. Customers want certainty. AI outcomes are probabilistic. This skill helps you build stakeholder confidence through transparency, not false promises. Use when stakeholders demand guarantees you can't give, when communicating AI capabilities to non-technical audiences, when navigating probabilistic outcomes but deterministic business expectations, or when rebuilding trust after over-promise. Skip when outcomes are deterministic (no fog) or when stakeholders are already comfortable with uncertainty.
+description: >
+  Communicate confidently when outcomes are genuinely uncertain — without over-promising or under-delivering. Boards want guarantees. Customers want certainty. AI outcomes are probabilistic. This skill helps you build stakeholder confidence through transparency, not false promises. Use when stakeholders demand guarantees you can't give, when communicating AI capabilities to non-technical audiences, when navigating probabilistic outcomes but deterministic business expectations, or when rebuilding trust after over-promise. Skip when outcomes are deterministic (no fog) or when stakeholders are already comfortable with uncertainty.
+imports: [determinism-compass, dual-lens]
 ---
+
 # Trust Under Fog
 
 ## DEPTH DECISION
@@ -10,7 +13,7 @@ description: Communicate confidently when outcomes are genuinely uncertain — w
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who is the stakeholder? What's their comfort with uncertainty? What's the worst consequence of being wrong?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, or both?
@@ -273,7 +276,7 @@ CONFIDENCE: **High**
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Use the output prompt from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
 If this skill connects to downstream skills, also generate the markdown handoff file (if relevant to governance or stakeholder management strategy).
 
 ## VISUAL SUMMARY

@@ -6,14 +6,14 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `1.5.0`  ·  **Commit:** `71dc8e3`  ·  **Generated:** 17 Jul 2026 06:47
+**Version:** `1.6.0`  ·  **Commit:** `b4f1b68`  ·  **Generated:** 17 Jul 2026 21:22
 
 ## Totals
 
 | Metric | Count |
 |---|---:|
-| **Total tracked files** | **237** |
-| **Skills** (`SKILL.md`) | **83** |
+| **Total tracked files** | **238** |
+| **Skills** (`SKILL.md`) | **84** |
 | Supporting files inside `skills/` | 108 |
 | Slash commands | 11 |
 
@@ -23,19 +23,19 @@ The description claims a split; these are checked against the filesystem every r
 
 | Bucket | Claimed | Actual | |
 |---|---:|---:|:--:|
-| Total skills | 83 | 83 | ✔ |
+| Total skills | 84 | 84 | ✔ |
 | AI-PM skills | 65 | 65 | ✔ |
-| General-purpose | 17 | 17 | ✔ |
+| General-purpose | 18 | 18 | ✔ |
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.5.0**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.6.0**.
 
 ## Composition
 
 | Area | Files |
 |---|---:|
-| `skills` | 190 |
+| `skills` | 191 |
 | `diagrams` | 15 |
 | `commands` | 11 |
 | `workflows` | 6 |
@@ -69,7 +69,7 @@ a redirect stub merged into `failure-modes` — intentionally excluded from the 
 
 ## Supporting files inside `skills/`
 
-83 skills carry 108 supporting files (1.3 per skill).
+84 skills carry 108 supporting files (1.3 per skill).
 
 | Type | Count |
 |---|---:|
@@ -96,7 +96,9 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 1.4.14 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.4.15 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.5.0 | 71dc8e3 | 17 Jul 2026 06:47 | 237 | 83 | 11 |
+| 1.6.0 | b4f1b68 | 17 Jul 2026 21:22 | 238 | 84 | 11 |
 HISTORY-->
 | 1.4.14 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.4.15 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.5.0 | 71dc8e3 | 17 Jul 2026 06:47 | 237 | 83 | 11 |
+| 1.6.0 | b4f1b68 | 17 Jul 2026 21:22 | 238 | 84 | 11 |

@@ -1,6 +1,7 @@
 ---
 name: rtp-moat-finder
-description: "Will your AI advantage survive copycats and the next model? Separates real moats from features. Runs a P&L pre-screen (cost line, floored at zero, vs growth line, multiplied), scores the five compounding moats — proprietary data, workflow depth, harness mastery, brand and trust, network effects — on a quarterly scorecard (three or more to survive the 18-month wall), then adds the three dynamics that make a loop compound (Vertical-Infinite, Living Software + Workspace DNA, cycle-time), the network-effects filter, the acquisition test, and the fake-moat checks (data that's just storage, loops on public data, the agent-in-the-middle squeeze). Core call: the model is the recipe; the moat is the system around it — only a loop fed by inputs no one else has survives. Use when setting strategy, judging whether an edge is defensible or just parity, or ~18 months out when models catch up. Pairs with: build-or-buy, safety-as-moat, feedback-flywheel. Triggers: 'competitive advantage', 'defensibility', 'moat', 'wrapper'."
+version: v2.1_latest
+description: "Will your AI advantage survive copycats and the next model? Separates real moats from features. Runs a P&L pre-screen (cost line, floored at zero, vs growth line, multiplied), scores the five compounding moats — proprietary data, workflow depth, harness mastery, trust and reliability, network effects — on a quarterly scorecard (three or more to survive the 18-month wall), then adds the three dynamics that make a loop compound (Vertical-Infinite, Living Software + Workspace DNA, cycle-time), the network-effects filter, the acquisition test, and the fake-moat checks (data that's just storage, loops on public data, the agent-in-the-middle squeeze). Core call: the model is the recipe; the moat is the system around it — only a loop fed by inputs no one else has survives. Use when setting strategy, judging whether an edge is defensible or just parity, or ~18 months out when models catch up. Pairs with: build-or-buy, safety-as-moat, feedback-flywheel. Triggers: 'competitive advantage', 'defensibility', 'moat'."
 imports: [bias-spotter, determinism-compass]
 ---
 
@@ -73,7 +74,7 @@ Examples that anchor each: proprietary data — Duolingo's labeled interaction l
 
 **How operators rank these right now (mid-2026):** harness first (the model is interchangeable; the system around it is not), then specialized data + workflow depth, with trust & reliability rising fast and distribution/ecosystem treated as a first-class force. The weighting above reflects that. The deeper dynamics below — Vertical-Infinite, Living Software, cycle-time — are still ahead of the public conversation; they are your edge, keep them.
 
-**Apple Intelligence stacks four of the five** — workflow (deep iOS), harness (PCC), brand & trust (privacy architecture), network effects (every iOS user produces signal) — skipping only proprietary external data, because the ecosystem is closed. Four of five is dominant.
+**Apple Intelligence stacks four of the five** — workflow (deep iOS), harness (PCC), trust & reliability (privacy architecture), network effects (every iOS user produces signal) — skipping only proprietary external data, because the ecosystem is closed. Four of five is dominant.
 
 ## THE SCORECARD — A QUARTERLY ARTIFACT
 
@@ -157,7 +158,7 @@ The five moats tell the practitioner story. Helmer's 7 Powers tells the same sto
 | Network Effects | Network effects / data loop | Passes the four-question filter — or is it just accumulation? |
 | Switching Costs | Workflow integration depth | Multi-quarter migration — or an afternoon of copy-paste? |
 | Counter-Positioning | (cuts across) | Would the incumbent's response cannibalize their own margin pool — or are they just slow? |
-| Branding | Brand & trust | Premium provable in win rates — or do they just know your name? |
+| Branding | Trust & reliability | Premium provable in win rates — or do they just know your name? |
 | Cornered Resource | Proprietary data | Exclusive by contract, equity, or unique history — or buyable with capital? |
 | Process Power | Harness mastery (evals) | Would a rival with the same hires and budget still ship worse for 3+ years? |
 
@@ -177,7 +178,7 @@ Five-moat scorecard (1-5 each; ≥12 defensible, <8 exposure, 3+ moats to surviv
 | 1. Proprietary data      | | [rare-hard-cases Y/N; liquidity; vintage] | |
 | 2. Workflow depth        | | [migration cost in quarters]              | |
 | 3. Harness mastery       | | [rebuild months; measured lift Y/N]       | |
-| 4. Brand & trust         | | [win-rate premium; incident count]        | |
+| 4. Trust & reliability   | | [win-rate premium; incident count]        | |
 | 5. Network effects       | | [does each user improve it for others?]   | |
 Total: __/25   Moats scoring ≥3: __
 

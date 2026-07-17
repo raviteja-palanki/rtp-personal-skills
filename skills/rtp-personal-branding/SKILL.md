@@ -1,8 +1,9 @@
 ---
 name: rtp-personal-branding
-description: Use when designing any of Ravi's visual surfaces — website, presentations, documents, diagrams, article pages. Ravi Teja Palanki's complete design system for every visual surface — website (ravitejapalanki.com), presentations (Gamma, PowerPoint), documents (Word), diagrams, article pages. Dark + light themes properly separated. Nine creative principles that govern every choice. V2.1 adds 5 components from the AI Evals hub (canonical) — Live Trace observability engine, per-level semantic animated SVG badges, card laser on hover, status ring indicator, spotlight 3D tilt card.
+version: v2.2_latest
+description: Use when designing any of Ravi's visual surfaces — website, presentations, documents, diagrams, article pages. Ravi Teja Palanki's complete design system for every visual surface — website (ravitejapalanki.com), presentations (Gamma, PowerPoint), documents (Word), diagrams, article pages. Dark + light themes properly separated with per-medium defaults (Word/PDF light; web/decks dark). V2.2 wires in the canonical 14-part website design-language spec (the "Apple × New Yorker × terminal" editorial layer — mag-* tokens, series-color lock, two-easing motion law, editorial conventions, a11y contrast numbers) and defers to it for all website work. V2.1 components retained — Live Trace engine, semantic level badges, card laser, status ring, spotlight tilt card. Pairs with rtp-ux-design-systems (review + inspiration), rtp-excalidraw-svg (diagrams), rtp-learn-site-design (learn subdomain).
 ---
-# Ravi Personal Branding — v2.1
+# Ravi Personal Branding — v2.2
 
 The single source of truth for every visual decision Ravi makes — across HTML, Gamma presentations, PowerPoint decks, Word documents, diagrams, and article pages. This is not just a CSS catalog. It's the creative operating system.
 
@@ -23,6 +24,27 @@ The single source of truth for every visual decision Ravi makes — across HTML,
 - Writing section landing: `1_Projects/my-personal-website/reference/production-landing.html`
 
 ---
+
+## 0. CANONICAL SOURCE OF TRUTH — the 14-part website design-language spec
+
+For the website surface (ravitejapalanki.com), the authoritative spec is `1_Projects/1_my-personal-website/1_My Series-MD-FILES/My Design language_website/` — 14 stand-alone files (00-overview → 13-implementation-notes). **Precedence rule: for website work the spec wins; this skill is the cross-medium operating system that consumes it.** When the two disagree, the spec is current and this skill gets updated — never the reverse. Read the relevant spec file before any website/visual build:
+
+| Spec file | Governs | Summarized in this skill at |
+|---|---|---|
+| 01-design-principles | The ten editorial non-negotiables | §0 below + §1 |
+| 02-color-system | Surfaces, inks, series lock, structural tokens | §2, §4, §5 |
+| 03-typography | Four families, fluid scale, editorial type rules | §3 + §5B |
+| 04-spacing-grid-layout | mag tokens, 12-col grid, radii, hairline elevation | §5B |
+| 05-motion-and-easing | Two easings, duration ladder, keyframes, reduced motion | §7 |
+| 06-components / 07-nav / 08-search / 09-templates | Website components, shell, search, page recipes | §6, §9 (recipes) |
+| 10-content-and-editorial | Voice, length, in-text conventions, highlight devices | §5C |
+| 11-accessibility-performance / 12-seo / 13-implementation | A11y numbers, budgets, meta, stack rules | §11 + spec directly |
+
+**The north star (one line):** Apple (restraint, whitespace, obsessive typography) × New Yorker (editorial hierarchy, hairlines, numbered rows, long measure) × terminal (monospace meta, tabular numerics, everything on-grid). Dark, editorial, cinematic — nothing decorative that doesn't earn its place.
+
+**The ten editorial non-negotiables (spec 01 — every screen passes all ten):** editorial before decorative · dark is the canvas (`#030407`; light only inside paper mocks) · one accent per series, forever · type does the heavy lifting (four faces, no fifth) · whitespace is content (band rhythm, 68ch measure) · motion is cinematic, never cute · every element on the grid · numbers are tabular · **never generic AI aesthetics** (no purple→indigo hero gradients on white, no stock isometric art, no decorative emoji) · **readability wins every tie**. These extend — not replace — the Nine Creative Principles below: the Nine govern *how Ravi creates*; the Ten govern *what ships on the website*.
+
+**Theme default rule (all mediums, Ravi's directive):** Word + PDF documents = LIGHT theme default; website + PowerPoint/Gamma = DARK theme default. Every medium documents both schemes (§4 + §5 + §8).
 
 ## 1. The Creative Lens — Nine Principles
 
@@ -111,6 +133,20 @@ Every color carries meaning. Never decorative. Never flat background fills on an
 | Harness Engineering | `#E11D48` | `rgba(225, 29, 72, 0.12)` | `#FB7185` |
 
 ---
+
+### 2B. The Series-Color Lock (canonical — spec 02)
+
+The four identity colors are **locked to series, permanently**. Color IS wayfinding on the website — the pairing never rotates, never inverts:
+
+| Series | Color | Hex | Meaning | Contrast on `#030407` |
+|---|---|---|---|---|
+| AI Evals | Purple | `#9D4EDD` | discipline | 4.6:1 |
+| Harness Engineering | Red | `#F43F5E` | risk | 4.9:1 |
+| AI PM OS | Amber | `#F59E0B` | strategy | 9.4:1 |
+| Agentic Stack | Cyan | `#06B6D4` | systems | 7.7:1 |
+| Frontier Companies | — neutral | white on `#030407` | "the record" | AAA |
+
+**Lock rules:** never reassign a series color · never blend two series colors into a gradient · a series color outside its series only as a shared UI signal (cyan line-draw underlines are a global accent) · series color as *text* only ≥14px and only on `--bg-base` — below that, the color lives in the accent border, dot, or row number, not the letterforms · cyan doubles as the global interaction accent (active nav underline, search pulse).
 
 ## 3. Typography — 4 Fonts, Universal Across Mediums
 
@@ -253,6 +289,34 @@ All pass WCAG AAA. For presentations viewed on projectors, enforce min `#D1D5DB`
 All pass WCAG AA; top three pass AAA. For Word printing, body stays `#202226` — never `#5A5D67`.
 
 ---
+
+## 5B. The Editorial Magazine Layer (mag-* system — spec 03/04/06)
+
+The website's editorial spine. Hairlines and typography carry the hierarchy — not surfaces, not shadows. Applies to every editorial page; presentations and documents borrow the type scale and rhythm proportionally.
+
+**Layout tokens:**
+
+| Token | Value | Purpose |
+|---|---|---|
+| `--mag-max` | `1440px` | Max content width of any section |
+| `--mag-measure` | `68ch` | Reading-column cap — never override wider; split the paragraph instead |
+| `--mag-gutter` | `clamp(1.25rem, 6vw, 8rem)` | Fluid page inline padding |
+| `--mag-band` | `clamp(6rem, 12vw, 12rem)` | Vertical rhythm between sections |
+| `--mag-hair` / `--mag-hair-strong` | `rgba(255,255,255,0.08)` / `0.16` | Editorial hairlines — the divider system |
+
+**Grid:** 12-column `.mag-grid` at ≥900px (6 below), gaps `clamp(1rem,2vw,2rem)`. Canonical spans: article body 7 (offset 1) · meta rail 3 · hub tiles 4+4+4 · hero display 10 (offset 1). Pages are stacks of `.mag-section` blocks inside `.mag-shell`; adjacent sections separated by a `--mag-hair` top border, never nested.
+
+**Editorial type scale (fluid clamps — spec 03):** `.mag-display` Instrument Serif `clamp(3rem,8vw,7.5rem)` lh 0.95 ls −0.03em, balanced wrap · `.mag-title` `clamp(2rem,4vw,3.5rem)` · `.mag-lede` Newsreader `clamp(1.15rem,1.6vw,1.4rem)` lh 1.55 · `.mag-body` Newsreader 1.125rem/1.7 · `.mag-kicker`/`.mag-eyebrow` mono 700 0.7rem, +0.20em tracking, UPPER. Rules: never mix display + body in one paragraph · all-caps is monospace-only, never a serif · tabular-nums on every index/count/badge · italics = editorial emphasis only, never UI labels · drop cap (Instrument Serif, 4 lines) once per article, top of body.
+
+**The numbered row (`.mag-row`)** — the signature editorial list: grid `3rem 1fr auto` — mono tabular number in series color, Instrument Serif title, mono meta. Hover = 0.5rem inline push + 2% white wash. Used for writing indexes, hubs, key takeaways.
+
+**Elevation law:** hairlines, not shadows. Shadows exist only for CTA hover, card hover, and floating surfaces (dialogs, browser-frame mocks). Static text and default cards never carry a shadow. Radii: pills/buttons 999px · cards 16px · level badge 20px.
+
+**Highlight devices (spec 10 — strict budget):** `.line-draw` cyan underline for the *thesis word* — max three per paragraph, staggered 0.8/1.2/1.6s · `mark.pastel-highlight` purple wash for a scroll-catch phrase · never both on the same word · bold = the sentence subject you'd underline in a book · one pull-quote style (`.mag-pullquote`, hairlines, no quote marks), max twice per article.
+
+## 5C. Editorial & Content Conventions (spec 10 digest)
+
+The writing is the product; design serves the voice. First person, low-adverb, concrete over abstract — give the number, the tool, the year. Never marketing-speak. In-text: series names Title Case ("AI Evals") · code/filenames/model-IDs in mono inline · numbers with units tight ("180ms", "$37B") · em-dashes with hair spaces · Oxford comma · numbers under ten spelled out except in data. Prohibited: emoji in editorial copy · "Reading time · 8 min" chips · hyperlinked verbs (hyperlink the noun) · fifth typeface anywhere.
 
 ## 6. Component Catalog (V8)
 
@@ -1100,6 +1164,14 @@ No other animations. No parallax on body content. No spinner loaders. No auto-pl
 
 ---
 
+### 7.6 The Motion Law (canonical — spec 05)
+
+- **Two easings only** — `--ease-cinematic` for reveals/draws/filters, `--ease-spring` for hover/CTA. Never `ease-in-out`, never `linear`, never a per-component curve.
+- **Duration ladder:** 150ms focus/link color · 250ms borders/backgrounds · 400ms card hover · 800ms line-draw + staggered groups · 1000ms blur-reveal · 1400ms pastel sweep. **Never longer than 1600ms** — slower than that is a video, not motion design.
+- **Purpose test:** every animation reveals arriving content, a focus change, or a state transition. If it entertains, it goes.
+- **Prohibited:** auto-carousels · parallax on body copy · bouncing scroll indicators · spinners >800ms without a real long task · any hero "wow" beyond `palankiReveal`.
+- **Reduced motion is mandatory:** `prefers-reduced-motion` collapses all durations to ~0ms; reveal classes still add `.visible` immediately — content is never gated behind motion; smooth-scroll (Lenis) disabled.
+
 ## 8. Multi-Medium Application
 
 ### 8.1 Website (HTML) — Primary Canvas
@@ -1193,6 +1265,13 @@ Nav brand 1.2rem. Chasm 0.65 scale. Telemetry 1 col. Quote font 1.8rem. Hand-dra
 - [ ] `overflow-wrap: break-word` on display titles
 
 ---
+
+## 10B. Accessibility & Performance Floors (spec 11 — measured, not aspirational)
+
+- **Contrast (on `#030407`):** `--text-muted` 13.1:1 (AAA) · `--text-faint` 7.6:1 (AA normal) · series colors per the §2B table — purple and red sit under 5:1, so they never carry small text (accent-only below 14px).
+- **Keyboard:** everything reachable in reading order · visible focus ring · ⌘K search anywhere · Escape closes · one `<h1>` per route · decorative dots `aria-hidden`.
+- **Performance budgets (website):** initial route JS ≤180kB gzipped · LCP ≤1.8s on 4G mid-range · CLS ≤0.02 (iframe heights via postMessage) · fonts `display=swap` · search index lazy-loaded, <250kB.
+- **The tie-breaker restated:** if any design choice reduces reading comfort — contrast, measure, size, motion — it loses. No exceptions for beauty.
 
 ## 11. Readability Rules (Non-Negotiable Across All Mediums)
 

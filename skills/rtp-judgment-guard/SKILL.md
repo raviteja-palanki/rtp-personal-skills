@@ -11,7 +11,7 @@ description: >
   not the average setting the floor. Use when deploying high-stakes AI, users stop questioning AI
   outputs, designing human-in-the-loop for regulated work, or rolling AI into a team of experts.
   Do NOT use for low-stakes work where full automation is intended.
-  Pairs with: determinism-compass, autonomy-spectrum, trust-ladder, agent-risk, safety-by-design.
+  Pairs with: determinism-compass, autonomy-spectrum, trust-ladder, agent-risk.
 imports: []
 ---
 

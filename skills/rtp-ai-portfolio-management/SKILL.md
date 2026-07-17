@@ -1,7 +1,11 @@
 ---
 name: rtp-ai-portfolio-management
-description: 'Use when managing multiple AI initiatives, prioritizing AI investments across stages, or running portfolio reviews. Manage AI initiatives as an interconnected investment portfolio with stage gates, dual-lens oversight, and Buy/Sell/Hold scoring. Prevents the ''too many pilots, no strategic coherence'' failure mode. Triggers: ''AI portfolio'', ''AI initiatives prioritisation'', ''stage gate AI'', ''AI investment review'', ''AI project governance'', ''OPEN framework'''
+description: "Manage AI initiatives as an interconnected investment portfolio with stage gates, dual-lens oversight, and Buy/Sell/Hold scoring. Prevents the 'too many pilots, no strategic coherence' failure mode. Triggers: 'AI portfolio', 'AI initiatives prioritisation', 'stage gate AI', 'AI investment review', 'AI project governance', 'OPEN framework'"
+imports: ["strategy-canvas", "moat-finder", "build-or-buy"]
+version: "1.0"
+framework_source: "Harvard Business Review — Hoque, Nelson, Davenport & Scade, 'Manage Your AI Investments Like a Portfolio', January 2026"
 ---
+
 # AI Portfolio Management
 
 ## DEPTH DECISION
@@ -14,7 +18,7 @@ description: 'Use when managing multiple AI initiatives, prioritizing AI investm
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
 
 ---
 
@@ -289,11 +293,11 @@ Foundational vs. transformational: [% in confidence builders / capability builde
 
 ## TRADE-OFF LEDGER
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
 
 ## CONCLUSION
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6.
+Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6.
 
 ---
 

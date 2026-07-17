@@ -1,7 +1,10 @@
 ---
 name: rtp-purpose-dialogue
-description: Connect AI initiatives to what your organization actually stands for — because people adopt what they believe in. Purpose without dialogue is a poster on the wall. Dialogue drives 10% commitment lift per point of authenticity. Best Buy's turnaround used purpose dialogue to double adoption of their AI-assisted recommendation engine. Use when adoption is stalling despite good technology, when commitment feels emotionally flat, when you need to make the case for AI beyond efficiency, or when you're integrating AI into core values. Skip if the initiative is low-stakes (internal tool with no cultural weight) or adoption is already strong.
+description: >
+  Connect AI initiatives to what your organization actually stands for — because people adopt what they believe in. Purpose without dialogue is a poster on the wall. Dialogue drives 10% commitment lift per point of authenticity. Best Buy's turnaround used purpose dialogue to double adoption of their AI-assisted recommendation engine. Use when adoption is stalling despite good technology, when commitment feels emotionally flat, when you need to make the case for AI beyond efficiency, or when you're integrating AI into core values. Skip if the initiative is low-stakes (internal tool with no cultural weight) or adoption is already strong.
+imports: [first-principles, alignment-check]
 ---
+
 # Purpose Dialogue
 
 ## DEPTH DECISION
@@ -10,7 +13,7 @@ description: Connect AI initiatives to what your organization actually stands fo
 
 ## GROUNDING (Before Starting)
 
-Follow the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md):
+Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 1. Ask the Grounding Questions (Section 1) — at minimum: Who needs to adopt this? What's their stated concern? What does success look like?
 2. Route depth: Executive Summary or Comprehensive Analysis?
 3. Identify output format: Document, presentation, or both?
@@ -201,7 +204,7 @@ CONFIDENCE: **High**
 
 ## GENERATE THE DELIVERABLE
 
-Use the output prompt from the [Universal Skill Protocol](../../UNIVERSAL-SKILL-PROTOCOL.md).
+Use the output prompt from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
 If this skill connects to downstream skills, also generate the markdown handoff file (if relevant to the next phase of adoption planning).
 
 ## VISUAL SUMMARY

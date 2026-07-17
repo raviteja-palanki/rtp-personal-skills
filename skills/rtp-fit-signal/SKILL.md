@@ -11,7 +11,7 @@ description: >
   confirmed, emerging, uncertain, absent. Use when you have 8+ weeks of active users and must
   decide scale, iterate, or pivot — or when NPS looks fine but something feels off. Do NOT use
   pre-launch, on deterministic products, or under 100 weekly active users.
-  Pairs with: falsification, feedback-flywheel, stress-test, uncertainty-research, ai-product-metrics.
+  Pairs with: falsification, feedback-flywheel, stress-test, ai-product-metrics.
 imports:
   - falsification
   - feedback-flywheel
