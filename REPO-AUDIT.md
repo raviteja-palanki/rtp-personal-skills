@@ -6,14 +6,14 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `1.4.15`  ·  **Commit:** `b269f74`  ·  **Generated:** 16 Jul 2026 18:13
+**Version:** `1.5.0`  ·  **Commit:** `71dc8e3`  ·  **Generated:** 17 Jul 2026 06:47
 
 ## Totals
 
 | Metric | Count |
 |---|---:|
-| **Total tracked files** | **236** |
-| **Skills** (`SKILL.md`) | **82** |
+| **Total tracked files** | **237** |
+| **Skills** (`SKILL.md`) | **83** |
 | Supporting files inside `skills/` | 108 |
 | Slash commands | 11 |
 
@@ -23,13 +23,13 @@ The description claims a split; these are checked against the filesystem every r
 
 | Bucket | Claimed | Actual | |
 |---|---:|---:|:--:|
-| Total skills | 82 | 82 | ✔ |
-| AI-PM skills | 64 | 64 | ✔ |
+| Total skills | 83 | 83 | ✔ |
+| AI-PM skills | 65 | 65 | ✔ |
 | General-purpose | 17 | 17 | ✔ |
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.4.15**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.5.0**.
 
 ## Composition
 
@@ -47,6 +47,7 @@ Version fields are locked in step: `plugin.json` = `marketplace.json` metadata =
 | `COMPANION-PLUGINS.md` | 1 |
 | `LICENSE` | 1 |
 | `README.md` | 1 |
+| `REPO-AUDIT.md` | 1 |
 | `UNIVERSAL-SKILL-PROTOCOL.md` | 1 |
 | `companion-plugins.json` | 1 |
 
@@ -56,19 +57,19 @@ Version fields are locked in step: `plugin.json` = `marketplace.json` metadata =
 |---|---:|
 | agent-design | 6 |
 | ai-strategy | 11 |
-| craft | 10 |
+| craft | 11 |
 | eval-and-quality | 6 |
 | product-sense | 14 |
 | safety-and-trust | 7 |
 | thinking-core | 11 |
-| **7-layer total** | **65** |
+| **7-layer total** | **66** |
 
-The repo mirrors **64** of these. The difference is `rtp-failure-design`,
+The repo mirrors **65** of these. The difference is `rtp-failure-design`,
 a redirect stub merged into `failure-modes` — intentionally excluded from the plugin.
 
 ## Supporting files inside `skills/`
 
-82 skills carry 108 supporting files (1.3 per skill).
+83 skills carry 108 supporting files (1.3 per skill).
 
 | Type | Count |
 |---|---:|
@@ -94,6 +95,8 @@ These folders are renamed for plugin namespacing; content is identical to source
 <!--HISTORY
 | 1.4.14 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.4.15 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
+| 1.5.0 | 71dc8e3 | 17 Jul 2026 06:47 | 237 | 83 | 11 |
 HISTORY-->
 | 1.4.14 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.4.15 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
+| 1.5.0 | 71dc8e3 | 17 Jul 2026 06:47 | 237 | 83 | 11 |

@@ -1,6 +1,6 @@
 ---
-name: ai-prd
-description: "A product spec for AI features — different from a normal spec because the output varies run to run. Pins down what a normal PRD never has to: confidence thresholds (when to show vs. double-check an answer), behavior on failure, cost per outcome, quality decay over time (drift), and the named human who owns the result. Use when: shipping any AI feature to production, capability launches. Pairs with: eval-framework (the definition of good), cost-model (the economics), ship-decision (the launch gate). Triggers: 'AI PRD', 'probabilistic spec'"
+name: rtp-ai-prd
+description: "A product spec for AI features — different from a normal spec because the output varies run to run. Pins down what a normal PRD never has to: confidence thresholds (when to show vs. double-check an answer), behavior on failure, cost per outcome, quality decay over time (drift), and the named human who owns the result. Its real deliverable is production-grade AI *user stories* — backlog items that inherit those probabilistic elements as acceptance criteria, so teams stop shipping stories that assume the model will 'just work.' Use when: shipping any AI feature to production, capability launches, or grooming an AI backlog. Pairs with: eval-framework (the definition of good), cost-model (the economics), ship-decision (the launch gate). Triggers: 'AI PRD', 'probabilistic spec', 'AI user story'"
 imports:
   - determinism-compass
   - bias-spotter
@@ -10,6 +10,10 @@ imports:
 
 # AI-PRD: Probabilistic Product Specification
 
+## THE ONE IDEA
+
+**A normal spec describes one right answer; an AI feature returns a *distribution* of answers — so the spec's real job is to pin down what happens across that distribution.** When do you trust the answer, what do you do when it's wrong, who owns the miss, and how will you notice it quietly decaying. Get that right and this document becomes the thing it's actually for: **the source every AI *user story* inherits from**, so the backlog stops shipping stories that assume the model will "just work." An AI-PRD that doesn't end in production-grade user stories — ones carrying confidence thresholds, a named failure owner, a drift trigger, and a cost-per-outcome target — is analysis that never reached the team.
+
 ## DEPTH DECISION
 
 **Go deep** if: you're writing a PRD for a shipped AI feature, speccing a new capability, or doing architecture review. Read all 5 phases.
@@ -18,20 +22,11 @@ imports:
 
 **Skip** if: you're in early exploration testing desirability, the AI component is <1% of critical path, or this is a purely deterministic feature.
 
-## GROUNDING (Before Starting)
-
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
-
-Then proceed with the skill-specific analysis below.
-
 ## THE TRAP
 
 You write AI PRDs like traditional software: feature works or fails, success = happy path. You spec output format, latency, constraints. **But AI doesn't fail binary.** It confidently returns wrong answers users trust. You miss: what happens at 60% confidence? What's hallucination rate? How does drift trigger retraining? These are **product decisions**, not implementation.
 
-Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thinking—"model classifies intent" without accuracy/threshold spec. (3) Launch theater—you'll "monitor later" because eval is expensive. Result: feature ships fragile, breaks at scale, drift goes undetected for weeks.
+Four failure modes: (1) Success bias—spec only happy path. (2) Black-box thinking—"model classifies intent" without accuracy/threshold spec. (3) Launch theater—you'll "monitor later" because eval is expensive. (4) Orchestration theater—you spec a beautiful multi-agent flow but never define the *confidence handoff* between agents or the named human who catches the swarm when it loops. In 2026 some agents run autonomously for 8+ days with little human touch (⚠ reported), yet the high-stakes judgment still has to collapse to a named owner. Result: feature ships fragile, breaks at scale, drift goes undetected for weeks.
 
 ## KEY TERMS (plain language)
 
@@ -43,6 +38,24 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
 - **Drift** — the slow decay of an AI's accuracy in production as the world changes; needs monitoring and a retraining trigger.
 - **Behavior examples (good / bad / reject)** — concrete input→output examples that spec what the AI should do, get wrong, and refuse.
 - **Accountable owner** — the named human who must *choose* to own the AI's outcome, set up with the conditions that keep them engaged.
+- **User story inheritance** — the mechanism by which every AI-PRD element (confidence thresholds, failure modes + owner, behavior examples, cost-per-outcome, drift trigger) becomes explicit acceptance criteria in the downstream user story. If a story doesn't inherit them, the probabilistic decisions live only in an engineer's head.
+
+## WHAT THIS SKILL CONSUMES & PRODUCES
+
+An AI-PRD sits between discovery and the backlog: it takes the raw feature intent plus the evidence of how the model behaves, and it produces the probabilistic spec — and the user stories — every downstream team builds from.
+
+**Consumes (inputs):**
+- **The feature intent + problem** — who, what, why now, from discovery / `jtbd-analysis`.
+- **The definition of good** — eval criteria and thresholds, from `eval-framework`.
+- **The economics** — cost per successful outcome at P90, from `cost-model`.
+- **The behavior evidence** — real good/bad/reject examples, from production or user research.
+- **The autonomy level** — how much the AI decides vs. the human, from `autonomy-spectrum`.
+
+**Produces (outputs):**
+- **The probabilistic spec** — confidence thresholds, failure behavior, drift trigger, named owner.
+- **Production-grade AI user stories** — backlog items that *inherit* those elements as acceptance criteria (the Phase 3 template). This is the real deliverable: stories that survive production.
+- **The behavior-example set** — seeds *both* the eval dataset (`eval-framework`) and the user-story acceptance criteria.
+- **The pre-launch gate inputs** → `ship-decision`.
 
 ## THE PROCESS
 
@@ -58,6 +71,7 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
 2. **Dual success metrics framework:**
    - **User outcome metrics:** task completion rate, time-to-decision, user satisfaction
    - **AI-specific metrics:** accuracy (by class), hallucination rate, false positive/negative rate, latency (P50/P95), confidence calibration (does 80% confidence = 80% accuracy?)
+   - **User Story Health:** the % of AI-related user stories in the backlog that carry a confidence threshold + a named failure owner + behavior examples. This surfaces the silent failure — teams still writing deterministic stories for probabilistic features. Target 100% for anything shipping.
 
 3. **Prompts as product artifacts:** Version-control prompt templates, test prompt changes like code, A/B test competing prompts on eval set before launch. Log prompt version with every request for drift analysis.
 
@@ -78,6 +92,8 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
    - **Capability decay plan:** when next model generation ships, what assumptions change? What needs reverification?
 
 5b. **Name the accountable owner for every human-dependent recovery path.** Phase 2 routes failures to "human escalation," "human review," and "user action" — every one of those assumes a specific human will *choose* to engage. Spec who that is, and the conditions that keep them owning it, not just their title in an escalation table. An accountable owner is a named person whose **mindset** (they feel they matter to the outcome), **meaning** (they have a reason worth the effort of checking), and **mechanisms** (they're judged on catching the AI's errors, not on shipping fast) have been set up on purpose. **Why it matters:** a controlled trial (BCG, 1,261 people) found that framing the AI as an employee dropped personal accountability by ~9 points and led reviewers to catch ~18% fewer errors (⚠/◆) — so a recovery path that reads "escalate to human review" is only as real as that human's willingness to own it. A named owner without those three conditions is escalation theater. **When this is wrong:** for a fully autonomous, near-zero-consequence operation there is no human owner — write "owner: none by design," and don't spec a recovery path that secretly relies on one. *(Source: "Accountability Must Be Chosen, Not Mandated," Okposo, HBR, 29 Apr 2026; BCG trial via "Research: Why You Shouldn't Treat AI Agents Like Employees," HBR 2026.)*
+
+5b-agentic. **The agentic ownership shift — split the execution layer from the judgment layer.** By 2026 some agent systems run multi-day recursive loops with no human in the loop for stretches. That's fine *where the layer is low-stakes execution* — write "owner: none by design" and mean it. But the moment the flow produces a *judgment* or a *production artifact*, ownership snaps back to a named human with the three conditions above. The rule: an autonomous execution layer can be ownerless; any output someone will act on cannot. Draw that line explicitly in the spec, and make sure no user story quietly assumes a human is watching a stretch that was designed to be unwatched.
 
 5c. **Default: named sign-off on AI-generated production artifacts.** Extending 5b: for any AI-generated code or decision that ships to production, name a specific human as reviewer and sign-off. This is both the accountability record *and* the closest thing to an eval for the quality automated tests can't score — deferred/lifecycle failure, code that looks fine at launch and breaks only when modified, integrated, secured, or scaled (see `rtp-eval-framework`, lifecycle quality). If the honest answer to "who owns the unmeasurable judgment after this change?" is "no one — the AI does it now," that is capability/judgment debt being booked as savings; name the owner or name the risk. **When wrong:** low-stakes, reversible, low-lifecycle features don't need a named signer — reserve it for production artifacts whose failure is costly or slow to surface. *(Source: "Big Tech's Looming Capability Crisis," Liu & Kovács, HBR, 2 Jun 2026 — Control #2.)*
 
@@ -251,9 +267,29 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
       Why reject: Amount exceeds automated authority threshold.
    ```
 
-   **Why this matters:** Behavior examples are the bridge between product intent and engineering implementation. They're also your eval dataset seed — each example becomes a test case. Teams that skip behavior examples write vague PRDs that engineering interprets differently than product intended, and the gap only surfaces after launch.
+   **Why this matters — behavior examples seed two things, not one.** They're the bridge between product intent and engineering implementation, and they feed *both* your **eval dataset** (each example becomes a test case) *and* your **user-story acceptance criteria** (the good/bad/reject examples the story links to). When a production correction comes in, it flows back into *both* — a new test *and* a refreshed behavior example — which is how the user story stays honest over time. Teams that skip behavior examples write vague PRDs that engineering interprets differently than product intended, and the gap only surfaces after launch.
 
    **Quality check:** If an engineer can read your behavior examples and build the feature without asking clarifying questions about "what should happen when X?" — your examples are sufficient. If they still need to ask, you need more examples.
+
+### Phase 3 → The AI User Story Template (the deliverable PMs paste into the backlog)
+
+Once you have confidence thresholds (item 7) and behavior examples (Phase 3b), Phase 3 isn't finished as a *document* — it's finished as a *user story*. Every AI feature story inherits the probabilistic elements as acceptance criteria. Drop this straight into the backlog:
+
+```
+As a [user], I want [core capability] so that [outcome].
+
+Acceptance criteria (probabilistic):
+- Confidence > 0.85 → show the full answer (P95 latency ≤ X ms)
+- 0.70–0.85 → prompt for confirmation (track user acceptance rate)
+- < 0.70 or hallucination flag → fall back to [rules / human] and notify owner [Name]
+
+Behavior examples: [link 3–5 good / bad / reject from Phase 3b]
+Failure owner:     [named human] — judged on catch rate, not velocity
+Drift trigger:     retrain / escalate if accuracy drops > X% in 7 days
+Cost per outcome:  target $Y (from cost-model)
+```
+
+A story missing any of these six lines — thresholds, behavior examples, failure owner, drift trigger, cost target, and the plain user need — is a deterministic story wearing an AI costume; send it back. This block is the bridge from spec to backlog, and the reason the skill exists.
 
 ### Phase 3c: Lifecycle Stage Awareness
 
@@ -266,6 +302,8 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
    | **Solution Review** (architecture decided) | Architecture decisions, prompt specifications, integration points | Prompt version v1.0, regression test suite, A/B test plan |
    | **Launch Ready** (shipping) | Pre-launch eval gate results, monitoring setup, rollback plan | All eval gates passed, production monitoring live, rollback tested |
    | **Impact Review** (post-launch) | Metrics vs. targets, user feedback analysis, drift assessment | Acceptance rate actuals, cost-per-outcome actuals, drift monitoring results |
+
+   **User stories generated at each stage:** Speclet → 3-5 behavior examples only (light, provisional stories). Kickoff → full probabilistic stories seeded from the eval criteria. Launch Ready → complete stories with every threshold, owner, drift trigger, and cost target populated. Match the story's rigor to the stage; don't write launch-grade acceptance criteria for a hypothesis you haven't validated.
 
    **Tag the document:** Add `Stage: [Speclet | Kickoff | Solution Review | Launch Ready | Impact Review]` to the PRD header. This prevents over-engineering early (writing 25 behavior examples during exploration) and under-specifying late (shipping without eval gates).
 
@@ -289,6 +327,7 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
     - Max acceptable cost/user/day (COGS breakeven)
     - Cost ceiling (above this, feature deprecates or pivots)
     - Token price monitoring: automatic escalation if costs exceed threshold
+    - **Into the story:** every AI user story that touches this feature carries its **cost-per-outcome target** and the **pivot trigger** as acceptance criteria — so the economics are visible in the backlog, not discovered after launch.
 
 13. **Bias & Fairness (living evaluation):**
     - **Segmentation:** performance by demographic group, geography, language. Accuracy must not vary >X% across segments.
@@ -323,6 +362,7 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
     - Monthly: cost/user tracking, token price elasticity analysis
     - Quarterly: bias audit, capability decay check (new model available?), prompt effectiveness review
     - Trigger: drift detected → escalation → decision (retrain, pivot, deprecate)
+    - **The living spec is living backlog hygiene:** it also outputs story-ready artifacts on a cadence — *weekly*, refreshed behavior examples pulled from production corrections; *monthly*, refreshed probabilistic acceptance criteria for the top 10 AI user stories. The spec that stops updating the backlog is the spec that stops being true.
 
 ## REALITY CHECK
 
@@ -341,6 +381,7 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
 - [ ] Cost model complete: baseline/10x/100x with token pricing risk analysis + identified ceiling trigger
 - [ ] Living spec post-launch: daily/weekly/monthly monitoring cadence, drift trigger + escalation path, quarterly bias audit, capability decay check
 - [ ] Prompts version-controlled, A/B tested on eval set before deployment, regression tested on code changes
+- [ ] **Every AI user story in the backlog has inherited its confidence thresholds, named failure owner, and ≥3 behavior examples from this PRD** (User Story Health = 100%)
 - [ ] PRD reviewed by someone outside core team for missing failure modes or unrealistic thresholds
 
 ## WHEN WRONG
@@ -349,25 +390,26 @@ Three failure modes: (1) Success bias—spec only happy path. (2) Black-box thin
 - Early exploration phase (testing desirability, not shipping)
 - AI component has <1% impact on user outcome (genuinely nice-to-have)
 - When you're spec'ing to delay launch rather than de-risk launch (eval rigor tax exceeds risk reduction benefit)
+- **When the feature is a fully autonomous execution layer with near-zero consequence, designed for no human owner** (e.g., a long-running self-improving research loop). Write "owner: none by design" — and do *not* create user stories that secretly assume a human will intervene in a stretch built to be unwatched.
 
 ---
 
----
+## GROUNDING, TRADE-OFFS & CONCLUSION
 
-## TRADE-OFF LEDGER
+Before starting, follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) Section 1 grounding questions (who is the customer, what problem, what are we saying YES and NO to) and confirm output format. Close with the Trade-Off Ledger (Section 3) and the Conclusion Protocol (Section 5) — and for this skill, make the conclusion **user-story-oriented**, because that is what the AI-PRD is *for*:
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
-
-## CONCLUSION
-
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
-
----
+- **Recommendation:** adopt this AI-PRD as the mandatory upstream artifact before any AI-related user story is written or groomed.
+- **Key trade-off:** more rigor upfront (time in the spec) vs. production fire drills and fragile stories later.
+- **Biggest risk if skipped:** teams keep writing deterministic stories for probabilistic features — the confidence thresholds live only in engineers' heads, drift goes unmonitored, and "accountable owners" are escalation theater.
+- **Next action:** take the top 5 AI features in your backlog, run them through Phase 3 + Phase 3b, and rewrite their stories with the probabilistic template. Measure the share of AI stories that now carry explicit confidence logic and named owners within 30 days (your User Story Health metric).
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+After the primary output, invoke the **excalidraw-svg** skill for a single "User Story Factory" diagram — the picture that makes the skill's purpose obvious at a glance:
+
+- **Left:** raw product intent + the problem hypothesis.
+- **Center:** the AI-PRD machine, with its five visible outputs — confidence thresholds, behavior examples, failure modes + named owner, cost per outcome, drift trigger.
+- **Right:** clean, production-grade user stories that *inherit* all five.
+- **Loop back:** an arrow from production (corrections → new behavior examples → updated stories), showing the living-spec cycle.
+
+Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
