@@ -1,5 +1,6 @@
 ---
 name: rtp-trendslop-check
+version: v1.0_latest
 description: >
   Catch when AI-generated strategy defaults to trendy advice instead of context-specific strategy.
   Across 15,000+ trials, LLMs show systematic bias: favor differentiation over cost-leadership,

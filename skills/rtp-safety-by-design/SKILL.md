@@ -1,5 +1,6 @@
 ---
 name: "safety-by-design"
+version: v1.0_latest
 description: "Build the safety rules into the AI's core instructions from the start — not a filter bolted on after it answers, because bolted-on filters only catch what they were written to catch. Covers writing constraints the model can generalize to cases nobody wrote down, and testing that they hold. Use when: architecting AI systems, scaling safety to new capabilities, testing whether rules transfer. Pairs with: safety-as-moat (whether safety pays), agent-risk (worst-case screening), determinism-compass (what must never vary). Triggers: 'safety constraints', 'safety architecture'"
 imports: ["determinism-compass"]
 ---

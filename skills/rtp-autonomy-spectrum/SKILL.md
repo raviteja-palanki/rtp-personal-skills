@@ -1,5 +1,6 @@
 ---
 name: autonomy-spectrum
+version: v1.0_latest
 description: "Place every AI interaction at the level it deserves — not the highest the model can reach — by asking one question: who decides what happens next, the code or the model? Gives the 7-level spectrum (Feature → Chatbot → Assistant → Copilot ‖ Agent → Autonomous Agent → Multi-Agent) with plain-language 'what the AI does vs what the human does' for each; the structural shift at Level 4→5 where the model takes over the workflow; consequence-based leveling; leash length + progressive trust; and the effective-vs-designed level (the rubber-stamping trap). Use when someone says 'let's build an agent', when designing any AI feature, evaluating a competitor, or deciding how much control to hand the model. Pairs with: ai-use-case-readiness (deep governance diagnostic; this is the quick reference), trust-ladder, agent-spec, agent-risk, tool-architecture, agent-harness, judgment-guard. Triggers: 'autonomy level', 'agent spectrum', 'how autonomous', 'let's build an agent'."
 imports:
   - determinism-compass

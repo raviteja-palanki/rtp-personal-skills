@@ -1,5 +1,6 @@
 ---
 name: agent-ecosystem
+version: v1.0_latest
 description: "When two or more AI agents must work together, the hard problem stops being intelligence and becomes coordination: who owns the shared state, how work hands off without losing context, and what happens at the merge when the agents disagree. Covers the coordination topologies (supervisor, pipeline, fan-out/fan-in, peer), handoff protocols, state ownership, the multi-agent failure taxonomy (race, context drift, cascade, sub-agent divergence), isolation boundaries, the multi-agent graduation gate, and the human twin of every handoff — the named owner of the seam. Use when designing a 2+ agent system, choosing a topology, or diagnosing agents that collide or lose work. This skill owns the seams between agents; agent-harness owns the single-agent machine. Pairs with: agent-harness, harness-operating-model (build/buy + fleet cost), autonomy-spectrum (Level 7), tool-architecture (A2A), determinism-compass. Triggers: 'multi-agent', 'agent orchestration', 'agent handoff', 'sub-agent divergence'."
 imports:
   - determinism-compass

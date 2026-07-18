@@ -1,5 +1,6 @@
 ---
 name: ai-ux-patterns
+version: v1.0_latest
 description: >
   Interface patterns for AI products where output confidence varies: how to show the AI's
   uncertainty, reveal detail only as needed, calibrate user trust, design loading and error

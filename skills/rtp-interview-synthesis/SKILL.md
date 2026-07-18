@@ -1,5 +1,6 @@
 ---
 name: interview-synthesis
+version: v1.0_latest
 description: "Open → axial → selective coding for customer-interview transcripts — the same discipline serious AI eval teams run on traces, applied to human conversations. Most PMs synthesize by skimming for quotes that confirm what they already believed; code every observation first and patterns emerge from the data instead of getting cherry-picked. The payoff most PMs miss: the codes that emerge from interviews become eval failure-mode candidates when the AI ships, so this is the bridge between qualitative discovery and AI evaluation. Use when a stack of 5–15 transcripts needs to become themes, persona signals, opportunity hypotheses, and eval-test candidates. Do NOT use under 3 interviews, for sales calls in disguise, or for summary (non-verbatim) transcripts. Pairs with: uncertainty-research (how to collect them), jtbd-analysis (switch interviews → four forces), eval-framework (codes → eval failure modes), failure-modes (anxiety codes → what to design for). Triggers: 'synthesize these interviews', 'what did we hear'."
 imports:
   - jtbd-analysis

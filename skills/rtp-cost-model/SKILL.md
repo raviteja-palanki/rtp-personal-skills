@@ -1,5 +1,6 @@
 ---
 name: rtp-cost-model
+version: v1.0_latest
 description: "What does your AI feature really cost — and does the math still work at 10× the usage? Maps the full cost stack (model calls, retrieval, storage, human review, eval) and prices the cost of a *successful* outcome — including failures, escalations, and the agentic call multiplier (one task now fires 10-20 calls). Owns the cost mechanics the money system needs — harness multiplier, model routing, prompt caching, batch — and hands the P90 cost-per-outcome to token-economics for pricing. Covers the Jevons trap (cheaper tokens, bigger bills), the 10× degradation table, routing ROI and its maturity ladder, eval-cost-at-scale, and the margin gate with a price-erosion stress test. Use when: pricing decisions, scaling plans, 'can we afford this' reviews. Pairs with: token-economics (how to charge), moat-finder (cost vs growth line), ship-decision (the margin gate). Triggers: 'unit economics', 'AI cost model', 'cost per outcome'"
 imports: [stress-test, token-economics]
 ---

@@ -1,5 +1,6 @@
 ---
 name: rtp-vision-setting
+version: v1.0_latest
 description: >
   Articulate the aspirational picture of what the world looks like when an AI product wins. Vision is not strategy (how) and not roadmap (what) — it's the destination that makes strategy and roadmap choices obvious. Use when starting a new initiative, refining an existing vision, preparing a board / all-hands deck, or when the team can't agree on priorities (the symptom of a missing vision). Triggers on "product vision," "long-term vision," "where are we going," "3-year vision," "vision statement," "north star vision," "the destination."
 imports:

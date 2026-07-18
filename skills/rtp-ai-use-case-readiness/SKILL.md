@@ -1,5 +1,6 @@
 ---
 name: ai-use-case-readiness
+version: v2.0_latest
 description: "Right-size the autonomy for a use case — the minimum that captures the value, not the maximum you could build. The question is never 'can we make this autonomous?' but 'what's the least autonomy that still works?' — because autonomy is a governance question, not a capability one: you CAN build a level-5 agent; cost-of-error, verifiability, and policy decide whether you SHOULD. Runs a 5-phase diagnostic — 12 questions, the 0–7 spectrum, two matrices, a floor/ceiling gap, a phased roadmap — output framed as a testable hypothesis, not a rubber stamp. Use when a team says 'let's build an agent', or when 'can it be autonomous?' is asked before 'should it be?'. Do NOT use for a monolithic undecomposed use case (first-principles first) or a pure tech-stack choice. Pairs with: problem-ai-fit (whether AI at all), autonomy-spectrum (quick level reference), determinism-compass (what stays deterministic), cost-model (control-burden economics). Triggers: 'let's build an agent', 'how autonomous', 'can this be an agent'."
 imports:
   - first-principles

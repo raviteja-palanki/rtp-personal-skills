@@ -1,5 +1,6 @@
 ---
 name: ai-product-taste
+version: v1.0_latest
 description: "Calibrate the quality bar for an AI feature against your specific domain, users, and price point — not against benchmark scores. Exceptional AI products are domain-calibrated, not generically excellent: 'good' is a domain word, not a benchmark number. The trap is technically-correct-but-feels-wrong — factually accurate, grammar-perfect, zero hallucinations, and users still say 'this sucks', because you optimized for metrics instead of taste (accuracy ≠ usefulness; fluency ≠ trustworthiness). Design the magic moment and put taste examples in your evals. Use when output looks impressive but feels mediocre, when the team can't say what 'good enough' means, or when judging ship-now vs. raise-the-bar. Pairs with: eval-framework (taste sets the bar, evals measure it), jtbd-analysis (the job vs. the quality bar), ai-product-metrics (acceptance/correction as taste signals), confidence-tuner (honest-about-uncertainty). Triggers: 'is this good enough', 'the output is impressive', 'quality bar', 'ship or polish'."
 imports:
   - first-principles

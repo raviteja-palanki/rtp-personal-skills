@@ -1,5 +1,6 @@
 ---
 name: eval-driven-development
+version: v1.0_latest
 description: >
   Build AI features with the eval rubric AS the spec, not as a downstream gate. The eval
   defines what to build next — not whether what you built is acceptable. Use when shipping

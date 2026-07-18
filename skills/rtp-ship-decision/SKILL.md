@@ -1,5 +1,6 @@
 ---
 name: ship-decision
+version: v1.0_latest
 description: "The formal go/no-go gate for launching an AI feature: quality tested on 150+ real cases, error rates within severity thresholds, cost still survivable at 10× usage, monitoring live before launch (not after), failure behavior mapped, fallback defined — plus a pre-agreed reward for the person who kills their own failing feature, so the bad news arrives before the spend. Use when: one week before any production launch. Pairs with: eval-framework (the test set), cost-model (the 10× math), stress-test (production readiness), agent-risk (can you pull the plug fast enough). Triggers: 'ship gate', 'launch checklist', 'go/no-go'"
 imports: [stress-test, safety-as-moat, failure-modes, cost-model]
 ---

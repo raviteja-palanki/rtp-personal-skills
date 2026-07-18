@@ -1,5 +1,6 @@
 ---
 name: harness-operating-model
+version: v1.0_latest
 description: "How to fund, staff, run, and future-proof a harness as a multi-year program — the discipline around the machine, not the machine. Covers the cost shape (front-load/plateau/compound), the five cost centers, the reliability dividend (failure getting cheap is the business case), the lock-in/runtime wedges, and the stopping rule; the maturity ladder + nine-day kit + stakeholder scripts; the four org models + deployment shapes, the Harness PM role, human-in-the-harness, build/buy, open vs closed; and the longevity layer — permanent residents vs the dissolving ladder, and why the harness is the moat. Use when budgeting or defending a harness program, deciding open/closed or build/buy, naming the harness owner, or placing your team on the maturity ladder. Sibling: agent-harness (the machine). Pairs with: cost-model, adoption-launch, alignment-check, capability-tracking, moat-finder. Triggers: 'harness cost', 'harness ROI', 'harness owner', 'open vs closed harness', 'human in the harness'."
 imports: [agent-harness, cost-model, capability-tracking]
 ---

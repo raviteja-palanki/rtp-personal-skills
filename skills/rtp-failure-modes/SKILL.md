@@ -1,5 +1,6 @@
 ---
 name: failure-modes
+version: v2.0_latest
 description: "What will go wrong with this AI feature, what does each failure cost, and what happens to the user when it does? Maps the full failure surface (six kinds of hallucination, injection, cascade, silent decay), prices each by cost and how long it stays invisible, then designs the response: honest uncertainty language, correction paths, when the AI should refuse, and the fallback chain when it breaks. Use when speccing an AI feature, designing production monitoring, running a pre-launch failure audit, or writing failure acceptance criteria. Do NOT use to decide whether to use AI at all (that's problem-ai-fit), or for purely deterministic systems. Pairs with: stress-test (the load/cost/latency surface), feedback-triage (routes live failures to their fix team using this taxonomy), ai-ux-patterns (how failure looks to the user), trust-ladder (repairing trust after a visible miss), agent-risk (kill-switch when failure cascades). Triggers: 'what could go wrong', 'failure audit', 'how should it fail'."
 imports: [stress-test]
 ---

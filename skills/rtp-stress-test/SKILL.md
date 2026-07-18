@@ -1,5 +1,6 @@
 ---
 name: stress-test
+version: v1.0_latest
 description: "Will this AI feature survive real production — 10x the users, hostile inputs, a degraded model provider, a finance review — or only the demo? A pilot hides two failures: the one in the numbers (load, cost at volume, worst-case latency, quiet quality decay, a motivated attacker — six required checks) and the one the numbers hide (shipped on time, telemetry green, users quietly leaving because the AI is subtly wrong in their highest-stakes work — a pre-mortem catches it). The break is built to arrive at the worst moment: user 10,000, after the roadmap is committed and the promise made. Use before a launch, a resource commitment, a unit-economics promise, or a response-time guarantee. Pairs with: ship-decision (the gate this feeds), cost-model (deep cost math), agent-risk (kill-switch design), production-observability (post-launch watch), failure-modes (what breaks), fit-signal (trust after launch). Triggers: 'will this scale', '10x users', 'cost at scale', 'latency budget', 'production readiness'."
 imports: []
 ---

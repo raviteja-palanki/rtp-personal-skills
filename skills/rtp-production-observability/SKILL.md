@@ -1,5 +1,6 @@
 ---
 name: rtp-production-observability
+version: v1.0_latest
 description: 'Catch silent AI degradation in production before users leave — AI systems degrade silently (model drift, prompt regressions, distribution shift) in ways traditional logging misses. Covers the trace (not the request) as the unit of AI observability, quality-aware alerting on eval-score drift (the PM''s signal, not just p99 latency), separating "the model failed" from "the harness failed the model", trace debugging (logic vs memory bug), agent-gaslighting detection, and failure-mode genealogy (thousands of traces -> the ~3 root causes behind most failures). Use when shipping an AI feature to production, debugging "it worked yesterday", designing alerts, or auditing whether you''d catch a degradation before users complain. Pairs with: eval-framework, confidence-tuner (calibrating the judge behind the scores), invisible-stack/context-spec, feedback-flywheel, eval-driven-development. Triggers: "monitoring AI", "model drift", "quality regression", "production observability", "traces", "why did the agent fail".'
 imports:
   - stress-test

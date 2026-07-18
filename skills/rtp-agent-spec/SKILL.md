@@ -1,5 +1,6 @@
 ---
 name: agent-spec
+version: v1.0_latest
 description: "The design document for an AI agent: what it does at each step, how much it may act alone (levels 0–4), when it must hand back to a human, how it recovers from failure, and who owns the outcome. Includes the chain-reliability math every stakeholder underestimates: 90% reliable per step × 5 steps ≈ 59% reliable end-to-end. Use when: building multi-step agents, setting autonomy levels, placing checkpoints. Pairs with: autonomy-spectrum (choosing the level), agent-risk (worst-case screening), ai-prd (the product spec around it). Triggers: 'agent autonomy', 'agent spec'"
 imports: [trust-ladder, failure-modes, determinism-compass]
 ---

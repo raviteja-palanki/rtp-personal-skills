@@ -1,5 +1,6 @@
 ---
 name: problem-ai-fit
+version: v1.0_latest
 description: >
   Determines whether a problem genuinely needs AI or if rules, search, and simple logic
   deliver better outcomes — then, for problems that do need AI, decides which seat it takes:

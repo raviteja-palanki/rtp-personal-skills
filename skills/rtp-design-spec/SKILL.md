@@ -7,7 +7,7 @@ description: >
   "design tokens", "design spec", "DESIGN.md", "tokens.json", "Tailwind config from design",
   "agent-readable design system."
 author: Ravi Teja Palanki
-version: 1.0
+version: v1.0_latest
 created: 25 APR 2026
 updated: 25 APR 2026
 ---

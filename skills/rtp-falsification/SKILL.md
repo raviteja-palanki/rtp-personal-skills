@@ -1,5 +1,6 @@
 ---
 name: falsification
+version: v1.0_latest
 description: "Turns 'this will work' into a claim that can lose — named numbers, pre-agreed kill conditions, and stakeholders signed up to act before launch momentum makes honesty expensive. In a probabilistic system you can always find an example where the model got it right, so the only defense is deciding in advance what evidence would prove you wrong, then genuinely looking for it. Use when reviewing a strategy, before committing resources or launching, or when someone is sure it 'will work' without saying what failure looks like. Never to block action (de-risk with it) or on cheap, reversible decisions. Pairs with: bias-spotter (the bias making the claim feel safe), problem-type (its antidote to 'we'll wait'), stress-test (the technical pre-mortem sibling), eval-driven-development (pre-registered criteria, daily), ship-decision (the gate the kill conditions arm). Triggers: 'this will improve X', 'we should launch this', 'we need this to compete'."
 imports: []
 ---

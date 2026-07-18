@@ -1,5 +1,6 @@
 ---
 name: gossip-mode
+version: v1.0_latest
 description: "Turns venting into memory. When you think aloud — a standup gripe, a post-demo debrief, a hallway observation — this catches the structural signal hiding in the informal stream (an eval gap, a prompt regression, a model drifting, a stakeholder's shifting stance, a cost spike) and routes each to the exact file a future session will need. One gripe usually holds several routable facts; most PMs hear a vibe and let it die. Always proposes routing and waits for confirmation; never writes sensitive content without asking. Use when the user is venting, debriefing informally, or thinking aloud about AI product work — not when they ask a specific PM question or want a deliverable. Pairs with: feedback-triage (structured customer feedback, the formal sibling), interview-synthesis (structured transcripts), production-observability (when the vented signal is an ops incident), signal-scanner (when it's competitive intel). Triggers: user venting, debriefing, or thinking aloud about AI product work."
 imports:
   - feedback-flywheel

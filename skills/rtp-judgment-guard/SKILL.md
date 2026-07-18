@@ -1,5 +1,6 @@
 ---
 name: judgment-guard
+version: v1.0_latest
 description: >
   Decide, on purpose, where human judgment sits inside an AI system — because if you don't,
   adoption decides for you and the default removes the human. Two cases. ATROPHY: leaning on AI

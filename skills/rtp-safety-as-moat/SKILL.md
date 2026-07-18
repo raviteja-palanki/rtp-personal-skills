@@ -1,5 +1,6 @@
 ---
 name: "safety-as-moat"
+version: v1.0_latest
 description: "Is safety a competitive advantage for you, or just compliance theater? Weighs the real cost of guardrails (speed, engineering effort) against the measured premium customers pay for credible safety — a premium that grows the more the AI can do on the user's behalf. Treats attacking your own AI before users do (red-teaming) as product-quality work, not audit paperwork. Use when: safety investment decisions, enterprise positioning, 'why fund guardrails' debates. Pairs with: safety-by-design (how to build it in), responsible-ai-program (the governance), moat-finder (the other moats). Triggers: 'safety strategy', 'safety moat', 'guardrails'"
 imports: ["determinism-compass"]
 ---

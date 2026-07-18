@@ -1,5 +1,6 @@
 ---
 name: alignment-check
+version: v1.0_latest
 description: >
   Check if your organization is actually ready for AI — structure, roles, accountability — before spending on technology. 93% of AI failures are organizational, not technical. This skill maps the 5-link chain (Purpose → Strategy → Capability → Architecture → Systems) and finds which one is broken. Use when kicking off an AI initiative, inheriting a stalled project, evaluating why pilots fail to scale, assessing readiness before a major investment, or diagnosing production failures. Do NOT use to delay decisions or as a perfectionist checklist — it's diagnostic, not a maturity model. Pairs with: problem-type (technical fix vs. organizational change), responsible-ai-program (the governance layer), adoption-launch (the people side of readiness).
 imports: []

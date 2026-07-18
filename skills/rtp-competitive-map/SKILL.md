@@ -1,5 +1,6 @@
 ---
 name: competitive-map
+version: v1.0_latest
 description: "Map competitive positioning for an AI product across the dimensions that actually decide defensibility — model, safety, privacy, unit economics, switching cost, trust — not feature parity and pricing tiers. The core reframe: in AI, features and model capability commoditize in 3–6 months (yesterday's breakthrough is today's table stakes), so advantage lives in moat durability, cost structure, and trust — and two products with identical UIs can differ 3× in defensibility by substrate. Different economics = different markets — you compete where YOUR economics work. Use when evaluating competitive threats, designing a defensible position, or deciding which AI game to play. Do NOT use pre-PMF, for feature-level comparisons (use first-principles), or to justify a price war. Pairs with: moat-finder (your own defensibility), strategy-canvas (the strategy), cost-model (the unit-economics math), signal-scanner (weak-signal detection). Triggers: 'competitive analysis', 'competitive positioning', 'battlecard'."
 imports:
   - moat-finder

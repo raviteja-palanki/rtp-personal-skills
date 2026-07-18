@@ -66,3 +66,8 @@ __pycache__/
 
 # === Git Sync Status (session-specific) ===
 2_Skills/ai-pm-skills/.git-sync-status.md
+
+# === Latest-only: keep skill version history + binaries OUT of the public plugin ===
+# (archive/ history lives in 2_Skills source per Rule 41; not the plugin)
+skills/*/archive/
+skills/**/*.docx

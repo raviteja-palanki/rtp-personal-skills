@@ -1,5 +1,6 @@
 ---
 name: attitudinal-segmentation
+version: v1.0_latest
 description: "Segment AI product users by their stance toward AI itself — AI Embracer, AI Neutral, AI Skeptic — not by role, company size, or behavior. The attitudinal cut crosses every demographic and predicts shipping decisions: each segment needs different onboarding, default autonomy, evidence, and feedback prompts, and a single-default ship loses two of three (Skeptics — who'd have been your stickiest superusers — churn first). It's invisible in standard analytics; you instrument for it or you miss it. Use when designing onboarding for an AI product, when churn splits oddly across demographic cuts, or when setting per-segment confidence thresholds. Do NOT use pre-launch, under ~20 users, or for commodity products where AI is invisible. Pairs with: feedback-triage, ai-product-metrics, confidence-tuner, uncertainty-research, jtbd-analysis (all run segment-aware). Triggers: 'users hate the AI', 'skeptic operator', 'split onboarding', 'why are veterans churning', 'grad vs veteran'."
 imports:
   - uncertainty-research

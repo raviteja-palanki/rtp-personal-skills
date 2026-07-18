@@ -1,5 +1,6 @@
 ---
 name: invisible-stack
+version: v2.0_latest
 description: "Every AI feature has a visible part — the model writing the answer — and a stack of hidden parts (retrieval, safety, memory, tools) that decide whether that answer is any good. This maps those hidden layers (the seven CONTEXT layers), measures each, and finds the single weakest layer capping quality — because a perfect model fed bad context still ships a bad product. Use when reviewing an AI architecture or diagnosing why a demo works but production doesn't. Do NOT use for simple single-turn features with no retrieval, memory, or tools. Pairs with: context-spec (this finds the weak layer, that writes the build spec for all seven), eval-framework (every eval failure traces to one broken layer here), production-observability (instruments each layer), failure-modes (each layer's break maps to a named failure), moat-finder (skipping the stack is now a negative-flywheel survival risk). Triggers: 'demo works, production doesn't', 'AI architecture review', 'why is quality capped', 'RAG quality'."
 imports: [determinism-compass, stress-test]
 ---

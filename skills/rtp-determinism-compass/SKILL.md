@@ -1,5 +1,6 @@
 ---
 name: determinism-compass
+version: v1.0_latest
 description: "Which parts of your AI product must give the same answer every time, and where is variety acceptable — or even the point? Sorts every component into 'must be consistent' vs. 'may vary', then sets the testing, caching, and autonomy rules that follow from the sort. Use when: designing the architecture, QA planning, spec reviews. Pairs with: autonomy-spectrum (how far the AI may act alone), problem-ai-fit (whether AI belongs here at all). Triggers: 'variation acceptable', 'test AI component', 'cache', 'reproducible'"
 imports: []
 ---

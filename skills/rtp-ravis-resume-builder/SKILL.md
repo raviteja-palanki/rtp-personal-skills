@@ -1,5 +1,6 @@
 ---
 name: rtp-ravis-resume-builder
+version: v1.0_latest
 description: >
   Pixel-perfect PDF resume generator for Raviteja Palanki (Ravi). Produces an Apple-quality,
   A4, two-column resume using ReportLab with Lato font and full Unicode support.

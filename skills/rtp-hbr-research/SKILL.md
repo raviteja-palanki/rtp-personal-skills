@@ -1,5 +1,6 @@
 ---
 name: rtp-hbr-research
+version: v1.0_latest
 description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written — then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/1_hbr-ai-2026/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with humanizer (prose pass), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
 ---
 # HBR research synthesis engine v3.0

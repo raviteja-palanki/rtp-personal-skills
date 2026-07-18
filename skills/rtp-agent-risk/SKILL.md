@@ -1,5 +1,6 @@
 ---
 name: agent-risk
+version: v1.0_latest
 description: >
   For every agent: is the value worth the potential harm? And can you pull the plug fast enough? Proportionality analysis (value vs worst-case) + kill-switch design (manual, anomaly-triggered, time-elapsed). If you can't kill it faster than harm cascades, don't deploy it. Use for any agentic system (AI agents, automated workflows, autonomous processes), pre-launch risk reviews, or when debating autonomy levels. Skip for static systems (no autonomous actions) or systems with trivial harm potential. Pairs with: autonomy-spectrum (choosing the level), agent-spec (checkpoints), judgment-guard (does the human overseer still choose to own it), adoption-launch (when insiders have a reason to want the rollout to fail).
 imports: [stress-test, failure-modes, autonomy-spectrum]

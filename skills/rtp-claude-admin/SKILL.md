@@ -1,5 +1,6 @@
 ---
 name: rtp-claude-admin
+version: v1.0_latest
 description: 'Ravi''s personal folder governance and administration skill. Invoked ONLY when Ravi explicitly says "RTP Claude Admin" or "Claude Admin" or "admin mode". Performs: folder health checks, archive cleanup with permanent deletion, skill version audits, CHANGE_LOG review, DEPRECATED-TRACKER review, cross-project knowledge promotion, MASTER_INDEX updates, and CLAUDE.md maintenance. USE WHEN user says "RTP Claude Admin", "admin review", "clean up archive", "delete deprecated files", "folder health check", "update master index", "promote to rules", "skill audit", or "what changed recently". Do NOT use for content creation, skill invocation, project work, or any non-administrative task.'
 ---
 # RTP Claude Admin — Folder Governance Skill

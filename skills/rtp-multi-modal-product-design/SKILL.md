@@ -1,5 +1,6 @@
 ---
 name: rtp-multi-modal-product-design
+version: v1.0_latest
 description: "Choose the right modality (text, voice, image, video) for an AI feature by the one variable that actually decides it — how expensive it is for the user to VERIFY the output — not by what's technically possible or what looks impressive in a demo. Covers the modality trade-off matrix (latency, cost, input friction, verification cost, failure mode, trust asymmetry), the noisy-input test (the accuracy lift that survives production, not the clean-demo lift), cross-modal friction, latency budgets, and modality-pivot triggers. Use when scoping a multimodal feature, deciding voice vs text, pricing a modality against its cost/latency, designing a modality switch, or pushing back on 'let's add video'. Pairs with: cost-model (modality unit economics), ai-ux-patterns + confidence-tuner (the over-trust visuals/audio create), autonomy-spectrum (verification cost sets the safe autonomy level). Triggers: 'should this be voice', 'multimodal', 'add audio/video', 'modality choice', 'voice UI'."
 imports:
   - cost-model

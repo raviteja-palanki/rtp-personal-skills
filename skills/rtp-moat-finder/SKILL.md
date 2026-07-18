@@ -1,6 +1,6 @@
 ---
 name: rtp-moat-finder
-version: v2.1_latest
+version: v2.2_latest
 description: "Will your AI advantage survive copycats and the next model? Separates real moats from features. Runs a P&L pre-screen (cost line, floored at zero, vs growth line, multiplied), scores the five compounding moats — proprietary data, workflow depth, harness mastery, trust and reliability, network effects — on a quarterly scorecard (three or more to survive the 18-month wall), then adds the three dynamics that make a loop compound (Vertical-Infinite, Living Software + Workspace DNA, cycle-time), the network-effects filter, the acquisition test, and the fake-moat checks (data that's just storage, loops on public data, the agent-in-the-middle squeeze). Core call: the model is the recipe; the moat is the system around it — only a loop fed by inputs no one else has survives. Use when setting strategy, judging whether an edge is defensible or just parity, or ~18 months out when models catch up. Pairs with: build-or-buy, safety-as-moat, feedback-flywheel. Triggers: 'competitive advantage', 'defensibility', 'moat'."
 imports: [bias-spotter, determinism-compass]
 ---
@@ -10,6 +10,16 @@ imports: [bias-spotter, determinism-compass]
 ## THE ONE IDEA
 
 The model is never the moat. Everyone rents the same frontier models, and every model gets better for everyone at once. So an advantage that lives in the model — a clever prompt, a fine-tune, an architecture trick — has a countdown timer on it. **The model is the recipe; the moat is the system around the recipe.** The durable advantage is a *compounding loop*: a system that gets better the more it is used, fed by inputs only you have, wrapped in a workflow that is painful to leave. Everything else is a feature. This skill sorts the loop from the features before you spend eighteen months defending the wrong thing.
+
+## DEPTH DECISION
+
+**Go deep** (all sections) if: setting annual strategy, a board/investor defensibility narrative, or a competitor just raised on "the same thing but faster."
+
+**Skim to the scorecard + fake-moat checks** if: quarterly review of a product already assessed — re-score the five, re-run the checks, find the weakest moat that matters.
+
+**Cold-start mode (30–45 min — board meeting tomorrow, new market, an acquisition target):** run the OUTPUT template top-to-bottom directly. Answer the two brutal tests first, score the five moats with the band anchors below, tag every ungrounded score ⚠ with what evidence would firm it, and flag unresolved calls as `OPEN:`. A tagged provisional scorecard today beats a certain one after the decision. Worked example of exactly this mode: `references/moat-assessment-cursor.md`.
+
+**Scoring band anchors (so two people score alike, especially cold):** 1 = doesn't exist · 2 = exists, a rival replicates it in one or two quarters · 3 = real, replication costs ~a year · 4 = measured lift + multi-year replication · 5 = measured, compounding, and getting *harder* to copy each quarter. Harness and trust never score ≥4 without production evidence (the strict rule below).
 
 ## THE TRAP
 
@@ -140,7 +150,7 @@ The five-moat pentagon is about what you build. The 2026 research adds a force i
 Score distribution with three plain questions the pentagon doesn't ask:
 - **Do you own a default surface or a developer ecosystem** — a place users already are, or tools/APIs that others build on?
 - **Does more usage make the product better for other users**, or only for you? (The first is a real ecosystem effect; the second is just your own data pile.)
-- **Is your reach partner-dependent — and is that access getting harder?**
+- **Is your reach partner-dependent — and is that access getting harder?** The 2026-defining case: **your model supplier competing downstream with its own customers** (frontier labs shipping coding agents against the IDE startups built on their APIs). If the company you rent intelligence from also sells your product's category, price that squeeze into the 18-month projection — neutrality across models is a partial hedge, not a moat.
 
 One live move worth naming: **open-sourcing your harness or tools can be a distribution play, not charity.** More builders adopt it → more usage → faster iteration and an ecosystem competitors have to fight — the CUDA and Android pattern (the read on xAI open-sourcing Grok Build). *(Newer and less settled than the five — [AI Moats in 2026, Valtorian](https://www.valtorian.com/blog/ai-moats-2026); [How Agentic AI Supercharges Startups and Threatens Incumbents, HBR, Jul 2026](https://hbr.org/2026/07/how-agentic-ai-supercharges-startups-and-threatens-incumbents).)*
 
@@ -171,7 +181,9 @@ Score each Power Strong / Emerging / Absent and map it to its AI moat. A Power t
 
 Value-line: [cost / growth] — ceiling: [bounded ~10% / multiplied into the valuation]
 Core value engine: [the irreplaceable capability, not the feature]
-Why a same-model competitor can't win next quarter: [specific, or "no moat yet"]
+The two brutal tests, answered first:
+  Why can't a same-model competitor beat us next quarter? [specific, or "no moat yet"]
+  Would anyone actually miss us if we disappeared tomorrow? [who, and what exactly would they miss]
 
 Five-moat scorecard (1-5 each; ≥12 defensible, <8 exposure, 3+ moats to survive):
 | Moat | Score | Evidence | Decay clock |

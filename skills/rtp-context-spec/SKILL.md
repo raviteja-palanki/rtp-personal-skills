@@ -1,5 +1,6 @@
 ---
 name: context-spec
+version: v1.0_latest
 description: "Context engineering — the information architecture for reasoning, not the prompt. Everyone tunes the prompt and the model; the invisible 90% is how information flows from sources through layers into the window, and the killer fact is that models degrade at 50–60% of max context (the Pre-Rot Threshold), so context capacity ≠ context quality: a 128K window has a ~70K working budget. You engineer a token BUDGET across stacked layers, each with its own token cost, compaction strategy, and failure fallback — plus multi-agent context isolation and dynamic tool selection. Use when architecting an AI feature with retrieval, tools, or conversation state. Do NOT use for single-turn no-retrieval features (use determinism-compass). Pairs with: invisible-stack (it diagnoses the weak layer, this designs the build spec for all seven), prompt-craft (the prompt text vs. the architecture), determinism-compass, stress-test. Triggers: 'context engineering', 'context architecture', 'token budget', 'context window'."
 imports:
   - invisible-stack

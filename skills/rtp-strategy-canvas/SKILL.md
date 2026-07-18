@@ -1,5 +1,6 @@
 ---
 name: rtp-strategy-canvas
+version: v1.0_latest
 description: "The AI product strategy skill — what to solve, why only you can win it, and what you do when the model changes under you. Runs the 7-step framework (Objective → Users → Superpowers → Vision → Pillars → Impact → Roadmap) with the moves AI actually changes: separating stable anchors from volatile capability, writing capability-conditional bets (IF model X by date → Path A, ELSE Path B), reset triggers, and a strategy half-life measured in months. Anchors on the 2026 moat thesis: the durable edge is a compounding feedback loop wrapped in a workflow, not the model. Use to set or review an AI product strategy, run a quarterly reset, or push back on a static roadmap. Pairs with: moat-finder (Superpowers), vision-setting (Vision), ai-portfolio-management (Pillars), capability-tracking (what's volatile), harness-operating-model (harness as moat), token-economics. Triggers: 'AI strategy', 'product strategy for AI', 'strategic direction', 'quarterly strategy reset'."
 imports: [first-principles, moat-finder]
 ---

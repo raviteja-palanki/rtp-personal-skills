@@ -1,5 +1,6 @@
 ---
 name: opportunity-solution-tree
+version: v1.0_latest
 description: "Teresa Torres' Opportunity Solution Tree (outcome → opportunities → solutions → experiments) with the one cut the AI era demands: an AI-feasibility filter. OST expands the solution space — the right move — but for AI, expansion alone produces a backlog of features the team can't ship, because not every opportunity is probabilistically addressable. The filter sorts each into deterministic (rules), probabilistic-with-evals (spend AI bandwidth here), or probabilistic-but-unevaluable (the danger zone where projects die quietly). That makes the OST a roadmap with a 'no' mechanism most teams lack. Use when planning a quarter or scoping a product area. Do NOT use for clearly-defined work (a bug, a regulatory deliverable) or a single committed direction. Pairs with: jtbd-analysis (the job becomes the outcome), determinism-compass (deterministic/probabilistic cut), problem-ai-fit (the fine feasibility cut), eval-framework (the eval surface). Triggers: 'what should we build', 'map opportunities', 'quarter planning'."
 imports:
   - problem-ai-fit

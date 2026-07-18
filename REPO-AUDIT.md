@@ -6,15 +6,15 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `1.6.0`  ·  **Commit:** `b4f1b68`  ·  **Generated:** 17 Jul 2026 21:22
+**Version:** `1.7.0`  ·  **Commit:** `81e461c`  ·  **Generated:** 18 Jul 2026 09:58
 
 ## Totals
 
 | Metric | Count |
 |---|---:|
-| **Total tracked files** | **238** |
+| **Total tracked files** | **242** |
 | **Skills** (`SKILL.md`) | **84** |
-| Supporting files inside `skills/` | 108 |
+| Supporting files inside `skills/` | 111 |
 | Slash commands | 11 |
 
 ## Verified against `plugin.json`
@@ -29,13 +29,13 @@ The description claims a split; these are checked against the filesystem every r
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.6.0**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.7.0**.
 
 ## Composition
 
 | Area | Files |
 |---|---:|
-| `skills` | 191 |
+| `skills` | 195 |
 | `diagrams` | 15 |
 | `commands` | 11 |
 | `workflows` | 6 |
@@ -69,11 +69,11 @@ a redirect stub merged into `failure-modes` — intentionally excluded from the 
 
 ## Supporting files inside `skills/`
 
-84 skills carry 108 supporting files (1.3 per skill).
+84 skills carry 111 supporting files (1.3 per skill).
 
 | Type | Count |
 |---|---:|
-| `.md` | 100 |
+| `.md` | 103 |
 | `.svg` | 7 |
 | `.py` | 1 |
 
@@ -97,8 +97,10 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 1.4.15 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.5.0 | 71dc8e3 | 17 Jul 2026 06:47 | 237 | 83 | 11 |
 | 1.6.0 | b4f1b68 | 17 Jul 2026 21:22 | 238 | 84 | 11 |
+| 1.7.0 | 81e461c | 18 Jul 2026 09:58 | 242 | 84 | 11 |
 HISTORY-->
 | 1.4.14 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.4.15 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.5.0 | 71dc8e3 | 17 Jul 2026 06:47 | 237 | 83 | 11 |
 | 1.6.0 | b4f1b68 | 17 Jul 2026 21:22 | 238 | 84 | 11 |
+| 1.7.0 | 81e461c | 18 Jul 2026 09:58 | 242 | 84 | 11 |

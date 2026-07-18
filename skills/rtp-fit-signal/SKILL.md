@@ -1,5 +1,6 @@
 ---
 name: fit-signal
+version: v1.0_latest
 description: >
   Tell whether an AI product has earned real user dependence, or just survived a lucky stretch.
   Standard PMF metrics — NPS, retention, DAU — get inflated by AI's own variance, so a team can

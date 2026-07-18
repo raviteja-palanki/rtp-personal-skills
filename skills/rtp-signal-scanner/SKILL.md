@@ -1,5 +1,6 @@
 ---
 name: signal-scanner
+version: v1.0_latest
 description: >
   Detect weak signals early — trends, threats, opportunities invisible in quarterly reviews but obvious in hindsight.
   Dual-speed sensing: real-time operational signals (what's happening now) + long-term strategic signals (what's emerging).

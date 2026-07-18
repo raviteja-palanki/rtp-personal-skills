@@ -1,5 +1,6 @@
 ---
 name: stakeholder-communications
+version: v1.0_latest
 description: >
   Audience-tailored communication for AI features — exec summaries, engineering briefs,
   launch announcements, risk escalations, weekly digests. The differentiator is AI-native

@@ -1,5 +1,6 @@
 ---
 name: bias-spotter
+version: v1.0_latest
 description: "Names the cognitive bias making a flawed AI product decision feel obvious or inevitable — before the money is committed. The feeling of 'obviously right' is data, not truth: it has a named mechanism, and you can't introspect it away (finding no bias is itself the warning). Audit the decision, not your sense of being rational. The same pull attacks three stages: what you BUILD, how you MEASURE, and what the model itself CARRIES. Name it, price the risk in, mitigate — never block. Use when reviewing a PRD or feature proposal, before a resource commit, when a decision feels 'obvious' / 'the competitor did it', or after a senior person weighs in. Never to block a decision, or stall a team that needs to commit. Pairs with: falsification (what would prove this wrong), first-principles (strip the framing first), eval-framework (fixes Stage 2's red flags), trendslop-check (bias baked into AI-generated strategy). Triggers: 'that's just common sense', 'obviously we need to', 'this is our only option'."
 imports: []
 ---

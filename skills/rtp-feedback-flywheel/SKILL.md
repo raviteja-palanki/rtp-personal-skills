@@ -1,5 +1,6 @@
 ---
 name: feedback-flywheel
+version: v1.0_latest
 description: "Turn what users do with your AI's output into the thing that improves the AI — automatically, on a cadence, with owners. Most products collect feedback (thumbs, edits, regenerations) that sits in a database and never reaches the model; this designs the closed loop from signal to labeling to a measured model gain. Collection is easy and feels like progress — closure is rare and is the actual moat, but ONLY if the loop's inputs are yours alone. Use when designing feedback capture, auditing why collected feedback changes nothing, or bootstrapping before you have users. Do NOT use for one-shot/batch systems, under ~500 active users, or when annotation velocity is permanently <5% of collection. Pairs with: eval-framework + eval-driven-development (the fix→regression cycle lives there), moat-finder (anti-moat check), ai-product-metrics (signals worth logging), gossip-mode (informal-signal sibling). Triggers: 'feedback loop', 'why does our feedback change nothing', 'data flywheel'."
 imports: [first-principles, stress-test]
 ---

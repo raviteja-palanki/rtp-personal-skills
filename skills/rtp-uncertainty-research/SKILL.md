@@ -1,5 +1,6 @@
 ---
 name: uncertainty-research
+version: v1.0_latest
 description: "Research for non-deterministic AI, where two users asking the same question get different answers — which quietly breaks every standard research method. You can't measure a moving target with a fixed ruler: a one-session usability study captures week-1 caution when real trust stabilizes at week 4, and averages hide terrible tail quality. Instead measure behavior over time (acceptance/edit/rejection rate), stratify by output quality, find the 'good enough' acceptance threshold empirically, and build an expiry condition into every finding because the model moves. Use when planning trust studies, threshold studies, or validating an AI feature. Do NOT use for deterministic software, batch/offline AI, or under ~50 weekly active users. Pairs with: interview-synthesis (synthesize the interviews), jtbd-analysis (the switch-interview method), ai-product-taste (defines the bar; this measures the threshold), ai-use-case-readiness (downstream). Triggers: 'trust study', 'threshold study', 'how good is good enough'."
 imports:
   - first-principles

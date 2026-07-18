@@ -1,5 +1,6 @@
 ---
 name: adoption-launch
+version: v1.0_latest
 description: >
   Treat AI adoption as a product launch — with personas, phases, and phase-specific support — not as a training program.
   Adoption curves are predictable: Surge (Month 1) → Dip (Months 3-4) → Rebound (Month 5+).

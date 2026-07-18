@@ -1,5 +1,6 @@
 ---
 name: prompt-craft
+version: v1.0_latest
 description: "How to actually write good prompts — the writing craft, not the process. Prompts are engineering artifacts, not creative writing: the craft has principles, and the counterintuitive first move is to write what the model CANNOT do (hard constraints) before what it should, because LLMs are more consistent at avoiding specific patterns than following general positive ones. Covers the 6-step framework, technique selection, cost-per-success, and the vibe-coding PRD→prototype pattern. Distinct from prompt-as-product (versioning/deployment) and context-spec (what information reaches the window). Use when writing or improving a system prompt, or debugging why one underperforms. Do NOT use when the problem is task decomposition or a model capability gap, not wording. Pairs with: prompt-as-product (the lifecycle), context-spec (the architecture), eval-framework (measures both), judgment-guard (shared make-tacit-explicit backbone). Triggers: 'write a prompt', 'improve this prompt', 'system prompt', 'few-shot'."
 imports:
   - determinism-compass

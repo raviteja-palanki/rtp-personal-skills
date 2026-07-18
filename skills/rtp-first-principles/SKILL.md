@@ -1,5 +1,6 @@
 ---
 name: first-principles
+version: v1.0_latest
 description: >
   Decomposes any AI product problem to its ONE irreducible operation by stripping vendor
   features, marketing language, and implementation details. Use when evaluating new feature
