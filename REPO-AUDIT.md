@@ -6,13 +6,13 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `1.7.4`  ·  **Commit:** `292fe03`  ·  **Generated:** 18 Jul 2026 17:19
+**Version:** `1.7.5`  ·  **Commit:** `9d0ca91`  ·  **Generated:** 19 Jul 2026 01:26
 
 ## Totals
 
 | Metric | Count |
 |---|---:|
-| **Total tracked files** | **242** |
+| **Total tracked files** | **243** |
 | **Skills** (`SKILL.md`) | **84** |
 | Supporting files inside `skills/` | 111 |
 | Slash commands | 11 |
@@ -29,7 +29,7 @@ The description claims a split; these are checked against the filesystem every r
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.7.4**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.7.5**.
 
 ## Composition
 
@@ -49,6 +49,7 @@ Version fields are locked in step: `plugin.json` = `marketplace.json` metadata =
 | `README.md` | 1 |
 | `REPO-AUDIT.md` | 1 |
 | `UNIVERSAL-SKILL-PROTOCOL.md` | 1 |
+| `_archived-skills` | 1 |
 | `companion-plugins.json` | 1 |
 
 ## AI-PM layers (counted in `2_Skills/ai-pm-skills/`)
@@ -102,6 +103,7 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 1.7.2 | e0c342b | 18 Jul 2026 15:49 | 242 | 84 | 11 |
 | 1.7.3 | 81bd3a6 | 18 Jul 2026 16:39 | 242 | 84 | 11 |
 | 1.7.4 | 292fe03 | 18 Jul 2026 17:19 | 242 | 84 | 11 |
+| 1.7.5 | 9d0ca91 | 19 Jul 2026 01:26 | 243 | 84 | 11 |
 HISTORY-->
 | 1.4.14 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.4.15 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
@@ -112,3 +114,4 @@ HISTORY-->
 | 1.7.2 | e0c342b | 18 Jul 2026 15:49 | 242 | 84 | 11 |
 | 1.7.3 | 81bd3a6 | 18 Jul 2026 16:39 | 242 | 84 | 11 |
 | 1.7.4 | 292fe03 | 18 Jul 2026 17:19 | 242 | 84 | 11 |
+| 1.7.5 | 9d0ca91 | 19 Jul 2026 01:26 | 243 | 84 | 11 |
