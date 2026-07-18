@@ -1,7 +1,7 @@
 ---
-name: build-or-buy
-version: 2.0
-description: "Should you build this AI capability yourself or buy it? Six stop-at-the-first-'no' checks — problem type, can examples-in-the-prompt already do it, data, speed, cost, upkeep — across the four ways to get AI: prompt a general model, ground it in your own documents (RAG), train your own (fine-tune), or buy a finished product. Companion lenses decide which work is even worth owning. Use when: scoping features, vendor renewals, 'should we train a model' debates, comparing custom vs. API costs. Pairs with: moat-finder (is what you'd build defensible), cost-model (what it costs at scale). Triggers: 'build or buy', 'fine-tune vs prompt', 'RAG vs API', 'in-context vs fine-tune', 'should we train a model'"
+name: rtp-build-or-buy
+version: v2.1_latest
+description: "Should you build this AI capability yourself or buy it? Six stop-at-the-first-'no' checks — problem type, can examples-in-the-prompt already do it, data, speed, cost, upkeep — across the four ways to get AI: prompt a general model, ground it in your own documents (RAG), train your own (fine-tune), or buy a finished product. Companion lenses decide which work is even worth owning. Use when: scoping features, vendor renewals, 'should we train a model' debates, comparing custom vs. API costs. Pairs with: moat-finder (is what you'd build defensible — and which value-chain layer a vendor sits in), cost-model (what it costs at scale), agent-harness (orchestration cost multiplier once you've decided to build). Triggers: 'build or buy', 'fine-tune vs prompt', 'RAG vs API', 'in-context vs fine-tune', 'should we train a model'"
 imports: [determinism-compass, stress-test, agent-harness]
 ---
 
@@ -51,6 +51,8 @@ You will choose based on **team expertise, not problem fit.** If you have a prom
 There's a second trap: **treating 2021-era fine-tuning logic as gospel in 2026.** Context windows are now 200K+ tokens. Many problems that required fine-tuning three years ago are now solved in-context in two days — not six weeks. Most teams skip the in-context check entirely.
 
 This framework runs five gates plus the in-context check. Stop at the first "no." Pass all of them = BUILD (fine-tune). A "no" anywhere = stay in Prompt/In-Context/RAG/SaaS territory.
+
+**Why gates, not a weighted score:** a scoring model lets a strong result on one axis paper over a real failure on another — a team that scores well on "we have labeled data" (Gate 2) will talk itself past a genuine "no" on maintenance ownership (Gate 5), because the good Gate 2 score feels like validation. Gates force a clean stop the moment any one requirement fails, instead of averaging it away.
 
 ## KEY TERMS (plain language)
 
@@ -117,7 +119,7 @@ In 2026, the equation has shifted:
 - 50-shot prompting accuracy for classification tasks has largely closed the gap with fine-tuning
 - **The narrow case for fine-tuning is now: deterministic task + >1K labeled examples + in-context doesn't close the accuracy gap + high enough volume for cost math to work**
 
-**Real practitioners made this call:**
+**Real practitioners made this call** (⚠ reported pattern — directionally reliable, illustrative rather than independently audited figures):
 
 *Intercom Fin (2023-2024):* Fine-tuned on 50K+ support transcripts. Justified — deterministic routing decisions, massive labeled volume, dedicated ML team, latency tolerance. Gate 1.5 couldn't close the gap at that scale. Fine-tuning won.
 
@@ -221,8 +223,8 @@ Annual API cost per active user ÷ annual gross margin per active user
 | Net annual savings | API savings − maintenance cost | $1.32M/year |
 | Payback period | Upfront cost ÷ net annual savings | $350K ÷ $1.32M = ~3 months |
 
-**Real case — GitHub Copilot (2022–present):**
-At $19/month × millions of developers, code completion API costs at scale reached hundreds of millions annually. Fine-tuning on a curated code corpus was justified — cost ratio exceeded 50%, payback closed in months, ML team was in place. This is the archetypal case where fine-tuning won.
+**Real case — GitHub Copilot (2022–present):** ⚠ reported/illustrative — pricing tiers ($19+/month) are public; the "hundreds of millions annually" figure is this skill's own back-of-envelope estimate at millions of developers, not a disclosed GitHub number.
+At $19/month × millions of developers, code completion API costs at scale plausibly reach hundreds of millions annually. Fine-tuning on a curated code corpus was justified — cost ratio exceeded 50%, payback closed in months, ML team was in place. This is the archetypal case where fine-tuning won.
 
 **Counter-case — Most B2B SaaS features (2024–2026):**
 500 users × 2,000 API calls/user/year × $0.001/call = $1,000/year in API costs. Fine-tuning upfront cost: $200–400K. Payback: never. This describes the majority of actual build-or-buy decisions — and almost all of them should be "buy."

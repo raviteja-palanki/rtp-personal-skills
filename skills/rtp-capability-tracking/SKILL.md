@@ -1,20 +1,8 @@
 ---
 name: rtp-capability-tracking
-description: >
-  Decide whether to build an AI feature now or wait for model capability uplift to deliver
-  it for free. Frames build-vs-wait decisions when frontier models are improving every 6-9
-  months and custom engineering risks being commoditized. Use when scoping 12-18 month
-  roadmaps, evaluating which features will commoditize on next model release, deciding
-  between custom fine-tuning and waiting for foundation-model improvements, or building a
-  capability watchlist for portfolio bets. Triggers on "should we build this", "wait for
-  the next model", "18-month roadmap", "commoditization risk", "capability planning",
-  "build vs. wait", "model capability tracking".
-title: "Capability Tracking"
-plugin: "ai-strategy"
-version: "2.0"
-imports: ["strategy-canvas", "first-principles"]
-tags: ["model-strategy", "capability-planning", "feature-lifecycle"]
-status: "production"
+version: v2.1_latest
+description: "Decide whether to build an AI feature now or wait for model capability uplift to deliver it free — the build-vs-wait call for ONE capability's trajectory. Not the workforce question (apprenticeship erosion — judgment-guard's 'capability debt'), and not harness architecture (what model upgrades absorb — harness-operating-model's 'dissolving ladder'). Covers the capability radar, half-life benchmarks, the quarterly capability test, and build-vs-wait signals — plus: capability parity doesn't guarantee task automation, since friction (judgment, human assurance, error tolerance, regulation) can hold a ready capability at 'assist' for years. Use when scoping 12-18 month roadmaps, fine-tune-vs-wait calls, or a capability watchlist. Pairs with: harness-operating-model (scaffolding dissolution), judgment-guard (human-capability erosion, not this skill), strategy-canvas, build-or-buy, cost-model. Triggers: 'should we build this', 'wait for the next model', '18-month roadmap', 'commoditization risk', 'build vs. wait'."
+imports: [strategy-canvas, first-principles]
 ---
 
 # Capability Tracking: Know What the Model Will Do Next
@@ -26,6 +14,8 @@ You are evaluating whether a feature should be built by your team or acquired th
 The trap: Treating model capabilities as fixed. They are not. A feature that needs 3 engineers today might be a prompt rewrite next quarter. But the opposite is also true: betting your product on an unreleased capability is how you get stranded.
 
 **Who uses this:** Product managers deciding between build/buy/wait. Founders planning 18-month roadmaps. Tech leads scoping feature work.
+
+**Not this skill:** if the question is "our juniors aren't learning judgment because AI does their first drafts" — that's workforce capability erosion, covered in `judgment-guard`. If the question is "which piece of our agent harness will the next model upgrade make redundant" — that's `harness-operating-model`'s dissolving ladder. This skill is narrower: one capability, one product decision, build now or wait.
 
 ## DELIVERABLE FORMAT
 
@@ -59,6 +49,9 @@ Then proceed with the skill-specific analysis below.
 **Trap 3: Mistaking capability for product feature.** GPT-4 can do reasoning. That doesn't mean users want a 20-second latency reasoning feature. Capability ≠ Product.
 
 **Trap 4: Building moats that evaporate.** Your 2023 differentiation was a fine-tuned model. By 2024, prompt engineering + RAG obsoleted it. You need capabilities models won't commoditize fast.
+
+**Trap 5: Assuming capability parity means task automation.** A model clearing your accuracy threshold tells you the *capability* is ready. It doesn't tell you the *task* will actually get automated on your timeline — task-level friction that has nothing to do with the model can hold it at "assist" or "reshape" for years. Commercial aviation is the clean example: autopilot has handled most of the actual flying since the 1980s, yet the European Union Aviation Safety Agency doesn't expect full passenger-flight autonomy before 2050 — the barrier is human assurance and regulation, not capability (⚠ EASA estimate as reported by Drover & Huang, "The Forces That Shape AI's Uneven Progress," *MIT Sloan Management Review*, Nov 18 2025). Before you plan around "the model will be ready in Q3, so we ship in Q3," check whether your task carries the same kind of friction: does it need human judgment under real uncertainty, does a user need a human to be accountable regardless of accuracy, is the error tolerance near zero, is there a regulatory or organizational gate that doesn't move on the model's release schedule? If yes to any of those, the model being ready is necessary but not sufficient.
+**When this over-warns:** don't let "friction exists somewhere" become a standing excuse to never ship. Apply it task-by-task — routine data entry and first-draft customer replies score low on all four frictions and are already at "replace" in practice. The check exists to separate those from judgment-heavy, high-stakes, regulated tasks, not to stall everything behind a vague appeal to "humans still matter here."
 
 ## THE PROCESS
 
@@ -105,28 +98,19 @@ Set a "model capability check" quarterly. For each custom capability:
 
 Document the switchover path before you forget it.
 
-### 5. Harness Capability Tracking
+### 5. Harness Assumption Register (the tracking artifact — the concept lives in `harness-operating-model`)
 
-Every component in a multi-agent harness encodes an assumption about what the model can't do on its own. Track which harness components become obsolete with each model upgrade.
+Every component in a multi-agent harness encodes an assumption about what the model can't do on its own. The framework for reasoning about this — which harness capabilities are "permanent residents" (evals, workflows, audit trail, cost controls, user context) that no model release absorbs, versus which sit on the "dissolving ladder" that model upgrades do absorb (structured output, tool-calling, long context, multi-step reasoning, generic safety), plus the four-question meta-skill for predicting what dissolves by 2027 — is owned by `harness-operating-model`. Read that skill for the reasoning. What belongs here is the practical artifact once you've applied it: a dated register you re-test on every model release.
 
-**Maintain a "harness assumption register"** — a list of every workaround, scaffold, and orchestration piece with the model limitation it addresses:
+| Harness Component | Model Limitation Assumed | Still Valid After Latest Release? | If Invalid |
+|--|--|--|--|
+| Planner agent | "Model can't decompose 50-step tasks without losing coherence" | Test each release | Remove; test direct planning in the task agent |
+| Memory shard manager | "Model can't hold full session history without context explosion" | Test each release | Raise the shard threshold or remove |
+| Fact-checker node | "Model hallucinates dates in long documents" | Test each release | Narrow scope to the document lengths where it still fails |
 
-Example harness assumptions:
-- Planner agent exists because: "Claude can't decompose 50-step tasks without losing coherence"
-- Memory shard system exists because: "Claude can't access full session history without context explosion"
-- Fact-checker node exists because: "Claude hallucinates dates in long documents"
-- Router agent exists because: "Claude can't dynamically decide between expert models"
+**Example:** Opus 4.5 needed scaffolded planning; Opus 4.6 plans 50-step sequences natively. Remove the planner node, re-test on the same tasks — latency drops, complexity halves, and the freed engineering capacity moves to retrieval quality instead.
 
-When a new model ships, test each assumption:
-- **If assumption still holds:** Keep the component, maybe optimize it
-- **If assumption is violated:** Simplify the harness and redeploy savings elsewhere
-
-**Example decision path:**
-- Opus 4.5 needed scaffolded planning. Opus 4.6 can plan 50-step sequences natively
-- Remove the planner node; test the agent on the same tasks
-- Result: latency drops 30%, complexity cuts in half, you redeploy that engineering capacity to improve retrieval quality instead
-
-This is not "simplification for simplicity's sake." It's: every harness component is debt that accrues interest. As models improve, pay down the debt.
+Every harness component is debt that accrues interest. As models improve, pay it down — don't keep scaffolding you no longer need.
 
 ### 6. Strategy Half-Life Quantification
 
@@ -287,6 +271,14 @@ Don't wait 6 months because a benchmark said capability half-life is 6 months. W
 2. Check what your top 3 competitors announced in the last 30 days.
 3. Check your own support tickets and lost-deal notes for any capability mentions.
 4. Decide: build, wait, or monitor.
+
+**The friction check, before you commit to a "build now" signal.** A cleared accuracy threshold means the capability is ready — it doesn't mean the task will actually reach full automation on your timeline (see Trap 5). Score your task on four frictions before locking the roadmap date:
+- **Judgment** — does it need discretion under real uncertainty, not just pattern-matching?
+- **Human assurance** — do users need to know a human is accountable, independent of accuracy?
+- **Error tolerance** — is near-zero error required because a miss is irreversible?
+- **Regulation / inertia** — is there a compliance gate or organizational resistance that doesn't move on the model's release schedule?
+
+High on two or more: treat "the model is ready" as a necessary condition, not a shipping date — the adoption timeline is set by the friction, not the benchmark. Low on all four: the capability-readiness signal is trustworthy on its own.
 
 ## OUTPUT FORMAT
 
