@@ -1,9 +1,8 @@
 ---
 name: rtp-ai-portfolio-management
-description: "Manage AI initiatives as an interconnected investment portfolio with stage gates, dual-lens oversight, and Buy/Sell/Hold scoring. Prevents the 'too many pilots, no strategic coherence' failure mode. Triggers: 'AI portfolio', 'AI initiatives prioritisation', 'stage gate AI', 'AI investment review', 'AI project governance', 'OPEN framework'"
-imports: ["strategy-canvas", "moat-finder", "build-or-buy"]
-version: "1.0"
-framework_source: "Harvard Business Review — Hoque, Nelson, Davenport & Scade, 'Manage Your AI Investments Like a Portfolio', January 2026"
+version: v1.1_latest
+description: "Manage AI initiatives as an interconnected investment portfolio with stage gates, dual-lens oversight, and Buy/Sell/Hold scoring. Prevents the 'too many pilots, no strategic coherence' failure mode. Grounded in the real ROI base rate (most AI initiatives don't hit their target; a small share of companies capture most of the value) so gates and exits are calibrated to reality, not optimism. Use when running 3+ concurrent AI initiatives, setting up an AI Centre of Excellence or governance board, or when leadership can't say which pilots are worth continued funding. Pairs with: strategy-canvas (the strategy each initiative should serve), moat-finder (which bets build durable advantage), build-or-buy (the Stage 2 partnership decision), cost-model (unit economics behind each initiative's ROI case). Triggers: 'AI portfolio', 'AI initiatives prioritisation', 'stage gate AI', 'AI investment review', 'AI project governance', 'OPEN framework'."
+imports: [strategy-canvas, moat-finder, build-or-buy]
 ---
 
 # AI Portfolio Management
@@ -31,6 +30,20 @@ Two years later, the company has learned a lot and shipped nothing.
 The problem is not the technology. It is the management system. AI requires exactly the same discipline as any other investment portfolio — clear criteria for what gets in, explicit gates for what advances, and a regular process that forces hard choices about what to stop. The difference is that most organisations apply rigorous investment thinking to their financial portfolios and almost none to their AI portfolios.
 
 The fix: treat AI initiatives as an interconnected investment portfolio, not a collection of independent experiments.
+
+---
+
+## THE ROI REALITY — WHY GATES AND EXITS ARE NOT OPTIONAL
+
+This isn't a hypothetical failure mode. Three independent 2025-2026 studies converge on the same base rate, and it's worse than most leadership teams assume:
+
+- **◆ ISG, "State of Enterprise AI Adoption Report 2025"** (1,200 gen-AI, agentic, and traditional AI use cases studied): only **1 in 4** AI initiatives achieves its expected ROI on growth; roughly half hit their expected efficiency target. 31% of studied use cases reached full production in 2025 — double the 2024 rate — meaning more initiatives are scaling, but the ROI they deliver still falls short of the business case most of the time. [ISG](https://isg-one.com/state-of-enterprise-ai-adoption-report-2025)
+- **⚠ MIT NANDA, "The GenAI Divide: State of AI in Business 2025"** (150 leader interviews, 350-employee survey, 300 public AI deployments analyzed, reported by Fortune Aug 2025): roughly 95% of enterprise GenAI pilots show no measurable P&L impact; only about 5% achieve rapid revenue acceleration. The same study found internal builds succeed at about a third the rate of buying from a vendor or building a partnership (~33% vs. ~67%) — a direct data point for the Stage 2 partnership question below, and for `build-or-buy`. [Fortune](https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/)
+- **✅ PwC, "2026 AI Performance Study"** (1,217 senior executives, 25 sectors, verified directly against pwc.com, 13 Apr 2026): **74% of AI's economic value is captured by just 20% of organisations.** The leaders aren't running more pilots — they're 2.6x more likely to use AI to reinvent the business model rather than just cut costs, and 2.8x more likely to increase autonomous decision-making *while* investing more in governance (a Responsible AI framework, 1.7x; a cross-functional AI governance board, 1.5x). [PwC](https://www.pwc.com/gx/en/news-room/press-releases/2026/pwc-2026-ai-performance-study.html)
+
+**The read, not the panic:** these numbers aren't a reason to fund less AI — PwC's own leaders are the counter-example, and they're not the companies running the fewest pilots. They're the reason gates, exits, and the Responsible AI checks below aren't bureaucratic overhead. The gap between the 20% and everyone else is a management-practice gap, not a technology gap: growth-orientation over cost-cutting-only, workflow redesign over tool bolt-on, and governance that scales *with* autonomy rather than trailing behind it. A portfolio without real exits is how an organisation ends up in the 80%.
+
+**When this over-warns:** don't use these numbers to justify killing every initiative that hasn't shown ROI in one quarter — Gate 1 and Gate 2 are explicitly about learning, not yet about return (see Stage 1-2 below). The base rate is a reason to gate honestly at Gate 3 (Ready to Scale) and to hold exit conversations without flinching — not a reason to starve Stage 1-2 exploration, which is where the eventual 20% get discovered.
 
 ---
 
@@ -143,6 +156,16 @@ Every initiative in the portfolio is scored against objective criteria. This tra
 | Resource requirements | What does this need across financial, human, and technical dimensions? |
 
 **How scoring drives decisions:** When capacity opens (a project advances to production, a new team is formed), leaders select the next item from the highest-scoring backlog entries that have passed the relevant gate. No pet projects. No squeaky-wheel prioritisation.
+
+**Putting a number on "Risk/reward" — four standard ROI calculations, know when to lead with each:**
+| Metric | Formula | When to lead with it |
+|---|---|---|
+| ROI % (simple) | (Net Benefit ÷ Investment) × 100 | Quick snapshot for a Gate 1 screen — cheap to compute, easy to compare across a long backlog |
+| Payback Period | Investment ÷ Annual Benefit | Shows speed of return — pair with ROI% when the board asks "how long until this pays for itself" |
+| NPV (Net Present Value) | Σ(Cash inflows ÷ (1+r)^t) − Investment | The clearest measure of value created after the cost of capital — the number CFOs actually greenlight on. Lead with this at Gate 3. |
+| IRR (Internal Rate of Return) | The discount rate at which NPV = 0 | Compares the initiative's yield against your hurdle rate — use when ranking initiatives against each other, not just against "yes/no" |
+
+Model conservative, base, and optimistic cases for each — actual ROI depends on adoption, training time, and data quality, and a range is more credible to finance than a single confident number. Translate the underlying KPI movement into dollars before presenting ("saved 1,875 analyst-hours at $125/hour" reads as $234,375/year — the dollar figure is what travels to a budget conversation; the hours figure gets debated).
 
 **The Buy/Sell/Hold distinction:**
 - **Buy (add to portfolio):** Score meets threshold + gate criteria met + capacity available
@@ -307,6 +330,6 @@ After completing the primary output, invoke the **excalidraw-svg** skill to crea
 
 ---
 
-*Version 1.0 — 5 APR 2026*
-*Framework Source: Harvard Business Review, Hoque, Nelson, Davenport & Scade, "Manage Your AI Investments Like a Portfolio", January 2026*
+*Version 1.1 — 18 JUL 2026*
+*Framework Source: Harvard Business Review, Hoque, Nelson, Davenport & Scade, "Manage Your AI Investments Like a Portfolio", January 2026. ROI-reality grounding: ISG State of Enterprise AI Adoption Report 2025; MIT NANDA "The GenAI Divide" 2025; PwC 2026 AI Performance Study.*
 *Part of: AI PM Skills / ai-strategy layer*
