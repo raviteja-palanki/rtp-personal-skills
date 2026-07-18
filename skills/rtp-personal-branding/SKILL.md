@@ -1,7 +1,7 @@
 ---
 name: rtp-personal-branding
 version: v2.2_latest
-description: Use when designing any of Ravi's visual surfaces — website, presentations, documents, diagrams, article pages. Ravi Teja Palanki's complete design system for every visual surface — website (ravitejapalanki.com), presentations (Gamma, PowerPoint), documents (Word), diagrams, article pages. Dark + light themes properly separated with per-medium defaults (Word/PDF light; web/decks dark). V2.2 wires in the canonical 14-part website design-language spec (the "Apple × New Yorker × terminal" editorial layer — mag-* tokens, series-color lock, two-easing motion law, editorial conventions, a11y contrast numbers) and defers to it for all website work. V2.1 components retained — Live Trace engine, semantic level badges, card laser, status ring, spotlight tilt card. Pairs with rtp-ux-design-systems (review + inspiration), rtp-excalidraw-svg (diagrams), rtp-learn-site-design (learn subdomain).
+description: Use when designing any of Ravi's visual surfaces — website, presentations, documents, diagrams, article pages. Ravi Teja Palanki's complete design system for every visual surface — website (ravitejapalanki.com), presentations (Gamma, PowerPoint), documents (Word), diagrams, article pages. Dark + light themes properly separated with per-medium defaults (Word/PDF light; web/decks dark). V2.2 wires in the canonical 14-part website design-language spec (the "Apple × New Yorker × terminal" editorial layer — mag-* tokens, series-color lock, two-easing motion law, editorial conventions, a11y contrast numbers) and defers to it for all website work. V2.1 components retained — Live Trace engine, semantic level badges, card laser, status ring, spotlight tilt card. Pairs with rtp-ux-design-systems (review + inspiration), rtp-excalidraw-svg (diagrams). Covers learn.ravitejapalanki.com directly (rtp-learn-site-design archived 18 JUL 2026 — see body note below).
 ---
 # Ravi Personal Branding — v2.2
 
@@ -1651,3 +1651,5 @@ The frontmatter is the static contract. Section 1 (Creative Lens) and section 8 
 | 1.0 | 17 APR 2026 | Initial unified skill superseding learn-site-design v2.0 |
 | — (learn-site-design v2.0) | 15 APR 2026 | Expanded to full ravitejapalanki.com (deprecated) |
 | — (learn-site-design v1.0) | 12 APR 2026 | learn subdomain only (deprecated) |
+
+**Note (18 JUL 2026):** the standalone `rtp-learn-site-design` skill was formally archived today — see `DEPRECATED-TRACKER.md` and `_archive/18JUL2026/rtp-learn-site-design/`. It sat live for 3 months after this table already called it superseded (17 APR 2026); this closes that gap. Learn-subdomain work now routes through this skill exclusively.

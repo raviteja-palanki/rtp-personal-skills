@@ -370,4 +370,4 @@ DESIGN.md is alpha and opinionated. Three classes of system where it will fail:
 - CLI: `npm install @google/design.md` or `npx @google/design.md`
 - Examples: `paws-and-paths`, `atmospheric-glass`, `totality-festival` in the design.md repo
 - Companion skill: `ravi-personal-branding` v2.1+ — section "DESIGN.md Export — Agent-Portable Design System"
-- Sister skill: `learn-site-design` — for learn.ravitejapalanki.com tokens (4-color identity #9D4EDD/#F43F5E/#F59E0B/#06B6D4)
+- For learn.ravitejapalanki.com tokens (4-color identity #9D4EDD/#F43F5E/#F59E0B/#06B6D4): now covered by `ravi-personal-branding` directly (`rtp-learn-site-design` archived 18 JUL 2026)
