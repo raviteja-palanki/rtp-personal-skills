@@ -1,11 +1,11 @@
 ---
 name: signal-scanner
-version: v1.0_latest
+version: v1.1_latest
 description: >
   Detect weak signals early — trends, threats, opportunities invisible in quarterly reviews but obvious in hindsight.
   Dual-speed sensing: real-time operational signals (what's happening now) + long-term strategic signals (what's emerging).
-  Companies with systematic signal scanning achieve 5% financial lift. Use for annual planning, competitor monitoring,
-  or when building early-warning systems into product strategy.
+  Future-prepared firms outperform on profitability and market-cap growth (Rohrbeck & Kum, longitudinal study). Use for
+  annual planning, competitor monitoring, or when building early-warning systems into product strategy.
   Pairs with: capability-tracking (build now vs. wait for the next model), moat-finder (is the
   threat aimed at your moat), competitive-map (where the threat comes from).
 imports: [first-principles, strategy-canvas]
@@ -309,6 +309,16 @@ Every quarter, use signals to recalibrate strategy. Ask:
 
 ---
 
+## WHERE THIS IS HEADED (mid-2026): detection got cheap, so the bottleneck moved
+
+The cadence table above assumes a human owner manually watching each category — weekly ticket reviews, monthly synthesis. That assumption is eroding. AI-driven monitoring now ingests high-velocity streams (job posts, patent filings, model releases, raw support text) and surfaces weak signals *continuously* — earlier and far cheaper than a person on a weekly rhythm (⚠ directional practitioner consensus across competitive-intelligence vendors, mid-2026; not a controlled study — and automated scanners over-flag, so the false-positive tax is real).
+
+**The consequence, not the tool.** When detection gets cheap, detection stops being the binding constraint. It moves to the two things this skill already warns about: **triage** (which of 200 auto-flagged signals is actually signal?) and **decision authority** (can anyone act on it?). So the mid-2026 move is to automate the *scan* and reinvest the freed hours into hardening the *threshold* and the *decision loop* — not into admiring a richer feed. The framework's map (5 categories, signal-vs-noise, act-or-explicitly-don't) is stable; what shifts is *where the work is*.
+
+**When wrong:** a low-signal, stable niche doesn't need continuous machine monitoring — the human cadence is cheaper and sufficient. Automate scanning because the signal volume justifies it, not because the tooling exists.
+
+---
+
 ## DIAGNOSTIC QUESTIONS WITH ANSWER NUDGES
 
 **Use these to assess your current signal-scanning capability:**
@@ -389,8 +399,8 @@ This skill gives bad advice if:
 
 **The hidden trade-off:** **Signal scanning requires intellectual honesty.** When signals point against your current strategy, can you actually hear them? Or will you rationalize them away? Companies often scan for signals, find ones they don't like, and ignore them anyway. Build a culture where signals can challenge strategy.
 
-**Confidence: High (with conditional)**
-- Evidence: Research on organizational decision-making, case studies of companies that survived inflection points vs. those that didn't
+**Confidence: Moderate–High (with conditional)**
+- Evidence: ◆ Corporate-foresight research links future-preparedness to superior performance — "future-prepared" firms outperformed their industry average by ~33% on profitability and ~200% on market-cap growth over 2008→2015, while under-prepared firms carried a 37–108% performance *discount* (Rohrbeck & Kum, *Corporate foresight and its impact on firm performance*, Technological Forecasting & Social Change, 2018; N=70 for profitability / 42 for market-cap — one longitudinal study, correlation not proven causation). **Honest limit:** no study isolates "signal scanning" alone; scanning is *one input* to foresight capability, so read this as directional support, not a promised 33% from monitoring tickets.
 - Conditional: This only works if signals actually change decisions. If they don't, scanning creates information without action.
 
 ---
