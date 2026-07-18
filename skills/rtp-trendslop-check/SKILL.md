@@ -1,12 +1,16 @@
 ---
 name: rtp-trendslop-check
-version: v1.0_latest
+version: v1.1_latest
 description: >
   Catch when AI-generated strategy defaults to trendy advice instead of context-specific strategy.
-  Across 15,000+ trials, LLMs show systematic bias: favor differentiation over cost-leadership,
-  augmentation over automation, long-term thinking over immediate profit. NOT based on what's right
-  for your business, but based on what's common in training data. Use when bootstrapping strategy,
-  running multi-scenario planning, or validating AI-generated recommendations.
+  Grounded in a real, named HBR study (Romasanta, Thomas & Levina, Mar 2026): across ~15,000
+  simulations on 6 frontier models, LLMs showed consistent bias on 6 of 7 classic strategic
+  tensions — differentiation over commoditization (96%), augmentation over automation (93%), plus
+  long-term, collaboration, radical, and decentralization. The one axis with NO bias: exploration
+  vs. exploitation. The counterintuitive finding: adding rich context shifts the bias only ~11%;
+  reversing which option is listed first shifts it ~19% — prompting harder doesn't fix this. Use
+  when bootstrapping strategy, running multi-scenario planning, or validating AI-generated
+  recommendations.
 imports: [first-principles, bias-spotter]
 ---
 
@@ -14,34 +18,35 @@ imports: [first-principles, bias-spotter]
 
 When you ask an AI to generate strategy, it produces sophisticated-sounding advice. It's also biased in predictable, measurable ways.
 
-Across 15,000+ trials (see appendix for research), Large Language Models show the same strategic biases: They recommend differentiation when cost-leadership is right. They recommend augmentation when automation is the move. They recommend long-term thinking when the business needs to survive the next 12 months.
+A March 2026 *Harvard Business Review* study — Angelo Romasanta (Esade), Llewellyn D.W. Thomas (University of Sydney), and Natalia Levina (NYU Stern), "[Researchers Asked LLMs for Strategic Advice. They Got 'Trendslop' in Return](https://hbr.org/2026/03/researchers-asked-llms-for-strategic-advice-they-got-trendslop-in-return)" — ran roughly 15,000 simulations across six frontier models (GPT-5, Claude, Gemini, Grok, DeepSeek, Mistral) and seven classic strategic tensions. Six of the seven showed a strong, consistent directional bias across every model tested. Only one — exploration vs. exploitation — showed real variance, meaning the other six are the load-bearing finding, not the whole picture. The authors coined the term **trendslop**: LLMs recommend the side of a strategic tension that sounds better in a management article, not the side that fits your actual constraints.
 
-This is not because LLMs are stupid. It's because training data is biased toward:
-- Venture-backed companies (bias toward growth, differentiation, long-term thinking)
-- Published case studies (bias toward success stories, rarely bankruptcy stories)
-- Business publications (bias toward novel strategies, not proven ones)
+This is not because LLMs are stupid. The researchers point to how training data assigns emotional valence to words — "augmentation" appears in hopeful contexts, "automation" in anxious ones, regardless of which is economically right for a given company. The model isn't reasoning about your P&L; it's predicting the next token in a management-buzzword pattern.
 
-When you ask an LLM "What's our strategy?" it gives you the strategy that's most common in its training data. This is almost never the strategy that's right for your specific context.
+When you ask an LLM "What's our strategy?" it gives you the strategy that's most common — and most positively framed — in its training data. This is almost never the strategy that's right for your specific context.
 
 > "The AI gave us beautiful strategic thinking. When we shipped it, it didn't match our market position or our constraints. The strategy was right for a different company." — Real quote from a PM
 
 ---
 
-## Quick Reference: The Five Trendslop Signals
+## Quick Reference: The Trendslop Signals
 
-When you see these patterns in AI-generated strategy, trendslop is at work:
+When you see these patterns in AI-generated strategy, trendslop is at work. The first two carry precise, verified figures from the HBR study; the rest are confirmed *directionally* biased by the same study but without a disclosed exact percentage in what's publicly available (the primary text is paywalled — see Research Appendix for the sourcing on each):
 
-1. **Differentiation bias:** The AI recommends "differentiate on X" regardless of whether your market is already differentiated, whether your cost structure allows it, or whether customers actually care.
+1. **Differentiation bias (◆ 96% of runs):** The AI recommends "differentiate on X" regardless of whether your market is already differentiated, whether your cost structure allows it, or whether customers actually care. Real companies built empires on the opposite call — Walmart, Costco, Aldi, Ryanair all chose cost leadership.
 
-2. **Augmentation bias:** The AI recommends "use AI to augment workers" even when the economics or user acceptance require automation.
+2. **Augmentation bias (◆ 93% of runs):** The AI recommends "use AI to augment workers" even when the economics or user acceptance require automation. Training data frames "augmentation" hopefully and "automation" anxiously — the model is reflecting that valence, not your unit economics.
 
-3. **Long-term bias:** The AI recommends strategic plays on 18-month horizons when your business has 6 months of runway and needs immediate revenue.
+3. **Long-term bias (◆ directionally confirmed, exact % not disclosed):** The AI recommends strategic plays on 18-month horizons when your business has 6 months of runway and needs immediate revenue.
 
-4. **Growth bias:** The AI recommends scaling and expanding features when profitability, stability, or market consolidation is the actual play.
+4. **Radical-over-incremental bias (◆ directionally confirmed):** The AI recommends bold, discontinuous moves ("pivot," "disrupt") over disciplined incremental improvement, even when a tighter onboarding flow or clearer pricing page is the higher-probability win.
 
-5. **Optimization bias:** The AI recommends incremental improvement ("improve efficiency") when the business needs discontinuous change ("pivot to adjacent market").
+5. **Growth bias (not one of the study's 7 tested tensions — a related pattern, not independently quantified):** The AI recommends scaling and expanding features when profitability, stability, or market consolidation is the actual play. Flagged here because it's a common real-world variant of the same underlying mechanism (positive-valence vocabulary), but don't cite it with the same confidence as signals 1-4.
+
+**Two more the study found, worth knowing even though this skill doesn't build full diagnostics for them:** Collaboration is favored over Competition, and Decentralization over Centralization — both directionally biased across the same six models. **The one exception:** Exploration vs. Exploitation showed real variance between models — it's the one classic tension where trendslop did *not* show up. That itself is a useful fact: it means the bias isn't "AI always picks the exciting answer," it's specific to six particular axes.
 
 **The detection test:** Ask yourself: "Would the AI give this exact same recommendation to our direct competitor in a different market?" If the answer is yes, it's trendslop.
+
+**The counterintuitive fix that isn't "add more context":** the study's most practically important finding is that better prompting barely moves this. Requesting deeper analysis shifted the bias ~2%; adding rich, company-specific context shifted it ~11%. The single biggest lever was almost mechanical: reversing which option the model reads first shifted the bias ~19% — more than 4x what "explain your reasoning" achieves. Don't assume a longer, more detailed prompt fixes trendslop; it doesn't, much.
 
 ---
 
@@ -240,49 +245,57 @@ For the recommendation, check each dimension:
 
 ---
 
-## RESEARCH APPENDIX: The 15,000+ Trial Study
+## RESEARCH APPENDIX: The Real Study Behind This Skill
 
-**What was measured:**
+**The citation (verify it yourself — this is a real, named, dated, findable paper, not a composite):**
+Angelo Romasanta, Llewellyn D.W. Thomas & Natalia Levina, "[Researchers Asked LLMs for Strategic Advice. They Got 'Trendslop' in Return](https://hbr.org/2026/03/researchers-asked-llms-for-strategic-advice-they-got-trendslop-in-return)," *Harvard Business Review*, March 16, 2026. ✅ Existence, title, authors, publication date, and abstract independently confirmed by fetching hbr.org directly. The full data tables sit behind HBR's paywall; the specific figures below are ◆ cross-verified against two independent secondary analyses that report identical numbers ([Zenn.dev literature review, May 2026](https://zenn.dev/sigma7641/articles/fcf90de4822321); [Polything, Apr 2026](https://polything.co.uk/blog/ai-strategy-trendslop-why-llms-give-bad-advice)) rather than taken from a single retelling.
 
-AI systems (GPT-3.5, GPT-4, Claude) were given strategic prompts across 3,750 different company scenarios, each scenario run across 4 different AI systems and temperature settings (total: 15,000 trials).
+**What was actually measured:**
 
-Scenarios included:
-- Early-stage bootstrapped companies (pre-revenue)
-- Growth-stage venture-backed companies
-- Established SaaS companies
-- Cost-leadership players (e.g., Costco-type positioning)
-- Differentiation players (e.g., Apple-type positioning)
-- Market-leader position vs. challenger vs. startup
+Six frontier models — GPT-5, Claude, Gemini, Grok, DeepSeek, Mistral — were tested across **seven classic strategic tensions**, roughly 15,000 simulations total, under four intervention conditions (reversing which option is presented first, adding company-specific context, requesting deeper/slower analysis, and allowing a "both" hybrid answer):
 
-**The findings:**
+1. Differentiation vs. Commoditization
+2. Automation vs. Augmentation
+3. Long-term vs. Short-term
+4. Competition vs. Collaboration
+5. Radical vs. Incremental innovation
+6. Centralization vs. Decentralization
+7. Exploration vs. Exploitation
 
-| Strategic Choice | AI Recommendation Frequency | Frequency in Successful Companies | Bias |
-|---|---|---|---|
-| Differentiation | 78% | 45% | +33 points (AI over-recommends) |
-| Augmentation | 71% | 38% | +33 points (AI over-recommends) |
-| Long-term horizon (18+ months) | 82% | 55% | +27 points (AI over-recommends) |
-| Growth-focused | 74% | 50% | +24 points (AI over-recommends) |
-| Incremental optimization | 69% | 40% | +29 points (AI over-recommends) |
+**The findings — six of seven axes showed consistent, cross-model bias; one did not:**
 
-**Notably absent from AI recommendations (despite being optimal in many scenarios):**
-- Cost-leadership strategies: 4% of AI recommendations vs 28% in real successful companies
-- Short-term profitability plays: 8% vs 25% in real scenarios
-- Discontinuous/pivot strategies: 3% vs 15%
-- Market consolidation plays: 2% vs 12%
+| Strategic tension | AI favored | Precisely quantified? |
+|---|---|---|
+| Differentiation vs. Commoditization | Differentiation | ◆ **96%** of runs |
+| Automation vs. Augmentation | Augmentation | ◆ **93%** of runs |
+| Long-term vs. Short-term | Long-term | ◆ Directionally confirmed, exact % not disclosed in secondary sources |
+| Competition vs. Collaboration | Collaboration | ◆ Directionally confirmed, exact % not disclosed |
+| Radical vs. Incremental | Radical | ◆ Directionally confirmed, exact % not disclosed |
+| Centralization vs. Decentralization | Decentralization | ◆ Directionally confirmed, exact % not disclosed |
+| **Exploration vs. Exploitation** | **No consistent bias — real variance between models** | This is the control case the other six should be read against |
 
-**Correlation with company success:**
+**The hybrid trap (a separate test, not the same as the table above):** when the models were allowed to answer "both," 63% still picked the trendy side outright, 24% chose the hybrid "do both" answer, and only 12% picked the less-fashionable side. The authors read the 24% "both" as a failure mode too, not a safe middle ground — it mirrors Porter's "stuck in the middle," where running differentiation and cost leadership at once produces neither advantage.
 
-When the AI-recommended strategy matched the company's actual position:
-- 76% of companies achieved 80%+ of their strategic goals
-- When mismatched: 23% of companies achieved goals
+**The counterintuitive finding — prompting harder doesn't fix this:**
 
-**Bias doesn't depend on model quality:**
-The bias is consistent across GPT-3.5, GPT-4, Claude. Better models produce more sophisticated versions of the same bias, not less biased recommendations.
+| Intervention | Bias shift |
+|---|---|
+| Reversing which option is presented first | ~19% |
+| Adding rich, company-specific context | ~11% |
+| Requesting deeper analysis / more careful reasoning | ~2% |
 
-**How to reduce bias (from the study):**
-- Adding context constraints (runway, headcount, market position) reduces bias by 40%
-- Asking the AI "what's the cost-leadership strategy?" explicitly reduces growth bias by 60%
-- Asking "would your competitor benefit from this recommendation?" reduces applicability bias by 50%
+Superficial framing (option order) moved the needle nearly 10x more than asking the model to think harder. This directly contradicts the intuitive fix of "just give it more context" — context helps some, but it is not the lever that works.
+
+**Bias doesn't depend on model quality:** the pattern held across all six models tested, including the frontier ones (GPT-5, Claude). A better model is not a less-biased model on this dimension — it just states the same trendy answer more fluently.
+
+**The five recommendations from the paper itself:**
+1. Use AI to broaden the option set, not to make the final choice.
+2. Consciously counteract the known biases (the six axes above).
+3. Stay alert — the specific trendy answer shifts as management vocabulary shifts over time; today's bias toward "augmentation" may not be tomorrow's.
+4. Watch for the hybrid trap — "do both" is a failure mode, not a safe answer.
+5. Don't rely on context alone to fix it (see the ~11% finding above).
+
+**A concrete countermeasure worth adding to your own practice (from downstream commentary, not the paper itself — flagged as a technique, not a study finding):** instead of asking an LLM "what's the best strategy?", ask it to argue *against* your current plan as forcefully as possible — "give me the three strongest reasons this positioning fails in three years, assuming competitors go cost-leadership." Trendy-answer bias shows up when you ask for the best path forward; it's harder to trigger when you ask the model to build the strongest case against a specific, named plan.
 
 ---
 
@@ -334,8 +347,8 @@ This skill gives bad advice if:
 **The hidden trade-off:** **Validation requires honest contextualization.** If you don't have clarity on your actual constraints, market position, and time horizon, you can't run this check well. The exercise forces clarity — which is good, but uncomfortable.
 
 **Confidence: High**
-- Evidence: The 15,000+ trial study, consistent bias patterns across model families
-- What would change our mind: Evidence that trendslop-corrected strategy underperforms AI-generated strategy when both are properly contextualized
+- Evidence: Romasanta, Thomas & Levina (HBR, Mar 2026) — ~15,000 simulations, 6 models, consistent bias on 6 of 7 tested strategic tensions; independently confirmed the paper exists and cross-verified its headline figures against two independent secondary analyses.
+- What would change our mind: Evidence that trendslop-corrected strategy underperforms AI-generated strategy when both are properly contextualized, or a follow-up study finding the bias has shifted enough that the six named axes are no longer the right ones to check.
 
 ---
 
