@@ -1,10 +1,11 @@
 ---
 name: rtp-hbr-research
-version: v1.0_latest
-description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written — then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/1_hbr-ai-2026/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with humanizer (prose pass), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
+version: v1.1_latest
+description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written — then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/hbr-and-journals/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with humanizer (prose pass), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
 ---
-# HBR research synthesis engine v3.0
+# HBR research synthesis engine v3.1
 
+> v3.1 (30 JUL 2026): corrected every path in this skill to match where the corpus actually lives, after two library reorgs this file's text never tracked. The corpus moved from `3_Research/1_hbr-ai-2026/` to `3_Research/hbr-and-journals/` (reshelved by topic); the engine home moved to `hbr-and-journals/_synthesis-engine/Q2_2026/`; and 125 of the June run's own notes and cards were found sitting in a disconnected project folder (`1_Projects/2_Playbook_AI/hbr-synthesis-output/`), never paired with their source PDFs, until this pass moved them next to their matched PDF (matched by each note's own title line against the corpus index, not by filename). A separate 104-file batch of the army's own progress markers had also been sitting inside `3_Research/` mislabeled as "articles" for at least one prior pass; it now lives at `1_Projects/2_Playbook_AI/hbr-synthesis-engine-state_Q2-2026/`, outside the research corpus entirely. The lesson this leaves for every future run: re-verify every path in this section against disk before trusting it, the same discipline this skill already demands of a citation. Full account in `5_Knowledge/hypotheses.md` H28-H31.
 > v3.0 (10 JUL 2026): the apply loop, written from the June run's Stage-B experience and the Fable-5 QA pass over its output. The engine no longer stops at notes and maps: it now carries the full method for shipping each insight into the skills, the website, and the playbook, with the standing gates that a critical evaluation of 26 applied skills, 4 applied articles, and 4 playbook sections proved necessary (the WHY gate, plain-language legends, the business-clarity frontmatter bar, the primary-source gate, the container check, surface-appropriate notation, population scope on numbers, and the single-study concentration ledger). See "The apply loop" below. Also fixed a stale website path that would have failed the exact-target gate.
 
 ## What this does
@@ -22,20 +23,27 @@ The reason this engine exists is part 8 of each note, and the running patterns f
 
 ## Where everything is (paths, relative to ~/Desktop/Claude)
 
-Inputs, the PDFs to read:
-- `3_Research/1_hbr-ai-2026/Q1_2026/`
-- `3_Research/1_hbr-ai-2026/Q2 2026/`
-- any later drop folder, for example `3_Research/1_hbr-ai-2026/Q3_2026/`
+**Corrected 30 JUL 2026 — verify these against disk at the start of every run rather than trusting this section by default; a corpus reorg is exactly the kind of change that goes stale here without anyone revisiting it (see H29 in `5_Knowledge/hypotheses.md`).**
 
-Engine home and working files:
-- home: `3_Research/1_hbr-ai-2026/hbr-synthesis/`
-- what Ravi has already written: `hbr-synthesis/EXISTING-WRITING-INDEX.md`
-- year at a glance: `hbr-synthesis/MASTER-TRACKER.md`
-- shipped-edits ledger: `hbr-synthesis/APPLICATION-TRACKER.md`
-- this month's run: `hbr-synthesis/runs/2026-06-june/` (holds `TRACKER.md`, `dossiers-q2/`, `dossiers-q1/`, `synthesis/RUNNING-PATTERNS.md`)
+Inputs, the PDFs to read, one topic-shelf folder per subject:
+- `3_Research/hbr-and-journals/mit-sloan/` — MIT Sloan Management Review + "Ideas Made to Matter," with its own dated intake-batch subfolder (currently `Q3_2026/`)
+- `3_Research/hbr-and-journals/hbr-articles/<topic>/` — HBR pieces sorted by subject (`leadership-and-workforce/`, `strategy/`, `ai-agents/`, `customer-and-market/`, `responsible-ai/`, `data-and-measurement/`, `innovation-and-rnd/`, `adoption-and-roi/`), each with its own dated intake-batch subfolder
+- any later drop lands in `3_Research/00_NEW/` first; `rtp-research-librarian` sources, dates, and shelves it into one of the folders above before this skill ever reads it
+
+Engine home and working files (the June 2026 run's own tracking; a new month's run gets its own dated subfolder alongside this one):
+- home: `3_Research/hbr-and-journals/_synthesis-engine/Q2_2026/`
+- what Ravi has already written: `_synthesis-engine/Q2_2026/EXISTING-WRITING-INDEX.md`
+- year at a glance: `_synthesis-engine/Q2_2026/MASTER-TRACKER.md`
+- shipped-edits ledger: `_synthesis-engine/Q2_2026/APPLICATION-TRACKER.md`
+- running patterns: `_synthesis-engine/Q2_2026/RUNNING-PATTERNS.md`
+- the note bar and the term glossary: `_synthesis-engine/Q2_2026/00-METHOD.md` and `GLOSSARY.md`
+- the army's own tooling (progress markers, the run manifest, the orchestration script) lives OUTSIDE `3_Research/` entirely, at `1_Projects/2_Playbook_AI/hbr-synthesis-engine-state_Q2-2026/` — this is machinery, not reading material, and must never be re-filed into a research shelf (it was, once, for at least one full pass; see H28)
+- the running coverage checklist of which source PDF has a note yet: `3_Research/hbr-and-journals/SYNTHESIS-COVERAGE-TRACKER.md`
+
+Where a note and its card actually land (corrected — not a `runs/<month>/` subtree): directly beside the source PDF, in that same topic-shelf folder. A note is `<slug>.md`, its card is `<slug>-card.md`, its optional company-case companion is `<slug>-cases.md` — all three sit next to `<slug's-source>.pdf`. If a note's location is ever unclear, pair it back to its PDF by matching its own title line against the corpus index, never by guessing from filename (the method: H30 in `5_Knowledge/hypotheses.md`).
 
 Outputs, the three places insights ship to:
-1. Skills: edit the source at `2_Skills/ai-pm-skills/<cluster>/<skill>/SKILL.md`, then sync to `.claude/skills/<skill>/SKILL.md` and `rtp-personal-skills-repo/skills/rtp-<skill>/SKILL.md`. Run `./scripts/skill-sync.sh` to confirm all three match.
+1. Skills: edit the source at `2_Skills/ai-pm-skills/<cluster>/skills/<skill>/SKILL.md` (the `/skills/` segment is real and easy to drop by mistake), then sync to `.claude/skills/<skill>/SKILL.md` (folder name unprefixed) and `rtp-personal-skills-repo/skills/rtp-<skill>/SKILL.md` (folder name rtp- prefixed). Run `./scripts/skill-sync.sh` to confirm all three match.
 2. Website writing: edit the article at `1_Projects/1_my-personal-website/1_My Series-MD-FILES/<NN-series>/<article>.md`.
 3. Playbook: edit the section in `1_Projects/2_Playbook_AI/AI_Playbook.md`.
 
@@ -51,7 +59,7 @@ Then inputs are the pending articles, and outputs are the routed targets named i
 
 ## When to use it
 
-- Ravi adds new PDFs to `3_Research/1_hbr-ai-2026/` (a new quarter, say). Run the monthly cycle.
+- Ravi adds new PDFs to `3_Research/hbr-and-journals/` (a new quarter, say). Run the monthly cycle.
 - "What did the research say about X?" Search the notes.
 - "Which articles back this framework?" Check the running patterns file plus the notes.
 - "Run the monthly cycle." Full pipeline.
@@ -140,23 +148,38 @@ Each note's part 9 routes the insight to all three. The application tracker then
 2. Website writing: the specific article in `1_My Series-MD-FILES/`. Refine it in Ravi's voice. Sharpen, do not rewrite.
 3. Playbook: the routed section of `AI_Playbook.md`, with numbers tagged by tier.
 
-## Folder layout (moved June 2026, so synthesis sits with its source PDFs)
+## Folder layout (corrected 30 JUL 2026 to match the current library structure)
 
 ```
-3_Research/1_hbr-ai-2026/
-  Q1_2026/                    source PDFs
-  Q2 2026/                    source PDFs
-  synthesis_Q1_2026/          April output (kept as a cross-check only, not trusted)
-  hbr-synthesis/              the engine home
-    README.md                 what this is, plus the monthly cadence
-    EXISTING-WRITING-INDEX.md  what Ravi has already written (shared across runs)
-    MASTER-TRACKER.md         the year at a glance, one objective per month
-    APPLICATION-TRACKER.md    the separate "what we picked, what shipped" ledger
-    00-METHOD.md              the note bar (points to this skill)
-    runs/
-      2026-06-june/           TRACKER.md, dossiers-q2/, dossiers-q1/, synthesis/
-      2026-07-july/ ... 2026-12-december/
+3_Research/hbr-and-journals/
+  mit-sloan/                        MIT SMR + "Ideas Made to Matter" PDFs, notes, and cards side by side
+    Q3_2026/                        latest dated intake batch
+  hbr-articles/
+    leadership-and-workforce/       HBR PDFs, notes, and cards side by side
+    strategy/
+    ai-agents/
+    customer-and-market/
+    responsible-ai/
+    data-and-measurement/
+    innovation-and-rnd/
+    adoption-and-roi/
+    Q3_2026/                        latest dated intake batch
+  _synthesis-engine/
+    Q2_2026/                        the June run's own tracking (a new run gets its own dated subfolder)
+      README.md                     what this is, plus the monthly cadence
+      EXISTING-WRITING-INDEX.md     what Ravi has already written (shared across runs)
+      MASTER-TRACKER.md             the year at a glance, one objective per month
+      APPLICATION-TRACKER.md        the separate "what we picked, what shipped" ledger
+      RUNNING-PATTERNS.md           patterns collected across the run
+      GLOSSARY.md                   plain-language terms introduced by any card
+      00-METHOD.md                  the note bar (points to this skill)
+  SYNTHESIS-COVERAGE-TRACKER.md     checklist of every source PDF with or without a note yet
+
+1_Projects/2_Playbook_AI/
+  hbr-synthesis-engine-state_Q2-2026/   the army's own tooling: progress markers, MANIFEST.tsv, `_army-deep-synthesis.js` — not reading material, never lives inside 3_Research/
 ```
+
+Retired: a `1_hbr-ai-2026/` tree with per-quarter folders and a nested `hbr-synthesis/runs/<month>/` structure. That layout stopped matching reality once the corpus was promoted to a top-level `hbr-and-journals/` folder and reshelved by topic; this section now describes what is actually on disk, not what an earlier version of this skill assumed.
 
 ### Two trackers, on purpose
 
@@ -181,7 +204,7 @@ This is the engine's second half, and the reason it exists at all: research that
 
 ### The Application Card, one per article (the atomic unit)
 
-Written to `runs/<month>/synthesis/cards/<id>-card.md`, in extremely plain language, with a `## Legend` glossing every framework term (new terms also merge into `synthesis/GLOSSARY.md`). Each card carries, per surface:
+Written beside its note, next to the source PDF (`<slug>-card.md` in the matching topic-shelf folder — see "Where everything is" above, not a `runs/<month>/` subtree), in extremely plain language, with a `## Legend` glossing every framework term (new terms also merge into `_synthesis-engine/Q2_2026/GLOSSARY.md`). Each card carries, per surface:
 
 - The exact target: the skill's full path, the website article's verified `.md` path, the exact playbook section. Verify the path exists on disk before writing it into the card; never infer it from an index.
 - The exact insertion prose, ready to paste, already written to the bar below (Why plus when-wrong included, tiers attached).
@@ -244,7 +267,7 @@ Each run must leave the system smarter, not just the canon bigger. At close-out:
 
 ## Running the army (orchestration, learned the hard way)
 
-The readers and reviewers run as a resumable army, one script: `hbr-synthesis/_army-deep-synthesis.js`, launched with the Workflow tool. Four rules keep it honest, each from a real failure:
+The readers and reviewers run as a resumable army, one script: `1_Projects/2_Playbook_AI/hbr-synthesis-engine-state_Q2-2026/_army-deep-synthesis.js`, launched with the Workflow tool. Four rules keep it honest, each from a real failure:
 
 1. Batch, never fan out the whole corpus at once. The June run launched all 66 articles together and tripped the account's rolling session limit in five minutes, losing every review that window. Each run now takes a bounded slice (default 12, set by `args {batch: N}`) and stops clean. This is the script form of the Stage 1 rule "bounded cluster jobs, never one giant run."
 
