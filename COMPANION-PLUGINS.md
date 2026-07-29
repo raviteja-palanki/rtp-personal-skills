@@ -6,7 +6,7 @@ This manifest exists so a new Claude account inheriting Ravi's work can rebuild 
 
 ---
 
-## TL;DR — The five tiers
+## TL;DR — The six tiers
 
 | Tier | Owner | What it covers | Install priority |
 |---|---|---|---|
@@ -15,6 +15,7 @@ This manifest exists so a new Claude account inheriting Ravi's work can rebuild 
 | **3** | pm-skills | Textbook PM frameworks (Lean Canvas, OKRs, RICE, JTBD, Porter's, GTM, cohort analysis, A/B stats) | Medium |
 | **4** | anthropic-skills | File formats (pdf, pptx, xlsx, docx), web artifacts, brand guidelines, scheduled tasks | Medium |
 | **5** | dev tools | github, linear, supabase, commit-commands, episodic-memory, elements-of-style | As needed |
+| **6** | vendor toolchains | Production stack skill packs (Arize observability). Installed outside the plugin system, referenced not vendored | As needed |
 
 The orchestrator's tier map (in `skills/rtp-aipm-orchestrator/SKILL.md` → "FULL ECOSYSTEM AWARENESS" section) tells it which tier to reach for on any given task. Without these plugins installed, the orchestrator falls back to RTP-only — still useful, but missing 60% of its addressable surface.
 
@@ -140,6 +141,35 @@ Wrap operations the orchestrator should hand off rather than reinvent.
 ```
 
 Use when the task obviously hits that tool. The orchestrator's job is to know what's installed and pick the right one — never reinvent what's already wrapped.
+
+---
+
+## Tier 6 — Vendor toolchains (installed outside the plugin system)
+
+Skill packs written by the vendor of a specific production stack. These are **referenced here, never copied into this repo.** They ship to their own `main` continuously, so a vendored snapshot would rot under Ravi's name while carrying his attribution — the opposite of useful.
+
+Different install mechanism, too. Not a Claude Code marketplace:
+
+```
+npx skills add Arize-ai/arize-skills
+```
+
+That writes to `.agents/skills/` and symlinks into `.claude/skills/`. Both paths are gitignored — the install is deliberately disposable. Re-run the command to refresh; nothing to maintain.
+
+**Arize (13 skills, MIT, © Arize AI, Inc.)** — AI observability on the Arize AX platform, driven through the `ax` CLI: instrumentation, trace export, LLM-as-judge evaluators, datasets, experiments, prompt optimization, compliance audit.
+
+Start with four; the rest are situational:
+
+| Skill | Job |
+|---|---|
+| `arize-instrumentation` | First-time tracing setup — detects the stack, wires auto-instrumentation |
+| `arize-trace` | Export and inspect existing spans, sessions, traces |
+| `arize-evaluator` | LLM-as-judge and code evaluators, continuous scoring |
+| `arize-experiment` | Run and compare experiments against a dataset |
+
+**Read `rtp-observability-stack` first.** It carries the part the vendor's own skills can't: whether to be on Arize AX at all versus Phoenix or LangSmith, why instrumenting to the OpenInference/OTel standard keeps the vendor swappable, and four operational traps verified against these skills' source on 29 JUL 2026 — including a time-series index lag that will make you think your own fix failed, and a compliance report that defaults to writing outside your perimeter.
+
+That's the tier-6 pattern in general: **the vendor ships the how, RTP ships the whether.**
 
 ---
 

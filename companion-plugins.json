@@ -1,8 +1,8 @@
 {
   "$schema": "https://anthropic.com/claude-code/companion-plugins.schema.json",
   "name": "rtp-personal-skills-companions",
-  "version": "1.0.0",
-  "description": "Companion plugin manifest for rtp-personal-skills. Lists the wider Claude Code plugin ecosystem the rtp-aipm-orchestrator commands as expert agents. Install these alongside rtp-personal-skills for the full RTP setup.",
+  "version": "1.1.0",
+  "description": "Companion plugin manifest for rtp-personal-skills. Lists the wider Claude Code plugin ecosystem the rtp-aipm-orchestrator commands as expert agents. Install these alongside rtp-personal-skills for the full RTP setup. Tier 6 lists vendor toolchains installed outside the plugin system (referenced, not vendored).",
   "owner": {
     "name": "Ravi Teja Palanki (RTP)",
     "url": "https://github.com/raviteja-palanki"
@@ -113,6 +113,26 @@
         { "name": "skill-creator", "marketplace": "claude-plugins-official" },
         { "name": "claude-md-management", "marketplace": "claude-plugins-official" },
         { "name": "frontend-design", "marketplace": "claude-plugins-official" }
+      ]
+    },
+    {
+      "tier": 6,
+      "label": "Domain toolchains (installed outside the plugin system)",
+      "purpose": "Vendor-authored skill packs for a specific production stack. Referenced, never vendored — they ship upstream continuously, so a copy in this repo would go stale under Ravi's name.",
+      "priority": "as-needed",
+      "install_mechanism": "npx skills add — not a Claude Code marketplace. Writes to .agents/skills/ with symlinks into .claude/skills/. Both gitignored; re-run to refresh.",
+      "packs": [
+        {
+          "name": "arize-skills",
+          "source": "github:Arize-ai/arize-skills",
+          "install_command": "npx skills add Arize-ai/arize-skills",
+          "license": "MIT (c) Arize AI, Inc. — referenced only, not redistributed here",
+          "skill_count": 13,
+          "purpose": "AI observability on the Arize AX platform via the ax CLI: tracing, trace export, LLM-as-judge evaluators, datasets, experiments, prompt optimization, compliance audit.",
+          "start_with": ["arize-instrumentation", "arize-trace", "arize-evaluator", "arize-experiment"],
+          "rtp_companion_skill": "rtp-observability-stack",
+          "note": "Read rtp-observability-stack first — it carries the platform decision (Arize AX vs Phoenix vs LangSmith), the OpenInference portability argument, and four operational traps verified against these skills' source on 29 JUL 2026."
+        }
       ]
     }
   ],

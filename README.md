@@ -6,7 +6,7 @@
 
 This is my product judgment, written down and version-controlled.
 
-Most PMs carry their thinking in their head, and it leaves when they do. I spent three years externalizing mine: **81 skills** that encode how I make AI product decisions — when AI is the right answer and when rules are cheaper, how much autonomy an agent has earned, what a real moat is, what to check before anything ships. An **orchestrator** composes them the way I would, so the system doesn't just store my judgment — it applies it.
+Most PMs carry their thinking in their head, and it leaves when they do. I spent three years externalizing mine: **86 skills** that encode how I make AI product decisions — when AI is the right answer and when rules are cheaper, how much autonomy an agent has earned, what a real moat is, what to check before anything ships. An **orchestrator** composes them the way I would, so the system doesn't just store my judgment — it applies it.
 
 ## What's inside
 
