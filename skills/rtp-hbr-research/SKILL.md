@@ -1,11 +1,13 @@
 ---
 name: rtp-hbr-research
-version: v1.1_latest
-description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written — then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/hbr-and-journals/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with humanizer (prose pass), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
+version: v1.2_latest
+description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written — then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/09_hbr-and-journals/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with humanizer (prose pass), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
 ---
-# HBR research synthesis engine v3.1
+# HBR research synthesis engine v3.2
 
-> v3.1 (30 JUL 2026): corrected every path in this skill to match where the corpus actually lives, after two library reorgs this file's text never tracked. The corpus moved from `3_Research/1_hbr-ai-2026/` to `3_Research/hbr-and-journals/` (reshelved by topic); the engine home moved to `hbr-and-journals/_synthesis-engine/Q2_2026/`; and 125 of the June run's own notes and cards were found sitting in a disconnected project folder (`1_Projects/2_Playbook_AI/hbr-synthesis-output/`), never paired with their source PDFs, until this pass moved them next to their matched PDF (matched by each note's own title line against the corpus index, not by filename). A separate 104-file batch of the army's own progress markers had also been sitting inside `3_Research/` mislabeled as "articles" for at least one prior pass; it now lives at `1_Projects/2_Playbook_AI/hbr-synthesis-engine-state_Q2-2026/`, outside the research corpus entirely. The lesson this leaves for every future run: re-verify every path in this section against disk before trusting it, the same discipline this skill already demands of a citation. Full account in `5_Knowledge/hypotheses.md` H28-H31.
+> v3.2 (30 JUL 2026): four outputs per article instead of one. A note traps its own best material, so every article now also produces a `.frameworks.md` (every named framework reproduced completely, with a plain-language legend) and a `.cases.md` (every named-company case with problem, before-state, approach, results, learnings, tier, and source link), both centralized on their own shelves so they can be browsed and compared across the corpus instead of hunted note by note. Added the two accumulating files that outlive every run, `NOVEL-INSIGHTS.md` and `OPEN-ASSUMPTIONS.md`, plus Parts 14 and 15 of the note that feed them. Added the parallel-agent rules, and five standing checks that each came from a real near-miss. Naming is now `<stem>_Note.md` on the source PDF's exact filename stem, so all four files and both index CSVs join without fuzzy matching. See "Four outputs per article", "Two accumulating files", and "Running this with parallel agents" below.
+
+> v3.1 (30 JUL 2026): corrected every path in this skill to match where the corpus actually lives, after two library reorgs this file's text never tracked. The corpus moved from `3_Research/1_hbr-ai-2026/` to `3_Research/09_hbr-and-journals/` (reshelved by topic); the engine home moved to `09_hbr-and-journals/_synthesis-engine/Q2_2026/`; and 125 of the June run's own notes and cards were found sitting in a disconnected project folder (`1_Projects/2_Playbook_AI/hbr-synthesis-output/`), never paired with their source PDFs, until this pass moved them next to their matched PDF (matched by each note's own title line against the corpus index, not by filename). A separate 104-file batch of the army's own progress markers had also been sitting inside `3_Research/` mislabeled as "articles" for at least one prior pass; it now lives at `1_Projects/2_Playbook_AI/hbr-synthesis-engine-state_Q2-2026/`, outside the research corpus entirely. The lesson this leaves for every future run: re-verify every path in this section against disk before trusting it, the same discipline this skill already demands of a citation. Full account in `5_Knowledge/hypotheses.md` H28-H31.
 > v3.0 (10 JUL 2026): the apply loop, written from the June run's Stage-B experience and the Fable-5 QA pass over its output. The engine no longer stops at notes and maps: it now carries the full method for shipping each insight into the skills, the website, and the playbook, with the standing gates that a critical evaluation of 26 applied skills, 4 applied articles, and 4 playbook sections proved necessary (the WHY gate, plain-language legends, the business-clarity frontmatter bar, the primary-source gate, the container check, surface-appropriate notation, population scope on numbers, and the single-study concentration ledger). See "The apply loop" below. Also fixed a stale website path that would have failed the exact-target gate.
 
 ## What this does
@@ -26,19 +28,19 @@ The reason this engine exists is part 8 of each note, and the running patterns f
 **Corrected 30 JUL 2026 — verify these against disk at the start of every run rather than trusting this section by default; a corpus reorg is exactly the kind of change that goes stale here without anyone revisiting it (see H29 in `5_Knowledge/hypotheses.md`).**
 
 Inputs, the PDFs to read, one topic-shelf folder per subject:
-- `3_Research/hbr-and-journals/mit-sloan/` — MIT Sloan Management Review + "Ideas Made to Matter," with its own dated intake-batch subfolder (currently `Q3_2026/`)
-- `3_Research/hbr-and-journals/hbr-articles/<topic>/` — HBR pieces sorted by subject (`leadership-and-workforce/`, `strategy/`, `ai-agents/`, `customer-and-market/`, `responsible-ai/`, `data-and-measurement/`, `innovation-and-rnd/`, `adoption-and-roi/`), each with its own dated intake-batch subfolder
+- `3_Research/09_hbr-and-journals/mit-sloan/` — MIT Sloan Management Review + "Ideas Made to Matter," with its own dated intake-batch subfolder (currently `Q3_2026/`)
+- `3_Research/09_hbr-and-journals/hbr-articles/<topic>/` — HBR pieces sorted by subject (`leadership-and-workforce/`, `strategy/`, `ai-agents/`, `customer-and-market/`, `responsible-ai/`, `data-and-measurement/`, `innovation-and-rnd/`, `adoption-and-roi/`), each with its own dated intake-batch subfolder
 - any later drop lands in `3_Research/00_NEW/` first; `rtp-research-librarian` sources, dates, and shelves it into one of the folders above before this skill ever reads it
 
 Engine home and working files (the June 2026 run's own tracking; a new month's run gets its own dated subfolder alongside this one):
-- home: `3_Research/hbr-and-journals/_synthesis-engine/Q2_2026/`
+- home: `3_Research/09_hbr-and-journals/_synthesis-engine/Q2_2026/`
 - what Ravi has already written: `_synthesis-engine/Q2_2026/EXISTING-WRITING-INDEX.md`
 - year at a glance: `_synthesis-engine/Q2_2026/MASTER-TRACKER.md`
 - shipped-edits ledger: `_synthesis-engine/Q2_2026/APPLICATION-TRACKER.md`
 - running patterns: `_synthesis-engine/Q2_2026/RUNNING-PATTERNS.md`
 - the note bar and the term glossary: `_synthesis-engine/Q2_2026/00-METHOD.md` and `GLOSSARY.md`
 - the army's own tooling (progress markers, the run manifest, the orchestration script) lives OUTSIDE `3_Research/` entirely, at `1_Projects/2_Playbook_AI/hbr-synthesis-engine-state_Q2-2026/` — this is machinery, not reading material, and must never be re-filed into a research shelf (it was, once, for at least one full pass; see H28)
-- the running coverage checklist of which source PDF has a note yet: `3_Research/hbr-and-journals/SYNTHESIS-COVERAGE-TRACKER.md`
+- the running coverage checklist of which source PDF has a note yet: `3_Research/09_hbr-and-journals/SYNTHESIS-COVERAGE-TRACKER.md`
 
 Where a note and its card actually land (corrected — not a `runs/<month>/` subtree): directly beside the source PDF, in that same topic-shelf folder. A note is `<slug>.md`, its card is `<slug>-card.md`, its optional company-case companion is `<slug>-cases.md` — all three sit next to `<slug's-source>.pdf`. If a note's location is ever unclear, pair it back to its PDF by matching its own title line against the corpus index, never by guessing from filename (the method: H30 in `5_Knowledge/hypotheses.md`).
 
@@ -59,7 +61,7 @@ Then inputs are the pending articles, and outputs are the routed targets named i
 
 ## When to use it
 
-- Ravi adds new PDFs to `3_Research/hbr-and-journals/` (a new quarter, say). Run the monthly cycle.
+- Ravi adds new PDFs to `3_Research/09_hbr-and-journals/` (a new quarter, say). Run the monthly cycle.
 - "What did the research say about X?" Search the notes.
 - "Which articles back this framework?" Check the running patterns file plus the notes.
 - "Run the monthly cycle." Full pipeline.
@@ -89,6 +91,61 @@ The bar is a senior AI practitioner reading for leverage. Each note has:
 11. New-skill or new-article signal: only if nothing existing can hold it. Mark "watch" until sibling articles back it.
 12. Where it breaks: the conditions under which the advice fails.
 13. Monday move: what an operator does with it.
+
+## Four outputs per article, not one (added v3.2, 30 JUL 2026)
+
+A note alone traps its own best material. The framework sits in Part 5 where nobody browsing frameworks will find it; the company case sits in Part 6 where nobody hunting for a citable example will find it. So every article now produces four files, and the run is not done until all four exist.
+
+| file | location | what it is for |
+|---|---|---|
+| `<stem>_Note.md` | beside the source PDF, in its topic shelf | the 13-part note: interpretation, mechanism, patterns, routing |
+| `<stem>.frameworks.md` | `09_hbr-and-journals/_frameworks/` | every named framework, reproduced completely, each with a plain-language legend |
+| `<stem>.cases.md` | `09_hbr-and-journals/_case-in-point/` | every named-company case, with problem, before-state, approach, results, learnings, tier, and source link |
+| `<stem>-card.md` | beside the note | the Application Card (see "The apply loop") |
+
+**`<stem>` is the source PDF's filename with `.pdf` removed, character for character** — spaces, punctuation, curly apostrophes, and the trailing `_Mon_YYYY` tag included. Do not slugify, shorten, or invent an ID. The stem is the join key across four files and two index CSVs, and an approximation forces someone to fuzzy-match it back later. That has already happened once in this system, to 79 files.
+
+The full contract for the two extraction files, including per-type completeness rules and the tier discipline, is `09_hbr-and-journals/_frameworks/EXTRACTION-SPEC.md`. Read it before writing either file.
+
+## Two accumulating files that outlive every run (added v3.2)
+
+These are the highest-value artifacts the engine produces, because they are the only ones whose worth is purely cumulative. A note is bounded by its article. These are bounded by the corpus.
+
+**`_synthesis-engine/NOVEL-INSIGHTS.md`** — the cross-corpus pattern ledger. Every insight carries the articles supporting it, a count, a named falsifier, and a status on the ladder `watch` (1 article) → `hypothesis` (2) → `rule candidate` (3+) → `promoted` (to `5_Knowledge/rules.md`) → `retired` (falsified, kept with the reason). Nothing is ever deleted: a falsified insight tells the next session what has already been tried. **An insight with no falsifier is an opinion wearing evidence costume.** Append to this file on every run, and reconcile: an insight that gains a third confirming article gets promoted, one that meets a counterexample gets refined or retired in writing.
+
+**`_synthesis-engine/OPEN-ASSUMPTIONS.md`** — what the synthesis needed to know and could not settle. Two kinds of entry. First, **load-bearing assumptions**: when a synthesis needs a fact it does not have, name the assumption and proceed, because the alternative is a sentence that reads as if the fact were known. Second, **recurring unanswerable questions**, so the fifth encounter is recognized as the fifth rather than rediscovered. Every entry names the specific thing that would settle it; "more research needed" is not an entry. Statuses: `open` → `answered` (with source) → `retired` (unanswerable, with why) → `escalate` (needs Ravi's judgment, not more research).
+
+Why this matters more than it looks: a person reading 200 files holds about seven in working memory and finds the patterns they already expected. These two files are the defense against that limit, and they are the reason the corpus produces insight a single reading cannot.
+
+## Part 14 and Part 15 of every note (added v3.2)
+
+The 13 parts stay. Two more are now required, and they are what feed the accumulating files:
+
+**14. Novel insights, reasoned from first principles.** Not a restatement of the article and not a restatement of Part 8's patterns. This is the deduction the article makes possible but does not make: the connection to a second article, the claim that follows from joining two facts, the reframe that changes what the reader would build. Each one gets a falsifier. If the article genuinely supports no novel deduction, write "None beyond Part 8" and mean it, rather than manufacturing one.
+
+**15. Open assumptions and what I would want to know.** What did this note assume in order to finish? What question did the article raise that it cannot answer? What would change the reading if you learned it? Each entry names what would settle it. These append to `OPEN-ASSUMPTIONS.md`.
+
+Both parts append upward to the accumulating files at the end of every run. A note that produces neither a novel insight nor a named assumption across a whole batch has almost certainly been read shallowly.
+
+## Running this with parallel agents (added v3.2)
+
+Reading is parallelizable. Cross-article pattern-finding is not. Split accordingly.
+
+**Fan out for:** reading an article and writing its four files; extracting frameworks and cases from existing notes; retrofitting shelves. Bounded, verifiable, independent per article.
+
+**Keep central:** Part 8's cross-article patterns, and all reconciliation into `NOVEL-INSIGHTS.md`. An agent that has read three articles cannot find a pattern that needs forty. This is the difference between parallelism and fragmentation.
+
+**The rule that makes fan-out work:** an agent cannot find batch-level patterns, so **hand it the patterns already established and ask it to confirm, extend, contradict, or add.** Pass the current `NOVEL-INSIGHTS.md` entries by letter into every agent prompt, and require the agent to cite letters in its report so the lead can reconcile. The June 2025 finance-trio agent falsified half of one pattern and supplied two better replacements precisely because it was given the pattern to test rather than asked to find patterns from scratch.
+
+**Every agent prompt must carry, without exception:** the `EXTRACTION-SPEC.md` path, one exemplar note and one exemplar cases file to read first, the exact output paths, the evidence-tier rules, the established insight letters, the voice anti-pattern list, and an instruction to flag uncertainty rather than smooth it. Then **review every returned file against the source.** Draft quality is never final quality, and an agent's confident report is not verification.
+
+**Standing checks, each from a real near-miss:**
+
+1. **"In its first year" requires the year to have elapsed.** Barnes Group was acquired January 2025; a June 2025 article claimed a five-times first-year return.
+2. **Provisioning is not usage.** "Students will have access to" is not "1 million users." Same class of error as seats-sold versus software-used.
+3. **A claim of measurability with no measurement is tiered ⚠ and never softened into usability.** A chief AI officer calling improvements "measurable" while supplying no measurement is the worst evidence failure available, because it sounds like data.
+4. **A `[VERIFY]` flag has two meanings that need separating:** "nobody looked hard enough" versus "no such document exists" (a client-owned company files no management report). Conflating them makes diligence look like laziness.
+5. **A scopeless productivity number needs its denominator asked for.** Expect roughly half when the scope moves from the task to the organization: Vanguard's own figures are ~25% for coding alone, 10-15% across the development life cycle.
 
 ## Evidence tiers (tag every number, in prose and in visuals)
 
@@ -151,7 +208,7 @@ Each note's part 9 routes the insight to all three. The application tracker then
 ## Folder layout (corrected 30 JUL 2026 to match the current library structure)
 
 ```
-3_Research/hbr-and-journals/
+3_Research/09_hbr-and-journals/
   mit-sloan/                        MIT SMR + "Ideas Made to Matter" PDFs, notes, and cards side by side
     Q3_2026/                        latest dated intake batch
   hbr-articles/
@@ -179,7 +236,7 @@ Each note's part 9 routes the insight to all three. The application tracker then
   hbr-synthesis-engine-state_Q2-2026/   the army's own tooling: progress markers, MANIFEST.tsv, `_army-deep-synthesis.js` — not reading material, never lives inside 3_Research/
 ```
 
-Retired: a `1_hbr-ai-2026/` tree with per-quarter folders and a nested `hbr-synthesis/runs/<month>/` structure. That layout stopped matching reality once the corpus was promoted to a top-level `hbr-and-journals/` folder and reshelved by topic; this section now describes what is actually on disk, not what an earlier version of this skill assumed.
+Retired: a `1_hbr-ai-2026/` tree with per-quarter folders and a nested `hbr-synthesis/runs/<month>/` structure. That layout stopped matching reality once the corpus was promoted to a top-level `09_hbr-and-journals/` folder and reshelved by topic; this section now describes what is actually on disk, not what an earlier version of this skill assumed.
 
 ### Two trackers, on purpose
 
