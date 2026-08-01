@@ -1,6 +1,6 @@
 ---
 name: rtp-excalidraw-svg
-version: v1.0_latest
+version: v1.4_latest
 description: 'Excalidraw SVG diagrams: pastel, readable text, storytelling. Diagrams, flowcharts, architecture, infographics, flows, maps. Use when: visual explanation or output enhancer for PRD/spec/analysis. Triggers: ''diagram'', ''flowchart'', ''visual'', ''architecture'''
 ---
 # Excalidraw SVG — Visual Storytelling System v1.4
