@@ -86,7 +86,7 @@ These folders are renamed for plugin namespacing; content is identical to source
 |---|---|
 | `rtp-aipm-orchestrator` | `rtp-orchestrator` |
 | `rtp-personal-branding` | `rtp-ravi-personal-branding` |
-| `rtp-research-synthesiser` | `rtp-grok-perplexity-research` |
+| `rtp-research-synthesiser` | `rtp-research-synthesiser` |
 | `rtp-thinking-skills` | `rtp-ravi-thinking-skills` |
 
 ## History

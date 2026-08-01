@@ -1,7 +1,7 @@
 # CLAUDE.md — how this skill library thinks
 
 **Author:** Ravi Teja Palanki · Senior Technical PM · Perplexity AI Fellow (2025)
-**Repo:** 87 skills + 11 slash commands, installable as a Claude Code plugin.
+**Repo:** 86 skills + 11 slash commands, installable as a Claude Code plugin.
 
 This file is the operating manual for the library. If you install the plugin, this is what the skills assume about how to reason. The skills are the *what*; this is the *how*.
 
