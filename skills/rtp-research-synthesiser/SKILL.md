@@ -1,6 +1,6 @@
 ---
 name: rtp-research-synthesiser
-version: v1.0_latest
+version: v2.1_latest
 description: On-demand intelligence synthesis skill. Reads SuperGrok X signals (daily, from Notion) and Perplexity Deep Research (weekly Saturday, from Notion), processes ONE dimension per invocation, and produces a curated digest with actionable extractions, categorised URLs, cross-temporal pattern connections, and thought leadership insights. Ravi fires this when ready — typically weekly on Sunday, but any time works. Requires ~10 invocations for full coverage across all dimensions. Use the strongest reasoning model available.
 ---
 # Grok & Perplexity Research v2.1 — On-Demand Intelligence Engine
