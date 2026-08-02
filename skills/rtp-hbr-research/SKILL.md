@@ -46,7 +46,7 @@ Where a note and its card actually land (corrected — not a `runs/<month>/` sub
 
 Outputs, the three places insights ship to:
 1. Skills: edit the source at `2_Skills/ai-pm-skills/<cluster>/skills/<skill>/SKILL.md` (the `/skills/` segment is real and easy to drop by mistake), then sync to `.claude/skills/<skill>/SKILL.md` (folder name unprefixed) and `rtp-personal-skills-repo/skills/rtp-<skill>/SKILL.md` (folder name rtp- prefixed). Run `./scripts/skill-sync.sh` to confirm all three match.
-2. Website writing: edit the article at `1_Projects/1_my-personal-website/1_My Series-MD-FILES/<NN-series>/<article>.md`.
+2. Website writing: edit the article at `1_Projects/1_my-personal-website/1_My Series-MD-FILES/My Website all latest MD files/<series>-md/<article>.md`. **Corrected 02 AUG 2026.** The live series folders are `agentic-stack-md`, `harness-engineering-md`, `environment-series-md`, `evals-series-md`, `ai-pm-os-md`, plus `site-pages-md` and `frontier-companies-md`. The sibling `version1/` folder holds the old `<NN-series>/` names and is Ravi's personal archive: never read it for current state, never route into it. Filenames are lowercase and were renumbered in that pass (`L2-T02-compounding-moats.md` became `l2-t12-building-compounding-moats.md`), so **match on the slug body, never on the `tNN` digits, and confirm the file exists on disk before writing the path into a note or card.**
 3. Playbook: edit the section in `1_Projects/2_Playbook_AI/AI_Playbook.md`.
 
 ## Start every run by reading the trackers
