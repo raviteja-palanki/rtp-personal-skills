@@ -109,6 +109,10 @@ A Guide to Context Engineering for PMs - by Aakash Gupta_Nov_2025.pdf
 
 **How to find the date — in this order, stopping at the first that is certain:**
 1. **The PDF's own first page.** HBR, MIT Sloan, and most publications print the date near the title or in the header/footer. `pdftotext -f 1 -l 1 file.pdf -` then look for `Month YYYY`, `DD Month YYYY`, or an ISO date.
+
+   **The browser print-header trap, and it will catch you if you take the first date you see.** A page saved to PDF from Chrome or Safari carries the *capture* timestamp as its literal first line, in `M/D/YY, H:MM AM` form. A batch of 13 Arize, Hamel Husain and Parlance Labs articles filed on 02 AUG 2026 every one began `8/2/26, 11:24 AM`, while their real publication dates ranged from March 2025 to July 2026. Taking the first date would have stamped all 13 `_Aug_2026` and destroyed the recency signal for the entire evals shelf in one pass.
+
+   **So: skip any date matching the print-header pattern at the very top of page 1, and take the publication dateline from the article body instead.** When a page shows both, the body always wins. A useful check is that the capture date is identical across every file in a batch, because they were all saved in the same sitting; a real publication date varies.
 2. **The PDF metadata** — `pdfinfo file.pdf` (`CreationDate` / `ModDate`). Treat as *weaker* evidence: it records when the file was made, which for a saved-to-PDF web article is often the download date, not the publication date. Use it only if it agrees with the content or nothing better exists.
 3. **The existing filename**, if it already carries a date (`..._oct23.pdf` → `Oct_2023`).
 4. **The folder it came from**, if that folder is date-scoped (`Q1_2026/`) — gives quarter-level confidence only.
@@ -165,7 +169,27 @@ Enterprise AI ROI Measurement_Final_Feb_2026.pdf
 - **Superseded versions are kept, never archived as duplicates** — an older edition shows how thinking moved, which is evidence Ravi writes from. Only *byte-identical* copies get archived.
 - A version set counts as **one resource** in the map, not N.
 
+**Format variants are a version set too, and they are easy to mistake for duplicates.** The same article can arrive twice as two different captures: a web grab carrying site navigation and promotional chrome, and a clean authored PDF with a table of contents. Hamel Husain and Shreya Shankar's "LLM Evals: Everything You Need to Know" arrived as a 34-page web capture (11,328 words, nav furniture included) and a 39-page authored PDF (11,943 words, with contents). Same article, same May 2025 date, different artifacts. Content-hash dedup correctly refuses to merge them, and deleting either would be wrong.
+
+**The clean authored version takes `_CURRENT`.** It reads better, carries the real structure, and has no chrome to confuse a later extraction pass. Keep the web capture, and say in the filename what it is, so nobody re-downloads it thinking it is missing:
+
+```
+LLM Evals - Everything You Need to Know by Hamel Husain and Shreya Shankar_versions/
+├── LLM Evals - ..., by Hamel Husain and Shreya Shankar_CURRENT_May_2025.pdf
+└── LLM Evals - ..., by Hamel Husain and Shreya Shankar (web capture with site chrome)_May_2025.pdf
+```
+
 **Books:** editions are part of the folder name (`AI Agents in Action, Second Edition by Micheal Lanham_2025`), and each edition is its own folder — never merged.
+
+## IDENTITY — a file is what it contains, not what it is labelled
+
+**Open it, then name it. Never name from the filename, the folder, or an inherited description.** The image rules below are the strictest instance of this, but the principle is general and PDFs break it just as often.
+
+**A web capture can carry one article's chrome and a different article's body.** A PDF filed as "The Founder Mindset: Tim Ferriss on Experiments, Risk, and Freedom" carried that title, that teaser and that episode number in its page furniture, and 914 lines of a completely different episode underneath: a Cold Call interview with Professor George Serafeim and Dimitri Papalexopoulos about Titan Cement. The page was saved while one episode was displayed and another was loaded in the transcript panel. A prior pass recorded the file as "corrupted" without opening it, which blocked the article for weeks and was wrong. Nothing was corrupt. It was mislabelled, and one reading fixed it.
+
+**When chrome and body disagree, the body wins.** Rename from the substance, and state the mismatch in the filing note, because the article named in the chrome is now known to be *missing* from the corpus and somebody has to re-capture it. Renaming fixes the label, not the gap.
+
+**The same failure has now happened three times in this library at three scales:** a folder of 104 files described as "weak-signal articles" that were the synthesis army's own progress markers; three images read as vendor logos that were a three-way tool bake-off; and one PDF written off as corrupt that was simply misnamed. Every one survived multiple passes because each pass trusted the previous pass's description. **An inherited description is a hypothesis, not evidence.**
 
 **Recency in practice.** When any skill consumes this library — a skill refresh, an article draft, a Playbook update — it reads newest-first and treats older material as background unless the topic is genuinely stable. On a fast-moving topic (models, pricing, agent tooling, evals) anything older than ~18 months is a *historical* data point and must be labelled as such if cited. On slow-moving topics (discovery craft, interviewing, org design) age matters far less. State which regime applies when it affects the conclusion.
 
@@ -183,8 +207,13 @@ Enterprise AI ROI Measurement_Final_Feb_2026.pdf
 4. **Multi-page sets get an ordering prefix** — `01-`, `02-` — so reading order survives.
 5. If the image is unreadable, low-value, or you cannot tell what it is, **leave it in `_images-to-identify/` and ask**. Do not invent a name.
 
+6. **A file named after a product is almost never a picture of that product.** Three files arriving as `arize.png`, `braintrust.png` and `langsmith-clean.png` read as vendor logos. Opened, they were the *same trace-audit task* run across three eval platforms on the same dataset: 100 apartment-leasing traces auto-clustered into issue, evidence, candidate-evaluator and how-to-fix columns, with the same `nb-000NN` trace IDs visible in each. That is a three-way bake-off and one of the most useful artifacts in the library. Filed as logos it would have been worthless.
+
+7. **A set can be defined by shared task rather than shared appearance, and that kind is the easiest to miss.** Rule 3 detects sets by near-identical timestamps, sequential numbering, or the same visual layout. The bake-off above has *none* of those: three different products, three different interfaces, no numbering. What binds it is that the same work is being done in each. **Before filing images individually, ask what the person was doing when they captured them.** If the answer is one thing, it is one resource. Name the members `... 1 of N`, `2 of N` so the set survives even if the files are later separated.
+
 ## DEDUP — content only
 
+- **Normalise both filenames to NFC before comparing them.** macOS stores filenames decomposed (NFD), so a name containing `é` or a curly apostrophe compares unequal to the same name composed, and the mismatch lands on exactly the characters this skill's naming rules insist on preserving. In one session this silently made two already-complete articles look like pending work for a week. `unicodedata.normalize("NFC", name)` on both sides, every time, in every script that compares or joins on a filename.
 - Compare by **MD5 of file contents**. Never by `(filename, size)`.
 - Why: filename+size produced errors in *both* directions. It archived unique files whose generic names collided (`Brief Table of Contents (Not Yet Final)` recurs across different books), and it missed true duplicates whose filenames differed only in punctuation (`AI Coding Tools…: What Executives…` vs `AI Coding Tools…_ What Executives…`).
 - Keep the copy with the better filename; move the other to `_ARCHIVE_duplicates_<DATE>/01_duplicate-copies/<theme>/`.
