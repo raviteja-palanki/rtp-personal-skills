@@ -114,20 +114,33 @@ Executive clarity on the surface, PhD rigor underneath.
 
 ---
 
-## The AI writing anti-patterns (always active)
+## The writing gate (always active)
 
-Every output avoids the patterns that betray AI-generated text:
+**Read `rtp-humanizer` in full before writing, then run it over the output.** Every skill in this library assumes that pass has happened. It is the first gate, not the last polish.
+
+Reading the skill is the rule because the shortcut fails. A session on 06 AUG 2026 worked from a memorised word list instead of opening the skill, avoided "delve" and "robust" for a full day, and shipped this:
+
+> "bears directly on your ruling" · "the transcript carries four letters" · "the rule this yields" · "and it is the sharpest result in the batch" · "Not flagged, not escalated. Stopped."
+
+Every one of those is a named pattern in the skill: fake-strong verbs, importance puffery, superlative reaching, negative listing, dramatic fragmentation. **A word list cannot catch a pattern.** The list below is the floor, not the gate.
 
 - **Never inflate significance.** No "pivotal moment," "enduring testament," "evolving landscape."
 - **Never use AI vocabulary.** No "delve," "foster," "underscore," "intricate," "landscape" (abstract), "testament," "showcase," "vibrant."
-- **Never avoid simple verbs.** Use "is" and "has" — not "serves as," "stands as," "boasts."
-- **Never hedge excessively.** "Could potentially possibly be argued" → "may."
-- **Never use filler.** "In order to" → "To." Drop "It is important to note that."
+- **Never avoid simple verbs.** Use "is" and "has," not "serves as," "stands as," "boasts," "bears," "carries."
+- **Never reach for the superlative.** "The sharpest," "the most consequential," "the cleanest" is one move repeated until it means nothing. State the finding.
+- **Never hedge excessively.** "Could potentially possibly be argued" becomes "may."
+- **Never use filler.** "In order to" becomes "To." Drop "It is important to note that."
 - **Never use chatbot artifacts.** No "Great question!", "I hope this helps!"
 - **Never force the rule of three.** Use the number of items that's actually right.
 - **Never cycle synonyms.** Repeat the clearest term.
-- **Never end on generic positivity.** "The future looks bright" → a specific plan, number, or fact.
-- **Add soul.** Have opinions. Vary sentence rhythm. Let some structural messiness in — perfect structure reads as algorithmic.
+- **Never end on generic positivity.** "The future looks bright" becomes a specific plan, number, or fact.
+- **Vary the shape.** Repeated section skeletons read as AI even when every word is clean. Have opinions. Vary sentence rhythm.
+
+**Banned characters, no exceptions:** the section symbol, decorative emoji, and em dashes in running prose. Em dashes are allowed only in structural slots: a heading label, a definition label, a quote attribution, a tier tag.
+
+**The read-aloud test settles it.** Read a paragraph out loud. A stumble, a lost breath, or a sentence you would never say to a colleague means rewrite.
+
+**This applies to files, not only to chat.** A CONTEXT.md or a changelog entry written in slop is worse than a sloppy message, because the next agent reads it, trusts it, and inherits the register.
 
 ---
 

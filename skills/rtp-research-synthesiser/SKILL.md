@@ -1,9 +1,9 @@
 ---
 name: rtp-research-synthesiser
-version: v2.1_latest
+version: v2.2_latest
 description: On-demand intelligence synthesis skill. Reads SuperGrok X signals (daily, from Notion) and Perplexity Deep Research (weekly Saturday, from Notion), processes ONE dimension per invocation, and produces a curated digest with actionable extractions, categorised URLs, cross-temporal pattern connections, and thought leadership insights. Ravi fires this when ready — typically weekly on Sunday, but any time works. Requires ~10 invocations for full coverage across all dimensions. Use the strongest reasoning model available.
 ---
-# Grok & Perplexity Research v2.1 — On-Demand Intelligence Engine
+# Grok & Perplexity Research v2.2 — On-Demand Intelligence Engine
 
 ## Purpose
 
@@ -39,7 +39,7 @@ Daily 7:00-9:15 AM IST           Weekly Saturday 5:00-9:00 AM IST
                        ▼ (on-demand, Ravi triggers)
           ┌────────────────────────┐
           │  RESEARCH SYNTHESISER  │
-          │  (this skill, v2.0)    │
+          │  (this skill, v2.2)    │
           │  One dimension per run │
           └────────────┬───────────┘
                        │
@@ -116,6 +116,23 @@ Each invocation processes ONE dimension. A full weekly cycle requires ~10 runs.
 | Schedule Run Tracker | `556afdcb-0ff4-4e39-bf1f-03540af8ec63` |
 
 ---
+
+## Borrow the source's language (added 06 AUG 2026, from Ravi's instruction)
+
+**Every source you read is better written than the digest you are about to write.** Published research and edited journalism go through an editor. Your digest does not. So take the source's phrasing instead of inventing your own.
+
+This rule comes from a real failure. A synthesis session on 06 AUG 2026 produced thirty sections Ravi could not read. None of the words were on a banned list. They were fake-strong verbs and puffery: "bears on", "carries", "arrives", "yields", "worth naming", and a superlative in nearly every section. The agent had invented a register while fifteen professionally edited articles sat open in front of it.
+
+**Per source, log two or three of its plainest sentences.** Not the quotable ones. The ones where the author explains the mechanism in the fewest, shortest words. Then write the digest in that register.
+
+Four tests before a digest ships:
+
+1. **Length.** If your sentence about a thing is longer than the source's sentence about the same thing, use the source's.
+2. **Verb.** Keep the author's verb. "Stop" does not become "terminate". "Is" does not become "serves as" or "carries".
+3. **Direction.** Paraphrase drifts toward the fancier word, never the plainer one. Check which way you moved. Grander means wrong.
+4. **Read aloud.** Read your paragraph against a paragraph of the source. If the source sounds like a person and yours sounds like a report, rewrite yours.
+
+**Borrow the phrasing, never the claim.** A plain sentence is still a claim that needs its tier, its population and its source. And do not let the source's frame replace your own finding: the point of a synthesis is the deduction no single source makes.
 
 ## Pre-Synthesis Protocol
 
@@ -470,8 +487,8 @@ Month-end: Ravi archives processed data to Google Drive.
 
 ---
 
-*Version 2.1.0 — 5 APR 2026*
+*Version 2.2.0 — 06 AUG 2026*
 *Author: Ravi Teja Palanki*
 *Skill Type: On-demand orchestration (reads Notion via MCP, writes curated digests)*
 *Scheduled: Sunday 9 PM IST (automated trigger — manual override always available)*
-*Previous versions: v1.0, v1.1, v2.0 archived in `versions/`*
+*Previous versions: v1.0, v1.1, v2.0, v2.1 archived in `versions/`*

@@ -1,9 +1,15 @@
 ---
 name: rtp-hbr-research
-version: v3.2_latest
-description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written — then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/09_hbr-and-journals/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with humanizer (prose pass), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
+version: v3.5_latest
+description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written — then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/09_hbr-and-journals/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with rtp-humanizer (the mandatory language gate, opened and read before the first note), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
 ---
-# HBR research synthesis engine v3.2
+# HBR research synthesis engine v3.5
+
+> v3.5 (07 AUG 2026): reuse became the default. Ravi's ruling: "I'm ok if you re-use HBR words as is as possible." Paraphrase was the norm and borrowing the rescue; it is now the other way round, because paraphrase drifts one direction only, toward the grander word, and ten paraphrases produce a note nobody can read. Added the understandability test, which outranks the anti-pattern checklist: a note can pass every word list and still be unreadable, and one did. Also added the retrofit protocol for repairing notes already written. See "Reuse is the default", "The understandability test", and "The retrofit pass".
+
+> v3.4 (06 AUG 2026): the language gate. `rtp-humanizer` is now opened and read in full before the first note of a run, and the run's opening report to Ravi names which files were opened and when. The skill had pointed at the generic `humanizer` plugin skill; it now points at Ravi's own, which supersedes it. Added the five shapes that survive a word-list pass (fake-strong verbs, superlative reaching, faux-insight setups, negative listing, robotic rhythm), because a session on 06 AUG shipped all five with zero banned words present. The editor's checklist now checks those five by name, plus the length test, the direction test and a read-aloud against the article. See "The language gate" and "Borrow the article's language".
+
+> v3.3 (05 AUG 2026): corrected the note's own part count. The skill said 13 parts in its header while requiring Parts 14 and 15 in a later section, so an agent reading the top built a note missing the two parts that feed the accumulating ledgers. It is 15 parts everywhere now. Also repointed the engine home from the June run's `Q2_2026/` subfolder to the live `_synthesis-engine/`, and named `START-HERE-NEXT-SESSION.md`, `ARTICLE-GRAPH.csv`, `queue_2026.csv` and `PROMPT-FOR-NEW-ACCOUNT.md` as the four files a cold session actually needs. No count lives in this skill's prose; derive every number from the graph.
 
 > v3.2 (30 JUL 2026): four outputs per article instead of one. A note traps its own best material, so every article now also produces a `.frameworks.md` (every named framework reproduced completely, with a plain-language legend) and a `.cases.md` (every named-company case with problem, before-state, approach, results, learnings, tier, and source link), both centralized on their own shelves so they can be browsed and compared across the corpus instead of hunted note by note. Added the two accumulating files that outlive every run, `NOVEL-INSIGHTS.md` and `OPEN-ASSUMPTIONS.md`, plus Parts 14 and 15 of the note that feed them. Added the parallel-agent rules, and five standing checks that each came from a real near-miss. Naming is now `<stem>_Note.md` on the source PDF's exact filename stem, so all four files and both index CSVs join without fuzzy matching. See "Four outputs per article", "Two accumulating files", and "Running this with parallel agents" below.
 
@@ -33,7 +39,10 @@ Inputs, the PDFs to read, one topic-shelf folder per subject:
 - any later drop lands in `3_Research/00_NEW/` first; `rtp-research-librarian` sources, dates, and shelves it into one of the folders above before this skill ever reads it
 
 Engine home and working files (the June 2026 run's own tracking; a new month's run gets its own dated subfolder alongside this one):
-- home: `3_Research/09_hbr-and-journals/_synthesis-engine/Q2_2026/`
+- home: `3_Research/09_hbr-and-journals/_synthesis-engine/` — the live run's state. **Read `START-HERE-NEXT-SESSION.md` there first; it is the one file that describes the current state of the run.** The `Q2_2026/` subfolder beside it is the June run's historical record, not current state
+- the machine-readable truth on what has been synthesised: `09_hbr-and-journals/ARTICLE-GRAPH.csv`, rebuilt from the tree and never hand-edited. **No count lives in prose. Derive every number from this file, normalising filenames to NFC on both sides**
+- the work queue, regenerated newest-first from the graph: `_synthesis-engine/queue_2026.csv`
+- the handoff for a fresh account: `_synthesis-engine/PROMPT-FOR-NEW-ACCOUNT.md`, rewritten at every session end
 - what Ravi has already written: `_synthesis-engine/Q2_2026/EXISTING-WRITING-INDEX.md`
 - year at a glance: `_synthesis-engine/Q2_2026/MASTER-TRACKER.md`
 - shipped-edits ledger: `_synthesis-engine/Q2_2026/APPLICATION-TRACKER.md`
@@ -74,7 +83,9 @@ Then inputs are the pending articles, and outputs are the routed targets named i
 4. Every edit cites the article that prompted it. No source, no edit. Edits come from what the articles actually say, not from a hunch.
 5. Sharpen, do not pad. Small, exact insertions, not rewrites. One well-aimed skill beats four that overlap. Confirm a new-skill idea across sibling articles before building it.
 
-## The note: one per article (13 parts)
+## The note: one per article (15 parts)
+
+**It is 15 parts, not 13.** Parts 1 to 13 are below. Parts 14 and 15 were added in v3.2 and are defined in their own section further down, because they are what feed the two accumulating files. A note missing 14 and 15 is incomplete.
 
 The bar is a senior AI practitioner reading for leverage. Each note has:
 
@@ -84,7 +95,7 @@ The bar is a senior AI practitioner reading for leverage. Each note has:
 4. How the article argues it: the mechanism, understood well enough to teach. Comprehension shows here.
 5. Named frameworks and models: capture these DILIGENTLY. Every named framework gets its exact name, its author and source, and its actual components or steps written out, not just a mention. A framework noted as "the author's 2x2" without its two axes and four quadrants is a failure. Frameworks are non-negotiable scaffolding: they must be complete and accurate even though the pattern analysis in part 8 is the deliverable. If the article names a model, a matrix, a set of stages, or a typology, reproduce it precisely enough that Ravi could redraw it from your note alone.
 6. Key numbers: each tagged by how solid it is (see tiers below), each with its source.
-7. Quotes worth keeping: exact wording, attributed, where a paraphrase would lose the edge.
+7. Quotes worth keeping: exact wording, attributed, where a paraphrase would lose the edge. **Plus a `### Plain lines` block holding the two or three sentences where the author explains the mechanism in the fewest words.** Those set the register for Parts 8 and 14. See "Borrow the article's language" below.
 8. Patterns and new thinking: the main job (see "The main job" above). Connections across articles, what this joins to in Ravi's existing writing, deductions no single article states, tensions between sources (note which one wins and why), patterns forming across the corpus. A note whose part 8 only restates the article is incomplete. This is the section an editor reads to learn something they did not already know.
 9. Where it goes (three places): the exact skill plus the precise insertion; the exact website article to refine plus what to add; the playbook section plus the nuance.
 10. New or already written: checked against `EXISTING-WRITING-INDEX.md`. Name the article or section it sharpens.
@@ -98,7 +109,7 @@ A note alone traps its own best material. The framework sits in Part 5 where nob
 
 | file | location | what it is for |
 |---|---|---|
-| `<stem>_Note.md` | beside the source PDF, in its topic shelf | the 13-part note: interpretation, mechanism, patterns, routing |
+| `<stem>_Note.md` | beside the source PDF, in its topic shelf | the 15-part note: interpretation, mechanism, patterns, routing, novel insights, open assumptions |
 | `<stem>.frameworks.md` | `09_hbr-and-journals/_frameworks/` | every named framework, reproduced completely, each with a plain-language legend |
 | `<stem>.cases.md` | `09_hbr-and-journals/_case-in-point/` | every named-company case, with problem, before-state, approach, results, learnings, tier, and source link |
 | `<stem>-card.md` | beside the note | the Application Card (see "The apply loop") |
@@ -119,7 +130,7 @@ Why this matters more than it looks: a person reading 200 files holds about seve
 
 ## Part 14 and Part 15 of every note (added v3.2)
 
-The 13 parts stay. Two more are now required, and they are what feed the accumulating files:
+Parts 1 to 13 stay. Two more are required, making 15 in total, and they are what feed the accumulating files:
 
 **14. Novel insights, reasoned from first principles.** Not a restatement of the article and not a restatement of Part 8's patterns. This is the deduction the article makes possible but does not make: the connection to a second article, the claim that follows from joining two facts, the reframe that changes what the reader would build. Each one gets a falsifier. If the article genuinely supports no novel deduction, write "None beyond Part 8" and mean it, rather than manufacturing one.
 
@@ -164,6 +175,81 @@ Wherever a real company is named (Walmart, Klarna, Intercom, Cloudflare, Microso
 - When in doubt, do the research. Run WebSearch or WebFetch before the claim ships. If a number is disputed or you cannot ground it, mark it [VERIFY] or soften it to a general pattern. Never pass it through as fact. (The "MIT 95%" miss is the lesson: a viral stat that contradicted Ravi's own writing.)
 - Prefer the exact record over the article's wording. If HBR says "killed" and the primary source says "scaled back," cite the precise truth and note the gap. It usually sharpens the point.
 
+## Borrow the article's language (added 06 AUG 2026, from Ravi's instruction)
+
+**HBR and MIT Sloan copy is professionally edited. The article almost always says the thing more plainly than the note does.** So stop inventing phrasing. Take the author's.
+
+This rule exists because of a real failure. A session on 06 AUG 2026 wrote thirty batch sections and Ravi could not read them. The words were not on any banned list: "bears on", "carries", "arrives", "yields", "worth naming", plus a superlative in almost every section. Fake-strong verbs and puffery. The agent had invented its own register instead of borrowing the one sitting in front of it, in fifteen professionally edited articles.
+
+**Part 7 captures quotes worth keeping, meaning the memorable ones. Add a second job: capture the article's PLAINEST sentences.** Not the quotable line. The sentence where the author explains the mechanism in the fewest, shortest words. Log two or three per article under a `### Plain lines` sub-heading in Part 7.
+
+Real examples, all from the Jul-2026 batch, all better than anything a synthesis would have produced unaided:
+
+> "Trust is not a feature. It is the foundation."
+> "Skip discovery, and you automate the wrong experience."
+> "Green still means go, red still means stop."
+> "A security problem dressed as a design problem."
+> "Trust is built less by impressive outputs and more by honest boundaries."
+> "The more capable they are, the more they absorb, until the best of them leave."
+
+**Then use that register when you write Parts 8 and 14.** Short verbs. Concrete nouns. One clause where three would fit.
+
+### The four tests
+
+1. **Length test.** If your sentence about a thing is longer than the article's sentence about the same thing, use the article's.
+2. **Verb test.** Keep the author's verb. If they wrote "stop", do not write "terminate". If they wrote "is", do not write "serves as" or "carries".
+3. **Direction test.** Paraphrase always drifts toward the fancier word, never the plainer one. So when you paraphrase, check which direction you moved. If it got grander, you got it wrong.
+4. **Read-aloud test.** Read your Part 8 out loud against a paragraph of the article. If the article sounds like a person and your note sounds like a report, rewrite the note.
+
+**One thing this rule does not license.** Do not smuggle the author's *claim* in while borrowing their *words*. A plain sentence is still a claim that needs its tier, its population and its source. Borrow the phrasing, keep the evidence discipline.
+
+**And do not flatten a genuine finding into the article's frame.** The whole point of Part 8 is the deduction the article does not make. Say that in the article's plain register, not in the article's argument.
+
+### Reuse is the default, not the fallback (Ravi's ruling, 07 AUG 2026)
+
+His words: "I'm ok if you re-use HBR words as is as possible."
+
+That settles a question the earlier version left open. Paraphrasing was treated as the norm and borrowing as a rescue. It is the other way round. **When the article has already said it well, use its sentence.** Quote it if it is distinctive, lift the phrasing if it is plain. Invent wording only where you are saying something the article does not say, which is Parts 8 and 14.
+
+The reason is mechanical, not stylistic. Every paraphrase is a chance to drift, and paraphrase drifts one direction only, toward the grander word. Ten paraphrases produce ten small upgrades in register and a note nobody can read. Reuse has no drift.
+
+**What still needs your own words:** the deduction in Part 8, the novel insight in Part 14, the routing in Part 9, the break conditions in Part 12. Those are yours because the article does not contain them. Everything describing what the article says can be the article's own language.
+
+**What reuse does not license:** borrowing the author's *claim* along with their words. A plain sentence is still a claim that needs its tier, its population and its source.
+
+### The understandability test, which outranks the checklist
+
+The bar is not "passes the anti-pattern list." A note can pass every list and still be unreadable, and one did: on 06 AUG 2026 thirty batch sections cleared every banned word and Ravi could not read them.
+
+**So the test is a person, not a list.** Hand the paragraph to a smart operator who has not read the article. Do they understand it on first read? If they have to go back to the start of the sentence, rewrite it. Length, clause count and abstraction are what break comprehension, and none of them appear on a word list.
+
+Three questions per paragraph, in this order:
+
+1. **Would I say this out loud to a colleague?** If not, it is not written yet.
+2. **Is any sentence of mine longer than the article's sentence about the same thing?** Then use the article's.
+3. **Can I cut a clause with no loss?** Then it was not carrying anything.
+
+## The retrofit pass (repairing notes already written)
+
+A retrofit is a re-read of finished synthesis files against their source articles, to fix language, tone and wording. It is not a slop-word sweep, and running it as one is the mistake that made it necessary.
+
+**Tracker:** `_synthesis-engine/RETROFIT-TRACKER.md`, generated from disk by `tools/build-retrofit-tracker.py`. The file list is never hand-edited. Status lives in `tools/retrofit-state.json` so a rebuild cannot lose completion state. Mark each file done as you finish it, not at the end of a batch, because agents die mid-flight and an unmarked finished file gets redone.
+
+**Never mass-edit a retrofit.** A regex across 400 files cannot tell a paraphrase that drifted from the author's own sentence, and it cannot read. The unit of work is one file with its article open beside it. Mechanical sweeps are legitimate only for a banned character with a deterministic replacement, and even then every distinct transformation gets previewed before anything is written.
+
+**Per file, in order:**
+
+1. Open `rtp-humanizer` in full, once per session.
+2. Open the synthesis file and its source article. The article is beside the note, same filename stem, `.pdf` or `.txt`.
+3. Read the note against the article, paragraph by paragraph. You are looking for two things: sentences that are harder than the article's sentence about the same thing, and sentences that say less than they appear to.
+4. Replace invented phrasing with the article's, per "Reuse is the default".
+5. Apply the understandability test to every paragraph you touched.
+6. Log the file in the tracker with whether you opened the source.
+
+**What a retrofit must never change:** a number, a population, an evidence tier, a `[VERIFY]` tag, a quotation, an article key, a path, a routing target, or any claim. If an edit would change what a sentence asserts, stop and leave it. Prose only.
+
+**A note on self-review blocks.** Several notes carry a line listing the banned words they checked for. Those are mentions, not uses, and editing them changes what the check claims. Leave them and whitelist them in the detector instead.
+
 ## The writing standard
 
 The test for every line: an editor reads it and finds nothing to change. This is what makes the orchestrator good not just at AI but at teaching AI, with authority.
@@ -176,9 +262,22 @@ The voice, named once so every card and every applied edit carries it: the world
 - Nuance without hedging. "This holds when X. It breaks when Y."
 - Authority comes from precision, not adjectives. Cut "extremely" and "massive." State the thing exactly.
 
+## The language gate, run before you write (added v3.4, 06 AUG 2026)
+
+**Two files get opened and read in full before the first note of a run is written. Not recalled, opened.**
+
+1. `2_Skills/writing/rtp-humanizer/SKILL.md` — Ravi's version, which supersedes the generic `humanizer` plugin skill. It carries the banned characters, the cut-list and 16 named patterns.
+2. The article itself, for its plain lines, per "Borrow the article's language" above.
+
+**Why this is a gate and not advice.** It was advice twice in this file and it still failed. The 06 AUG 2026 session worked from a memorised word list, avoided every banned word, and shipped thirty unreadable batch sections: "bears on", "carries", "arrives", "yields", "worth naming", a superlative per section, and the same three-beat skeleton thirty times. **A word list catches words. The patterns that break a note are shapes.** Only the skill lists the shapes.
+
+**Order matters.** Read the skill first, then read the article's plain lines, then write. Reversing this produces a note that gets cleaned afterwards, and cleaning afterwards is what produced the 06 AUG failure: the surface was scrubbed and the register underneath was still invented.
+
+**Two lines belong in every run's opening report to Ravi:** which two files were opened, and the timestamp. "Ran the humanizer" without that is the exact claim the failed session made all day.
+
 ## How not to write (anti-patterns)
 
-The skill preaches clean prose, so it must follow it. These are the tells that mark writing as AI-generated. Strip them from the notes and from anything the notes feed. Full reference: the `humanizer` skill (24 patterns from Wikipedia's "Signs of AI writing").
+The skill preaches clean prose, so it must follow it. These are the tells that mark writing as AI-generated. Strip them from the notes and from anything the notes feed. **Full reference: `2_Skills/writing/rtp-humanizer/SKILL.md`, which is Ravi's own and supersedes the generic `humanizer` plugin skill.** The list below is the floor. The skill is the gate.
 
 - No em dashes. This is the most common tell. Use a comma, a period, a colon, or parentheses instead. (Same for the spaced-hyphen used as a dash.)
 - No AI vocabulary: delve, underscore, intricate, robust, landscape (as a metaphor), testament, showcase, vibrant, tapestry, foster, garner, enhance, additionally, crucial, pivotal, vital, seamless. Plain words instead.
@@ -194,6 +293,14 @@ The skill preaches clean prose, so it must follow it. These are the tells that m
 - No filler: "in order to" becomes "to," "due to the fact that" becomes "because," "it is important to note that" becomes the point itself.
 - No generic upbeat endings ("the future looks bright"). End on a specific fact, number, or move.
 - Add a pulse. Clean is not enough. Have an opinion, vary sentence length, name the real feeling, let one honest aside through. Voiceless writing reads as AI too.
+
+**The five shapes that survive a word-list pass** (all five shipped on 06 AUG 2026 with zero banned words present):
+
+- **Fake-strong verbs.** "Bears on", "carries", "arrives", "yields", "speaks to". Write "affects", "has", "comes from", "means". If "is" works, use "is".
+- **Superlative reaching.** "The sharpest result", "the most consequential correction", "the cleanest specimen". One move repeated until it means nothing. State the finding and stop.
+- **Faux-insight setups.** "Worth naming rather than filing quietly", "the part everyone misses", "what this actually shows". Make the claim stand alone.
+- **Negative listing and dramatic fragmentation.** "Not flagged, not escalated. Stopped." Say what happened.
+- **Robotic rhythm.** Thirty sections built as claim, then "Why this matters", then a falsifier. Identical skeletons read as AI even when every word is clean. Vary the section shape across a batch.
 
 Final pass on every note: ask "what still makes this read like AI?" Name the remaining tells, then cut them.
 
@@ -247,7 +354,7 @@ Retired: a `1_hbr-ai-2026/` tree with per-quarter folders and a nested `hbr-synt
 
 Stage 0, frame the run. Recount the corpus (folders drift, so count again instead of trusting an old listing). Group the articles into clusters of about seven to ten for the readers. Build or refresh `EXISTING-WRITING-INDEX.md`. Write the run's `TRACKER.md` with the month's objective stated plainly and every article as a row.
 
-Stage 1, read and write up (in parallel, by cluster). One reader per cluster reads its PDFs in full and writes one 13-part note each, to the writing and citation bar. Patterns collect in `synthesis/RUNNING-PATTERNS.md` as they show up (three or more articles makes a rule candidate, two makes a hypothesis, one that is strong gets a "watch"). A coverage reader then checks that every tracker row has a note. For a large corpus, run the readers as bounded cluster jobs with a check after each, never one giant run.
+Stage 1, read and write up (in parallel, by cluster). One reader per cluster reads its PDFs in full and writes one 15-part note each, to the writing and citation bar. Patterns collect in `synthesis/RUNNING-PATTERNS.md` as they show up (three or more articles makes a rule candidate, two makes a hypothesis, one that is strong gets a "watch"). A coverage reader then checks that every tracker row has a note. For a large corpus, run the readers as bounded cluster jobs with a check after each, never one giant run.
 
 Stage 1b, the humanizer pass (required, on the output). Run every note through the `humanizer` skill before it counts as done. The goal is writing that reads like a human analyst's notebook, not AI output. The rigor, the numbers, the citations, and above all the pattern analysis stay exactly as they are. Only the slop goes: em dashes, AI vocabulary, copula avoidance, inflated significance, forced threes. Quality is unchanged. Readability goes up.
 
@@ -349,9 +456,15 @@ Evidence:
 - Does every named company carry the exact claim, the date, and a primary inline link? Were the claims that carry weight web-verified?
 - Where the article's wording is looser than the record, did I cite the precise truth and note the gap?
 
-Writing (the humanizer pass ran):
-- Zero em dashes. None of the AI vocabulary. No copula avoidance, no inflated significance, no forced threes, no inline-header lists where prose works.
+Writing (the language gate ran):
+- Was `rtp-humanizer` opened and read this session, before the first note was written? Name when. A remembered word list is not the gate.
+- Does Part 7 carry a `### Plain lines` block with two or three of the author's plainest sentences, and do Parts 8 and 14 use that register?
+- Zero em dashes in running prose. Zero section symbols. None of the AI vocabulary. No copula avoidance, no inflated significance, no forced threes, no inline-header lists where prose works.
+- **The five shapes checked by name:** fake-strong verbs, superlative reaching, faux-insight setups, negative listing, robotic rhythm. Checking for banned words does not check for these.
+- Length test against the article: is any sentence of mine longer than the article's sentence about the same thing?
+- Direction test: where I paraphrased, did the wording get plainer or grander? Grander means rewrite.
 - Plain words. Real examples that carry the idea. Sentence-case headings, straight quotes, no decorative emojis.
+- Read one paragraph of the note aloud against a paragraph of the article. If the article sounds like a person and the note sounds like a report, rewrite the note.
 - Does it read like a sharp human analyst wrote it, with a point of view, or like clean AI filler?
 
 Coverage:
