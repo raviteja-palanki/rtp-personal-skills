@@ -1,6 +1,6 @@
 ---
 name: rtp-research-librarian
-version: v1.0_latest
+version: v1.1_latest
 description: >
   File new third-party material into 3_Research correctly, and keep the library's map honest. Triggers whenever
   anything lands in 3_Research/00_NEW/, when Ravi says "file this", "organize this", "I've added resources", or when
