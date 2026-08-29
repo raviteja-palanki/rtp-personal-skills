@@ -1,16 +1,7 @@
 ---
 name: rtp-purpose-dialogue
-version: v1.1_latest
-description: >
-  Connect an AI initiative to what people actually believe — because people commit to what they help shape and merely
-  comply with what they're told. The trap isn't a weak purpose statement; it's broadcasting a good one and calling it
-  alignment. Covers the LISTEN → CONNECT → CHALLENGE → CO-CREATE sequence, the designed-vs-effective gap (leaders report
-  dialogue, teams report broadcast), and the failure mode nobody names: running the ritual of dialogue to ratify a
-  decision already made. Use when adoption stalls though the technology works, when the case for AI is all efficiency and
-  no meaning, or when folding AI into core values. Do NOT use for low-stakes internal tools, or when resistance is really
-  a broken psychological need (needs-guard) or a product-quality problem.
-  Pairs with: needs-guard (which need is threatened), adoption-launch (the phased motion), problem-type (is it adaptive),
-  alignment-check (is purpose structurally connected), vision-setting (the destination).
+version: v1.2_latest
+description: 'Connect an AI initiative to what people actually believe, because people commit to what they help shape and merely comply with what they''re told. The trap isn''t a weak purpose statement; it''s broadcasting a good one and calling it alignment. Covers the LISTEN → CONNECT → CHALLENGE → CO-CREATE sequence, the designed-vs-effective gap (leaders report dialogue, teams report broadcast), and the failure mode nobody names: running the ritual of dialogue to ratify a decision already made. Use when adoption stalls though the technology works, when the case for AI is all efficiency and no meaning, or when folding AI into core values. Do NOT use for low-stakes internal tools, or when resistance is really a broken psychological need (needs-guard) or a product-quality problem. Pairs with: needs-guard (which need is threatened), adoption-launch (the phased motion), problem-type (is it adaptive), alignment-check (is purpose structurally connected), vision-setting (the destination).'
 imports: [first-principles, alignment-check]
 ---
 
@@ -120,7 +111,9 @@ Move from "why" to "how," and let the team own part of the how.
 - "What would have to be true for you to trust its output?"
 - "What should we watch to know whether this is working?"
 
-**Why it works:** ownership is the difference between commitment and compliance — people defend what they helped build. **When wrong:** if the answers can't influence anything, this becomes the consent-manufacturing trap above. Hand over decisions that are genuinely open, and be explicit about which ones aren't.
+**A concrete format for this move: the invitation to play.** ⚠ Source: one HBR piece on continuous-change skills, evidence quality unclear. Treat this as a reusable structure, not a proven-effective one. Open the floor with an unrestricted invitation: any employee can propose an idea, self-selected, no manager gate. Bound it to a fixed window, two to four weeks, so it does not drift into a permanent suggestion box nobody closes. Require every idea to clear two tests before it gets a hearing: it must be sized, a rough cost or effort estimate, and it must be demonstrated, shown working even roughly, rather than just argued for in a meeting. Sizing and demonstrating are what separate this from a brainstorm. They make the proposer spend real effort before asking for yours.
+
+**Why it works:** ownership is the difference between commitment and compliance: people defend what they helped build. **When wrong:** if the answers can't influence anything, this becomes the consent-manufacturing trap above. Hand over decisions that are genuinely open, and be explicit about which ones aren't. The invitation-to-play format has its own failure mode: a window with no sizing-and-demo requirement collapses back into an idea-collection exercise, which is the CO-CREATE version of consent-manufacturing.
 
 ## DESIGNED VS EFFECTIVE DIALOGUE
 

@@ -1,9 +1,11 @@
 ---
 name: rtp-hbr-research
-version: v3.5_latest
-description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written — then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/09_hbr-and-journals/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with rtp-humanizer (the mandatory language gate, opened and read before the first note), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
+version: v3.6_latest
+description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written, then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/09_hbr-and-journals/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with rtp-humanizer (the mandatory language gate, opened and read before the first note), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
 ---
-# HBR research synthesis engine v3.5
+# HBR research synthesis engine v3.6
+
+> v3.6 (07 AUG 2026): the quote gate. Six of six retrofit batches broke the quote rule while believing they had followed it, and the only check that caught it was a byte-diff of every quoted span against the pre-edit copy. That diff is now mandatory, along with a digit-stream diff. Also separated quote drift against the source PDFs into its own workstream: roughly thirty quotations across ten notes do not match their article, some introduced by mechanical sweeps reaching inside quote marks. See "The quote gate" and "Quote drift is its own workstream".
 
 > v3.5 (07 AUG 2026): reuse became the default. Ravi's ruling: "I'm ok if you re-use HBR words as is as possible." Paraphrase was the norm and borrowing the rescue; it is now the other way round, because paraphrase drifts one direction only, toward the grander word, and ten paraphrases produce a note nobody can read. Added the understandability test, which outranks the anti-pattern checklist: a note can pass every word list and still be unreadable, and one did. Also added the retrofit protocol for repairing notes already written. See "Reuse is the default", "The understandability test", and "The retrofit pass".
 
@@ -249,6 +251,35 @@ A retrofit is a re-read of finished synthesis files against their source article
 **What a retrofit must never change:** a number, a population, an evidence tier, a `[VERIFY]` tag, a quotation, an article key, a path, a routing target, or any claim. If an edit would change what a sentence asserts, stop and leave it. Prose only.
 
 **A note on self-review blocks.** Several notes carry a line listing the banned words they checked for. Those are mentions, not uses, and editing them changes what the check claims. Leave them and whitelist them in the detector instead.
+
+### The quote gate, the most repeated failure on this job
+
+**Six of six retrofit batches broke the quote rule while believing they had followed it.** Two caught eight and four of their own only because they ran a diff. Without it, every breach ships.
+
+**The mechanism is always the same.** You split a long sentence. A quotation that sat mid-sentence now ends the new one. The comma inside the quote marks looks wrong, so you make it a period. You have edited the author's words. The same pull capitalises a lowercase opening, drops a question mark, and swaps a colon for a period.
+
+**So copy the file before editing and diff both streams before reporting:**
+
+```bash
+cp "<note>" /tmp/pre_<name>
+# ...edit...
+diff <(grep -o '"[^"]*"' /tmp/pre_<name>) <(grep -o '"[^"]*"' "<note>")     # quotes
+diff <(grep -o '[0-9][0-9.,%]*' /tmp/pre_<name>) <(grep -o '[0-9][0-9.,%]*' "<note>")   # digits
+```
+
+Both must return nothing. Revert a breach by restructuring the host sentence, never by adjusting the quote. **Revert even when your version matches the PDF better than the note does**, because a quote correction is a claim correction and hiding one inside a wording pass makes it invisible to review.
+
+**Three things wear quote marks and only the first is protected:**
+
+- **A source quotation.** Absolute, punctuation included.
+- **The note's own scare-quoted shorthand.** Not from any article. May be rewritten away with its sentence. Check the PDF before deciding.
+- **Ready-to-paste website copy in a Part 9 insertion block.** The marks are functional. Keep them, split inside them.
+
+### Quote drift is its own workstream, not retrofit work
+
+Roughly thirty quotations across ten notes do not match their source article: a comma for a period, a capitalised opening, a dropped question mark, an ellipsis hiding a cut clause. Some were introduced by mechanical sweeps that reached inside quote marks, which is the strongest argument in this file against mass edits.
+
+**Never repair these during a retrofit.** They need a pass with the PDF authoritative and every change logged, because each one is a claim correction. Log what you find with file, line, the note's version and the PDF's version.
 
 ## The writing standard
 

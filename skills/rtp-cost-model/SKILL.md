@@ -1,7 +1,7 @@
 ---
-name: rtp-cost-model
-version: v1.0_latest
-description: "What does your AI feature really cost — and does the math still work at 10× the usage? Maps the full cost stack (model calls, retrieval, storage, human review, eval) and prices the cost of a *successful* outcome — including failures, escalations, and the agentic call multiplier (one task now fires 10-20 calls). Owns the cost mechanics the money system needs — harness multiplier, model routing, prompt caching, batch — and hands the P90 cost-per-outcome to token-economics for pricing. Covers the Jevons trap (cheaper tokens, bigger bills), the 10× degradation table, routing ROI and its maturity ladder, eval-cost-at-scale, and the margin gate with a price-erosion stress test. Use when: pricing decisions, scaling plans, 'can we afford this' reviews. Pairs with: token-economics (how to charge), moat-finder (cost vs growth line), ship-decision (the margin gate). Triggers: 'unit economics', 'AI cost model', 'cost per outcome'"
+name: cost-model
+version: v1.3_latest
+description: 'What does your AI feature really cost, and does the math still work at 10× the usage? Maps the full cost stack (model calls, retrieval, storage, human review, eval) and prices the cost of a *successful* outcome, including failures, escalations, and the agentic call multiplier (one task now fires 10-20 calls). Owns the cost mechanics the money system needs (harness multiplier, model routing, prompt caching, batch) and hands the P90 cost-per-outcome to token-economics for pricing. Covers the Jevons trap (cheaper tokens, bigger bills), the 10× degradation table, routing ROI and its maturity ladder, eval-cost-at-scale, and the margin gate with a price-erosion stress test. Use when: pricing decisions, scaling plans, ''can we afford this'' reviews. Pairs with: token-economics (how to charge), moat-finder (cost vs growth line), ship-decision (the margin gate). Triggers: ''unit economics'', ''AI cost model'', ''cost per outcome'
 imports: [stress-test, token-economics]
 ---
 
@@ -70,6 +70,34 @@ Don't start with tokens. Start with every system that touches your feature:
 
 For each layer, ask: **At what scale does this become expensive?** Embedding costs are negligible at 1M documents but substantial at 100M. The sharper version of the scale question: *at what corpus size or query diversity does retrieval cost exceed what caching saves?*
 
+### 1A. Which Pathway Does This Saving Assume? (ask before you model anything)
+
+Before you build a cost stack for any AI-driven saving, name which of three pathways it assumes. BCG's economists sort every AI productivity claim into one of these: the same output with less input, more output with the same input, or a new business model that replaces the old one.
+
+Mechanism: all three pathways converge on the same endpoint once the AI capability behind the saving is rented and available to every competitor, because price competition erodes the saving back out of the business that captured it first. A saving built on an owned or exclusive capability, one competitors cannot rent from the same vendor, does not face that same pressure on the same timeline.
+
+So ask two questions before the cost math starts: which of the three pathways is this, and is the underlying capability rented/universal (a frontier model API any competitor can buy today) or owned/exclusive (proprietary data, a fine-tuned model, a workflow competitors cannot replicate)? A saving built on a rented, universal capability is a temporary advantage. Model it with an explicit erosion timeline. Don't book it as permanent margin.
+
+When this is wrong: a saving from a genuinely owned capability, or from a market position that blocks competitors from renting the same tool, does not erode on the same clock. Test that assumption instead of assuming rented capability always erodes and owned capability never does.
+
+*(Source: BCG economists on AI and margin, Jul 2026 — framework, not a measured statistic, no population to tier.)*
+
+### 1B. Map the Physical Energy Layer
+
+Every cost in section 1 is still, underneath, a line on a cloud invoice you can renegotiate every year. Electricity is not, and this skill has treated compute as an abstract, purchasable software cost with no physical or geographic dimension until now.
+
+Global data-center electricity use is projected to roughly double this decade: about 485 terawatt-hours in 2025, rising to 945-950 terawatt-hours by 2030 (tier: ✅ audited, IEA, cross-confirmed by trade press covering the same estimate).
+
+The pattern behind that number has a name: the Great Value Loop. AI competition's scarce layer has moved through four eras: connectivity, then attention, then intelligence and compute, and now energy and physics. Each era's scarce layer commoditizes as capital floods in to build more of it, but demand does not pause once that happens. It accelerates and presses on the next constraint underneath. This is a Jevons-paradox effect: cheaper intelligence expands the number of viable use cases faster than it cuts the energy draw per use, so the aggregate bill keeps climbing even as the unit cost falls.
+
+Mechanism, and the reason this is a genuinely different cost category than anything else in this stack: electricity is local, physically permitted, slow to add new capacity for, and politically contested, in a way cloud compute spend simply is not. You can renegotiate or switch a cloud contract inside a fiscal year. You cannot relocate a data center to a cheaper power market on the same clock, and a new substation or transmission line can take years to permit and build no matter how much capital shows up.
+
+Two metrics belong on the cost dashboard once you are tracking this layer: energy cost per workflow, and tokens or inferences produced per kilowatt-hour. Both give a unit that survives a change in which model or vendor you use, the way cost per successful outcome already does for compute.
+
+When this doesn't apply: this sub-step earns its place only for a company with real negotiating leverage and volume, large enough to consider a power-purchase agreement or a data-center site decision. A mid-size company running entirely on one cloud vendor's managed API has no practical lever over region selection or energy sourcing today, and gets little value from this analysis. That may change once vendors start exposing per-workflow energy reporting, but until they do, treat this section as a watch item rather than a modeling requirement.
+
+*(Source: Tang and Zhao, "Your Company Needs an Energy Strategy for AI's Next Phase," HBR, 4 Jun 2026 — the electricity projection is tier: ✅ audited (IEA), cross-confirmed by trade press covering the same estimate; the Great Value Loop and the Jevons-paradox mechanism are the article's own framing.)*
+
 ### 2. Build the Cost Calculation: Real Numbers
 
 Start with actual pricing. For a document search feature:
@@ -107,6 +135,35 @@ If your feature has 20% failure rate (common for RAG), the math changes dramatic
 - This is invisible in simple per-call models
 
 **Instrument this from day one, not after.** Track a **failure taxonomy** — retrieval miss, hallucination, policy violation, timeout — and the **human escalation rate**, from launch. You cannot price or fix what you cannot name. Report **cost per completed/accepted outcome** as the north-star metric to the board; "cost per call" is the vanity number that hides the problem.
+
+**The cost line everyone omits sits inside the user's own week, before any of this.** Call it botsitting: prompt attempts before a usable output, review passes, and time spent patching context the model should have had. One survey put both quantities on the same people in the same instrument: **11 hours a week automated against 6.4 hours a week botsitting.** That is **58% of the reported individual time saving consumed by the labour of making the tool produce it**, an arithmetic the article itself does not perform.
+
+Why the ratio is more defensible than either level: both figures are self-reported by the same respondents in the same survey, so the ratio cancels most of the shared optimism bias that makes each level suspect alone. The vendor's interest runs toward a larger botsitting number, so **treat 58% as a ceiling**. Even at half of it, a third of the saving is eaten before it leaves the individual's week.
+
+**What to do with it.** Botsitting hours are countable and the three components are named, so add them to the cost stack as an explicit line rather than assuming a productivity claim nets out. A feature that saves ten hours and costs six in prompt-wrangling is a different business case from one that saves ten and costs one, and nothing in a per-call model distinguishes them.
+
+**Two haircut coefficients, not one, and the coefficient depends on who produced the number.**
+
+- **Halve for a scope change inside one measuring party.** Vanguard measured about 25% for coding alone and 10 to 15% across the development life cycle. Same organisation, same underlying work, two scopes.
+- **Third for a vendor claim met by a customer's own measurement.** Vendors putting forward 15 to 20%, a firm measuring 5 to 7% on its own service lines. Tier ⚠ on the numerator, since the vendor figure is the authors' characterisation of unnamed claims, so the ratio inherits it.
+
+The general form is the useful part: **a number's inflation tracks the distance between whoever produced it and whoever pays when it is wrong.** Treat both coefficients as priors rather than findings, each resting on one case.
+
+**A modelled counterfactual is a worse denominator than a missing one.** One widely-cited speed claim rests on a manual baseline that was never observed, produced by two model-based estimates from one team on one telemetry set, which is one estimate rather than two, and the study's own users put the multiple more than three times higher than its model, one paragraph apart and unreconciled. A missing denominator invites the question. A modelled one answers it, wrongly, and stops anyone asking. **When you meet a productivity multiple, ask whether the baseline was measured or reconstructed, before you ask how big it is.**
+
+**And the caution that keeps this honest.** In the same survey, 75% of workers reported being more productive with AI while 13% reported their organisation performing significantly better. Those are **not one quantity measured twice**. Different questions, different bars, and the second asks a worker to assess something they mostly cannot see. That 6-to-1 gap is not a scope-adjusted productivity figure and must never ship as one.
+
+*(Sources: HBR, Hinds & Leonardi, "How Much Time Do Your Employees Spend Botsitting?", Aug 2026; HBR, Blangeois & Roulet, Aug 2026, for the vendor-versus-customer ratio; the Vanguard figures already carried in this library. Ledger pattern H.)*
+
+**Check what a cheap "AI-assisted review" number is quietly assuming.** An unrefereed SSRN theory paper on the "collaboration paradox" argues that assisted review looks cheaper than manual review only because its model assumes away the one review design that would actually catch AI errors. That design is independent-then-compare: a human reviews before seeing the AI's answer, then compares the two. It costs more than simple approve/reject review, so the paper's cost math leaves it out.
+
+Mechanism: approve/reject review is cheap because the human anchors on the AI's answer instead of forming an independent judgment first. That same anchoring is why approve/reject review is worse at catching AI errors. The paper's cost advantage and its blind spot come from the same assumption.
+
+So if a cost model prices "AI-assisted review" at or below the cost of pure manual review, check whether it silently assumes away the safer, costlier review design. Collaboration priced below manual cost is a warning sign, not a win.
+
+When this is wrong: for low-stakes review where an uncaught AI error costs little, approve/reject review is a legitimate design choice, and the lower price is real rather than hidden.
+
+*(Source: unrefereed SSRN theory paper on the "collaboration paradox," Jul 2026 — tier: theoretical, no data, no population; a model rather than a study.)*
 
 ### 3A. Which Budget Pays For It — The Price Ceiling
 
@@ -155,6 +212,47 @@ The degradation table above assumes *one call per task*. Agents break that assum
 **The counter — cost control is system design, not a cheaper model.** The levers that keep the multiplier manageable are architectural: **route** by complexity (cheap model for easy calls), **cache** aggressively (>70% hit rate), and **prune the harness** (early exit, fewer retries, tighter context). Production teams running billions of tokens report the same lesson: the win comes from routing + context discipline + guardrails measured against *cost per accepted outcome*, not from chasing the cheapest model (⚠ production signal).
 
 **The decision:** before you ship an agentic flow, compute cost at your *real* call multiplier, not one call. If the multiplier × per-call cost breaks the margin, the fix is fewer/cheaper calls by design — cap retries, route, cache, prune — not a model swap.
+
+### 4B. Who Sets the Terms of the Meter (read before you model any vendor-supplied AI)
+
+Everything above prices what you consume. This prices **who decides what a unit is**, which turns out to matter more, because the vendor subsidy era is ending on published dates rather than gradually.
+
+**The bill has four terms and you hold one of them.**
+
+| Term | Who sets it | Notes |
+|---|---|---|
+| Interactions per agent | the vendor's design | an agent that "thinks" more bills more |
+| Units per request | **the vendor's definition** | the dangerous one, see below |
+| Price per unit | the vendor | the only term anyone negotiates |
+| Seats and usage frequency | **you** | and only partly, once the tool is in a workflow |
+
+Setting an overall AI budget in the abstract is close to useless while three of four terms belong to someone else. **Model your elasticity instead: work out what per-unit price your actual usage could justify, then negotiate against that number.**
+
+**Units per request is the devaluation lever, and almost no contract closes it.** A vendor can raise your effective price without touching the headline rate, by changing how much work one unit buys. The honest version of the problem, from a practitioner: *"It's also unclear just how much actual work is included in each unit."* A rate card tells you the price of a unit and not the size of one. **The missing contract term: a written definition of the unit of work, fixed for the contract term, with a right to re-measure.** Ask for it explicitly. Also negotiate caps, grace periods and credit rollover, which are the terms that survive a mid-contract repricing.
+
+**The worked example, and its finding runs against the alarm around it.** Take a published structure: five AI units per basic request, 20,000 units included free per month, at an illustrative one cent per unit. Run a 10,000-employee company through it. Ten percent of staff at ten interactions a month is about **$3,600 a year**. Half the staff at the same rate is about **$27,600 a year**. Even at six figures, that is **ten to thirty dollars per employee per year**. **Per-unit token pricing at plausible enterprise usage is a rounding error against payroll.** The costs that are not a rounding error are the ones nobody meters: the human time spent running the tools, the change management, and the capability you lose when you stop doing the work yourself. Price those before you argue about the rate card.
+
+**The structural point worth carrying into any board conversation.** Deploying AI agents at scale *"structurally shifts resources from capacity it controls (employee wages) to capacity it rents (variable token consumption)."* Rented capacity reprices on someone else's calendar. Owned capacity does not. That is a balance-sheet argument rather than a budget one, and it is the reason to keep people **capable** of executing core functions even when they are not doing them daily.
+
+**One cross-source finding that changes how you size the adaptation window.** Two credible 2026 sources, twelve days apart, describe the same technology on two different clocks:
+
+- **Capability is a rising tide.** Broad, steady improvement, with the failure rate halving roughly every 2.2 to 2.8 years. Many labs improving independently smooths into a curve at the benchmark level.
+- **Price is a step function.** Subsidy withdrawal arrives as discrete vendor decisions with effective dates, made on a board's calendar under quarterly investor pressure. Nothing smooths it.
+
+**Organizations compute their adaptation window on the capability curve and get hit by the price curve.** One gives you years. The other gives you a date. Only the second one shows up on a budget, so size your runway on the repricing calendar of the vendors you actually depend on, and use the capability curve for capability decisions only.
+
+**Four finance prerequisites underneath any AI investment case.** These are ordinary corporate-finance discipline, and AI business cases routinely skip all four:
+
+1. **Alternatives-based decision-making.** What else could this capital do? In one survey of executives at 760 large organizations, only about **one in five** reported explicitly considering alternatives in strategy development.
+2. **Unit-level balance-sheet reporting.** Can you see the assets and returns at the level of the business unit making the bet?
+3. **Cost-of-equity discipline.** Have a real discount rate. A usable anchor: the average cost of equity across large public companies sits **slightly above 9%**, implying a market risk premium of roughly 4% to 4.5% over long-term government bond yields, and most large public companies fall within **plus or minus 1.5 percentage points** of that.
+4. **Scenario-based forecasting.** One number is not a forecast, and per-unit pricing with three vendor-controlled terms is exactly the case that needs a band.
+
+**The standing warning on the benefit side.** Economists linking large-scale adoption surveys to administrative payroll records found the effect on earnings and hours two years on **statistically indistinguishable from zero**, and the proposed cause is that the time saved was consumed by the work of running the tools. **So a measured task-level productivity gain does not entitle you to a line in a business case.** Between the accelerated task and the business outcome sit human steps: responding to the model's output, wiring it into existing systems, and re-entering it into the decision. Count those steps before you book the saving.
+
+*(Sources: the four-term bill, the units-per-request problem, the worked example and the rented-capacity sentence, HBR, Garr, "How to Respond to the Coming AI Cost Shock," Aug 2026 — the vendor structure is ◆ company-disclosed, the per-unit rate is the author's own illustration, and the alarming figures elsewhere in that article have the weakest provenance in it. The two-curve finding is this corpus's synthesis of Garr against MIT Sloan's FutureTech coverage, Aug 2026 ◆; neither source makes it. The finance prerequisites and the cost-of-equity band, HBR, "Bring Back Managing for Value," Aug 2026 — ◆ Bain's own analysis and methodology, not an audited figure; the 760-executive survey is ⚠ and is cited in the article without a retrievable link **[VERIFY]**. The payroll null, HBR, "4 Steps to Transform the 'Middle Office' with AI," Aug 2026 — ⚠ and worse, the underlying study is described but never named **[VERIFY: linked survey-to-payroll design, findable literature]**; carry the mechanism, not the null as a settled result. Ledger patterns H and N.)*
+
+---
 
 ### 5. Harness Cost Economics: Agent Architectures & ROI (Critical Decision Framework)
 
@@ -269,6 +367,20 @@ Most powerful in production:
 **The reality:** Combine smart routing (70% cheap model) + hybrid retrieval pruning (8 vs 20 docs) + embedding optimization = ~50% total cost reduction with acceptable quality tradeoff. On agentic flows, add orchestration pruning — it's often the biggest single lever once the call multiplier is high.
 
 **Rank levers by impact on cost per *successful outcome*, not per call** — a lever that cuts per-call cost but raises the failure rate can make the real number worse. Every aggressive lever needs a named countermeasure (evals, a reranker, or a human gate). Never use "cheaper model for everything" alone — it fails.
+
+### 5C. Fixed Setup Cost vs. Marginal Execution Cost (the averaging trap)
+
+An agent's cost has two very different components, and averaging them together overstates cost per unit until volume is high enough.
+
+Specifying and reviewing what an agent should do for a given task type is a high fixed cost: someone writes the spec, tests it, and signs off on it once per task type. Running the agent step by step after that is a low marginal cost: each additional run pays only for the calls that run makes, not for the setup work again.
+
+Mechanism: an agent's true cost advantage over a human doing the same task shows up only past a certain repetition volume, the point where the fixed setup cost has been spread across enough runs that the marginal cost dominates the average. Below that volume, the fixed cost dominates instead, and the agent can look more expensive than the process it replaced even though its marginal cost is lower.
+
+So before you compute cost per unit for an agentic workflow, separate the fixed setup line from the marginal execution line and state the volume at which you expect to cross breakeven. A cost model that blends fixed and marginal cost across a small number of runs will overstate cost per unit and can kill a project that would pay off at real scale.
+
+When this is wrong: for a one-off or rarely repeated task, there is no breakeven to reach, and the fixed setup cost is simply the real cost. Don't force an amortization argument onto a task that will only run a handful of times.
+
+*(Source: vendor study of its own agent products, Jul 2026 — tier ◆ company-disclosed/vendor-modeled; no human timed on the counterfactual, treat the cost estimates as directional, not audited.)*
 
 ### 6. Eval Cost at Scale (Hidden Product Line Item)
 

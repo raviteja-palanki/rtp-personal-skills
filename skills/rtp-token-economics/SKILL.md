@@ -1,6 +1,6 @@
 ---
-name: rtp-token-economics
-version: v1.0_latest
+name: token-economics
+version: v1.1_latest
 description: "How to charge for an AI product, where your best users are your most expensive users and the work is done by the model, not the seat. Built on six first-principles axioms (cost is power-law physics; incentives must align with value not consumption; budgets are hierarchical; margin lives in the applied/harness layer; opacity kills trust; negative margins are temporary subsidies). Answers the two questions SaaS never had to: which value metric (the six 2026 models, ranked), and which budget (software vs the ~10× salary budget). Carries the agentic value-metric decision tree, the transition arc with stage gates, spend-visibility + routing as survival infrastructure, the Default-FAIL gate for outcome pricing, a mandatory margin-floor check at P90, and 2026 case law. Consumes cost-per-outcome@P90 from cost-model; produces the pricing decision + spend-control design. Pairs with: cost-model, moat-finder, adoption-launch. Triggers: 'pricing for AI', 'how to price', 'token economics', 'per-seat is dying'."
 imports: [stress-test, red-team]
 ---
@@ -107,6 +107,22 @@ Per-seat dies because AI costs are wildly uneven across users. The response is a
 - **Leadership:** committed spend / outcome / services-as-software. Bill the salary budget.
 
 Two rules decide whether a transition costs a quarter or a customer. **Price for the actual usage profile, not the headline** (Klarna priced for "AI replaces 853 FTEs"; reality was ~65% AI / 35% human, and both sides renegotiated). **Start before per-seat fails** (Cursor's reactive flip was public and the brand paid). **The capital warning:** many high-growth products run on subsidized unit economics — plan explicitly for the day capital reprices. "We'll grow into margins" is the trap.
+
+**The subsidy is being withdrawn on published dates, and this is what a buyer sees from the other side of your price list.** Enterprise vendors absorbed GPU, inference and token cost as a customer-acquisition move, and the invoice language was "unmetered," "complimentary" or "included." Investors want the companies powering the transformation profitable, so that is unwinding. The dated facts, tiered:
+
+- Oracle includes its base model in the subscription and **charges by usage for premium models** ◆ vendor-disclosed.
+- SAP is expected to follow the same split, free simple queries and paid premium features ⚠ reported, forward-looking, no source and no date.
+- **Workday's shift has a date: 31 January 2027** ◆ disclosed, with a stated grace period ("will not charge overages for Application APIs while customers investigate and optimize their usage") explicitly designed to avoid slowing adoption. This is the best-sourced and only dated item of the three.
+
+**The framing sentence to carry into any pricing conversation, in either direction:** deploying AI agents at scale *"structurally shifts resources from capacity it controls (employee wages) to capacity it rents (variable token consumption)."* Rented capacity reprices on the vendor's calendar. That is why a grace period, a cap and credit rollover are worth more to a buyer than a rate concession, and why offering them is a real differentiator rather than a giveaway.
+
+**What this changes on your side of the table.** Your customer is now being told to model their elasticity, negotiate caps and treat your tokens as a headcount substitute. Three consequences:
+
+- **Publish a unit-of-work definition** that holds for the contract term. The buyer's sharpest question is no longer your rate. It is how much work one unit buys.
+- **Expect caps and credit rollover to become table stakes** in enterprise deals through 2027.
+- **Remember what a dated repricing feels like on their side.** It lands as a step change on their budget, even when your own cost curve moved gradually.
+
+*(Source: HBR, Garr, "How to Respond to the Coming AI Cost Shock," Aug 2026. **Note the disclosure quality, which is the batch benchmark:** the author runs an analyst firm whose consortium takes fees from more than twenty HR tech vendors including Workday, discloses it in-body at first mention naming the mechanism, and argues against the disclosed party's interest by telling buyers to negotiate caps. Every dollar figure in that article derives from **the author's own illustrative one-cent-per-unit rate**, stated openly by her and not attributed to any vendor; do not carry those dollar figures without that sentence attached. Cost-side modelling lives in `rtp-cost-model` section 4B. Ledger patterns N and H.)*
 
 ## THE PACKAGING DECISION — BUNDLE / ADD-ON / STANDALONE
 

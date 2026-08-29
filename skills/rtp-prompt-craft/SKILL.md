@@ -1,7 +1,7 @@
 ---
 name: prompt-craft
-version: v1.0_latest
-description: "How to actually write good prompts — the writing craft, not the process. Prompts are engineering artifacts, not creative writing: the craft has principles, and the counterintuitive first move is to write what the model CANNOT do (hard constraints) before what it should, because LLMs are more consistent at avoiding specific patterns than following general positive ones. Covers the 6-step framework, technique selection, cost-per-success, and the vibe-coding PRD→prototype pattern. Distinct from prompt-as-product (versioning/deployment) and context-spec (what information reaches the window). Use when writing or improving a system prompt, or debugging why one underperforms. Do NOT use when the problem is task decomposition or a model capability gap, not wording. Pairs with: prompt-as-product (the lifecycle), context-spec (the architecture), eval-framework (measures both), judgment-guard (shared make-tacit-explicit backbone). Triggers: 'write a prompt', 'improve this prompt', 'system prompt', 'few-shot'."
+version: v1.1_latest
+description: 'How to actually write good prompts: the writing craft, not the process. Prompts are engineering artifacts, not creative writing: the craft has principles, and the counterintuitive first move is to write what the model CANNOT do (hard constraints) before what it should, because LLMs are more consistent at avoiding specific patterns than following general positive ones. Covers the 6-step framework, technique selection, cost-per-success, and the vibe-coding PRD→prototype pattern. Distinct from prompt-as-product (versioning/deployment) and context-spec (what information reaches the window). Use when writing or improving a system prompt, or debugging why one underperforms. Do NOT use when the problem is task decomposition or a model capability gap, not wording. Pairs with: prompt-as-product (the lifecycle), context-spec (the architecture), eval-framework (measures both), judgment-guard (shared make-tacit-explicit backbone). Triggers: ''write a prompt'', ''improve this prompt'', ''system prompt'', ''few-shot''.'
 imports:
   - determinism-compass
   - prompt-as-product
@@ -58,6 +58,21 @@ Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). 
 ## THE REASONING TRAIL — turn a correction into compounding calibration
 
 Ship a three-line trail with any AI-assisted output: **(1)** what the AI produced first, **(2)** what you changed and why, **(3)** one calibration sentence naming where in *this* domain the AI is strong and where it's shaky ("good at X, unreliable on Y"). It works for any human-AI handoff — a prompt output, a code review, an eval writeup, an agent-output audit — because it captures the *delta between your criteria and the model's answer*, which is the reusable lesson. This is the same discipline as the prompt itself: **making tacit criteria explicit enough for a system (or a colleague) to act on** — the shared backbone with `judgment-guard`. *When wrong:* the trail only pays off if a manager actually reads it for coaching; rubber-stamped, it's documentation nobody reads. *Evidence:* conceptual; the "jagged frontier" calibration idea is ✅ Dell'Acqua/Mollick et al., HBS 24-013. *(Secondary application of HBR q2-20; primary home is judgment-guard's forced-pre-articulation checkpoint.)*
+
+## EXPLORATION PROMPTING — asking against the model's default pull
+
+Models, like the search systems they inherit from, run on exploitation logic. They return the popular, the relevant and what your history predicts you want. That is right for most tasks and wrong for the one task where you need range: generating options nobody in the room would have reached alone.
+
+**Two moves, and they are the whole technique:**
+
+1. **Ask for approaches from unrelated industries.** Not "give me more ideas," which returns more of the same neighbourhood. Name the distance: *"How would this problem be solved in shipping logistics? In hospital triage? In competitive gaming?"* The value comes from the transfer, not the domain.
+2. **Ask the model to challenge the dominant assumption in its own first answer.** *"What assumption is your answer resting on that most people in this field would not question? Argue the other side."* This is a second pass on the same output rather than a new prompt, which matters because the first answer supplies the assumption to attack.
+
+**Mark this untested and say why.** The evidence behind it comes from **retrieval**, where changing a search algorithm to surface semantically distant results produced measurably more diverse ideas: experts generated 5 distinct solution clusters against 2 on standard search. **Nobody has tested the same intervention in a generation setting.** A prompt asking for distant material and a retrieval system returning distant material are different mechanisms, and the model may simply produce a plausible-sounding version of unfamiliar rather than actually reaching further. Use these prompts, and do not claim they are validated.
+
+**The group-level rule that matters more than either prompt.** If several people are researching the same question, **do not put them all on the same shared query path.** They will be routed to the same material independently and produce similar answers while believing their independence produced diversity. Diverge on retrieval, converge on review. See `rtp-uncertainty-research` for the design and `rtp-bias-spotter` for the detection method.
+
+*(Source: MIT SMR Research Highlight, Aug 2026 — ◆ non-refereed, written by the researchers, underlying paper unnamed; field n=245 across at least four cells, cluster counts reported without dispersion or test. The transfer from retrieval to prompting is this corpus's hypothesis and is explicitly flagged as untested.)*
 
 ## VIBE-CODING — PRD to prototype in ~10 minutes (a thinking tool, not a product)
 

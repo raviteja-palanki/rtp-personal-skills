@@ -1,7 +1,7 @@
 ---
 name: ai-product-metrics
-version: v1.0_latest
-description: 'Pick the leading indicators that actually predict AI product health — acceptance, correction, regeneration, conversational burden, cost-per-successful-outcome, and the 5-stage AI funnel (Surfaced -> Invoked -> Completed -> Accepted -> Retained) — because DAU and retention are lagging indicators that miss model regressions. Also carries the two moves most metrics decks skip: reading the dashboard as a demand-signal aggregator (evals as discovery), and the executive-translation layer that turns an eval-score move into the business number a CFO/GC/COO/CHRO acts on. Use when designing an AI metrics dashboard, debugging why DAU is stable but users complain, mapping North Star + AARRR for AI, or translating eval scores for a board. Pairs with: eval-framework, feedback-flywheel, confidence-tuner (is the judge trusted), cost-model/token-economics, stakeholder-communications, fit-signal. Triggers: "AI metrics", "North Star metric", "acceptance rate", "AI funnel", "cost per successful outcome".'
+version: v1.3_latest
+description: 'Pick the leading indicators that actually predict AI product health: acceptance, correction, regeneration, conversational burden, cost-per-successful-outcome, and the 5-stage AI funnel (Surfaced -> Invoked -> Completed -> Accepted -> Retained). DAU and retention are lagging indicators that miss model regressions. Also carries the two moves most metrics decks skip: reading the dashboard as a demand-signal aggregator (evals as discovery), and the executive-translation layer that turns an eval-score move into the business number a CFO/GC/COO/CHRO acts on. Use when designing an AI metrics dashboard, debugging why DAU is stable but users complain, mapping North Star + AARRR for AI, or translating eval scores for a board. Pairs with: eval-framework, feedback-flywheel, confidence-tuner (is the judge trusted), cost-model/token-economics, stakeholder-communications, fit-signal. Triggers: "AI metrics", "North Star metric", "acceptance rate", "AI funnel", "cost per successful outcome".'
 imports:
   - eval-framework
   - feedback-flywheel
@@ -54,6 +54,9 @@ Each era layers on; it doesn't replace the prior one. Name where your dashboard 
 - **Value chain (enablement → creation → realization)** — asset quality (before use) → usage → revenue; the causal spine a dashboard should be ordered on.
 - **Goodhart's law / anti-metric** — when a measure becomes a target it stops being a good measure; build metrics that resist being gamed.
 - **Instrument blindness** — when the measure you already collect (e.g. satisfaction) is the one least able to detect the problem you care about.
+- **Deflation-blind ratio** — an efficiency metric (revenue-per-employee, ARR-per-FTE, tokens-per-task) with no price term, so it rises whenever a rented AI capability's gains get passed through to customers as lower prices instead of captured as margin.
+- **Modeled counterfactual denominator** — a "time saved" or "cost saved" baseline estimated from the AI's own action steps rather than measured from an actual human doing the task; treat it as unverified no matter how precise the resulting percentage looks.
+- **Rational disengagement** — a reviewer who, once AI reliably clears the acceptance bar, optimally reduces review effort toward zero; this looks identical to genuine improvement without a seeded check.
 
 ## THE TRAP
 
@@ -78,6 +81,87 @@ You measure eval accuracy at 94%. Users say the product is broken. Why?
 **The "Satisfaction Blindness" Trap**
 
 A satisfaction/CSAT score cannot detect persona-driven harm — and for an AI-as-teammate surface (a writing critic, a code-review bot, an automated feedback tool) it is, in a controlled study, the *least sensitive* channel to that harm. High adoption and high friction routinely coexist: people keep using a tool they *have* to use while quietly working around it, and report neutral satisfaction the whole time. So pair any satisfaction number with a **friction proxy** as a required check, not a nice-to-have: turn-length ratio, rephrase rate, and override/argue-attempt rate. If friction rises while satisfaction stays flat, believe the friction. *(When wrong: these log proxies are once-removed from the underlying evidence and aren't validated to correlate at equal strength — a directional check, not proof. Source: "Does Your AI Have a Personality Problem?", HBR, 24 Jun 2026; self-report null + friction signals ◆.)*
+
+**The "Premature Fluency" Trap**
+
+A causal chain can sound complete and still be entirely unmeasured. "Cognitive load slows focus, focus loss slows decisions, slow decisions raise errors, errors cost revenue" is four links long, and any one of them might have no number behind it. Fluent prose and measured evidence use the same sentence shape, so a reader, including the person writing it, cannot tell them apart by feel alone; stating the chain well suppresses the instinct to ask what was actually checked. Before citing a multi-step causal claim on a dashboard or in a deck, name which link, if any, has a real measurement attached. *(When wrong: an unmeasured chain can still be the right call to act on if it's the best available reasoning and is labeled as a belief, not a finding. The failure is presenting it as measured when it isn't.)*
+
+A related instrument gap: self-report measures of cognitive load or burnout tend to underreport exactly where the problem is worst, because the people most affected are often the least able to step back and describe it. Where you can, pair self-report with a behavioral substitute: after-hours message volume, calendar fragmentation, or the number of open work surfaces at once. None of these prove causation alone, but they move independently of how someone feels that day, which self-report does not.
+
+*(Source: an HBR article on invisible mental workload, 2026 — the article makes no quantitative claims of its own; the mechanism is cited here, not any figure.)*
+
+**The "Two Opposite Causes" Trap**
+
+A number moved in the direction you wanted. Before you report it, ask what else produces that same movement.
+
+The worked example is an accounts-payable deployment. Median approval time fell from **17.4 days to 3.1 days** and the **exception rate fell from 22% to 9%**, and the write-up reads both as the system working. The time figure probably is. The exception rate has two causes that point in opposite directions:
+
+1. The system genuinely handles more cases correctly, so fewer become exceptions. Good.
+2. The system stopped **recognising** that a case was exceptional, and resolved it silently. Bad, and it produces exactly the same number.
+
+**These are indistinguishable on the rate alone.** What separates them is whether the system can still detect its own boundary, which is a different measurement: sample the resolved cases that would previously have escalated, and have a human grade them. If the boundary detection has degraded, a falling exception rate is the sound of errors being absorbed rather than caught, and every downstream provenance record now makes the wrong answer permanent.
+
+**The general form, and it applies well beyond exceptions.** Any metric where "the system handled it" and "the system failed to notice it needed a human" produce the same reading needs a second instrument before it can be reported. Approval rate has the same defect: **a falling approval time with a flat approval rate is process improvement; a falling approval time with a rising approval rate is the gate dissolving**, and the time figure alone cannot tell you which happened. Publish both fields or neither.
+
+*(Source: HBR, "4 Steps to Transform the 'Middle Office' with AI," Aug 2026 — ⚠ the AP figures are an industry survey cited without population or method, and the article draws the favorable reading without naming the alternative. The two-cause reading is this corpus's, and it is checkable against any exception log.)*
+
+**The "Metric Ran Out of Range" Trap**
+
+This one is not noise and it is not drift. The metric has stopped having anywhere to point.
+
+When the model alone performs near your acceptance standard, differences between people collapse into the ceiling. Everyone ships acceptable work, so an output-measured metric can no longer tell a strong operator from a weak one. **The tell is that acceptance rate went up and quality conversations got harder at the same time.**
+
+**The antecedent is the task, not the domain, and this is the part that makes it usable.** In one field experiment, between-person spread on conceptualisation collapsed from 0.80 unassisted to **0.13** assisted, while spread on writing stayed at **0.58** assisted. Same people, same firm, same tool, same raters, same week. Tier ⚠, unrefereed working paper, n=78, no variance reported, and a ceiling effect is a live alternative explanation because the assisted scores cluster between 4.05 and 4.18 on a 5-point scale.
+
+**The mechanism survives the weak study, because it is a logical point.** The acceptance standard is cleared first where the correct answer is **invariant**, and last where it is **state-dependent**. An answer that does not change with who is asking ceilings early. An answer that depends on a client's current position, tax situation or time horizon ceilings late, or not at all.
+
+So do not ask whether a role has ceilinged. **Ask which of its tasks have**, and never publish a composite score across tasks with different ceiling dates: it averages a superhuman result and a subhuman one into a number describing neither, and it moves whenever the task mix moves. In one measured case the same model sat roughly **twice as inert at rebalancing as the published benchmark for human inertia** while beating humans on an adjacent task in the same session ◆.
+
+**A social driver compounds the same collapse.** A separate, more speculative argument holds that once peer AI use becomes genuinely undetectable, an output-only metric loses its power to discriminate real human contribution from AI-assisted output for a second reason that has nothing to do with capability: nobody wants to be the one measurably slower for doing it the hard way. This is a demand-side amplifier of the ceiling effect above, not a new failure mode, and it does not require the model to be anywhere near its own capability ceiling, only for peers to believe skipping it carries no detectable cost. The fix is the same one given below: move upstream to the interaction or sideways to a seeded case, not a new instrument. *(When wrong: this is argued reasoning about a mechanism, not a measured rate. Treat it as a hypothesis to test against your own review logs, not a finding to cite as fact. Source: an argued piece on "AI gravity" and cognitive offloading, 2026, ⚠, mostly argued reasoning rather than evidenced.)*
+
+**Three exits, and only three.**
+
+1. **Move upstream and measure the interaction** — what was asked, what was rejected, how many turns, what got corrected.
+2. **Move sideways and seed known-bad cases**, measuring who catches them.
+3. **Change the task you assess on**, choosing one whose acceptance standard still requires production rather than recognition. Cheapest of the three: no new instrumentation, no seeded corpus.
+
+**Exit one is corrupted in three directions at once, so treat it as an incentive problem rather than an instrumentation problem.** The interaction log is not a neutral record of what happened:
+
+- **Use is subtracted.** Around a third of employees conceal their AI use ⚠ (vendor survey, no published method), and they are exactly the rows missing from the log.
+- **Failure is subtracted.** At one firm, employees "had been discreetly absorbing the cost of broken AI workflows for months because they worried that sharing their concerns ... made them look like they weren't fully on board."
+- **Use is manufactured.** An engineer "started asking AI questions he could have answered faster himself just to inflate his usage numbers," and one company reported token consumption to its board as proof of progress while privately calling the usage frivolous.
+
+**No amount of instrument quality fixes a log whose entries are produced by what the log is used for.** Exit two is administered to the person rather than harvested from their behaviour, which is why **seeded cases dominate exactly where the culture is worst**, and that is the opposite of the usual build order.
+
+**The one intervention reported as changing what leaders could see was an incentive change, not a measurement change.** A firm "added a no-blame review of AI-driven rework to team meetings and began recognizing employees who could show, with evidence, that a task should not be automated." Only then did the cleanup become visible. **Paying for evidence that a task should not be automated is a counter-incentive nothing else in this library records.** One unnamed company, unmeasured, so a candidate rather than a finding, and the candidate most worth testing.
+
+*(Sources: HBR, Hinds & Leonardi, "How Much Time Do Your Employees Spend Botsitting?", Aug 2026, and the vendor survey it reports; MIT SMR, Aug 2026, on the invariant-versus-state-dependent split. Ledger pattern M.)*
+
+**The "Rises For The Wrong Reason" Trap**
+
+A metric can climb for reasons that have nothing to do with your product capturing value. Three findings converge on this warning at different scales, and the fix is the same each time: check what sits underneath the ratio before you report that it moved.
+
+**Deflation-blind ratios.** Revenue-per-employee, ARR-per-FTE, and tokens-per-task share one defect: none carries a price term. When an AI capability is rented rather than owned, and every competitor rents the same one, the productivity gain gets competed away into lower prices instead of kept as margin. All three ratios rise under exactly that condition, because the numerator holds while the denominator, headcount, shrinks. The ratio only sees output over headcount; it has no way to see whether price per unit fell by more than the ratio rose. So never read a rising per-employee or per-unit efficiency ratio as evidence you captured value without checking the margin or price line beside it. *(When wrong: if you're the price-setter in your category and the moat is real rather than rented, the same rising ratio can mean you kept the gain. The check is whether your price held, not whether the ratio moved.)*
+
+A reporting habit compounds the risk. The MIT Sloan CISR "digital colleagues" survey of 132 enterprises (◆ company-disclosed) found respondents predicting a mean 25% revenue-per-employee increase over three years. The median prediction was only 15%, and the article led with the mean. For any efficiency claim built on a spread of company predictions or results, ask for the median next to the mean; a wide gap between them means a few outliers are carrying the headline. *(When wrong: a mean is the right statistic for a roughly symmetric distribution. The flag is a right-skewed spread specifically, not means in general.)*
+
+**Stock over flow: ARR-per-FTE as a headline.** The same missing-price problem shows up sharper when ARR-per-FTE ranks companies by "AI maturity." One MIT Sloan article's flagship case was Bolt.new's claimed $1.3M ARR per FTE, "five months after founding." Bolt.new is a product of StackBlitz, a seven-year-old company built on a runtime (WebContainers) developed over those seven years, after StackBlitz had raised roughly $105.5M. The comparison case in the same article, Bench at $23K ARR per FTE before its bankruptcy, is a human-delivered bookkeeping business, not a company that tried AI and failed. ARR per FTE divides an accumulated stock, years of engineering, brand, and codebase already built, by a current flow, headcount today. It rewards any company that isn't hiring regardless of why, so it reads a capital-intensive software business as "AI-mature" and a labor-delivered service as "AI-immature," whether or not AI is the actual reason. *(When wrong: a genuinely young, AI-native company with no inherited codebase or legacy stock, whose high ARR-per-FTE is built entirely on the current team, is a legitimate AI-maturity signal. The trap applies only when a young headline number is quietly sitting on an old accumulated base.)*
+
+**The ceiling version of the same failure.** The "Metric Ran Out of Range" trap above describes a ceiling effect on output-graded tasks as the model itself gets stronger. A second study extends the same warning to human contribution specifically. A KPMG/UT Austin study of 523 professionals (◆ study-disclosed, single-site, unpublished) found that as a model's own output quality rises toward the acceptance bar, a metric graded only on the final output increasingly cannot tell a skilled human's real contribution from a low-skill "delegator" who simply accepted AI output that happened to clear the bar. The fix is the same three exits already listed above: move upstream to the interaction, move sideways to a seeded case, or change the task you assess on. *(When wrong: an output-only score still works fine for a task whose ceiling hasn't been reached yet. The failure only starts once the model's baseline output is already near the acceptance standard.)*
+
+*(Sources: BCG on AI and margin economics, Jul 2026 — mechanism only, ⚠ industry analysis, no company-specific figures. MIT Sloan CISR "digital colleagues" survey, n=132 enterprises, Jul 2026 — ◆ company-disclosed. MIT Sloan on AI-driven entrepreneurship, Jul 2026 — the $1.3M and $23K ARR-per-FTE figures as reported in the article, ⚠; StackBlitz's age and the $105.5M raised checked against public record. KPMG/UT Austin study, n=523, Jul 2026 — ◆ study-disclosed, single-site and unpublished. Ledger pattern M.)*
+
+**The "Nothing Underneath It" Trap**
+
+Some denominators aren't merely unscoped. They were never measured at all, and the percentage built on top inherits that gap no matter how precise the result looks.
+
+**The modeled-counterfactual denominator.** A Perplexity-employee study of Perplexity's own agent products (◆ throughout, no sample size disclosed, a vendor measuring its own product) reports agents cutting task time 87% and cost 94% against an assistant baseline. That baseline, 269 minutes, was never measured: the authors converted the agent's own action steps into an estimated human-equivalent time, priced by domain wages. No human was actually timed doing the task. A modeled baseline is a chain of assumptions, which steps count, how long each takes a person, whose wage applies, with no real observation behind any of it, so every stage compounds the error while the final percentage looks like one clean number. Treat a vendor-modeled counterfactual denominator as unverified regardless of how precise the resulting percentage looks, and never cite the percentage without naming that the baseline was estimated, not measured. The same paper's own users, self-reporting, estimated a 25x time saving, more than three times the modeled 7.5x figure, and the paper never reconciles the two. *(When wrong: a modeled baseline is a legitimate starting estimate if it's labeled as one and later paired with a real validation study. The failure here is specifically presenting the modeled number as measured.)*
+
+**Scope expansion is a demand-side metric, not a quality metric.** A rising share of tasks that cross occupational boundaries, or that were never attempted with a weaker tool at all, tells you what people asked for. It doesn't tell you whether what they got back was any good. Demand and quality are independent axes, and scope expansion rises fastest exactly when unverifiable work is proliferating, since the newly-attempted tasks are disproportionately the ones nobody was checking before. Never report scope expansion as a pure success signal; pair it with a quality check on the expanded-scope tasks specifically, not just the tasks the tool already handled well. *(When wrong: scope expansion paired with a real quality check on the new-scope tasks is a legitimate growth signal. The trap is reporting the expansion alone.)*
+
+**Override rate and stop rate are ambiguous without a companion instrument.** An unrefereed SSRN theory paper (Gu, Li, and Zhu) proves that once an AI clears a required performance standard, a rational reviewer optimally reduces review effort toward zero. This is rational behavior given the reviewer's incentives, not a training failure. A falling override rate, or a low agent-stop-rate, cannot on its own distinguish genuine improvement from reviewer disengagement, because both produce an identical output stream: caught errors don't appear in the log either way. The only companion instrument that separates the two is a seeded known-bad case injected at a known rate, with catch rate tracked over time. See `production-observability` for the full instrument; this skill's job is to flag the ambiguity, not build the seeding pipeline. *(When wrong: never seed known-bad cases where they would compete for attention against a real clinical, legal, or safety case. The cost of the check would exceed its value there, and an independent spot audit is the safer substitute.)*
+
+*(Sources: Perplexity-employee study of Perplexity's agent products, Jul 2026 — ◆ vendor-published, no sample size disclosed; the 269-minute baseline is modeled, not measured. Gu, Li, and Zhu, SSRN working paper, Jul 2026 — ⚠ unrefereed theory paper, no field data. Ledger pattern M.)*
 
 ---
 
@@ -109,6 +193,24 @@ These predict product health before revenue metrics move:
 
 **The market is repricing around this exact denominator.** Cost-per-successful-outcome stopped being a purely internal metric in 2026 — it became the *price*. Hybrid/outcome-based pricing rose from 27% to 41% of AI vendors between 2025 and 2026 ⚠, with published per-outcome prices: HubSpot's Customer Agent at $0.50 per resolved conversation (halved from $1.00), Intercom at $0.99 per resolution, Help Scout at $0.75 ◆. The implication for your dashboard: if a competitor can name their price per successful outcome and you can't name your *cost* per successful outcome, you can't defend your margin or your pricing. This metric is now a strategic instrument, not just an ops number. *(When wrong: outcome pricing is the hardest model to operationalize — you have to define "success" unambiguously and handle partial success/disputes; if "success" is fuzzy, the metric is fuzzy too. Tier: vendor-published prices ◆, market-share shift ⚠.)*
 *(Sources: [Bessemer — AI Pricing & Monetization Playbook](https://www.bvp.com/atlas/the-ai-pricing-and-monetization-playbook); [Flexprice — 7 Pricing Metrics That Capture AI Value, 2026](https://flexprice.io/blog/7-pricing-metrics-capture-ai-product-value).)*
+
+**3A. Three metrics most AI dashboards are missing**
+
+**Escalation rate, and read it as the handoff count.** For any system that resolves cases, the question that matters on Monday is: *"when my AI meets an exception governed by an unwritten rule, does it resolve the case, or does it escalate to a person?"* Escalation rate is the operational form of the AI-mediated handoff count. Automation rate tells you how much the system took. Escalation rate plus the resolution quality on escalated cases tells you whether it should have. **You cannot know if you have succeeded by measuring the raw automation rate**, and pairing it with escalation is the cheapest fix. Read this beside the Two Opposite Causes trap above: escalation rate falling is ambiguous on its own.
+
+**The acceptance ladder: report which rung, not just "it worked."** Acceptance is not one threshold, and collapsing it into one is how capability claims get inflated. Use three rungs, each measured **without edits**:
+
+| Rung | The question | Why it matters |
+|---|---|---|
+| **Minimally sufficient** | would a worker accept this as good enough to use at all? | the floor, and the one usually reported |
+| **Average** | is this as good as a typical human effort? | the substitution threshold |
+| **Better than average** | does this beat a typical human effort? | the only rung that supports a replacement claim |
+
+The largest study of this to date evaluated AI output on more than **6,000 text-based workplace tasks** drawn from the US Department of Labor's O\*NET database, using more than **60,000 worker evaluations**. It put current capability at roughly **50% to 75% of text-based tasks at the minimally sufficient rung, without edits**, and found the failure rate **halves every 2.2 to 2.8 years**. **The warning matters more than the number: that study's own summary box reports the floor rung as "completes the task," which overstates its body.** Whenever you read or write an acceptance figure, name the rung. And note the scope condition: those evaluations were done with the information already assembled, which is the part that costs real time in a real job.
+
+**Share of algorithmic choice, if anything machine-shaped buys from you.** When an agent does the shopping and the human only decides what they need, brand awareness stops predicting selection. The metric is the share of algorithmically-mediated purchase decisions in which your product is chosen. **A brand's rank in awareness and its rank in algorithmic selection are measurements of two different corpora and have no obligation to agree**, which is exactly why the second one needs its own line. Keep its companions honest: API latency, data completeness and feed verification status are *inputs* to it, not outcomes, and reporting them as if they were the result is the same error as reporting seat activation as adoption.
+
+*(Sources: escalation rate and the automation-rate line, HBR, "4 Steps to Transform the 'Middle Office' with AI," Aug 2026 — ⚠. The acceptance ladder and halving rate, MIT FutureTech via MIT Sloan, Aug 2026 — ◆ study-disclosed, >60,000 worker evaluations across >6,000 O\*NET text tasks; no human comparison arm, so the figures cannot support a substitution claim on their own. Share of algorithmic choice, HBR, "Algorithmic Shopping Is Here," Aug 2026 — ⚠ framework-tier, no company has published this metric yet, so treat the definition as usable and the benchmark as nonexistent. Ledger patterns M and X.)*
 
 **4. Build Cohort Dashboards**
 
@@ -218,6 +320,16 @@ The pattern: pick the North Star metric AT the moment of AI-driven value deliver
 | **Retained** | The user came back and used the feature again within 7 days | The trust metric — did the experience earn repeat use? |
 
 Each stage has a drop-off. Each drop-off has a different optimization. **The North Star sits at "Accepted" or "Retained" — never at "Invoked."** Invocation is activity. Acceptance is value.
+
+**Name the drop-off between Surfaced and Invoked, because it is the one people mistake for slow adoption.** The failure is **provisioned and unused**: the person has the license, the seat, the access, and never opens it. Mass General Brigham gave clinicians a free ambient scribe aimed at their own burnout, and among primary care clinicians, the group with most to gain, a significant number took the license and never used it. "So they had the license, they just didn't do it."
+
+Three things make this worth its own row:
+
+- **A per-seat license makes it measurable to the day.** Provisioned date and first-invocation date are both in the system already. Days-to-first-invocation, and the share that never reaches one, are recoverable retrospectively at no cost. Almost nobody pulls them.
+- **A revocation policy destroys the measurement.** MGB's rule was that three months of non-use triggered a conversation and possible removal of the license. That is defensible on cost and it deletes the population you most need to study, because the people who never invoked are the finding.
+- **The cause is usually upstream of the product.** Read Gate Zero questions 3 and 4 in `rtp-adoption-launch` before you redesign the entry point. At MGB the stated reason was not discoverability or UX; it was that nobody had said who keeps the time the tool saves.
+
+*(Source: HBR Cold Call, Gallani, Aug 2026 — ⚠ interview, no rate given. The abandonment rate is the most valuable number in that episode and it is not in it. Treat provisioned-and-unused as a named stage to instrument, not as a measured rate.)*
 
 **Worked example:**
 

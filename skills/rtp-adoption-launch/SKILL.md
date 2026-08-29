@@ -1,16 +1,7 @@
 ---
-name: rtp-adoption-launch
-version: v1.1_latest
-description: >
-  Treat AI adoption as a product launch — with personas, phases, and phase-specific support — not as a training program.
-  Adoption curves are predictable: Surge → Dip → Rebound, and the shape repeats across unrelated companies and tool
-  types (Novo Nordisk, Microsoft). One-time training doesn't prevent the dip; the dip is a product and
-  organizational-design problem, not a training problem. Use when planning AI rollout, adoption is stalling, or
-  designing change management. Pairs with: needs-guard (which psychological need the rollout threatens),
-  attitudinal-segmentation (embracers vs. skeptics), agent-risk (when someone has a rational reason to want it to
-  fail), purpose-dialogue (connecting the rollout to what people believe in), judgment-guard (the multi-year
-  capability-debt question — apprenticeship pipelines thinning as AI absorbs junior tasks — distinct from this
-  skill's single-rollout competency trap, below).
+name: adoption-launch
+version: v1.4_latest
+description: 'Treat AI adoption as a product launch, with personas, phases and phase-specific support, rather than as a training program. Adoption curves are predictable: Surge → Dip → Rebound, and the shape repeats across unrelated companies and tool types (Novo Nordisk, Microsoft). One-time training doesn''t prevent the dip; the dip is a product and organizational-design problem, not a training problem. Use when planning AI rollout, adoption is stalling, or designing change management. Pairs with: needs-guard (which psychological need the rollout threatens), attitudinal-segmentation (embracers vs. skeptics), agent-risk (when someone has a rational reason to want it to fail), purpose-dialogue (connecting the rollout to what people believe in), judgment-guard (the multi-year capability-debt question: apprenticeship pipelines thinning as AI absorbs junior tasks, which is distinct from this skill''s single-rollout competency trap, below).'
 imports: [first-principles, needs-guard]
 ---
 
@@ -99,8 +90,21 @@ Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 - **Activation theater** — usage metrics (logins, seat activation) that look healthy while the underlying work hasn't actually changed; the dashboard equivalent of showing up to a meeting without contributing.
 - **The competency trap** — your most expert, most tenured users can have the *deepest* dip, not the shallowest, because their old shortcuts don't transfer to a general-purpose tool.
 - **Role elevation vs. role burial** — whether an org layer's job moved *up* (new higher-value scope) under AI, or just got *heavier* (new oversight duties stacked on unchanged work, unrewarded). Juniors and executives usually get elevated; middle managers usually get buried, by default, not by design.
+- **Surplus disposition** — who keeps the time or money the tool saves, stated before the rollout. Unstated, the people producing the saving assume the organization is coming for it.
+- **Participation budget** — the experimentation work written into named people's job descriptions and reviews. Without it you are running on volunteered effort, which has a shelf life.
+- **The withdrawal signal** — a program dying because people stop showing up rather than because anyone objects. It passes every review on the way down, so participation rate is the only early number.
+- **The authorship deadline** — input has to be solicited before the plan is fully formed. Consultation after the announcement can do useful things; building ownership is not one of them.
+- **Currency translation** — stating the benefit in the metric the adopter already cares about (safety, not efficiency) rather than the one the buyer cares about. The claim has to be true, or it is a slogan they can test.
 - **Psychological safety** — feeling safe enough to experiment with a new tool without fear of blame or job loss.
 - **Adversarial-user risk** — when someone has a rational incentive to make the rollout fail (a real headcount threat); route to `rtp-agent-risk`, not to more training.
+- **The abstention list** — the places you name up front where AI cannot be used *even with disclosure*, because disclosure itself is what destroys the value there. Different from a disclosure policy, which assumes disclosure is always the safe default.
+- **Status repair** — whether a rollout raises or erases the standing of the function whose expertise it's meant to scale. A self-service tool can quietly delete the role that used to generate demand for that function's work.
+- **Contestability** — the ability of an individual adopter who personally absorbs the error to push back on the AI's output. Strongest, and most necessary, precisely where one person bears the cost of being wrong.
+- **The whether-channel** — the part of an observed act that signals *permission* ("this is safe to attempt here") rather than *process knowledge*. It needs no observer competence and can move a whole organization from one act, but only when the observer sees the demonstrator absorb a real, personally costly consequence.
+- **Accountability vs. ownership decay** — accountability (who answers for the outcome) sits on the org chart long after ownership (who actually feels responsible day to day) has quietly drifted back to the old habit.
+- **Forking** — whether a team has locally modified a rolled-out program to fit its own context. A cheap, observable signal of whether the program will survive its sponsor leaving.
+- **Noncontroversial pilot** — a first AI pilot chosen because a failure would cost little visibility, not because it carries the highest information value. Optimizes for organizational permission and trust, not for what you'd learn from it.
+- **The false-alignment test and the take-up plan** — a pair of pre-launch gates. The first checks whether the launch team's verbal agreement is real: each leader writes down independently what the change is before any group discussion, and divergent answers mean the room performed consensus rather than reached it. The second checks whether the plan is actually executable: name who has to change what behavior, and whether that's credible given their workload and incentives.
 
 ## THE TRAP
 
@@ -130,14 +134,97 @@ There's a subtler version of the same mistake, and it hides behind a dashboard t
 
 **The fix:** measure outcome-linked adoption (Phase 3, below), not access. And when you see high login numbers with no quality or outcome movement, don't declare victory — go find out what's actually happening in those sessions.
 
+**A sequencing version of the same trap, one step earlier: mandating usage before you've found your power users.** A common three-part playbook says: set a usage OKR to force adoption, watch the resulting usage data to find your power users, then build around them. The order is the bug. Once usage is a measured target, Goodhart's Law is already live: the telemetry now records compliance, not behavior, and a genuine power user becomes indistinguishable from someone gaming the metric to hit the OKR. **The fix:** find and study your power users from usage data collected *before* any usage target exists, then set the OKR. Reversing the order corrupts the exact signal you need. **When this is wrong:** if you have no pre-mandate usage data at all (a brand-new tool, no prior soft rollout), there's nothing to sequence, and a usage OKR from day one is the only option; just don't trust what it tells you about who your power users are. *(Source: an MIT Sloan Management Review podcast interview with Andrew McAfee, 2026 — ⚠. Flag: McAfee runs Workhelix, a consultancy whose client data is the piece's only proprietary evidence for the broader playbook; the sequencing contradiction is a logical one, independent of that conflict, but the surrounding numbers are his firm's own and uncorroborated.)*
+
 ---
 
 ## GATE ZERO — WAS THIS CO-CREATED OR ANNOUNCED? (run before you design the phases)
 
-The three phases below tell you *what* the adoption curve does. This gate tells you whether your Surge numbers can be trusted at all. Ask two questions before finalizing any rollout plan:
+The three phases below tell you *what* the adoption curve does. This gate tells you whether your Surge numbers can be trusted at all. Ask six questions before finalizing any rollout plan. The first two ask whether people were brought in. Questions three and four ask whether anyone worked out what the rollout costs the people doing it, and both are routinely skipped. The fifth asks whether the people actually using the tool can push back on it when it's wrong. The sixth checks whether the room's agreement was ever real, and whether the plan names who has to act on it:
 
-1. **Was the AI strategy co-created with the people who will use it, or announced to them?** If announced, treat the Surge-phase adoption numbers as unreliable no matter how strong they look — leaders systematically believe adoption is happening before employees have even started. In one 2026 survey, **76% of executives believed employees were enthusiastic about AI; only 31% actually were** (◆). A second, independent 2026 study puts a number on the same gap from the other direction: IBM's Institute for Business Value surveyed 2,000 CEOs and equivalent senior leaders across 33 geographies and 21 industries (Feb-Apr 2026) and found **85% of employees have AI access, but only 25% use it regularly — a 61-point gap** (◆ [IBM, "Only 25% of workers are using AI. Here's how tech leaders are changing that," ibm.com/think, 2026](https://www.ibm.com/think/news/workers-using-ai-2026-ceo-study)). Two different methodologies, two different populations, the same story: what leaders believe about usage and what's actually happening are two different numbers, and the gap is large enough that it's now CEOs' top AI concern, ahead of cost or accuracy.
-2. **Does the frontline-manager layer have safety/empathy support, or only the senior leaders?** People experience a rollout through their immediate manager, not the C-suite. If only senior leaders are bought in, the layer that actually decides whether someone feels safe to experiment is missing — and that layer has its own, distinct failure mode. A June 2026 HBR analysis of AI rollouts inside two large firms (18 interviews; ⚠ small-N, treat directionally) names it "role elevation vs. role burial": AI adoption typically moves work *up* for juniors (they take on strategy work once reserved for seniors) and *up* for executives (who expand scope and ambition), but for managers stuck between them, the new duties — validating AI output, coaching teams through it, translating vague "make this AI-enhanced" mandates from above — get **added on top of unchanged delivery pressure, with no formal change to their role, their metrics, or their incentives.** Managers don't get elevated. They get buried. If your rollout plan has support for end users and executives but nothing that changes what's asked of managers or how they're measured, you've built Gate Zero's failure mode directly into the plan (Shin & Sucher, HBR, 26 Jun 2026, "AI Adoption Is Overloading Your Middle Managers").
+1. **Was the AI strategy co-created with the people who will use it, or announced to them?**
+
+   If announced, treat the Surge-phase adoption numbers as unreliable however strong they look. Leaders systematically believe adoption is happening before employees have even started.
+
+   Two independent 2026 studies, two methodologies, two populations, one story:
+   - **76% of executives believed employees were enthusiastic about AI. Only 31% actually were** (◆).
+   - IBM's Institute for Business Value surveyed 2,000 CEOs and equivalent senior leaders across 33 geographies and 21 industries (Feb-Apr 2026): **85% of employees have AI access, but only 25% use it regularly. A 61-point gap.** (◆ [IBM, "Only 25% of workers are using AI. Here's how tech leaders are changing that," ibm.com/think, 2026](https://www.ibm.com/think/news/workers-using-ai-2026-ceo-study))
+
+   What leaders believe about usage and what is actually happening are two different numbers, and the gap is now CEOs' top AI concern, ahead of cost or accuracy.
+2. **Does the frontline-manager layer have safety and empathy support, or only the senior leaders?**
+
+   People experience a rollout through their immediate manager, not the C-suite. If only senior leaders are bought in, the layer that decides whether someone feels safe to experiment is missing. That layer also has its own distinct failure mode.
+
+   **Role elevation against role burial.** AI adoption typically moves work *up* for juniors, who take on strategy work once reserved for seniors, and *up* for executives, who expand scope and ambition. Managers sit between them and get new duties instead: validating AI output, coaching teams through it, and translating vague "make this AI-enhanced" mandates from above. Those duties land **on top of unchanged delivery pressure, with no formal change to their role, their metrics, or their incentives.**
+
+   Managers don't get elevated. They get buried.
+
+   **The tell:** if your rollout plan supports end users and executives but changes nothing about what is asked of managers or how they are measured, you have built Gate Zero's failure mode into the plan. *(Shin & Sucher, HBR, 26 Jun 2026, "AI Adoption Is Overloading Your Middle Managers" — ⚠ 18 interviews at two large firms, small-N, treat directionally.)*
+
+**The same mechanism shows up one layer over, in functions rather than people: call it status repair.** An MIT Sloan Management Review study looked at retrieval-augmented generation (RAG) rollouts across eight consumer-goods companies. What separated the successes (Novartis, PepsiCo) from a failing one wasn't how well the benefit was explained. It was whether the rollout raised or erased the standing of the insights function whose expertise it was meant to scale. Self-service search deleted the "librarian" role that used to generate demand by showing requesters the archive went deeper than their question assumed. Once that role was gone, self-service didn't increase demand for the underlying research corpus, the researchers' budget got cut, and the tool that was supposed to make the function more valuable made it look less necessary instead. **The move:** before rollout, ask whether the tool raises or erases the standing of the function it is built on top of, and design a role for that function inside the new workflow, not only around it. **When this is wrong:** the study covers eight companies with no stated sampling frame, so treat this as a real pattern worth checking for, not a base rate; and it doesn't apply where there's no expert function to protect in the first place, only a manual task being automated.
+3. **Who keeps the time or money this saves, and has anyone said so out loud?**
+
+   A saving with no stated owner is read by the people producing it as a saving the organization is about to claim. They are often right to read it that way.
+
+   **The case.** Mass General Brigham gave clinicians an ambient AI scribe: free to the clinician, voluntary throughout, aimed squarely at burnout, with a per-seat license the organization paid for. Among primary care clinicians, the group with the most to gain, a significant number took the license and never used it. They said why, directly: **"You are now giving me back time. What are you going to ask me to do with that time?"**
+
+   The precedent that made the question rational sat in the same organization's memory. A physician given a *human* scribe "had to produce more, so see more patients, in order to pay for the human scribe to be assigned to them."
+
+   **The move:** state the surplus disposition before the rollout, in writing. Then check whether this population has previously watched a saving in that same currency get repossessed. If they have, say what is different this time, or expect the license to sit unused.
+4. **Whose job description and performance review contains this work?**
+
+   If the answer is nobody's, you are running on volunteered effort, and it has a shelf life.
+
+   **The case.** Two organizations started gen AI innovation in the same season with the same supported sandboxes and the same access to setting-specific data, matched on the things prior research says drive engagement: problem fit, operational readiness, compliance posture.
+   - One put the experimentation work into job descriptions and performance reviews. It ended with **141 organization-wide solutions in use.**
+   - The other treated it as a stretch assignment that motivated people would absorb in their spare time. It ended with **three**, after **more than 80% of its domain experts gradually dropped out.**
+
+   The sentence that explains it: *"My annual review is still based on the same criteria as before gen AI existed. All that work is invisible at review time."*
+
+   **The move:** name the domain experts, put the experimentation work in their objectives before the rollout starts, and track participation rate as a metric beside usage.
+5. **Can the person using this push back when it's wrong, and does that depend on a skill they still have?**
+
+   **The case.** An early AI sepsis-flagging tool shipped with no explanation for its alerts, and clinicians ignored it. Adding an explanation for each flag fixed uptake. Clinicians who got the explanation went on to independently catch roughly **10% of the cases the model missed on its own.**
+
+   **The correction this forces: explanation is an uptake feature, not a safety feature.** It works only where the reviewer still has, and keeps exercising, independent judgment about the underlying case.
+   - **Where that competence is intact**, an explanation turns justified doubt into justified action. The clinician can check the model's reasoning against their own and catch what it missed.
+   - **Where that competence has eroded**, the identical explanation turns doubt into *unjustified* action, because a fluent explanation reads as confirmation whether or not it is correct. This gets worse, not better, as explanations get more polished.
+
+   **The move:** treat contestability, meaning the reviewer's standing ability to independently catch an error, as a resource that has to be actively maintained rather than assumed to survive the rollout. It matters most exactly where one person, not the organization, absorbs the cost of a miss.
+
+   **When this is wrong:** where no individual bears the error cost personally, in a low-stakes and easily reversible use, spending effort to preserve independent competence is wasted. The tool can be trusted, or checked in bulk after the fact.
+6. **Did the launch team actually agree, and does the plan name who has to act on it?**
+
+   **The optimism gap, again.** BCG survey data across roughly 6,000 people in a dozen countries (✅ audited) found the same gap this skill documents for AI in question 1: roughly **70% of executives feel positive about a change they haven't detailed yet, against roughly 45% of employees.** The cause is information asymmetry, not resistance. Employees are reacting rationally to less information, not digging in.
+
+   **Why co-authorship works.** The source connects this to the IKEA effect (people pay **63% more** for furniture they assembled themselves, ✅ peer-reviewed) to make a mechanism claim: people do not sabotage what they personally helped build. That is a stronger claim than "involving people is good practice."
+
+   That mechanism produces two gates. Both run *before* you design the Surge/Dip/Rebound phases below, not during them.
+
+   - **The false-alignment test.** Before any group discussion, every leader on the launch team writes down, independently, what the change is and how it will work. If the written answers do not converge, the agreement you heard in the room was performed consensus. Launching on performed consensus is a known failure mode.
+   - **The take-up plan.** Name specifically who has to change what behavior for this to land, then state plainly whether that is credible given their current incentives and workload. Treat "no" or "unclear" as a blocking gate, not a risk you note and proceed past.
+
+   **When this is wrong:** the false-alignment test breaks under low psychological safety, because people write down the answer they think is sanctioned rather than what they believe. The test needs its own safety precondition to be trustworthy (see `needs-guard`). The source also does not say how co-authorship holds up at a 50,000-person rollout against a small team, so treat it as strongest at the leadership-team scale where it was demonstrated.
+
+   *(Source: an HBR piece on transformation leadership, 2026. The BCG optimism-gap figures are ✅ audited survey data. The IKEA effect is ✅ peer-reviewed [Norton, Mochon & Ariely, "The IKEA Effect," Journal of Consumer Psychology, 2012]. The co-authorship-at-scale claim is the piece's own extrapolation, not something either underlying study measured directly.)*
+
+**Two ways these gates fail quietly, and both defeat your status report.**
+
+**The failure mode is withdrawal, not objection.** At the site that lost its experts, nobody sent a memo, nothing was escalated, and no gate was failed. In the researchers' words: *"They did not refuse or resist AI. They did not lobby against it. Instead, they simply withdrew."* The initiative ran out of participants. **A program dying this way passes every review on the way down**, because every instrument you have reads objections and none of them reads absence. Participation rate is the one number that moves early, which is why question 4 asks you to instrument it.
+
+**Consultation after the decision cannot build ownership, and calling it co-creation makes it worse.** The distinction that matters: consensus shows up in the room, appetite shows up months later when priorities collide and people decide what to protect. Appetite is built by authorship, and **authorship has a deadline**: soliciting input and genuinely listening *before the plan is fully formed*, rather than after it has been announced. So a rollout plan written after the decision was made can still do useful things, and building ownership is not one of them. Stop the Surge phase from promising it. A related correction on the capacity side: bandwidth is created by **removing work**, not by adding people. Of the four standard moves for creating capacity (postpone a competing initiative, clarify who owns decisions, shift resources to what matters most, protect uninterrupted thinking time), three take work away. If your readiness plan adds headcount and postpones nothing, it has not created capacity.
+
+**The first lever that makes all five gates easier: state the benefit in the adopter's currency, not the buyer's.**
+
+Rio Tinto's leaders talked to employees about mining automation as **safety**: *"a mine where no miner will ever get hurt again."* Not efficiency.
+
+Here is why that works. For a miner, the live metric is not cost per tonne. It is whether you go home. Efficiency is management's currency, and it is exactly the currency in which automation reads as a threat, because efficiency in a labor-intensive operation means fewer people. Same technology, same rollout. The framing is the difference between resistance and participation. **The precondition, and it is what separates this from spin:** the translated claim has to be true and checkable. A safety framing on a deployment that does not improve safety is a slogan the workforce can test within a quarter, and failing that test costs more than the efficiency framing would have.
+
+**A scoping note on when this lever applies:** growth or threat-removal framing is not a universal substitute for currency translation. It is a gating precondition ahead of it, and it only works where the adopter is plausibly replaceable by the tool. Warner Bros. Discovery ran its first AI pilots deliberately on **noncontroversial** work, chosen because "if we screwed it up, nobody would care" rather than for the highest information value, on the reasoning that an early pilot's real deliverable is organizational permission and trust, not what you learn from it. That is the opposite of standard risk-reducing pilot advice, which optimizes for learning. Currency-translated safety framing (Rio Tinto) works once the threat is credible and the adopter is the one who could be replaced; if nobody's job is plausibly at stake, growth framing has nothing to neutralize, and the more useful first move is a noncontroversial pilot that buys trust before you ever need to translate a benefit. **When this is wrong:** don't pick a pilot so trivial it produces no learning at all. The choice is a trade-off between trust and information, not a reason to abandon information value entirely.
+
+**A second lever, distinct from currency translation: build an abstention list, not a disclosure policy.** A museum ran a public AI-avatar marketing campaign loudly, and banned AI outright, with no exceptions, from donor emails. The variable that separates the two isn't domain risk (marketing versus donor relations). It's whether the AI's output *is* the value (no prior non-AI version existed, so the audience judges the output on its own terms) or whether it's evidence a person spent attention on the recipient (a prior version existed, and a hand-written donor email was valuable specifically as proof someone spent twenty minutes thinking about them). Disclosure destroys that kind of value outright; it does not make it safer. **The move:** before rollout, name the specific places where AI cannot be used *even with disclosure*, because disclosure is exactly what breaks them. Don't rely on a general disclosure policy to cover this case. **When this is wrong (the falsifier):** a deployment that clearly replaced a well-liked, human-produced artifact and was still received well on its own terms. If that shows up, the substitution test above is missing a variable. *(Source: a museum marketing case, weak evidence, no outcome numbers attached — ⚠. Carry the mechanism, not the case as proof it works.)*
+
+*(Sources for questions 3 and 4 and the block above. MGB scribe: HBR Cold Call, Gallani, Aug 2026 — ⚠ interview format, and note what is missing: the abandonment rate is never quantified, burnout "dropped significantly" with no figure, instrument or comparison group, and the license fee amount is never stated. The human-scribe precedent is one physician's recollection relayed twice, the weakest provenance in the episode and the most load-bearing fact in it; cite the mechanism, not the case. Participation budget: HBR, "AI Experiments Need Domain Experts," Aug 2026 — ◆ two-year qualitative field study, two pseudonymized US sites. **The 141-to-3 comparison is n=2 across two different industries, so industry alone could produce a good part of a 47-to-1 ratio, and the 80% figure has no stated denominator.** Carry the mechanism and the review-criteria quote; do not carry the ratio as an effect size. Appetite deadline and capacity moves: HBR, Morris, "Before Rolling Out a New Strategy, Assess Your Team's Readiness," 12 Aug 2026 — ⚠ weakest evidence rung, a consultant selling the remedy, three of five illustrations unnamed composite clients. The underlying distinctions borrow Deci and Ryan on motivation and hold up independently. Rio Tinto: MIT SMR, Westerman, Aug 2026 — ◆ reported example, no adoption figures attached. Status repair (RAG/librarian role): MIT Sloan Management Review, Jul 2026, eight consumer-goods companies — ⚠ no stated sampling frame; carry the mechanism, not a base rate. Contestability (sepsis-flagging tool): an HBR interview, 2026 — ⚠. The interview's flagship 41%-mortality-reduction claim does not survive checking against the hospital's own public disclosures and is not carried here in any form; only the ~10%-of-missed-cases finding and the explanation-conditional mechanism are cited. Warner Bros. Discovery noncontroversial-pilot sequencing: MIT Sloan Management Review case interview, 2026 — ◆ company-disclosed account, no adoption or outcome figures attached. Ledger pattern D.)*
 
 **A distinct risk to screen for, separate from adoption friction:** ask "does anyone on this team have a rational incentive to want this rollout to fail?" If a rollout genuinely threatens headcount, that fear is *accurate*, not a perception gap — and co-creation is not a fix for an honest conflict of interest. Route that to `rtp-agent-risk` (adversarial-user risk), not to more training.
 
@@ -155,11 +242,15 @@ The three phases below tell you *what* the adoption curve does. This gate tells 
 
 **Who you deliberately launch to first:** don't default to "everyone at once" or even "your broadest ideal customer profile." Choose an **Early Customer Profile** — the narrow slice with the highest pain and highest tolerance for rough edges, not necessarily your eventual mainstream user — and aim for a genuine **beachhead**: 60-70% real penetration of that narrow slice within 3-18 months, before expanding. A wide, unfocused Week 1 rollout produces a wide, unfocused Month 3 dip with no concentrated pocket of proof to rebound from; a narrow, well-chosen Surge cohort gives you real reference users by the time you need them for Phase 3.
 
+**A real exception to "highest pain first":** highest-pain slices are the right choice when what you need from the pilot is information about whether the tool works. Sometimes what you need first is organizational permission, and that calls for the opposite choice. Warner Bros. Discovery deliberately ran its first pilots on **noncontroversial** work ("if we screwed it up, nobody would care") rather than its highest-value use cases (see the growth-framing scoping note in GATE ZERO). Pick the noncontroversial pilot when trust, not information, is your actual constraint; pick the highest-pain slice when it isn't.
+
 **Support needed:**
 - Quick wins — show the easiest use cases first (not the hardest)
 - Slack channel for peer support (not just help desk)
 - Weekly "tip of the week" showing one new feature
 - **Champions program, chosen deliberately** — not just "the most enthusiastic person per team." Microsoft's own internal Copilot rollout (HBS Case 626065) found that the single highest-leverage move was pairing its *most skeptical, most tenured, highest-credibility veteran* with its *most experimental, most tech-savvy junior employee* — not exposing the org to an early adopter's success from a distance. The mechanism is credibility transfer, not exposure: a demo convinces no one because it's disconnected from a skeptic's actual workflow and risk tolerance, but watching a 20-year veteran the team already trusts visibly switch over is unfakeable proof. Recruit your Champions for who they can convert, not just for who converts easiest.
+
+  **Why a veteran's switch works and a workshop doesn't: the whether-channel.** An observed act carries two separate signals. A how-channel is process knowledge, what to actually do, and it needs the observer to already have some competence to absorb it. A whether-channel is permission, meaning this is safe to attempt here, and it needs no observer competence at all: it can move a whole team from a single act. The whether-channel only fires when the observer sees the demonstrator personally bear a real, costly consequence. A workshop or a simulated demo asks nothing real of the person demonstrating, so it transmits no permission no matter how polished it looks, which is exactly why a scripted leadership demo convinces nobody and an unscripted veteran switching over does. **Three tests for whether a "demonstration" actually qualifies:** the calendar test (did the demonstrator's own schedule visibly change), the uncertainty test (did they visibly not know the answer and say so rather than perform confidence), and the cancellation test (was something real called off or delayed to make room for this). A Champion, or a leader, who passes none of the three is only announcing, not demonstrating. Treat their Surge-phase involvement as decoration, not as the credibility-transfer mechanic this section relies on. *(Source: an HBR piece on a CEO entering an ML contest to model transformation, 2026 — ⚠. The author is a consultant citing his own unnamed clients with a book to sell; the how/whether distinction and the three tests are worth carrying, the specific baseline percentages behind them are not.)*
 
 **Common failure:** Too much training, too much complexity. Overwhelm kills adoption. Teach one workflow. Master that first.
 
@@ -190,10 +281,18 @@ The three phases below tell you *what* the adoption curve does. This gate tells 
 
 **User mindset:** "This is part of how I work now" OR "I tried this; it's not for me."
 
+**A trap specific to this phase: accountability and ownership decay at different rates.** Accountability (who answers for the outcome on paper) persists long after ownership (who actually feels responsible for it day to day) has quietly drifted back to the old habit. A status report that only checks "who owns this" will read as healthy for months after the real work has reverted, because the org chart hasn't caught up with what people are actually doing. **The move:** in Rebound, check ownership directly (what people actually do without being asked) rather than accountability (whose name is on the initiative). **When this is wrong:** for a genuinely simple, low-discretion tool with no habit to form or lapse, this distinction doesn't add much, since there isn't a meaningful gap between the two to watch for. *(Source: an HBR piece on continuous-change skills, 2026 — ⚠ reported, mechanism-level claim, no population or figures attached.)*
+
+**A related caution on what "success" should not be measured by: training hours.** A KPMG study of 523 organizations (◆ company-disclosed survey data) found training hours delivered are an exposure metric, not a quality one. The constraint on adoption quality is sequencing and evaluation discipline, not how much training people sat through (see `rtp-judgment-guard` for the full finding). Don't let "hours of training delivered" stand in for "adoption is working" anywhere in a Rebound-phase report.
+
+**A cheap, observable signal of whether this phase will hold: forking.** Has any team locally modified the rolled-out program to fit its own context, rather than running the identical, unmodified version everyone else got? An unmodified program predicts it lapses the moment its executive sponsor moves on; a locally forked one predicts it survives, because someone besides the sponsor now has a stake in it working. **The move:** ask this as a post-launch health check, not just at launch. **When this is wrong:** in a genuinely standardized, compliance-driven rollout (the same steps must run identically everywhere for audit or safety reasons), forking is the wrong outcome to hope for. There, an unmodified program is the correct one. *(Source: an HBR piece on AI-and-reasoning program design, 2026 — ⚠ reported, single piece, no quantification given.)*
+
 **Support needed:**
 - **Continuous improvement loops** — Weekly feedback: "Here's what you're using, here's where similar users struggle, here's a shortcut you might like."
 - **Advanced features for power users** — The users who love the tool will want more sophisticated features. Build for them. They drive adoption within their teams.
 - **Outcomes measurement, and lead with quality, not hours saved** — Shift from "% of users using" to "what improved because of this." Novo Nordisk's own data found employee satisfaction correlated three times more strongly with *perceived work-quality improvement* than with time saved, and that people who saved time reinvested it into strategic and relationship work, not leisure. "This saved you 2 hours a week" is a weaker message than "this catches errors before your manager sees them." Report both, but lead with quality.
+- **Ownership check, not just accountability check** — confirm who still actually does the new workflow day to day, not just whose name is attached to the initiative on paper.
+- **Forking check** — ask whether any team has adapted the rollout to its own context. If every instance is identical months in, that is a warning sign, not proof of consistency.
 
 ---
 
@@ -332,6 +431,11 @@ The Champions program is not optional. It's not nice-to-have. It's the differenc
    - Yellow: "We have a plan but no resources allocated"
    - Green: "Adoption lead is focused full-time on preventing churn. Champions are actively engaged. The manager layer has its own support plan, not just end users."
 
+6. **By Rebound, has anything been forked, and does ownership still match accountability?** (post-launch durability check)
+   - Red flag: "Every team runs the identical, unmodified version, and we haven't checked who actually does the new workflow versus whose name is on it"
+   - Yellow: "One or two teams have adapted it locally; we haven't formally checked ownership drift"
+   - Green: "Multiple teams have forked it to their own context, and a recent check confirmed the people using it day to day, not just the named owner"
+
 ---
 
 ## REALITY CHECK
@@ -354,6 +458,16 @@ The Champions program is not optional. It's not nice-to-have. It's the differenc
 
 - **One-time communication blitz.** If your "adoption campaign" is three emails in Week 1, adoption will not be sustained. You need weekly engagement for 3+ months.
 
+- **Relying on a general disclosure policy instead of an abstention list.** Some places where AI is used, disclosure itself destroys the value (a hand-written-looking donor email, for instance). Name those places up front; don't assume "we'll disclose it" covers every case.
+
+- **Letting a self-service tool erase the function it was built on top of.** If the rollout deletes the "librarian" role that used to generate demand for a team's expertise, don't be surprised when usage of the underlying work drops and that team's budget gets questioned next.
+
+- **Treating training hours delivered as evidence adoption is working.** Hours of training are an exposure metric. They say nothing about sequencing or evaluation discipline, which is what actually predicts adoption quality.
+
+- **Mistaking an identical, unmodified rollout across every team for a sign of consistency.** It is more often a sign that nobody has made it their own, and it tends to lapse the moment the executive sponsor moves on.
+
+- **Trusting verbal agreement in the launch-team room without checking it in writing.** A room that nodded along can still hold five different mental models of what's being launched. Run the false-alignment test before you build phases on top of that agreement, not after.
+
 ---
 
 ## QUALITY GATE
@@ -366,6 +480,12 @@ The Champions program is not optional. It's not nice-to-have. It's the differenc
 - [ ] Adoption metrics are outcome-based, not just access-based — and you've checked whether your current metric is vulnerable to Goodhart's Law
 - [ ] The competency-trap segment (your most tenured, most expert users) has a specific support plan, not just general Dip-phase support
 - [ ] The manager layer has been checked for role elevation vs. role burial, separate from end-user adoption metrics
+- [ ] Places where AI can't be used even with disclosure are named up front (an abstention list), not left to a general disclosure policy
+- [ ] The function whose expertise this rollout is meant to scale has been checked for status repair, not just given a benefit explanation
+- [ ] Contestability (whether the person using this can independently catch an error) is treated as a resource to maintain, not assumed to survive on its own
+- [ ] Any leadership or Champion "demonstration" you're relying on passes at least one of the calendar, uncertainty, or cancellation tests
+- [ ] Every leader on the launch team has independently written down what the change is and how it works (false-alignment test), and a named take-up plan states who must change what behavior and whether that's credible
+- [ ] Rebound-phase reporting checks ownership (who actually does the new workflow) and forking (has anyone adapted it locally), not just usage and a named owner
 - [ ] Resource allocation and ownership clear for each phase
 
 ---
@@ -382,6 +502,10 @@ This skill gives bad advice if:
 
 - **There's no stable, tenured workforce with a legible internal credibility hierarchy.** The skeptic-experimenter Champion pairing assumes you have an identifiable, respected "20-year veteran" figure to recruit. In high-turnover, distributed, or gig workforces, or flat orgs without that figure, this specific tactic won't transfer — fall back to broader peer-network champions instead.
 
+- **Nobody's role is plausibly threatened by the tool.** Growth or threat-removal framing (Gate Zero's currency-translation lever) has nothing to neutralize when the adopter isn't plausibly replaceable by what you're rolling out. Defaulting to a noncontroversial first pilot in that setting trades away real learning for permission you didn't need to buy.
+
+- **Psychological safety on the launch team is low.** The false-alignment test only surfaces real disagreement if people write down what they actually believe. Where speaking against the sanctioned answer carries a visible cost, everyone's written answer converges anyway, and the test reports false confidence instead of catching none.
+
 ---
 
 ## TRADE-OFF LEDGER
@@ -397,8 +521,12 @@ This skill gives bad advice if:
 **The hidden trade-off:** **Adoption support consumes resources.** The Champions program, the adoption lead, the weekly communications, the help desk triage — this costs people and time. You're trading engineering velocity (product team is responsive to adoption feedback) for adoption sustainability. If your product is mature and feature parity is your goal, this trade-off makes sense. If you're early-stage and innovation velocity is paramount, this trade-off is harder.
 
 **Confidence: High on the curve shape; Medium on the specific tactics.**
-- Evidence: Everett Rogers' adoption research; the Novo Nordisk (◆, MIT Sloan, Jul 2025) and Microsoft (⚠, HBS Case 626065, May 2026) rollouts independently reproduce the same Surge-Dip-Rebound shape at very different scale and tool type; the IBM 2026 CEO Study (◆) and McKinsey 2025 survey (✅) independently confirm the access-vs-use gap; the competency-trap and role-elevation mechanisms are each currently grounded in a single well-documented case or small-N interview study, not yet replicated across multiple independent sources.
-- What would change our mind: A team that gets sustained, outcome-linked adoption with zero structured adoption support beyond one-time training; or a second and third independent case showing the competency trap or role-elevation mechanism *doesn't* hold, which would demote those two from "apply by default" to "watch for it."
+- **Evidence.** The Surge-Dip-Rebound shape rests on Everett Rogers' adoption research, plus two rollouts that reproduce it independently at very different scale and tool type: Novo Nordisk (◆, MIT Sloan, Jul 2025) and Microsoft (⚠, HBS Case 626065, May 2026). The access-against-use gap is confirmed independently by the IBM 2026 CEO Study (◆) and a McKinsey 2025 survey (✅).
+
+  Weaker ground, and worth naming as such. The competency-trap and role-elevation mechanisms each rest on a single well-documented case or a small-N interview study, not yet replicated. The same is true of the seven 2026 additions: status repair, contestability, the sequencing correction on power users, the whether-channel and its three tests, the abstention list, forking as a durability signal, and the false-alignment test with its take-up plan. Each is grounded in one case, a small-N or unsampled study, or a source with a disclosed conflict of interest.
+
+  **Carry the mechanisms. Treat the specific numbers behind them as unverified.**
+- What would change our mind: A team that gets sustained, outcome-linked adoption with zero structured adoption support beyond one-time training; a second and third independent case showing the competency trap or role-elevation mechanism *doesn't* hold, which would demote those two from "apply by default" to "watch for it"; or a rollout that erases a function's status, ships explanation without preserved competence, or runs an unmodified program indefinitely and still produces durable, high-quality adoption.
 
 ---
 
@@ -415,6 +543,7 @@ This skill gives bad advice if:
 - Champions program will sustain itself with peer energy (it won't; you need formal recognition and support)
 - Month 3 dip is universal (it is for most organizations; exception: if every user has a non-negotiable need to use the tool)
 - The competency trap and role-elevation mechanisms hold in your context (currently grounded in one well-documented case each; watch for whether they replicate, and treat them as directional until they do)
+- Status repair, contestability, the power-user sequencing correction, the whether-channel tests, the abstention list, forking, and the false-alignment test/take-up plan pair each hold in your context (each is currently grounded in one case, a small or unsampled study, or a source with a disclosed commercial interest; treat all seven as directional, not as base rates, until they replicate)
 
 **The next action:**
 1. Define your adoption personas for your population, and choose a deliberate Early Customer Profile for Surge, not "everyone at once"
@@ -438,4 +567,4 @@ If adoption plans reveal need violations (e.g., "workers can't override AI decis
 After completing this analysis, invoke the `excalidraw-svg` skill to create:
 1. **Adoption Curve by Persona** — 4 lines showing Enthusiast, Pragmatist, Skeptic, Resister adoption trajectories
 2. **Phase-Support Matrix** — Phases (rows) vs Personas (columns) showing what support is needed when
-3. **Critical Intervention Points** — Timeline showing when to deploy Champions, edge case triage, the manager-layer check, and outcomes measurement
+3. **Critical Intervention Points** — Timeline showing when to deploy Champions, edge case triage, the manager-layer check, outcomes measurement, and the Rebound-phase ownership and forking check

@@ -1,14 +1,7 @@
 ---
 name: problem-ai-fit
-version: v1.0_latest
-description: >
-  Determines whether a problem genuinely needs AI or if rules, search, and simple logic
-  deliver better outcomes — then, for problems that do need AI, decides which seat it takes:
-  the engine that produces the recommendation, or the helper that widens the evidence while
-  humans keep the judgment. Use when teams propose AI features, stakeholders say
-  "use AI," or during discovery. Runs hypothesis-driven AI-necessity analysis.
-  Pairs with: first-principles (find the real operation first), ai-use-case-readiness
-  (score the autonomy), build-or-buy (how to source it), determinism-compass (rules vs. patterns).
+version: v1.1_latest
+description: 'Determines whether a problem genuinely needs AI or if rules, search, and simple logic deliver better outcomes. Then, for problems that do need AI, it decides which seat it takes: the engine that produces the recommendation, or the helper that widens the evidence while humans keep the judgment. Use when teams propose AI features, stakeholders say "use AI," or during discovery. Runs hypothesis-driven AI-necessity analysis. Pairs with: first-principles (find the real operation first), ai-use-case-readiness (score the autonomy), build-or-buy (how to source it), determinism-compass (rules vs. patterns).'
 imports: [first-principles]
 ---
 
@@ -296,6 +289,15 @@ Even with strong fit, watch for these red flags. Each one is a hypothesis that n
 - *Assumption:* Scale is the binding constraint, not reliability or cost.
 - *Test:* What's the current volume? Is the bottleneck really scale, or is it quality, speed, or cost? Sometimes a 5-person team handles the volume fine.
 - *If untested:* Scale without reliability is a liability, not an asset.
+
+**"This AI deployment creates new kinds of work."**
+- *Assumption:* The task list for the affected role or workflow actually got longer, not just shifted or sped up.
+- *Test:* Write out every task in the role or workflow before the AI deployment and every task after it. If the list is unchanged, the deployment cannot be new-task-creating by definition, since that category requires the task set itself to expand. Run this check before scoring the proposal on any other dimension.
+- *If untested:* You may be calling automation or capital-augmentation "new work" because it sounds better in the pitch than it does in the task list.
+
+*Where this comes from, and its limit (⚠ reported in this pass, not independently verified against the primary source):* Acemoglu, Autor, and Johnson describe five categories of AI's effect on workers in a publicly available economics paper: labor-augmenting, capital-augmenting, automating, expertise-leveling, and new-task-creating. Their own stated limitation is that all five categories can only be classified correctly after the labor market has already repriced the affected work, which makes the taxonomy useless as the ex-ante screen it is often sold as. The task-list comparison above is a derived workaround: a necessary-but-not-sufficient screen that rules out one category before deployment, not a full classifier for the other four.
+
+**Falsifier:** a deployment with an unchanged task list that raises measured demand for the underlying expertise, deepening an existing task rather than adding a new one, would pass this test while still mattering. Treat the before/after comparison as one signal among several, not a disqualifying gate on its own.
 
 ---
 

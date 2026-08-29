@@ -1,8 +1,8 @@
 ---
 name: "trust-ladder"
-description: "How much should users trust your AI — and does their trust match its real reliability? Designs autonomy that grows only with a proven track record, catches both failure directions (blind acceptance of AI output, and rejecting a tool that actually works), and repairs trust after a visible mistake — which drops trust 2–3× faster than it builds. Use when: defining permission models, staging autonomy, detecting over-reliance, post-incident trust repair. Do NOT use: to justify maximum trust or full autonomy without the track record. Pairs with: autonomy-spectrum (the levels), confidence-tuner (the signals users see), judgment-guard (keeping reviewers engaged). Triggers: 'calibrated trust', 'over-reliance', 'trust repair', 'progressive autonomy'"
+description: 'How much should users trust your AI, and does their trust match its real reliability? Designs autonomy that grows only with a proven track record, catches both failure directions (blind acceptance of AI output, and rejecting a tool that actually works), and repairs trust after a visible mistake, which drops trust 2–3× faster than it builds. Use when: defining permission models, staging autonomy, detecting over-reliance, post-incident trust repair. Do NOT use: to justify maximum trust or full autonomy without the track record. Pairs with: autonomy-spectrum (the levels), confidence-tuner (the signals users see), judgment-guard (keeping reviewers engaged). Triggers: ''calibrated trust'', ''over-reliance'', ''trust repair'', ''progressive autonomy'
 imports: ["determinism-compass"]
-version: "1.1"
+version: "1.3"
 ---
 
 ## DEPTH DECISION
@@ -55,6 +55,8 @@ Real cost: Over-asking wastes user attention and trains users to click yes witho
 
 Detection: **If user rejection rate < 5%, they're over-reliant.** Healthy products show 15–30% rejection rate.
 
+**Second axis: measure influence separately from trust.** Trust alone hides a dangerous case: a reviewer can be trusted enough to be heard without being empowered enough to change the outcome. Ask both sides of a review relationship to rate trust and influence on separate scales. Watch for high trust paired with low influence, a reviewer who is respected but underpowered. This combination predicts silent, fabricated justification rather than honest escalation. The reviewer stops raising real objections, because raising them never changes anything, and writes justifications nobody will challenge instead. This is directional, drawn from one consultancy's own client data with no published scale, so treat it as a hypothesis to test in your own product, not an instrument to install as-is.
+
 **Step 4: Autonomy Assignment**
 
 *For Trivial failures:*
@@ -77,6 +79,7 @@ Detection: **If user rejection rate < 5%, they're over-reliant.** Healthy produc
   - **Below 50%:** "I don't have enough information."
 - Research: 63% of users are more likely to rely on AI that displays confidence levels. This builds *calibrated* trust, not blind trust.
 - Show reasoning trace: Not just "transfer $5K." Say: "Transfer $5K because: (1) historical spend pattern suggests budget available, (2) vendor invoice matched, (3) approval authority confirmed."
+- Explanation is an uptake feature, not an automatic safety feature: it raises acceptance either way, and only raises safety when the reviewer can independently check the AI's work. See the worked example under Calibrated Trust.
 
 ## KEY TERMS (plain language)
 
@@ -86,6 +89,9 @@ Detection: **If user rejection rate < 5%, they're over-reliant.** Healthy produc
 - **Rejection rate** — how often users override the AI; a healthy, understood rejection rate is a sign of calibration, not failure.
 - **Calibrated suspicion** — the mirror image: when a system flags a human or an output, the flag routes to a human review, never to an automatic verdict.
 - **Trust repair** — rebuilding trust after a visible mistake, which drops trust 2–3× faster than it builds.
+- **Independent detection competence** — a reviewer's own, separate ability to catch what the AI misses, built before and apart from the AI's explanation. Explanation only builds safety where this competence already exists.
+- **Influence (as distinct from trust)** — whether being heard by a decision-maker actually changes the outcome. Rate it separately from trust, since a person can have one without the other.
+- **Visibility tax** — the cost an employee pays for using AI openly when doing so could be read as a threat instead of a contribution. An employee who feels this tax hides AI use rather than shares it, even when they know sharing would help the team.
 
 ## CALIBRATED TRUST
 
@@ -107,6 +113,14 @@ When a user reaches "maximum trust" (95%+ acceptance rate), they've stopped eval
 ### Worked example — a flag is a reason to review, not a verdict
 
 Calibrated trust has a mirror image: *calibrated suspicion*, for when a system flags a human (or an output) as suspect. The discipline is the same — a flag routes to a human look, never to an automatic decision. In a study of 6,380 first-round hiring screens, sessions were scored on three signals — unusual delays before answering, sudden shifts in vocabulary or fluency, and eye movement that didn't match someone actually recalling an answer — and two or more signals sent a session to a human for review, never to an automatic rejection; suspicion ran near 60% for new-grad software roles. **Why it matters:** the authors are blunt that suspicion alone — even when it turns out wrong — corrodes trust, so a flag must never stand in for proof. The moment a flag becomes an auto-reject, you've traded calibrated suspicion for exactly the blind over-trust (now placed in the flagging system) that this section warns against on the other side. **When this is wrong:** this illustrates the *discipline*, not a recommended detection stack — the three signals produce flags, not proof, and the study's authors sell screening software, so don't present them as a validated fraud detector. *(Source: "AI Has Broken Hiring. Here's How to Fix It.", Sunil & Saraf, HBR, 8 Jun 2026 — ◆ disclosed detection model, n=6,380.)*
+
+### Worked example — explanation is an uptake lever, not a safety lever
+
+An early AI sepsis-flagging tool gave no reasoning, and doctors ignored it. Once the tool explained its flags, doctors started using it. Watching for what the model might miss, those doctors still caught roughly 10% of sepsis cases themselves, by direct observation such as smell and skin color, that the model had missed. **Why it matters:** the explained version is safe here because the clinicians' own detection skill predated the model and covers a real, if narrow, slice the model does not reach. Where a reviewer has that independent competence, explanation turns justified skepticism into justified action. Where a reviewer lacks it, the same explanation turns skepticism into unjustified action, and this gets worse, not better, as the explanation gets more polished. **The correction:** the source interview's flagship number for this deployment, a claimed 41% sepsis-mortality reduction, does not survive a check. Cleveland Clinic's own press release for the deployment reports no mortality figure, credits the improvement to several initiatives including a human rapid-response team, and discloses a financial stake in the vendor. Do not cite the 41% figure anywhere; the checkable finding is the 10% independent catch rate, not the mortality claim. **When this is wrong:** treating "add explanation" as unconditionally safety-improving. Its safety value depends entirely on the reviewer's own independent detection rate, which must be measured separately from acceptance rate. **Falsifier:** a deployment where adding explanation measurably raised reviewers' catch rate on seeded known-bad cases, not just their acceptance rate, would show explanation builds competence and not just uptake. *(Source: HBR interview on AI in healthcare decisions, Jul 2026 — ⚠ reported/unverified for the mortality claim, checked against Cleveland Clinic's own press release; the 10% independent-catch detail is a direct-observation finding with population and n undisclosed in the interview.)*
+
+### Worked example — knowledge-hiding is a trust symptom, and sanctioned tools can make it worse
+
+A 604-person survey of daily AI-using US employees found that 30.3% intentionally withheld AI-related knowledge from coworkers or their employer, even though about 80% agreed that sharing it would help the team. Organizational trust was the strongest predictor, independent of job insecurity, competitiveness, or a formal AI policy: employees in the lowest-trust quartile hid at 47%, versus 14% in the highest-trust quartile, a gap of roughly 3.4 times. **The mechanism:** trust does not stop hiding on its own. It builds psychological safety, and safety is what stops the hiding. Add safety to the statistical model and the trust-hiding relationship weakens substantially. Call this the visibility tax: what an employee pays whenever using AI openly could read as a threat rather than a contribution, paid in withheld knowledge rather than in a formal complaint. **The counterintuitive part:** where trust is already low, giving employees access to sanctioned, approved AI tools increases hiding instead of reducing it, because logging reads as evidence-gathering against the employee, not as support. Sanctioned tools amplify existing trust. They do not substitute for it. Rolling out approved AI tooling into a low-trust team can backfire before anyone has changed how they work. **When this is wrong:** the data is correlational and cross-sectional. It could partly reflect that organizations already good at building trust are also better at rolling out tools well, not that tools causally amplify trust. Treat the visibility tax as a design lens to test against your own rollout data, not a proven causal chain. **Falsifier:** an organization that rolled out heavily logged AI tooling into a documented low-trust environment and saw hiding decrease instead of increase would break the amplification-not-substitution claim. *(Source: 604-person survey of daily AI-using US employees, full citation not supplied with this brief — ◆ self-reported survey data, n=604, US-only, self-selected into daily AI use. Flag: verify title, author, publication, and date before this enters the corpus's citation graph.)*
 
 ## TRUST REPAIR MECHANISMS
 
@@ -140,7 +154,7 @@ After visible mistakes, trust drops **2–3x faster than it builds**. Unlike ear
    - Quantify: "This check will catch 94% of similar mismatches."
    - Timeline: Not "we'll fix it," but "here's what changed and when you'll see it."
 
-**The 63% finding:** Users trust systems that explain their reasoning 63% more than black boxes. This applies *especially* after a failure. Explanation = trust repair fuel.
+**The 63% finding:** Users trust systems that explain their reasoning 63% more than black boxes. This applies *especially* after a failure. Explanation = trust repair fuel. This is conditional. It repairs trust only if the reviewer keeps independently detecting errors after the explanation arrives. Without that check, a more polished explanation increases confidence, not correctness.
 
 **Trust repair is product design, not support.** Build error acknowledgment and recovery into the product. If it's a support ticket, you've already lost users.
 
@@ -401,6 +415,8 @@ This skill gives bad advice if:
 - Regulatory requirements override the ladder. (HIPAA requires approval for all medical decisions. Accept.)
 - Trust is domain-specific. (User trusts AI on emails, not money. Use separate ladders per domain.)
 - You measure trust by "did the user accept this?" (Wrong metric. Measure by "is the user still thinking?")
+- You treat "add explanation" as automatically safety-improving. (It only is if the reviewer keeps independent detection competence; otherwise a better explanation just makes unjustified reliance feel more justified.)
+- You treat trust as single-dimensional. (A reviewer can be trusted, meaning heard, without having influence, meaning power to change the outcome. Measure them separately, especially before assuming a high-trust reviewer is a safe one.)
 
 ---
 

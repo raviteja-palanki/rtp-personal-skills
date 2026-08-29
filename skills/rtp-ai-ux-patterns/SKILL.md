@@ -1,14 +1,7 @@
 ---
 name: ai-ux-patterns
-version: v1.0_latest
-description: >
-  Interface patterns for AI products where output confidence varies: how to show the AI's
-  uncertainty, reveal detail only as needed, calibrate user trust, design loading and error
-  states — and govern the AI's personality (tone, patience, pushback) as a controlled design
-  variable, not a vibe. Use when designing AI features or evaluating why users over-trust
-  or under-trust AI output.
-  Pairs with: trust-ladder (the calibration), confidence-tuner (the signals users see),
-  judgment-guard (log whether explanations are actually opened, not just offered).
+version: v1.2_latest
+description: 'Interface patterns for AI products where output confidence varies: how to show the AI''s uncertainty, reveal detail only as needed, calibrate user trust, design loading and error states, and govern the AI''s personality (tone, patience, pushback) as a controlled design variable, not a vibe. Use when designing AI features or evaluating why users over-trust or under-trust AI output. Pairs with: trust-ladder (the calibration), confidence-tuner (the signals users see), judgment-guard (log whether explanations are actually opened, not just offered).'
 imports: [trust-ladder, failure-modes]
 ---
 
@@ -61,7 +54,12 @@ If you can't answer #1 and #4, run uncertainty-research first. Designing confide
 - **Persona (interaction style)** — how the AI talks to the user (tone, patience, blame vs. defer), separate from how capable it is.
 - **Friction proxy** — a cheap behavioral tell logged in production that stands in for hard-to-measure user strain: turn-length ratio, rephrase rate, resistance-message rate, override/argue-attempt rate.
 - **Friction sweet spot** — the calibrated middle where the AI challenges the user enough to keep them checking, without provoking resistance (too hostile) or rubber-stamping (too sycophantic).
+- **Verification substitution** — reading the AI's explanation feels like checking the AI's work, so the user stops doing the actual check. The explanation replaces the verification instead of supporting it.
+- **Deference asymmetry** — an explanation does not raise compliance evenly. It raises it most on the decision whose error nobody will ever see, which for most products is the reject or decline path.
+- **Detection competence** — a reviewer's ability to notice that an output is wrong. Distinct from being given a reason: explanation raises acceptance and does not raise detection.
 - **NLX (natural language as UX)** — designing interfaces where the primary control surface is language, not buttons and menus.
+- **Chatbot degradation loop** — an overwhelmed user mis-restates a long AI summary, and the model mirrors that bad restatement back in its next answer instead of correcting it. No single turn looks wrong, so an eval scored turn by turn misses it.
+- **Competing-evidence boundary** — showing users several conflicting AI-generated views to weigh only helps someone who can judge between them. A novice with no basis to choose ends up picking arbitrarily, indistinguishable in the log from a reasoned choice.
 
 ## THE PROCESS
 
@@ -87,6 +85,7 @@ For each AI decision, place it on this ladder based on confidence level AND erro
 - Use when: Confidence 60-75%, meaningful alternatives exist
 - Cost: You're asking the user to pick. Increases friction. Use only when alternatives matter.
 - Example: Email category is "Work" but could be "Billing." Let the user confirm.
+- Boundary: this helps only when the user can actually tell Work from Billing. See section 9 before extending it to a novice choosing between things they cannot evaluate.
 
 **Level 4: Question Back**
 "I'm not sure. Can you help me understand better?"
@@ -205,9 +204,70 @@ Sibling to the Uncertainty Ladder: how the AI *talks* to a user is a control sur
 
 **Related — an "explain" affordance is not a control; log whether it was *opened*.** Offering a "why" / "explain" / "show reasoning" affordance is not the same as the user engaging it. People predictably skip the reasoning when looking might cost them — hardest exactly where the decision carries financial or moral stakes (see `rtp-judgment-guard`, motivated non-inquiry). So treat "explanation offered" and "explanation opened" as two different signals, and log the second: "available" tells you nothing about whether anyone looked; the open-rate on the explanation, especially for high-stakes decisions, is the real signal. **When this is wrong:** for low-stakes, high-frequency interactions an unopened explanation is fine (acceptance is the intended behavior) — reserve open-rate tracking for decisions where a skipped rationale has a cost. *(Source: "Employees Aren't Questioning AI Advice Enough," Chan / Rand, HBR, 24 Jun 2026, ◆.)*
 
+---
+
+### 7. The explanation trap
+
+Sections 1 and 2 tell you to surface confidence and to layer detail. This section is the limit on both, and it is the one finding here that most teams have backwards.
+
+**Explanation is an uptake feature, not a safety feature.** It raises the rate at which people accept AI output. It does not raise the rate at which they catch a bad one, and in the one study that measured both it removed the benefit the recommendation already delivered.
+
+The measurement, from a screening experiment with expert-supplied ground truth: **the unexplained recommendation improved decision quality by 4.3 points; the explained one improved it by nothing**, while producing more compliance. Tier ◆, single study, one screening task, population is evaluators reviewing submissions.
+
+The mechanism the authors name is verification substitution. Narratives "suppress productive overrides by substituting persuasive text for independent verification." **Reading the explanation feels like checking, so people stop checking.**
+
+**The asymmetry is the part nobody designs for, and it is where the harm concentrates.** Compliance with *accept* recommendations rose about 10 points in both AI conditions. Compliance with *reject* recommendations rose **21.2 points** with a black-box output and **26.9 points** with an explanation. Tier ◆, same study, same population.
+
+So explanation buys most of its extra deference on the reject decision, which is the decision whose error is invisible. A false positive announces itself when the funded thing fails. A false negative walks away and nobody writes it up.
+
+**The design rule that follows.** If your product explains itself, the explanation is doing its most damage on the reject path, and the reject path has no feedback loop to catch it. Instrument the reject path separately, sample rejections for review at a higher rate than acceptances, and never read a flat acceptance rate as evidence that explanation is working.
+
+**Explanation also does not build detection competence, and this is now measured rather than argued.** In the same study the ground truth was observable, supplied by four experts, and explanation still cut detection by **11.9 points** ◆. The corpus had assumed explanation was the lever that builds a reviewer's ability to spot a bad output. It is not, even when a benchmark exists. What may build it is substrate access, meaning the raw material and the time to work it, and that remains untested (see `rtp-judgment-guard`, and pattern T in the research ledger).
+
+**When this is wrong.** One study, one screening task, and the population were evaluators with domain expertise rather than consumers. Do not read it as an argument against explaining. Regulated decisions require an explanation whatever it does to deference, and a user owed a reason is owed a reason. **Read it as a correction to what an explanation is for: it is there to satisfy a duty and to raise adoption, and if you also need catching, you have to build catching separately.**
+
+*(Source: "AI Is Undermining Leaders' Judgment. Here's What to Do About It.", Sudakov and Furr, HBR, Aug 2026, reporting the Lane and Boussioux working paper. Figures are the paper's, tier ◆, unrefereed at time of reading.)*
+
+### 8. The sequencing law — the seven patterns above are ordered, not a menu
+
+Sections 1 to 7 read as independent modules you can pick from. They are not. Engagement research from outside AI, built on decades of work in experience design, finds that people entering any new experience answer six questions **in a fixed order**, and that **an unresolved earlier question caps every later one regardless of how well the later ones are executed.**
+
+Mapped onto an AI surface:
+
+| Order | The user's question | The AI-product form | What this skill already covers |
+|---|---|---|---|
+| 1 | **Where am I?** | context clarity: what surface is this, what is this AI for | the trap section, onboarding |
+| 2 | **Who am I with?** | role clarity: what the AI is, what it is doing on my behalf | section 6, persona |
+| 3 | **What can I do?** | the decision surface: which actions are actually available | sections 2 and 3 |
+| 4 | **What is happening?** | traceability: how this output came to be, over time | sections 1, 4, 7 |
+| 5 | **Am I making progress?** | visible markers of advancement across a session | section 4, loading states |
+| 6 | **Why does this matter?** | outcome relevance, and whether using this changed anything | section 5, the taste question |
+
+**The rule, and it is what makes this a law rather than a checklist:** a beautifully-designed explanation layer sitting on a surface where the user cannot tell what the AI is doing on their behalf will not produce trust. It will produce a well-explained confusion. Fix the earliest broken stage before you invest in a later one. **Most AI trust work in the wild is stage-4 and stage-6 work shipped onto a broken stage 1 or 2.**
+
+**The agency audit, and it is the sharpest instrument here because it falsifies cosmetic control.** Section 3 offers the user control. This tests whether the control is real. List every decision available to the user, then ask three questions of each:
+
+1. **Does it change anything?**
+2. **Is the change visible to the user?**
+3. **Does the impact build over time, or does the next turn reset it?**
+
+Interactivity without consequence is the named failure mode: cosmetic choices, and flows that reset regardless of what the user did. A control that fails any of the three is decoration, and users detect it faster than teams expect. This pairs with the deference findings in section 7: **offered-but-inert control is worse than no control, because it recruits the trust that the reset then spends.**
+
+**The other five failure modes, stated as the diagnostic asks them:**
+
+| Stage | Failure mode to check for |
+|---|---|
+| Presence | spectacle without orientation: impressive, disjointed, the user cannot say what surface they are on |
+| Discourse | built for an individual when the real unit is a group, so people sit isolated in a shared space |
+| Understanding | output presented as disconnected moments rather than a connected whole |
+| Goal pursuit | no visible markers of advancement, so repeat sessions feel redundant instead of cumulative |
+| Meaning-making | impresses in the moment, leaves nothing behind |
+
+*(Source: HBR, Nunes & Heimann, "Why the Best Immersive Experiences Succeed," Aug 2026 — ⚠ framework-tier for the sequencing claim. The six dimensions are grounded in named external theory (self-determination theory for agency, goal-setting theory for progress, narrative transportation for understanding), and the article's company figures are ◆ but attach to attendance and funding rather than to the sequencing claim, which carries **no outcome data testing the ordering itself**. The mapping onto AI surfaces is this corpus's, not the authors'; their own generalization stops at customer journeys, service interactions and organizational change. Treat the order as a strong design prior worth testing, not a measured dependency. Ledger candidate, sequencing law.)*
+
 ## NLX — NATURAL LANGUAGE AS UX (Aparna Chennapragada)
 
-The five sections above describe how to add AI to traditional GUIs — buttons, suggestions, inline assertions, dedicated decision interfaces. This section is for the inverse case: when language IS the interface.
+The eight sections above cover AI layered onto traditional GUIs: buttons, suggestions, inline assertions, dedicated decision interfaces, and the order the stages have to be fixed in. This section is for the inverse case: when language IS the interface.
 
 The Chennapragada framing: in an NLX product, users don't navigate menus or click buttons. They type or speak. The AI's response IS the UI. ChatGPT, Claude, conversational copilots, voice assistants, AI-first search products — these are all NLX. And they break every assumption that GUI design carries.
 
@@ -420,6 +480,15 @@ Is the modality (chat, inline, dedicated interface) appropriate for the confiden
 - Low stakes + high confidence → Inline assertion. No explicit confidence signal needed.
 - High stakes + low confidence → Dedicated decision interface with explicit reasoning.
 - Medium stakes + medium confidence → What are you using? If it's inline, it's wrong.
+
+**Q5: Explanation Direction**
+Which decision does your explanation push hardest, and is that the decision whose error you can see?
+
+Split your acceptance rate by decision direction, not in aggregate. Accept and reject are different products with different feedback loops, and explanation moves them by different amounts, roughly twice as much on the reject path in the one study that measured it.
+
+- If you cannot split acceptance by direction, you cannot answer this, and that is the first thing to build.
+- If the split shows explanation moving the reject rate more than the accept rate, your sampling for human review is pointed the wrong way. Rejections need a higher review rate than acceptances, not an equal one.
+- **Red flag:** a flat, healthy-looking acceptance rate on a product that explains itself tells you nothing. The damage sits in the rejections, and nobody files a complaint about a thing that did not happen.
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: "safety-as-moat"
-version: v1.0_latest
-description: "Is safety a competitive advantage for you, or just compliance theater? Weighs the real cost of guardrails (speed, engineering effort) against the measured premium customers pay for credible safety — a premium that grows the more the AI can do on the user's behalf. Treats attacking your own AI before users do (red-teaming) as product-quality work, not audit paperwork. Use when: safety investment decisions, enterprise positioning, 'why fund guardrails' debates. Pairs with: safety-by-design (how to build it in), responsible-ai-program (the governance), moat-finder (the other moats). Triggers: 'safety strategy', 'safety moat', 'guardrails'"
+version: v1.1_latest
+description: 'Is safety a competitive advantage for you, or just compliance theater? Weighs the real cost of guardrails (speed, engineering effort) against the measured premium customers pay for credible safety, a premium that grows the more the AI can do on the user''s behalf. Treats attacking your own AI before users do (red-teaming) as product-quality work, not audit paperwork. Use when: safety investment decisions, enterprise positioning, ''why fund guardrails'' debates. Pairs with: safety-by-design (how to build it in), responsible-ai-program (the governance), moat-finder (the other moats). Triggers: ''safety strategy'', ''safety moat'', ''guardrails'
 imports: ["determinism-compass"]
 ---
 
@@ -30,6 +30,8 @@ Then proceed with the skill-specific analysis below.
 - **Defense-in-depth** — layering safety at several points (input filter → system-prompt constraints → output filter → monitoring) so no single bypass is catastrophic.
 - **Red-teaming** — deliberately attacking your own AI to find failures before users do; a cadenced product-QA practice, not a one-time audit.
 - **Bypass rate** — how often red-team attacks get through; track the trend quarter-over-quarter, not a single number.
+- **Hygiene factor** — a quality that prevents dissatisfaction if present but does not create extra demand if improved further. Customers do not choose you for it; they leave the moment it fails.
+- **CDR (Corporate Digital Responsibility)** — the practice of governing AI and data use so that business performance and customer well-being move together instead of trading off.
 
 ## THE TRAP
 
@@ -63,6 +65,24 @@ Two operator consequences:
 
 **Why it matters:** the skill already quantifies the cost (alignment tax) and asserts safety sells; this gives the benefit a *measured shape* and a *named failure mode* (belief → evidence), so you can argue the moat with numbers and know where it's steepest. **When this is wrong:** the study measures *stated* purchase intent and a survey brand index, not booked revenue (the article itself hedges to "will probably perform better"); the $869M figure is an event-study-style estimate, model-dependent and directional; and it's a B2C consumer-brand study, so the transfer to enterprise agentic products is an analogy, not a tested result. It's also void where the user has *no real privacy choice* (lock-in, monopoly, mandated tooling) — there, visible stewardship is theater, because the switch-away mechanism that creates the discount is unavailable.
 *(Source: "Data Privacy Is a Growth Strategy," HBR, 2026; study: Moffett et al., [Journal of Marketing 2025](https://journals.sagepub.com/doi/10.1177/00222429251367342). All figures ◆ study-disclosed / directional.)*
+
+### The Regulator/Customer Split — Correcting the Central Claim
+
+A July 2026 HBR piece, ["Responsible AI Is Becoming a Growth Strategy,"](https://hbr.org/2026/07/responsible-ai-is-becoming-a-growth-strategy) argues that safety wins customers. Its own evidence argues the opposite, and the gap matters here: it changes where a safety communications budget should go.
+
+Every well-demonstrated case in the article is regulatory risk reduction, not customer revenue. Amazon paid $2.5B to settle an FTC suit over "dark patterns" in its Prime cancellation flow (✅ audited, public settlement, Sep 2025). Apitor had a $500K judgment suspended after a children's-data-harvesting case (✅ public record). Both are companies avoiding regulatory punishment, not customers rewarding safety. The article's customer-facing cases do not hold up under the same scrutiny: Patagonia is a values-brand case with no AI involved at all, and Apple's App Tracking Transparency is the article's own admitted "Sacrifice" quadrant case, revenue-negative, which drove a 96% opt-out rate (◆ company-disclosed) the moment Apple gave users the choice. Separately, only 23% of consumers (◆ vendor-commissioned survey) say they trust companies to handle AI or data responsibly. None of this is a customer paying a premium for safety, and it adds evidence to the caveat the Trust Premium section above already carries: that its B2C study is an analogy to enterprise agentic products, not a tested result.
+
+**The mechanism, and the correction this skill should carry:** safety compounds as a moat with regulators. Early, loud, auditable disclosure builds durable regulatory latitude over time, the way a clean compliance history earns lighter-touch audits later. Safety is a hygiene factor with customers: nobody buys a product for its safety posture, but everyone leaves the moment safety fails, and a trust campaign aimed at customers can backfire by raising awareness of a risk they were not pricing in before you named it.
+
+**Two audiences need opposite communication postures, not one "safety sells" message:**
+- **To regulators:** publish specifics. Name the controls, show the audit trail, disclose before you are asked. The moat effect is real and durable here.
+- **To customers:** stay quiet and ship reliability. Safety prevents churn at the customer tier. It does not win share.
+
+**The CDR framing behind this:** the article plots business performance against customer well-being, producing four quadrants: Failures (both lose), Temptations (business wins, well-being loses), Sacrifices (well-being wins, business loses, Apple's ATT case), and the Sweet Spot (both win). The framework has no time axis. A case sitting in Temptations today was very likely a Sweet Spot once, before the trade-off it was quietly making caught up with it. Re-run the classification every 6 to 12 months instead of treating it as a one-time label.
+
+**When this is wrong:** a company that has won enterprise deals specifically citing its safety posture over a competitor's comparable capability at a comparable price would show the customer-tier hygiene-factor claim does not hold, at least at the enterprise tier, where the buyer (a CISO with an audit checklist) sits closer to a regulator than to a retail customer.
+
+*(Source: "Responsible AI Is Becoming a Growth Strategy," HBR, Jul 2026, https://hbr.org/2026/07/responsible-ai-is-becoming-a-growth-strategy. Amazon-FTC figure independently confirmed via [Alston & Bird](https://www.alston.com/en/insights/publications/2025/10/ftc-settlement-prime-subscription-practices), Oct 2025. Amazon and Apitor figures ✅ audited/public record; Apple opt-out rate ◆ company-disclosed; the 23% trust figure ◆ vendor-commissioned survey.)*
 
 ## THE PROCESS: DIAGNOSTIC FRAMEWORK
 

@@ -1,6 +1,6 @@
 ---
 name: eval-framework
-version: v1.0_latest
+version: v1.2_latest
 description: "How do you know your AI is actually good? Designs the testing approach: what to measure, how to turn real production failures into repeatable tests, why the hard rare cases matter more than the common ones, and how tests must evolve as the product matures. Use when: launching a feature, diagnosing quality complaints, setting up monitoring. Pairs with: eval-driven-development (the tests as the spec), ai-product-metrics (the dashboard), confidence-tuner (calibrating the LLM judge), production-observability (where evals run in prod), judgment-guard (keeping the human reviewers sharp). Triggers: 'how to evaluate', 'eval framework', 'quality metrics'"
 imports: [feedback-flywheel, first-principles, stress-test]
 ---
@@ -188,6 +188,38 @@ Open → axial → selective coding is not a one-time setup. Re-run it:
 
 The full cycle takes 6-10 hours. It's the highest-leverage 6-10 hours an AI PM spends per quarter.
 
+### Six Things That Quietly Invalidate a Rubric
+
+Each of these produces a rubric that scores cleanly and measures nothing. All six are cheap to check and none is caught by inter-rater agreement.
+
+**1. The rubric has no explicit weights, so nobody can disagree with it.** A rubric's job is to give a cross-functional group a shared ground truth for what "good" means. Weights are what make it **disputable**, and disputable is what makes it useful. A worked example from a healthcare deployment: a rubric for patient-friendly output carried four dimensions with explicit weights on **accuracy, completeness, readability and patient-centeredness**. Two organizations in the same study both set up cross-functional review forums; only one built the rubric. **The forum is not the scaffold.** A meeting with no shared standard produces rework, and each meeting triggers downstream waves of it. *(The published account gives the four dimensions and withholds the weights, which are the interesting part. Build your own and write them down.)*
+
+**2. Rubric circularity: you changed what you assess on because the old measure stopped discriminating.** This is the subtle one. When a metric saturates and the team picks a new dimension that still separates people, **you have encoded a hypothesis about what matters into the instrument, and you cannot then validate that hypothesis with that instrument.** The move is legitimate; presenting the result as evidence is not. State the switch explicitly, keep the old measure running in parallel for at least one cycle, and validate the new dimension against an outcome that lives outside the rubric.
+
+**3. The tool confound: how well a measure separates people depends on the tool they were using.** Discrimination is not a property of the rubric alone. A field experiment on algorithmic search made this concrete: on a standard exploitation-based retrieval tool, domain experts produced **no more distinct solution territory than novices** (2 clusters vs. 2); on an exploration-based retrieval tool, the same experts reached 5 clusters. Same people, same task, same rubric, opposite conclusion about whether expertise matters, and the entire swing came from which retrieval mode was in the loop. **So hold the tool constant across arms and name it in the write-up**, or your eval is measuring the tool's ceiling and reporting it as a property of the humans or the model.
+
+**4. The assembled-input condition: what did the evaluator supply that a real user would have had to gather?** Ask it of every benchmark you cite and every eval you run. The largest study of AI task performance to date, more than **60,000 worker evaluations across more than 6,000 text-based tasks**, was run with the information already assembled. **Assembling the information is the part that costs real time in a real job**, so a task-success rate measured on pre-assembled inputs is an upper bound on a different task than the one the user has. The companion omission in the same study: **no human comparison arm.** An acceptance rate with no human baseline cannot support a substitution claim, however high it is. Add the arm or drop the claim.
+
+**5. Never define an eval's positive class by a ceiling self-report score.** A worked example: an HBR podcast survey defined "super teams" as roughly **8%** of surveyed workers (◆ no method or *n* disclosed) who rated their own team a *perfect* score on two self-report items, then treated that ceiling cut as revealing which traits make a team great. Dichotomizing a self-rated outcome at its ceiling destroys exactly the variance a common-method-bias correction needs, and it does so at the tail of the distribution where response style, not substance, dominates. When one respondent rates every predictor and the outcome in the same sitting, the resulting correlation matrix has everything correlating with everything, so reading it causally produces a false "these traits are mutually necessary" conclusion. What actually happened is the design's null result got mistaken for a finding. **The rule: never define a positive/success class in an eval by a ceiling cut on a self-reported score from the same rater who is also judging the predictors.** *When this doesn't apply:* a ceiling cut on an outcome measured independently of the predictors (a different rater, an objective metric) doesn't carry this failure. The problem is same-rater, same-sitting, not ceiling cuts in general.
+
+**6. A falsification condition can't be generated by the system it's meant to check.** An HBR piece on analytics governance proposes a six-part operating model for decision-grade analytics whose sixth part, rewarding truth-seeking over persuasion, is the actual root dependency the other five rest on, even though it's listed last. Each of the first five imposes a private cost on whoever follows it and gets gutted without incentive alignment in place. The article then breaks its own rule in its own text: the "what would make this conclusion wrong" section it offers is generated by the same analysis it's meant to qualify. **The rule, generalized to any eval design: a falsification condition, or a stated failure mode, must come from a source independent of the system whose output it checks. A self-generated falsifier is decorative.** *When this doesn't apply:* an internally generated hypothesis about failure is still worth writing down and handing to an independent reviewer; the rule blocks treating it as the check itself, not blocks generating it at all.
+
+*(Sources: the rubric-and-forum finding, HBR, "AI Experiments Need Domain Experts," Aug 2026 — ◆ two-year qualitative field study, two pseudonymized sites, n=2 so read it as a mechanism rather than an effect. The tool confound, MIT SMR Research Highlight, Aug 2026, and HBR's coverage of the same algorithmic-search field experiment, Jul 2026 — ◆ non-refereed, roughly 60 per cell, so the expert-novice null is underpowered; it justifies holding the tool constant, not the effect size. The assembled-input condition and the missing comparison arm, MIT FutureTech via MIT Sloan, Aug 2026 — ◆. Rubric circularity is this corpus's, drawn from HBR, "AI Makes Building Easy," Aug 2026, whose own conclusion is produced by exactly this error. The ceiling self-report finding, HBR podcast survey on high-performing teams, Jul 2026 — ◆ self-reported statistic, no method or n disclosed; read as an eval-design cautionary case, not a validated team-effectiveness finding. The self-generated-falsifier finding is this corpus's own diagnosis of an HBR article proposing a six-part decision-grade-analytics operating model, Jul 2026 — ⚠ prescriptive magazine analysis whose own closing falsification test is authored by the analysis it's meant to qualify. Ledger patterns M and O.)*
+
+### A New Eval Defect Class: Conversation-Type Mismatch
+
+Every evaluator above grades on axes like accuracy, groundedness, or task completion. There is a defect class those axes don't see: does the rubric know *which kind of conversation is happening* before it grades what was said?
+
+Charles Duhigg's "matching principle" splits real conversation into three kinds: practical (deciding or solving something), emotional (being heard), and social (belonging). Each needs different handling. An eval that grades an emotionally loaded stakeholder objection purely on factual accuracy will mark a technically correct, tone-deaf response as a pass and a technically incomplete but validating one as a fail, inverting what actually worked.
+
+**The check:** before scoring a conversational-agent trace, ask which of the three types is happening in that turn, and confirm the rubric being applied matches it. A rubric built for practical conversations, applied to an emotional one, is grading the wrong thing well.
+
+**Why it matters:** conversational-agent evals (see the Agent-Type-Specific Eval table further below) already separate task success from interaction quality. This defect class explains why interaction-quality scores can look fine while users still feel unheard. The rubric was never built to detect that failure.
+
+**When this is wrong:** a single-turn factual chatbot has no emotional or social conversation to misjudge. This class matters for conversational and multi-turn agents, not simple Q&A.
+
+*(Source: HBR IdeaCast featuring Charles Duhigg on his "matching principle," Jul 2026 — currently untested in production evals; treat it as a hypothesis to pilot, not a validated metric.)*
+
 ### Choosing Your Evaluator Type
 
 For each failure mode, ask: **Can I catch this with code?**
@@ -267,6 +299,20 @@ Don't pick thresholds from thin air. Four inputs determine your bar:
 - **Leadership/legal constraints:** What has been promised to boards, customers, regulators? This sets your ceiling.
 - **Competition benchmarks:** Run competitors' products (or foundation model baseline) through YOUR eval. This is your market floor.
 - **Progressive release:** Start with a low bar at measurement launch (1% of users), raise it at beta, raise again at GA. Each release adds value AND learning from real interactions. You iterate the quality bar, not just the product.
+
+### The Normative-Benchmark Eval Design, and the Invariant-vs-State-Dependent Split
+
+Some domains have no ground truth to eval against: nobody has labeled "the correct financial advice" the way they've labeled "the correct SQL query." A working paper on AI financial advice (Choukhmane et al., real identification strategy: a randomized label experiment, *n*≈1,000 US adults, real user-written prompts) shows the way out: import an external normative theory as ground truth and score model advice against its prescriptions. Here the benchmark is a life-cycle economics model of optimal saving and investing; the same method works in any domain with an established normative theory: tax optimization, actuarial risk, clinical guidelines.
+
+**The required first cut.** A single aggregate score across all questions hides the finding. The paper splits questions into two kinds: **invariant** questions, where the correct answer is the same regardless of the person's current situation (should you participate in equities at all, close to always "yes"), and **state-dependent** questions, where the correct answer depends on where the person already stands (should you rebalance this specific portfolio right now). The model cleared the invariant bar cleanly: equity-participation advice accuracy jumped from roughly 30% to over 99% across model generations. On the state-dependent question, portfolio rebalancing, the model showed roughly *twice* the inertia of actual human investors, a well-established comparison figure (Calvet, Campbell & Sodini, 2009), meaning it fell **below the worst human benchmark available**, not only below the normative ideal.
+
+**Why it matters:** an aggregate "advice quality" score across both task types would have hidden this entirely. It averages an above-human result with a below-the-human-floor result into one number that describes neither. Run the invariant-vs-state-dependent split as the first cut on any eval decomposition, before choosing metrics, the same way you'd first ask whether a failure is a spec bug or a capability gap.
+
+**The prompt-source rule that rides along:** the paper used real user-written prompts, not product-team-authored test cases. An eval set your own team wrote measures the model on a friendly distribution, not the product on the one it actually faces. Use real user-written prompts wherever you can get them; where you can't, at minimum audit how far your synthetic set drifts from real phrasing before trusting the score.
+
+**When this is wrong:** the normative-benchmark design only works where an established, defensible normative theory already exists. Inventing one just to have a ground truth is worse than admitting you have none, because a fabricated benchmark launders "no ground truth" into false confidence.
+
+*(Source: Choukhmane, T. et al., working paper on AI financial advice, 2026 — ⚠ unrefereed but methodologically strong, real randomized label experiment, *n*≈1,000 US adults. Human-inertia comparison: Calvet, Campbell & Sodini, "Measuring the Financial Sophistication of Households," AER 2009 — ✅ peer-reviewed.)*
 
 ### Adversarial Testing (Red Teaming)
 

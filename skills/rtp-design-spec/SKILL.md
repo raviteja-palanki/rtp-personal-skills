@@ -1,11 +1,6 @@
 ---
 name: rtp-design-spec
-description: >
-  Generates and validates DESIGN.md format files — Google Labs' emerging standard for describing
-  design systems to coding agents. Use when handing a design system to engineering, when documenting
-  a brand for AI consumption, when standardizing tokens across products. Triggers on "design.md",
-  "design tokens", "design spec", "DESIGN.md", "tokens.json", "Tailwind config from design",
-  "agent-readable design system."
+description: 'Generates and validates DESIGN.md format files, Google Labs'' emerging standard for describing design systems to coding agents. Use when handing a design system to engineering, when documenting a brand for AI consumption, when standardizing tokens across products. Triggers on "design.md", "design tokens", "design spec", "DESIGN.md", "tokens.json", "Tailwind config from design", "agent-readable design system.'
 author: Ravi Teja Palanki
 version: v1.0_latest
 created: 25 APR 2026

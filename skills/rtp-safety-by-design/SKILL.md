@@ -1,7 +1,7 @@
 ---
 name: "safety-by-design"
-version: v1.0_latest
-description: "Build the safety rules into the AI's core instructions from the start — not a filter bolted on after it answers, because bolted-on filters only catch what they were written to catch. Covers writing constraints the model can generalize to cases nobody wrote down, and testing that they hold. Use when: architecting AI systems, scaling safety to new capabilities, testing whether rules transfer. Pairs with: safety-as-moat (whether safety pays), agent-risk (worst-case screening), determinism-compass (what must never vary). Triggers: 'safety constraints', 'safety architecture'"
+version: v1.1_latest
+description: 'Build the safety rules into the AI''s core instructions from the start, rather than a filter bolted on after it answers, because bolted-on filters only catch what they were written to catch. Covers writing constraints the model can generalize to cases nobody wrote down, and testing that they hold. Use when: architecting AI systems, scaling safety to new capabilities, testing whether rules transfer. Pairs with: safety-as-moat (whether safety pays), agent-risk (worst-case screening), determinism-compass (what must never vary). Triggers: ''safety constraints'', ''safety architecture'
 imports: ["determinism-compass"]
 ---
 
@@ -71,6 +71,21 @@ Model learns: These categories are off-limits. Here's the helpful
 response pattern. It generalizes to adversarial variants because
 the model understands the principle, not just a pattern-match.
 ```
+
+**Embedding controls checklist (minimum viable governance):**
+
+MIT CISR's "minimum viable governance" (MVG) framework names "trustworthy-by-design" as one of its core design characteristics: build the controls into the platform itself, not into a person's judgment at the point of use. Four checks belong in the platform layer, not in a reviewer's head:
+
+- Log every prompt and every output.
+- Mask sensitive data before it reaches the model.
+- Screen for hallucinations before the output ships.
+- Filter known policy violations.
+
+Treat this as a build list, not a proof of safety. Embedding a control in the platform makes it harder to skip than asking a person to remember it, but it does not make the coverage complete. Every one of these four checks screens for a violation someone anticipated when they wrote the filter. A system can pass all four and still have no one positioned to catch a genuinely novel failure mode: the fifth attack nobody wrote a rule for.
+
+*When wrong:* if a documented case surfaces where one of these platform-embedded controls caught a failure mode nobody had specifically anticipated when the filter was designed, that weakens the anticipated-only limit above and the boundary should be revised.
+
+*(Source: MIT CISR "minimum viable governance" (MVG) framework, trustworthy-by-design design characteristic; Jun 2026 note sweep batch; ⚠ framework claim, primary link not verified in this pass.)*
 
 ---
 

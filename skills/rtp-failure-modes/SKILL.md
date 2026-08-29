@@ -1,6 +1,6 @@
 ---
 name: failure-modes
-version: v2.0_latest
+version: v2.1_latest
 description: "What will go wrong with this AI feature, what does each failure cost, and what happens to the user when it does? Maps the full failure surface (six kinds of hallucination, injection, cascade, silent decay), prices each by cost and how long it stays invisible, then designs the response: honest uncertainty language, correction paths, when the AI should refuse, and the fallback chain when it breaks. Use when speccing an AI feature, designing production monitoring, running a pre-launch failure audit, or writing failure acceptance criteria. Do NOT use to decide whether to use AI at all (that's problem-ai-fit), or for purely deterministic systems. Pairs with: stress-test (the load/cost/latency surface), feedback-triage (routes live failures to their fix team using this taxonomy), ai-ux-patterns (how failure looks to the user), trust-ladder (repairing trust after a visible miss), agent-risk (kill-switch when failure cascades). Triggers: 'what could go wrong', 'failure audit', 'how should it fail'."
 imports: [stress-test]
 ---
@@ -81,6 +81,31 @@ For each output, answer *"what happens when this is wrong?"* — wrong-and-notic
 **Failure UX patterns:** progressive confidence *inline* ("fairly confident, but verify the date" beats a generic disclaimer); inline correction (edit in place, train on the fix); explanation on failure ("no recent pricing — our KB was last updated in January" beats "no results"); one-click undo (≥30s); dead-easy feedback (route bad outputs to the improvement queue); a visible degraded-mode indicator.
 
 **Refusal boundary:** what confidence triggers "I don't know"? what does refusal look like? is refusal better than a low-confidence answer (usually yes for high-stakes)? *The refusal paradox:* too many refusals = useless, too few = dangerous — it's a product decision, tuned empirically. (Design the confidence *signals* themselves with `confidence-tuner`.)
+
+## THE LAUNDERING PATH — the failure that gets *harder* to detect over time
+
+Most failure modes in this skill get noticed eventually. This one gets quieter, and the mechanism that makes it quieter is usually a feature someone shipped on purpose.
+
+**The chain, in four steps:**
+
+1. **Weak boundary detection.** The system cannot reliably tell that a case is outside its competence.
+2. **It resolves the case** instead of escalating it. No error is raised, because from the system's point of view nothing went wrong.
+3. **A provenance record is written.** The answer is now traceable, attributed and, in most designs, reusable as a precedent.
+4. **The wrong answer becomes permanent.** Downstream systems and people treat it as settled, and a later reviewer finds a documented decision rather than an open question.
+
+**Why this is worse than an ordinary silent failure.** A silent failure leaves nothing behind. This one leaves an artifact **that looks exactly like a correctly handled case**, and the provenance requirement, which exists to make the system auditable, is what makes the error durable. Auditability and error-permanence are the same mechanism pointed at different content.
+
+**The metric moves the right way while this happens.** Exception rate falls. Escalation rate falls. Automation rate rises. Every one of those is the number a team celebrates, and all three are equally consistent with the system having stopped noticing. See the Two Opposite Causes trap in `rtp-ai-product-metrics`.
+
+**Detection, and it has to be sampled rather than triggered**, because by construction nothing fires:
+
+- **Sample resolved cases that would previously have escalated**, and have a human grade them. Not a random sample of all cases: the population you need is the one just inside the current boundary.
+- **Watch the boundary itself as a moving object.** If the escalation rate fell, ask what changed: a model update, a prompt change, a threshold someone tuned, or a genuine improvement. All four produce the same graph.
+- **Make rules retractable.** If a learned rule can be traced to the exchange that produced it, a wrong one can be found and removed. If it cannot, you have no path back from step 4.
+
+**When this is wrong:** where the cost of a wrong resolution is low and reversible, absorbing borderline cases is the correct trade and the sampling is overhead. The laundering path matters where a decision is expensive, hard to reverse, or becomes precedent for later decisions.
+
+*(Source: assembled in this corpus from HBR, "4 Steps to Transform the 'Middle Office' with AI," Aug 2026 — ⚠ consultant-and-vendor authored, unnamed clients, own unpublished analysis. That article prescribes both the interrogation loop and the provenance requirement, and warns separately to "guard against speed that hides a worse decision" without connecting the two. **The chain above is this corpus's construction and no source states it.** Treat it as a mechanism to test for rather than a documented incident class. See `rtp-context-spec` for the boundary-detection precondition it depends on.)*
 
 ## PHASE 4 — GRACEFUL DEGRADATION HIERARCHY
 

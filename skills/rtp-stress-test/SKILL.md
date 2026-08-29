@@ -1,7 +1,7 @@
 ---
 name: stress-test
-version: v1.0_latest
-description: "Will this AI feature survive real production — 10x the users, hostile inputs, a degraded model provider, a finance review — or only the demo? A pilot hides two failures: the one in the numbers (load, cost at volume, worst-case latency, quiet quality decay, a motivated attacker — six required checks) and the one the numbers hide (shipped on time, telemetry green, users quietly leaving because the AI is subtly wrong in their highest-stakes work — a pre-mortem catches it). The break is built to arrive at the worst moment: user 10,000, after the roadmap is committed and the promise made. Use before a launch, a resource commitment, a unit-economics promise, or a response-time guarantee. Pairs with: ship-decision (the gate this feeds), cost-model (deep cost math), agent-risk (kill-switch design), production-observability (post-launch watch), failure-modes (what breaks), fit-signal (trust after launch). Triggers: 'will this scale', '10x users', 'cost at scale', 'latency budget', 'production readiness'."
+version: v1.2_latest
+description: 'Will this AI feature survive real production (10x the users, hostile inputs, a degraded model provider, a finance review), or only the demo? A pilot hides two failures: the one in the numbers (load, cost at volume, worst-case latency, quiet quality decay, a motivated attacker: six required checks) and the one the numbers hide (shipped on time, telemetry green, users quietly leaving because the AI is subtly wrong in their highest-stakes work, which a pre-mortem catches). The break is built to arrive at the worst moment: user 10,000, after the roadmap is committed and the promise made. Use before a launch, a resource commitment, a unit-economics promise, or a response-time guarantee. Pairs with: ship-decision (the gate this feeds), cost-model (deep cost math), agent-risk (kill-switch design), production-observability (post-launch watch), failure-modes (what breaks), fit-signal (trust after launch). Triggers: ''will this scale'', ''10x users'', ''cost at scale'', ''latency budget'', ''production readiness''.'
 imports: []
 ---
 
@@ -179,6 +179,32 @@ If you can't write the breaking-evidence statement for an assumption, you're fly
 
 **Hard rule:** if any of these would be *unrecoverable* — regulatory exposure, irreversible trust collapse, a cost spiral that breaks the business — the launch waits until the mitigation is in place. Unrecoverable pre-mortem findings are launch blockers, not edits.
 
+## THREE PROMPTS THAT INVITE CANDOUR INSTEAD OF CONSENSUS
+
+Use these verbatim in any review where the group has to find what is wrong. They are better phrased than most stress-test prompts, they cost nothing, and each one asks for an absence rather than an opinion, which is why they work on people who will not volunteer a criticism:
+
+1. **"What concerns aren't we talking about?"**
+2. **"Whose perspective haven't we heard?"**
+3. **"What assumptions should we challenge?"**
+
+**Two things to set before you ask them, or they produce polite silence.**
+
+**State the goal first.** Finish this sentence out loud before anyone discusses the issue: *"By the end of this conversation, we should..."* Then close the same way, explicitly, on next steps, ownership and follow-through.
+
+**Declare who can block.** Make participation roles visible: who facilitates, who makes the final decision, who is here to supply expertise, who is here to listen. The fourth part is the one that changes outcomes: **does anyone have the authority to block or override this decision?** Declaring a block right at the start is the difference between a decision and an ambush, and an undeclared block turns a passed stress test into rework a month later.
+
+**Add a reviewer-exposure column to that role list.** For every named reviewer or dissenting voice in the room, write down what they personally lose if this ships and turns out wrong: a missed OKR they own, a rollback they will run at 2 a.m., a budget line, a reputational hit in front of their own boss. A blank exposure cell is the tell. It means that person's pre-mortem input is decorative, not real skin-in-the-game feedback, because the information value of a dissenting view is proportional to what the dissenter risks by giving it.
+
+| Reviewer | Role in this review | What they personally lose if this ships and is wrong |
+|---|---|---|
+| [name] | facilitator / decision-maker / domain expert / listener | [specific cost, or "none" if genuinely none] |
+
+*(Source: HBR IdeaCast interview — an anecdote from one leader's practice, not a measured study. Treat the exposure-column mechanism as a practitioner idea worth testing, not a proven one.)*
+
+**One warning on the framing move.** "What could go wrong with this approach?" works partly because it signals that the leader *wants* dissent, and people are wired to give leaders what they want. That is the mechanism, and it is also the limit: **the same wiring means a leader who signals the opposite gets agreement just as reliably.** Treat a stress test run by the person who owns the proposal as compromised by default, and route the terminating condition to `rtp-judgment-guard`, checkpoint 6, before you trust the output.
+
+*(Source: HBR, "How the Best Leaders Shape Conversations," Aug 2026 — the three questions and the goals-and-roles instrument are the article's closing checklist, reproduced verbatim; the dissent-signaling observation is attributed there to Moore and Coombs at Imperial College London. ◆ the authors' own dataset across more than a hundred teams.)*
+
 ## The human gate — will anyone say "it fails"?
 
 A stress test that produces a FAIL is worthless if no one is willing to voice it. This is the gate underneath everything above, and it is social, not analytical. Every dimension and every pre-mortem question tells you *how* to reach a no-go. None of them makes a person *want* to bring you the news that their own feature should wait — sunk cost and ego make "this isn't working" personally expensive, and peers stay quiet because they don't want to hurt anyone's feelings. So the kill signal arrives late, after the spend, which is exactly the outcome the whole skill exists to prevent.
@@ -252,7 +278,7 @@ Run stress-test to price reality; run the first group to go deeper on one number
 
 Monthly cost: $[X] now → $[Y] at 10x   Token budget: [avg] / [P95] per request
 Pre-mortem: top failure imagined · signal to watch · assumption most likely to break · Tuesday action
-Human gate: who is rewarded for surfacing a FAIL
+Human gate: who is rewarded for surfacing a FAIL · reviewer exposure: what each dissenting voice personally loses if wrong
 Launch recommendation: GO / NO-GO / CONDITIONAL — conditions [item · owner · date]
 ```
 
@@ -276,6 +302,7 @@ Launch recommendation: GO / NO-GO / CONDITIONAL — conditions [item · owner ·
 - [ ] D6 Harness (if applicable): circuit breaker tested, context saturation tested, cross-agent isolation verified
 - [ ] Pre-mortem run: Q1–Q4 written, AI-specific failure modes probed, unrecoverable findings flagged as blockers
 - [ ] Human gate designed: the person who surfaces a FAIL is rewarded, not punished
+- [ ] Reviewer-exposure column filled for every named reviewer or dissenting voice; a blank cell is treated as decorative input, not real feedback
 - [ ] Scoring matrix complete — all dimensions Pass or Marginal-with-plan; launch recommendation has owners and dates
 
 ## WHEN WRONG

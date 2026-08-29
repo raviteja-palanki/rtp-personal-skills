@@ -1,7 +1,7 @@
 ---
 name: ship-decision
-version: v1.0_latest
-description: "The formal go/no-go gate for launching an AI feature: quality tested on 150+ real cases, error rates within severity thresholds, cost still survivable at 10× usage, monitoring live before launch (not after), failure behavior mapped, fallback defined — plus a pre-agreed reward for the person who kills their own failing feature, so the bad news arrives before the spend. Use when: one week before any production launch. Pairs with: eval-framework (the test set), cost-model (the 10× math), stress-test (production readiness), agent-risk (can you pull the plug fast enough). Triggers: 'ship gate', 'launch checklist', 'go/no-go'"
+version: v1.1_latest
+description: 'The formal go/no-go gate for launching an AI feature: quality tested on 150+ real cases, error rates within severity thresholds, cost still survivable at 10× usage, monitoring live before launch (not after), failure behavior mapped, fallback defined, plus a pre-agreed reward for the person who kills their own failing feature, so the bad news arrives before the spend. Use when: one week before any production launch. Pairs with: eval-framework (the test set), cost-model (the 10× math), stress-test (production readiness), agent-risk (can you pull the plug fast enough). Triggers: ''ship gate'', ''launch checklist'', ''go/no-go'
 imports: [stress-test, safety-as-moat, failure-modes, cost-model]
 ---
 
@@ -87,6 +87,36 @@ Don't flip a switch. Ship to 1% → 5% → 25% → 100% while monitoring for qua
 - **Safety:** If flagged outputs spike >2σ, pause immediately (human review)
 
 **Rollback decision:** If any threshold fails and root cause isn't clear within 2 hours, roll back. Speed matters more than understanding everything in real-time.
+
+## THREE GATES, NOT ONE — and the test that tells you whether a gate is real
+
+The ship decision is usually run once, at the end. A healthcare system that reviews every AI use case runs it at **three** points, plus a standing re-check, and the sequence is worth copying:
+
+1. **Before model development.** Risk, business case and feasibility, before anyone builds.
+2. **Before piloting** at a small number of sites.
+3. **Before scaling** past those sites.
+4. **Periodically thereafter**, re-checking whether models are still holding up in production.
+
+The value is that each gate asks a question the previous one could not answer. Gate 1 cannot know the failure surface; gate 3 cannot un-spend the build.
+
+**Now the part that matters more than the sequence.** The same account describes the gates approvingly this way: *"Critically, the risk questions don't stop progress; rather, they highlight areas that [the organization] needs to investigate as it makes progress."*
+
+**A gate that cannot stop anything is documentation.** It produces a record, it distributes awareness, and it does not gate. That is a legitimate thing to build, and it must not be called a gate, because the name is what makes people downstream believe something was checked.
+
+**The one-question test, and it is the cheapest governance instrument in the corpus:** *what has this body actually stopped in the last twelve months?* A specific answer means a real gate. "It doesn't work like that" or "it raises issues for teams to investigate" means documentation. Run it on your own review board before you rely on its sign-off. See `rtp-responsible-ai-program`.
+
+## FOUR FINANCE PREREQUISITES UNDER ANY SHIP-AND-SPEND DECISION
+
+Ordinary corporate-finance discipline, routinely absent from AI business cases:
+
+1. **Alternatives-based decision-making.** What else could this capital and this team do? In a survey of executives at 760 large organizations, only about **one in five** reported explicitly considering alternatives in strategy development.
+2. **Unit-level balance-sheet reporting.** Can you see assets and returns at the level of the unit making the bet?
+3. **Cost-of-equity discipline.** Use a real discount rate. Anchor: average cost of equity across large public companies sits **slightly above 9%**, with most within **plus or minus 1.5 points**.
+4. **Scenario-based forecasting.** One number is not a forecast, and AI unit costs with vendor-controlled terms need a band. See `rtp-cost-model` section 4B.
+
+**One structural idea worth borrowing from the same source: separate hard constraints from soft ones.** A **hard constraint** eliminates an option outright, no trade-off available. A **soft constraint** only breaks ties between options of comparable value. Most ship debates go in circles because a safety commitment and a latency preference are being argued as if they were the same kind of object. Sort them first, then the decision is usually short. This maps directly onto the can / must / must-never structure used elsewhere in the stack, and it is a useful precedent because it comes from outside AI entirely.
+
+*(Sources: the three-gate sequence, MIT SMR, Westerman, "6 questions to guide your AI strategy," 3 Aug 2026 — ◆ reported example, no outcome data; the "don't stop progress" line is quoted approvingly there and is read critically here. The finance prerequisites and the constraint split, HBR, "Bring Back Managing for Value," Aug 2026 — ◆ Bain's own analysis for the cost-of-equity band; the 760-executive survey is ⚠ and cited without a retrievable source **[VERIFY]**.)*
 
 ## THE TRAP
 

@@ -1,7 +1,7 @@
 ---
-name: rtp-ai-portfolio-management
-version: v1.1_latest
-description: "Manage AI initiatives as an interconnected investment portfolio with stage gates, dual-lens oversight, and Buy/Sell/Hold scoring. Prevents the 'too many pilots, no strategic coherence' failure mode. Grounded in the real ROI base rate (most AI initiatives don't hit their target; a small share of companies capture most of the value) so gates and exits are calibrated to reality, not optimism. Use when running 3+ concurrent AI initiatives, setting up an AI Centre of Excellence or governance board, or when leadership can't say which pilots are worth continued funding. Pairs with: strategy-canvas (the strategy each initiative should serve), moat-finder (which bets build durable advantage), build-or-buy (the Stage 2 partnership decision), cost-model (unit economics behind each initiative's ROI case). Triggers: 'AI portfolio', 'AI initiatives prioritisation', 'stage gate AI', 'AI investment review', 'AI project governance', 'OPEN framework'."
+name: ai-portfolio-management
+version: v1.3_latest
+description: "Manage AI initiatives as an interconnected investment portfolio with stage gates, dual-lens oversight, a five-types investment classification, and Buy/Sell/Hold scoring. Prevents the 'too many pilots, no strategic coherence' failure mode. Grounded in the real ROI base rate (most AI initiatives don't hit their target; a small share of companies capture most of the value) so gates and exits are calibrated to reality, not optimism. Use when running 3+ concurrent AI initiatives, setting up an AI Centre of Excellence or governance board, or when leadership can't say which pilots are worth continued funding. Pairs with: strategy-canvas (the strategy each initiative should serve), moat-finder (which bets build durable advantage), build-or-buy (the Stage 2 partnership decision), cost-model (unit economics behind each initiative's ROI case). Triggers: 'AI portfolio', 'AI initiatives prioritisation', 'stage gate AI', 'AI investment review', 'AI project governance', 'OPEN framework', 'five types of AI investment'."
 imports: [strategy-canvas, moat-finder, build-or-buy]
 ---
 
@@ -141,9 +141,49 @@ Rapid, bounded trials enable multidimensional learning: paper models, minimum vi
 
 ---
 
-## The Three Mechanisms
+## TWO GATE CRITERIA MOST STAGE-GATES ARE MISSING
 
-### Mechanism 1: Buy/Sell/Hold Scoring
+Both are one line on the gate form and both catch failures the standard criteria pass straight through.
+
+**1. Participation rate, at every gate on anything that depends on volunteered effort.** A program losing the domain experts it runs on **passes every other gate on the way down**, because nobody objects. In a two-year field study of one failing site, more than **80% of domain experts gradually dropped out** while nothing was escalated and no gate was failed; the initiative ran out of participants. Business case intact, technical feasibility intact, risk register clean, nobody left to do the work.
+
+The gate question: **has participation by the named experts risen, held, or fallen since the last gate, and who checked?** A falling line is a stop condition even when every other criterion is green. See `rtp-gen-ai-experimentation` for the four scaffolds that prevent it, and `rtp-adoption-launch` Gate Zero question 4.
+
+**2. Which initiative was postponed so this one could proceed?** A gate that passes an initiative with nothing in that field has funded an **addition**, not made a decision, and the organization's capacity to execute is now oversubscribed by exactly one initiative more than anyone recorded.
+
+This matters because **capacity is created by removing work, not by adding people.** Of the four standard moves for creating it (postpone a competing initiative, clarify who owns decisions, shift resources toward what matters most, protect uninterrupted thinking time), three take work away. A portfolio that only ever adds is not a portfolio; it is a list.
+
+The gate question: **name the initiative that was postponed, deprioritized or killed to make room for this one.** "None, we're absorbing it" is an answer, and it should be written down as one so that the next gate can read it.
+
+*(Sources: the withdrawal finding, HBR, "AI Experiments Need Domain Experts," Aug 2026 — ◆ two-year qualitative field study, two pseudonymized sites; the 80% figure has no stated denominator, so carry the mechanism rather than the rate. The capacity-by-subtraction point, HBR, Morris, "Before Rolling Out a New Strategy, Assess Your Team's Readiness," 12 Aug 2026 — ⚠ consultant-authored, unnamed composite clients, no outcome data; the underlying distinction holds up independently.)*
+
+## The Five Mechanisms
+
+### Mechanism 1: The Five Types of AI Investment — Classify Before You Score
+
+Run this classification on every initiative before the Buy/Sell/Hold score in Mechanism 2 and before sorting it into a Confidence Builder, Capability Builder, or Transformation Bet under Portfolio Composition below. Those two exist already and sort by a different axis: how much risk and how long the payoff takes. Neither one asks what kind of financial return the initiative is actually built to produce, which is why a portfolio can pass every gate and still fund the wrong mix.
+
+> **Source:** HBR, "The Five Types of AI Investment," Jun 2026.
+
+**The rule:** classify the initiative into one of five types before picking its metric. **The mechanism:** each type creates value through a different channel, whether that is avoided cost, faster future adoption, a redesigned process, a compounding data advantage, or a more adaptable workforce. Collapsing all five into one blended ROI percentage averages away the exact signal a portfolio review needs. A tactical initiative and a strategic one can show the identical ROI% on a dashboard while one of them is actually failing on its own terms. **Where this breaks:** see the falsifier below. Real initiatives often straddle two types at once, and the framework gives no formula for splitting the metric when they do.
+
+| Type | Category | Example | Native metric |
+|---|---|---|---|
+| 1. Competitive parity | Tactical | Bank of America's Erica chatbot, 3 billion cumulative interactions (✅ audited/verified) | Cost of not doing it |
+| 2. Option value | Tactical | Moderna's mChat, 750+ custom GPTs built internally (◆ company-disclosed) | Absorptive-capacity indicators: how fast the org can adopt the next capability |
+| 3. Unique integration | Strategic | Amazon's forecasting-to-robotics integration | Process-level deltas (cycle time, error rate, throughput at the affected step) |
+| 4. Data flywheels and lock-in | Strategic | John Deere's See & Spray | Flywheel velocity and switching cost |
+| 5. Organizational capability building | Strategic | Walmart's Element platform, reskilling roughly 50,000 employees (✅ verified) | Time to adapt to the next change |
+
+**Why tactical crowds out strategic:** the source author reports, as his own field observation rather than an audited statistic (⚠ practitioner estimate, unstated sample), that more than 70% of the Fortune 500 AI spend he has observed clusters in types 1 and 2. The three strategic types are underfunded and, at the same time, measured with the wrong metric. It is usually the same blended ROI% used for the tactical spend, which understates them because their payoff shows up as a process delta or an adoption curve, not a line item.
+
+**How this feeds the rest of the skill:** the five-types classification and the risk/time-horizon scoring in Portfolio Composition are two different axes, not competing frameworks. Score every initiative on both. Use the native metric from this table in place of a single blended ROI% when presenting Mechanism 2's Risk/reward dimension for that initiative.
+
+**Falsifier and limit, stated plainly:** real initiatives are often not cleanly one type. The source's own Amazon example is simultaneously type 3 (unique integration) and type 4 (data flywheel), and the framework has no rule for splitting or weighting the metric when an initiative straddles two boxes. It also has no mechanism for an initiative migrating between types over time. A competitive-parity chatbot can become a data flywheel once its logs start training the next model, and this table would not catch that shift. And it offers no sequencing guidance on whether a low-maturity organization should build tactical capability (types 1 and 2) before attempting the strategic types (3 through 5). Treat it as a classification lens applied at each gate, not a maturity ladder to climb in order.
+
+---
+
+### Mechanism 2: Buy/Sell/Hold Scoring
 
 Every initiative in the portfolio is scored against objective criteria. This transforms subjective debates ("I think this is more important") into structured conversations about trade-offs.
 
@@ -167,12 +207,14 @@ Every initiative in the portfolio is scored against objective criteria. This tra
 
 Model conservative, base, and optimistic cases for each — actual ROI depends on adoption, training time, and data quality, and a range is more credible to finance than a single confident number. Translate the underlying KPI movement into dollars before presenting ("saved 1,875 analyst-hours at $125/hour" reads as $234,375/year — the dollar figure is what travels to a budget conversation; the hours figure gets debated).
 
+These four calculations answer "is this initiative worth funding," a question every type in Mechanism 1 shares. They do not replace the native metric that mechanism assigns each type. Report both: the ROI/NPV/IRR figure for the funding decision, and the native metric (cost of not doing it, absorptive capacity, process-level delta, flywheel velocity, time to adapt) for whether the initiative is actually working on its own terms.
+
 **The Buy/Sell/Hold distinction:**
 - **Buy (add to portfolio):** Score meets threshold + gate criteria met + capacity available
 - **Hold (continue as-is):** Good progress, appropriate pace, no reallocation needed
 - **Sell (exit or archive):** Strategic misalignment, performance shortfall, or better alternatives available
 
-### Mechanism 2: Stage Gates
+### Mechanism 3: Stage Gates
 
 Gates are not bureaucratic hurdles. They protect the organisation from the two failure modes that kill AI programs: advancing projects that shouldn't advance, and failing to kill projects that should be stopped.
 
@@ -184,7 +226,7 @@ Gates are not bureaucratic hurdles. They protect the organisation from the two f
 - Are ethical guidelines and security controls defined?
 - Who is accountable at the project level if this AI causes harm?
 
-### Mechanism 3: The 3E Hypothesis Gate — Explore, Exploit, or Exit?
+### Mechanism 4: The 3E Hypothesis Gate — Explore, Exploit, or Exit?
 
 > **Framework:** Ravi Teja Palanki's original framework for hypothesis-driven portfolio decisions (5 APR 2026). Designed to prevent the "perpetual pilot" failure mode — initiatives that never reach a clear decision.
 
@@ -211,7 +253,7 @@ Stage 4 (Scale & Operate)   → 3E Gate: Exploit (sustain) or Exit (sunset)
 
 ---
 
-### Mechanism 4: Regular Portfolio Reviews
+### Mechanism 5: Regular Portfolio Reviews
 
 Portfolio reviews rebalance the whole portfolio, not just individual projects. They are distinct from project status updates — which only look at individual initiatives.
 
@@ -243,7 +285,7 @@ Lloyds Banking Group's "GenAI Control Tower" demonstrates portfolio management a
 
 ## Portfolio Composition: Balancing the Mix
 
-A healthy AI portfolio is not all moonshots and not all incremental. It requires deliberate balance across three types:
+A healthy AI portfolio is not all moonshots and not all incremental. It requires deliberate balance across three types. This is the risk/time-horizon axis: classify each initiative under Mechanism 1's five types first, then place it here. The two views answer different questions, and an initiative needs a value on both:
 
 | Type | Characteristics | Horizon | Risk | What it does for you |
 |------|----------------|---------|------|---------------------|
@@ -330,6 +372,6 @@ After completing the primary output, invoke the **excalidraw-svg** skill to crea
 
 ---
 
-*Version 1.1 — 18 JUL 2026*
-*Framework Source: Harvard Business Review, Hoque, Nelson, Davenport & Scade, "Manage Your AI Investments Like a Portfolio", January 2026. ROI-reality grounding: ISG State of Enterprise AI Adoption Report 2025; MIT NANDA "The GenAI Divide" 2025; PwC 2026 AI Performance Study.*
+*Version 1.3 — 29 AUG 2026*
+*Framework Source: Harvard Business Review, Hoque, Nelson, Davenport & Scade, "Manage Your AI Investments Like a Portfolio", January 2026; Harvard Business Review, "The Five Types of AI Investment", June 2026. ROI-reality grounding: ISG State of Enterprise AI Adoption Report 2025; MIT NANDA "The GenAI Divide" 2025; PwC 2026 AI Performance Study.*
 *Part of: AI PM Skills / ai-strategy layer*

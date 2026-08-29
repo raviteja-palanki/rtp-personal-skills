@@ -1,7 +1,7 @@
 ---
 name: ai-use-case-readiness
-version: v2.0_latest
-description: "Right-size the autonomy for a use case — the minimum that captures the value, not the maximum you could build. The question is never 'can we make this autonomous?' but 'what's the least autonomy that still works?' — because autonomy is a governance question, not a capability one: you CAN build a level-5 agent; cost-of-error, verifiability, and policy decide whether you SHOULD. Runs a 5-phase diagnostic — 12 questions, the 0–7 spectrum, two matrices, a floor/ceiling gap, a phased roadmap — output framed as a testable hypothesis, not a rubber stamp. Use when a team says 'let's build an agent', or when 'can it be autonomous?' is asked before 'should it be?'. Do NOT use for a monolithic undecomposed use case (first-principles first) or a pure tech-stack choice. Pairs with: problem-ai-fit (whether AI at all), autonomy-spectrum (quick level reference), determinism-compass (what stays deterministic), cost-model (control-burden economics). Triggers: 'let's build an agent', 'how autonomous', 'can this be an agent'."
+version: v2.3_latest
+description: 'Right-size the autonomy for a use case: the minimum that captures the value, not the maximum you could build. The question is never ''can we make this autonomous?'' but ''what''s the least autonomy that still works?'' Autonomy is a governance question, not a capability one: you CAN build a level-5 agent; cost-of-error, verifiability, and policy decide whether you SHOULD. Runs a 5-phase diagnostic: 12 questions, the 0-7 spectrum, two matrices, a floor/ceiling gap and a phased roadmap. The output is framed as a testable hypothesis, not a rubber stamp. Use when a team says ''let''s build an agent'', or when ''can it be autonomous?'' is asked before ''should it be?''. Do NOT use for a monolithic undecomposed use case (first-principles first) or a pure tech-stack choice. Pairs with: problem-ai-fit (whether AI at all), autonomy-spectrum (quick level reference), determinism-compass (what stays deterministic), cost-model (control-burden economics). Triggers: ''let''s build an agent'', ''how autonomous'', ''can this be an agent''.'
 imports:
   - first-principles
   - determinism-compass
@@ -46,6 +46,7 @@ A quick assessment is Ground + Risk questions + one matrix. A comprehensive one 
 - **Explicit vs. tacit knowledge** — codifiable rules vs. expert judgment that resists capture. High tacitness usually means *more* human review.
 - **Verifiability** — whether you can check correctness before action, right after, only later, or not at all. Your primary control lever: if you can't verify, you can't control.
 - **Autonomy theater** — building a high-autonomy agent for work a low-autonomy system would do better; the central failure this skill prevents.
+- **Foundation dependency** — whether the use case works standalone (low-foundation), needs a specific data pipeline to function (data-dependent), or breaks if the underlying infrastructure changes (foundation-critical). Classify this before scoring any other readiness dimension.
 
 ## GROUNDING (Before Starting) — Phase 1: GROUND
 
@@ -62,15 +63,33 @@ Then route output format: **Word** (stakeholder report, default for comprehensiv
 
 ## THE TRAP
 
-You will optimize for *maximum* autonomy instead of *right-sized* autonomy. The bias is **agentic hype** — agents are novel, well-funded, and feel like the future. Three variants:
+You will optimize for *maximum* autonomy instead of *right-sized* autonomy. The bias is **agentic hype**: agents are novel, well-funded, and feel like the future. Five variants:
 
 - **Autonomy theater** — a level-5 agent for 80%-stable-rules work; it runs, but costs 10× a level-2 system to maintain.
 - **Novelty bias on action rights** — the LLM *can* write SQL or invoke APIs, so you assume it *should*. Execution rights are a governance question, not a capability one.
 - **Cost-of-error amnesia** — you run twelve diagnostics on tacitness and variability and forget Q3: "what happens if it's wrong?" High-tacit, high-error domains need human-in-the-loop, not autonomy.
+- **Values-veto laundering.** A common four-criteria prioritization checklist scores risk, feasibility, business impact and human-vs-AI appropriateness, then averages all four.
+
+  **The mechanism:** averaging lets high scores on the other three outvote a hard values line, so a use case that should never have entered scoring comes out "green" anyway.
+
+  **Fix:** human-vs-AI appropriateness is a gate, not a criterion. Decide it pass/fail first, before the other three are scored at all.
+
+  **Wrong when:** the appropriateness line is itself contested or actively moving, such as a new regulatory allowance or a shifted internal policy. Then treat it as a gate to revisit on a cadence rather than a permanent veto. *(Source: an AI use-case prioritization webinar recap, Jul 2026 — prescriptive checklist with zero supporting evidence; carried as a common practice pattern, not a validated finding.)*
+- **New-task-creation mislabeling.** A proposal claims the deployment "creates new kinds of work," and nobody checks whether the actual task list changed.
+
+  **Why the underlying taxonomy cannot settle it.** The five-category model of how AI reshapes labor (Acemoglu, Autor and Johnson: labor-augmenting, capital-augmenting, automating, expertise-leveling, new-task-creating) can only be scored correctly *after* the labor market has repriced the work. That makes it useless as an ex-ante screen on its own.
+
+  **The test it does yield:** compare the task list required for the role or workflow before and after the deployment. **If the list is unchanged, the deployment cannot be new-task-creating**, because that category requires the task set itself to expand.
+
+  **Necessary, not sufficient.** A deployment with an unchanged task list can still raise measured demand for the underlying expertise by deepening a task it already had. This test will not catch that case.
+
+  **Name the distractor out loud.** A deployment that clearly helps people answers a different question than whether it is ready for its claimed autonomy level. A strong helpfulness case is not a readiness assessment and should never substitute for one. *(Source: Acemoglu, Autor and Johnson, a publicly available economics paper — ⚠ reported in this pass, not independently verified against the primary source.)*
 
 ## PHASE 2: DIAGNOSE
 
-**First, decompose.** Restate the job in operational terms (trigger, inputs/outputs, actors, systems, permissions, success metric, consequence-if-wrong), then break it into sub-tasks and rate each on: explicit vs. tacit · advisory vs. executional · cost of error · verifiability · best-fit level. **Critical rule:** if one sub-task is much riskier than the rest, do not let the average hide it — most good architectures are **hybrids** (level 3 for stable parts, level 1 for risky parts).
+**Zero, classify foundation dependency (required before any other dimension).** Every use case falls into one of three classes. **Low-foundation** works standalone, with no upstream dependency. **Data-dependent** needs a specific pipeline or data source to function, so breaking the pipeline breaks the use case. **Foundation-critical** breaks if the underlying infrastructure changes: a platform migration, a model swap, or a schema change takes it down too. The mechanism this guards against: without classifying first, a team can score a foundation-critical use case "ready" on every autonomy dimension and still ship something that dies the next time the data team touches a schema, because the readiness score was measuring the wrong risk entirely. **Wrong when:** the classes blur within one use case, with some sub-tasks data-dependent and others low-foundation. Classify per sub-task once you decompose, not once for the whole use case. *(Source: three anonymized AI-vs-IT-team advisory cases, Jul 2026 — ◆ company-disclosed pattern, no public citation available given anonymization; carried as a practitioner pattern, not a measured statistic.)*
+
+**Then decompose.** Restate the job in operational terms (trigger, inputs/outputs, actors, systems, permissions, success metric, consequence-if-wrong), then break it into sub-tasks and rate each on: foundation dependency · explicit vs. tacit · advisory vs. executional · cost of error · verifiability · best-fit level. **Critical rule:** if one sub-task is much riskier than the rest, do not let the average hide it. Most good architectures are **hybrids** (level 3 for stable parts, level 1 for risky parts).
 
 **Then run the 12 diagnostic questions.** Answer what you can; mark the rest as assumptions (an honest "I don't know" beats a confident guess).
 
@@ -142,6 +161,34 @@ THE ASSUMPTION THAT SCARES ME MOST: [name it; test first]
 
 **Phase the rollout — smallest valuable wedge first.** Phase 1 (level 2–3 assistive, ~20% savings, basic eval, exit at >30% acceptance + zero critical failures) → Phase 2 (level 4 bounded, ~50%, tool design + fallback + audit logs, exit at <2% escalation + <0.5% critical errors) → Phase 3 (level 5–6, ~70%, governance + monitoring + incident response, exit at zero critical errors over 4 weeks + policy approval). Each phase is its own hypothesis. **Controls to specify at every phase:** approvals, policy constraints, eval plan, monitoring, rollback/recovery, auditability, kill switches.
 
+## READ YOUR READINESS SCORE AS A MOAT AUDIT
+
+A reframe that changes what you do with the output, and it is the most useful thing in this skill for a strategy conversation.
+
+**A readiness checklist looks like a hygiene exercise. It is a moat audit wearing a checklist's clothes.**
+
+Here is why. The things a readiness assessment measures are, almost without exception, the inputs that **cannot be bought from a vendor and are not falling in price**: whether people will actually change how they work, whether the data is clean enough to use, whether decisions have owners, whether the workforce trusts what is being deployed. Model capability is rented, commoditizing, and available to every competitor on the same terms. **Organizational change capacity is none of those things.**
+
+So a low readiness score is not only a delivery risk. It is a statement about where your competitive position actually comes from, and a high one is an asset most competitors cannot purchase.
+
+**A serviceable external diagnostic, six questions, if you want one that a board will recognize:**
+
+1. **Shared ambition.** Have you decided how you want to do business differently, and why that is better for customers and employees, before deploying anything?
+2. **Governance.** Does your review process shape the work early, and can it stop something? (Ask the twelve-month question in `rtp-responsible-ai-program`.)
+3. **Scaling past the pilot.** What are you doing to get executive support *before* you start, and to keep those leaders interested as you make progress?
+4. **Technical foundation.** Clean data, working tools, integrated systems. Every organization has some data cleanup to do; the failure modes are ignoring it and trying to fix all of it at once.
+5. **Culture.** Can the organization experiment readily, decide from data rather than history, and accept speed over perfection?
+6. **Skills and reassurance.** Have you told people how their roles will change and what support they get? *"We're going to change your job, but we're going to help you make that transition."* And the reason to say it: *"if you're not telling them, people are thinking the very worst."*
+
+**Two ways to use the score, and the second is the one people miss:**
+
+- **As a gate**, the usual way. Low score, fix the condition before funding the use case.
+- **As a portfolio input.** If your readiness on a capability is genuinely high and rivals' is low, that gap is durable, because it takes years to close and no vendor sells it. Weight toward use cases that *consume* that advantage. Route to `rtp-moat-finder` and `rtp-ai-portfolio-management`.
+
+**Where this reframe is wrong:** readiness that is high because the use case is trivial is not a moat. The asset is change capacity demonstrated on hard work, not an easy deployment that went smoothly.
+
+*(Source: MIT SMR, Westerman, "6 questions to guide your AI strategy," 3 Aug 2026 — the six questions are his, ◆ reported company examples with **no measurement anywhere in the article** and no adoption figures of any kind. The moat reframe is this corpus's: he names organizational change capacity as the constraint and calls it a strategy question rather than a scarce complementary input. Note that this article's only statistic is broken in an instructive way; it is carried as a teaching case in `rtp-trendslop-check`, and its governance framing is refuted in `rtp-responsible-ai-program`. Ledger patterns A and N.)*
+
 ## HARD RULES
 
 1. Recommend the lowest-autonomy design that captures the value.
@@ -188,6 +235,7 @@ This skill outputs one thing — a right-sized autonomy level, stated as a hypot
 ## QUALITY GATE
 
 - [ ] Customer reality established — who, what problem, how painful, what we're saying NO to
+- [ ] Foundation dependency classified (low-foundation / data-dependent / foundation-critical) before scoring any other dimension
 - [ ] Use case decomposed into sub-tasks, not one blob
 - [ ] The 12 diagnostic questions answered (or gaps named with evidence level)
 - [ ] Load-bearing assumptions surfaced, rated, and flagged
@@ -195,6 +243,7 @@ This skill outputs one thing — a right-sized autonomy level, stated as a hypot
 - [ ] Four meta-judgments stated; autonomy floor and ceiling identified and the gap explained
 - [ ] Recommendation stated as a hypothesis (IF TRUE / IF FALSE / PIVOT), with why-not-lower and why-not-higher
 - [ ] Phased path with exit criteria, each framed as a hypothesis; controls named
+- [ ] Any "creates new kinds of work" claim checked against the task list before and after, not asserted from a helpfulness case
 
 ## WHEN WRONG
 

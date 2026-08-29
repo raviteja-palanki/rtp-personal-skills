@@ -1,7 +1,7 @@
 ---
 name: determinism-compass
-version: v1.0_latest
-description: "Which parts of your AI product must give the same answer every time, and where is variety acceptable — or even the point? Sorts every component into 'must be consistent' vs. 'may vary', then sets the testing, caching, and autonomy rules that follow from the sort. Use when: designing the architecture, QA planning, spec reviews. Pairs with: autonomy-spectrum (how far the AI may act alone), problem-ai-fit (whether AI belongs here at all). Triggers: 'variation acceptable', 'test AI component', 'cache', 'reproducible'"
+version: v1.2_latest
+description: 'Which parts of your AI product must give the same answer every time, and where is variety acceptable, or even the point? Sorts every component into ''must be consistent'' vs. ''may vary'', then sets the testing, caching, and autonomy rules that follow from the sort. Use when: designing the architecture, QA planning, spec reviews. Pairs with: autonomy-spectrum (how far the AI may act alone), problem-ai-fit (whether AI belongs here at all). Triggers: ''variation acceptable'', ''test AI component'', ''cache'', ''reproducible'
 imports: []
 ---
 
@@ -40,6 +40,7 @@ A single model call with 5% variation is manageable. Chain 4 agents sequentially
 - **pass@k vs. pass^k** — succeeded on at least one of k tries versus succeeded on all k tries (the bar for consistency).
 - **Property-based testing** — instead of checking for an exact output, check that the output has the required properties (valid format, right fields, within length).
 - **The verifiability cut line** — the point up to which you can still check how a system was set up; autonomy can rise to it and must stop where it would need checking every single output.
+- **Reversibility** — whether a wrong call can be walked back cheaply (a two-way door) or is a one-way commitment. A second axis alongside predictability; see "Three 2026 Additions to the Compass" below.
 
 ## DIAGNOSTIC QUESTIONS
 
@@ -50,6 +51,7 @@ For each component, ask:
 4. **Risk zone:** Where does variation create customer risk vs product value? (E.g., legal docs require determinism; creative writing requires variation.)
 5. **Reproducibility need:** Must this be pinned for debugging? Or is majority voting + fallback enough?
 6. **Compounding risk:** If this component feeds another, does variation propagate? What's the end-to-end pass rate?
+7. **Reversibility:** If this component or the decision to ship it turns out wrong, can you walk it back cheaply (two-way door), or is it a one-way commitment? This is a separate question from predictability (see "Three 2026 Additions to the Compass" below).
 
 ### Q4 Nudge Block: Variation Tolerance
 
@@ -82,13 +84,36 @@ Not all "variation tolerance" is the same. Use these anchors to calibrate where 
 
 **The test:** "Would a user feel betrayed if they got a different answer to the same question tomorrow?" If yes, you're in high variation risk territory. Design accordingly: deterministic outputs for the critical path, AI-generated only for low-stakes suggestions.
 
-### From Sourcing to Autonomy — Two 2026 Additions
+### From Sourcing to Autonomy — Three 2026 Additions
 
 **Task type maps to how much autonomy and accountability to give.** A four-way sort of *work* lands on this same spectrum. Routine, measurable, rules-based tasks are the deterministic end — high autonomy and full automation belong here. Regulated, high-liability, judgment-heavy tasks are the probabilistic, human-in-the-loop end — the AI only *assists*, a named human stays responsible, and the work is governed "through risk forums rather than simple service-level agreements" (contract targets like speed or volume). **Why it matters:** when work carries real liability, you don't manage it with a contract metric; you keep a named human accountable — the sourcing decision and the autonomy decision are the same call reached from opposite ends of the org. **When this is wrong:** a routine-looking task can still carry hidden liability (a "simple" claims-intake error that cascades), so check liability separately from how routine the task looks.
 *(Source: "AI Is Rewriting the Economics of Outsourcing," Agrawal, HBR, 5 Jun 2026.)*
 
 **The verifiability cut line — how far autonomy can go.** Checking every single output by hand doesn't scale; require a human to review every output and you cancel the efficiency that justified the AI. The fix is to move human judgment up front, to the *setup* — goals, limits, escalation paths, thresholds. So the rule: **let the AI run as far as you can still check the setup, and stop where it would need someone checking every output.** You can hand off as far as you can verify the *design*, no further. **Why it matters:** this is why over-reaching rollouts get pulled back to a human-present mode — they were pushed past the point where the setup could be checked, into territory needing per-output review, which isn't feasible. **When this is wrong:** "can I check the setup?" is itself a judgment call — a team can convince itself it verified a setup it didn't understand; the line sets the ceiling, not the guarantee.
 *(Source: "Beyond Verification," Renieris, Kiron, Mills & Kleppe, MIT Sloan Management Review, 12 May 2026. Full treatment in `rtp-autonomy-spectrum`.)*
+
+**Reversibility is the second axis this compass needs, not just predictability.** Everything above sorts components by one axis: can you predict the output (deterministic) or not (probabilistic). A July 2026 HBR management-tips compilation carried two tips that flatly contradict each other: move before you have full clarity, versus pull written dissent from the team before you execute. Neither tip names the variable that decides which applies: **reversibility**, whether the call is a two-way door you can walk back through or a one-way door you can't. Cross reversibility against predictability and the single spectrum becomes a 2x2:
+
+| | Predictable outcome | Unpredictable outcome |
+|---|---|---|
+| **Reversible (two-way door)** | Just build it. Process overhead doesn't earn its cost here. | Move fast and iterate. The cost of being wrong is close to the cost of running the experiment. |
+| **Irreversible (one-way door)** | Verify hard before committing, then move with confidence. | Pull written dissent first. The cost of being wrong is the whole commitment, and dissent is the cheapest signal available before you pay it. |
+
+**Why it matters:** teams read "move fast" and "get dissent first" as competing philosophies and pick one as a personality trait. They aren't competing; they answer different cells of the same table. A team that defaults to momentum blows through irreversible commitments it never stopped to test. A team that defaults to deliberation spends a dissent-gathering process on a reversible pilot that would have taught the same lesson for the price of running it once.
+
+**Application note:** a July 2026 Watkins enterprise-leadership podcast episode makes the same point about AI infrastructure decisions specifically, from the other direction. On those calls the probability of being wrong usually can't be reduced this early, because the team doesn't know enough yet and won't for a while, so the only lever available is cutting the price of being wrong: smaller blast radius, less sunk cost, an easier walk-back. Read against the 2x2 above, that is the same move as sliding a decision left into the reversible column when you cannot slide it up into the predictable row.
+
+**When this is wrong:** a documented decision class where deliberation reliably beat rapid iteration on something cheaply reversible, with no irreversible side effect, would break this. Nothing in the corpus so far shows that pattern.
+
+*(Source A: HBR management-tips compilation, Jul 2026 — 10 tips, zero statistics, no primary sources opened; the contradiction is this analysis's own cross-reading of two of its tips, not a claim from either underlying author. Tier: unverified, single compilation. Source B: Watkins enterprise-leadership podcast episode, Jul 2026. Tier: unverified, single episode.)*
+
+**Worked example: when monitoring replaces gating on the wrong kind of action.** MIT CISR's minimum viable governance (MVG) framework defines the right amount of oversight as the least governance needed to manage risk effectively, but the framework's own diagnosis is that the risk space it must track moves faster than leaders can anticipate it. That is a design trying to minimize against two terms at once: one measurable, like friction or speed, and one that is not, risk itself. Name the trap directly: when a design minimizes against a measurable term and an unmeasurable term together, the minimization collapses onto the measurable term within roughly two quarters, and nobody has to do anything wrong for that to happen. That two-quarter figure is this skill's own inference from MVG's stated diagnosis, not a number MVG reports, and it has no population behind it.
+
+The general rule this connects to: monitoring-over-gating, loosening a control and watching for problems instead of blocking upfront, is only sound where the actions being monitored are actually reversible. Where they are not, "we will watch for issues" quietly becomes "we accept the average case," because there is no way to unwind a bad outcome once it has happened. This is the reversibility axis added in the July 2026 sweep doing its own work: gating belongs in the irreversible column of the 2x2 above, monitoring belongs in the reversible one, and MVG's diagnosis shows what happens when a design runs that swap backward without naming the reversibility variable.
+
+**When this is wrong:** a documented case where loosened, monitoring-only governance over irreversible actions still caught and reversed harm before it became permanent would break this. That would require a reversal path this skill does not currently name.
+
+*(Source C: "Minimum Viable Governance," MIT Center for Information Systems Research, Talking Points briefing, 19 Mar 2026, with a public summary in MIT Sloan Management Review's Ideas Made to Matter. Tier: framework's own stated diagnosis; the two-quarter estimate is this skill's inference from that diagnosis, not a figure MVG itself publishes.)*
 
 ## THE PROCESS
 
@@ -256,7 +281,7 @@ Regression strategy: [eval set size, cadence, threshold]
 - **Economics still matter:** If you're pinning seeds and caching every generation to ensure reproducibility, ask: is reproducibility actually required here, or are you optimizing for test convenience?
 - **Non-determinism is not a bug.** For generative and creative features, variation is the product. Don't engineer it out. Design your tests to embrace it.
 
-## QUALITY GATE (7 binary checks)
+## QUALITY GATE (8 binary checks)
 
 - [ ] Each feature component classified: deterministic, probabilistic, or hybrid (with handoff contract)
 - [ ] Temperature/variation tolerance documented for each probabilistic component
@@ -265,6 +290,7 @@ Regression strategy: [eval set size, cadence, threshold]
 - [ ] Production patterns chosen: seed pinning, version pinning, output caching, majority voting, confidence thresholding — match to risk level
 - [ ] pass@k vs pass^k decision made for each customer-facing component
 - [ ] End-to-end pass rate calculated for multi-step pipelines
+- [ ] Reversibility classified (two-way door vs one-way door) alongside predictability, and the pace decision (move fast vs pull dissent first) matches the 2x2 cell, not a default habit
 
 ## WHEN WRONG
 

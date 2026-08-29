@@ -1,7 +1,7 @@
 ---
 name: agent-ecosystem
-version: v1.0_latest
-description: "When two or more AI agents must work together, the hard problem stops being intelligence and becomes coordination: who owns the shared state, how work hands off without losing context, and what happens at the merge when the agents disagree. Covers the coordination topologies (supervisor, pipeline, fan-out/fan-in, peer), handoff protocols, state ownership, the multi-agent failure taxonomy (race, context drift, cascade, sub-agent divergence), isolation boundaries, the multi-agent graduation gate, and the human twin of every handoff — the named owner of the seam. Use when designing a 2+ agent system, choosing a topology, or diagnosing agents that collide or lose work. This skill owns the seams between agents; agent-harness owns the single-agent machine. Pairs with: agent-harness, harness-operating-model (build/buy + fleet cost), autonomy-spectrum (Level 7), tool-architecture (A2A), determinism-compass. Triggers: 'multi-agent', 'agent orchestration', 'agent handoff', 'sub-agent divergence'."
+version: v1.2_latest
+description: 'When two or more AI agents must work together, the hard problem stops being intelligence and becomes coordination: who owns shared state, how work hands off without losing context, and what happens at the merge when agents disagree. Covers coordination topologies (supervisor, pipeline, fan-out/fan-in, peer), handoff protocols, state ownership, the multi-agent failure taxonomy (race, context drift, cascade, sub-agent divergence), and the graduation gate. Also the human twin of every handoff: the named owner of the seam, and where value concentrates beyond the agents themselves. Use when designing a system of two or more agents, choosing a topology, or diagnosing agents that collide or lose work. This skill owns the seams between agents; agent-harness owns the single-agent machine. Pairs with: agent-harness, harness-operating-model, autonomy-spectrum. Triggers: ''multi-agent'', ''agent orchestration'', ''agent handoff''.'
 imports:
   - determinism-compass
   - agent-harness
@@ -31,6 +31,10 @@ The spine: **an agent ecosystem is only as reliable as its weakest seam — so o
 - **Sub-agent divergence** — parallel workers drift from a shared plan; the merge step is where it surfaces.
 - **A2A** — the open standard for one agent to prove its identity to and hand work to another (the protocol depth lives in `tool-architecture`).
 - **Bridger** — the named human owner of a seam (agent↔agent, or agent-team↔business-team); the human counterpart of a handoff protocol.
+- **Trust/influence diagnostic** — a two-question check on both sides of a seam: do you trust the other side, and do you feel you have influence over the outcome? High trust paired with low influence is the dangerous pattern.
+- **Value-capture layer** — the infrastructure around the agents (identity, trust, insurance, payments) where economic value is likely to concentrate, independent of which agents win.
+- **Implicit organization** — the tacit knowledge, motivational alignment, and professional discretion that make a documented process actually work; invisible because humans quietly filled its gaps. An agent given only the documented spec never sees it.
+- **Cross-lab model diversification** — staffing an agent team so its members come from different labs (different training data, different alignment approach), not just different prompted personas. A design axis in its own right, separate from which functional role each agent plays.
 
 ## SHOULD THIS BE MULTI-AGENT AT ALL? (the gate before anything else)
 
@@ -42,6 +46,24 @@ Most "multi-agent" systems should be one agent with good tools. Run the gate bef
 
 Only when all three hold does multi-agent pay for its coordination tax. Until then, a single agent with a narrow tool set (see `agent-harness`, the narrow-gate pattern) ships faster and fails legibly.
 
+## BEFORE YOU PICK A TOPOLOGY: MAP THE IMPLICIT ORGANIZATION
+
+Run this next, before the topology choice below, whenever an agent is replacing a human-occupied role rather than filling an empty one. Skip it when no human currently does the job.
+
+Every company runs two organizations at once. One is documented: procedures, checklists, anything an agent can read. The other is implicit: tacit knowledge, motivational alignment, and the professional discretion a person applies without writing it down. The implicit half stays invisible because humans compensated for its gaps automatically, so nobody noticed it needed compensating for.
+
+**The rule.** An agent executes the documented spec faithfully, and that is the problem, not the fix. Correctness against an incomplete spec produces confidently wrong outcomes at machine speed. In a multi-agent pipeline these errors compound silently before anyone notices. A cited multi-agent failure rate runs 40 to 80 percent (⚠ single study), cross-checked against a separate MAST taxonomy study at 41 to 86.7 percent: treat the two as the same finding family, not as independent confirmation of each other.
+
+**The mechanism, worked.** Ramp's expense agents did this correctly (◆ company-disclosed: a 10 to 15 percent escalation rate, roughly an 85 percent reduction in manual review). The approach was neither "add an agent to the existing process" nor "reengineer around only the documented process." Ramp mapped the implicit organization first, then redesigned around both halves together: informed reengineering.
+
+The pre-design worksheet, run before the orchestration-pattern choice:
+
+- What do people in this role notice that never shows up in the data?
+- What do they care about beyond what the job description says?
+- When do they slow down, and why? Deliberate friction is often where judgment lives.
+
+**Condition this is wrong.** The worksheet assumes tacit knowledge can be articulated on request. That assumption is often false by definition: the deepest tacit knowledge resists recall and surfaces only in the moment it is needed, not in an interview about it. Treat the worksheet as a partial elicitation tool, not a complete one. The only success case cited here, Ramp, is also low-stakes, high-volume, and transactional; the method is unproven in high-stakes, relationship-driven domains and should not be assumed to transfer there untested.
+
 ## THE COORDINATION TOPOLOGIES
 
 Pick the simplest shape that fits; escalate only when it demonstrably fails.
@@ -52,6 +74,18 @@ Pick the simplest shape that fits; escalate only when it demonstrably fails.
 - **Peer-to-peer** — agents negotiate directly (often across vendors via A2A). Loosely coupled at org scale, but the trust and versioning surface is widest; use only when a central orchestrator genuinely can't sit in the middle.
 
 *(Vendor-named patterns — CodeAct, Magentic, computer-using, SLM-micro — are these topologies dressed in a product's clothes; classify a vendor's system by which topology it actually is, and by which model-under-which-harness runs each node, per `agent-harness`.)*
+
+## MODEL DIVERSITY: A DESIGN AXIS ORTHOGONAL TO TOPOLOGY
+
+**The rule.** Agent-team diversity that actually decorrelates errors is a stack property (which foundation model, which training data, which lab's alignment approach), not a prompted-persona property. Two audited papers back this: a DEI framework scoring a 34.3 percent versus 27.3 percent resolve rate on SWE-Bench Lite (✅ audited, arXiv:2408.07060), and a 2-vs-16-agent diversity-scaling study where full-diversity 2-agent configurations beat 16-agent homogeneous configurations (✅ audited, arXiv:2602.03794).
+
+**The mechanism.** A costume change is not cognition. Same-model role separation, Planner, Generator, and Evaluator all running on one model, still shares that model's training data and alignment approach. The Evaluator then misses exactly what the Generator was trained to miss. Functional role separation buys organizational clarity. It does not buy error independence. Only cross-lab separation decorrelates errors, because that is the only split that changes what each agent was actually trained to get wrong.
+
+Add cross-lab model diversification as a named harness-design axis, separate from and orthogonal to the functional role separation already covered under `agent-harness`. The canonical illustration: a reasoner, an evaluator, and a generator, each on a different lab's model. This combination is asserted here as sound design logic, not as a specific combination that has been independently tested; say so when you propose it.
+
+**A board-ready governance device from the same source.** A model portfolio governance policy: a board-level cap on the percentage of critical agentic decisions allowed to depend on a single vendor's model, framed the way procurement already frames supplier-concentration risk.
+
+**Condition this is wrong.** A firm with one dominant, well-understood failure mode that a homogeneous, well-evaluated pipeline already catches reliably gains nothing here. Diversification only adds handoff friction and integration failure points, with no decorrelation benefit to offset them. There is also a real ceiling here: cross-lab diversification decorrelates a firm's own pipeline, but does nothing to decorrelate that firm's aggregate behavior from the market's if every competitor is drawing agents from the same three frontier labs. Diversification within a pipeline is not diversification from the market.
 
 ## THE FOUR THINGS TO OWN
 
@@ -78,6 +112,21 @@ Identify which is *most likely* in your system and build the safeguard for that 
 
 The machine "context lost per handoff" problem has a clean non-technical twin: Linda Hill's innovation research finds the *human* tech↔business handoff inside companies fails for structurally the same reason — no one owns the translation step, and translating work ("bridging") is unrewarded, so it never gets built. The fix is the org-design version of the protocols above: **name a specific bridging owner and reward the bridging itself**, rather than hoping coordination emerges from proximity. Use this when explaining agent-handoff design to non-technical stakeholders — a *Bridger* is the human fix to the same failure a handoff protocol is the machine fix to. *(When wrong: it's an analogy, not an identity — the machine loss is measured context; the human loss is accountability and information. Source: Linda Hill, HBR, Jun 2026 — ◆ research base, 24 industries / 23 countries.)*
 
+**A hidden cost the same research surfaces: bridge people burn out at a higher rate.** In organizations, the person who absorbs the unglamorous work of translating context across a boundary (team, time zone, or language) churns out more than peers doing similar work without that translation load. A separate HBR piece on global team collaboration reports this from the author's own consultancy data (HBR, Jul 2026; ◆ claimed, undisclosed method, no published scale, not independently reproducible). Treat it as directional only: cite the pattern, never a number. The same role exists at an agent-to-agent or agent-to-system seam. Whoever is named, or worse, informally expected, to own the translation between two agents or two systems carries the same hidden-load risk if the responsibility is never made official. Mechanism: coordination load gets allocated by capability, so the most capable owner keeps absorbing more of it until they leave or burn out. No single allocation decision along the way looks wrong, which is why an audit that only hunts for a bad decision never catches the pattern forming. Cheap diagnostic: ask both sides of a seam, two teams, or a team and the agent-integration owner, to rate trust and influence separately. High trust paired with low influence ("respected but underpowered") is the dangerous signature. It predicts the owner will fabricate a justification rather than escalate honestly when something breaks at the seam. When wrong: a bridging role with no formal recognition whose attrition matches non-bridging peers would break the load-selects-for-departure claim. Check turnover data before assuming the risk applies.
+
+## VALUE CAPTURE IN THE ECOSYSTEM, AND A LIMIT ON PROVIDER SUBSTITUTABILITY
+
+**Value in an agent ecosystem often accrues to the infrastructure around the agents, not to the agents themselves.** A single researcher proposed a taxonomy for this at an MIT Sloan talk in July 2026. He runs the initiative his forecast favors, a conflict of interest he discloses himself, and the talk carries no data and no study behind it. Cite his four categories, never his forecast:
+
+- **Identity and discovery** — proving which agent this is, and finding the right one.
+- **Trust and reputation** — scoring an agent's reliability before delegating to it.
+- **Insurance, repair, and legal** — who pays and who is liable when an agent's action causes harm.
+- **Micropayments** — the machinery for agents to pay each other per call.
+
+These four are where value is likely to concentrate regardless of which agents win. Mechanism: agents themselves are easy to swap and commoditize, but the infrastructure every agent needs in order to interoperate is not. When wrong: in a closed, single-vendor ecosystem with no external agent interoperability, none of these four exist as separate value pools. They are internal platform features, and the taxonomy does not apply.
+
+**A related caution, on an assumption this skill otherwise takes for granted: that a provider is swappable.** Peer-to-peer topology and the fallback pattern under isolation boundaries both assume a failed or degraded provider can be replaced by another one with equivalent capability. A sovereign-AI survey (Accenture/MIT SMR, n=1,928 executives, ◆ single-vendor-commissioned) found that assumption can collapse where legal data-residency requirements apply. "N interchangeable providers" shrinks to N=1 inside a regulated jurisdiction, and failing over to a provider outside it becomes the compliance violation, not the fix. Mechanism: a model-agnostic, multi-provider architecture removes technical lock-in but not legal lock-in, and the two get conflated because both look like the same interface running on a different backend. When wrong: this caution does not apply outside regulated data-residency regimes, or where every candidate provider already runs compliant infrastructure inside the same jurisdiction. Check the regulatory map before assuming full substitutability.
+
 ## WHERE THIS SKILL MEETS YOUR STACK
 
 This skill owns the *seams*; the depth on either side lives elsewhere:
@@ -97,6 +146,10 @@ The spine: **this skill makes a set of agents into one system by owning the seam
 4. Which failure mode is most likely in *your* topology (race / drift / cascade / divergence)? What's the safeguard for that one, shipped?
 5. Does each agent have an isolation boundary (timeout, circuit breaker, bulkhead, fallback), and do you detect cascades as a chain?
 6. Who is the named human owner of the seam between the agent team and the business it serves?
+7. For that owner: do trust and influence match? A high-trust, low-influence seam owner is a departure or fabrication risk waiting to happen.
+8. Does the design assume any provider is swappable? If a regulated jurisdiction is involved, confirm failover would not itself be a compliance violation.
+9. Is an agent replacing a human-occupied role? If so, has anyone run the implicit-organization worksheet before picking a topology, and named where it's still an incomplete elicitation?
+10. Is the team's diversity a same-model persona split, or a real cross-lab split? If every agent shares a lab, functional roles are not buying error independence.
 
 ## QUALITY GATE
 
@@ -108,6 +161,10 @@ The spine: **this skill makes a set of agents into one system by owning the seam
 - [ ] Each agent has isolation boundaries; cascades are detected as a chain and broken.
 - [ ] The most-likely failure mode is identified and its safeguard shipped first.
 - [ ] A named human owns the seam (the Bridger).
+- [ ] That owner's trust and influence have been checked separately; no high-trust, low-influence pair is going unaddressed.
+- [ ] Provider substitutability has been checked against jurisdictional data-residency requirements, not assumed.
+- [ ] If an agent replaces a human role, the implicit-organization worksheet ran before the topology was picked, not after.
+- [ ] Team diversity has been checked at the model-and-lab level, not just at the prompted-persona level.
 
 ## WHEN WRONG
 

@@ -1,7 +1,7 @@
 ---
 name: feedback-flywheel
-version: v1.0_latest
-description: "Turn what users do with your AI's output into the thing that improves the AI — automatically, on a cadence, with owners. Most products collect feedback (thumbs, edits, regenerations) that sits in a database and never reaches the model; this designs the closed loop from signal to labeling to a measured model gain. Collection is easy and feels like progress — closure is rare and is the actual moat, but ONLY if the loop's inputs are yours alone. Use when designing feedback capture, auditing why collected feedback changes nothing, or bootstrapping before you have users. Do NOT use for one-shot/batch systems, under ~500 active users, or when annotation velocity is permanently <5% of collection. Pairs with: eval-framework + eval-driven-development (the fix→regression cycle lives there), moat-finder (anti-moat check), ai-product-metrics (signals worth logging), gossip-mode (informal-signal sibling). Triggers: 'feedback loop', 'why does our feedback change nothing', 'data flywheel'."
+version: v1.1_latest
+description: 'Turn what users do with your AI''s output into the thing that improves the AI, automatically, on a cadence, with owners. Most products collect feedback (thumbs, edits, regenerations) that sits in a database and never reaches the model; this designs the closed loop from signal to labeling to a measured model gain. Collection is easy and feels like progress. Closure is rare and is the actual moat, but ONLY if the loop''s inputs are yours alone. Use when designing feedback capture, auditing why collected feedback changes nothing, or bootstrapping before you have users. Do NOT use for one-shot/batch systems, under ~500 active users, or when annotation velocity is permanently <5% of collection. Pairs with: eval-framework + eval-driven-development (the fix→regression cycle lives there), moat-finder (anti-moat check), ai-product-metrics (signals worth logging), gossip-mode (informal-signal sibling). Triggers: ''feedback loop'', ''why does our feedback change nothing'', ''data flywheel''.'
 imports: [first-principles, stress-test]
 ---
 
@@ -38,6 +38,8 @@ And here is the sharp edge most teams miss: a mature flywheel is one of the stro
 ## GROUNDING (Before Starting)
 
 Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: what's the AI output, what do users *do* with it (edit? accept? escalate?), and do you have telemetry on that already. Then route depth and output format.
+
+**Delivery-format gate (run this before optimizing loop speed or signal quality):** check whether feedback in this loop reaches a person as data (what happened, observable, specific) or as a verdict (good/bad, a judgment, a label). A meta-analysis of 600+ feedback studies (◆ peer-reviewed, not credited by name in the citing source) found feedback delivered as a verdict, rather than as data, produces worse subsequent performance than no feedback at all in over a third of studied cases. The mechanism: the same information delivered as judgment triggers a threat response that closes a person off; delivered as observation, it triggers curiosity that keeps them open. Adobe's Check-In system is a verified case of the fix (✅ independently verified): replacing ranked ratings with ongoing, data-style check-ins saved 80,000+ hours organization-wide, cut voluntary turnover by roughly 30-34%, and lifted "feedback helps me perform" by 8 points in employee surveys. A fast, clean loop delivered as verdict can still fail, because the person receiving it disengages before the data ever gets used. **Limit:** this applies to human-facing feedback loops specifically. A loop whose recipient is a system or model, not a person, may not carry this vulnerability, since a model has no threat response to trigger.
 
 ## SIGNAL & CAPTURE
 
@@ -102,6 +104,7 @@ Place yourself on the curve (⚠ percentages illustrative): **L1** collecting, n
 - [ ] Cold-start plan exists (how to bootstrap before users)
 - [ ] % of feedback reaching the model measured weekly (target >15% steady state)
 - [ ] Moat condition checked (inputs yours alone; fed by hard/rare cases)
+- [ ] Delivery-format gate checked (feedback reaching people in this loop lands as data, not verdict)
 
 ## WHEN WRONG
 

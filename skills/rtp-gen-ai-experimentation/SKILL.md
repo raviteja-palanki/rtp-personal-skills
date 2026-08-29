@@ -1,7 +1,7 @@
 ---
 name: "gen-ai-experimentation"
-version: v1.0_latest
-description: 'Run gen-AI experiments at BOTH altitudes: the macro/organisational question (should we scale this AI capability into the workforce? — Productivity J-Curve, pilots vs experiments vs A/B tests, control groups) AND the micro/product question (is this model/prompt/config change actually better? — offline evals -> shadow -> online A/B -> progressive rollout, with kill switches). The unifying rule: production evidence is the ultimate arbiter at both altitudes — it overrides benchmarks, offline evals, and team opinion. Use when validating a gen-AI capability before scaling, or testing whether a change is really better. Pairs with: eval-driven-development (the offline gate), production-observability (where online tests are measured), ai-product-metrics (the business metrics), confidence-tuner (the judge), ship-decision. Triggers: "gen AI experiment", "AI pilot design", "productivity J-curve", "shadow deployment", "A/B test the model", "is the new prompt better".'
+version: v1.2_latest
+description: 'Run gen-AI experiments at BOTH altitudes: the macro/organizational question (should we scale this AI capability into the workforce?): Productivity J-Curve, pilots vs experiments vs A/B tests, control groups) AND the micro/product question (is this model/prompt/config change actually better?): offline evals -> shadow -> online A/B -> progressive rollout, with kill switches). The unifying rule: production evidence is the ultimate arbiter at both altitudes: it overrides benchmarks, offline evals, and team opinion. Use when validating a gen-AI capability before scaling, or testing whether a change is really better. Pairs with: eval-driven-development (the offline gate), production-observability (where online tests are measured), ai-product-metrics (the business metrics), confidence-tuner (the judge), ship-decision. Triggers: "gen AI experiment", "AI pilot design", "productivity J-curve", "shadow deployment", "A/B test the model", "is the new prompt better".'
 imports: ["eval-driven-development", "eval-framework", "production-observability"]
 ---
 
@@ -33,7 +33,7 @@ Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
 | Timescale | Weeks–months | Hours–days |
 | The trap it kills | Mistaking a pilot's enthusiasm for evidence | Shipping a change because the offline number went up |
 
-They nest: the macro experiment validates that a capability is worth having; the micro loop runs continuously *inside* that validated capability to improve it safely. The existing content below is the macro altitude (the HBR organisational-experiment framework). The new section **"Product Experimentation"** is the micro altitude (from the AI Evals series).
+They nest: the macro experiment validates that a capability is worth having; the micro loop runs continuously *inside* that validated capability to improve it safely. The existing content below is the macro altitude (the HBR organizational-experiment framework). The new section **"Product Experimentation"** is the micro altitude (from the AI Evals series).
 
 **The rule that unifies both: production evidence is the ultimate arbiter.** Offline evals say a change is *probably* better; a benchmark says a model *looks* better; the team *believes* it's better. Only online, on real traffic, tells you it *definitely* is — and it overrides all three. Every experiment, at either altitude, is a machine for replacing opinion with production evidence.
 
@@ -43,7 +43,7 @@ They nest: the macro experiment validates that a capability is worth having; the
 
 Most organisations call something an "experiment" when it is actually a pilot. That distinction is not semantic — it determines whether you learn anything you can act on.
 
-A pilot answers the question: "Can our best users make this tool work?" An organisational experiment answers the question: "Will this tool improve performance for our actual workforce, under real conditions, at scale?"
+A pilot answers the question: "Can our best users make this tool work?" An organizational experiment answers the question: "Will this tool improve performance for our actual workforce, under real conditions, at scale?"
 
 The gap between those two questions is where AI rollouts die. A successful pilot creates enthusiasm. A successful experiment creates evidence. Enthusiasm is not enough to justify a £2M deployment.
 
@@ -57,6 +57,22 @@ The gap between those two questions is where AI rollouts die. A successful pilot
 | What it misses | Almost everything | Coordination, workflow, culture effects | Nothing designed to be missed |
 
 A/B tests are a step forward from pilots but still fall short for gen AI — they capture feature-level signal, not the broader effects on how teams coordinate, how workflows shift, and how different employee segments experience the change.
+
+---
+
+## THE FIRST QUESTION: IS THIS PILOT'S JOB INFORMATION OR PERMISSION
+
+Before you pick a pilot's use case, answer one question first: what is this pilot actually for? There are two distinct jobs, and the selection rule for each is the opposite of the other.
+
+**INFORMATION.** The pilot exists to reduce uncertainty about whether the capability works at all. Run it on the *highest*-uncertainty use case, the one where you genuinely don't know the answer, because that is where the pilot has something real to tell you. A visible failure here is fine. It is data, not damage.
+
+**PERMISSION.** The pilot exists to manufacture organizational trust and consent to try more. Run it on the *lowest*-stakes, most noncontroversial use case you can find. A media company running gen AI pilots did exactly this on purpose, picking projects for being unremarkable: "if we screwed it up, nobody would care." That is the reverse of standard pilot advice, which says pick the safest bet to de-risk delivery. That advice is correct for an information pilot and wrong for a permission pilot, because a permission pilot is not trying to de-risk delivery. It is trying to earn the org's willingness to try a second one.
+
+**Why conflating the two breaks the program:** a permission pilot judged on operational KPIs (cost saved, tasks automated, cycle time cut) looks unimpressive by design, because it was never meant to move those numbers. Teams then read the flat metric as failure and kill the pilot at the exact moment it succeeded at its actual job, which was making the next, riskier pilot politically possible.
+
+**Where this breaks down:** a single pilot cannot cleanly serve both jobs. A noncontroversial use case rarely has enough uncertainty to produce real information, and a high-uncertainty use case is, by definition, higher-stakes than a permission pilot can afford. If you need both outcomes, run two pilots in sequence rather than asking one to do both jobs at once.
+
+*(Source: a July 2026 media-company case study on gen AI pilot selection. Single-company account, ⚠ tier, unverified for generalizability. The transferable part is the mechanism, not a number to replicate. Add this as the required first question before designing any pilot in this skill's checklist.)*
 
 ---
 
@@ -99,7 +115,7 @@ Performance
 
 ## What Makes a Good Organisational Experiment
 
-A rigorous organisational experiment has five structural requirements:
+A rigorous organizational experiment has five structural requirements:
 
 ### 1. A Clear, Testable Hypothesis
 
@@ -117,6 +133,8 @@ Without a control group, you cannot distinguish the effect of the tool from the 
 - **Random assignment:** Half the team gets the tool, half doesn't. Gold standard.
 - **Staggered rollout:** Roll out to different groups over time, creating natural control groups. Works when randomisation is impractical.
 - **Lab in the field:** A controlled environment where interactions with the new technology can be observed (P&G's hackathon model is an example).
+
+**Name the counterfactual, don't assume it.** A control group only works if you can state, in one sentence, what would have happened without the AI-assisted intervention, and then actually test or approximate that, rather than crediting the AI for a change that would have happened anyway. eBay's incrementality-testing practice is the model: before attributing a lift to an intervention, run the counterfactual (a held-out group, a synthetic baseline, or a matched pre-period) rather than assuming the correlation is the causal story. Skip this and every "AI improved X by Y%" claim is really "X changed by Y% while AI was present," which is a weaker and sometimes wrong claim. This breaks down when a true counterfactual is not obtainable, for example a one-time organization-wide rollout with no comparable group. In that case, say so explicitly rather than quietly treating the before/after difference as causal.
 
 ### 3. Metrics Defined Before the Experiment Starts
 
@@ -141,6 +159,10 @@ Gen AI's effectiveness is highly context-dependent. What works brilliantly for o
 
 **Why this matters:** Evidence from customer service AI shows large benefits for less-experienced workers but nearly undetectable effects for experienced workers. If you only measure the average, you'll miss both the groups where it's transformative and the groups where it's a distraction.
 
+**A design template worth copying: three arms plus a forecast.** When the question is whether AI-assisted practice actually builds a skill (not just improves one output), a clean structure is unaided practice, AI-assisted practice, and a no-practice holdout, run alongside a separate forecasting arm that asks domain experts to predict the result before it's known. The holdout isolates the pure practice effect from the AI-assisted effect; the forecasting arm tells you whether the finding was surprising or something experts already expected, which calibrates how much anyone should update on it. Its stated limit: a one-week retention window tests recall, not the months-long skill transfer that actually justifies a training investment. Treat a short retention window as a lower bound, not a final answer, and extend the window before using the result to size a rollout.
+
+*(Source: a randomized experiment, unpublished and unrefereed as of Jul 2026, tier ◆ at best, no sample size reported. Flag as design pattern, not as a benchmark result to cite in a business case.)*
+
 ---
 
 ## Proven Results from Gen AI Experiments (Attribution Reference)
@@ -156,6 +178,31 @@ Use these as benchmarks when setting hypotheses and evaluating your own results.
 | Siemens shop floor AI assistant | Siemens (Erlangen factory, 2024) | Reduced time to find information; workers felt more secure in jobs (not less); enabled workers to handle more-complex problems independently |
 
 ---
+
+## THE SANDBOX IS NECESSARY AND NOT SUFFICIENT — four scaffolds around an experimentation program
+
+The standard move is to give domain experts a supported sandbox: an isolated, secure environment with legally-compliant models and setting-specific data for retrieval. Then wait for solutions.
+
+**Two organizations did exactly that, in the same season, and one ended with 141 organization-wide solutions in use and the other with three.** They were matched at the start on the dimensions prior research says drive engagement: problem fit, operational readiness, compliance posture. **The sandbox was the control condition, present at both sites, and it did not decide the outcome.** What decided it was the scaffolding around it.
+
+**The hidden cost this scaffolding pays for**, which is the thing nobody budgets: collective experimentation is real work on top of an already-full job, and it arrives in three modes.
+
+| Mode | Why it happens | What it costs |
+|---|---|---|
+| **Collective trial-and-error** | the model is remarkable at some tasks and unreliable at adjacent ones, with no discernible pattern, so nobody can assume what it can do | painstaking comparison of outputs, documentation, chasing technical help |
+| **Collective review and revision** | the tool is easy enough that many groups use it, so experts must justify their approach to colleagues with different quality criteria | preparation before every meeting, and **each meeting triggers downstream waves of rework** |
+| **Collective alignment and integration** | models change often, so you cannot pick one approach and settle into execution | continual re-comparison against priorities, revisiting metrics, swapping models, revalidating prompts, adapting to real workflows |
+
+**The four scaffolds. Three match the modes; the fourth runs across all of them and is the one that gets cut.**
+
+1. **For trial-and-error:** three things. *Ongoing* training rather than a one-time session. A lightweight documentation method experts can fit into routines they already have. And a triage process that assigns a dedicated technical expert to priority projects, so domain experts "were not alone with hallucinations and edge cases." The failing site had initial-only training, a vaguer documentation method, and intermittent rather than assigned technical help.
+2. **For review and revision:** cross-functional product work, a **shared evaluation rubric with explicit weights**, and knowledge-sharing forums. **Both sites ran cross-functional forums. The forum is not the scaffold; the rubric is.** See `rtp-eval-framework`.
+3. **For alignment and integration:** a standing risk screen (the working site used four categories: technical, operational, compliance, ROI) and real integration support to harden prototypes into production systems. Without it, experts build manual workarounds and, in the researchers' words, waste enormous amounts of time.
+4. **Roles and rewards, and this is the one that decides whether the other three matter.** Job descriptions have to name the innovation work. Performance reviews have to credit it. Raises, bonuses and promotions have to follow. The sentence to put in front of anyone planning a voluntary program: *"My annual review is still based on the same criteria as before gen AI existed. All that work is invisible at review time."*
+
+**The failure mode is silence, and it defeats every status report you have.** At the failing site, more than **80% of domain experts gradually dropped out.** Nobody refused, nobody resisted, nobody lobbied against AI, and nothing was escalated. **The program did not fail a gate. It ran out of participants.** So instrument **participation rate** from week one, beside usage. It is the only number that moves early.
+
+*(Source: HBR, "AI Experiments Need Domain Experts. Here's How to Support Them," Aug 2026 — ◆ two-year qualitative field study, semi-structured interviews and observation, two pseudonymized US sites. **Read the mechanism, not the ratio: 141-to-3 is a between-organization comparison with n=2 across two different industries, so industry alone could produce much of a 47-to-1 gap, and the 80% figure has no stated denominator.** The article names a hidden cost as its central subject and never prices it: no hours, no meeting counts, no rework volume. That absence is the standing gap on the cost side of adoption. Ledger pattern B; see `rtp-adoption-launch` Gate Zero questions 3 and 4.)*
 
 ## Ecosystem Experimentation
 
@@ -240,7 +287,7 @@ Everything above answers "should we scale this capability into the org?" This se
 - **Online measurement → `production-observability` / `ai-product-metrics`.** Shadow and A/B results are read through traces (per-version spans) and the metrics dashboard. The experiment is only as trustworthy as the observability measuring it.
 - **The judge scoring both altitudes → `confidence-tuner`.** Whether offline or online, if an AI judge scores the outputs, its TPR/TNR must be validated or the "winner" may be an artifact of judge bias.
 - **The kill switch and per-step autonomy gates → `agent-risk` / `tool-architecture` / `ship-decision`.** The rollback rule and the sandbox-before-prod discipline are the same controls those skills design; the experiment is where you exercise them.
-- **The macro altitude connects to → `adoption-launch` / `alignment-check`.** The organisational experiment's "should we scale" verdict feeds the adoption plan and the readiness check.
+- **The macro altitude connects to → `adoption-launch` / `alignment-check`.** The organizational experiment's "should we scale" verdict feeds the adoption plan and the readiness check.
 
 The spine: **the macro experiment decides whether the capability is worth having; the micro pipeline decides whether each change to it is real — and production evidence is the judge at both altitudes.**
 
@@ -290,6 +337,7 @@ Scaling Decision Framework:
 - **Organisation not ready for honest results:** If negative results will be ignored or buried, experiments are pointless. They only work in organisations that will act on what they learn, including stopping.
 - **Experiment runs too short:** Results from a 2-week experiment capture novelty effects, not real productivity change. Extend the timeline.
 - **No control group:** Without a control group, you have an expensive anecdote, not evidence.
+- **Counting experiments without defining one:** An "experiment count" that spans everything from a single A/B test to a full product launch is not a comparable unit, and a rising count can mean more real learning or just more small, easy tests. Define what counts as one experiment before you track velocity on it. A self-reported survey of "super teams" that used this exact rollup (⚠ self-report, ceiling-cut sample, no denominator given) is not evidence a team is actually accelerating; check what got counted before trusting the trend line. This caution does not apply once you are comparing counts within one team using one fixed definition over time. The risk is cross-team or cross-period comparison where the definition silently shifted.
 
 **Micro / product altitude:**
 - **Shipping on the offline number.** The eval improved, so you shipped — and users saw no change (or worse). Offline is a gate, not a verdict; let online traffic be the arbiter.
@@ -316,5 +364,6 @@ After completing the primary output, invoke the **excalidraw-svg** skill to crea
 ---
 
 *Version 1.0 — 5 APR 2026*
+*Version 1.2, 29 AUG 2026: added the information-vs-permission pilot question, counterfactual discipline in control-group design, a three-arm-plus-forecast design template, and an experiment-count caution*
 *Framework Source: Harvard Business Review, Berndt, Englmaier, Sadun, Tamayo & von Hesler, "A Systematic Approach to Experimenting with Gen AI", January–February 2026*
 *Part of: AI PM Skills / eval-and-quality layer*

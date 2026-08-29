@@ -1,7 +1,7 @@
 ---
 name: autonomy-spectrum
-version: v1.0_latest
-description: "Place every AI interaction at the level it deserves — not the highest the model can reach — by asking one question: who decides what happens next, the code or the model? Gives the 7-level spectrum (Feature → Chatbot → Assistant → Copilot ‖ Agent → Autonomous Agent → Multi-Agent) with plain-language 'what the AI does vs what the human does' for each; the structural shift at Level 4→5 where the model takes over the workflow; consequence-based leveling; leash length + progressive trust; and the effective-vs-designed level (the rubber-stamping trap). Use when someone says 'let's build an agent', when designing any AI feature, evaluating a competitor, or deciding how much control to hand the model. Pairs with: ai-use-case-readiness (deep governance diagnostic; this is the quick reference), trust-ladder, agent-spec, agent-risk, tool-architecture, agent-harness, judgment-guard. Triggers: 'autonomy level', 'agent spectrum', 'how autonomous', 'let's build an agent'."
+version: v1.2_latest
+description: 'Place every AI interaction at the level it deserves, not the highest the model can reach, by asking one question: who decides what happens next, the code or the model? Gives the 7-level spectrum (Feature → Chatbot → Assistant → Copilot ‖ Agent → Autonomous Agent → Multi-Agent), with plain-language ''what the AI does against what the human does'' for each. Also covers the structural shift at Level 4→5 where the model takes over the workflow, consequence-based leveling, leash length and progressive trust, and the effective-against-designed level (the rubber-stamping trap). Use when someone says ''let''s build an agent'', when designing any AI feature, evaluating a competitor, or deciding how much control to hand the model. Pairs with: ai-use-case-readiness (deep governance diagnostic; this is the quick reference), trust-ladder, agent-spec, agent-risk, tool-architecture, agent-harness, judgment-guard. Triggers: ''autonomy level'', ''agent spectrum'', ''how autonomous'', ''let''s build an agent''.'
 imports:
   - determinism-compass
   - tool-architecture
@@ -122,11 +122,25 @@ This predicts *before* you ship why over-reaching rollouts get pulled back — a
 
 ## THE EFFECTIVE LEVEL — what you operate at, not what you designed
 
-**The most dangerous gap in this whole framework: the level you designed is not the level you are running if people rubber-stamp.** A product built as a Level 4 copilot — the AI *suggests*, a human *approves* — quietly becomes a Level 5 agent the first time operators approve without reading. You wrote a Level 4 safety case and are now operating at Level 5 without one. Automation bias makes this drift the default, not the exception: when the AI is usually right, the human stops being a checkpoint and becomes a click. Three things follow:
+**The most dangerous gap in this whole framework: the level you designed is not the level you are running if people rubber-stamp.** A product built as a Level 4 copilot (the AI *suggests*, a human *approves*) quietly becomes a Level 5 agent the first time operators approve without reading. You wrote a Level 4 safety case and are now operating at Level 5 without one. Automation bias makes this drift the default, not the exception: when the AI is usually right, the human stops being a checkpoint and becomes a click. Five things follow:
 
 - **Measure the effective level, not the designed one.** A high acceptance rate with near-zero edit or override rate on consequential actions is the tell that your "Level 4" is really a Level 5. Over-trust is a failure mode, not a success signal (`ai-product-metrics` treats acceptance-with-zero-edits as an anti-metric for exactly this reason).
 - **A human checkpoint is not automatically a control.** "Keep a human in the loop" and "train people to be skeptical" fail two ways — under volume they rubber-stamp, and when the model argues back they get talked out of the correction (active persuasion, not just passive bias). What actually holds is *structural*: independent human analysis *before* the AI's answer is shown, a parallel check, or a clean split between AI-drafting and final human judgment. Design the friction; don't exhort people to resist. (This is `judgment-guard` and `trust-under-fog`.)
 - **"Humans monitor" at Level 6 decays — the supervision paradox.** The longer an agent runs on its own, the more the overseer's own skill fades, so when the rare edge-case failure finally arrives, the monitor has the *least* context to catch it. "Humans monitor" is not a stable control unless you design the monitor's engagement on purpose — rotation, spot-checks that require real work, state-first review — or it becomes "humans watch a dashboard they no longer understand" (`judgment-guard`).
+- **A cheap three-answer self-test surfaces rubber-stamping before you measure it.** Ask whoever signs off on a consequential action who decided it: "the code decided," "I decided and the model only drafted," or **"the model is the default and I am only the ratifier."** The third answer is the tell. It describes ratification, not judgment, and it means a "Level 4 copilot" is running as an unacknowledged Level 5 agent. *(Source: a management-tips piece, n=10, ⚠ weak evidence, a diagnostic prompt rather than a validated instrument. When wrong: a ratifier with real rejection power and a demonstrated track record of using it is still exercising judgment; use the acceptance/edit-rate metric above as the tiebreaker, not the self-report alone.)*
+- **The slack test: widen a hard-coded threshold and watch the distribution, not the mean.**
+
+  Telemetry alone cannot tell you whether a number reflects a judgment the system is making or a rule it is merely obeying. This test separates them.
+
+  **How to run it.** Take a designed threshold: a refill-reminder window, a discount cap, an escalation delay. Widen it. Then watch two things:
+  - Does behavior move toward the new boundary?
+  - Does the guardrail still hold?
+
+  **How to read it.** If both are true, the original threshold was constraining judgment rather than matching it, and **your effective level is lower than your designed one**. If behavior does not move, the threshold was already loose enough.
+
+  **The case.** A pharma team widened a medication refill-reminder window from 7 to 14 days and saw exactly this shift (◆ company-reported, single case, roughly 65 frontline-worker survey respondents). The mechanism generalizes past pharma. The specific 7-to-14 number does not.
+
+  *(When wrong: never run this on a hard compliance or safety ceiling. Widening a dosage limit or an irreversible-action cap to "test" it turns a measurement instrument into the incident it was meant to prevent.)*
 
 And a capability caveat that compounds all of it: **you cannot read the model's competence off a task's apparent difficulty.** The frontier is *jagged* — models are superhuman on some tasks and surprisingly poor on others that look just as easy. So "this seems simple, raise the autonomy" is exactly as wrong as "the model is smart, raise the autonomy." Set the level from *measured* performance on *that* task, never from how hard the task looks or how capable the model seems. *(Sources: 2026 human–AI reliance research on the deployed-tier-vs-procured-tier gap and active over-reliance; the jagged frontier, Mollick, 2023–2026.)*
 
@@ -160,6 +174,45 @@ As long-running harnesses and stronger models improve (Claude 4.8, Fable 5, GPT-
 **Progressive trust escalation — earn the leash, don't grant it:** start Supervised → after a clean streak move to Spot-check → then Exception-based → consider Autonomous only if consequence magnitude is low. Any error resets the streak (regress one mode, not to zero); never auto-raise past the domain boundary; re-certify on a schedule; and expose the record to the user ("246/247 correct; last error [date]; recommending exception-based for 30 days") so autonomy never escalates by surprise. *(Track-record thresholds are design choices, not universal constants — calibrate to your error cost.)*
 
 **Context anxiety** — decision quality degrades *nonlinearly* as the context window fills, well before 100%. Drop autonomy by a level around 40–60% utilization, go advisor-only by 60–80%, read-only past 80%, and alert automatically at the threshold. *(Anthropic finding ⚠; measure your own knee.)* And design **rollback before you deploy**: if you can't undo an action within its window, the agent doesn't get access to it.
+
+## ALLOCATING *YOUR OWN* WORK — the four-mode table, and a usable entry gate
+
+The seven levels set the machine's autonomy on a task. This is the same decision pointed at a person's own week, and it is the version an operator can act on tomorrow. Four modes, each naming what is at stake if you get it wrong:
+
+| Mode | What's at stake | Use it for |
+|---|---|---|
+| **1. Leader-owned** | your judgment | high-stakes decisions where diagnosis, trade-offs, accountability or trust are central |
+| **2. Leader-shaped, AI-assisted** | your voice | communications where AI helps with structure and you author the meaning |
+| **3. AI-enabled, human review** | your presence | repeatable work where AI handles volume and you stay close to the original signals |
+| **4. AI-handled, bounded** | your capacity for deeper thinking | lower-risk, specific work, including agentic workflows, where errors can be identified and corrected without substantial cost |
+
+**The point of deciding in advance is that the transfer becomes a choice instead of a drift.** Work migrates upward through this table one small, reasonable-looking increment at a time, and nobody ever decides to hand over their judgment.
+
+**A concrete entry gate for mode 4**, from a practising COO, in order:
+
+1. Is the work specific enough to define clearly?
+2. Can the team tell what a good result looks like?
+3. Will an error be easy to spot and inexpensive to correct?
+4. Is this internal, routine work, or work where AI will publicly represent the company?
+
+Worked boundary from the same source: routing inbound requests and drafting first-pass answers to common product questions sit **inside** mode 4. Writing a key customer an apology after a service outage sits **outside** it, because the tone of that message affects the whole relationship.
+
+**Read the gate critically, because it has a hole.** All four questions are **error-cost** questions. **None of them is a reversibility question**, and none asks who is accountable when the bounded work goes wrong. A cheap-to-correct error in an irreversible action is still irreversible: sending is cheap to detect and impossible to undo. Add the two missing questions before you use this gate on anything outward-facing:
+
+5. **If this is wrong, can the action be undone, or only apologized for?**
+6. **Who is answerable, and can they actually alter the outcome?** (See `rtp-responsible-ai-program` on alterability.)
+
+**Two named risks that arrive with mode 3, and they are why "human review" is not a safety guarantee.** **Over-reliance**: "When these distillations arrive continuously and usually look right, review becomes routine. Leaders skim where they once read and approve where they once interrogated." **Distance**: "A synthesis can make you feel like you understand a situation when, in reality, you've lost touch with it." Mode 3's stated stake is your presence, and those two mechanisms are how it is lost while the review box stays ticked. Route to `rtp-judgment-guard`, drain 7 and checkpoint 3.
+
+*(Source: HBR, Lancefield, "Don't Let AI Flatten Your Leadership Style," Aug 2026 — ⚠ anecdote-tier throughout. The four-mode table is the author's own, presented with no evidence of any kind; the COO's four questions are attributed to a single unnamed practitioner. Carry both as a **useful external taxonomy the corpus does not otherwise have**, and do not cite them as findings. The two added questions and the error-cost critique are this corpus's.)*
+
+## THE EXERCISE-FED EXCEPTION — when the default inverts
+
+Every level above assumes the same direction: shed execution, keep judgment. Climbing from Level 4 to Level 5 hands the model the doing and leaves you the goal and the review; the four-mode table above does the same to a person's own week. That default inverts when a capability is **exercise-fed**: built and maintained by a human actually doing the work, not by reviewing someone else's or something else's output. There, automate the decision and keep the human doing the execution, because the execution is the mechanism that maintains the skill, not overhead the decision could be extracted from.
+
+**Condition for when this applies:** the capability compounds through repeated hands-on doing (reading the film, drafting the reply, running the diagnosis), not through repeatedly being handed a decision to ratify. A decision-fed capability, where judgment sharpens from making the call rather than from doing the manual steps, still follows the standard default: automate the execution, keep the human deciding.
+
+*(Source: a podcast on process knowledge, framing-tier evidence. Treat this as a named exception to test against one specific capability, not a reversal of the spectrum's general direction. When wrong: most execution in most workflows is decision-fed, not exercise-fed, so inverting the default there just re-imports the toil this whole framework exists to remove.)*
 
 ## PRODUCTS ARE MULTI-LEVEL BY DESIGN — three patterns
 

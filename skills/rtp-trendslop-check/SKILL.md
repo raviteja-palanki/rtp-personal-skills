@@ -1,16 +1,7 @@
 ---
-name: rtp-trendslop-check
-version: v1.1_latest
-description: >
-  Catch when AI-generated strategy defaults to trendy advice instead of context-specific strategy.
-  Grounded in a real, named HBR study (Romasanta, Thomas & Levina, Mar 2026): across ~15,000
-  simulations on 6 frontier models, LLMs showed consistent bias on 6 of 7 classic strategic
-  tensions — differentiation over commoditization (96%), augmentation over automation (93%), plus
-  long-term, collaboration, radical, and decentralization. The one axis with NO bias: exploration
-  vs. exploitation. The counterintuitive finding: adding rich context shifts the bias only ~11%;
-  reversing which option is listed first shifts it ~19% — prompting harder doesn't fix this. Use
-  when bootstrapping strategy, running multi-scenario planning, or validating AI-generated
-  recommendations.
+name: trendslop-check
+version: v1.3_latest
+description: 'Catch when AI-generated strategy defaults to trendy advice instead of context-specific strategy. Grounded in a real, named HBR study (Romasanta, Thomas & Levina, Mar 2026): across ~15,000 simulations on 6 frontier models, LLMs showed consistent bias on 6 of 7 classic strategic tensions: differentiation over commoditization (96%), augmentation over automation (93%), plus long-term, collaboration, radical, and decentralization. The one axis with NO bias: exploration vs. exploitation. The counterintuitive finding: adding rich context shifts the bias only ~11%; reversing which option is listed first shifts it ~19%. Prompting harder doesn''t fix this. Use when bootstrapping strategy, running multi-scenario planning, or validating AI-generated recommendations.'
 imports: [first-principles, bias-spotter]
 ---
 
@@ -213,6 +204,80 @@ For the recommendation, check each dimension:
 **Question to ask:** "What's the discontinuous play we should consider but haven't because it feels too risky?"
 
 ---
+
+## WORKED EXAMPLES (5) — statistics and claims that don't survive a source check
+
+Five distinct failure patterns, each pulled from a real sweep. Each one is a different way a number or a claim can look solid and not be. Use them as a checklist of shapes, not a single test to run once.
+
+### Example 1: a statistic that means its own opposite, published under a top-tier masthead
+
+The best short demonstration of why vague attribution gets rejected on sight, and why "it came from a credible outlet" is not a check.
+
+**The sentence, as published in August 2026:**
+
+> "Different studies tell the same dismal story: Somewhere between 70% and 95% of AI pilots actually make it to scale in organizations."
+
+**Read it literally: 70% to 95% of pilots succeed.** That is an excellent story, and it contradicts the word "dismal" three words earlier. The intended claim was almost certainly that 70% to 95% **fail** to reach scale. Somewhere between the interview, the transcription and the edit, a negation was lost.
+
+**Three separate failures stacked in one sentence, and each one is a check this skill already runs:**
+
+1. **"Different studies" is the vague attribution.** No study named, no year, no population, no definition of a pilot or of scale.
+2. **A 70-to-95 range across unnamed sources is not measurement spread.** A gap that wide almost certainly reflects incompatible definitions of "pilot" and "scale" rather than genuine variation in findings.
+3. **Nobody caught the inversion**, because a number in a quote from a credentialed source reads as a fact rather than as a claim to check. The masthead did the verification work in the reader's head.
+
+**The ruling, and it is stricter than people expect: do not quote this figure in any form, including corrected.** A corrected version is still an unnamed-source range with undefined terms. Fixing the negation fixes the grammar and leaves the evidence problem exactly where it was.
+
+**The transferable check.** When a statistic arrives inside a quote from an authoritative person, run the same two tests you would run on an anonymous blog post: **can I name the study, and does the number's direction match the sentence around it?** The second test costs three seconds and it is the one nobody runs.
+
+*(Source: MIT Sloan Management Review, "6 questions to guide your AI strategy," 3 Aug 2026 — ⚠, attributed directly to the interviewee. The article carries two figures in total; this is one of them and the other is a task-level time saving with no organizational denominator. Recorded here as a teaching case, not as evidence about pilot-to-scale rates.)*
+
+### Example 2: the cited number and the source's own disclosed number are not the same measurement
+
+A July 2026 sweep flagged a "41% sepsis mortality reduction" statistic, cited in an HBR interview about a hospital system's AI deployment. Checking it against the primary source, the health system's own press release on the same deployment, found no mortality figure at all. The press release attributes its outcome improvement to multiple initiatives together, including a human rapid-response team, and separately discloses a financial stake in the AI vendor that the HBR interview does not mention. A real 18% figure does exist in the published literature, but it belongs to a different study run at different hospitals. It is not a smaller, more honest version of the 41%; it is an unrelated number that happens to sound like a fact-check result.
+
+**The rule:** when a cited number doesn't appear in the source organization's own disclosure, check whether that organization discloses an *adjacent* metric before concluding the number is simply unverified. Silence and a substituted metric look identical at a skim.
+
+**The mechanism:** organizations that deploy AI clinically or operationally tend to measure and publish process metrics, like time-to-treatment, alert volume, or response time, because those are what their own systems capture. An outcome metric like mortality often gets attached later, by an interviewer, a secondary article, or the vendor's marketing, and it can migrate in from a different study entirely because it fits the narrative.
+
+**Where this rule is wrong:** if the organization's own primary disclosure states the identical figure the secondary source cites, there's no contest: the citation checks out and this pattern doesn't apply. It also doesn't apply if the organization discloses nothing at all on the topic; that's a plain unverified claim, not a contested one, and gets the ordinary unverified tag instead of this specific check.
+
+*(Tier: ⚠ for the 41% figure. It did not survive comparison against the primary source. Population: one health system's single AI deployment, per the interview; the source press release covers the same deployment but names no mortality figure. The 18% figure is ⚠ pending its own primary-source check and, regardless of its own validity, is not evidence for the 41% claim: different study, different hospitals. Primary source URL: [VERIFY], not confirmed at time of writing.)*
+
+### Example 3: an uncited statistic is not more forgivable than a wrong one
+
+A strategy article built a load-bearing argument on "6,000+ executives, 90% report no measurable productivity gain," attributed to NBER. No footnote, no linked paper, no working-paper number appears anywhere in the piece.
+
+**The rule:** treat an uncited statistic as at least as disqualifying as a statistic with a citation that turns out to be wrong, not as a lesser offense. A wrong citation at least gives you something to check and reject. An uncited one gives you nothing: you cannot verify the population, the method, or whether the study exists at all.
+
+**The mechanism:** naming a credible-sounding institution, such as NBER, McKinsey, or Gartner, does real persuasive work even with no link attached, because the reader's trust in the institution substitutes for the citation trail that was never provided. The number borrows credibility it hasn't earned.
+
+**Where this rule is wrong:** if a citation exists elsewhere in the same document, an endnote, an appendix, a "sources" section at the bottom, this isn't the failure. Check the whole document before flagging a sentence in isolation as uncited.
+
+*(Tier: cannot be assigned. No study named, no population disclosed, no method described. That absence of a tier is the finding, not a gap in this skill's research.)*
+
+### Example 4: an unsourced claim that evidence exists, distinct from an unsourced number
+
+An article on mentoring asserted that "mentoring's ROI is well-documented and supported by research," naming no company, no study, and no number anywhere in the piece.
+
+**The rule:** an unsourced claim that evidence *exists* is a more slippery failure than an unsourced number, because it gives the reader nothing concrete to check or reject. A number invites verification even when uncited: you can go looking for it and come up empty, as in Example 3. A claim like "well-documented" invites the reader to simply assume a citation exists somewhere, without ever presenting anything to look for.
+
+**The mechanism:** phrases like "well-documented," "research shows," and "studies confirm" borrow the authority of citation without paying its cost. The writer gets credit for rigor while offering none.
+
+**Where this rule is wrong:** if the next sentence or paragraph actually names the study or number the claim refers to, this is ordinary framing language, not a violation. Check whether the claim cashes out downstream before flagging it as empty.
+
+*(Tier: not applicable. No number, no study, no population. The claim's entire function is to stand in for evidence that is never produced.)*
+
+### Example 5: a claimed capability defined by its own unrecordability needs a countable transfer channel, not a test of the asset itself
+
+A podcast guest attributed a company's decline to losing "process knowledge," defined, in the guest's own framing, as knowledge too tacit to write down or transfer directly. Generalized: any claimed asset described this way (tacit knowledge, culture, craft, institutional know-how) can be invoked to explain any outcome, because the claim is unfalsifiable by construction. Success proves the asset was present; failure proves it was lost; nothing distinguishes the two in advance.
+
+**The rule:** when a claimed asset or capability is defined by its own unrecordability, write the falsifier against a countable **transfer channel**, a proxy for how the asset moves between people or is lost, not against the asset itself, which by definition offers nothing to measure.
+
+**The mechanism:** an asset defined as something you can't write down makes every observation consistent with the claim. The claim explains everything after the fact and predicts nothing beforehand, which is the definition of unfalsifiable. A transfer channel escapes this because it is a countable proxy: attrition among the specific senior staff who supposedly held the knowledge, time for a replacement to reach full productivity, or documented mentorship hours before a departure. Those numbers can move independently of the story being told about them.
+
+**Where this rule is wrong:** if the original claim already names a measurable proxy, a specific attrition number, an onboarding-time figure, a rate of documented handoffs, it isn't actually unfalsifiable, and this special-case check is unnecessary. Apply the ordinary evidence-tiering process to the proxy instead.
+
+*(Tier: not applicable to the underlying "process knowledge" claim itself, by design. That is the finding. Source: podcast interview, July 2026 sweep; company and guest withheld here since the pattern being cataloged is what matters, not the specific attribution.)*
 
 ## DIAGNOSTIC QUESTIONS WITH ANSWER NUDGES
 

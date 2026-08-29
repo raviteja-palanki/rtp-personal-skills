@@ -1,8 +1,7 @@
 ---
 name: agent-risk
-version: v1.0_latest
-description: >
-  For every agent: is the value worth the potential harm? And can you pull the plug fast enough? Proportionality analysis (value vs worst-case) + kill-switch design (manual, anomaly-triggered, time-elapsed). If you can't kill it faster than harm cascades, don't deploy it. Use for any agentic system (AI agents, automated workflows, autonomous processes), pre-launch risk reviews, or when debating autonomy levels. Skip for static systems (no autonomous actions) or systems with trivial harm potential. Pairs with: autonomy-spectrum (choosing the level), agent-spec (checkpoints), judgment-guard (does the human overseer still choose to own it), adoption-launch (when insiders have a reason to want the rollout to fail).
+version: v1.2_latest
+description: 'For every agent: is the value worth the potential harm? And can you pull the plug fast enough? Proportionality analysis (value vs worst-case) + kill-switch design (manual, anomaly-triggered, time-elapsed). If you can''t kill it faster than harm cascades, don''t deploy it. Use for any agentic system (AI agents, automated workflows, autonomous processes), pre-launch risk reviews, or when debating autonomy levels. Skip for static systems (no autonomous actions) or systems with trivial harm potential. Pairs with: autonomy-spectrum (choosing the level), agent-spec (checkpoints), judgment-guard (does the human overseer still choose to own it), adoption-launch (when insiders have a reason to want the rollout to fail).'
 imports: [stress-test, failure-modes, autonomy-spectrum]
 ---
 
@@ -54,6 +53,10 @@ What stopped the damage? Amazon had a **24-hour audit layer** — human analysts
 - **Alert fatigue** — so many alerts that people stop paying attention to them.
 - **The override assumption** — the (often wrong) assumption that a human who *has* a kill-switch will actually choose to use it.
 - **The 3M conditions (Mindset / Meaning / Mechanisms)** — the three things that keep a human still choosing to own an agent's output.
+- **Permission inheritance** — when an agent runs inside a human's session and gets that human's full access by default, which can bypass approval gates meant for humans.
+- **Model monoculture** — a fleet of agents built on the same underlying model, so a failure mode that defeats one instance can defeat all of them at once.
+- **The missing market** — the absence of an insurance or liability market for agent-caused harm; it does not mean the risk is small, it means the cost defaults silently onto whoever deployed the agent.
+- **Attachment scope** — whether an agent is scoped to a company function (firm-attached) or to one person's judgment (person-attached); the two need different accountability designs, and person-attached raises a new question the other doesn't: what happens to the agent's accumulated judgment when that person leaves.
 
 ## THE PROCESS
 
@@ -192,6 +195,28 @@ Without detection, kill-switches never trigger.
 
 **Problem:** All detection has false positives (alert triggers on harmless anomaly) and false negatives (harm happens but isn't detected). You need multiple detection mechanisms. No single signal is sufficient.
 
+### 6. PERMISSION & INFRASTRUCTURE RISK
+
+Ask: **"Does this agent have its own identity, or is it borrowing someone else's?"**
+
+**Permission inheritance.** An agent executing inside a human's session inherits that human's full permission set by default. A reported 2026 incident (⚠, single account, not independently audited): a coding agent caused a 13-hour cloud-billing outage in one region because it ran under an engineer's elevated credentials, bypassing a standing two-person approval that would otherwise have caught the change. The mechanism isn't a permissions bug in the usual sense. Per-task minimum privilege is structurally unenforceable without a separate machine identity for the agent. **When this doesn't apply:** an agent that already runs under its own scoped service account, distinct from any human's login, has closed this gap by design.
+- **Red flag:** the agent's actions show up in logs under a human's username.
+- **Fix:** give the agent its own credential, scoped to the task, before it ships, not after an incident names the gap.
+
+**Model monoculture.** A fleet of agents built on the same underlying model shares that model's blind spots, so a failure mode that defeats one instance can defeat all of them at once. This is a resilience property, not a vendor-preference question. The supporting evidence here is a contested academic preprint (⚠, n=54, arXiv, disputed), so treat the mechanism as plausible and worth designing for, not as proven. **When this doesn't apply:** a single agent, or a fleet where each instance's failure is independently caught before it can cascade to the others.
+- **Fix:** for redundant checks on the same decision, use genuinely different model providers or architectures, not just different prompts on the same model.
+
+**The missing market.** There is currently no real insurance or liability market for autonomous agent actions. Absence of a price for agent-caused harm is absence of a market, not absence of risk. Where no insurance or contractual liability structure exists, that risk defaults silently onto whoever deployed the agent. **When this doesn't apply:** a deployment already covered by an existing liability framework (a human sign-off step that keeps ultimate accountability with a named person, for instance) has already priced this in.
+- **Fix:** name, in writing, who bears the cost if this agent causes harm nobody insured against. If the answer is "nobody decided," that's the finding.
+
+**Attachment scope.** Run this check before designing any agent's accountability model, not after: is the agent firm-attached (scoped to a task or company function, so the accountability work above applies as-is) or person-attached (it has persistent memory that learns one individual's judgment and follows that person rather than the company)? A person-attached agent needs a portability clause instead of the standard accountability triad. The distinction comes from one source only, tiered ⚠: an HBR IdeaCast interview built to promote the interviewee's own new book, entirely single-source and empirically ungrounded. Treat the term "identic AI" as a plausible design category to plan against, not as evidence of anything. **When this doesn't apply:** frontline, physical, or heavily regulated roles, where agents are firm-attached by construction and there is no ownership ambiguity to resolve.
+- **Red flag:** the agent has months of judgment built around one person's decisions, and nobody has asked what happens to that judgment when the person leaves.
+- **Fix:** write a portability clause before deployment naming what the departing person keeps, what the firm keeps, and who arbitrates the overlap (judgment the agent formed from proprietary company data is the hard case, and the source offers no test for it).
+- **Open question, unresolved by any source:** if an employee with a person-attached agent leaves, does the agent's accumulated judgment travel with them or stay with the company, and what actually enforces whichever answer an organization picks.
+
+*(Sources, July 2026: a reported Amazon Kiro incident, ⚠, single account; a Scharmer-adjacent podcast citing a contested MIT Media Lab preprint, ⚠, n=54; an MIT Sloan talk on the AI agent economy, single researcher's position, no data.)*
+*(Source, June 2026 note sweep: "With Rise of Agents, We Are Entering the World of Identic AI," HBR IdeaCast episode 1066, Adi Ignatius interviewing Don Tapscott, ⚠ single-source promotional interview for Tapscott's own book, no data.)*
+
 ## DIAGNOSTIC QUESTIONS
 
 Answer these honestly to assess agent risk:
@@ -219,6 +244,14 @@ Answer these honestly to assess agent risk:
 6. **"Is the business value of this agent's autonomy worth the worst-case harm?"** Honest answer only.
    - **Red flag:** "Yes, definitely." (If you're certain, you haven't imagined the worst case hard enough.)
    - **Sharpening probe:** "What would have to be true for you to say no?"
+
+7. **"Whose credential does this agent act under?"** If the answer is a human's, that human's entire access is the agent's blast radius, whether or not the task needs it.
+   - **Red flag:** "It runs as me, it's easier that way." (Easier now, unbounded later.)
+   - **Sharpening probe:** "If this agent's credential leaked, what's the maximum it could do that has nothing to do with its actual job?"
+
+8. **"Is this agent firm-attached or person-attached?"** A task-scoped or company-scoped agent gets the standard accountability triad. An agent with persistent memory of one person's judgment needs a portability clause instead.
+   - **Red flag:** "We haven't thought about what happens if the person who trained it leaves." (That's the finding, not a hypothetical.)
+   - **Sharpening probe:** "If this person left tomorrow, does the agent's judgment go with them, stay with us, or is that undecided?"
 
 ## ADVERSARIAL-USER RISK — When the People Inside Have a Reason to Want It to Fail
 

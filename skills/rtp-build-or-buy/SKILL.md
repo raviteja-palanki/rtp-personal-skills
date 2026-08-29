@@ -1,7 +1,7 @@
 ---
-name: rtp-build-or-buy
-version: v2.1_latest
-description: "Should you build this AI capability yourself or buy it? Six stop-at-the-first-'no' checks — problem type, can examples-in-the-prompt already do it, data, speed, cost, upkeep — across the four ways to get AI: prompt a general model, ground it in your own documents (RAG), train your own (fine-tune), or buy a finished product. Companion lenses decide which work is even worth owning. Use when: scoping features, vendor renewals, 'should we train a model' debates, comparing custom vs. API costs. Pairs with: moat-finder (is what you'd build defensible — and which value-chain layer a vendor sits in), cost-model (what it costs at scale), agent-harness (orchestration cost multiplier once you've decided to build). Triggers: 'build or buy', 'fine-tune vs prompt', 'RAG vs API', 'in-context vs fine-tune', 'should we train a model'"
+name: build-or-buy
+version: v2.3_latest
+description: 'Should you build this AI capability yourself or buy it? Six stop-at-the-first-''no'' checks (problem type, whether examples-in-the-prompt already do it, data, speed, cost, upkeep) across the four ways to get AI: prompt a general model, ground it in your own documents (RAG), train your own (fine-tune), or buy a finished product. Companion lenses decide which work is even worth owning. Use when: scoping features, vendor renewals, ''should we train a model'' debates, comparing custom vs. API costs. Pairs with: moat-finder (is what you''d build defensible, and which value-chain layer a vendor sits in), cost-model (what it costs at scale), agent-harness (orchestration cost multiplier once you''ve decided to build). Triggers: ''build or buy'', ''fine-tune vs prompt'', ''RAG vs API'', ''in-context vs fine-tune'', ''should we train a model'
 imports: [determinism-compass, stress-test, agent-harness]
 ---
 
@@ -289,7 +289,7 @@ At $19/month × millions of developers, code completion API costs at scale plaus
 
 ## Companion Lenses: Which Work to Own, and Which Bought Software to Keep (2026)
 
-The five gates answer "how should we build this AI capability — prompt, RAG, fine-tune, or buy?" Three 2026 findings sit one level *up*: they help you decide which work is even worth owning, and which purchased software is safe to keep vs. worth replacing. Use them before the gates, then run the gates on whatever you decide to own. *(These are companion lenses, not new gates — they don't change the five-gate logic above.)*
+The five gates answer "how should we build this AI capability: prompt, RAG, fine-tune, or buy?" Seven 2026 findings sit one level *up*: they help you decide which work is even worth owning, and which purchased software is safe to keep vs. worth replacing. Use them before the gates, then run the gates on whatever you decide to own. *(These are companion lenses, not new gates — they don't change the five-gate logic above.)*
 
 ### Lens 0 — Buying a capability is not building an advantage (frame the asset first)
 
@@ -338,6 +338,50 @@ If the value rides on time-indexed behavioral history, build and own it. A vendo
 
 **Why it matters:** the usual build-cost-vs-license-cost math prices the software and ignores the data vintage. Two independent cross-industry cases now make the same point — Caterpillar and Lenovo — and Lenovo states it most sharply: five years of patience bought a proprietary training-and-grounding corpus (two decades of manufacturing-failure data, supplier under-commitment patterns) no off-the-shelf platform replicates. The moat is the accumulated data, not the model wrapped around it. **When this is wrong:** for a capability where you just need parity fast and expect no edge from it, buy — the vintage question is beside the point. And "we have years of data" is a moat only if that data covers the *rare, hard cases* and isn't cheaply scrape-able (cross-check Lens 2); high-volume commodity history is not a moat.
 *(Sources: "How Lenovo Built an AI-Powered Supply Chain," Handfield, HBR, 27 May 2026 [◆; author has no financial tie to Lenovo]; "Data Transformation Is the CEO's Business," MIT SMR, 21 May 2026 — Caterpillar [◆].)*
+
+---
+
+### Lens 4 — Two ways a buy decision quietly transfers your pricing power
+
+Both of these are invisible in a Gate 4 cost comparison, because neither is a cost at the moment you decide.
+
+**Transfer one: you retire the only substitute you had.** Your own competent in-house practitioners are what keeps a supplier honest, because they are the credible alternative. Buy the tool, let the practice atrophy, and the substitute is gone. **The supplier's maximum-leverage moment is the first renewal after your last capable practitioner has left**, and that is usually two or three renewals after the decision, long past the point anyone reviews it. **The move:** keep a small number of people *capable* of executing the core function even when they are not doing it daily, and book that capability explicitly as a negotiating position rather than as slack. Name them in the Gate 5 ownership commitment.
+
+**Transfer two: the hold-up structure, and the standard advice gets the sequence backwards.** The shape recurs wherever a platform intermediates your customer. You are told to build a large, ongoing, **non-redeployable** asset whose only consumer is the intermediary: complete machine-readable product data, every attribute an agent might query, third-party certified, behind a low-latency API. A human buyer never reads it. Then the same advice tells you the platforms will control the agents and charge for placement.
+
+Hold those two together. **Every increment of quality in that asset raises your value inside the platform's channel, which strengthens the platform's bargaining position, which raises the toll it can charge.** That is textbook hold-up, and it is usually visible in the advice's own text without the author joining it up.
+
+The hedge on offer is a direct channel, and it is the right hedge. The trouble is the sequencing: the standard prescription funds the specific asset first and the hedge later, **which is exactly the order that maximizes your exposure during the window when the standards are being written.**
+
+Three rules that follow:
+
+1. **Build the specific asset anyway.** Not building it means not being selected at all, and exclusion is worse than a toll.
+2. **Fund the hedge in parallel, not after.** Your direct channel is your switching capability, and **switching capability is the only stop authority you hold** over a platform. A hedge that arrives after the dependency is not a hedge.
+3. **Write the investment case honestly: this asset is a defense against exclusion, not a source of margin.** Approving it on a margin story it cannot deliver is how it gets cut in year two, at the worst possible moment. Route the margin question to `rtp-moat-finder`, fake-moat loop #4, which separates universality assets from exclusive ones.
+
+*(Sources: the expertise-retirement mechanism, HBR, Garr, "How to Respond to the Coming AI Cost Shock," Aug 2026 — ◆, and see `rtp-token-economics` for the dated subsidy facts. The hold-up structure, HBR, "Algorithmic Shopping Is Here," Aug 2026 — ⚠ framework-tier; the article names both halves in separate pillars and never joins them, so the hold-up reading is this corpus's. The platform-move timeline in that article is its verifiable part and its Gartner projection is not.)*
+
+### Lens 5 — Provider choice is bounded by jurisdiction, not engineering merit (the sovereign-AI check)
+
+**Rule:** Before treating "we can always switch providers" as your resilience argument in a build-or-buy case touching regulated or cross-border data, check whether jurisdiction, not capability, decides which providers are actually usable.
+
+**The taxonomy:** AI infrastructure and model providers now split into four archetypes: hyperscalers, country-endorsed national champions, AI-native specialists, and federated consortia. A survey of 1,928 executives across 28 countries maps how providers split across these four types (◆ single-vendor-commissioned survey). Flag the authorship plainly: all four named authors are Accenture employees, and one case cited in the source names Accenture as an undisclosed deal partner on that account. Read every claim in it as vendor-interested.
+
+**The mechanism:** Data residency law and export-control regimes bind specific workloads to specific legal jurisdictions, and inside a given jurisdiction only a subset of the four archetypes is legally usable. AstraZeneca runs one provider inside China for regulated work and a separate provider outside China for R&D, split by legal requirement rather than preference. Where that kind of split applies, failing over to a different provider is not automatically a safety net. It can itself be the compliance violation, because the failover provider may not be licensed to handle that data in that jurisdiction. Multi-provider optionality can collapse to a single legally usable option even while several technically capable providers exist.
+
+**When this is wrong:** for a workload with no cross-border data movement and no regulated-data component, this check does not apply, and the four-archetype taxonomy is just a map of the field, useful for comparing capability and price with no jurisdictional wrinkle. Don't run the compliance check on a single-country internal tool with no sensitive data. Run it whenever a Gate 4 or Gate 5 case leans on vendor flexibility as part of the resilience or negotiating argument, and the workload touches regulated or cross-border data.
+*(Source: Accenture/MIT Sloan Management Review sovereign AI survey, Jul 2026 — ◆ single-vendor-commissioned; n=1,928 executives, 28 countries. Case cited: AstraZeneca's dual-jurisdiction infrastructure split.)*
+
+### Lens 6 — Stock or flow decides how strong your "we have the data" case really is
+
+**Rule:** When a build case rests on "we have proprietary data," ask whether that data is a stock (a fixed archive, valuable once) or a flow (continuously refreshed, valuable because it keeps arriving) before treating it as a reason to build.
+
+**The mechanism:** A buyer of that data, for example an AI lab licensing content, pays fundamentally differently for the two. A static archive supports a one-time sale: once licensed, copied, or trained on, there is nothing more to buy, and a competitor who assembles a similarly sized archive catches up in one effort. A continuously refreshed corpus supports a recurring subscription, because the buyer needs ongoing access to what keeps arriving, not just what already exists. That difference is the entire source of ongoing leverage: a stock seller negotiates once, a flow seller negotiates every renewal. HBR's Cold Call discussion of the Atlantic-OpenAI content licensing deal names this distinction directly, without disclosing the deal's actual terms (⚠ podcast transcript, terms undisclosed; cite the mechanism only, not any dollar figure).
+
+**What it changes:** a stock-type data asset is a weaker moat to build around than a flow-type one. Treat "we have five years of archived data" and "we generate fresh data every day" as two different build cases, not one. The flow case supports paying for durable infrastructure around it. The stock case usually does not, because the value depreciates to zero the moment it is copied.
+
+**When this is wrong:** this question does not apply when you are not building around a proprietary-data moat at all, for instance when you are the buyer in a vertical SaaS purchase with no data-ownership stake, or when the "proprietary" claim doesn't survive Lens 2's scrape-able-data test in the first place. Run this check only after Lens 2 and Lens 3 confirm the data claim is real.
+*(Source: HBR Cold Call podcast, Caroline Elkins on the Atlantic/OpenAI licensing deal, Jul 2026 — ⚠ tier; no disclosed terms, mechanism only.)*
 
 ---
 

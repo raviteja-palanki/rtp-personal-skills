@@ -1,7 +1,7 @@
 ---
 name: gossip-mode
-version: v1.0_latest
-description: "Turns venting into memory. When you think aloud — a standup gripe, a post-demo debrief, a hallway observation — this catches the structural signal hiding in the informal stream (an eval gap, a prompt regression, a model drifting, a stakeholder's shifting stance, a cost spike) and routes each to the exact file a future session will need. One gripe usually holds several routable facts; most PMs hear a vibe and let it die. Always proposes routing and waits for confirmation; never writes sensitive content without asking. Use when the user is venting, debriefing informally, or thinking aloud about AI product work — not when they ask a specific PM question or want a deliverable. Pairs with: feedback-triage (structured customer feedback, the formal sibling), interview-synthesis (structured transcripts), production-observability (when the vented signal is an ops incident), signal-scanner (when it's competitive intel). Triggers: user venting, debriefing, or thinking aloud about AI product work."
+version: v1.1_latest
+description: 'Turns venting into memory. When you think aloud (a standup gripe, a post-demo debrief, a hallway observation), this catches the structural signal hiding in the informal stream. That might be an eval gap, a prompt regression, a model drifting, a stakeholder''s shifting stance, or a cost spike. Each one gets routed to the exact file a future session will need. One gripe usually holds several routable facts; most PMs hear a vibe and let it die. Always proposes routing and waits for confirmation; never writes sensitive content without asking. Use when the user is venting, debriefing informally, or thinking aloud about AI product work, not when they ask a specific PM question or want a deliverable. Pairs with: feedback-triage (structured customer feedback, the formal sibling), interview-synthesis (structured transcripts), production-observability (when the vented signal is an ops incident), signal-scanner (when it''s competitive intel). Triggers: user venting, debriefing, or thinking aloud about AI product work.'
 imports:
   - feedback-flywheel
   - eval-framework
@@ -68,6 +68,26 @@ Scan for these eight signal types across two families. Each has a routing destin
 **7. Competitive intel (informal source).** *Listen for:* "heard at a meetup that [competitor] is doing X"; "a customer said they're also evaluating [competitor]." *Route to:* competitive map (with a confidence level — low for rumor, higher for a direct customer signal) · signal-scanner · `hypotheses.md` if first sighting.
 
 **8. Acceptable-failure-mode signal.** *Listen for:* "[user] would rather it refuse than guess"; "doesn't mind slow if it's right"; "fine with [tradeoff] but not [other]." *Route to:* AI-PRD failure-mode section (update tolerance assumptions) · eval-framework (adjust the acceptance bar) · JTBD analysis (refine the gain criteria).
+
+## WHY THE ROOM STAYS QUIET WHEN EVERYONE TRUSTS EACH OTHER
+
+This skill exists because things get said outside the room that never get said inside it. Here is the mechanism, and it corrects an assumption most teams hold.
+
+**Trust and psychological safety are different objects, and only one of them predicts group voice.**
+
+- **Trust** is "the willingness to place yourself at risk based on another person's actions," and it **develops one relationship at a time**. It splits two ways: **relational trust** (confidence that others care about and respect you) and **transactional trust** (confidence that others are capable, reliable and aligned in intent).
+- **Psychological safety** is a property of the **group**: a shared belief that people can speak candidly without fear of embarrassment, dismissal or retaliation.
+
+**The finding that matters here, stated flatly by the researchers:** *"Strong one-on-one relationships do not automatically create a psychologically safe team."* Teams whose members trusted one another individually still hesitated to speak candidly in group settings.
+
+**So high-trust teams produce more gossip, not less.** If everyone trusts everyone one-to-one and the group is not safe, the honest content has exactly one available channel, and it is the corridor. That is not a culture failure to be scolded; it is the predictable routing of information that has nowhere else to go. **Read a rich gossip stream from a high-trust team as a group-safety signal rather than a loyalty problem.**
+
+**Two consequences for how you use this skill:**
+
+1. **Do not diagnose the trust level from the gossip.** The gossip tells you the group channel is closed. It tells you nothing about whether people respect each other, and they usually do.
+2. **When you phrase a trust question in a survey, phrase it group-referenced.** A trust item asked about colleagues measures the one-relationship-at-a-time property and will return high trust for a team that cannot speak, which is the exact false negative you are trying to avoid.
+
+*(Source: HBR, "How the Best Leaders Shape Conversations," Aug 2026 — ◆ the authors' own dataset across more than a hundred teams; the relational and transactional definitions are verbatim, and the psychological-safety definition is theirs citing Edmondson. The reading that high individual trust plus low group safety routes content into the corridor is this corpus's inference, not their finding.)*
 
 ## ROUTING RULES
 

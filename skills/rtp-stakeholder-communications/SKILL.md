@@ -1,18 +1,7 @@
 ---
 name: stakeholder-communications
-version: v1.0_latest
-description: >
-  Audience-tailored communication for AI features — exec summaries, engineering briefs,
-  launch announcements, risk escalations, weekly digests. The differentiator is AI-native
-  confidence framing: every claim about a model's behavior carries an eval-backed band, a
-  named drift surface, and a mandatory "what could be wrong" section. Use when a single
-  piece of information needs to land in three rooms — exec, engineering, customer — and
-  each room is going to ask a different "but what's the failure rate?" question. Do NOT
-  use for internal team chat, casual PR updates, or comms about deterministic features
-  where probabilistic framing is theater. Triggers: "stakeholder update," "exec briefing,"
-  "escalate to leadership," "launch announcement," "weekly digest," "send a note to."
-  Pairs with: dual-lens (business AND technical legibility), trust-under-fog (confident
-  comms on uncertain outcomes), first-principles (read the live need before supplying your default).
+version: v1.2_latest
+description: 'Audience-tailored communication for AI features: exec summaries, engineering briefs, launch announcements, risk escalations, weekly digests. The differentiator is AI-native confidence framing: every claim about a model''s behavior carries an eval-backed band, a named drift surface, and a mandatory "what could be wrong" section. Use when a single piece of information needs to land in three rooms (exec, engineering, customer) and each room is going to ask a different "but what''s the failure rate?" question. Do NOT use for internal team chat, casual PR updates, or comms about deterministic features where probabilistic framing is theater. Triggers: "stakeholder update," "exec briefing," "escalate to leadership," "launch announcement," "weekly digest," "send a note to." Pairs with: dual-lens (business AND technical legibility), trust-under-fog (confident comms on uncertain outcomes), first-principles (read the live need before supplying your default).'
 imports:
   - ai-product-metrics
   - eval-framework
@@ -180,6 +169,53 @@ The tier map below tells you *how to say it* (each audience's decision language)
 - "All green" status that's lying — execs lose trust the first time the digest said green and the launch slipped
 - AI features without an eval state line (signals the PM isn't watching)
 
+## BEFORE THE MEETING — declare goal, roles, and who can block
+
+Most of this skill is about what you write. This is about the thirty seconds before a conversation starts, and it changes outcomes more than any document does.
+
+**State the goal.** Before anyone discusses the issue, finish this sentence out loud: *"By the end of this conversation, we should..."* Close the same way, explicitly, on next steps, ownership and follow-through.
+
+**Declare the roles.** Do not assume people know how they are expected to participate. Four questions, and the wording is the instrument:
+
+1. "Is everyone expected to contribute ideas, expertise, and perspectives?"
+2. "Will the group make a collective decision? If so, who gets a vote, and how will decision making occur?"
+3. "Are some people present primarily because they need context to carry decisions forward and implement?"
+4. **"Does anyone have the authority to block or override a decision? If so, it's far better to make that explicit at the outset than to surprise the group later."**
+
+**The fourth is the one that changes outcomes.** An undeclared block right is the difference between a decision and an ambush, and the cost of finding out late is a month of rework by people who thought they had agreement. Roles here are not hierarchical: a junior person may facilitate, a subject-matter expert may supply the critical view, and a senior executive may spend the meeting listening.
+
+## SOME CHANNELS FORECLOSE FRAMING BEFORE YOU GET TO USE IT
+
+**The rule:** for any message where the framing matters, and could be lost once the message is read out of context, use a synchronous channel instead of an asynchronous one that will be read without you in the room.
+
+**Why:** email circulates without its author present, and it accretes recipients as it gets forwarded. By the time a new reader sees it, the framing you built in is usually gone. They see the claim, not the conversation that would have surrounded it. A live conversation keeps you there to add nuance, watch the reaction, and adjust before the message locks in. This is why, in one documented case, a communicator handling a sensitive stakeholder socialization chose a live conversation over email on purpose: email would have let the message travel past the room before the framing was set.
+
+**When this is wrong:** most of what this skill covers (the weekly digest, the engineering brief) should stay asynchronous and written, because the record matters more than the framing, and a live conversation would only slow it down. Reach for the synchronous-channel rule only when the content is sensitive enough that a reader who encounters it cold, without you present, would draw the wrong conclusion.
+
+*(Source: a museum marketing case, Jul 2026 — weak evidence, no outcome numbers, cited for mechanism only, ⚠.)*
+
+## THE FAILURE MODE OF A VOLUNTARY INITIATIVE IS SILENCE
+
+**Read this before you write another green status report on anything people opted into.**
+
+When a voluntary program dies, it does not announce itself. In a two-year field study of one failing site, the researchers found the participants *"did not refuse or resist AI. They did not lobby against it. Instead, they simply withdrew."* Nobody sent a memo. Nothing was escalated. No gate was failed. The initiative ran out of participants, and **every status report on the way down looked fine**, because every instrument in a normal reporting pack reads objections and none of them reads absence.
+
+**What to change in your reporting:**
+
+- **Report participation rate as a first-class number**, beside usage and outcomes. It is the only one that moves early.
+- **Treat a fall in questions, attendance or volunteered contributions as a finding**, not as the program settling down. Quiet is the symptom.
+- **Say plainly when a number is silence-shaped.** "No objections raised" and "no concerns outstanding" are not evidence of health on any voluntary initiative, and writing them as if they were is how a communications pack becomes the thing that hid the problem.
+
+## USE AI FOR THE OUTLINE, NOT THE DRAFT
+
+A specific ordering rule for anything that goes out in your name.
+
+**Once AI writes the first draft, its framing, language and assumptions persist through your edits.** You will edit the words and keep the structure, and the structure is where the position lives. The practical form: **ask for an outline, argue with the outline, then write the prose yourself.** Where you do start from a generated draft, rewrite the opening and the ask from scratch, because those two carry the position.
+
+**Then read it aloud.** If you stumble, lose your breath, or hear a sentence you would never say to the person receiving it, rewrite that sentence. This is the same gate the voice section applies, and it catches AI-shaped prose faster than any checklist.
+
+*(Sources: the goal-roles-block instrument, HBR, "How the Best Leaders Shape Conversations," Aug 2026 — ◆ the authors' own dataset across more than a hundred teams; the four questions are verbatim. The withdrawal finding, HBR, "AI Experiments Need Domain Experts," Aug 2026 — ◆ two-year qualitative field study, two sites, n=2. The outline-not-draft ordering, HBR, Lancefield, Aug 2026 — ⚠ asserted with no evidence and considerable face validity; treat as a working rule, not a finding.)*
+
 ## AI-NATIVE CONFIDENCE FRAMING
 
 This is the section that separates a PM who can ship AI features in a large industrial enterprise scale from a PM who once wrote a Medium post about LLMs.
@@ -237,6 +273,16 @@ Every AI claim names the model version, the prompt version, and the eval date. W
 | "Users love it" | "Acceptance rate 78% on first-pass output, regeneration rate 7%, feature CSAT 4.4 (n=312)" |
 
 The discipline: never let a hand-waving claim into a stakeholder comm. The first time someone calls you on it, your credibility on every other claim drops.
+
+### Pitching AI governance or safety upward: translate to revenue or loss, not importance
+
+**The rule:** when pitching an AI governance or safety topic upward, translate it into a revenue or loss-exposure number, or name the specific incident it would have prevented. Do not argue that it matters in the abstract.
+
+**Why:** a governance topic earns board-level ownership specifically when it is expressed in revenue impact or tied to an attributable loss event, not because someone argues it is important. Boards fund what has a number attached to it and a name attached to the number. "This could damage trust" competes with every other line item that has a dollar figure next to it; "this is the control that would have stopped the exposure in [named incident type]" does not. It is the same discipline as the eval-backed confidence band above, one level up: instead of anchoring a capability claim to an eval number, you anchor a governance ask to a financial or incident number.
+
+**When this is wrong:** a governance topic with no plausible revenue or loss framing yet (a new regulation with no enforcement history, a novel failure mode with no incident precedent) cannot be forced into this shape without inventing a number that will not survive scrutiny. There, say plainly that the exposure is not yet quantifiable, and ask for a scoping budget to make it quantifiable, rather than fabricate a number that looks eval-backed but is not.
+
+*(Source: sovereign-AI executive survey, n=1,928 executives, Jul 2026, ◆ single-vendor-commissioned — self-reported and commercially interested, treat the figure as directional; paired with a Corporate Digital Responsibility framework.)*
 
 ## REAL-WORLD ENTERPRISE-SCALE EXAMPLES
 

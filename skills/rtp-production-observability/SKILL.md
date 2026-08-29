@@ -1,7 +1,7 @@
 ---
 name: rtp-production-observability
-version: v1.0_latest
-description: 'Catch silent AI degradation in production before users leave — AI systems degrade silently (model drift, prompt regressions, distribution shift) in ways traditional logging misses. Covers the trace (not the request) as the unit of AI observability, quality-aware alerting on eval-score drift (the PM''s signal, not just p99 latency), separating "the model failed" from "the harness failed the model", trace debugging (logic vs memory bug), agent-gaslighting detection, and failure-mode genealogy (thousands of traces -> the ~3 root causes behind most failures). Use when shipping an AI feature to production, debugging "it worked yesterday", designing alerts, or auditing whether you''d catch a degradation before users complain. Pairs with: eval-framework, confidence-tuner (calibrating the judge behind the scores), invisible-stack/context-spec, feedback-flywheel, eval-driven-development. Triggers: "monitoring AI", "model drift", "quality regression", "production observability", "traces", "why did the agent fail".'
+version: v1.2_latest
+description: 'Catch silent AI degradation in production before users leave. AI systems fail quietly through model drift, prompt regressions and distribution shift, in ways traditional logging misses. Covers the trace, not the request, as the unit of AI observability. Also: quality-aware alerting on eval-score drift, telling a model failure apart from a harness failure, trace debugging, agent-gaslighting detection, the gap between dashboards and what employees actually experience, and tracing thousands of failures back to about three root causes. Use when shipping to production, debugging "it worked yesterday", designing alerts, or auditing whether you would catch a degradation before users complain. Pairs with: eval-framework, confidence-tuner, invisible-stack, feedback-flywheel. Triggers: ''monitoring AI'', ''model drift'', ''quality regression'', ''traces'', ''why did the agent fail''.'
 imports:
   - stress-test
   - eval-framework
@@ -227,6 +227,32 @@ The SRE team already alerts on latency and cost — those move loudly. The PM's 
 
 Two AI-specific monitors ops teams forget: the **guardrail false-positive rate** (a guardrail that over-blocks trains users to route around it — a Layer-1 alert-fatigue problem manifesting in production), and **agent gaslighting** — the agent *claims* it did the thing ("I've booked the meeting"), but the trace shows the API was never called. Detect it by comparing the agent's stated actions against the actual tool/API-call spans in the trace. Fabricated execution evidence passes every text-only quality check; only the trace catches it.
 
+## THE COLLABORATION PARADOX: the dead zone where reviewers rationally stop looking
+
+Source note (⚠ theoretical, unrefereed): an SSRN paper by Gu, Li, and Zhu (Carnegie Mellon and HBS, Jul 2026) proves this formally but tests none of it against real data. The authors themselves call for someone to run the empirical study. Treat every claim below as a well-argued hypothesis, not a measured result.
+
+**The mechanism.** Once an AI system alone clears the required performance bar for a task, a rational human reviewer's optimal move is to let review effort fall toward zero. This is not negligence and not a training failure. It is the reviewer doing the math correctly: if the AI is already good enough, spending time checking its work costs more than it catches. The paper pairs this with "automation cliffs": the human/AI split of work does not shift smoothly as AI capability rises, it jumps at thresholds.
+
+**The operational consequence (this is this note's own synthesis, not the paper's claim, and it is the part that matters for your alerting).** Between "the AI is good enough that reviewers rationally disengage" and "the AI is good enough to run alone" sits a dead zone. Inside it, every visible metric looks like success: throughput climbs, override rate drops, output quality holds flat. The review layer has quietly stopped functioning, and none of your normal dashboards show it, because a caught error and an error the AI never made in the first place produce the identical output stream. Output quality alone can never tell you which of the two happened.
+
+**The instrument this demands: the seeded-error catch-rate test.** Seed known-bad cases into the review stream at a known rate, and track the catch rate on those seeded cases as its own metric, separate from your overall quality score. A falling catch rate on seeded cases while model-quality metrics hold flat or improve is the clean signature of the dead zone: the model did not get better, the reviewer stopped looking.
+
+Status: PROPOSED, UNTESTED. Nothing in the source paper, and nothing else in this corpus, has validated this instrument in a live deployment. Pilot it as a hypothesis before you trust it as a metric.
+
+**Where this is wrong, or breaks.** Never seed known-bad cases into a review stream where a seeded case could consume attention or capacity a real clinical, legal, or safety-critical case needs. That domain carve-out already exists elsewhere in this corpus and applies here without exception. Separately, two of the paper's own background assumptions are probably false and are load-bearing for the whole result: it assumes assisted review costs no more than manual review, and it assumes assisted review is at least as good as either channel alone. Both are empirical claims the paper does not test. If either is false in your domain, the "rational disengagement" math changes and so does the size of the dead zone.
+
+## THE POLISH PARADOX: the reporting-to-reality gap
+
+Source note (⚠ tier throughout): a practitioner piece naming "the two-organizations problem," built on one anonymized advisory anecdote, with no comparison group, no effect size, drawn from a single author's own client base. Treat every claim below as a field observation, not a measured result.
+
+**The mechanism.** Every scaled company runs two organizations in parallel: the "reported" one (dashboards, board decks, status reports) and the "lived" one (what employees actually experience day to day). Three structural causes drive the two apart. Information layering: each management level compresses and reframes what it passes up. Incentive shaping: people report what makes them look good. Tenure curation: people who would say uncomfortable things leave, or get filtered out of the reporting chain over time.
+
+AI accelerates all three because it sits exactly where data crosses upward, and it produces more polished, more authoritative-looking reports than any human draft would, without polish and accuracy being the same axis. Call this the polish paradox: the more polished an organization's self-reporting becomes, the less effort has gone into surfacing what is actually wrong, because polishing and surfacing compete for the same attention above some threshold.
+
+**The observability gap this exposes.** Every gap this skill covers elsewhere sits at the system or model layer: traces, spans, eval scores, latency, the agent-gaslighting check on tool calls. The reporting-to-reality gap is different in kind. The distortion happens in human reporting, not in the system, so logs, traces, and alerts do not detect it. A status report can pass through a clean pipeline, cite a passing eval score, and still misrepresent the organization it describes. Treat the reporting-to-reality gap as something to instrument, not assume away. It sits one layer above the trace, not inside it.
+
+**Where this is wrong, or breaks.** This applies most where AI-generated or AI-assisted reports get consumed several organizational levels away from where the underlying work happened; the layering has room to compound across those levels. A flat, small organization where the report's author and its ultimate reader sit at the same distance they always did has much less exposure to this specific gap, since there was never much layering to distort in the first place.
+
 ## FAILURE-MODE GENEALOGY: from thousands of traces to ~3 root causes
 
 Defensive observability catches one regression. Offensive observability does something no single trace can: **aggregate thousands of failing traces and cluster them by root cause.** The pattern that repeats across mature teams — roughly **80% of failures trace back to ~3 architectural root causes** (⚠ practitioner heuristic, not a law — measure your own distribution). Those root causes are *invisible in any single trace*; they only emerge in aggregate. One overflowing retrieval step, one ambiguous instruction, one missing state handoff — each generating hundreds of surface-different failures.
@@ -254,6 +280,14 @@ This is the observability payoff that feeds the rest of the stack: the genealogy
 - What happens when latency p95 spikes? (Do you get paged? Does someone check it?)
 - If quality drops 5%, how long until you know? (Should be < 5 minutes.)
 - Can you rollback a prompt change in response to an alert? (Or does it require a deploy?)
+
+**On Reviewer Effort:**
+- On any task where your AI already clears the bar, do you know whether reviewers are still checking the work, or just approving it? What tells you the difference?
+- If you ran a seeded-error catch-rate test on that stream today, do you expect the catch rate to hold or to have quietly dropped?
+
+**On Reporting Integrity:**
+- Do any AI-assisted status reports in your org travel three or more management levels before reaching their final reader? Who checks them against what actually happened at the source?
+- Is your most polished recurring report also your most accurate one, or has anyone tested that assumption?
 
 **On Error Understanding:**
 - How many requests failed today? (For each category: transient, user error, system failure.)
@@ -298,6 +332,8 @@ This is the observability payoff that feeds the rest of the stack: the genealogy
 10. ✓ Quality-drift alerting on eval score (not just latency/cost), tiered critical/warning/informational
 11. ✓ Failure attribution discipline (logic bug vs memory bug vs harness-failed-the-model)
 12. ✓ Agent-gaslighting check (stated actions reconciled against actual API-call spans)
+13. ✓ Seeded-error catch-rate test (PROPOSED, ⚠ untested) for any review stream where the AI has cleared its performance bar and human review effort has dropped, run outside any clinical/legal/safety-critical stream
+14. ✓ Reporting-to-reality gap named as a distinct target (⚠ single-source) for any AI-assisted report crossing three or more organizational levels; standard trace/log/alert coverage does not detect it
 
 **Blocks shipping if:**
 - No baseline cost-per-output to compare against
@@ -335,6 +371,8 @@ Observability is the top of the feedback flywheel — it hands the rest of the d
 - **Failure-mode genealogy feeds → `eval-driven-development` (challenge tier) and `ai-product-metrics` (evals as discovery).** The clustered root causes are your next-sprint fix-list, your new hard eval cases, and your unmet-need map — one artifact, three consumers.
 - **Production traces feed → `feedback-flywheel`.** This is the loop closing: traces → labeled failures → eval dataset → next model/prompt → new traces. Observability is where the flywheel gets its fuel.
 - **What the agent is allowed to do (and the kill-switch you trip on a critical alert) → `agent-risk` / `tool-architecture` / `safety-by-design`.** A critical-tier alert is only useful if you can *act* on it fast; the rollback/kill-switch design lives in those skills.
+- **The seeded-error catch-rate test is a proposal, not a finished instrument → pilot it through `eval-driven-development` before trusting it, and read the human-in-the-loop assumptions it rests on in `safety-by-design`.**
+- **The reporting-to-reality gap sits one layer above the trace, on the human-reporting side → no skill in this domain owns it yet.** Treat it as a new instrumentation target: name which of your recurring AI-assisted reports cross the most organizational levels, and start there.
 
 The spine: **observability turns silent, statistical degradation into a signal you can attribute, alert on, and feed back — it is the sensor layer the entire eval loop runs on.**
 

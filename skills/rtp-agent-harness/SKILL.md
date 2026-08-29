@@ -1,7 +1,7 @@
 ---
 name: agent-harness
-version: v1.0_latest
-description: "The machine that turns a model's reasoning into work that ships — and how to diagnose it when it breaks. Covers the MHTE frame (Model/Harness/Tools/Environment), the five harness clusters (Identity, Memory Policy, Orchestration, Interception, Observability & Evals) + Governance, Session/Harness/Sandbox, the six failure signatures, the Anatomy Atlas (symptom→cluster→fix), phase-relative perception, the four shippable patterns + feedback flywheel, and the six paradoxes. Use when diagnosing why an agent fails, designing or reviewing a harness, deciding what to change this sprint, or evaluating a vendor's harness. Sibling: harness-operating-model (the economics/org/longevity of the program). Pairs with: agent-ecosystem, tool-architecture, invisible-stack/context-spec, production-observability, eval-framework, safety-by-design. Triggers: 'agent harness', 'why did the agent fail', 'MHTE', 'harness anatomy', 'planner generator evaluator'."
+version: v1.2_latest
+description: 'The machine that turns a model''s reasoning into work that ships, and how to diagnose it when it breaks. Covers the MHTE frame (Model/Harness/Tools/Environment), the five harness clusters (Identity, Memory Policy, Orchestration, Interception, Observability & Evals) + Governance, Session/Harness/Sandbox, the six failure signatures, the Anatomy Atlas (symptom→cluster→fix), phase-relative perception, the four shippable patterns + feedback flywheel, and the six paradoxes. Use when diagnosing why an agent fails, designing or reviewing a harness, deciding what to change this sprint, or evaluating a vendor''s harness. Sibling: harness-operating-model (the economics/org/longevity of the program). Pairs with: agent-ecosystem, tool-architecture, invisible-stack/context-spec, production-observability, eval-framework, safety-by-design. Triggers: ''agent harness'', ''why did the agent fail'', ''MHTE'', ''harness anatomy'', ''planner generator evaluator''.'
 imports: [agent-ecosystem, tool-architecture, eval-framework, production-observability]
 ---
 
@@ -55,7 +55,27 @@ The harness is not one box. It's a control plane with five clusters, each owning
 
 1. **Identity** — the operating contract established on boot: who the agent is, its task, which tools it may use, what's forbidden. *Identity declares the contract; Interception enforces it.* A system prompt can *say* "no refunds over ₹5,000"; only a hook makes a ₹50,000 refund architecturally impossible. The shortest cluster to describe, the most underestimated for leverage — every session inherits its answers.
 2. **Memory Policy** — what the model sees this turn: context assembly, compaction cadence, boot-time injection (AGENTS.md style), retrieval policy. This is where context rot lives or dies. It is a *database-architecture* problem that happens to live in the harness, not a prompt problem. The sharp design idea: **the session is not the context window** — keep the durable log outside the model, keep window-assembly logic inside the harness, and never let a summarization step be the only copy of anything.
-3. **Orchestration** — what happens next after a response, a tool result, a failed check: continue, retry, delegate, escalate, resume tomorrow, or stop. Home of the **Ralph Loop** (intercept the exit signal, check completion *independently* — not by asking the model — reopen with clean context + a progress pointer) and the **Planner/Generator/Evaluator** pattern (one plans, one executes, a *separate* evaluator gates each output — the model grading its own work is the same reasoning running twice). The evaluator need not be another agent: a schema validator, test suite, or policy engine is often the cheapest independent verification. Model routing lives here too — most teams already run multiple models, so routing is the *first* thing Orchestration owns, not a later optimization.
+3. **Orchestration.** What happens next after a response, a tool result, or a failed check: continue, retry, delegate, escalate, resume tomorrow, or stop.
+
+   **Two patterns live here.**
+   - **The Ralph Loop.** Intercept the exit signal, check completion *independently* rather than by asking the model, then reopen with clean context and a progress pointer.
+   - **Planner / Generator / Evaluator.** One plans, one executes, and a *separate* evaluator gates each output. A model grading its own work is the same reasoning running twice.
+
+   **The evaluator does not have to be another agent.** A schema validator, a test suite or a policy engine is often the cheapest independent verification you can buy.
+
+   **Model routing belongs here too.** Most teams already run multiple models, so routing is the *first* thing Orchestration owns, not a later optimization.
+
+   **Sub-rule: role separation and vendor separation are two different decisions, and choosing a triad only settles the first.**
+   - **The functional axis** gives Planner, Generator and Evaluator distinct jobs.
+   - **The vendor axis** runs them on different labs' models.
+
+   Same-model role separation still shares training data and alignment approach across all three roles, **so the Evaluator misses exactly what the Generator was trained to miss.** Functional separation buys organizational clarity. It does not buy error independence. Only cross-lab vendor separation decorrelates the roles' errors.
+
+   **The move:** name the model and the vendor behind each role as a design decision at build time, not an implementation detail left for later.
+
+   **Two audited papers back this.** A DEI framework study measured a **34.3% against 27.3%** issue-resolve rate on SWE-Bench Lite tasks, comparing cross-model teams against same-model teams (✅ audited, arXiv:2408.07060). A scaling study found a fully diverse **2-agent team outscored a homogeneous 16-agent team** across its benchmark set (✅ audited, arXiv:2602.03794).
+
+   **Exception:** a firm with one dominant, well-characterized failure mode that a homogeneous, well-evaluated pipeline already catches reliably gains little from vendor diversification and pays real integration and handoff cost for it. Do not apply this reflexively when the pipeline's actual failure mode is already covered.
 4. **Interception (Hooks)** — the checkpoints between loop steps that ask *should this be allowed?* LangChain's six primitives name the surface: `before_agent`, `before_model`, `wrap_model_call`, `wrap_tool_call`, `after_model`, `after_agent`. **This is where product policy becomes enforceable system behavior.** Compliance lives here, not in a longer system prompt — "you can't prompt your way to HIPAA compliance." The 2026 attack surface makes the placement critical: injection now arrives through five doors (user input, browsed web content, code output, other agents' messages, tool results), and the simplest tool-description injection succeeded ~93% of the time across frontier models — a prompt-layer refusal does not survive that; a runtime hook does.
 5. **Observability & Evals** — the part of the harness that watches the harness, and turns yesterday's failure into tomorrow's test. Observability is the raw trace layer; evals are the judgment on top. **This cluster improves all the others** — it's the engine of the feedback flywheel. An observable harness without evals is one you can watch but not improve; an eval suite without observability is a judgment you can't explain.
 
@@ -107,7 +127,18 @@ Small, deterministic changes that beat model upgrades — each implementable in 
 
 1. **Structured retry > naive retry** (Interception + Orchestration). Naive retry resends the identical prompt and hopes — a coin flip, because the model's prior for that input hasn't moved. Structured retry parses the error, extracts the violation, and feeds it back as *new* information ("`amount` was a string '$42.50'; return an integer in cents"). Teams that ship it see drift drop ~60% on the same model. *The specificity of your error signal IS the specificity of your feedback loop* — a generic "error 500" is back to the coin flip.
 2. **Strict structured output** (Interception). Not a formatting convenience — a reliability pattern. Strict-mode schema enforcement shrinks the set of things the model is *allowed* to say; invalid paths are pruned at generation, not caught at parse. Three specifics separate a reliability schema from a formatting one: `additionalProperties: false`, regex-bounded strings (a bare `date: string` is a hand grenade; a pattern is a contract), and enums everywhere the value set is finite. Complementary with structured retry: strict mode kills *format* failures at the token level; structured retry handles *semantic* ones (valid integer, but negative). Version the schema like a public API.
-3. **The narrow gate** (Memory Policy / Tools). Every tool is a decision the model makes every turn; you are not restricting the agent, you are freeing it from choices it was getting wrong. Vercel cut ~80% of tools and got fewer steps, fewer tokens, faster responses. Shopify's heuristic: past 20–50 tools the boundaries blur. Reveal tools *as needed* (skills = progressive disclosure), name each for its exact verb, and add *negative examples* ("do NOT use this when…") — a tool that says what it's *not* for is a decision the model no longer gets wrong. Tool sprawl is an org problem (each team ships its own tool); the cut is a negotiation, so run it as a product decision with the registry as a single owned surface, or the next sprint reverses it.
+3. **The narrow gate** (Memory Policy / Tools).
+
+   Every tool is a decision the model makes every turn. You are not restricting the agent, you are freeing it from choices it was getting wrong.
+
+   **The evidence.** Vercel cut roughly 80% of its tools and got fewer steps, fewer tokens and faster responses. Shopify's heuristic: past 20 to 50 tools, the boundaries blur.
+
+   **Three moves that work:**
+   - Reveal tools *as needed* (skills are progressive disclosure).
+   - Name each tool for its exact verb.
+   - Add *negative examples*: "do NOT use this when...". A tool that says what it is **not** for is a decision the model no longer gets wrong.
+
+   **The part teams skip.** Tool sprawl is an org problem, because each team ships its own tool. So the cut is a negotiation, not a cleanup. Run it as a product decision with the registry as a single owned surface, or the next sprint reverses it.
 4. **Emit artifacts, not answers** (Orchestration + Interception). For any output consumed by another system or verified against criteria, prefer an *executable* artifact (a function, query, diff, test) over prose or even JSON. It buys three properties nothing else does: **stateful checkpointing** (progress survives a crash), **formal verification** (the output can be tested, not just read), **deterministic replay** (the exact failure path reconstructs). When the artifact *is* the migration script, the sandbox catches the constraint violation before approval. The artifact is the eval.
 
 **The meta-move — the feedback flywheel** (Observability & Evals). The three patterns land on a dashboard by Friday; they *compound* only when wired into a loop: every failing trace (early exit, retry-exhausted, wrong tool, failed validation) is mined into a concrete eval, tagged by cluster, added to the suite — so the next occurrence is caught on a PR, not in production. Start with the twenty cases that cover real user failures, not a thousand noisy ones. Without the flywheel, findings scatter across Slack; with it, each becomes a permanent regression test. *A small set of well-tagged evals beats thousands of noisy ones.* (Depth: `eval-driven-development`, `production-observability`.)

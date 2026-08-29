@@ -1,17 +1,7 @@
 ---
 name: first-principles
-version: v1.0_latest
-description: >
-  Decomposes any AI product problem to its ONE irreducible operation by stripping vendor
-  features, marketing language, and implementation details. Use when evaluating new feature
-  proposals, diagnosing why a product failed, starting any product analysis, or when someone
-  says "we should add AI to X", "is this feature necessary", "what's the real problem here",
-  or "break this down to basics". Also triggers on reviewing competitive features or when
-  a team wants to migrate to a different model/technology. Do NOT use when the problem is
-  already well-decomposed by the team, when speed of iteration matters more than depth
-  (early prototyping phase), or when making a low-stakes decision with reversible consequences.
-  Pairs with: problem-ai-fit (does the atom need AI), determinism-compass (rules vs. patterns
-  vs. judgment), bias-spotter (why the wrong framing felt right).
+version: v1.1_latest
+description: 'Decomposes any AI product problem to its ONE irreducible operation by stripping vendor features, marketing language, and implementation details. Use when evaluating new feature proposals, diagnosing why a product failed, starting any product analysis, or when someone says "we should add AI to X", "is this feature necessary", "what''s the real problem here", or "break this down to basics". Also triggers on reviewing competitive features or when a team wants to migrate to a different model/technology. Do NOT use when the problem is already well-decomposed by the team, when speed of iteration matters more than depth (early prototyping phase), or when making a low-stakes decision with reversible consequences. Pairs with: problem-ai-fit (does the atom need AI), determinism-compass (rules vs. patterns vs. judgment), bias-spotter (why the wrong framing felt right).'
 imports: []
 ---
 
@@ -89,6 +79,24 @@ Ask: **"What's the simplest solution that solves 80% of cases?"** Often it's not
    - **What the model actually does:** Generates tokens, ranks items, classifies inputs
    - **What the product needs:** Answers questions correctly, finds relevant results, prevents harmful outputs
    - **Gap:** Everything between. Model generates 95% accurate medical advice, but product needs 99.5% because users act on it. Model can classify toxicity, but product needs to explain *why* it's flagged. Confusing these kills products.
+
+## WHY THE THINKING LOSES TO THE BUILDING — THE PROGRESS-BAR PROBLEM
+
+This skill asks people to strip a problem back before answering it, and that work reliably loses to execution inside a real team. The reason is not laziness and it is not incentives. It is simpler and more fixable than either.
+
+**Problem definition has no progress bar.** In one practitioner's honest phrasing: *"There's no clear progress bar. You're often going in circles. It's tempting to skip ahead to building something, because at least then you feel productive."*
+
+**The general mechanism, and it is the useful part: when production gets cheap, the activity with a visible completion signal outcompetes the activity without one, regardless of which creates more value.** Cheap execution does not only make building easy. It makes building **the only visibly productive activity available**, and the pull is toward the thing with the bar. This generalizes well past prototypes, to every case where a tool makes one half of a job instantly demonstrable and leaves the other half looking like a meeting.
+
+**What to do about it, and none of it is exhortation:**
+
+- **Give the thinking a completion signal of its own.** A written problem statement, a named assumption list, a falsifier. Something that can be finished, shown and disputed. Reasoning with an artifact competes; reasoning without one does not.
+- **Use prototypes to sharpen the problem rather than to validate an answer.** Build early and rough, and **evaluate the prototype on which questions it surfaced**, not on how finished it looks. That is an acceptance test the team can actually apply.
+- **Say out loud that circular debate is the work.** *"Being comfortable with debates that feel circular; often, that's what good problem definition looks like."* The person who slows everyone down to ask what problem is actually being solved is adding more value than the one rushing to build. Say so explicitly, or the room reads them as the obstacle.
+
+**When this is wrong:** where the problem genuinely is well-defined and the risk is all in execution, the progress bar is pointing at the right work and adding a definition ritual is ceremony. The test is whether anyone in the room can state the problem in one sentence and get agreement without negotiation.
+
+*(Source: HBR, "AI Makes Building Easy. Choosing What to Build Is Harder," Aug 2026 — ⚠ and worth stating plainly: the article's central conclusion, that problem definition beats execution, is drawn from a contest whose judging criteria explicitly prioritized problem definition and solution design over technical execution, and it reports no outcome number of any kind. **The conclusion is circular; the progress-bar mechanism is not**, and it is the part the article evidences by observation rather than by design. Carry the mechanism, not the thesis.)*
 
 ## THE UNDERLYING ATOM — Capability Is Supply, Need Is Demand
 

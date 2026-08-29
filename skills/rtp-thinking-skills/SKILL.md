@@ -1,7 +1,7 @@
 ---
 name: rtp-thinking-skills
-version: v1.0_latest
-description: Encodes Ravi's cognitive operating system — judgment under uncertainty, systemic thinking, hypothesis discipline, assumption surfacing, and ethical guardrails. Load alongside any skill when Ravi asks for product decisions or analysis.
+version: v1.1_latest
+description: 'Encodes Ravi''s cognitive operating system: judgment under uncertainty, systemic thinking, hypothesis discipline, assumption surfacing, and ethical guardrails. Load alongside any skill when Ravi asks for product decisions or analysis.'
 ---
 # Ravi's Judgment Engine
 ## How Ravi Thinks — Not How He Speaks
@@ -187,6 +187,44 @@ The right answer depends on where the product is in its lifecycle. Explore-stage
 After every recommendation, state the conditions under which it's wrong. This is not hedging — it's intellectual honesty. Experts know the boundaries of their own advice.
 
 ---
+
+### #17: Pre-Committed Branch Logic
+
+**What it is.** Decide the *rule*, not the plan, before the pressure window opens. Write it as one if-then sentence, and treat any urge to reopen it in the moment as information about your emotional state rather than about the evidence.
+
+**Why it is different from a pre-mortem.** A pre-mortem asks what could go wrong. This asks: **what is the if-then rule I commit to now, so that I cannot relitigate it later under a signal that will feel compelling at the time?** A pre-mortem is foresight. This is a binding constraint on your future self.
+
+**The worked example.** A baseball manager decided his World Series substitution rule the night before: the rookie starts, and the veteran comes in only if the opposition brings in a left-handed reliever. In the seventh inning the rookie was hitting well, and the temptation to ride the hot hand was never a live decision. The rule had already fired or not fired. **Pressure does not create the decision. It reveals whether the decision was already made.**
+
+**How to write one.**
+1. Name the trigger condition in observable terms. "If X happens" has to be something two people would agree on in the moment.
+2. State the action in one sentence.
+3. Name the tempting signal you expect, and say in advance that it does not count. This is the part people skip, and it is the part that does the work.
+
+**Where it applies in AI product work.** Model rollback thresholds, kill-switch criteria, launch-blocking eval scores, escalation triggers. Any decision that will be made while a launch is in flight and a senior person is asking why you are slowing things down.
+
+**When it is wrong.** Where the situation is genuinely novel and your pre-committed rule was built for a different world, executing it mechanically is the failure. The safeguard: pre-commit the *review* too. "This rule holds unless [named condition], in which case we stop and re-decide with [named person]."
+
+### #18: Friction Calibration
+
+**The rule, and it comes from holding two opposite failures together.** One body of evidence says AI erodes judgment by removing friction that used to force a human to check. Another says elite performers under pressure *manufacture* friction on purpose: capping themselves at three data points, re-reading a situation three or four times before acting, enforcing a cooling-off period before a debrief.
+
+Read together they resolve into a calibration rule neither states alone:
+
+**The friction a decision needs rises as the time window compresses, and rises again with the emotional charge in the room.**
+
+**So friction is a designed control, not a cost to minimize.** Both AI systems and humans under pressure fail the same way when friction is removed at the wrong moment, and the wrong moment is identifiable in advance from those two variables.
+
+**How to use it.** Before removing a step, score the decision on both axes.
+
+| | Low emotional charge | High emotional charge |
+|---|---|---|
+| **Long time window** | remove friction freely | keep one artifact and one reader |
+| **Short time window** | keep the check, automate the gathering | **pre-commit the branch (algorithm #17) and cap the inputs** |
+
+The bottom-right cell is where an AI copilot that auto-summarizes and pre-fills a recommendation does the most damage, because it removes the "look at the people and signals behind the data" step exactly where that step was load-bearing.
+
+*(Sources: HBR, McCall, Wolfberg, Bilsborough & Pruna, "How Elite Sports Coaches Make High-Pressure Decisions," Jul-Aug 2026 — ⚠ anecdote-tier, structured interviews with 11 coaches, no numbers of any kind. Cite the mechanic, not the quotes. The calibration rule is this corpus's synthesis of that article against the judgment-erosion evidence in `rtp-judgment-guard`; neither source states it. The recognition-primed decision literature on firefighters and clinicians makes the same compressed-deliberation claim and the article does not cite it.)*
 
 ## THE 24 AI WRITING ANTI-PATTERNS — Always Active
 

@@ -1,7 +1,7 @@
 ---
-name: rtp-confidence-tuner
-version: v1.0_latest
-description: 'Calibrate confidence at both layers of the AI stack — the model''s confidence shown to the USER (trust calibration: Endorse/Caution/Warn so users neither over-rely nor ignore the AI), and the JUDGE''s confidence behind an eval score (TPR/TNR/kappa, so an automated evaluator can be trusted). Same discipline — does a stated confidence track truth? — at two layers, and the judge layer sits upstream: you can''t honestly calibrate a user''s trust on top of an unvalidated scoreboard. Use when designing confidence signals, reducing automation bias, validating an LLM-as-judge before relying on it, setting auto-approve vs send-to-human thresholds, or debugging why a green dashboard ships red product. Pairs with: eval-framework, ai-product-metrics, trust-ladder, production-observability, prompt-as-product. Triggers: "confidence signal", "trust calibration", "LLM as judge", "TPR TNR", "automation bias", "auto-approve threshold".'
+name: confidence-tuner
+version: v1.2_latest
+description: 'Calibrate confidence at both layers of the AI stack: the model''s confidence shown to the USER (trust calibration: Endorse/Caution/Warn so users neither over-rely nor ignore the AI), and the JUDGE''s confidence behind an eval score (TPR/TNR/kappa, so an automated evaluator can be trusted). Same discipline at two layers, asking whether a stated confidence tracks truth. The judge layer sits upstream: you can''t honestly calibrate a user''s trust on top of an unvalidated scoreboard. Use when designing confidence signals, reducing automation bias, validating an LLM-as-judge before relying on it, setting auto-approve vs send-to-human thresholds, or debugging why a green dashboard ships red product. Pairs with: eval-framework, ai-product-metrics, trust-ladder, production-observability, prompt-as-product. Triggers: "confidence signal", "trust calibration", "LLM as judge", "TPR TNR", "automation bias", "auto-approve threshold".'
 imports: [trust-ladder, eval-framework, ai-product-metrics]
 ---
 
@@ -155,6 +155,36 @@ UX pattern:
 - Strong explanation required ("Why warning? Credit history outside our training set")
 - Mandatory escalation or human review
 
+**What the explanation in signals 2 and 3 is actually doing, and why it is not what you think.**
+
+Read the three signals again and notice the design assumption underneath them: the more uncertain the model, the more explanation the interface supplies, on the theory that explanation helps the user check. The evidence says explanation does the opposite of checking.
+
+In a screening experiment with expert-supplied ground truth, **the unexplained recommendation improved decision quality by 4.3 points and the explained one improved it by nothing**, while producing more compliance. Explanation also **cut detection of bad outputs by 11.9 points**, in a setting where a benchmark existed and could have been used. Tier ◆, one study, evaluators with domain expertise.
+
+The mechanism is verification substitution. Reading the explanation feels like checking, so the user stops checking.
+
+**So the explanation attached to CAUTION and WARN is buying compliance with the signal, not scrutiny of the output.** That is fine when the signal is right, which is the case the three-signal system is designed for. It is expensive when the signal is wrong, because the explanation has removed the user's independent read at the exact moment you were relying on it.
+
+**Three consequences for how you build signals 2 and 3.**
+
+1. **Do not treat "we explained it" as the safety mechanism.** The explanation satisfies a duty and raises uptake. If you need catching, the catching has to be built separately, through seeded known-bad cases or a second reviewer with a cost, not through better prose.
+2. **Watch the direction, not the level.** Compliance with *accept* recommendations rose about 10 points under explanation. Compliance with *reject* recommendations rose **26.9 points** ◆. Explanation buys most of its deference on the decision whose error is invisible, so if your WARN signal mostly produces declines, the explanation is doing its heaviest work where you have no feedback loop.
+3. **Log opens, not offers.** "Explanation available" and "explanation opened" are different signals, and only the second means anything (see `rtp-ai-ux-patterns`, section 7).
+
+**When this is wrong.** One study, one task type, expert population. Regulated decisions require an explanation whatever it does to deference, and the WARN signal's mandatory escalation is a real control that does not depend on the user reading anything. **The correction is to what explanation is for, not an argument for removing it.**
+
+*(Source: Sudakov and Furr, HBR, Aug 2026, reporting the Lane and Boussioux working paper. Ledger patterns V and T.)*
+
+**A checkpoint's catch rate has a shelf life, and one acceptance-rate number will not tell you when it expires.**
+
+This finding comes from an MIT Sloan piece citing an internal, mostly unpublished practitioner study (tier ⚠: described as ongoing and unpublished, no model, prompt, or rate disclosed): a "checkpoint" that asks the user "are you sure?" before accepting an AI recommendation measurably reduces uncritical reliance in the near term.
+
+The problem is what a single acceptance-rate metric cannot separate. Two different effects sit inside that one number: the checkpoint genuinely catching bad recommendations, and the checkpoint simply making users reject more recommendations overall, including correct ones. These two effects diverge further as the underlying model gets more accurate over time. There is less for the checkpoint to catch, but the false-rejection rate on good recommendations does not shrink on its own. A checkpoint that looks like it is working today can quietly become a pure tax on good recommendations later, with nothing in the acceptance-rate number to flag when that happened.
+
+Treat this as a shelf-life caution on any confirmation-style checkpoint this skill recommends, including the CAUTION and WARN escalation flow below. Give the checkpoint its own catch-rate-versus-false-rejection-rate instrument, tracked over time, separate from any overall reliance or acceptance-rate metric. Without that second instrument, the checkpoint's apparent success expires and nobody notices when.
+
+*(Source: MIT Sloan Management Review, citing an internal, ongoing/unpublished practitioner finding. Tier ⚠: no model, prompt, or rate disclosed. One source, directional only.)*
+
 ### 3. DOMAIN-AWARE CONFIDENCE
 
 Ask: **"Is the model actually good at this type of input? Or is it guessing?"**
@@ -219,6 +249,18 @@ Example (content moderation):
 - WARN (red): Content is held pending escalation. Mandatory human review before any decision.
 
 **Make the escalation easy:** Don't require users to think about what to do next. The signal + next action should be obvious.
+
+**High-stakes real-time calls: the three-channel convergence gate**
+
+The looser version of this rule is "cross-check data against people": before you act on a signal, look at more than one source. The sharper version, useful when a call has to be made in the moment rather than reviewed later, is a convergence gate. Act on a signal only when three channels agree: a data signal, your own direct observation, and one independent second observer's read. Require that agreement on a repeated look, not the first pass, since a first pass from any channel is the one most likely to be primed by what you expected to see.
+
+The mechanism: a single channel, even a correct one, is a single point of failure; a snap consensus on a first look is not proof, it is three people seeing the same expectation at once. Waiting for a second inspection filters out the transient read that any one channel can throw off under pressure.
+
+Where this breaks: the gate needs three staffed observational roles, a data feed, a primary observer, and an independent second observer, and most teams cannot resource that in real time. The source does not describe a degraded version. Whether a data signal plus one observer should ever act alone, without the second independent read, is not addressed and should not be assumed safe.
+
+Tier: practitioner-reported, single source, no measured population. Directional, not validated.
+
+*(Source: an HBR/MIT Sloan sports-coaching podcast, a mostly redundant audio companion to an already-synthesized written article.)*
 
 ---
 

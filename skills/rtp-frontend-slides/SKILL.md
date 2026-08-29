@@ -1,7 +1,7 @@
 ---
 name: rtp-frontend-slides
 version: v1.0_latest
-description: Build production-quality HTML slide decks from scratch or by converting existing PowerPoint files — zero dependencies, no build tools, single self-contained HTML file with inline CSS and JavaScript. Six-phase workflow with a "show, don't tell" style discovery (3 visual previews to react to, not abstract labels to pick from), strict one-viewport-per-slide layout, smooth animations, keyboard/touch navigation, accessibility, and responsive design. Use when building a pitch deck, teaching deck, conference talk, or internal meeting deck; when converting a .pptx into an animated web deck; or when enhancing an existing HTML presentation. Triggers on "build a deck", "presentation", "slides", "convert this PPT", "HTML presentation", "pitch deck", "frontend slides".
+description: 'Build production-quality HTML slide decks from scratch or by converting existing PowerPoint files: zero dependencies, no build tools, single self-contained HTML file with inline CSS and JavaScript. Six-phase workflow with a "show, don''t tell" style discovery (3 visual previews to react to, not abstract labels to pick from), strict one-viewport-per-slide layout, smooth animations, keyboard/touch navigation, accessibility, and responsive design. Use when building a pitch deck, teaching deck, conference talk, or internal meeting deck; when converting a .pptx into an animated web deck; or when enhancing an existing HTML presentation. Triggers on "build a deck", "presentation", "slides", "convert this PPT", "HTML presentation", "pitch deck", "frontend slides".'
 ---
 # Frontend Slides — Build Beautiful HTML Presentations with AI
 

@@ -1,15 +1,7 @@
 ---
 name: eval-driven-development
 version: v1.0_latest
-description: >
-  Build AI features with the eval rubric AS the spec, not as a downstream gate. The eval
-  defines what to build next — not whether what you built is acceptable. Use when shipping
-  AI features with no clear definition of "done", when the team iterates on prompts without
-  a quality compass, when error analysis must come before the next sprint, or when reviewers
-  ask "how do you know this is good?". Triggers on "how do we test this AI feature",
-  "when is it ready to ship", "eval framework", "quality gate", "definition of done for AI",
-  "eval-driven", "ship criteria".
-  Pairs with: eval-framework (the harness), confidence-tuner (validates the judge that scores the gate), ai-prd (the spec it feeds), ship-decision (the gate it arms), production-observability (where the loop closes).
+description: 'Build AI features with the eval rubric AS the spec, not as a downstream gate. The eval defines what to build next, not whether what you built is acceptable. Use when shipping AI features with no clear definition of "done", when the team iterates on prompts without a quality compass, when error analysis must come before the next sprint, or when reviewers ask "how do you know this is good?". Triggers on "how do we test this AI feature", "when is it ready to ship", "eval framework", "quality gate", "definition of done for AI", "eval-driven", "ship criteria". Pairs with: eval-framework (the harness), confidence-tuner (validates the judge that scores the gate), ai-prd (the spec it feeds), ship-decision (the gate it arms), production-observability (where the loop closes).'
 imports: ["eval-framework", "feedback-flywheel"]
 ---
 

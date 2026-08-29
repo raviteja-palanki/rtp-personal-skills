@@ -1,7 +1,7 @@
 ---
 name: uncertainty-research
-version: v1.0_latest
-description: "Research for non-deterministic AI, where two users asking the same question get different answers — which quietly breaks every standard research method. You can't measure a moving target with a fixed ruler: a one-session usability study captures week-1 caution when real trust stabilizes at week 4, and averages hide terrible tail quality. Instead measure behavior over time (acceptance/edit/rejection rate), stratify by output quality, find the 'good enough' acceptance threshold empirically, and build an expiry condition into every finding because the model moves. Use when planning trust studies, threshold studies, or validating an AI feature. Do NOT use for deterministic software, batch/offline AI, or under ~50 weekly active users. Pairs with: interview-synthesis (synthesize the interviews), jtbd-analysis (the switch-interview method), ai-product-taste (defines the bar; this measures the threshold), ai-use-case-readiness (downstream). Triggers: 'trust study', 'threshold study', 'how good is good enough'."
+version: v1.2_latest
+description: 'Research for non-deterministic AI, where two users asking the same question get different answers, which quietly breaks every standard research method. You can''t measure a moving target with a fixed ruler: a one-session usability study captures week-1 caution when real trust stabilizes at week 4, and averages hide terrible tail quality. Instead measure behavior over time (acceptance/edit/rejection rate), stratify by output quality, find the ''good enough'' acceptance threshold empirically, and build an expiry condition into every finding because the model moves. Use when planning trust studies, threshold studies, or validating an AI feature. Do NOT use for deterministic software, batch/offline AI, or under ~50 weekly active users. Pairs with: interview-synthesis (synthesize the interviews), jtbd-analysis (the switch-interview method), ai-product-taste (defines the bar; this measures the threshold), ai-use-case-readiness (downstream). Triggers: ''trust study'', ''threshold study'', ''how good is good enough''.'
 imports:
   - first-principles
   - interview-synthesis
@@ -65,6 +65,33 @@ Before any study, interview 10–15 active users — this determines which metho
 **Design for variability:** larger samples than traditional research (model variation adds noise); stratify by query complexity, user expertise, and domain; measure trust *behaviors*, not satisfaction ratings; and **record the actual output each participant saw** (it varies — this matters). **Interpret with non-determinism in mind:** never average satisfaction across varied outputs; segment by output quality; treat trust as the leading indicator and satisfaction as lagging; and ask both "was it helpful?" *and* "would you rely on it?" — different questions.
 
 **Wizard-of-Oz** (humans generate what users think is AI) validates *demand*, not quality — its critical limitation is that humans produce near-perfect, no-latency responses, so users calibrate to a human-quality baseline; when the real AI ships at 70–80%, the expectation gap destroys trust. Use WoZ for feature discovery and UX, **never** to forecast real-AI satisfaction; if you must estimate, discount WoZ results by ~30–40% (⚠ practitioner heuristic).
+
+**Mutual-reinforcement detector** — when a framework or study claims its components "can't be adopted separately" or are "mutually necessary," check the underlying evidence before accepting the interdependence claim. If it rests on a single cross-sectional self-report survey, treat it as unverified. Dichotomizing a self-rated outcome at its ceiling (a "perfect score" cutoff, for instance) destroys the variance a real test of interdependence needs, so what looks like non-decomposability can be a measurement artifact rather than a property of the framework. The detector does not apply when the interdependence claim comes from a decomposition test (vary one component, hold the others fixed) or from objective outcome data instead of self-report. (Source: HBR podcast survey on "super teams," ⚠ tier: self-report, ceiling-cut on two items, method and n undisclosed.)
+
+## DIVERGE ON RETRIEVAL, CONVERGE ON REVIEW
+
+The single design rule for how a team gathers information before it frames a problem. It runs against what most teams are currently being sold, which is a shared workspace with a shared AI in it.
+
+**The mechanism.** Search, discovery and chat systems run on exploitation logic: popular results, relevant results, results your history predicts. When several people research the same question on the same such tool, they are independently routed to the same material and independently arrive at similar conclusions. Everyone worked alone, so everyone believes the agreement is independent confirmation. It is a shared input path wearing the clothes of consensus.
+
+**The evidence, and it is the only measurement of idea diversity in the corpus.** Ideas from a field experiment, semantically clustered:
+
+| | standard search | exploration-based retrieval |
+|---|---:|---:|
+| Novices | 1 | 2 |
+| **Experts** | 2 | **5** |
+
+On standard search, **domain experts generated no more distinct solution territory than novices.** Change the retrieval to surface semantically distant material and only the experts broke into new space. Expertise pays through recombination, recombination needs unfamiliar input, and an exploitation-based tool withholds exactly that.
+
+**The design rule, in three parts:**
+
+1. **Never let one shared query path serve a group that is supposed to be generating options.** Give people different entry points, different corpora, different phrasings, and deliberately assign someone the unfamiliar sources.
+2. **Separate the retrieval stage from the workspace stage.** The shared workspace is right for review and wrong for gathering. Diverge while you collect, converge when you compare. Most "collaborative AI research" setups collapse the two and lose the diversity before anyone sees it.
+3. **Check for the failure directly.** Cluster the material each person came back with. **One or two clusters from a group of experts is the signal**, and it will feel like alignment.
+
+**The prompting move for a generation setting, marked untested.** Ask explicitly for approaches from unrelated industries, and ask the model to challenge the dominant assumption in its own first answer. **The study behind this tested retrieval, not generation**, so treat the transfer as a reasonable hypothesis rather than a finding. See `rtp-prompt-craft`.
+
+*(Source: MIT SMR Research Highlight, Aug 2026 — ◆ and thinly reported: written by the researchers rather than refereed, underlying paper unnamed, lab n=104 and field n=245 across at least four cells. **Roughly 60 per cell means the expert-versus-novice null on standard search is underpowered and consistent with a modest undetected effect.** The four cluster counts carry no dispersion, no interval and no test; clustering parameters and how expertise was classified are both unstated. Strong enough to change how you design a research sprint, not strong enough to quote as an effect. Ledger pattern O; see also `rtp-bias-spotter`, ideation bubbles, and `rtp-alignment-check`, the human twin of the same blindness.)*
 
 ## "GOOD ENOUGH" THRESHOLD RESEARCH — the most important question
 

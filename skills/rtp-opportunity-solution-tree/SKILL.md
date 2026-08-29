@@ -1,7 +1,7 @@
 ---
 name: opportunity-solution-tree
-version: v1.0_latest
-description: "Teresa Torres' Opportunity Solution Tree (outcome → opportunities → solutions → experiments) with the one cut the AI era demands: an AI-feasibility filter. OST expands the solution space — the right move — but for AI, expansion alone produces a backlog of features the team can't ship, because not every opportunity is probabilistically addressable. The filter sorts each into deterministic (rules), probabilistic-with-evals (spend AI bandwidth here), or probabilistic-but-unevaluable (the danger zone where projects die quietly). That makes the OST a roadmap with a 'no' mechanism most teams lack. Use when planning a quarter or scoping a product area. Do NOT use for clearly-defined work (a bug, a regulatory deliverable) or a single committed direction. Pairs with: jtbd-analysis (the job becomes the outcome), determinism-compass (deterministic/probabilistic cut), problem-ai-fit (the fine feasibility cut), eval-framework (the eval surface). Triggers: 'what should we build', 'map opportunities', 'quarter planning'."
+version: v1.1_latest
+description: 'Teresa Torres'' Opportunity Solution Tree (outcome → opportunities → solutions → experiments) with the one cut the AI era demands: an AI-feasibility filter. OST expands the solution space, rightly, but for AI expansion alone produces a backlog of features the team can''t ship, because not every opportunity is probabilistically addressable. The filter sorts each into deterministic (rules), probabilistic-with-evals (spend AI bandwidth here), or probabilistic-but-unevaluable (the danger zone where projects die quietly). That makes the OST a roadmap with a ''no'' mechanism most teams lack. Use when planning a quarter or scoping a product area. Do NOT use for clearly-defined work (a bug, a regulatory deliverable) or a single committed direction. Pairs with: jtbd-analysis (the job becomes the outcome), determinism-compass (deterministic/probabilistic cut), problem-ai-fit (the fine feasibility cut), eval-framework (the eval surface). Triggers: ''what should we build'', ''map opportunities'', ''quarter planning''.'
 imports:
   - problem-ai-fit
   - determinism-compass
@@ -66,6 +66,26 @@ Five opportunities from interviews + ticket data: (1) alert fatigue — 78% of a
 **Filter applied:** #1 splits into severity scoring (**deterministic** — reliability engineers can whiteboard the rule) + AI confidence ranking (**probabilistic-with-evals** — eval surface: operator acceptance over 4 weeks + expert review of the bottom 50%; ship threshold: 70% acceptance, <5% confident-wrong on Tier-1). #4 (audit trail) is **deterministic** — a database and a form; *build it, keep it off the AI roadmap.* #5 (parts staging via prediction) is **unevaluable as scoped** — "did the right part arrive in time" is downstream of supply-chain decisions outside your control; narrow it ("predict failures for 5 asset classes where we control parts supply") before spending AI bandwidth, and ship the deterministic cross-customer pooling first.
 
 **The roadmap that emerges** sequences deterministic wins (severity scoring, audit trail) in Q1 alongside an eval-driven-development AI pilot, then earns fleet-wide AI rollout in Q3 only if the pilot passes. **What got cut:** parts-staging-via-prediction is parked until the eval surface is real. That's the OST doing its job — saying no.
+
+## THE PROTOTYPE CHANGED JOBS — build it to sharpen the problem, not to validate the answer
+
+A cost change, and it moves the prototype from the bottom of this tree to the top.
+
+**The old economics.** Prototypes were expensive, so you built them **late**, after you had decided what you wanted, to check whether the chosen solution worked. That put them under the solution layer, where most trees still place them.
+
+**The new economics.** They are cheap and fast, so build them **early**, not to show the answer but *"to make the debate about direction more concrete."* A rough prototype at the opportunity stage is an instrument for interrogating the problem, and it belongs beside the opportunity, not under the solution.
+
+**The acceptance test, and it is the operational half of this:** **evaluate the prototype on which questions it surfaced, not on how finished it looks.** A prototype that produced three arguments the team had not had yet did its job. A polished one that produced agreement did not, and the polish is what caused the agreement.
+
+Three practical consequences for how you run the tree:
+
+- **Rough and early beats polished and late.** Explicitly reward roughness, or the team will optimize the artifact instead of the debate.
+- **A prototype can sit against more than one opportunity.** Its job at this stage is comparison, so building one against two competing opportunity framings is a better use than building two against one.
+- **Log the questions it raised as tree nodes.** That is the output. If nothing new entered the tree, the prototype was a demo.
+
+**Say this part out loud to the team, because it explains the pull better than any incentive story.** Problem definition **has no progress bar**. Building does. When production gets cheap, the activity with a visible completion signal outcompetes the one without it, regardless of which creates more value, so the pull toward "just build the thing" gets stronger exactly as prototyping gets cheaper. Give the framing work its own completion signal (a written problem statement, a named assumption, a falsifier) or it will keep losing. See `rtp-first-principles`.
+
+*(Source: HBR, "AI Makes Building Easy. Choosing What to Build Is Harder," Aug 2026 — ⚠ and read carefully: the article concludes that problem definition beats execution **from a contest whose judging criteria explicitly prioritized problem definition over technical execution**, and reports no outcome number of any kind. That conclusion is circular. The prototype's changed function follows from the cost change rather than from the contest, and the progress-bar observation is the article's own honest reporting of behavior. Carry those two; leave the thesis.)*
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 

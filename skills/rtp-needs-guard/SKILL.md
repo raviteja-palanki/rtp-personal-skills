@@ -1,7 +1,7 @@
 ---
 name: needs-guard
-version: v1.0_latest
-description: "Ensure AI deployment doesn't threaten what workers actually care about — autonomy, competence, belonging. When workers resist AI, it's usually not fear of change or a skill gap: the AI removed something they depend on to feel like a professional. Resistance is a need-violation problem, which makes it a product problem, not a change-management one — you diagnose which psychological need is broken (Self-Determination Theory: autonomy, competence, relatedness) with the AWARE diagnostic, then redesign the deployment to protect it. Use when workers resist AI, adoption plateaus at months 3–4, or people use unauthorized 'shadow AI' tools. Do NOT use before tools are selected (ai-use-case-readiness first), or when resistance is really a UX or AI-quality problem. Pairs with: attitudinal-segmentation (stance vs. need), adoption-launch (the phased motion), problem-type (need violation = adaptive challenge), eval-framework (rule out quality issues). Triggers: 'workers resist AI', 'adoption dropping', 'shadow AI'."
+version: v1.1_latest
+description: 'Ensure AI deployment doesn''t threaten what workers actually care about: autonomy, competence, belonging. When workers resist AI, it''s usually not fear of change or a skill gap: the AI removed something they depend on to feel like a professional. Resistance is a need-violation problem, which makes it a product problem, not a change-management one. You diagnose which psychological need is broken (Self-Determination Theory: autonomy, competence, relatedness) with the AWARE diagnostic, then redesign the deployment to protect it. Use when workers resist AI, adoption plateaus at months 3–4, or people use unauthorized ''shadow AI'' tools. Do NOT use before tools are selected (ai-use-case-readiness first), or when resistance is really a UX or AI-quality problem. Pairs with: attitudinal-segmentation (stance vs. need), adoption-launch (the phased motion), problem-type (need violation = adaptive challenge), eval-framework (rule out quality issues). Triggers: ''workers resist AI'', ''adoption dropping'', ''shadow AI''.'
 imports: [first-principles, bias-spotter]
 ---
 
@@ -89,6 +89,12 @@ Don't redesign the model yet — redesign the *deployment and workflow*. Each fi
 - **Assuming all workers share a need.** Senior staff may prioritize autonomy (they want to mentor); juniors may prioritize competence (they want to learn). Segment the diagnostic by persona.
 - **Confusing adoption with forced compliance.** Month-1 adoption is deceptive; what matters is month-6 use *when no one's watching*. Measure voluntary adoption, not access.
 - **One-time training won't fix a need violation.** Training solves "they don't understand the AI"; it fails on "the AI violates a need." Distinguish capability problems (train) from need problems (redesign).
+- **A "time-saving" framing can hide a capacity collision.** A rollout can be genuinely good and still overload the team it lands on, because it changes the shape of work faster than it changes the amount. Whenever leadership frames a rollout as pure time-saving, check AWARE against three patterns:
+  - **New surface, no retirement** — the AI adds a duty (reviewing, correcting, escalating) without removing an old one, so the strongest performers end up carrying both.
+  - **Orphaned on-call** — the rollout creates new monitoring or on-call duty that defaults to whoever volunteers, instead of being deliberately assigned.
+  - **Decision load outruns production load** — output speeds up faster than judgment does, so the "saved" hours go to deciding what to do with the AI's output, not to rest or other work.
+
+  Each pattern reads as an autonomy or competence violation on AWARE, even though the rollout's stated goal was capacity relief. **Doesn't apply** if the team explicitly retired the old workflow and reassigned the freed hours. Then the time-saving framing is accurate and this check can be skipped.
 
 ## QUALITY GATE
 

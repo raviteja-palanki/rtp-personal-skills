@@ -1,7 +1,7 @@
 ---
 name: bias-spotter
-version: v1.0_latest
-description: "Names the cognitive bias making a flawed AI product decision feel obvious or inevitable — before the money is committed. The feeling of 'obviously right' is data, not truth: it has a named mechanism, and you can't introspect it away (finding no bias is itself the warning). Audit the decision, not your sense of being rational. The same pull attacks three stages: what you BUILD, how you MEASURE, and what the model itself CARRIES. Name it, price the risk in, mitigate — never block. Use when reviewing a PRD or feature proposal, before a resource commit, when a decision feels 'obvious' / 'the competitor did it', or after a senior person weighs in. Never to block a decision, or stall a team that needs to commit. Pairs with: falsification (what would prove this wrong), first-principles (strip the framing first), eval-framework (fixes Stage 2's red flags), trendslop-check (bias baked into AI-generated strategy). Triggers: 'that's just common sense', 'obviously we need to', 'this is our only option'."
+version: v1.2_latest
+description: 'Names the cognitive bias making a flawed AI product decision feel obvious or inevitable, before the money is committed. The feeling of ''obviously right'' is data, not truth: it has a named mechanism, and you can''t introspect it away (finding no bias is itself the warning). Audit the decision, not your sense of being rational. The same pull attacks three stages: what you BUILD, how you MEASURE, and what the model itself CARRIES. Name it, price the risk in, mitigate. Never block. Use when reviewing a PRD or feature proposal, before a resource commit, when a decision feels ''obvious'' / ''the competitor did it'', or after a senior person weighs in. Never to block a decision, or stall a team that needs to commit. Pairs with: falsification (what would prove this wrong), first-principles (strip the framing first), eval-framework (fixes Stage 2''s red flags), trendslop-check (bias baked into AI-generated strategy). Triggers: ''that''s just common sense'', ''obviously we need to'', ''this is our only option''.'
 imports: []
 ---
 
@@ -112,12 +112,37 @@ Embedded in the model's training and data; they propagate downstream whether or 
 - **Aggregation bias** — works well on average, fails systematically for a specific segment.
 - **Automation bias** — users and operators trust the output uncritically *because* it came from AI, with no human check.
 
+**The randomized-label test.** A gap between groups in a model's output has two possible sources, and they need different fixes: demand-side (the groups asked different things) or supply-side (the model answers otherwise-identical requests differently). Confusing the two means fixing the wrong half. The method: hold the prompt content fixed and randomly vary only a demographic label attached to it, such as a name or a stated gender. Any change in the model's answer is supply-side, since the request itself never changed. **When wrong:** a single label swap can trigger a refusal or sycophancy artifact unrelated to the bias under study, and a null result on one label only clears that dimension, not others you didn't test. (Evidence: ◆ tier, n≈1,000 US adults, from an unrefereed but methodologically sound AI-financial-advice working paper. Demonstrated on gender and financial advice, but the design generalizes to any group-disparity question in model output.)
+
 **The compounding case — multi-agent systems.** When you chain agents, these biases don't just persist, they multiply:
 - The first agent's training-data bias becomes the second's input bias.
 - A confident-but-wrong upstream call gets *amplified* rather than corrected — confirmation bias between agents.
 - A 5% error in agent 1 compounds to ~10% across a 2-agent chain, because agent 2 is working from 95%-good inputs.
 
 Audit the chain, not just each agent.
+
+## THE GROUP BIAS WITH A MEASUREMENT — IDEATION BUBBLES
+
+Almost every pattern in this skill is diagnosed by argument. This one has a number attached and a detection method anyone can run in an afternoon, which is why it is worth its own stage.
+
+**The mechanism.** Search, discovery, recommendation and chat systems are built on exploitation logic: they surface the popular, the relevant and what your history predicts you want. When several people work the same problem on the same such tool, **they are independently channelled to the same material and independently produce similar ideas.** Each person is working alone. Each believes their independence is producing diversity. It is producing the opposite.
+
+**Why it is invisible from inside.** Nobody coordinated, so nobody suspects convergence. The team's own evidence that it thinks independently is precisely the fact that they worked separately, which is the condition that produced the sameness. Consensus in the readout reads as validation.
+
+**The detection method:** take the ideas the group produced independently and semantically cluster them. Count the distinct clusters. **One or two clusters from a room of experts is the signal**, and it will look like agreement.
+
+**The measured version.** In a field experiment, ideas were clustered by natural-language processing across four conditions:
+
+| | standard search | exploration-based retrieval |
+|---|---:|---:|
+| Novices | 1 | 2 |
+| **Experts** | 2 | **5** |
+
+The experts on the exploitation-based tool produced the same cluster count as novices. Change the retrieval to surface semantically distant results and only the experts broke into new territory.
+
+**The fix is a design rule, not a debiasing exercise.** Diverge on retrieval and converge on review: never let one shared query path serve a group that is supposed to be generating options. This is the opposite of the shared-workspace-plus-shared-AI arrangement most teams are currently being sold. Related handling in `rtp-uncertainty-research` (the retrieval design), `rtp-moat-finder` (the same finding as a moat risk) and `rtp-alignment-check` (the human twin, where a group diverges while believing it has converged).
+
+*(Source: MIT SMR Research Highlight, Aug 2026 — ◆ and thinly reported. Written by the researchers rather than refereed, underlying paper not named. Field n=245 across at least four cells, roughly 60 per cell, so the expert-versus-novice null on standard search **is underpowered and consistent with a modest undetected effect**. The four cluster counts carry no dispersion, no interval and no significance test, clustering parameters are unstated, and how expertise was classified is never given. Strong enough to justify running the clustering check on your own team; not strong enough to quote as an effect size. Ledger pattern O.)*
 
 ## WORKED EXAMPLE — the AI support agent, four biases compounding
 

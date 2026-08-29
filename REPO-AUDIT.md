@@ -6,15 +6,15 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `1.7.5`  ·  **Commit:** `9d0ca91`  ·  **Generated:** 19 Jul 2026 01:26
+**Version:** `1.13.0`  ·  **Commit:** `232268f`  ·  **Generated:** 29 Aug 2026 23:46
 
 ## Totals
 
 | Metric | Count |
 |---|---:|
-| **Total tracked files** | **243** |
-| **Skills** (`SKILL.md`) | **84** |
-| Supporting files inside `skills/` | 111 |
+| **Total tracked files** | **251** |
+| **Skills** (`SKILL.md`) | **87** |
+| Supporting files inside `skills/` | 116 |
 | Slash commands | 11 |
 
 ## Verified against `plugin.json`
@@ -23,19 +23,19 @@ The description claims a split; these are checked against the filesystem every r
 
 | Bucket | Claimed | Actual | |
 |---|---:|---:|:--:|
-| Total skills | 84 | 84 | ✔ |
-| AI-PM skills | 65 | 65 | ✔ |
-| General-purpose | 18 | 18 | ✔ |
+| Total skills | 87 | 87 | ✔ |
+| AI-PM skills | 66 | 66 | ✔ |
+| General-purpose | 20 | 20 | ✔ |
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.7.5**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.13.0**.
 
 ## Composition
 
 | Area | Files |
 |---|---:|
-| `skills` | 195 |
+| `skills` | 203 |
 | `diagrams` | 15 |
 | `commands` | 11 |
 | `workflows` | 6 |
@@ -59,22 +59,22 @@ Version fields are locked in step: `plugin.json` = `marketplace.json` metadata =
 | agent-design | 6 |
 | ai-strategy | 11 |
 | craft | 11 |
-| eval-and-quality | 6 |
+| eval-and-quality | 7 |
 | product-sense | 14 |
 | safety-and-trust | 7 |
 | thinking-core | 11 |
-| **7-layer total** | **66** |
+| **7-layer total** | **67** |
 
-The repo mirrors **65** of these. The difference is `rtp-failure-design`,
+The repo mirrors **66** of these. The difference is `rtp-failure-design`,
 a redirect stub merged into `failure-modes` — intentionally excluded from the plugin.
 
 ## Supporting files inside `skills/`
 
-84 skills carry 111 supporting files (1.3 per skill).
+87 skills carry 116 supporting files (1.3 per skill).
 
 | Type | Count |
 |---|---:|
-| `.md` | 103 |
+| `.md` | 108 |
 | `.svg` | 7 |
 | `.py` | 1 |
 
@@ -86,7 +86,7 @@ These folders are renamed for plugin namespacing; content is identical to source
 |---|---|
 | `rtp-aipm-orchestrator` | `rtp-orchestrator` |
 | `rtp-personal-branding` | `rtp-ravi-personal-branding` |
-| `rtp-research-synthesiser` | `rtp-research-synthesiser` |
+| `rtp-research-synthesiser` | `rtp-grok-perplexity-research` |
 | `rtp-thinking-skills` | `rtp-ravi-thinking-skills` |
 
 ## History
@@ -104,6 +104,7 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 1.7.3 | 81bd3a6 | 18 Jul 2026 16:39 | 242 | 84 | 11 |
 | 1.7.4 | 292fe03 | 18 Jul 2026 17:19 | 242 | 84 | 11 |
 | 1.7.5 | 9d0ca91 | 19 Jul 2026 01:26 | 243 | 84 | 11 |
+| 1.13.0 | 232268f | 29 Aug 2026 23:46 | 251 | 87 | 11 |
 HISTORY-->
 | 1.4.14 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.4.15 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
@@ -115,3 +116,4 @@ HISTORY-->
 | 1.7.3 | 81bd3a6 | 18 Jul 2026 16:39 | 242 | 84 | 11 |
 | 1.7.4 | 292fe03 | 18 Jul 2026 17:19 | 242 | 84 | 11 |
 | 1.7.5 | 9d0ca91 | 19 Jul 2026 01:26 | 243 | 84 | 11 |
+| 1.13.0 | 232268f | 29 Aug 2026 23:46 | 251 | 87 | 11 |

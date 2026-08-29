@@ -1,13 +1,7 @@
 ---
 name: signal-scanner
-version: v1.1_latest
-description: >
-  Detect weak signals early — trends, threats, opportunities invisible in quarterly reviews but obvious in hindsight.
-  Dual-speed sensing: real-time operational signals (what's happening now) + long-term strategic signals (what's emerging).
-  Future-prepared firms outperform on profitability and market-cap growth (Rohrbeck & Kum, longitudinal study). Use for
-  annual planning, competitor monitoring, or when building early-warning systems into product strategy.
-  Pairs with: capability-tracking (build now vs. wait for the next model), moat-finder (is the
-  threat aimed at your moat), competitive-map (where the threat comes from).
+version: v1.3_latest
+description: 'Detect weak signals early: trends, threats and opportunities invisible in quarterly reviews but obvious in hindsight. Dual-speed sensing: real-time operational signals (what''s happening now) + long-term strategic signals (what''s emerging). Future-prepared firms outperform on profitability and market-cap growth (Rohrbeck & Kum, longitudinal study). Use for annual planning, competitor monitoring, or when building early-warning systems into product strategy. Pairs with: capability-tracking (build now vs. wait for the next model), moat-finder (is the threat aimed at your moat), competitive-map (where the threat comes from).'
 imports: [first-principles, strategy-canvas]
 ---
 
@@ -134,6 +128,7 @@ But you also read: "Two of our best customers independently asked for Y integrat
 - **The 5 signal categories** — customer behavior, competitive, technology capability, regulatory, and market-structure signals.
 - **AEO / GEO (answer-engine / generative-engine optimization)** — getting your brand cited inside AI-generated answers, the way SEO gets you ranked in search.
 - **AI-mediated discovery** — customers reaching you through an AI assistant's answer rather than a search click.
+- **Reported vs. lived organization** — the gap between what dashboards and leadership reports show and what people actually experience, a gap that widens with every management layer the information passes through.
 
 ## THE 5 SIGNAL CATEGORIES
 
@@ -205,6 +200,16 @@ Name the mode first — **does the AI select from a list, or synthesize from a c
 - Context window doubles → new interaction patterns possible
 - First-class multi-turn reasoning framework emerges → agent architectures become default
 
+**Before betting on an agentic or frontier feature, check the actual usage census, not the frontier decile.** A large annual usage census called "AI in the Wild" is now in its third year (Jun 2026). It mined 12,637 use cases from roughly 50,000 records across six platforms: Reddit, Quora, LinkedIn, TikTok, and YouTube, using social-listening methodology. ⚠ This is a social-listening sample, not a probability sample, so it skews toward people motivated to post publicly. Its percentages are share-of-mentions, not share-of-value or share-of-time: a single enterprise deployment automating a $10M process counts the same as one person's daily chat.
+
+The census's key findings: therapy and companionship is the single largest use case at ⚠ 11% of the entire dataset, more than double the 5% it held the prior year. "Personal and professional support" is the plurality theme by 2026, up from 16% in 2024. Autonomous agentic operations and "vibe coding" are new top-20 entries, but the study's own sourced quotes describe them as experimental and small scale. At work, AI use is dominated by unsanctioned shadow behavior, and the documented business benefit is overwhelmingly marginal efficiency gains, not the process reinvention much AI-strategy writing assumes is already underway.
+
+**The rule this adds:** treat "AI in the Wild" as a standing annual citation, and run one check before proposing any agentic or frontier-feature bet. Name whether the assumed user behavior is majority, minority, or genuinely leading-edge in the actual usage census, instead of assuming the frontier decile represents the median user.
+
+**When this is wrong:** the sample is social-listening, so it likely under-represents quiet enterprise B2B agentic deployment happening behind NDAs, exactly the segment most AI-strategy writing targets. A low mention-share here does not prove a use case is rare in high-value enterprise contexts.
+
+*(Source: "AI in the Wild," Jun 2026, third annual census. ⚠ Reported, self-selected social-listening sample of 12,637 use cases from ~50,000 records across six platforms; not a probability sample.)*
+
 **Sensing cadence:** Weekly monitoring of model releases and research papers. Monthly synthesis of capability implications.
 
 ### 4. Regulatory & Compliance Signals
@@ -246,6 +251,18 @@ Name the mode first — **does the AI select from a list, or synthesize from a c
 - Talent market shifted from "growth stage engineers" to "efficiency engineers" → market sentiment shifting
 
 **Sensing cadence:** Quarterly deep analysis. Monthly surface monitoring.
+
+### Cross-Cutting Blind Spot: The Reported vs. Lived Organization
+
+This one is not a sixth category. It is a check that applies to however you scan all five: every scaled company runs two organizations at once, the reported one (dashboards, board decks, official updates) and the lived one (what people actually experience day to day). The gap between them widens as information passes through more management layers, because each layer compresses and reframes what it passes up. A signal-scanning process that only reads dashboards, official reports, or leadership's own account of a situation is scanning the reported organization, not the lived one, and may be missing exactly the weak signals it exists to catch.
+
+AI-generated or AI-assisted reporting makes this worse. It produces more polished, more authoritative-looking output than a typical human draft, and polish is not the same axis as accuracy. A crisp AI-written summary can carry the same distortion as the human report it replaced, dressed in more confident language.
+
+**Counter-practice:** Deliberately seek out informal, low-polish sources instead of relying only on official channels. An unannounced conversation, a direct sample of frontline work, or a source several management layers removed from the report you are reading all work.
+
+**When this is wrong:** by the source's own admission, this counter-practice does not scale cleanly past a small executive team. You cannot personally sample frontline work across a 5,000-person organization. It is also gameable once it becomes a known, expected move: once "the boss might drop by unannounced" is anticipated, people prepare a rehearsed answer, and the counter-practice stops surfacing anything the reported organization didn't already say.
+
+*(Source: practitioner piece naming "the two-organizations problem." ⚠ Single anonymized advisory anecdote, no comparison group, no effect size.)*
 
 ---
 

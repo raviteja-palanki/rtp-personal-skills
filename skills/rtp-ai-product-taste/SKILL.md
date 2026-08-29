@@ -1,7 +1,7 @@
 ---
 name: ai-product-taste
-version: v1.0_latest
-description: "Calibrate the quality bar for an AI feature against your specific domain, users, and price point — not against benchmark scores. Exceptional AI products are domain-calibrated, not generically excellent: 'good' is a domain word, not a benchmark number. The trap is technically-correct-but-feels-wrong — factually accurate, grammar-perfect, zero hallucinations, and users still say 'this sucks', because you optimized for metrics instead of taste (accuracy ≠ usefulness; fluency ≠ trustworthiness). Design the magic moment and put taste examples in your evals. Use when output looks impressive but feels mediocre, when the team can't say what 'good enough' means, or when judging ship-now vs. raise-the-bar. Pairs with: eval-framework (taste sets the bar, evals measure it), jtbd-analysis (the job vs. the quality bar), ai-product-metrics (acceptance/correction as taste signals), confidence-tuner (honest-about-uncertainty). Triggers: 'is this good enough', 'the output is impressive', 'quality bar', 'ship or polish'."
+version: v1.2_latest
+description: 'Calibrate the quality bar for an AI feature against your specific domain, users and price point, not against benchmark scores. Exceptional AI products are domain-calibrated, not generically excellent: ''good'' is a domain word, not a benchmark number. The trap is technically-correct-but-feels-wrong: factually accurate, grammar-perfect, zero hallucinations, and users still say ''this sucks'', because you optimized for metrics instead of taste (accuracy ≠ usefulness; fluency ≠ trustworthiness). Design the magic moment and put taste examples in your evals. Use when output looks impressive but feels mediocre, when the team can''t say what ''good enough'' means, or when judging ship-now vs. raise-the-bar. Pairs with: eval-framework (taste sets the bar, evals measure it), jtbd-analysis (the job vs. the quality bar), ai-product-metrics (acceptance/correction as taste signals), confidence-tuner (honest-about-uncertainty). Triggers: ''is this good enough'', ''the output is impressive'', ''quality bar'', ''ship or polish''.'
 imports:
   - first-principles
   - dual-lens
@@ -77,6 +77,55 @@ Domain-specific taste means understanding what *this* user cares about (not what
 
 **The framing lever (museum quality).** Anthropic's harness work found that setting the bar to "museum quality" vs. "good enough" changed agent output dramatically (◆ Anthropic engineering write-up). The quality bar you *communicate to the model is itself product taste*: "be helpful" activates one output distribution; "this will be exhibited as the best example of its kind" activates another. Test framing words and measure the acceptance difference (⚠ illustrative lifts — "produce expert-level output" ~+8%, "this will be shown to your CEO" ~+15%; measure your own). *The craft of writing those prompts lives in `prompt-craft`; the decision about what bar to express is taste.*
 
+## THE ONE-WEEK RECALL PROBE — a cheap instrument for the thing this skill argues about
+
+This skill argues that technically-correct output can still feel wrong, and that argument is easy to make and hard to instrument. Here is an instrument, borrowed from experience design, that costs one message and settles a lot of debate.
+
+**The probe.** A week after someone used the feature, ask them to describe it. Then ask one question of their answer:
+
+**Did their recall center on the spectacle, or on the significance?**
+
+- **Spectacle recall** sounds like: it was fast, it was impressive, it wrote the whole thing, the animation was nice. The person is describing the *machine*.
+- **Significance recall** sounds like: it caught something I would have missed, it saved me the argument with legal, I sent it as-is. The person is describing *what changed for them*.
+
+**Spectacle-only recall a week later is a design failure, not a marketing gap**, and it is the specific failure this skill exists to catch. It reliably shows up in products with excellent demo metrics.
+
+**Why a week, and why not a survey.** Immediately after use, everyone reports the spectacle, because that is what is salient. At a week, only the things that changed something survive. And an open recall question beats a rating scale here for a structural reason: a scale supplies the dimension, so it tells you how they felt about the thing you already thought mattered. Recall tells you which thing mattered.
+
+**One honest limit.** Some genuinely good products are legitimately invisible in recall, because they removed a step rather than adding a result. If the feature's job is to make something stop happening, ask about the absence directly, and do not read a blank as a failure.
+
+**Where it fits the audience question.** People accept AI most readily where it produced something with **no non-AI version**, and resist it where it displaced a human-made thing they can compare against. Significance recall is what you get in the first case. If the recall keeps landing on spectacle, check whether you have built the second case: a thing whose non-AI version the user still remembers and preferred.
+
+*(Source: the recall probe is HBR, Nunes & Heimann, "Why the Best Immersive Experiences Succeed," Aug 2026 — ⚠ framework-tier, prescriptive, no validation data for the probe itself. Adapted here from museum and live-experience design to AI surfaces, which is this corpus's move. Pairs with `rtp-ai-ux-patterns` section 8, the sequencing law, where meaning-making is the sixth and last stage and therefore the one most often capped by an unfixed earlier failure. Ledger pattern X.)*
+
+## THE PROVEN-BETTER-NEW DISCIPLINE — pick your one bet, copy the rest
+
+Teams with real innovation budget still spend it badly: they spread it thin across every surface instead of concentrating it where it counts. Zynga co-founder Mark Pincus describes a working discipline for this on HBR IdeaCast. For any feature, name the single dimension you are actually trying something new on, and for everything else, copy the best existing implementation you can find. Don't reinvent onboarding, checkout, or navigation because the product you're building has a different, specific idea at its core.
+
+**The rule.** Name your one innovation dimension before you start building. Everything that isn't that dimension gets the best-known pattern in the category, not a fresh design.
+
+**The mechanism.** Innovation budget, meaning design and engineering time, is finite. Spread it across several "let's rethink this too" surfaces and each one gets a fraction of the attention a proven pattern already had behind it. The surfaces that carry no novelty end up shipping worse than the boring, copied version would have. Pincus's worked example: two competing social games died on unbuilt onboarding, not on the genuinely novel features they were racing to ship. Onboarding wasn't the bet. It ate the budget anyway.
+
+**Where it breaks.** This is a heuristic from one founder's retrospective account on a podcast, not a controlled comparison. A case where broad, unfocused innovation beat a single-bet-plus-copy-the-rest approach on a comparable product, with an outcome measure attached, would break this claim. No such case appears in this source. Treat "pick one bet" as a discipline to test in your own context, not a validated finding.
+
+**The user-stupidity asset warning.** A related trap from the same discipline: your own fluency with the product decays your read on what users need. Whoever builds the product gets faster at using it than any first-time user ever will, and that gap compounds within roughly a quarter, until the builders can no longer predict where a naive user actually gets stuck. This deepens the "invisible until it's absence" problem this skill already names: for AI products specifically, the failure hides inside a metric that looks fine. A user who typed a bad prompt and got a weak answer still generated a "completed" interaction. Nothing in your completion rate flags it. Budget for watching someone genuinely new to the product, on a cadence, because your own sense of what's obvious keeps drifting away from theirs.
+
+*(Source: HBR IdeaCast, Mark Pincus interview, Jul 2026. Tier: ⚠ unverified anecdote, entirely survivorship-selected. Pincus's claims about which decisions caused which outcomes at Zynga are not audited data and should not be cited as such. The discipline and the user-stupidity-asset mechanism are worth testing on their logic even though the source that names them is not evidence.)*
+
+## PORTFOLIO VS. DEPTH — is this judged as best-of-many or the one that matters?
+
+Not every output category responds to AI assistance the same way, and the reason isn't the model, it's the structure of what "good" means for that category. HBR's Cold Call podcast, discussing the Atlantic's licensing deal with OpenAI, surfaces a distinction worth building into your taste diagnostic directly.
+
+**The rule.** Ask whether the thing you're building is portfolio-structured or depth-structured. Portfolio-structured output has its value in the best of many draws: generate many variants and ship whichever tests best, and nobody cares that the rest were mediocre. Depth-structured output has its value in one artifact's singular quality, a single investigative feature or a single legal brief that has to be right and distinctive on its own, with no second draw to hide behind.
+
+**The mechanism.** The same generation technology helps the first category and flattens the second. More draws genuinely raise the best-of-many ceiling, so portfolio-structured work gets a real lift from AI assistance. Depth-structured work doesn't get more draws. It gets one shot, and a model-assisted shot tends toward the model's central tendency: competent, on-genre, and indistinguishable from what anyone else generating from the same model would produce. The same technology is a gift or a threat, decided entirely by which structure you're building for, not by how capable the model is.
+
+**Where it breaks.** A depth-structured category, a single essay, a single piece of reporting, a single legal argument, where AI assistance measurably improved that one artifact's distinctiveness instead of flattening it toward the mean, would break the homogenization half of this claim for that category. This source names the pattern without offering that counter-case.
+
+*(Source: HBR Cold Call podcast, Caroline Elkins interview on the Atlantic/OpenAI licensing arrangement, Jul 2026. Tier: ⚠ podcast transcript, no disclosed deal terms; the licensing specifics are not independently verifiable from this source. The portfolio-vs-depth distinction is the reusable part; the deal commentary around it is not.)*
+
+**Add to your taste spec:** before you set the quality bar, name which structure you're building. A portfolio-structured feature can lean on AI's breadth. A depth-structured one needs the taste spec to actively defend against the model's default output, because "on-genre and safe" is exactly what depth-structured taste has to beat.
+
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 
 Taste decides *what good means*. Trace where that bar travels: it becomes eval cases, and those eval cases are what a trust curve later proves right or wrong.
@@ -103,6 +152,7 @@ Taste decides *what good means*. Trace where that bar travels: it becomes eval c
 - **What would make a user say "wow, that's useful" (not "wow, that's technically impressive")?**
 - **Have you used your own product for a real task in the domain?**
 - **Do you know which outputs users edit vs. accept as-is — and which segment has the lowest acceptance?** That segment is where your taste is worst.
+- **Is the thing you're building judged as "best of many" or "the one that matters"?** Portfolio-structured output gets a real lift from AI assistance; depth-structured output tends to flatten toward the model's default unless the taste spec actively defends against it.
 
 ## REALITY CHECK
 

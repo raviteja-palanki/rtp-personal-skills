@@ -1,15 +1,7 @@
 ---
 name: rtp-research-librarian
 version: v1.1_latest
-description: >
-  File new third-party material into 3_Research correctly, and keep the library's map honest. Triggers whenever
-  anything lands in 3_Research/00_NEW/, when Ravi says "file this", "organize this", "I've added resources", or when
-  a session notices unfiled material. Carries the full folder map, the naming conventions, a content-hash dedup
-  protocol, an image-identification protocol (images are opened and viewed, never named from their filename), and
-  a quality gate built from real filing failures. Its first principle: a wrong file is worse than an unfiled file —
-  when the right shelf is not obvious, ask Ravi rather than guess.
-  Pairs with: rtp-claude-admin (folder governance), rtp-hbr-research (consumes 05_playbook-intel),
-  rtp-deep-dive-writer (consumes the series shelves), rtp-skill-refresh (consumes research for skill passes).
+description: 'File new third-party material into 3_Research correctly, and keep the library''s map honest. Triggers whenever anything lands in 3_Research/00_NEW/, when Ravi says "file this", "organize this", "I''ve added resources", or when a session notices unfiled material. Carries the full folder map, the naming conventions, a content-hash dedup protocol, an image-identification protocol (images are opened and viewed, never named from their filename), and a quality gate built from real filing failures. Its first principle: a wrong file is worse than an unfiled file. When the right shelf is not obvious, ask Ravi rather than guess. Pairs with: rtp-claude-admin (folder governance), rtp-hbr-research (consumes 05_playbook-intel), rtp-deep-dive-writer (consumes the series shelves), rtp-skill-refresh (consumes research for skill passes).'
 imports: []
 ---
 

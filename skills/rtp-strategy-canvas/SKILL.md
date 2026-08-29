@@ -1,7 +1,7 @@
 ---
 name: rtp-strategy-canvas
-version: v1.0_latest
-description: "The AI product strategy skill — what to solve, why only you can win it, and what you do when the model changes under you. Runs the 7-step framework (Objective → Users → Superpowers → Vision → Pillars → Impact → Roadmap) with the moves AI actually changes: separating stable anchors from volatile capability, writing capability-conditional bets (IF model X by date → Path A, ELSE Path B), reset triggers, and a strategy half-life measured in months. Anchors on the 2026 moat thesis: the durable edge is a compounding feedback loop wrapped in a workflow, not the model. Use to set or review an AI product strategy, run a quarterly reset, or push back on a static roadmap. Pairs with: moat-finder (Superpowers), vision-setting (Vision), ai-portfolio-management (Pillars), capability-tracking (what's volatile), harness-operating-model (harness as moat), token-economics. Triggers: 'AI strategy', 'product strategy for AI', 'strategic direction', 'quarterly strategy reset'."
+version: v1.1_latest
+description: 'The AI product strategy skill: what to solve, why only you can win it, and what you do when the model changes under you. Runs the 7-step framework (Objective → Users → Superpowers → Vision → Pillars → Impact → Roadmap) with the moves AI actually changes: separating stable anchors from volatile capability, writing capability-conditional bets (IF model X by date → Path A, ELSE Path B), reset triggers, and a strategy half-life measured in months. Anchors on the 2026 moat thesis: the durable edge is a compounding feedback loop wrapped in a workflow, not the model. Use to set or review an AI product strategy, run a quarterly reset, or push back on a static roadmap. Pairs with: moat-finder (Superpowers), vision-setting (Vision), ai-portfolio-management (Pillars), capability-tracking (what''s volatile), harness-operating-model (harness as moat), token-economics. Triggers: ''AI strategy'', ''product strategy for AI'', ''strategic direction'', ''quarterly strategy reset''.'
 imports: [first-principles, moat-finder]
 ---
 
@@ -42,6 +42,33 @@ The strategy is built in seven steps, sequential but iterative — you loop back
 7. **Roadmap — features are the output, not the start.** The single most common failure is jumping to "we need a chatbot." Roadmap items come from continuous discovery, not brainstorms or copying competitors. Do Vision → Strategy → Roadmap in that order; the process matters more than the doc. (Owned by the roadmap/discovery skills.)
 
 **Step ∞ — keep updating.** Traditional strategy is refreshed yearly. AI capability moves monthly. Your first AI feature will be mediocre; that's normal. What matters is the learning loop that improves it fast.
+
+## ANTI-PATTERN: THE URGENCY TRAP
+
+Most AI strategies fail before they start, because the objective was scoped wrong, not because the technology underdelivered. The **urgency trap**: leaders pick AI use cases against whatever is easiest to see and measure right now (a dashboard, a cost line, a speed benchmark) instead of against the organization's actual purpose. Every initiative caps out at a faster version of the status quo, because the frame that chose the use case came entirely from the current state. There is no path from "faster" to a new value category, because nobody asked which new category was worth reaching. (HBR, on the urgency trap in AI strategy, Jul 2026.)
+
+**The mechanism:** urgency compresses the time available to define why before jumping to what, and "what's measurable this quarter" is always faster to write down than "what matters in three years." So the rule is simple: never scope an AI initiative from the metric alone. Scope it from mission plus measure (Step 1 above), then check that the metric is a proxy for the mission, not a replacement for it.
+
+The cost shows up in the people, not just the roadmap. Corroborating data, tier ◆ company-disclosed (Upwork / Workplace Intelligence study, population: regular AI users surveyed in 2026): AI-assisted output rose as much as 77% among these users, and burnout rose 88% in the same group. Users who saw no connection between their AI-assisted work and organizational strategy were twice as likely to say they'd consider quitting. The trap doesn't just cap the strategy's ceiling. It burns out the people executing it.
+
+**Where this is wrong:** when the visible, measurable use case genuinely *is* the mission, not a stand-in for one. An AI-assisted runbook that cuts time-to-resolution during a live outage isn't the urgency trap, even though it's urgent and measurable, because the metric is the purpose, not a substitute for a purpose nobody stated.
+
+**Diagnostic (nine questions, three per shift).** The source names three shifts a leader needs to make: prioritize clarity of purpose, resist urgency bias, and advance the vision by acting as a "visionary integrator" rather than a project manager. The nine questions below operationalize those three shift names. They are my own construction, written to make each shift checkable in a real planning meeting, not a verbatim quote from the source.
+
+*Prioritize clarity of purpose*
+1. If this initiative succeeds completely, what can the organization do in three years that it cannot do today, stated as a capability, not a metric?
+2. Does the objective trace back to the mission statement, or only to this quarter's dashboard?
+3. Could someone outside the team building this explain why it matters to the business, not just what it does?
+
+*Resist urgency bias*
+4. Would this still be the right use case with a year to decide instead of one quarter?
+5. Is the deadline driving the scope, or is the scope driving the deadline?
+6. What use case did we reject because it was harder to measure this quarter, and was it actually the more important one?
+
+*Advance the vision as a visionary integrator*
+7. Is one person holding the connection between this initiative and the organizational strategy, or has that connection been left implicit?
+8. When engineering, design, and finance each ask "why this," does the same answer satisfy all three, or does the story change per audience?
+9. Does the roadmap show a path to a new value category, or only a faster version of the current one?
 
 ## WHAT AI ACTUALLY CHANGES — the adaptive layer
 
@@ -107,6 +134,7 @@ This skill is the *conductor* — it runs the seven steps and hands each one's d
 - **The Vision step → `vision-setting`** (show-don't-describe, visiontypes); **the Pillars step → `ai-portfolio-management`** (quick-wins/strategic-bets/option-plays, ratios); **the Users step → `jtbd-analysis` + `adoption-launch`** (the trust curve).
 - **What's volatile, and build-now-vs-wait → `capability-tracking`**; **the harness as the model-agnostic asset on your canvas → `harness-operating-model`** (owns the economics/moat of the harness) and `agent-harness` (owns the architecture). Put "harness maturity" on the canvas; design it there.
 - **Unit economics behind a bet → `cost-model` / `token-economics`**; **is this strategy real or is the model doing my thinking → `trendslop-check`** (guards against the AI-hype and the value-per-dollar traps).
+- **Caution on strategic-center menus.** If a strategy conversation reaches for a menu of "where to center the strategy," such as McGrath's five strategic centers (technology, customer, ecosystem, and others), treat the options as ranked, not neutral, once AI commoditizes capability. Technology-centered strategy is the center a rented, falling-cost, commoditized capability kills fastest: a foundation model can close a technology-centered edge in one release cycle. Customer-centered and ecosystem-centered strategy are the two exclusivity plays that hold value under AI-driven commoditization, because they rest on relationship and network, not on a capability anyone can now license. This is wrong for a company whose actual moat is proprietary data or regulatory access, both centers outside this menu; check the Superpowers step before applying the ranking. (HBR management-tips compilation citing McGrath, Jul 2026.)
 
 The spine: **this skill decides where to play and why you win; the stack does the deep work of each choice.**
 

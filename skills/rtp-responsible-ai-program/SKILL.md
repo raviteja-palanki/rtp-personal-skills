@@ -1,8 +1,8 @@
 ---
 name: "responsible-ai-program"
-description: "Build or audit a company-wide responsible-AI program that actually functions instead of existing to be seen. Diagnoses the three gaps that make ethics programs fail — nobody truly accountable, no strategy connecting ethics to the business, no budget or people behind it (the MIT Sloan '3 Gaps' lens) — and designs governance that wires ethics into how products get built (the SHARP system; both explained in plain terms inside). Use when: standing up AI governance, auditing an existing program, translating an ethics risk into a number executives act on. Pairs with: safety-as-moat (the business case), safety-by-design (the technical half), alignment-check (org readiness). Triggers: 'responsible AI', 'AI governance program', 'ethics program', 'SHARP framework', 'accountability gap', 'AI ethics by design'"
+description: 'Build or audit a company-wide responsible-AI program that actually functions instead of existing to be seen. Diagnoses the three gaps that make ethics programs fail: nobody truly accountable, no strategy connecting ethics to the business, no budget or people behind it (the MIT Sloan ''3 Gaps'' lens), then designs governance that wires ethics into how products get built (the SHARP system; both explained in plain terms inside). Use when: standing up AI governance, auditing an existing program, translating an ethics risk into a number executives act on. Pairs with: safety-as-moat (the business case), safety-by-design (the technical half), alignment-check (org readiness). Triggers: ''responsible AI'', ''AI governance program'', ''ethics program'', ''SHARP framework'', ''accountability gap'', ''AI ethics by design'
 imports: ["safety-as-moat", "safety-by-design", "dual-lens"]
-version: "1.1"
+version: v1.5_latest
 framework_source: "MIT Sloan Management Review — Öykü Işık & Ankita Goswami, 'The Three Obstacles Slowing Responsible AI', October 2025"
 ---
 
@@ -32,6 +32,12 @@ Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 - **Ethical-business risk translation** — expressing an ethics risk as a dollar range (fine + churn + brand) so cost-conscious executives act on it.
 - **Checkbox transparency** — treating "the explanation exists" as compliance, without ensuring anyone actually engages it.
 - **Inner/outer world lens** — designing your process so it doesn't create the risk (inner world) versus watching whether regulators or press expose it (outer world).
+- **Alterability** — whether the person named as accountable can actually change the outcome, by what mechanism, and in what time. Distinct from answerability, and the corpus now treats it as the prior question.
+- **Severing mechanism** — a way an independent reporting line stops working while surviving on the org chart. Twelve are known; three leave no trace.
+- **Prepared authority** — a stop authority that exists as a name, a job description, and an org chart entry, but has never been tested against a live case. A structural test (does the role exist, does the person know, do they have standing) cannot tell prepared authority apart from authority someone has actually exercised. Only a count of real stops, delays, or forced redesigns can.
+- **CDR (Corporate Digital Responsibility)** — the practice of disclosing AI risk to outsiders before you are forced to. This skill's July 2026 sweep found it compounds with regulators and does nothing for customers, which is why it needs two different communication postures, not one.
+- **Detection competence** — the ability to tell that something needs stopping. The third leg of stop authority, and the one whose absence is worst.
+- **Negotiated artifact** — one the receiving team came back and altered. The opposite of a handed-over artifact, and the difference predicts commitment better than the artifact's quality does.
 
 ## THE TRAP
 
@@ -93,6 +99,194 @@ Ask these questions. If you answer NO to any, the gap exists:
 **Gap severity:** 0 NOs = No gap. 1-2 NOs = Partial gap. 3-4 NOs = Full resource gap.
 
 ---
+
+## What the 3 Gaps Diagnostic Cannot See
+
+The three diagnostics above were built to find accountability that was never assigned. The 2026 corpus describes failures where every question returns YES and the governance still does not work. Run this section after the three gaps, never instead of them.
+
+### The prior question: can the accountable person alter the outcome?
+
+**The rule:** before asking who is accountable, ask whether they can change what happens, by what mechanism, and within what time.
+
+**The case that forces it.** A six-year field study at a German bank, 2019 to 2025 ⚠ (single firm, EU consumer lending, no comparison firm), assigned accountability to named loan officers who could not override the model. Run the Accountability Gap Diagnostic against it. Named individual: yes. Escalation path inside 24 hours: yes. Teams know whose approval they need: yes. Someone held accountable in 12 months: yes. **Four YES answers, and the diagnostic misses the entire failure.**
+
+**The mechanism.** Accountability without alterability is not weak governance. It is a different failure with a different signature, and the diagnostic above was built to detect the absence of an owner. Here the owner was present, named and answerable.
+
+**What the officers did, and why it is worse than silence.** They kept explaining, and the explanations were invented. Applicants were told "weak credit history" in language that did not reflect what the model actually weighted. Silence is detectable. A steady stream of plausible, well-formed, internally consistent explanations reads to every audit in this skill as a functioning process.
+
+**The cheap test, and nobody in the corpus runs it.** In any deployment that holds both, sample delivered explanations against system-generated ones and check whether they match.
+
+**The seniority gradient, which runs opposite to how audits are built.** Fabrication pressure rises with seniority, because a senior person's answerability is public while their alterability is often lower rather than higher. Every audit mechanism in this skill samples downward. Sample upward as well.
+
+**When wrong:** a deployment where named accountability without override authority produced accurate escalation rather than compliance.
+
+### Alterability is necessary and not sufficient
+
+Two further conditions, both from cases where the accountable person could fully alter the outcome and accountability still failed.
+
+- **Be inside the regime you are accountable for.** A holder who can disqualify himself from the regime inverts it rather than weakening it, and that passes every structural audit prescribed here.
+- **Have a counterparty, not a parent.** A common parent over two functions in tension removes the artifact rather than the authority. Nothing is left to negotiate when one person can simply decide.
+
+**The one cadence in the corpus that makes a call blocking.** The MedTech 5/20/5 protocol ⚠ (one firm, described qualitatively): five minutes to frame, twenty to debate as equals, five for the accountable person to call it. It works because it is a blocking gate rather than an invitation, and because the twenty-minute segment levels the hierarchy explicitly and then explicitly takes it back. Everything else in this section is a principle. This is something a team can run on Monday.
+
+### Twelve ways an independent reporting line gets cut
+
+The line survives on the org chart in all twelve. Only the first looks like an attack.
+
+| # | Mechanism | What it looks like | Leaves a trace? |
+|---|---|---|---|
+| 1 | **From below, by prompt** | A profit-maximising instruction in a system prompt suppresses board escalation. Written by someone with no governance remit, in a file no governance process reviews | Prompt file |
+| 2 | **From above, by agility** | "Minimum viable governance" prescribes structures that can be introduced, adjusted or retired quickly. A structure retirable quickly is retirable by the person it constrains, and it arrives dressed as a design virtue | Restructure |
+| 3 | **From the side, by tooling** | Governance platforms level the expertise a risk review requires. Standing is a function of scarcity, so making the review easy makes the reviewer replaceable | Platform rollout |
+| 4 | **From within, by encoding the criterion** | Charter, reporting line, cadence and membership unchanged. The decision criterion moves into a model. The meeting still happens, the minutes still record a decision, and the subject matter is gone | **Nothing** |
+| 5 | **From above, by altitude (designed)** | A governance designer promotes the accountable act from the decision to the architecture, on purpose. The answerable person can no longer alter any particular outcome, and it reads on an org chart as strengthened governance | Restructure |
+| 6 | **Legitimate termination by protocol** | Disagree and commit ends alterability deliberately, in the open, with the objection recorded first. **Not a pathology** | Stated protocol |
+| 7 | **Holder exits the regime** | The holder disqualifies himself, or a common parent over two functions in tension removes the thing there was to negotiate | Varies |
+| 8 | **Jurisdictional exit** | The line is never entered, because the actor does not need the institution. Liability shelter substitutes for review, and the actor self-assesses the risk of skipping the assessment | **Nothing, by construction** |
+| 9 | **Upward, by promotion** | Nobody designs this one. A leader moves from making the call to designing how calls of that class get made (the analyst-to-integrator move, itself prescribed as career progress), and alterability erodes with no change to title or reporting line | Promotion record |
+| 10 | **Visible self-exemption** | The accountable person is seen exempting himself from the rules he enforces on everyone else. Subordinates read the exemption, not the policy, as the actual rule | Usually public |
+| 11 | **From above, by structural agility** | "Minimum viable governance" (MVG) trades a measurable term (friction, cycle time) against an unmeasurable one (risk, which its own source says "changes faster than leaders can anticipate"). Optimizing one measurable term against one unmeasurable term collapses onto the measurable one within roughly two quarters, with nobody doing anything wrong. It arrives as a design virtue, not a failure | Restructure, timed to a friction metric |
+| 12 | **From the platform, by invisibility** | Controls embedded in the platform itself, such as logging, masking, or filtering, satisfy all four MVG design characteristics with nobody actually able to stop a model. The checklist measures presence of controls, not anyone's standing authority to invoke them | **Nothing** |
+
+**Eleven sharpens two rather than duplicating it.** Two is about power: a structure retirable quickly is retirable by the person it constrains. Eleven is about measurement: balancing one measurable term against one unmeasurable one drifts toward the measurable term on its own, regardless of who holds the power to retire anything. Both describe MVG-style governance; they name two different reasons it erodes.
+
+**Four, eight, and twelve are the ones that matter most, because they are invisible to every question this skill asks.** Four leaves the org chart intact and an audit finds a functioning body. Eight changes nothing inside the institution because the activity was never inside it. Twelve leaves a governance checklist that reads as complete, because completeness of controls is exactly what MVG's four design characteristics measure, not standing authority to invoke them.
+
+**The diagnostic question this skill already asks now carries a second reading.** "How many quarters has this structure stood unchanged, and who can change it without review?" (below, in the second-pass questions) was written for ordinary drift. Structural agility is the same question wearing a design-virtue costume: a body praised for how fast it can restructure itself is a body where the answer to "who can change it without review" is often "whoever it constrains."
+
+*(Eleven and twelve, source: MIT CISR, "minimum viable governance" framework, ◆ company-disclosed, no stated population for its headline figure. The four design characteristics and the friction-versus-risk framing are the source's own; the two-quarter collapse mechanism and the invisibility reading are this corpus's reasoning, not the source's. When wrong for eleven: a self-described "lightweight governance" organization that held or increased measured oversight over four or more quarters against an explicit, independently checkable risk criterion that was not itself a friction, cycle-time, or adoption metric. When wrong for twelve: a platform-embedded control set paired with a named person who has exercised the stop at least once against the platform's own default.)*
+
+**Nine is the one that arrives disguised as success.** Five and nine both cost the person alterability at altitude, but five is chosen by a governance designer above the person, while nine is a side effect of the person's own career path. Nobody is incentivized to flag nine, because the org is busy celebrating the promotion that caused it. The test: for the last three decisions of this class, who could have changed the outcome after the recommendation reached them? If the nominal decision-maker could not, alterability moved down or sideways when the title moved up.
+
+**When the loss was chosen rather than accidental, name it out loud.** A CFO who becomes CEO and delegates the finance function is choosing to lose alterability there, and that can be the right call. What keeps it governance instead of drift is stating it: transfer answerability explicitly to whoever kept control of the mechanism, rather than letting the org assume the new title still carries the old power to alter outcomes.
+
+*(Nine, source: a Watkins-adjacent podcast on the enterprise-leadership transition from analyst to integrator, ⚠ practitioner framework, no measured outcomes. When wrong: a leader who moved up and kept a standing veto over the specific decisions that matter, exercised at least once. That is six wearing an altitude costume, not nine.)*
+
+**Ten sharpens seven rather than repeating it.** Seven already named the holder disqualifying himself. Ten's addition is that the exemption has to be seen by the people the rule governs to sever the line. The clean case is Credit Suisse under João Horta-Osório: the CEO's own conduct fell short of the compliance standard he was enforcing, the shortfall became visible to the organization, and the standard died in every subordinate's judgment at that moment regardless of what the policy manual still said. This bounds the "alterability is necessary and not sufficient" finding below: alterability plus a witnessed self-exemption still produces the failure.
+
+*(Ten, source: HBR, on modeling organizational transformation, citing the Credit Suisse/Horta-Osório case, ⚠ single-company case, publicly reported, not independently verified beyond published reporting. When wrong: a shortfall corrected privately and never visible to the people the rule governed. That is undetected hypocrisy, a different failure, because it never reaches the subordinates who would have to stop believing the rule.)*
+
+**Six is the one to get right in the other direction.** Not every loss of alterability is a severing. What separates a legitimate termination from a cut is whether the objection was captured before the commitment.
+
+**Two questions to run as a second pass.** These are not extra rows in the Accountability Gap table above, whose scoring is calibrated to four questions. Run them separately, and treat a single NO as disqualifying, because each one describes a line that is already cut.
+
+- What does this body still argue about, and has that changed? A governance body that has stopped disagreeing has usually stopped governing.
+- How many quarters has this structure stood unchanged, and who can change it without review? This skill has always asked who reports to whom. It has never asked how hard the answer is to alter.
+
+**When wrong:** an organisation whose escalation path held through a system-prompt rewrite, a governance restructure, and a platform rollout.
+
+### Is stop authority real, or just prepared?
+
+**The rule:** a structural test cannot tell a real stop authority from a paper one. Only a count of what actually got stopped can. Both instruments below test whether stated authority is real, and they belong beside the mechanisms table above for the same reason: severing leaves the org chart intact, and so does an authority that was never severed because it was never held.
+
+**The three-question test.** Ask of any named accountable role: does this person have authority to stop a model, do they know it is their job, and do they have standing to exercise it against someone else's roadmap. A practitioner argument built from an Adobe federated-governance example uses this test to separate "infrastructure for visibility" from "infrastructure for action."
+
+**Why the test alone is not enough.** All three questions can be answered yes by preparation: a name assigned, a job description written, an org chart entry added, all inside a week. Preparation and years of real held ground look identical to this test, because it asks about the role rather than about what the role has done.
+
+**The missing fourth question.** What does it personally cost this person to stop a deployment, and who decides their next promotion? The source names this cost in prose and then drops it from its own three-question test. It sharpens the two-sided exposure test already in this skill (what the owner gains if the agent works, what the owner loses if it fails, in "Stop authority is three legs, not one" below): the fourth question asks about the cost of a specific act of stopping, not just the standing incentive structure around the role.
+
+**What actually settles it is a count, not a test.** "The cheapest test in this skill" below turns the three-question test's blind spot into a protocol: count actual stops, delays, or forced redesigns over the last eight quarters, and read a zero against whether there was ever a live case to stop.
+
+**When wrong (three-question test and fourth question):** a role where all three questions score yes and the accountable person carries no promotion or compensation exposure from the people whose roadmap they would stop, because the incentive failure the fourth question is built to catch is simply absent.
+
+*(Source: Joseph Wallace, Adobe, HBR/practitioner piece, ⚠ practitioner position paper, no study, no survey. Adobe's own federated-governance example in the piece reports no outcome and no stops counted. The fourth question, the sharpening against the two-sided exposure test, and the stop-count protocol are this corpus's addition.)*
+
+### Stop authority is three legs, not one
+
+The Resource Gap Diagnostic asks whether the governance team can delay or block a launch. That is one leg of three.
+
+1. **Platform capability.** The technical ability to stop or change model behaviour.
+2. **Stop authority.** The organisational authority to stop, independent of the shipping org.
+3. **Detection competence.** The ability to tell that something needs stopping.
+
+**Missing leg three is strictly worse than missing leg two, and this is the finding to carry into a room.** No authority at all leaves a decision visibly ungoverned. Authority without detection produces a decision that looks governed and is not, because a governor who cannot detect still signs off, and **the sign-off launders the decision as reviewed.**
+
+The mechanism is specific and uncomfortable. Governance output is document work, which is exactly what a governance platform accelerates, and it is an opinion nobody re-derives.
+
+**The fourth finding is a structural limit, not a maturity gap.** A 272-expert study ⚠ (expert elicitation, no deployment outcomes) shows the three legs are distributed across organisational boundaries, and the boundary is where the authority stops. An enterprise can build platform capability and detection competence and **cannot obtain stop authority over a rented frontier model's behaviour.** No amount of internal governance maturity crosses a firm boundary.
+
+**So model routing is a governance decision before it is a reliability one.** Switching capability is the only stop authority a deployer actually holds over a rented model. Pairs with `tool-architecture`.
+
+**When wrong:** an enterprise demonstrating effective stop authority over a rented frontier model's behaviour, exercised against the provider's commercial preference, without switching providers.
+
+**A checklist can enumerate everything except the one entry that would let it stop itself.** An MIT Sloan CISR webinar recap lists six things a company must name an owner for when deploying an agent: updates, training, token use, embedding, bias control, regulatory compliance. Every item answers "what needs maintaining," and that is exactly why stop-authority never appears. A list built by asking what needs upkeep will not surface who may turn the thing off. Add it as a required seventh item.
+
+**The two-sided exposure test for any named owner.** Ask what the owner gains if the agent works and what the owner loses if it fails. An owner with something to gain and nothing to lose is not accountable, whatever the checklist says.
+
+*(Source: MIT Sloan CISR webinar recap, ⚠ prescriptive checklist, not a research finding. Cite it as a tool to use, not evidence to believe. When wrong: an owner named for a low-stakes agent where a wrong stop decision costs little. The exposure test scales with the harm at stake, the same way the checkbox-transparency exemption above does.)*
+
+**Independence and detection competence often move in opposite directions, and there is no clean fix.** A contested MIT Media Lab preprint (n=54, arXiv, disputed) argues the person best placed to spot a plausible-but-false AI output is usually the reviewer with the least organizational distance from the work, because detection competence tracks proximity to the work. A governance design that maximizes reviewer independence for compliance reasons can be quietly minimizing the one thing that lets a review catch anything. Name this trade-off when you design a review layer. Do not expect to resolve it: the choice is which failure mode you accept, a captured reviewer or a blind one.
+
+*(Source: podcast citing a contested MIT Media Lab preprint, ⚠ small sample, contested, not a stable finding. When wrong: a review layer where the independent reviewer keeps an independent channel back into the work, closing the distance without closing the independence. Rare, and worth building toward.)*
+
+### An artifact nobody negotiated
+
+**The rule:** commitment comes from negotiating the artifact, not from its completeness. Volume is not the variable. A dictated artifact fails at any size, and a co-created one works at any size.
+
+An e-commerce company's RACI ran to thousands of correct rows and was opened once ⚠ (two cases, one article). A healthcare firm reproduced the same failure across a handful of direct reports.
+
+**The instrument is a single observable, and it is available before any adoption metric moves: did the receiving team modify the artifact?** Arrived and adopted unchanged means it was handed over. Came back altered means it was negotiated. That fires early enough to be a leading indicator rather than a post-mortem.
+
+**The sizing rule tells you where to spend the expensive co-creation time.** The negotiation premium rises with the unfalsifiability of the decision. Where a decision can be checked against an outcome, a dictated artifact survives because reality arbitrates. Where it cannot, negotiation is the only thing producing commitment. Most artifacts this skill produces sit at the unfalsifiable end.
+
+This generalises past decision rights to anything a team is handed rather than builds: an eval rubric, a definition of done, an autonomy level, a tracking plan.
+
+**What it costs SHARP.** An independent line policing a process nobody chose produces compliance without commitment, and the two look identical on an audit and behave differently under pressure. The sequencing rule says S before everything else. Add one condition: whatever S produces has to come back altered before H can hold.
+
+**When wrong:** a large, dictated, comprehensive governance artifact that changed behaviour with no co-creation step. One case kills this.
+
+---
+
+### The cheapest test in this skill: what has this body actually stopped?
+
+One question, asked of any AI governance board, ethics committee, review council or steering group:
+
+**"What has this body stopped, blocked or materially changed in the last twelve months? Name it."**
+
+- **A specific answer** means a real control. Ask what happened next, because a body that stopped something and was overruled has a different problem.
+- **"It doesn't work like that"** means documentation. So does "it raises areas for the team to investigate as work progresses," and so does any answer that describes influence rather than an event.
+
+**Why this beats a structural audit.** Charters, reporting lines and meeting cadences are all things a body can have while stopping nothing. A stop is an event, it leaves a trace, and people remember it. This question takes ten seconds and it is more informative than a fifty-page terms-of-reference review.
+
+**The longer version of the same question, as a protocol.** For a fuller audit than the twelve-month spot check, count actual stops, delays or forced redesigns made over sponsor objections across the last eight quarters. A zero is ambiguous, not reassuring, on its own; interpret it against a second signal, whether there was ever a live case to stop in that window. A body with no live case in eight quarters has not been tested. A body with three live cases and zero stops has been tested and failed.
+
+**A Goodhart warning: use this sparingly, never as a KPI.** The moment stop-count is measured and reported on a recurring basis, teams learn to route contested decisions around the body being counted, and the function can be quietly dissolved once it starts producing an inconvenient number. Run the count as a diagnostic when you need to know whether a body is real. Do not put it on a dashboard.
+
+**When wrong:** a documented case of a governance function whose stop-count was tracked openly for multiple years without producing avoidance behavior from the teams it oversees. This corpus does not currently have one.
+
+**A named position you will hear quoted, and the reason it is wrong.** A memorable framing doing the rounds asks: *"Is your governance more the steering wheel or is it more the brakes?"* Steering is presented as the mature answer and brakes as the immature one.
+
+**The framing designs the brake out of the system, and it does it in a single word.** The clearest published statement of it, offered approvingly about a healthcare review process: *"Critically, the risk questions don't stop progress; rather, they highlight areas that [the organization] needs to investigate as it makes progress."*
+
+Three things are wrong with that:
+
+1. **A steering wheel with no brake does not steer.** It changes direction at whatever speed the vehicle already has. The choice was never between the two.
+2. **The word "critically" marks the removal of stop authority as the feature.** That is the sentence to quote back, because it is the argument stated plainly by someone who thinks it is a strength.
+3. **The review process it describes may still be excellent.** Three staged reviews before development, before pilot and before scale, plus periodic re-checks, is a good structure. **The structure is not the question. The authority is.** Everything in that structure survives the addition of a genuine stop, so nothing is gained by removing it.
+
+**What to say when the line is quoted at you.** Agree that governance should shape work early rather than only judging it late, then ask the twelve-month question. The framing and the answer are independent, and the answer is the one that tells you what you are dealing with.
+
+*(Source: MIT SMR, Westerman, "6 questions to guide your AI strategy," 3 Aug 2026 — ◆ reported examples, no measurement anywhere in the article. The steering-and-brakes framing and the "don't stop progress" line are quoted there approvingly; the critique is this corpus's. Note also that the article's only statistic is broken in a way worth knowing about, and it is carried as a teaching case in `rtp-trendslop-check`.)*
+
+### Safety compounds at the regulator, is hygiene at the customer
+
+**The rule:** disclosure to a regulator and disclosure to a customer are not the same communication problem. The article most cited for "responsible AI drives growth" argues against its own headline once you check its own evidence.
+
+**What the evidence in that piece actually shows.** Every well-demonstrated case is risk reduction at the regulator: Amazon's $2.5 billion FTC settlement ✅, Apitor's suspended $500,000 judgment ✅. Early, loud, auditable disclosure to a regulator builds durable regulatory latitude, the kind that shows up later as a lighter consent decree or a shorter investigation. Every "customer loyalty" case in the same piece either has no AI attached to it, or is the authors' own admitted revenue-negative "Sacrifice" quadrant: a company that spent on visible safety and lost money doing it. Safety compounds where the audience is a regulator. At the customer it is a hygiene factor: nobody buys because a product is safe, and everyone leaves the moment it fails, which is the hygiene-factor signature, not the driver signature.
+
+**Why this changes what you say, not just how much.** A trust campaign aimed at customers raises the salience of a risk they were not previously pricing. Telling a customer "we take your data seriously" invites the question of why that needed saying. The same disclosure aimed at a regulator does the opposite: it is exactly the behavior a regulator wants to see, logged before an incident rather than produced in response to one.
+
+**What follows:** publish specifics to regulators, ship reliability quietly to customers. These need opposite communication postures, not one responsible-AI messaging strategy stretched across both audiences.
+
+**The three-stage playbook, from the same piece.** Registry (an inventory of AI systems and their risk class) feeds design-time oversight (review at build time, not after ship), which feeds external signal (the disclosure itself, timed and worded for the regulator audience). Skip the registry and design-time oversight has no reliable inventory to check against. Skip design-time oversight and the external signal describes controls that don't actually run.
+
+**The accountability-selection rule, also from the same piece.** Match the accountability mechanism to how the harm becomes knowable. Reporting-line accountability (a named person, an escalation path, a sign-off) for harm that is foreseeable in advance. Compensation-alignment (bonus and equity tied to the outcome) for harm attributable only after the fact, once the pattern is visible in hindsight. Published non-negotiables (a public commitment the company binds itself to) for neither case: harm too diffuse or too slow-moving for a named owner or a compensation formula to track.
+
+**A concrete failure mode from the same note.** Amazon's Kiro coding agent caused a 13-hour AWS Cost Explorer outage in China ⚠ (single incident, reported). The cause was not bad permission design. An engineer's elevated human credentials were inherited by the agent running inside that engineer's session, which bypassed a standing two-person approval requirement nobody had disabled. An agent executing inside a human's session inherits that human's permission set by default, and no policy written for the agent's own identity reaches a decision made under someone else's. **The structural point:** minimum-per-task permissioning for an agent is unenforceable without a separate machine identity for that agent to hold permissions under. This is the platform-capability leg from "Stop authority is three legs, not one" above, failing for a reason no amount of stop-authority or detection-competence design would have caught.
+
+**When wrong:** a company whose customers named a safety disclosure, specifically, as their reason for staying. That would be a customer-side compounding case, and this corpus does not currently have one.
+
+*(Source: HBR, on responsible AI and growth. Mixed tier: the FTC and Apitor figures are ✅ from primary enforcement actions; the "Sacrifice" quadrant and the CDR three-stage model are the authors' own framework, ⚠ practitioner argument built on the article's own case selection. The Kiro incident is ⚠, a single reported incident, from the same note. Pairs with `safety-as-moat` for the commercial-positioning half of this finding.)*
 
 ## The SHARP Framework — Closing the Gaps
 
@@ -198,12 +392,18 @@ by product team)      architecture)      ship without       review of
 
 **The Inner/Outer World lens:** Ethical risk lives in both worlds. The *inner world* (what you can control) is whether your process generates the risk. The *outer world* (what you adapt to) is whether regulators, users, or press expose it. Responsible AI programs manage both — they don't just watch the outer world; they design the inner world to not create the risk in the first place.
 
+**The outer world is not one audience.** Regulators and customers sit on the same "outer world" side of this lens and respond to disclosure in opposite ways: see "Safety compounds at the regulator, is hygiene at the customer" above for the evidence and the two communication postures it requires.
+
 **Where this breaks:**
 - Translation is done once for a presentation but not embedded into ongoing risk management
 - Estimates are too vague to act on ("reputational damage" without a dollar range)
 - Business risk framing works for cost-conscious executives but alienates values-driven stakeholders who feel the ethics are being commodified
 
 **Checkbox transparency — "make the explanation available" is not a control.** This is THE TRAP ("programs that exist to be seen, not to function") in its most common concrete form. Explainability is often logged as a compliance checkbox: the explanation exists, the box is ticked, the regulator is satisfied. The evidence says that's false comfort. When looking at the reasoning might cost the viewer — money or moral exposure — people decline to look even when it's free and one click away, and a bias-disclosure prompt can make them look *less*. For any decision with real bias or compliance stakes (credit, hiring, medical, judicial), voluntary explainability predictably goes unused by exactly the people whose incentives most need it used. **The governance constraint:** require *engagement* with the explanation (mandatory, logged review), not just its *availability* — which is closer to what the CFPB already demands (the credit-scoring row above): "specific" and "accurate" reasons *used in the decision*, not a rationale sitting unread in a log. **Why it matters:** the same liability this register prices (CFPB enforcement, GDPR fines) is not neutralized by an explanation nobody reads — "explainability shipped" and "explainability used" are different lines in the program. **When wrong:** low-stakes, low-bias-risk decisions don't warrant a mandatory review step — the checkbox is proportionate where the harm is trivial. *(Source: "Employees Aren't Questioning AI Advice Enough," Chan / Rand, HBR, 24 Jun 2026 — ◆ study, n=2,512; CFPB circular 2023-03 + GDPR / EU AI Act ✅. Mechanism-level fix in `rtp-judgment-guard`, motivated non-inquiry.)*
+
+**Approval rate and time — the same trap, worn as a percentage.** "Seek human approval for consequential decisions" is the most common accountability capability firms report having for agent deployments, per an MIT Sloan CISR survey (n=132, company-disclosed ◆). It is also the most audit-passing form of accountability that can still be empty in practice, for the same reason checkbox transparency is empty above: the capability exists on paper, and nobody checks whether anyone is using it. **The test:** measure approval rate and median time-to-approval together, never separately. An approval rate above roughly 95%, completed in under 60 seconds, is a rubber-stamp signature rather than a review signature, even though it reports as a functioning accountability capability on every audit this skill describes. **When wrong:** a high-volume, genuinely low-risk approval queue where 60 seconds is real review, because the decision is simple and the reviewer is trained on exactly that pattern. Read the rate-and-time test against the risk tier from the AI Use Case Risk Assessment above before calling anything rubber-stamping.
+
+*(Source: MIT Sloan CISR digital-colleagues survey, n=132, ◆ company-disclosed.)*
 
 ---
 
@@ -380,6 +580,6 @@ After completing the primary output, invoke the **excalidraw-svg** skill to crea
 
 ---
 
-*Version 1.0 — 5 APR 2026*
+*Version 1.5 — 29 AUG 2026 (footer was last synced at 1.0, 5 APR 2026; frontmatter is the version of record between footer updates)*
 *Framework Source: MIT Sloan Management Review — Responsible AI Research (3 Gaps + SHARP)*
 *Part of: AI PM Skills / safety-and-trust layer*

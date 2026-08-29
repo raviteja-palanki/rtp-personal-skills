@@ -1,18 +1,7 @@
 ---
 name: fit-signal
 version: v1.0_latest
-description: >
-  Tell whether an AI product has earned real user dependence, or just survived a lucky stretch.
-  Standard PMF metrics — NPS, retention, DAU — get inflated by AI's own variance, so a team can
-  "confirm PMF" on users who are stress-testing the product, not depending on it. The one signal
-  immune to that variance is the trust curve: rising, plateauing confidence in AI output over
-  weeks, which luck can't fake because it takes many good experiences in a row. Builds a
-  fidelity-based trust score, the magic moment that predicts who reaches it, correction-rate
-  decay (and the resignation trap that fakes it), switching cost, and a four-verdict scorecard:
-  confirmed, emerging, uncertain, absent. Use when you have 8+ weeks of active users and must
-  decide scale, iterate, or pivot — or when NPS looks fine but something feels off. Do NOT use
-  pre-launch, on deterministic products, or under 100 weekly active users.
-  Pairs with: falsification, feedback-flywheel, stress-test, ai-product-metrics.
+description: 'Tell whether an AI product has earned real user dependence, or just survived a lucky stretch. Standard PMF metrics (NPS, retention, DAU) get inflated by AI''s own variance, so a team can "confirm PMF" on users who are stress-testing the product, not depending on it. The one signal immune to that variance is the trust curve: rising, plateauing confidence in AI output over weeks, which luck can''t fake because it takes many good experiences in a row. Builds a fidelity-based trust score, the magic moment that predicts who reaches it, correction-rate decay (and the resignation trap that fakes it), switching cost, and a four-verdict scorecard: confirmed, emerging, uncertain, absent. Use when you have 8+ weeks of active users and must decide scale, iterate, or pivot, or when NPS looks fine but something feels off. Do NOT use pre-launch, on deterministic products, or under 100 weekly active users. Pairs with: falsification, feedback-flywheel, stress-test, ai-product-metrics.'
 imports:
   - falsification
   - feedback-flywheel

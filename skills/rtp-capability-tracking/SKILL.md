@@ -1,7 +1,7 @@
 ---
-name: rtp-capability-tracking
-version: v2.1_latest
-description: "Decide whether to build an AI feature now or wait for model capability uplift to deliver it free — the build-vs-wait call for ONE capability's trajectory. Not the workforce question (apprenticeship erosion — judgment-guard's 'capability debt'), and not harness architecture (what model upgrades absorb — harness-operating-model's 'dissolving ladder'). Covers the capability radar, half-life benchmarks, the quarterly capability test, and build-vs-wait signals — plus: capability parity doesn't guarantee task automation, since friction (judgment, human assurance, error tolerance, regulation) can hold a ready capability at 'assist' for years. Use when scoping 12-18 month roadmaps, fine-tune-vs-wait calls, or a capability watchlist. Pairs with: harness-operating-model (scaffolding dissolution), judgment-guard (human-capability erosion, not this skill), strategy-canvas, build-or-buy, cost-model. Triggers: 'should we build this', 'wait for the next model', '18-month roadmap', 'commoditization risk', 'build vs. wait'."
+name: capability-tracking
+version: v2.3_latest
+description: 'Decide whether to build an AI feature now or wait for model capability uplift to deliver it free. The build-vs-wait call for ONE capability''s trajectory. Not the workforce question (apprenticeship erosion, which is judgment-guard''s ''capability debt''), and not harness architecture (what model upgrades absorb). Covers the capability radar, half-life benchmarks, the quarterly capability test, and build-vs-wait signals. Also: capability parity doesn''t guarantee task automation, since friction (judgment, human assurance, error tolerance, regulation) can hold a ready capability at ''assist'' for years. Use when scoping 12-18 month roadmaps, fine-tune-vs-wait calls, or a capability watchlist. Pairs with: harness-operating-model, judgment-guard, strategy-canvas, build-or-buy, cost-model. Triggers: ''should we build this'', ''wait for the next model'', ''18-month roadmap'', ''commoditization risk'', ''build vs. wait''.'
 imports: [strategy-canvas, first-principles]
 ---
 
@@ -53,6 +53,42 @@ Then proceed with the skill-specific analysis below.
 **Trap 5: Assuming capability parity means task automation.** A model clearing your accuracy threshold tells you the *capability* is ready. It doesn't tell you the *task* will actually get automated on your timeline — task-level friction that has nothing to do with the model can hold it at "assist" or "reshape" for years. Commercial aviation is the clean example: autopilot has handled most of the actual flying since the 1980s, yet the European Union Aviation Safety Agency doesn't expect full passenger-flight autonomy before 2050 — the barrier is human assurance and regulation, not capability (⚠ EASA estimate as reported by Drover & Huang, "The Forces That Shape AI's Uneven Progress," *MIT Sloan Management Review*, Nov 18 2025). Before you plan around "the model will be ready in Q3, so we ship in Q3," check whether your task carries the same kind of friction: does it need human judgment under real uncertainty, does a user need a human to be accountable regardless of accuracy, is the error tolerance near zero, is there a regulatory or organizational gate that doesn't move on the model's release schedule? If yes to any of those, the model being ready is necessary but not sufficient.
 **When this over-warns:** don't let "friction exists somewhere" become a standing excuse to never ship. Apply it task-by-task — routine data entry and first-draft customer replies score low on all four frictions and are already at "replace" in practice. The check exists to separate those from judgment-heavy, high-stakes, regulated tasks, not to stall everything behind a vague appeal to "humans still matter here."
 
+**Trap 6: Reading a stock measurement as a flow prediction.** This one sits underneath the whole capability-debt argument and it is rarely stated.
+
+Every measured finding about AI and human expertise, in this library and in the literature it draws on, was taken on people whose expertise **formed before AI arrived**, and then reported as a property of the technology. Engineers losing calibration when they stop producing. Junior cohorts underperforming the machine while applying real judgment. Evaluators deferring to an explained recommendation. All of them measured on a stock accumulated pre-AI.
+
+**Nobody has measured the cohort the argument is actually about**: people whose expertise is forming under AI assistance from the start. The capability-debt case, that thinning the apprenticeship pipeline leaves you unable to make experts, is a claim about the flow. The evidence is about the stock.
+
+**What this changes in practice, because it is not a reason to stop worrying.**
+
+- **Say which population you are reasoning about, in the register.** "Our seniors will lose calibration" and "our juniors will never gain it" need different evidence and have different fixes, and only the first is well supported.
+- **Do not price capability debt off the incumbent studies.** They tell you what removing production does to someone who already had judgment. They are silent on what a different formation path produces, which could plausibly be worse, equal, or in some tasks better.
+- **The missing study is specific and cheap to name:** a cohort whose expertise formed under AI assistance, showing the same expertise-distance gradient as the pre-AI cohorts. Until someone runs it, treat the flow claim as a well-argued hypothesis and label it that way when you take it to a room.
+
+The same error shows up in prescriptions, not only findings. Two 2026 articles, in two journals, two weeks apart, both instruct professionals to exercise a judgment capacity and neither explains how a newcomer accumulates it; one describes the capacity as something that "has always distinguished exceptional professionals," which is the assumption said out loud.
+
+**When this over-warns:** it is an evidence-labelling discipline, not an argument that the pipeline is fine. The apprenticeship risk may well be real. The point is to stop citing incumbent-cohort studies as though they measured it.
+
+*(Ledger pattern P. Sources: MIT SMR, Sloan & Glaser, Aug 2026; HBR, Sudakov & Furr, Aug 2026; the KPMG junior-employee study and Liu & Kovács already cited in this library. See `rtp-judgment-guard` for the individual-level version.)*
+
+**Trap 7: A model release can reclassify people without their behavior changing, and the same blind spot hides inside your adoption metrics.**
+
+Four July 2026 findings, from three different sources, point at one mechanism: the measuring instrument holds still while the thing underneath it moves, so a number that once meant something quietly stops meaning it.
+
+**The floor moves under performance ratings.** As a model's baseline quality rises release over release, an employee's "performance relative to AI baseline" classification can flip with no change in what that employee actually does. This is a moving floor, not a moving person (◆ company-disclosed, KPMG/UT Austin, n=523, single site, unpublished, the same study already anchoring Trap 6's population). **Fix:** track capability as a delta against the current baseline, re-measured on the vendor's release cycle, not on your organization's annual or quarterly review cycle. A review cadence set by the HR calendar drifts out of sync with a capability that moves on a lab's ship schedule.
+
+**The floor moves under skills that need repetition to form.** A capability that compounds through exercise, doing the work by hand, repeatedly, is a different thing from one that compounds through being fed a repeated decision. An agent that does the work perfectly and invisibly still gets the work done, which is exactly what removes the exercise condition that built the capability in people. Nothing in output quality warns you before the cliff: capability holds exactly as long as the current cohort stays, then disappears with no prior signal (⚠ argued mechanism from a podcast conversation on process knowledge economics, not a measured rate). **Fix:** for capabilities you believe are exercise-fed, add a countable instrument: hours per month of junior staff observing seniors perform the actual work. For capabilities that are decision-fed instead, decision volume and decision quality remain the right instrument. Don't apply one metric to both kinds.
+
+**One adoption number hides two opposite assignments.** Junior headcount gets used two ways that pull against each other: apprenticeship, unaided production meant to build judgment, and building an AI-power-user pipeline, aided production meant to spread adoption. A tracking system that measures only "AI usage" reads the apprenticeship-track junior as underperforming, when they are doing exactly what they were assigned (⚠ MIT Sloan podcast; the guest, associated with Workhelix, has an undisclosed commercial interest in the framing, flag this whenever citing). **Fix:** record which track a given junior is deliberately on. Don't collapse both tracks into one adoption metric.
+
+**Declared adoption and used adoption are different signals wearing the same name.** An index built on declaration signals, LinkedIn posts, earnings-call mentions, job postings, ranks firms by their incentive to announce AI adoption loudly, not by how much they actually use it. The MIT Sloan piece behind one such index used Bolt.new/StackBlitz as its flagship "AI-native" example; that company is seven years old, not a young AI-native firm, so its ARR-per-FTE framing does not support the claim it was cited for (independently verified; do not carry that framing forward as evidence of anything). **Fix:** keep declared adoption (what gets announced) and used adoption (what shows up in workflow telemetry) as two separate columns. A tracking system built only on the first is measuring PR, not capability.
+
+**The rule underneath all four:** name what you are measuring, against which clock, and for which sub-population, every time you write a capability number down. Skip any one of those three and the number keeps last quarter's meaning while the thing underneath it has already moved.
+
+**When this over-warns:** in a team small enough for one manager to know firsthand who is coasting and who is still building judgment, or where the junior population genuinely does not split into apprenticeship-track and power-user-track, this level of instrumentation is more process than the situation needs. Reach for it once tracking crosses more than a handful of people, or once a capability claim is about to feed a hiring or promotion decision.
+
+*(Sources: KPMG/UT Austin junior-employee study, ◆, n=523, single site, unpublished, already cited in Trap 6; Dan Wang podcast on process knowledge economics, ⚠ argued mechanism; MIT Sloan podcast featuring McAfee, ⚠ undisclosed Workhelix commercial interest; MIT Sloan Management Review article on AI-driven entrepreneurship and the AIDE Index, ⚠ reported, Bolt.new/StackBlitz framing independently verified as unsupported. All July-Aug 2026. See `rtp-judgment-guard` for the apprenticeship-erosion mechanism this tracking fix feeds.)*
+
 ## THE PROCESS
 
 ### 1. Capability Radar
@@ -74,6 +110,26 @@ For each piece of tech/capability your product relies on, ask:
 - What will commoditize it?
 
 **Example:** Your ranking algorithm was state-of-the-art 18 months ago. Models now rank nearly as well with a prompt. Your half-life on this advantage is ~9 months. Decision: Do you hold it or migrate to a model-native approach?
+
+### 2A. The Halving Rate — an external anchor for how fast the floor rises
+
+Half-life reasoning needs a number to anchor on, and until now this skill has had none. The best available one, with its scope attached:
+
+**The failure rate on text-based workplace tasks halves roughly every 2.2 to 2.8 years.** Measured across more than **6,000 tasks** drawn from the US Department of Labor's O\*NET database, using more than **60,000 worker evaluations**. Current capability at the time of measurement: roughly **50% to 75% of text-based tasks completed to a *minimally sufficient* standard without edits.**
+
+**Three scope conditions, and every one of them narrows what you may conclude:**
+
+- **Text-based tasks only.** The rate says nothing about work whose hard part is physical, relational or political.
+- **Inputs were already assembled.** The evaluations supplied the information. In a real job, gathering it is a large share of the work, so the rate is measured on the cheaper half of the task.
+- **"Minimally sufficient" is the floor rung**, not the substitution threshold. See `rtp-ai-product-metrics` for the three-rung acceptance ladder. **The study's own summary box reports that floor as "completes the task," which overstates its body**, and that is exactly how this figure will reach you second-hand.
+
+**The shape finding is more useful than the rate.** Capability improved **broadly across tasks of very different lengths** rather than surging on a narrow set. The image the researchers use: rather than a wave knocking a few people over, the water rises around everyone step by step. That is an argument for continuous re-tracking over episodic capability reviews, and it is the empirical basis for this skill's existence.
+
+**The trap this closes, and it is the one people fall into with any benchmark.** A benchmark improvement does not translate into an organizational one, because **the two vary on different axes**. A benchmark holds the task fixed and varies the model. An organization holds the model roughly fixed and varies the task, the context, the tooling and the person. This skill already says that capability parity does not guarantee task automation. The halving rate supplies the mechanism and a number for the first axis, and **supplies nothing at all for the second.**
+
+**The consequence for your build-versus-wait call below:** size the *capability* window on the halving rate, and size the *commercial* window on something else entirely. Capability is a smooth curve produced by many labs improving independently. Price is a step function produced by a few vendors making dated decisions on a board's calendar. Organizations routinely compute their adaptation window on the first and get hit by the second. See `rtp-cost-model` section 4B.
+
+*(Source: MIT FutureTech, reported via MIT Sloan, Aug 2026 — ◆ study-disclosed. **No human comparison arm**, so none of this supports a substitution claim on its own. **Decay clock:** a halving rate is itself a claim about the near past; re-verify before citing past end-2027.)*
 
 ### 3. Build vs. Wait Decision Tree
 
