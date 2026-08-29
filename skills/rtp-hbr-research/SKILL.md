@@ -1,6 +1,6 @@
 ---
 name: rtp-hbr-research
-version: v3.6_latest
+version: v3.7_latest
 description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written, then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/09_hbr-and-journals/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with rtp-humanizer (the mandatory language gate, opened and read before the first note), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
 ---
 # HBR research synthesis engine v3.6
@@ -393,7 +393,17 @@ Stage 2, synthesize. Lead with the one or two structural insights that reorganiz
 
 Stage 3, apply across the three places. This is now a full method of its own: see "The apply loop" below. The one-line version: build an Application Card per note, apply each batch's skill edits as soon as its cards land (apply-as-you-go, never a pile of synthesis waiting for a someday), run the website and playbook as consolidated passes, log every shipped edit in `APPLICATION-TRACKER.md`, and close with the git sync. No edit without a source.
 
-## The apply loop (from card to shipped edit)
+## The apply loop
+
+**Before any of this touches a website article, read the revision standard.** It lives at `2_Skills/writing/rtp-deep-dive-writer/references/article-revision-standard.md` and it governs every revision to an existing article in any series. This skill produces the research; that standard decides whether a finding is allowed into published writing and in what shape.
+
+**The three gates it imposes on this loop, stated so they cannot be skipped:**
+
+- **A finding must complete the chain: evidence, mechanism, product decision, practical action, limitation.** A note that stops at evidence is a news update and does not go into an article.
+- **If the signal does not change the job, the architecture, the meter, the proof, the risk, or the trust boundary, it is news.** Interesting is not the bar.
+- **One idea, one home.** Before adding a finding to an article, check whether another article in the series already owns it. If it does, link causally rather than restating.
+
+**When cross-linking, take the URL from `1_Projects/1_my-personal-website/WEBSITE-URL-INDEX.md`.** The live pattern is `https://ravitejapalanki.com/writing/{series}/{slug}`. Never build a link from a filename; the file stems and the published slugs are not the same thing, and every URL in the retrieval corpus was wrong for exactly that reason until 30 AUG 2026.
 
 This is the engine's second half, and the reason it exists at all: research that never ships is overhead. The rhythm is monthly and simple from Ravi's side. He drops raw PDFs (HBR, MIT SMR, and any other high-quality source) into the quarter folder. The engine reads each in full and produces the note and its Application Card in one pass, as detailed as the card can usefully be. The cards then drive real edits to his local files: the AI-PM skills, the website series, and the playbook. The run closes with a git commit and push to `rtp-personal-skills-repo`. Nothing waits for a someday: each batch's skill edits ship as soon as its cards land (apply-as-you-go), and the website and playbook land as consolidated passes so multiple articles hitting one file arrive as distinct, non-colliding additions.
 

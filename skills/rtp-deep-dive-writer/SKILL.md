@@ -1,6 +1,6 @@
 ---
 name: rtp-deep-dive-writer
-version: v1.0_latest
+version: v1.1_latest
 description: 'Writes practitioner deep dives for learn.ravitejapalanki.com: story-driven, production-grounded, enterprise-real. Use when Ravi wants to create or refine deep dive content on any technical domain (AI evals, context engineering, agentic AI, etc.). Produces posts following Ravi''s Deep Dive Template with 2 Excalidraw SVGs per topic. v2.0 (May 2026) incorporates the full rebuild learnings from the 105-post corpus revision.'
 ---
 
@@ -419,6 +419,75 @@ When writing deep dives, draw from:
 The corpus master reference lives at `corpus-map.md` (root). The full revision program lives at `detailed.md` (root).
 
 ---
+
+## THE REVISION STANDARD (mandatory on any article update)
+
+**This governs every revision to an existing article in any series.** New drafts follow the template above. **Revisions follow this.** The full standard lives at `references/article-revision-standard.md` and is the authority; what follows is the gate you cannot skip.
+
+### The chain every revision must complete
+
+> **Evidence, then mechanism, then product decision, then practical action, then limitation.**
+
+**A revision that stops at evidence is a news update.** Only one that reaches action becomes practitioner guidance. If the new signal does not change the job, the architecture, the meter, the proof, the risk, or the trust boundary, **it is news and does not belong in the article.**
+
+### A revision succeeds only if it improves one of these
+
+The reader's understanding of the problem, the quality of a real decision, the accuracy of an existing claim, the clarity of the central argument, the article's usefulness in real work, or its connection to the rest of the series. **Fresh information that improves none of them does not go in.**
+
+### Fresh is not the same as useful
+
+**Use recent information when it** corrects an important belief, changes a decision, reveals a hidden failure mechanism, introduces a material regulation, changes product economics, or supplies better evidence for an existing thesis.
+
+**Do not use it because** it is trending, it is a launch, it is a funding round, it is a vendor ranking, it is a dramatic forecast, or it is a popular but weakly sourced statistic.
+
+### Research broadly, verify narrowly
+
+Social posts and newsletters are **discovery** tools, not sources. Follow the chain: secondary article, then original source, then methodology, then limitations, then contradictory evidence, then product interpretation.
+
+Prefer the original paper over the thread about it, the benchmark repository over the leaderboard screenshot, the regulator over the compliance vendor, official pricing over pricing opinion, the incident report over the dramatic summary, and first-party docs over the comparison blog.
+
+### A case is not a law
+
+Write it as: **"This case demonstrates X. It does not establish Y."** A benchmark exploit shows an evaluation *can* be manipulated. It does not show every benchmark is broken.
+
+### Contradiction searches are mandatory
+
+**The more exciting a claim looks, the harder the research must try to disprove it.** For every important claim, search for a correction, a delay, a withdrawal, criticism, a replication, contamination, methodology problems, and updated official guidance. The point is testing whether the claim survives, not manufacturing balance.
+
+### Numbers keep their conditions
+
+Record the original source, date, what was measured, the systems involved, sample size, method, assumptions, whether it was measured or estimated or self-reported, where it may not transfer, and whether a correction exists. **If those cannot be found, use it as an attributed example, label it directional, or remove it.** Never turn one company's result into a universal threshold.
+
+### Separate the four voices
+
+Do not blend these into one authoritative paragraph:
+
+- **The source found:** the measured result.
+- **The likely mechanism is:** interpretation.
+- **For an AI PM, this means:** recommendation.
+- **This does not prove:** the limitation.
+
+### One idea, one home
+
+Every important idea gets **one** primary article. Others link to it, apply it briefly, and do not redefine it. **Cross-link causally**, because one article supplies an input to another, never for navigation or SEO.
+
+### The claim gate
+
+A claim enters only if it passes all eight: **truth, transfer, relevance, novelty, decision value, clarity, durability, placement.** A claim can be true and still fail for being irrelevant, repetitive, or too temporary.
+
+### Close every revised article with
+
+1. What decision does this help me make?
+2. What evidence would change that decision?
+3. What does this still not prove?
+4. What should I do next?
+5. Which assumption should I validate first?
+
+### Score before shipping
+
+Rate 1 to 10 on **truth, usefulness, clarity, distinctiveness, durability**. A 9 is accurate, clear, distinctive and practical. **A 10 also integrates naturally with the original article and leaves a reusable decision artifact.** Do not award a 10 when the complete original article has not been read.
+
+**Live URLs for cross-linking are in `1_Projects/1_my-personal-website/WEBSITE-URL-INDEX.md`.** The pattern is `https://ravitejapalanki.com/writing/{series}/{slug}` and it has no exceptions. Do not construct a link from a filename.
 
 ## Quality bar
 

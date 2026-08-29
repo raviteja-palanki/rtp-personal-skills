@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Ravi Teja Palanki's second brain — installable. A top-0.1% AI PM by depth, a smart human across every domain by breadth. 88 skills (1 orchestrator v1.5.0 + 67 AI PM skills across 7 specialist layers + 20 general-purpose) and 11 slash commands. AI PM is where the expertise runs deepest; the same thinking discipline applies to any question (code review, finance, history, design, life decisions) — research first, push back when wrong, end with what to do Monday morning.",
-    "version": "1.14.0"
+    "version": "1.14.1"
   },
   "plugins": [
     {
       "name": "rtp-personal-skills",
       "source": "./",
       "description": "The complete RTP skill library: rtp-aipm-orchestrator (v1.5.0, always on) + 67 AI PM skills across 7 specialist layers (thinking-core, product-sense, ai-strategy, safety-and-trust, agent-design, eval-and-quality, craft) + 20 general-purpose skills + 11 slash commands including /rtp-setup.",
-      "version": "1.14.0",
+      "version": "1.14.1",
       "author": {
         "name": "Ravi Teja Palanki (RTP)",
         "email": "savings.rtp@gmail.com"
