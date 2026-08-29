@@ -6,14 +6,14 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `1.13.0`  ·  **Commit:** `232268f`  ·  **Generated:** 29 Aug 2026 23:46
+**Version:** `1.14.0`  ·  **Commit:** `9d6f9a4`  ·  **Generated:** 29 Aug 2026 23:57
 
 ## Totals
 
 | Metric | Count |
 |---|---:|
 | **Total tracked files** | **251** |
-| **Skills** (`SKILL.md`) | **87** |
+| **Skills** (`SKILL.md`) | **88** |
 | Supporting files inside `skills/` | 116 |
 | Slash commands | 11 |
 
@@ -23,13 +23,13 @@ The description claims a split; these are checked against the filesystem every r
 
 | Bucket | Claimed | Actual | |
 |---|---:|---:|:--:|
-| Total skills | 87 | 87 | ✔ |
-| AI-PM skills | 66 | 66 | ✔ |
+| Total skills | 88 | 88 | ✔ |
+| AI-PM skills | 67 | 67 | ✔ |
 | General-purpose | 20 | 20 | ✔ |
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.13.0**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.14.0**.
 
 ## Composition
 
@@ -57,20 +57,20 @@ Version fields are locked in step: `plugin.json` = `marketplace.json` metadata =
 | Layer | Skills |
 |---|---:|
 | agent-design | 6 |
-| ai-strategy | 11 |
+| ai-strategy | 12 |
 | craft | 11 |
 | eval-and-quality | 7 |
 | product-sense | 14 |
 | safety-and-trust | 7 |
 | thinking-core | 11 |
-| **7-layer total** | **67** |
+| **7-layer total** | **68** |
 
-The repo mirrors **66** of these. The difference is `rtp-failure-design`,
+The repo mirrors **67** of these. The difference is `rtp-failure-design`,
 a redirect stub merged into `failure-modes` — intentionally excluded from the plugin.
 
 ## Supporting files inside `skills/`
 
-87 skills carry 116 supporting files (1.3 per skill).
+88 skills carry 116 supporting files (1.3 per skill).
 
 | Type | Count |
 |---|---:|
@@ -105,6 +105,7 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 1.7.4 | 292fe03 | 18 Jul 2026 17:19 | 242 | 84 | 11 |
 | 1.7.5 | 9d0ca91 | 19 Jul 2026 01:26 | 243 | 84 | 11 |
 | 1.13.0 | 232268f | 29 Aug 2026 23:46 | 251 | 87 | 11 |
+| 1.14.0 | 9d6f9a4 | 29 Aug 2026 23:57 | 251 | 88 | 11 |
 HISTORY-->
 | 1.4.14 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.4.15 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
@@ -117,3 +118,4 @@ HISTORY-->
 | 1.7.4 | 292fe03 | 18 Jul 2026 17:19 | 242 | 84 | 11 |
 | 1.7.5 | 9d0ca91 | 19 Jul 2026 01:26 | 243 | 84 | 11 |
 | 1.13.0 | 232268f | 29 Aug 2026 23:46 | 251 | 87 | 11 |
+| 1.14.0 | 9d6f9a4 | 29 Aug 2026 23:57 | 251 | 88 | 11 |
