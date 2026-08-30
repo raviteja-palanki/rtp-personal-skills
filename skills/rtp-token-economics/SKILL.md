@@ -1,6 +1,6 @@
 ---
 name: token-economics
-version: v1.1_latest
+version: v1.2_latest
 description: "How to charge for an AI product, where your best users are your most expensive users and the work is done by the model, not the seat. Built on six first-principles axioms (cost is power-law physics; incentives must align with value not consumption; budgets are hierarchical; margin lives in the applied/harness layer; opacity kills trust; negative margins are temporary subsidies). Answers the two questions SaaS never had to: which value metric (the six 2026 models, ranked), and which budget (software vs the ~10× salary budget). Carries the agentic value-metric decision tree, the transition arc with stage gates, spend-visibility + routing as survival infrastructure, the Default-FAIL gate for outcome pricing, a mandatory margin-floor check at P90, and 2026 case law. Consumes cost-per-outcome@P90 from cost-model; produces the pricing decision + spend-control design. Pairs with: cost-model, moat-finder, adoption-launch. Triggers: 'pricing for AI', 'how to price', 'token economics', 'per-seat is dying'."
 imports: [stress-test, red-team]
 ---
@@ -123,6 +123,40 @@ Two rules decide whether a transition costs a quarter or a customer. **Price for
 - **Remember what a dated repricing feels like on their side.** It lands as a step change on their budget, even when your own cost curve moved gradually.
 
 *(Source: HBR, Garr, "How to Respond to the Coming AI Cost Shock," Aug 2026. **Note the disclosure quality, which is the batch benchmark:** the author runs an analyst firm whose consortium takes fees from more than twenty HR tech vendors including Workday, discloses it in-body at first mention naming the mechanism, and argues against the disclosed party's interest by telling buyers to negotiate caps. Every dollar figure in that article derives from **the author's own illustrative one-cent-per-unit rate**, stated openly by her and not attributed to any vendor; do not carry those dollar figures without that sentence attached. Cost-side modelling lives in `rtp-cost-model` section 4B. Ledger patterns N and H.)*
+
+## RENEWAL DEFAULTS: read the market, do not copy the competitor
+
+**Auto-renew is not a best practice. It is a bet on what kind of market you are in**, and the two axes are both observable rather than guessed.
+
+**Axis 1: market composition, measured by period-over-period repurchase rate.**
+
+| Repurchase rate | Market type | What it implies |
+|---|---|---|
+| **above 70 to 80%** | **inertial**: subscribers who like the product retain themselves | **auto-cancel is likely optimal.** Contractual friction is unnecessary and actively suppresses acquisition and goodwill |
+| **below 50%** | **variety-seeking**: subscribers rotate among options even when satisfied | **auto-renewal serves a real function**, carrying the subscriber through moments of restlessness |
+
+**Axis 2: competitive position.** Above roughly 50% share, you are defending an installed base and auto-renewal protects it. Below that, the friction costs you more in acquisition than it returns in retention.
+
+**The trap this closes:** copying the incumbent's renewal default when you are the challenger. **It is the one setting where the market leader's choice is actively wrong for you**, because the two axes point opposite directions at different share positions.
+
+**For an AI product specifically**, the repurchase-rate read is complicated by usage variance. A subscriber who used the product heavily and one who barely opened it can both "renew," and only the first is real retention. Segment the rate by usage before you read it off the axis.
+
+## DISCOUNTING IS SEGMENTATION, NOT GENEROSITY
+
+**A discount is a hurdle that sorts customers by willingness to pay.** The discount's job is to be *inconvenient enough* that only the price-sensitive clear it, so you capture them without giving margin away to everyone.
+
+Four sorting mechanisms, and each sorts on a different variable:
+
+1. **Self-selected price sensitivity.** Coupons, codes, rebates, waiting, asking, identity markers like a student or local status. The friction is the filter.
+2. **Purchase quantity.** Bundles and volume discounts, which work off diminishing marginal value.
+3. **Acquisition moment.** Partnership discounts, cart-abandonment nudges, deadline pressure in B2B.
+4. **Time and market value.** Dynamic pricing against time of day, season, weather, a competitor's move, a complementary event.
+
+**The design test: does this discount require the customer to do something the full-price buyer would not bother doing?** If it does not, it is not a hurdle. **A discount with no friction is a price cut applied to everyone**, including every customer who would have paid full price.
+
+**Where AI products break the pattern.** Usage-based pricing already sorts by intensity, so a volume discount can double-count the same segmentation and give margin away twice. Check which variable your meter is already sorting on before adding a hurdle that sorts on the same one.
+
+*(Sources: the renewal matrix is Miller & Zhang, 2026, via HBR, May 2026 — ◆ the thresholds are the authors' own and are stated as bands rather than measured cut-points. The discounting structure is Rafi Mohammed in HBR, May 2026 — ⚠ the four mechanisms are reconstructed from the article's prose, which names no formal framework. The AI-specific cautions in both sections are this corpus's.)*
 
 ## THE PACKAGING DECISION — BUNDLE / ADD-ON / STANDALONE
 

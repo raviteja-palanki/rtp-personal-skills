@@ -1,6 +1,6 @@
 ---
 name: rtp-research-synthesiser
-version: v2.2_latest
+version: v2.3_latest
 description: 'On-demand intelligence synthesis skill. Reads SuperGrok X signals (daily, from Notion) and Perplexity Deep Research (weekly Saturday, from Notion), processes ONE dimension per invocation, and produces a curated digest with actionable extractions, categorised URLs, cross-temporal pattern connections, and thought leadership insights. Ravi fires this when ready, typically weekly on Sunday, but any time works. Requires ~10 invocations for full coverage across all dimensions. Use the strongest reasoning model available.'
 ---
 # Research Synthesiser v2.2 — On-Demand Intelligence Engine
@@ -453,7 +453,7 @@ Month-end: Ravi archives processed data to Google Drive.
 
 5. **URLs are currency.** Every dimension digest must include a categorised URL library. These are the primary source links that feed Ravi's learning.
 
-6. **Apply Ravi's proprietary frameworks.** CONTEXT letters, SHARP, Explore/Expand/Extract, Moat types with half-lives, Strategy half-life decay, Inner/Outer World, 3 PM Cultures, 10 Thinking Algorithms. Use whichever are relevant — don't force-fit all of them.
+6. **Apply Ravi's proprietary frameworks.** CONTEXT letters, SHARP, Explore/Expand/Extract, Moat types with half-lives, Strategy half-life decay, Inner/Outer World, 3 PM Cultures, 11 Thinking Algorithms. Use whichever are relevant — don't force-fit all of them.
 
 7. **Thought leadership seeds are non-optional.** Every dimension digest must surface at least 1 original angle. The whole point of this system is that Ravi sees connections others miss.
 

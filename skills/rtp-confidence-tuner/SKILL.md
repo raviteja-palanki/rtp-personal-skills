@@ -1,6 +1,6 @@
 ---
 name: confidence-tuner
-version: v1.2_latest
+version: v1.3_latest
 description: 'Calibrate confidence at both layers of the AI stack: the model''s confidence shown to the USER (trust calibration: Endorse/Caution/Warn so users neither over-rely nor ignore the AI), and the JUDGE''s confidence behind an eval score (TPR/TNR/kappa, so an automated evaluator can be trusted). Same discipline at two layers, asking whether a stated confidence tracks truth. The judge layer sits upstream: you can''t honestly calibrate a user''s trust on top of an unvalidated scoreboard. Use when designing confidence signals, reducing automation bias, validating an LLM-as-judge before relying on it, setting auto-approve vs send-to-human thresholds, or debugging why a green dashboard ships red product. Pairs with: eval-framework, ai-product-metrics, trust-ladder, production-observability, prompt-as-product. Triggers: "confidence signal", "trust calibration", "LLM as judge", "TPR TNR", "automation bias", "auto-approve threshold".'
 imports: [trust-ladder, eval-framework, ai-product-metrics]
 ---
@@ -260,7 +260,7 @@ Where this breaks: the gate needs three staffed observational roles, a data feed
 
 Tier: practitioner-reported, single source, no measured population. Directional, not validated.
 
-*(Source: an HBR/MIT Sloan sports-coaching podcast, a mostly redundant audio companion to an already-synthesized written article.)*
+*(Source: HBR, "How Top World Cup, NBA, and NFL Coaches Make Better Decisions Under Pressure," Jul 2026, a sports-coaching podcast, a mostly redundant audio companion to an already-synthesized written article.)*
 
 ---
 

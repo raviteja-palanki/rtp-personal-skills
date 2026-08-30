@@ -1,6 +1,6 @@
 ---
 name: rtp-thinking-skills
-version: v1.2_latest
+version: v1.4_latest
 description: 'Encodes Ravi''s cognitive operating system: judgment under uncertainty, systemic thinking, hypothesis discipline, assumption surfacing, and ethical guardrails. Load alongside any skill when Ravi asks for product decisions or analysis.'
 ---
 # Ravi's Judgment Engine
@@ -166,7 +166,7 @@ Ravi values being asked the RIGHT questions — questions that surface nuance, f
 
 ## THE THINKING ALGORITHMS (Extended)
 
-These extend the 10 algorithms in SKILL.md with judgment dimensions:
+These extend the 11 algorithms in SKILL.md with judgment dimensions:
 
 ### #11: Hypothesis-First Reasoning
 Every analysis starts with "What do we believe?" not "What are the facts?" Facts are inputs to a hypothesis. Without a hypothesis, facts are noise.
@@ -242,6 +242,45 @@ The bottom-right cell is where an AI copilot that auto-summarizes and pre-fills 
 **When this is wrong:** a decision whose cost of error is severe and irreversible stays with the person accountable for it, however well the four questions score. The test allocates work, not accountability.
 
 *(Source: Cheryl Strauss Einhorn, "Should You Delegate That Decision? Ask These 4 Questions," via an HBR management digest, Jun 2026 — ⚠ practitioner-tier. **The digest carries no statistics of any kind**, so the four questions are a heuristic worth using and not a measured finding.)*
+
+### #21: Value Comes From the Join, Not the Inventory
+
+Knowing three fields is storage. Producing something at their intersection is a different operation, and it is the rare one.
+
+**The distinction:** someone who knows the history of jazz, the basics of evolutionary biology and the principles of architectural design is broadly knowledgeable. That is admirable and it is not the same capability. **The capability is combining them into something neither field contains.**
+
+**Why this belongs in a thinking file rather than a trivia one.** The instinct under pressure is to demonstrate coverage: cite more sources, name more frameworks, list more considerations. Coverage is the inventory. **The work is the join, and the join is usually one sentence that a specialist in either field would not have written.**
+
+**The test to run on any analysis before it ships:** point at the sentence that could not have come from either field alone. If there is no such sentence, you assembled rather than integrated.
+
+*(Source: a psychology piece on integrative intelligence, Jun 2026 — ⚠ weak. It names no researcher, cites no study, specifies no decade, and its attribution is "researchers sometimes call it," which is the vague-attribution pattern in pure form. Most of the piece is paywalled. **Carried for the one distinction it draws cleanly, not as evidence that the capability is real, rare, or untrainable.** Falsifier: a measure showing breadth of domain knowledge predicts cross-domain output as well as any separate integrative capacity does.)*
+
+### #20: Match the Work to the Gear
+
+**Thinking quality is not constant across a day, and treating it as constant wastes the best hours on the cheapest work.**
+
+Cognitive performance tracks arousal on an inverted-U. Three states, each good at something different:
+
+- **Gear 1** (low arousal, hazy): **incubation and wide-angle framing.** The state where connections form. Occurs on waking, before sleep, in idle periods.
+- **Gear 2** (the Goldilocks zone): **sustained, accurate, targeted focus.** The state for hard design work, real problem-solving, learning something conceptually difficult.
+- **Gear 3** (high arousal, fast, narrow): **speed at the cost of accuracy.** Triggered by deadline pressure and message floods. Nuance and second-order consequences get missed.
+
+**A rough daily rhythm to schedule against**, rather than a uniform working day:
+
+| Window | Gear | Put here |
+|---|---|---|
+| Just after waking, before stimulants or exercise | 1 | framing, the blank-page problem |
+| Roughly 10am to lunch | 2 | the hardest thinking of the day |
+| Post-lunch trough | 3 or low | routine and administrative meetings |
+| Evening, after most people have left | 1 | a second creative window |
+
+**The lever that runs against the usual advice.** When you are bored and unfocused, the standard prescription is to cut distractions. **If the cause is too little on your plate, cutting stimulus makes it worse.** Boredom here is under-arousal, so the fix is to add load and climb back toward gear 2.
+
+**Two moves that follow for a team.** Let sub-teams doing divergent work and convergent work run **different shifted schedules**, because they need different gears. And protect unstructured self-directed exploration time with no guaranteed outcome, which sustains intrinsic motivation through the learning-progress mechanism.
+
+**When this is wrong:** a real incident needs gear 3, and trying to think slowly through one is its own failure. The point is choosing the gear deliberately rather than letting the calendar choose it.
+
+*(Source: Mithu Storoni, *Hyperefficient*, in HBR, May 2026 — ⚠ her application of long-established inverted-U arousal research. **No effect sizes in the source**, and the time windows are a described rhythm rather than a measured one. Treat as a scheduling heuristic to test on yourself.)*
 
 ## THE 24 AI WRITING ANTI-PATTERNS — Always Active
 

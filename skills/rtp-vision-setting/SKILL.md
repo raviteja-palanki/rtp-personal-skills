@@ -1,6 +1,6 @@
 ---
 name: rtp-vision-setting
-version: v1.0_latest
+version: v1.1_latest
 description: 'Articulate the aspirational picture of what the world looks like when an AI product wins. Vision is not strategy (how) and not roadmap (what). It is the destination that makes strategy and roadmap choices obvious. Use when starting a new initiative, refining an existing vision, preparing a board / all-hands deck, or when the team can''t agree on priorities (the symptom of a missing vision). Triggers on "product vision," "long-term vision," "where are we going," "3-year vision," "vision statement," "north star vision," "the destination.'
 imports:
   - purpose-dialogue
@@ -423,6 +423,32 @@ That's at least 30% of the prior roadmap, killed cleanly.
 ```
 
 ---
+
+## CHECK THE DENOMINATOR YOUR VISION IS DIVIDED BY
+
+**Most AI product visions are written in a unit of measure that AI just made worthless.**
+
+Our idea of efficiency comes from the assembly line: quantity produced per unit of time. That yardstick holds as long as the quantity is the hard part. **Once AI absorbs quantity production, the human contribution is the quality of the judgment applied to it, and a vision denominated in throughput is measuring the half that stopped being scarce.**
+
+**How to hear it in a draft vision.** These all fail the check:
+
+- "Our sales team will produce three times the proposals."
+- "Analysts will cover four times the accounts."
+- "We will cut cycle time by 60%."
+
+Every one is a quantity claim. None says what the freed judgment is now aimed at, which means none of them can tell you whether the freed hours went anywhere at all.
+
+**The rewrite is not softer, it is more specific.** "Three times the proposals" becomes "advisors spend the freed hours on the client conversations that decide renewals, and we will see it in retention before we see it in proposal count." Now there is a number that can fail.
+
+**Why this compounds with the growth argument you already know.** Efficiency gains cap out because costs floor at zero, which puts a ceiling of roughly 10% on the value an efficiency play can add. Growth has no such floor. **Put the two findings together and you get a rule neither states alone: the efficiency vision is capped by arithmetic, and even the growth vision fails if the freed people are left in a reactive state that cannot produce judgment.** Reallocating an advisor's hours to relationship depth is the right move. Reallocating them into a calendar of back-to-back reactive work means you paid for the AI and got neither half.
+
+**The test to run on any AI vision before it ships:**
+
+1. **What does this vision count?** If the answer is volume or speed, the denominator is wrong.
+2. **Where does the freed capacity go, named specifically?** "More strategic work" is not an answer.
+3. **What condition has to hold for that capacity to produce anything?** If nobody has thought about it, the vision has an unstated dependency it will fail on quietly.
+
+*(Sources: HBR's "Companies Are Using AI for Efficiency. They Should Use It to Grow.," Jun 2026, and "Redefining What Efficiency Means in the Age of AI," May 2026 — the efficiency-versus-growth ceiling argument, ⚠ argument-tier with an illustrative model; and a mechanism interview on cognitive state, ⚠ mechanism-tier with no measured population. Falsifier: a firm that captured durable growth-line value from AI-freed hours without changing how those hours are structured.)*
 
 ## RED TEAM — WHEN THIS SKILL IS WRONG
 

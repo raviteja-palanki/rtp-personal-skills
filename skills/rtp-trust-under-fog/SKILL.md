@@ -1,6 +1,6 @@
 ---
 name: rtp-trust-under-fog
-version: v1.0_latest
+version: v1.1_latest
 description: 'Communicate confidently when outcomes are genuinely uncertain, without over-promising or under-delivering. Boards want guarantees. Customers want certainty. AI outcomes are probabilistic. This skill helps you build stakeholder confidence through transparency, not false promises. Use when stakeholders demand guarantees you can''t give, when communicating AI capabilities to non-technical audiences, when navigating probabilistic outcomes but deterministic business expectations, or when rebuilding trust after over-promise. Skip when outcomes are deterministic (no fog) or when stakeholders are already comfortable with uncertainty.'
 imports: [determinism-compass, dual-lens]
 ---
@@ -221,6 +221,32 @@ If you've already over-promised, here's how to repair:
 - Restore trust through consistency. Do what you say, every time.
 - Involve stakeholders in monitoring. "Here's the leading indicator dashboard. You're seeing exactly what we're seeing."
 - Acknowledge what was learned. "We were wrong about X. Here's what we know now."
+
+## THE TARGET IS NOT CALM
+
+**Every communication playbook says reduce anxiety. The physiology says reduce it to the right level and not below.**
+
+Uncertainty triggers a chemical burst that a person experiences as apprehension. **The same burst is what primes the brain to learn.** Push someone past it into panic and learning stops: attention narrows, nuance disappears, second and third-order consequences go unconsidered. But flatten it to nothing and you have removed the state in which anything new gets absorbed.
+
+So a leader communicating through a fog has a target with two edges, not one floor:
+
+| State | What it looks like in the room | What you get |
+|---|---|---|
+| Flat | Nodding, no questions, "sounds good" | Nothing sticks. People leave and carry on as before. |
+| **Apprehensive and controlled** | Hard questions, visible discomfort, people arguing with the plan | **Learning, adaptation, real objections surfaced** |
+| Panicked | Rumor, freezing, escalation, people relitigating settled things | Narrow thinking, missed consequences, no learning at all |
+
+**The middle row is the goal and it is uncomfortable to sit in**, which is why leaders reflexively talk their way out of it. Over-reassurance is the most common way a communication fails: it feels like leadership and it moves the room to the top row.
+
+**Three moves that hold the middle:**
+
+1. **State the real uncertainty and bound it.** "We do not know whether this role exists in the same shape next year. We do know nobody is being cut this quarter, and you will hear from me before anything changes." The unknown stays unknown. The floor is real. That combination keeps apprehension productive.
+2. **Give people something to do with the apprehension.** A question to answer, a scenario to pressure-test, a decision they own. Arousal with no outlet becomes rumination, which reads as panic and produces nothing.
+3. **Watch for the top row as carefully as the bottom.** A room with no hard questions after a genuinely uncertain announcement has not been reassured. It has disengaged, or it does not trust you enough to argue.
+
+**Why this matters more now than it used to.** Models change in months and reskilling is continuous, so **the ability to stay at the top edge of productive apprehension without tipping into panic is a trainable capability rather than a personality trait**, and it is the one that carries a team through repeated change. You are not managing a single announcement. You are setting the state your team will be in for the next several.
+
+*(Source: Mithu Storoni on the HBR IdeaCast, "Redefining What Efficiency Means in the Age of AI," May 2026, applying long-established arousal-and-performance neuroscience — ⚠ mechanism-tier, no measured population, and the application to leadership communication is a deduction rather than a tested finding. Falsifier: a team communicated to with full reassurance that adapted to a major change as well as one held at productive apprehension.)*
 
 ## QUALITY GATE
 

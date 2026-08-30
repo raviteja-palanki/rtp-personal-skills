@@ -2,7 +2,7 @@
 name: "responsible-ai-program"
 description: 'Build or audit a company-wide responsible-AI program that actually functions instead of existing to be seen. Diagnoses the three gaps that make ethics programs fail: nobody truly accountable, no strategy connecting ethics to the business, no budget or people behind it (the MIT Sloan ''3 Gaps'' lens), then designs governance that wires ethics into how products get built (the SHARP system; both explained in plain terms inside). Use when: standing up AI governance, auditing an existing program, translating an ethics risk into a number executives act on. Pairs with: safety-as-moat (the business case), safety-by-design (the technical half), alignment-check (org readiness). Triggers: ''responsible AI'', ''AI governance program'', ''ethics program'', ''SHARP framework'', ''accountability gap'', ''AI ethics by design'
 imports: ["safety-as-moat", "safety-by-design", "dual-lens"]
-version: v1.5_latest
+version: v1.7_latest
 framework_source: "MIT Sloan Management Review — Öykü Işık & Ankita Goswami, 'The Three Obstacles Slowing Responsible AI', October 2025"
 ---
 
@@ -403,7 +403,7 @@ by product team)      architecture)      ship without       review of
 
 **Approval rate and time — the same trap, worn as a percentage.** "Seek human approval for consequential decisions" is the most common accountability capability firms report having for agent deployments, per an MIT Sloan CISR survey (n=132, company-disclosed ◆). It is also the most audit-passing form of accountability that can still be empty in practice, for the same reason checkbox transparency is empty above: the capability exists on paper, and nobody checks whether anyone is using it. **The test:** measure approval rate and median time-to-approval together, never separately. An approval rate above roughly 95%, completed in under 60 seconds, is a rubber-stamp signature rather than a review signature, even though it reports as a functioning accountability capability on every audit this skill describes. **When wrong:** a high-volume, genuinely low-risk approval queue where 60 seconds is real review, because the decision is simple and the reviewer is trained on exactly that pattern. Read the rate-and-time test against the risk tier from the AI Use Case Risk Assessment above before calling anything rubber-stamping.
 
-*(Source: MIT Sloan CISR digital-colleagues survey, n=132, ◆ company-disclosed.)*
+*(Source: the MIT Sloan CISR survey in "How organizations can capture value from digital colleagues," Jul 2026, n=132, ◆ company-disclosed.)*
 
 ---
 
@@ -467,6 +467,61 @@ The MIT Sloan research found that organisations overly reliant on AI-enabled dec
 - Senior leaders attend the annual review but aren't in the monthly practices — judgment builds from the bottom up, not just from strategy documents
 
 ---
+
+## A FIRE ALARM IS NOT A FIRE DEPARTMENT: WHO CAN ACTUALLY STOP A MODEL
+
+**Ask a leader whether their company governs its AI and the answer is always yes. Ask who has the authority to shut down a model that is causing harm, and the room goes quiet.** The first question is a claim anyone can make. The second is a fact about an organization that cannot be improvised on the spot.
+
+**What the governance industry has actually built, listed generously:** model registries that catalog what exists, risk classification frameworks that rank what deserves scrutiny, data lineage systems that trace where inputs came from, monitoring dashboards, risk councils, written policies, compliance officers, board decks. All of it is real and useful.
+
+**All of it is infrastructure for visibility. None of it is infrastructure for action.** You can have perfect visibility into a problem and no mechanism for solving it. A fire alarm is not a fire department. Wire every room, change every battery, route every alert to a beautiful dashboard, and the house still burns down if nobody picks up the hose. **The alarm is not worthless. It is just not the thing that puts out the fire.**
+
+**The structural diagnosis, and it blames no individual.** In most companies the person who could stop a model either does not exist or sits organizationally apart from the development teams with no real standing. Chief AI ethics officers, data governance councils and responsible-AI teams are necessary and **advisory by construction**: they can flag, recommend and escalate. The person who actually decides is a product owner carrying revenue targets. Nobody designed this to fail; it is what you get when the governance market sells tools rather than accountability.
+
+**The three questions, in order, because the order is the test:**
+
+1. **Who has the authority to stop a model?**
+2. **Do they know it is their job?**
+3. **Do they have the standing to exercise that authority when it conflicts with someone else's road map?**
+
+**These are not three versions of one question.** Question 1 asks whether the authority exists. Question 2 catches the failure mode most governance writing never considers: **an authority nobody knows they hold is not an authority.** Question 3 asks whether using it is survivable, which is the only one that can be answered structurally.
+
+**If you cannot answer all three, you do not have a governance program. You have paperwork.**
+
+**The structural answer to question 3, from one company's federated model:** a named owner for every AI system, plus a central steering committee with escalation authority, reporting into trust and security rather than into product. The principle in one line: **the person who can say no to an AI decision should not report to the person who benefits from saying yes to shipping.**
+
+**Why this is now a compliance matter and not only a design preference.** The EU AI Act does not ask companies to demonstrate dashboards. It asks for meaningful governance: documented decision-making, clear accountability lines, and the ability to show after the fact who made a consequential choice and why. **Regulators want a name.**
+
+*(Source: Joseph Wallace of Adobe, HBR, "The Real Question to Ask About AI Governance," Jun 2026 — ⚠ practitioner position paper. It cites no study, reports no survey, gives no outcome number for Adobe or anyone else, and its persuasive force comes entirely from the structure of one question. Label it as what it is and use the three-question test on its merits. Falsifier: an organization that cannot answer any of the three and has still stopped a harmful model in production on time.)*
+
+## THE SECOND-ORDER JOB: WHAT YOUR COMMITTEES DO THAT NOBODY WROTE DOWN
+
+**This risk has no alarm attached to it, which is why an automation review can pass cleanly and still miss it.**
+
+Every review body in a company has two jobs. The first one is in its charter. The second one is not.
+
+| Body | First-order job (in the charter) | Second-order job (nobody wrote it down) |
+|---|---|---|
+| Credit committee | Approve or decline loans | Debate lending standards, challenge assumptions, evolve the philosophy |
+| Promotion committee | Evaluate performance | Negotiate what merit means and how circumstances should weigh |
+| Compliance function | Check the boxes | Interpret rules that are genuinely ambiguous |
+| Design review | Approve the design | Decide what good looks like this year |
+
+**Automate the first-order job and the second-order job stops happening, with nothing to mark that it did.** It never had its own calendar slot, its own owner or its own output. It happened because a group of people had to sit in a room and decide cases, and arguing about the criteria was the unavoidable byproduct.
+
+**Why no alarm fires.** Every structure still exists on the org chart. The committee still has members. The decisions still get made, faster and more consistently than before. **The only thing missing is the revision of the criteria those decisions are made against, and nothing measures that.** A year later the rules are the rules from the year the model was trained, and no one chose that.
+
+**What this means for a responsible-AI program specifically.** Your model encodes moral choices: who gets resources, who is judged successful, whose claim is accepted. Those choices used to be visible and contestable because they were argued in front of people who could push back. Once they are inside a model and a score, the deliberation that produced them and the deliberation that would have revised them both end.
+
+**The three checks to add to any automation review:**
+
+1. **Name the second-order job before you automate the first.** Ask the body directly: besides deciding cases, what else does this meeting produce? If the answer is "we argue about where the line should be," that argument is now your responsibility to preserve.
+2. **Give it its own slot, owner and output.** A standing criteria review, on a fixed cadence, whose output is a dated decision on whether the rule changed and why. Not a topic on the automation project's risk register.
+3. **Feed it the hard cases the model handled.** The committee no longer sees them by default. Route a deliberate sample of edge cases, overrides and near-misses back to the people who own the criteria, or they are revising a rule they can no longer observe in action.
+
+**The failure signature to look for in an existing deployment:** decision criteria, thresholds or scoring weights that have not changed since the model went live, in a business whose conditions plainly have.
+
+*(Source: HBR, "Don't Let AI Destroy the Skills That Make Your Company Competitive," Apr 2026 — ⚠ argument-tier, three mechanisms with illustrative cases and no measured population. This second mechanism is the strongest of the three and the authors do not flag it as their best finding. Falsifier: an automated decision function whose criteria were revised on schedule, by a body that no longer decides individual cases.)*
 
 ## The SHARP Self-Assessment
 

@@ -1,6 +1,6 @@
 ---
 name: cost-model
-version: v1.3_latest
+version: v1.4_latest
 description: 'What does your AI feature really cost, and does the math still work at 10× the usage? Maps the full cost stack (model calls, retrieval, storage, human review, eval) and prices the cost of a *successful* outcome, including failures, escalations, and the agentic call multiplier (one task now fires 10-20 calls). Owns the cost mechanics the money system needs (harness multiplier, model routing, prompt caching, batch) and hands the P90 cost-per-outcome to token-economics for pricing. Covers the Jevons trap (cheaper tokens, bigger bills), the 10× degradation table, routing ROI and its maturity ladder, eval-cost-at-scale, and the margin gate with a price-erosion stress test. Use when: pricing decisions, scaling plans, ''can we afford this'' reviews. Pairs with: token-economics (how to charge), moat-finder (cost vs growth line), ship-decision (the margin gate). Triggers: ''unit economics'', ''AI cost model'', ''cost per outcome'
 imports: [stress-test, token-economics]
 ---
@@ -80,7 +80,7 @@ So ask two questions before the cost math starts: which of the three pathways is
 
 When this is wrong: a saving from a genuinely owned capability, or from a market position that blocks competitors from renting the same tool, does not erode on the same clock. Test that assumption instead of assuming rented capability always erodes and owned capability never does.
 
-*(Source: BCG economists on AI and margin, Jul 2026 — framework, not a measured statistic, no population to tier.)*
+*(Source: BCG economists in HBR, "AI and the Looming Competition for Margin," Jul 2026 — framework, not a measured statistic, no population to tier.)*
 
 ### 1B. Map the Physical Energy Layer
 
@@ -380,7 +380,7 @@ So before you compute cost per unit for an agentic workflow, separate the fixed 
 
 When this is wrong: for a one-off or rarely repeated task, there is no breakeven to reach, and the fixed setup cost is simply the real cost. Don't force an amortization argument onto a task that will only run a handful of times.
 
-*(Source: vendor study of its own agent products, Jul 2026 — tier ◆ company-disclosed/vendor-modeled; no human timed on the counterfactual, treat the cost estimates as directional, not audited.)*
+*(Source: Perplexity's study of its own agent products, Jul 2026 — tier ◆ company-disclosed/vendor-modeled; no human timed on the counterfactual, treat the cost estimates as directional, not audited.)*
 
 ### 6. Eval Cost at Scale (Hidden Product Line Item)
 

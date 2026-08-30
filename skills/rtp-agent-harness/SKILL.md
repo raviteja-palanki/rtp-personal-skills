@@ -1,6 +1,6 @@
 ---
 name: agent-harness
-version: v1.2_latest
+version: v1.4_latest
 description: 'The machine that turns a model''s reasoning into work that ships, and how to diagnose it when it breaks. Covers the MHTE frame (Model/Harness/Tools/Environment), the five harness clusters (Identity, Memory Policy, Orchestration, Interception, Observability & Evals) + Governance, Session/Harness/Sandbox, the six failure signatures, the Anatomy Atlas (symptom→cluster→fix), phase-relative perception, the four shippable patterns + feedback flywheel, and the six paradoxes. Use when diagnosing why an agent fails, designing or reviewing a harness, deciding what to change this sprint, or evaluating a vendor''s harness. Sibling: harness-operating-model (the economics/org/longevity of the program). Pairs with: agent-ecosystem, tool-architecture, invisible-stack/context-spec, production-observability, eval-framework, safety-by-design. Triggers: ''agent harness'', ''why did the agent fail'', ''MHTE'', ''harness anatomy'', ''planner generator evaluator''.'
 imports: [agent-ecosystem, tool-architecture, eval-framework, production-observability]
 ---
@@ -127,6 +127,14 @@ Small, deterministic changes that beat model upgrades — each implementable in 
 
 1. **Structured retry > naive retry** (Interception + Orchestration). Naive retry resends the identical prompt and hopes — a coin flip, because the model's prior for that input hasn't moved. Structured retry parses the error, extracts the violation, and feeds it back as *new* information ("`amount` was a string '$42.50'; return an integer in cents"). Teams that ship it see drift drop ~60% on the same model. *The specificity of your error signal IS the specificity of your feedback loop* — a generic "error 500" is back to the coin flip.
 2. **Strict structured output** (Interception). Not a formatting convenience — a reliability pattern. Strict-mode schema enforcement shrinks the set of things the model is *allowed* to say; invalid paths are pruned at generation, not caught at parse. Three specifics separate a reliability schema from a formatting one: `additionalProperties: false`, regex-bounded strings (a bare `date: string` is a hand grenade; a pattern is a contract), and enums everywhere the value set is finite. Complementary with structured retry: strict mode kills *format* failures at the token level; structured retry handles *semantic* ones (valid integer, but negative). Version the schema like a public API.
+**Pairing familiarity is a harness variable, and almost nobody tracks it.** Component quality is not the only input to pipeline performance. **How often this exact combination has run together is another**, and it is designable.
+
+The clearest evidence is from outside software. In one hospital, the **same surgical case took 20 to 40 minutes longer** depending on which team ran it. A pilot that staffed deliberately for pairing familiarity, changing no technology, moved on-time starts from **85% to 96%**.
+
+**The harness translation:** score how many times a specific combination of prompt version, model, tool chain and human reviewer has executed together. **Treat a low-familiarity combination as elevated risk**, and route it to a conservative fallback or closer monitoring. A configuration where every component is individually proven and the combination is new is still a new configuration.
+
+**Where to apply it first:** immediately after any component swap. A model upgrade resets familiarity across every pipeline that model touches, which is exactly when teams assume nothing changed because each part is known good. *(Source: HBR, "What Operating Rooms Can Teach Leaders About Team Design," May 2026 — ◆ single hospital, one pilot, no control arm; the pipeline translation is this corpus's.)*
+
 3. **The narrow gate** (Memory Policy / Tools).
 
    Every tool is a decision the model makes every turn. You are not restricting the agent, you are freeing it from choices it was getting wrong.
@@ -144,6 +152,26 @@ Small, deterministic changes that beat model upgrades — each implementable in 
 **The meta-move — the feedback flywheel** (Observability & Evals). The three patterns land on a dashboard by Friday; they *compound* only when wired into a loop: every failing trace (early exit, retry-exhausted, wrong tool, failed validation) is mined into a concrete eval, tagged by cluster, added to the suite — so the next occurrence is caught on a PR, not in production. Start with the twenty cases that cover real user failures, not a thousand noisy ones. Without the flywheel, findings scatter across Slack; with it, each becomes a permanent regression test. *A small set of well-tagged evals beats thousands of noisy ones.* (Depth: `eval-driven-development`, `production-observability`.)
 
 **Every pattern is a calibration, not a law.** Each harness edit ships with three tags: the model it was built for, the date it was validated, and the trigger that retires it. Anthropic's own context-reset for Sonnet 4.5's "context anxiety" became dead weight one generation later on Opus 4.5. A workaround with no expiry is technical debt. (The strategy of *which* to build vs. let dissolve is the sibling skill.)
+
+## THE THREE-FIELD HANDOFF MINIMUM
+
+**Context loss at a handoff is one of the most common multi-agent failures, and the cheapest fix is a required message shape rather than a bigger context window.**
+
+**Three fields, borrowed from a structure that has survived decades of daily use in software teams:**
+
+1. **What was completed.** Not what was attempted. The state that now holds.
+2. **What is next.** The intended next action, stated before it is taken.
+3. **What is blocking.** The thing that will stop this if nobody resolves it.
+
+**Field three is the one systems omit and the one that carries the value.** An agent that reports completion and next step with no slot for a blocker will either invent a path around the blocker or fail silently. **Giving the blocker a required field turns a silent failure into a routed one.**
+
+**Make it a protocol requirement, not a convention.** Any agent-to-agent or agent-to-human handoff must carry all three, and a message missing one is rejected at the seam rather than accepted and interpreted. **A convention that is usually followed produces a system that fails in exactly the cases where it was not followed.**
+
+**Why it sits here rather than in the ecosystem skill:** this is a protocol-level requirement about a message's fields, not an architecture decision about topology. It belongs with the sprint contract and the other communication protocols.
+
+**The human twin, for the same reason.** A standing update that reports only status trains people to withhold the blocker until it is too late to act on. **Replacing "what did you do" with "what are you stuck on" is field three applied to a person.**
+
+*(Source: Ron Friedman's superteam research, reported via HBR, Jul 2026, for the three-question structure and its team-performance case — ◆ proprietary survey, and the structure long predates the article. The handoff-protocol translation and the reject-at-the-seam rule are this corpus's. Falsifier: a multi-agent system where enforcing all three fields produced no reduction in context-loss failures at handoffs.)*
 
 ## THE SIX PARADOXES (the judgment that governs harness decisions)
 

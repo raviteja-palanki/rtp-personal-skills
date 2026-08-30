@@ -1,6 +1,6 @@
 ---
 name: capability-tracking
-version: v2.4_latest
+version: v2.10_latest
 description: 'Decide whether to build an AI feature now or wait for model capability uplift to deliver it free. The build-vs-wait call for ONE capability''s trajectory. Not the workforce question (apprenticeship erosion, which is judgment-guard''s ''capability debt''), and not harness architecture (what model upgrades absorb). Covers the capability radar, half-life benchmarks, the quarterly capability test, and build-vs-wait signals. Also: capability parity doesn''t guarantee task automation, since friction (judgment, human assurance, error tolerance, regulation) can hold a ready capability at ''assist'' for years. Use when scoping 12-18 month roadmaps, fine-tune-vs-wait calls, or a capability watchlist. Pairs with: harness-operating-model, judgment-guard, strategy-canvas, build-or-buy, cost-model. Triggers: ''should we build this'', ''wait for the next model'', ''18-month roadmap'', ''commoditization risk'', ''build vs. wait''.'
 imports: [strategy-canvas, first-principles]
 ---
@@ -131,6 +131,26 @@ Half-life reasoning needs a number to anchor on, and until now this skill has ha
 
 *(Source: MIT FutureTech, reported via MIT Sloan, Aug 2026 — ◆ study-disclosed. **No human comparison arm**, so none of this supports a substitution claim on its own. **Decay clock:** a halving rate is itself a claim about the near past; re-verify before citing past end-2027.)*
 
+### 2A-bis. The AI wall: how far the tool carries someone outside their domain
+
+**A capability question this skill has been answering only for the model.** How much does the tool raise a person who does not already know the work?
+
+**The finding: less than expected, and the governing variable is expertise distance.** One study split participants three ways on the same writing task:
+
+| Group | Relationship to the task | What the tool did for them |
+|---|---|---|
+| **Experts** | do the task routinely | genuine lift |
+| **Adjacent outsiders** | same department, no production experience, shared vocabulary | partial |
+| **Distant outsiders** | neither production experience nor domain vocabulary | hit the wall |
+
+**The AI wall is the limit on how much a general model can help someone perform a task outside their area of expertise**, and effectiveness falls as expertise distance grows.
+
+**What this changes in a build-versus-wait call.** "The model can do it" and "our people can now do it with the model" are different claims. **A capability arriving does not close a staffing gap if the people you would hand it to are distant outsiders to the domain.** Score expertise distance alongside capability before assuming a tool substitutes for hiring.
+
+**The uncomfortable corollary.** The tool helps most where you already have depth, which means **it widens the gap between teams that have domain expertise and teams that were hoping to buy their way past needing it.**
+
+*(Source: Vendraminelli et al., HBR, "Gen AI Won't Make Your Employees Experts," Apr 2026 — ◆ single study, one company, one writing task. The authors argue the wall generalizes beyond writers and technologists, and that generalization is their claim rather than their measurement.)*
+
 ### 2B. Capability Debt: the liability automation creates and nobody books
 
 This skill tracks whether the *model* can do the work. **This tracks whether your people still can**, which is a different question and the one that goes unmeasured.
@@ -153,7 +173,7 @@ Question 3 is the one nobody asks, and it is where the debt actually sits. Quest
 
 **How this bounds the build-versus-wait call below.** A capability you wait for is a capability you are also not building people around. **If the wait is long and the function is a training ground, the honest cost of waiting includes a pipeline you stopped filling.** See `rtp-judgment-guard` for the individual-level version of the same mechanism.
 
-*(Source: an HBR piece on talent strategy and AI transformation, Jun 2026 — ⚠ practitioner-tier. The 70-20-10 model is the Center for Creative Leadership's, named in the article without an individual author. "Healthy friction" and the 200-to-50 cohort redesign are the article's own single unnamed case, so **carry the mechanism and not the numbers**. This is the second independent sighting of capability debt in one month, after the engineering-provenance version; a third would justify its own skill.)*
+*(Source: HBR, "Your Talent Strategy Has to Keep Up with Your AI Transformation," Jun 2026 — ⚠ practitioner-tier. The 70-20-10 model is the Center for Creative Leadership's, named in the article without an individual author. "Healthy friction" and the 200-to-50 cohort redesign are the article's own single unnamed case, so **carry the mechanism and not the numbers**. This is the second independent sighting of capability debt in one month, after the engineering-provenance version; a third would justify its own skill.)*
 
 ### 3. Build vs. Wait Decision Tree
 
@@ -227,6 +247,24 @@ Quantify how fast your AI strategy assumptions decay. This is not a fixed decay 
 
 This prevents the trap of "we built something smart 3 years ago and we're still coasting on it."
 
+## RISING TIDE, NOT CRASHING WAVE: WHAT THE SHAPE OF CAPABILITY GAIN MEANS FOR YOUR RADAR
+
+**The planning fear is a shock: one capability jump, a narrow set of tasks suddenly gone.** The largest measurement of this to date says the shape is different.
+
+**The design, because it decides what the number means.** More than 60,000 worker evaluations of AI output on more than 6,000 text-based workplace tasks, drawn from the US Department of Labor's O*NET database. **The finding: capability improved broadly across tasks of very different kinds and lengths, rather than surging on a narrow set.**
+
+The researchers' own image: standing on a beach. In the crashing-wave scenario a few people suddenly get knocked over. What the data shows is the water rising around everyone, step by step.
+
+**Three things this changes about how you run a capability radar:**
+
+1. **Stop watching for the cliff and start watching the waterline.** A radar built to catch a discontinuity will report nothing quarter after quarter and then be surprised by an accumulation. Track the gradient across your whole task inventory, not the maximum on your riskiest task.
+2. **Breadth beats depth as an early signal.** If a model release improves your hardest task by a lot and your other twenty by nothing, that is narrower than the trend and probably a benchmark artifact. If it improves all twenty a little, that is the tide and it will keep coming.
+3. **Half-life estimates should be smooth, not stepped.** A build-versus-wait call that assumes a step function will systematically wait too long, because the step it is waiting for does not arrive as a step.
+
+**The limit to state alongside it, and it matters.** The study has **no human comparison arm.** It measures AI output quality as rated by workers, not AI against a human doing the same task. **So it supports a claim about the shape of improvement and supports no claim about substitution.** Anyone using it to argue headcount is using it wrong.
+
+*(Source: MIT FutureTech, reported via MIT Sloan, "How will AI automation hit - like a crashing wave or a rising tide?," Aug 2026 — ◆ study-disclosed, n over 60,000 evaluations across over 6,000 O*NET tasks. Text-based tasks only, no human comparison arm. Falsifier: a model release that improved a narrow task cluster sharply while leaving the rest of an O*NET-style inventory flat.)*
+
 ## THE QUARTERLY CAPABILITY TEST
 
 Model benchmarks tell you what changed. This tells you what it means for *your* product.
@@ -251,6 +289,91 @@ Model benchmarks tell you what changed. This tells you what it means for *your* 
 5. **Decide in 48 hours.** Don't let model evaluation drag into a 2-week analysis. The test gives you a decision, not a research paper.
 
 **What good looks like:** You're running this test before model updates ship to users, not after. Proactive testing beats reactive debugging.
+
+## WHICH END OF THE JOB THE MODEL REACHES FIRST DECIDES WHICH WAY PAY MOVES
+
+**Task loss does not mean wage loss, and the direction inverts the intuitive fear.** Two branches, distinguished only by which part of a job gets automated:
+
+| What gets automated | What happens to the job | Wage direction | Mechanism |
+|---|---|---|---|
+| **The simple parts** | The remaining tasks demand more expertise | **Up** | Fewer people can do what is left |
+| **The specialized parts** | The job becomes doable by non-specialists | **Down** | Competition from substitutes |
+
+**Read the table again, because it says the opposite of what most people assume.** Automating your drudgery raises what you are worth. **Automating your specialized skill is what lowers your pay**, because it opens your job to people who could not previously do it.
+
+**What this changes about a capability register.** Tracking "which of our tasks will the model do" is only half the question. **The half that predicts your team's position is which end of each role it reaches first.**
+
+- **Model improving on the routine end of a role** is good news for the people in it. Plan for a smaller, more senior version of that team.
+- **Model improving on the specialized end** is the one to watch. The role does not disappear, it de-skills, and the people whose value was the specialization are exposed before any headcount conversation happens.
+
+**A related pressure worth carrying alongside it:** models are disproportionately better at automating shorter tasks than longer ones, and lower-income work tends to be composed of shorter tasks. **So the exposure is not evenly distributed**, and a register that averages across a workforce will miss where it concentrates.
+
+**The honest limit.** There is no stated method for predicting which branch a given occupation lands on. The table is a lens for reading a capability trend, not a forecast you can run.
+
+*(Source: Neil Thompson, reported in an MIT summary piece, "5 things to consider when working with AI," Jun 2026 — ⚠ and the tier matters here. **That article contains no quantitative figure of any kind**: no sample size, no effect size, no percentage. It is a staff summary of conference talks, adapted into an article, and none of the underlying studies is named, cited or dated, so every claim is two removes from the research. Carry the two-branch logic as a way of thinking; do not attribute a magnitude to it. Falsifier: an occupation where automation of its specialized tasks raised wages.)*
+
+## AI MOVES TWO INPUTS TO LEARNING IN OPPOSITE DIRECTIONS
+
+**Skill growth needs two things: effort, and a good learning environment.** AI reliably reduces the first, which should reduce learning. It can raise the second, which should increase it. **Which effect wins is a design question rather than a property of the technology**, and it is the cleanest way to predict whether a rollout will build capability or quietly drain it.
+
+| Input | What AI does by default | What reversing it takes |
+|---|---|---|
+| **Effort** | Reduces it. The struggle that produced the learning is exactly what the tool removes | Deliberately keep the hard step, or move it somewhere else |
+| **Environment quality** | Can raise it a lot: instant feedback, unlimited examples, a patient explainer at any hour | Only realized if someone designs for it. Installing the tool does not do it |
+
+**The common failure is getting the first effect for free and never building the second.** That is the default outcome of any rollout measured on time saved, because time saved is the effort reduction wearing a positive name.
+
+**Three checks on any deployment that is supposed to build capability:**
+
+1. **Which hard step did we remove, and where did we put it back?** If the answer is nowhere, this deployment reduces capability whatever the satisfaction survey says.
+2. **What did the tool make possible that was not possible before?** Faster feedback, more attempts, seeing an expert's reasoning made visible. If nobody can name one, the environment gain was never realized.
+3. **Is anyone still working at the edge of their ability?** That is the observable signature of a learning curve, and it is not the same as being busy.
+
+**How this reads against the rest of this skill.** The AI wall says a person can only edit inside their own neighborhood. **This section asks whether that neighborhood is still growing.** A team can pass every throughput measure while everyone in it quietly stops expanding what they are able to review.
+
+*(Source: Angela Duckworth at the HBR Leadership Summit 2026, "Inspiring Grit and Growth Amid Unprecedented Change," Jul 2026 — ⚠ conference remarks. The two-input decomposition is general learning science applied to AI in conversation, not a measured finding about AI, and no effect size is given in either direction. Falsifier: a deployment that cut effort substantially and produced measurable capability growth with no deliberate environment design.)*
+
+## MENTORING HAS TO BE REDESIGNED, BECAUSE IT ASSUMED SOMETHING THAT IS NO LONGER TRUE
+
+**Traditional mentoring assumes foundational learning already happened through hands-on work. It did not.** AI absorbed the routine work through which people used to build judgment and pattern recognition, so the mentee now arrives without the base the mentoring model was built on top of. On-demand learning platforms do not close the gap, because the missing thing is tacit and platforms transfer explicit.
+
+**Name the competencies first, so the mentoring has a target.** Seven, offered as the senior-leader set to define before designing anything: critical thinking, professional judgment, pattern recognition, proactive communication, stakeholder management, prioritization, and navigating ambiguity. **The point of the list is not the list. It is that mentoring aimed at "growth" produces nothing and mentoring aimed at one named competency can be assessed.**
+
+**Six design moves, and the fourth and fifth are the ones organizations skip:**
+
+1. Clarify expectations for both sides.
+2. Incentivize mentors, because this is real work with no natural reward attached.
+3. Offer support, so mentors are not inventing the method themselves.
+4. **Match mentors to skills gaps, not to org charts.** The best mentor for pattern recognition is rarely the person two levels up in the same reporting line.
+5. **Make invisible thinking visible.** This is the whole transfer. The mentor narrating why they rejected an option is the lesson; the decision itself is not.
+6. Build learning into everyday conversations rather than into a monthly slot.
+
+**The one artifact worth copying: a one-page mentoring agreement with four fields.** Goals, competencies to gain or enhance, meeting cadence, and what each party commits to. **Four fields is the right size, because a longer document turns into a process nobody runs.**
+
+**Where this connects to the rest of this skill.** The four-step judgment process below is what a mentee does alone. This is what the pairing adds, and move 5 is why the pairing is not redundant: **a reasoning trail records one person's thinking, and a mentor narrating live shows the thinking that never reaches the trail.**
+
+*(Source: HBR, "Why Mentoring Matters More in the AI Era," Jul 2026 — ⚠ practitioner-tier. **The article names no framework, cites no source for the seven competencies, and draws the six moves from observed practice at unnamed companies.** Carry the lists as a usable starting structure, not as findings. Falsifier: a cohort mentored on org-chart matching that gained the named competencies as fast as one matched on skills gaps.)*
+
+## BUILDING JUDGMENT WHEN APPRENTICESHIP IS GONE
+
+The AI wall says who can edit. **This section is about how someone becomes the kind of person who can.**
+
+**The traditional route was apprenticeship: do the junior work badly, get corrected, slowly acquire the intuition that lets you stop consciously applying rules.** The endpoint is expertise you cannot fully articulate, knowing more than you can tell. AI removed the junior work and left the endpoint in place with no path to it.
+
+**Most organizations respond by training AI fluency: prompting technique, tool certification, internal playbooks. That is a different skill and it does not produce judgment.** Fluency is knowing how to get output. Judgment is knowing what to trust, what to question, and what to refine in it.
+
+**A four-step substitute, sequenced so the human position exists before the model speaks:**
+
+1. **Form your own view first, before opening any tool.** Scope the task: what question, for what audience, what would make the output useful rather than merely competent. Then form a rough hypothesis of the answer's shape. **Self-test: could you critique a finished version specifically, not just say it seems fine?** If not, you are not ready to review anything.
+2. **Work the model across several modes, not one.** Generate three versions with different approaches, then compare, challenge, extend. Each mode carries its own self-check, and the variety is the point. A single answer-seeking mode teaches nothing.
+3. **Run a gap analysis.** Where did the output differ from your initial view, and which of you was right? This step converts a session into learning rather than into a deliverable.
+4. **Deliver a reasoning trail, not only the artifact.** What you concluded, why, and where you overrode the model.
+
+**End every reasoning trail with one sentence naming where in your domain AI is strong and where it fails.** That sentence is a personal calibration of the jagged frontier, and it is the compounding output. The artifact ships once. The calibration is what the person keeps.
+
+**How to track it, since this skill is a register.** Judgment development is invisible in throughput and shows up in override quality. Sample a person's reasoning trails across a quarter and ask whether their overrides became more specific and more often right. **Someone whose overrides are getting rarer is not getting better. They are getting quieter.**
+
+*(Sources: Duncan & Anderson, HBR, "Help Employees Get Better-Not Just Faster-with AI," Jun 2026 — ⚠ practitioner-tier, four steps piloted at one consultancy with no measured outcome. Building on the Dreyfus skill-acquisition model, 1980, Polanyi on tacit knowledge, and the jagged frontier from Dell'Acqua, McFowland, Mollick et al., HBS working paper 24-013, ✅ published. Falsifier: a cohort trained only on prompting fluency whose override quality improved as much as a cohort run through the four steps.)*
 
 ## KEY DIAGNOSTIC QUESTIONS
 

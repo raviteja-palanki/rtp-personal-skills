@@ -1,6 +1,6 @@
 ---
 name: rtp-purpose-dialogue
-version: v1.2_latest
+version: v1.3_latest
 description: 'Connect an AI initiative to what people actually believe, because people commit to what they help shape and merely comply with what they''re told. The trap isn''t a weak purpose statement; it''s broadcasting a good one and calling it alignment. Covers the LISTEN → CONNECT → CHALLENGE → CO-CREATE sequence, the designed-vs-effective gap (leaders report dialogue, teams report broadcast), and the failure mode nobody names: running the ritual of dialogue to ratify a decision already made. Use when adoption stalls though the technology works, when the case for AI is all efficiency and no meaning, or when folding AI into core values. Do NOT use for low-stakes internal tools, or when resistance is really a broken psychological need (needs-guard) or a product-quality problem. Pairs with: needs-guard (which need is threatened), adoption-launch (the phased motion), problem-type (is it adaptive), alignment-check (is purpose structurally connected), vision-setting (the destination).'
 imports: [first-principles, alignment-check]
 ---
@@ -127,6 +127,26 @@ Measure the effective version, not the designed one:
 - **Check who is silent.** Consistent silence from the people most affected is the loudest signal in the room.
 
 **Why this matters:** every failure mode in this skill — fake dialogue, rubber-stamping, consent-manufacturing — is invisible from the leadership seat and obvious from the floor. If you only instrument the designed version, you will conclude the dialogue worked right up until adoption tells you otherwise.
+
+## WHEN THE LADDER GOES, PURPOSE HAS TO COME FROM SOMEWHERE ELSE
+
+**A purpose conversation held while people are watching their career path dissolve is a different conversation, and most facilitators run the old one.**
+
+The usual sources of motivation at work are external and they are all under pressure at once: job security, a visible promotion ladder, the assumption that the skill you built keeps its value. When those are steady, purpose dialogue can lean on them. **When they are eroding, leaning on them reads as either naive or dishonest, and the room can tell which.**
+
+**What replaces them, and it is smaller than you would expect.** Making real progress on something you chose yourself is intrinsically motivating, and it works precisely when the external guarantees are weakest. That is the reasoning behind unstructured self-directed exploration time, the Google and 3M style of arrangement, and the reason it belongs in a purpose conversation rather than in an innovation program.
+
+**The distinction that makes it work: no guaranteed outcome is required.** The moment the exploration time has to justify itself with a deliverable, it becomes another assignment and stops supplying the thing it was for. Leaders reliably break it this way, because unmeasured time is uncomfortable to defend.
+
+**Three things this changes in how you run the dialogue:**
+
+1. **Do not promise stability you cannot hold.** If the honest answer about the ladder is "we do not know what these roles look like in two years," say it, and then ask what would make the next two years worth spending here anyway. That question gets real answers. "How do you see your career growing?" does not, in this weather.
+2. **Ask what each person would work on if nobody checked.** It surfaces the intrinsic motivator directly, and it is the input to whether exploration time would land or be ignored.
+3. **Treat boredom as a distinct failure from overload.** As AI absorbs execution, more roles become watching rather than doing. **A person can be under-stimulated and disengaged in a job that looks well-resourced from the outside**, and a purpose conversation that only screens for burnout will code that person as fine.
+
+**The collision to expect in the register.** Leaders want to talk about the transformation's upside. People want to know whether their expertise still counts. Both are legitimate and they are not the same conversation. Naming that split out loud is usually the moment the dialogue becomes real.
+
+*(Source: Mithu Storoni on the HBR IdeaCast, "Redefining What Efficiency Means in the Age of AI," May 2026 — ⚠ argument-tier; the Google and 3M programs are referenced by name without percentages or sources. Falsifier: a workforce facing eroding job guarantees where structured career-path conversation raised commitment more than self-directed exploration time did.)*
 
 ## DIAGNOSTIC QUESTIONS
 

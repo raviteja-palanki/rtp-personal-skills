@@ -1,6 +1,6 @@
 ---
 name: agent-ecosystem
-version: v1.3_latest
+version: v1.5_latest
 description: 'When two or more AI agents must work together, the hard problem stops being intelligence and becomes coordination: who owns shared state, how work hands off without losing context, and what happens at the merge when agents disagree. Covers coordination topologies (supervisor, pipeline, fan-out/fan-in, peer), handoff protocols, state ownership, the multi-agent failure taxonomy (race, context drift, cascade, sub-agent divergence), and the graduation gate. Also the human twin of every handoff: the named owner of the seam, and where value concentrates beyond the agents themselves. Use when designing a system of two or more agents, choosing a topology, or diagnosing agents that collide or lose work. This skill owns the seams between agents; agent-harness owns the single-agent machine. Pairs with: agent-harness, harness-operating-model, autonomy-spectrum. Triggers: ''multi-agent'', ''agent orchestration'', ''agent handoff''.'
 imports:
   - determinism-compass
@@ -64,6 +64,31 @@ The pre-design worksheet, run before the orchestration-pattern choice:
 
 **Condition this is wrong.** The worksheet assumes tacit knowledge can be articulated on request. That assumption is often false by definition: the deepest tacit knowledge resists recall and surfaces only in the moment it is needed, not in an interview about it. Treat the worksheet as a partial elicitation tool, not a complete one. The only success case cited here, Ramp, is also low-stakes, high-volume, and transactional; the method is unproven in high-stakes, relationship-driven domains and should not be assumed to transfer there untested.
 
+## SORT SEAM PROBLEMS INTO WHAT YOU CAN CHANGE AND WHAT YOU CAN ONLY MANAGE
+
+Distributed teams blame collaboration failures on cultural difference. **The usual cause is organizational design, and the useful move is sorting the factors by how much control you actually have.** The same sort works on machine seams.
+
+**Three you can manage and never really change (friction amplifiers):** time zones, language, and country culture. Manage time zones with overlap windows and asynchronous defaults. Manage language with written-first communication and an explicit glossary. Manage country culture by naming the difference out loud. **None of the three is yours to redesign.**
+
+**Four you can change through deliberate design (trust-and-alignment multipliers):** headquarters-versus-region power dynamics, company culture, market knowledge, and process. Who has to ask permission and who is told afterward. Who is allowed to know what the customer said. Handoffs, decision rights, escalation paths.
+
+**The rule: stop spending design effort on the amplifiers and spend it on the multipliers.** A team that keeps trying to fix time zones and never touches the power dynamic is optimizing the immovable half.
+
+**The translation to a multi-agent system, which is why this sits here:**
+
+| Amplifiers (manage) | Multipliers (design) |
+|---|---|
+| Latency between components | Ownership of shared state |
+| Model-vendor behavior differences | Who can override whom |
+| Format constraints of an external API | Which component sees which context |
+| Rate limits and quotas | The handoff contract itself |
+
+**The right-hand column is where your coordination failures actually come from**, and it is the column teams under-invest in because the left-hand column is more visible and easier to complain about.
+
+**The diagnostic for either kind of seam:** list your last five coordination failures and sort them into the two columns. If most land on the left, you have a design problem you have been describing as an environment problem.
+
+*(Source: an HBR piece on global team collaboration, Jul 2026 — ⚠ framework-tier, no measured population. **The article's own chart placing the seven elements on a control spectrum did not survive into the captured PDF**, so the two buckets and their members are recovered from the prose and are complete, while the ranking within each is unavailable. The multi-agent translation is this corpus's. Falsifier: a distributed team whose collaboration improved most from work on the three amplifiers rather than the four multipliers.)*
+
 ## THE COORDINATION TOPOLOGIES
 
 Pick the simplest shape that fits; escalate only when it demonstrably fails.
@@ -87,6 +112,28 @@ Add cross-lab model diversification as a named harness-design axis, separate fro
 
 **Condition this is wrong.** A firm with one dominant, well-understood failure mode that a homogeneous, well-evaluated pipeline already catches reliably gains nothing here. Diversification only adds handoff friction and integration failure points, with no decorrelation benefit to offset them. There is also a real ceiling here: cross-lab diversification decorrelates a firm's own pipeline, but does nothing to decorrelate that firm's aggregate behavior from the market's if every competitor is drawing agents from the same three frontier labs. Diversification within a pipeline is not diversification from the market.
 
+## THE HUMAN SIDE OF THE SEAM: using AI as a team, not as a group of individuals
+
+Most guidance treats an assistant as something one person types into. **In a room, that default quietly makes the typist the sole author and everyone else an audience.** Three practices change it, from a five-month field experiment with 60 managers across 12 companies in teams of three or four.
+
+1. **Engage with the AI as a team.** Everyone introduces themselves and their role at the start, so the model addresses the group's collective context rather than one person's. Practically: a five-minute briefing round at the top of the meeting.
+2. **Use role fluidity deliberately.** Assign and **rotate** the AI through several personas in one session (stakeholder, challenger, customer, competitor) rather than fixing it as note-taker for the hour. Practically: a scheduled 15-minute **challenge slot** near the end where it is explicitly cast as skeptic.
+3. **Keep ownership collective.** Treat prompting as a group act. **Pause before submitting, debate the framing, judge the output together** rather than reacting to whatever appears. Practically: prompts that force the pause, such as "wait for our decision before proceeding."
+
+**The self-audit that makes it stick**, run on the session transcript afterwards: did we introduce ourselves as a team? Did we give the AI more than one role? Did we articulate reasoning, or fall back on minimal responses? The model itself can run this audit on its own transcript.
+
+**Why this belongs in a multi-agent skill.** Practice 3 is the human twin of the collective-ownership problem this skill already names at the machine seam. **A group that does not own its prompt has the same failure as a pipeline with no named owner of the handoff**: everyone assumes someone else is accountable for what came out.
+
+## STABLE CORE, FLEXIBLE PERIPHERY
+
+Two recommendations in this skill can read as competing recipes: type the agents by cognitive role, and diversify them across vendors. **They resolve into one two-tier design.**
+
+**Keep the core stable and let the periphery vary.** Familiarity between components is itself a performance variable. In operating-room research, the same case took **20 to 40 minutes longer** depending on which team ran it, and a pilot that deliberately staffed for pairing familiarity moved on-time starts from **85% to 96%** with no new technology.
+
+**The transferable rule: track how often a specific combination has run together**, and treat a low-familiarity combination as elevated risk. A prompt version, a model, a tool chain and a human reviewer that have never executed together are a novel configuration, whatever each component's individual track record. Route those to conservative fallbacks or closer monitoring, exactly as the hardest surgical cases were staffed most deliberately.
+
+*(Sources: the three practices, Rosani, Farri, Trabucchi & Buganza, HBR, May 2026 — ◆ five-month field experiment, 60 managers, 12 companies, 30 hours of sessions, **no control group and no outcome metric reported**, so carry the practices and not a claimed effect. The operating-room figures are ◆ single-hospital, from HBR, May 2026; the pairing-familiarity translation to pipelines is this corpus's.)*
+
 ## ONE COMPANY RUNS SEVERAL GOVERNANCE REGIMES AT ONCE
 
 **The assumption worth breaking early: that governance is one dial the company sets.** It is not. A single company usually runs several go-to-market motions concurrently, and **each needs a different governance architecture, not a different setting on the same one.**
@@ -105,7 +152,7 @@ Add cross-lab model diversification as a named harness-design axis, separate fro
 
 **When this is wrong:** a company genuinely running one motion should run one regime. Three regimes for one motion is overhead pretending to be rigor.
 
-*(Source: an HBR piece on tailoring digital strategy across go-to-market models, Jun 2026 — ⚠ framework-tier. The three-model typology is the authors' own, with named company illustrations and no comparative outcome data. The typology is the useful part; mapping it onto agent governance is this corpus's.)*
+*(Source: HBR, "Tailor Your Digital Strategy to Reach Every Customer," Jun 2026 — ⚠ framework-tier. The three-model typology is the authors' own, with named company illustrations and no comparative outcome data. The typology is the useful part; mapping it onto agent governance is this corpus's.)*
 
 ## THE FOUR THINGS TO OWN
 
@@ -143,7 +190,7 @@ The machine "context lost per handoff" problem has a clean non-technical twin: L
 - **Insurance, repair, and legal** — who pays and who is liable when an agent's action causes harm.
 - **Micropayments** — the machinery for agents to pay each other per call.
 
-These four are where value is likely to concentrate regardless of which agents win. Mechanism: agents themselves are easy to swap and commoditize, but the infrastructure every agent needs in order to interoperate is not. When wrong: in a closed, single-vendor ecosystem with no external agent interoperability, none of these four exist as separate value pools. They are internal platform features, and the taxonomy does not apply.
+These four are where value is likely to concentrate regardless of which agents win. Mechanism: agents themselves are easy to swap and commoditize, but the infrastructure every agent needs to interoperate is not. When wrong: in a closed, single-vendor ecosystem with no external agent interoperability, none of these four exist as separate value pools. They are internal platform features, and the taxonomy does not apply.
 
 **A related caution, on an assumption this skill otherwise takes for granted: that a provider is swappable.** Peer-to-peer topology and the fallback pattern under isolation boundaries both assume a failed or degraded provider can be replaced by another one with equivalent capability. A sovereign-AI survey (Accenture/MIT SMR, n=1,928 executives, ◆ single-vendor-commissioned) found that assumption can collapse where legal data-residency requirements apply. "N interchangeable providers" shrinks to N=1 inside a regulated jurisdiction, and failing over to a provider outside it becomes the compliance violation, not the fix. Mechanism: a model-agnostic, multi-provider architecture removes technical lock-in but not legal lock-in, and the two get conflated because both look like the same interface running on a different backend. When wrong: this caution does not apply outside regulated data-residency regimes, or where every candidate provider already runs compliant infrastructure inside the same jurisdiction. Check the regulatory map before assuming full substitutability.
 

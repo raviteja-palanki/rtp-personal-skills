@@ -1,6 +1,6 @@
 ---
 name: attitudinal-segmentation
-version: v1.0_latest
+version: v1.1_latest
 description: 'Segment AI product users by their stance toward AI itself (AI Embracer, AI Neutral, AI Skeptic) rather than by role, company size, or behavior. The attitudinal cut crosses every demographic and predicts shipping decisions: each segment needs different onboarding, default autonomy, evidence, and feedback prompts, and a single-default ship loses two of three (Skeptics, who would have been your stickiest superusers, churn first). It''s invisible in standard analytics; you instrument for it or you miss it. Use when designing onboarding for an AI product, when churn splits oddly across demographic cuts, or when setting per-segment confidence thresholds. Do NOT use pre-launch, under ~20 users, or for commodity products where AI is invisible. Pairs with: feedback-triage, ai-product-metrics, confidence-tuner, uncertainty-research, jtbd-analysis (all run segment-aware). Triggers: ''users hate the AI'', ''skeptic operator'', ''split onboarding'', ''why are veterans churning'', ''grad vs veteran''.'
 imports:
   - uncertainty-research
@@ -98,6 +98,28 @@ Use both paths together.
 **Onboarding survey** (5 questions, optional, ~90 sec): (1) how often you use AI tools outside work; (2) honest reaction when you read about AI; (3) how much you want the product to do automatically; (4, optional) years in this kind of work; (5, optional, highest-signal) what worries you most — open text, reveals the actual mental model. Map: Daily+Excited+"take action" → **Embracer**; Weekly+"curious but cautious"+"show then do" → **Neutral**; Rarely/Never+Skeptical/Concerned+"recommend/suggest only" → **Skeptic**. **Mixed signals are information, not noise** — Daily + "suggest only" → Embracer with a Craft-protective overlay; use Skeptic-leaning autonomy despite high familiarity.
 
 Combine: use behavioral signals to confirm/update the survey segment over the first 30 days; re-segment quarterly.
+
+## SEGMENT BY WHICH NEED IS THREATENED, NOT BY HOW LOUD THE RESISTANCE IS
+
+The E/N/S table sorts people by attitude toward the technology. **This section sorts the resisters by cause**, which is what tells you what to actually do.
+
+Three psychological needs sit under most workplace resistance. Each can be met or threatened by the very same rollout:
+
+| Need | What it is | Met when | Threatened when |
+|---|---|---|---|
+| **Competence** | Feeling effective and capable | The tool extends what the person can already do | It redefines the skills that made them credible, or removes the entry-level work through which anyone becomes credible |
+| **Autonomy** | Feeling in control of your own actions | Repetitive work goes away and attention is freed | Use is mandated, procedures are standardized into a cage, **or the person is held responsible for output the AI generated** |
+| **Relatedness** | Having real connections at work | Freed time goes to the relational part of the job | Work that used to need collaboration is automated, access is unequal, or generational gaps widen |
+
+**The autonomy row carries the sharpest item and it is a governance question, not an HR one.** Holding someone accountable for AI-generated output they could not meaningfully control frustrates autonomy directly. If your rollout pairs mandated use with personal accountability for the result, you have built the exact combination that produces resistance from people who otherwise like the tool.
+
+**Which is the finding underneath all of this: resistance is not disbelief.** A person whose needs are threatened will resist a tool they privately think works well. The article's own evidence makes the point better than its argument does: **54% of respondents in one survey said they would use AI tools without formal approval, and 32% of at-work gen-AI users hide their use.** Those are not skeptics. Those are people routing around a system that threatens something, while still wanting the tool.
+
+**So the diagnostic question changes.** Not "do they believe it works?" but **"which of the three does this rollout take from them, and what are we giving back on that same axis?"** Compensating on the wrong axis fails: more training does nothing for a threatened sense of autonomy, and more freedom does nothing for someone who has lost the path to credibility.
+
+**Watch behavior, not stated attitude.** Coping shows up before opinion does. Adaptive coping looks like experimenting, asking for guardrails, and renegotiating scope. Maladaptive coping looks like hidden use, quiet disengagement, output passed on unread, and compliance without adoption. **Hidden use is the tell that matters most**, because it means the person has already decided the tool is useful and the organization is the problem.
+
+*(Sources: two Apr 2026 pieces on worker response to gen AI, HBR's "Why Gen AI Feels So Threatening to Workers" and MIT Sloan Management Review's "The Human Side of AI Adoption: Lessons From the Field" — the three-needs frame and its AWARE sequence, ◆ synthesis over self-determination theory with two illustrative professions rather than a measured population; and a field-lessons piece on adoption. The 54% and 32% figures are ⚠ vendor surveys, BCG and Ivanti, cited secondhand. Falsifier: a rollout that frustrates all three needs and still gets voluntary, non-hidden adoption.)*
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 

@@ -1,6 +1,6 @@
 ---
 name: signal-scanner
-version: v1.3_latest
+version: v1.4_latest
 description: 'Detect weak signals early: trends, threats and opportunities invisible in quarterly reviews but obvious in hindsight. Dual-speed sensing: real-time operational signals (what''s happening now) + long-term strategic signals (what''s emerging). Future-prepared firms outperform on profitability and market-cap growth (Rohrbeck & Kum, longitudinal study). Use for annual planning, competitor monitoring, or when building early-warning systems into product strategy. Pairs with: capability-tracking (build now vs. wait for the next model), moat-finder (is the threat aimed at your moat), competitive-map (where the threat comes from).'
 imports: [first-principles, strategy-canvas]
 ---
@@ -99,6 +99,32 @@ Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 > **5. What's the cost of missing a signal in your space?** If you miss a regulatory shift 3 months, does it threaten the company? If you miss a capability jump in AI, how disruptive is it?
 
 ---
+
+## YOUR SENSING STACK IS BACKWARD-LOOKING BY CONSTRUCTION
+
+**A large language model is a pattern-prediction machine trained on existing data. It is structurally backward-looking even when it appears to look forward.** That is not a defect to fix; it is what the tool is. The problem is what happens when it becomes the only sensing instrument an organization has.
+
+**Three kinds of intelligence, each matched to a different kind of complexity:**
+
+| Kind | What it handles | What it is good for | Its limit |
+|---|---|---|---|
+| **Pattern prediction** (models trained on existing data) | **Dynamic complexity**, where cause and effect are distant in time or space | Matching and meshing existing knowledge at superhuman speed | Backward-looking. It cannot see what has not been recorded yet |
+| **Perspective-taking** (people, in relationships) | **Social complexity**, the texture of multiple worldviews, cultures and interests | Seeing *with* rather than looking *at*. Where empathic listening lives | Slow, and it does not scale by purchase |
+| **Field sensing** | **Emerging complexity**, where the solution is unknown, the problem keeps changing, and it is unclear who should be at the table | Noticing what is forming before it is data | Hardest to build, easiest to cut, and invisible on any dashboard |
+
+**The failure mode has a name worth keeping: intelligence monoculture.** Organizations are investing hard in the first row and letting the other two erode, and monocultures collapse. **A firm with excellent pattern prediction and no field-sensing capacity will be superb at seeing what already happened and blind to what is arriving.**
+
+**What this means for a signal scanner specifically, since that is what this skill builds.** Most scanning designs are built entirely out of recorded data: search trends, competitor releases, support tickets, churn. All of it is the first row. **A scan built only from records cannot surface an emerging signal by construction, because the signal is not in the records yet.**
+
+**The fix is to run a second, deliberately non-recorded channel alongside it:**
+
+- **Standing conversations with people at the edge of your market**, not customers who already bought. Their language changes before your metrics do.
+- **A named owner for what is not yet a trend.** Anything without an owner gets cut in the first efficiency pass, and this is the cheapest thing on any budget to cut.
+- **A question the recorded channel cannot answer**, asked every quarter. "What are we hearing that we cannot yet count?"
+
+**The honest caveat:** the third row is the least operationalized of the three, and this source is a philosophical argument rather than a measured finding. **Use it to justify keeping a non-recorded channel. Do not use it to justify a program with no output.**
+
+*(Source: Otto Scharmer, "Leadership's Blind Spot in the Age of AI," Jul 2026 — ⚠ argument-tier. The three-intelligence model is Scharmer's own, grounded in Maturana and Varela's *Autopoiesis and Cognition*, 1980, for the second row and in his own "fourth-person knowing" work for the third. No measured population, no outcome data, and the third construct is defined in terms that resist testing. Falsifier: an organization with a records-only sensing stack that caught an emerging shift as early as one running a non-recorded channel.)*
 
 ## THE TRAP
 

@@ -1,6 +1,6 @@
 ---
 name: uncertainty-research
-version: v1.2_latest
+version: v1.4_latest
 description: 'Research for non-deterministic AI, where two users asking the same question get different answers, which quietly breaks every standard research method. You can''t measure a moving target with a fixed ruler: a one-session usability study captures week-1 caution when real trust stabilizes at week 4, and averages hide terrible tail quality. Instead measure behavior over time (acceptance/edit/rejection rate), stratify by output quality, find the ''good enough'' acceptance threshold empirically, and build an expiry condition into every finding because the model moves. Use when planning trust studies, threshold studies, or validating an AI feature. Do NOT use for deterministic software, batch/offline AI, or under ~50 weekly active users. Pairs with: interview-synthesis (synthesize the interviews), jtbd-analysis (the switch-interview method), ai-product-taste (defines the bar; this measures the threshold), ai-use-case-readiness (downstream). Triggers: ''trust study'', ''threshold study'', ''how good is good enough''.'
 imports:
   - first-principles
@@ -51,6 +51,24 @@ You will apply traditional research methods unmodified — **methodological anch
 ## EXPECTATION CALIBRATION (the prerequisite)
 
 Before any study, interview 10–15 active users — this determines which method you need. Ask: what do you think this AI can/can't do? if it makes a mistake, what would you expect? how confident are you (1–10)? what would make you stop using it? **Interpret:** if they expect 95% and the AI delivers 75%, the *expectation gap* destroys trust regardless of quality — fix the UX framing before researching trust. If they say "I don't know what it does," your UX isn't clear — fix that first. **Post-launch,** re-run at week 2 and week 8; *inflated* expectations are the dangerous ones — they precede sharp trust collapses.
+
+## GET THE GRAIN RIGHT, OR YOU DETECT A PROBLEM YOU CANNOT LOCATE
+
+**A broad engagement survey tells you something is wrong and cannot tell you what.** It asks the wrong questions at the wrong grain, so the fixes that follow are well-intended and aimed at nothing in particular. **People then see no change, and trust drops further than if nobody had asked at all.** Asking and not fixing is worse than not asking.
+
+**The sequence that finds the mechanism instead:**
+
+1. **Confidential long-form interviews with the people doing the work.** This is where the mechanism surfaces. Not the sentiment, the mechanism: which specific step, which handoff, which tool, which approval.
+2. **A custom survey that quantifies it per task.** Built from what the interviews found, so the questions name real steps rather than abstractions. Now you have a magnitude attached to a located problem.
+3. **Results go back to the same people, who design the fix.** Diagnosis and solution design both live with the people doing the work.
+
+**The transferable rule for any research plan: match the grain of your instrument to the grain of the decision you need to make.** A five-point satisfaction scale on "how well do our tools support you" cannot produce a roadmap item. An interview that surfaces "I re-key the same order into three systems because the integration drops line items" produces one immediately.
+
+**Why step 3 is not decoration.** Returning results to the people who gave them is what stops the trust erosion in the first place, and the people closest to a broken step usually know the fix. **Diagnosing down and solving up is the pattern that fails**, because a fix designed one level away from the work gets the mechanism approximately right and the details wrong.
+
+**The check to run on your own study before fielding it:** for each question, write the specific action a particular answer would trigger. Any question with no action attached is measuring mood, and mood is not a finding.
+
+*(Source: HBR, "Frontline Workers Know How to Solve Your Organization's Biggest Problems," Jul 2026 — ⚠ practitioner-tier, a method described with no comparative data against the broad-survey approach it replaces. The trust-erosion claim is asserted rather than measured. Falsifier: a broad engagement survey that located a specific mechanism precisely enough to design a fix from it.)*
 
 ## THE METHODS — match the method to the uncertainty
 
@@ -108,6 +126,27 @@ Trust doesn't stabilize in one session — it develops or collapses over weeks: 
 ## RESEARCH DECAY — every finding expires
 
 You measure "users trust 75% accuracy"; three months later the model hits 82%; the finding is stale and you've built against it. So **define the condition, not just a date.** Re-validation sensitivity is stakes-dependent (⚠ heuristic): low-stakes (creative) >10–15% accuracy change; mid-stakes (productivity, support) >5%; high-stakes (healthcare, finance, legal) >2–3% (near-threshold products where a small change crosses into trust collapse). Write findings as conditions: *"valid while model accuracy is 75–85%; re-validate if it changes >5% — we're mid-stakes and users are near the acceptance knee."* Keep a findings database with expiry *conditions*; the re-validation trigger is a product change, not the calendar.
+
+## PARTICIPANT STATE IS AN UNCONTROLLED VARIABLE IN YOUR STUDY
+
+**If you run every session at the same time of day, you have baked one cognitive state into your findings and called it the user.**
+
+Cognitive state moves on a daily rhythm with real edges. A short window just after waking favors loose, associative thinking. Roughly mid-morning to lunch is the sharpest window for sustained, accurate focus. The post-lunch stretch is a trough that suits neither. A second loose window opens in the evening.
+
+**What that does to research data, concretely:**
+
+- **A concept test run at 3pm gets more "sounds fine" than the same test at 10am.** Low-arousal agreement is not preference.
+- **A generative session run at 10am gets tighter, more literal answers than one run in a loose window.** You will read that as a user with no unmet needs.
+- **A usability session with a participant squeezed between two meetings measures a reactive state**, which is legitimate if that is the state your feature is used in, and a confound if it is not.
+
+**Two rules that follow:**
+
+1. **Match the session type to the window, or spread the schedule and record the time.** Divergent work, discovery interviews and concept generation, benefits from the loose windows. Convergent work, evaluative testing and comparison, benefits from the focus window. If you cannot control it, **at minimum record session time as a variable and check whether your findings cluster by it.** That check takes ten minutes and occasionally rewrites a conclusion.
+2. **Match the state to the use context on purpose.** If the feature will be used by someone triaging alerts at the end of a long shift, testing it with a fresh participant at 10am overstates comprehension. **Design the session to reproduce the state the product actually lives in**, and say in the report which state you tested.
+
+**The same rule applies to you and your synthesis.** Synthesis is convergent work that people habitually do late, after the sessions, when they are least able to hold nuance. Move it. A findings review written in a reactive state produces the confident, flattened summary that loses exactly the contradictions worth keeping.
+
+*(Source: Mithu Storoni on the HBR IdeaCast, "Redefining What Efficiency Means in the Age of AI," May 2026 — ⚠ mechanism-tier; the daily-rhythm windows are described from neuroscience rather than measured in a research-operations setting, and the application to study design is a deduction. Falsifier: a study whose findings show no clustering by session time when time is deliberately varied.)*
 
 ## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
 

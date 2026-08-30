@@ -1,6 +1,6 @@
 ---
 name: harness-operating-model
-version: v1.1_latest
+version: v1.2_latest
 description: 'How to fund, staff, run, and future-proof a harness as a multi-year program: the discipline around the machine, not the machine. Covers the cost shape (front-load/plateau/compound), the five cost centers, the reliability dividend (failure getting cheap is the business case), the lock-in and runtime wedges, and the stopping rule. Then the maturity ladder, nine-day kit and stakeholder scripts. Then the four org models and deployment shapes, the Harness PM role, build against buy, and open against closed. Finally the longevity layer: permanent residents against the dissolving ladder, and why the harness is the moat. Use when budgeting or defending a harness program, deciding open/closed or build/buy, naming the harness owner, or placing your team on the maturity ladder. Sibling: agent-harness (the machine). Pairs with: cost-model, adoption-launch, alignment-check, capability-tracking, moat-finder. Triggers: ''harness cost'', ''harness ROI'', ''harness owner'', ''open vs closed harness'', ''human in the harness''.'
 imports: [agent-harness, cost-model, capability-tracking]
 ---
@@ -42,7 +42,7 @@ This skill argues in the abstract for how to staff and run a harness program. He
 
 **One design principle from the same firm, carried with its own tension attached.** The stated objective is **"copilot, not autopilot"**: support investment advice rather than automate it, through better information and faster iteration. Hold that against the systems the same source describes, which can contradict a human analyst. **A stated copilot posture and a system with standing to dissent are not automatically compatible**, and the resolution rule is the thing to specify. See the launch gate in `rtp-trust-ladder`.
 
-*(Source: an HBR case discussion of Franklin Templeton's AI operating model, Jun 2026 — ◆ single company, self-described, no outcome data attached to the structure. Carry it as one worked example, not as a reference architecture.)*
+*(Source: HBR, "Transforming Investing With AI at Franklin Templeton," Jun 2026 — ◆ single company, self-described, no outcome data attached to the structure. Carry it as one worked example, not as a reference architecture.)*
 
 ## KEY TERMS (plain language)
 

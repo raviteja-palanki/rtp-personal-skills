@@ -1,6 +1,6 @@
 ---
 name: alignment-check
-version: v1.4_latest
+version: v1.7_latest
 description: 'Check if your organization is actually ready for AI (structure, roles, accountability) before spending on technology. 93% of AI failures are organizational, not technical. This skill maps the 5-link chain (Purpose → Strategy → Capability → Architecture → Systems) and finds which one is broken. Use when kicking off an AI initiative, inheriting a stalled project, evaluating why pilots fail to scale, assessing readiness before a major investment, or diagnosing production failures. Do NOT use to delay decisions or as a perfectionist checklist. It is diagnostic, not a maturity model. Pairs with: problem-type (technical fix vs. organizational change), responsible-ai-program (the governance layer), adoption-launch (the people side of readiness).'
 imports: []
 ---
@@ -310,6 +310,57 @@ The source is an executive-search firm's analysis of more than 5,000 job descrip
     - Red flag: "It's in someone's head"
     - Green flag: "Architecture doc with design decisions, failure modes, monitoring setup, and runbook. Model card with training data, performance, known limitations, and improvement priorities."
     - Spectrum anchor: "Tribal knowledge" → "Documented system"
+
+## RESILIENCE IS THE RESIDUE OF WORK DONE BEFORE THE SHOCK
+
+**You cannot build resilience during the crisis. What you have when the shock lands is whatever the efficiency work of previous years left behind.**
+
+The case that makes it concrete: a large humanitarian organization ran an eight-year transformation before a sustained eighteen-month funding contraction hit. Decentralized decision rights. Shared services with a partner agency. Cash-based assistance replacing in-kind aid. A formal innovation office with an accelerator. **None of it was done for the contraction. All of it was what made the contraction survivable.**
+
+**The argument is made by sequencing rather than stated as a thesis**, and it is worth stating: organizations that wait for the crisis to start reforming arrive with weaker tools, and their slogan degrades from "do more with less" into "do less with less."
+
+**What this changes about an alignment check.** The chain diagnoses whether purpose, strategy, capability, architecture and systems currently line up. **Add one question about time: which links were built recently enough that they have not yet been tested, and which were built years ago and have already survived something?**
+
+- **Decision rights that have never been exercised under pressure are not decision rights.** They are a document.
+- **A capability funded this year is an intention. A capability that survived a budget cut is a capability.**
+
+**The practical version, and it is uncomfortable:** the reforms most worth doing now are the ones with no current forcing function, because a forcing function means you are already late. **A reform proposed during good conditions has no urgency behind it and is exactly the one that will matter.** That is a hard case to make, and knowing it is the case is most of what makes it makeable.
+
+*(Source: an HBR IdeaCast interview with a UNHCR leader on organizational transformation, Jun 2026 — ⚠ single-organization practitioner narrative. **The article names no framework and states no thesis**; the sequencing argument above is this corpus's reading of the account, and there is no counterfactual for what would have happened without the eight years of prior work. Falsifier: an organization that built comparable resilience during a contraction rather than before it.)*
+
+## WHERE YOUR BOARD SITS DECIDES WHICH ALIGNMENT IS EVEN AVAILABLE
+
+An alignment chain has to terminate somewhere, and for anything strategic it terminates at the board. **Five stages describe where a board can be, and each one supports a different ceiling on what you can align to.**
+
+1. **AI is peripheral.** Traditional governance rituals, static reporting, human-only deliberation. **Framed as stability and functioning as slow obsolescence.**
+2. **Generative AI as hygiene.** Directors use it to summarize materials, stress-test assumptions, prepare for meetings. The comparison the author draws is email or spreadsheets: table stakes, not differentiation.
+3. **AI-ready governance.** It is inside the core processes, scenario planning, risk modelling, CEO evaluation, capital allocation. Directors use it to augment judgment rather than only to save time.
+4. **Agents as participants.** The system moves from tool to actor, generating alternative strategies and acting as an independent voice, without formal voting rights.
+5. **Governance handed over.** The stated dystopian endpoint, named by the author as a warning rather than a forecast.
+
+**How to use it, which is not as a maturity score to chase.** Stages 1 and 2 are the common ones and the practical read is this: **at stage 1 or 2, a strategy that depends on the board understanding AI-specific risk is not alignable, and you should design the chain so it does not depend on that.** Put the AI-specific judgment in a body that has it and bring the board a business decision.
+
+**The parallel shift one level down, which is more actionable.** Job-description analysis across 2019 to 2025 shows what senior roles are being asked for. **CFO descriptions trend up on data analytics, AI and machine learning, cloud and security. CHRO descriptions trend up on workforce analytics, human-AI collaboration design, and the ethical governance of AI in talent decisions**, while HR operations, compliance and traditional performance cycles trend down toward table stakes.
+
+**The alignment consequence: the person across from you is being evaluated on different things than they were three years ago.** A CHRO now measured on human-AI collaboration design is a different counterpart from one measured on program delivery, and an argument pitched at the old scorecard will land as irrelevant even when it is right.
+
+**The claim underneath all of it, worth stating plainly because it is the article's thesis:** AI commoditizes hard expertise, so the traits that differentiate a leader move to learning speed and judgment quality. **The best leaders of this era will not be the ones who know the most.**
+
+*(Source: an HBR piece on how C-suite and board roles are being reshaped around AI, Jun 2026 — ⚠ argument-tier for the pyramid, which is the author's own model with no measured population and a stated forecast date rather than evidence. **The CFO and CHRO skills-shift tables are the stronger part**: ◆, from a Russell Reynolds analysis of job descriptions, 2019 against 2025. Falsifier: boards observed moving through these stages out of order, or skipping straight from stage 1 to stage 3.)*
+
+## WHO IS ACTUALLY IN THE ROOM, AND HOW LONG THEY WILL BE THERE
+
+Alignment work assumes the people you align with will still be there to hold the line. Three findings say to check that assumption before you spend the political capital.
+
+**A new CEO resets the room inside four years, and the reset is not evenly distributed.** In S&P 500 companies, CEO tenure averages 7.8 years, the longest of any C-suite role, and most CEOs replace most of their team within four years of arriving. At least one in five CFOs, CHROs and CMOs turn over in the first year alone. Within four years, more than a third of chief legal officers, 42% of CTOs and 39% of chief supply chain officers have also gone.
+
+**What that changes about a multi-year alignment.** A strategy chain anchored to a specific executive's sponsorship has a half-life you can estimate. **If a CEO transition is underway or likely, an alignment built on personal sponsorship is a depreciating asset and an alignment built into a controlled document, a budget line or a committee charter is not.** That is not cynicism about relationships. It is knowing which artifact survives the person.
+
+**Where those people come from, which tells you what they will respond to.** Roughly 59% of S&P 500 functional leaders are internal promotions, rising to 80% for COO, with long tenure behind them. Of the external hires, 57% held the identical title somewhere else, rising to about 75% for CFO. Industry match matters much less than role match. **The read: your internal audience is arguing from institutional memory, and your external hires are arguing from how the same job worked at their last company.** Those two need different evidence. The internal hire wants to know what has changed since the last time this was tried here. The external hire wants to know why this company is different from the one they came from.
+
+**The composition of the room is not the same as the composition of the argument.** Field research on team performance finds that a mix of personality types beats a room of similar people, but only when the differences are surfaced rather than smoothed over. The default failure is a team that resolves difference by deferring to the loudest consistent voice, which is a room that produces alignment on paper and no examination underneath it. **The check: in your last three alignment sessions, did anyone change position? If nobody moved, you did not run an alignment, you ran a briefing.**
+
+*(Sources: HBR, "How People Actually Get to the C-Suite in S&P 500 Companies," May 2026, analyzing Spencer Stuart's S&P 500 C-Suite Snapshot 2025 — ✅ audited against the primary snapshot for the internal-promotion and role-match figures; the 16-year internal-tenure figure is ⚠ not visible in the public snapshot [VERIFY]. Plus HBR, "How Strong Teams Leverage Different Personality Types," May 2026, ⚠ argument-tier. Falsifier: a CEO transition after which the predecessor's strategy chain held without being written into a controlled document.)*
 
 ## REALITY CHECK
 

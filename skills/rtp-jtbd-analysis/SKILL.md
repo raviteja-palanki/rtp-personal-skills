@@ -1,6 +1,6 @@
 ---
 name: jtbd-analysis
-version: v1.0_latest
+version: v1.1_latest
 description: 'Demand-side Jobs-to-be-Done for AI features. The reframe most PMs miss: users don''t hire the AI for the surface task they name, they hire it for the hidden job (offloading cognition, sharing blame, reducing anxiety, looking competent). Design for the surface job and the feature dies in production; design for the hidden job and users defend it even when it''s wrong. Runs the four-forces diagram, the switch-interview script, and the surface-vs-hidden map. Output is a job statement plus a design implication, not a 40-page empathy deck. Use when scoping a new AI feature, or when a working feature has flat adoption. Do NOT use for commodity, mandated, or captive tools with no real switch decision. Pairs with: problem-ai-fit (is AI the right hire), uncertainty-research (scaling the switch interviews), failure-modes (which failures the hidden job makes catastrophic), opportunity-solution-tree (the job as top-of-tree outcome). Triggers: ''what should this AI do'', flat adoption despite working as designed.'
 imports:
   - problem-ai-fit
@@ -40,6 +40,26 @@ Miss the hidden job and you're competing on benchmarks. Hit it and you're compet
 - **The struggle moment** — the specific event that made the old way intolerable ("my boss asked me to summarize 200 pages by Monday"); the trigger a switch traces back to.
 - **Anxiety asymmetry** — when both acting and not-acting can hurt the user (shut down a $2M asset on a false alarm, or miss the real failure); the AI is often hired to share that blame.
 - **Audit-defensibility** — the hidden job of producing a paper trail that survives a deposition, independent of whether the AI was right.
+
+## CUSTOMER WORKAROUNDS ARE A JOB STATEMENT YOU DID NOT HAVE TO ASK FOR
+
+**A workaround is the highest-quality job signal available, because the customer paid to produce it.** Nobody builds a manual substitute for something they do not need. Interviews ask people to predict their behavior; a workaround already is the behavior.
+
+**How the gap opens, in three stages:**
+
+1. **Perceived mismatch.** The customer notices the official model does not fit what they actually need. A tire maker billed on tire performance; fleet operators needed performance connected to fuel, routing and driver behavior.
+2. **Workaround engineering.** Rather than wait, the customer builds an informal substitute at their own cost. Those operators stitched together telematics vendors, manual exports and disconnected dashboards.
+3. **Closure, by someone.** Either you close the gap or a competitor does. The tire maker eventually shipped a connected-fleet product. **Between stage 2 and stage 3, the relationship is available to anyone who closes it first.**
+
+**What to do with one when you find it:**
+
+- **Read the workaround as the spec.** The effort the customer spent is a priced statement of the job. What they stitched together tells you the functional job; what they tolerated tells you the constraint.
+- **Ask what it cost them.** Time, money, risk, or looking foolish internally. The size of that cost is the size of the opportunity, and it is more reliable than any stated willingness to pay.
+- **Notice it names your business model, not just a feature gap.** A workaround that spans several of your products, or reaches outside them entirely, is telling you the unit you sell is wrong. That is a different finding from a missing feature and needs a different response.
+
+**When this is wrong:** a workaround built by one unusually sophisticated customer may be a genuine edge case. **Count how many independently built the same one.** Two or more, arrived at separately, is a job. One is a request.
+
+*(Source: Bohrer, Frankenberger & Wincent, HBR, May 2026 — ⚠ the three-stage sequence is the authors' own diagnostic with a single named worked case, no comparative data.)*
 
 ## GROUNDING (Before Starting)
 

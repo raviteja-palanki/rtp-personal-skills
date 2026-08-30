@@ -1,6 +1,6 @@
 ---
 name: first-principles
-version: v1.1_latest
+version: v1.2_latest
 description: 'Decomposes any AI product problem to its ONE irreducible operation by stripping vendor features, marketing language, and implementation details. Use when evaluating new feature proposals, diagnosing why a product failed, starting any product analysis, or when someone says "we should add AI to X", "is this feature necessary", "what''s the real problem here", or "break this down to basics". Also triggers on reviewing competitive features or when a team wants to migrate to a different model/technology. Do NOT use when the problem is already well-decomposed by the team, when speed of iteration matters more than depth (early prototyping phase), or when making a low-stakes decision with reversible consequences. Pairs with: problem-ai-fit (does the atom need AI), determinism-compass (rules vs. patterns vs. judgment), bias-spotter (why the wrong framing felt right).'
 imports: []
 ---
@@ -79,6 +79,26 @@ Ask: **"What's the simplest solution that solves 80% of cases?"** Often it's not
    - **What the model actually does:** Generates tokens, ranks items, classifies inputs
    - **What the product needs:** Answers questions correctly, finds relevant results, prevents harmful outputs
    - **Gap:** Everything between. Model generates 95% accurate medical advice, but product needs 99.5% because users act on it. Model can classify toxicity, but product needs to explain *why* it's flagged. Confusing these kills products.
+
+## QUESTION ZERO: DATE-STAMP THE PROBLEM FRAME
+
+**Generative AI made idea generation close to free. It did not make problem framing free**, and that asymmetry moves where the scarce work sits.
+
+**The consequence: ideation value has gone to roughly zero, and framing value is the remaining scarce resource.** A team can now produce fifty plausible options in an hour. None of that helps if the question they are answering is the wrong one.
+
+**Question Zero, and it runs before the PRD:**
+
+1. **Surface the gap.** What behavior are you actually observing, as distinct from what you assume is happening?
+2. **Audit the frame.** Write down the problem framing you are working inside, and **date-stamp when it was last genuinely challenged.**
+3. **Use AI to reframe, not to ideate.** The model's leverage is in proposing a different way to see the problem, not in producing more answers inside your existing one.
+
+**The date stamp is the operative part.** A frame that has not been challenged in over 12 months should be treated as provisional, however much work has been built on top of it. **The longer it has gone unchallenged, the more expensive it is to still be wrong**, because everything downstream inherited it.
+
+**Where this connects to defensibility.** Building a genuine moat around a stale problem frame is the expensive version of this failure, and no moat assessment catches it. See the Question Zero gate in `rtp-moat-finder`, which applies the same date stamp before any data asset gets scored.
+
+**When this is wrong:** in a domain where the problem is genuinely settled and stable, re-auditing the frame every cycle is ceremony. The test is whether anything in the operating environment has changed since the frame was set.
+
+*(Source: Schonthal, MIT Sloan Management Review, "The Innovation Advantage GenAI Can't Give You," May 2026 — ⚠ argument-tier, no measured data behind the ideation-value claim. The three-step protocol is the article's; the 12-month provisional rule is this corpus's operationalization of it.)*
 
 ## WHY THE THINKING LOSES TO THE BUILDING — THE PROGRESS-BAR PROBLEM
 

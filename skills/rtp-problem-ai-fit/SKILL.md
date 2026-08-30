@@ -1,6 +1,6 @@
 ---
 name: problem-ai-fit
-version: v1.1_latest
+version: v1.2_latest
 description: 'Determines whether a problem genuinely needs AI or if rules, search, and simple logic deliver better outcomes. Then, for problems that do need AI, it decides which seat it takes: the engine that produces the recommendation, or the helper that widens the evidence while humans keep the judgment. Use when teams propose AI features, stakeholders say "use AI," or during discovery. Runs hypothesis-driven AI-necessity analysis. Pairs with: first-principles (find the real operation first), ai-use-case-readiness (score the autonomy), build-or-buy (how to source it), determinism-compass (rules vs. patterns).'
 imports: [first-principles]
 ---
@@ -67,6 +67,33 @@ Follow the [Universal Deliverable Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md
 - **Decision engine vs. helper** — AI that *produces* the recommendation (engine, for narrow decisions) versus AI that *broadens the evidence* while humans keep judgment (helper, for wide ones).
 - **Analytical vs. generative AI** — analytical predicts/optimizes from structured data; generative writes/synthesizes from language.
 - **AI-washing** — dressing up a rules or lookup problem as "AI" for hype.
+
+## THE TWO QUESTIONS ASKED BEFORE THE PURCHASE
+
+**Across successful and failed AI implementations, two boring questions separate them, and both are asked before anything is bought:**
+
+1. **Did you know what problem you were trying to solve?**
+2. **Did you have realistic expectations of how you were going to solve it?**
+
+**The failure mode both catch is the same one: buying the marketing promise that the software rolls itself out.** Neither question is about the technology, which is why they are usually skipped in a technology evaluation.
+
+**Three practices that follow from taking them seriously:**
+
+- **Domain experts run the pilots, not the technology team.** In one large health system, every AI pilot is run by a clinician product manager. The person who knows what good looks like owns whether it is good.
+- **Engage one partner around one defined problem**, rather than a set of vendors shopping capabilities at you. A capabilities conversation cannot end in a scoped problem; it ends in a platform.
+- **Expect constant tweaking until the thing is stable.** This is a budgeted phase, not an overrun.
+
+**And an explicit refusal worth copying:** that same health system states it is not trying to become a technology company. Its two stated priorities are the best care, and efficiencies that fund more care. **Naming what you are not becoming is what keeps a build from expanding into one.**
+
+## WHERE IS CODE IN OUR COMPANY? (the opportunity heuristic)
+
+**A fast way to find candidate problems: ask where code already is.** Code means literal software, and it also means **any domain with if-then structure buried inside it.** Law. Mathematics. Policy manuals. Underwriting rules. Clinical protocols. Anywhere a human is executing a decision tree they learned rather than one that is written down.
+
+**Pair it with a data-readiness question**, because if-then structure with no record of past decisions gives you a rules engine rather than an AI opportunity.
+
+**Why this beats a capability-first scan.** Starting from what the model can do produces a list of demos. Starting from where the if-then structure already lives produces a list of processes with owners, volumes, and existing error rates, which is what a business case needs.
+
+*(Source: Josh Tyrangiel in an HBR interview, "How Leaders Can Use AI to Solve Real Business Problems," Jul 2026, with the Cleveland Clinic operating model — ⚠ journalist synthesis across reported implementations, with no stated sample and no outcome data. The two questions are his own summary of what came back from successful cases. Falsifier: a set of implementations where the two questions were answered clearly up front and succeeded no more often than those where they were not.)*
 
 ## Step 0: Ground in the Customer's Reality
 

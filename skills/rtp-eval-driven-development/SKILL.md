@@ -1,6 +1,6 @@
 ---
 name: eval-driven-development
-version: v1.0_latest
+version: v1.1_latest
 description: 'Build AI features with the eval rubric AS the spec, not as a downstream gate. The eval defines what to build next, not whether what you built is acceptable. Use when shipping AI features with no clear definition of "done", when the team iterates on prompts without a quality compass, when error analysis must come before the next sprint, or when reviewers ask "how do you know this is good?". Triggers on "how do we test this AI feature", "when is it ready to ship", "eval framework", "quality gate", "definition of done for AI", "eval-driven", "ship criteria". Pairs with: eval-framework (the harness), confidence-tuner (validates the judge that scores the gate), ai-prd (the spec it feeds), ship-decision (the gate it arms), production-observability (where the loop closes).'
 imports: ["eval-framework", "feedback-flywheel"]
 ---
@@ -55,6 +55,34 @@ Most teams treat eval as a quality gate: build the feature, then check if it's g
 - The eval owner should be in sprint planning, not just in QA review.
 
 **The failure pattern:** Teams build evals once, run them periodically, and treat the results as health checks. This misses the core value — evals should actively drive what gets prioritized. If your evals aren't changing your backlog, they're decorative.
+
+## STAGE-GATE THE PIPELINE, AND PUT ONE KPI OF EACH KIND ON EVERY USE CASE
+
+**Stage-gating is standard in new-product development and rare in AI work.** That gap is the finding.
+
+**Four gates: vision, ideation, incubation, deployment at scale.** At every gate, the business plan and the business case are **reconfirmed**, not assumed to still hold. The reconfirmation is the mechanism. An AI initiative that passed a gate on a business case from two quarters ago is running on a stale justification.
+
+**Two KPIs per internal use case, one of each kind:**
+
+1. **An adoption-target KPI.** Is anyone using it?
+2. **A performance KPI.** Is it any good? The measure varies by case: accuracy, customer satisfaction, default reduction.
+
+**Neither alone is readable.** Adoption without performance is the exposure trap. Performance without adoption is a good model nobody runs.
+
+**Who owns the KPI matters as much as which one it is.** **Business stakeholders own the value proposition and co-develop the KPIs, not the central AI team.** A metric the AI team invented and owns is a metric the business will not act on.
+
+## MATCH THE AI TYPE TO THE PROBLEM, NOT TO THE FASHION
+
+One large industrial's disclosed split, useful because it resists the assumption that everything is generative now:
+
+- **Analytical AI is roughly 60% of overall AI work**, concentrated in customer solutions.
+- **Generative AI is roughly 40% of customer-facing applications and roughly 70% of internal, employee-facing tools.**
+
+**The implicit rule underneath: match the AI type to the structure of the problem.** Structured operational data leans analytical. Usability, support, code generation and knowledge access lean generative. In their words, analytical AI "provides a lot of value... We are not giving up on that."
+
+**The eval consequence.** These two need different eval architectures. Analytical work has ground truth and takes conventional accuracy measures. Generative work usually does not, and needs the rubric and judge machinery this skill covers. **A single eval strategy applied across a 60/40 split will be wrong for the larger half.**
+
+*(Source: MIT Sloan Management Review, "How Schneider Electric Scales AI in Both Products and Processes," Mar 2026 — ◆ single company, self-disclosed proportions, no external audit. The four gates are described rather than branded, and the authors flag that stage-gating applied to AI specifically is the unusual part.)*
 
 ## KEY TERMS (plain language)
 

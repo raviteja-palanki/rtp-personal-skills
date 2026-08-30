@@ -1,6 +1,6 @@
 ---
 name: context-spec
-version: v1.4_latest
+version: v1.5_latest
 description: 'Context engineering: the information architecture for reasoning, not the prompt. Everyone tunes the prompt and the model; the invisible 90% is how information flows from sources through layers into the window, and the killer fact is that models degrade at 50–60% of max context (the Pre-Rot Threshold), so context capacity ≠ context quality: a 128K window has a ~70K working budget. You engineer a token BUDGET across stacked layers, each with its own token cost, compaction strategy, and failure fallback, plus multi-agent context isolation and dynamic tool selection. Use when architecting an AI feature with retrieval, tools, or conversation state. Do NOT use for single-turn no-retrieval features (use determinism-compass). Pairs with: invisible-stack (it diagnoses the weak layer, this designs the build spec for all seven), prompt-craft (the prompt text vs. the architecture), determinism-compass, stress-test. Triggers: ''context engineering'', ''context architecture'', ''token budget'', ''context window''.'
 imports:
   - invisible-stack
@@ -28,7 +28,7 @@ The mechanism is the same one this skill runs on a single request, moved up a le
 
 **Condition this is wrong, and the falsifier.** At small scale, with a single well-scoped tool operating over data that is already clean, this check adds unnecessary process for no real benefit. Reserve it for rollouts spanning multiple existing systems or data sources, where the unification work is real and easy to assume away.
 
-*(Source: HBR piece on AI transformation and mindset, Jun 2026 — cites OpenAI's GDPval benchmark; the roughly 80 percent parity, up from roughly 50 percent six months prior, figure is reported by the piece and unverified against the primary GDPval source in this pass. Carry the data-unification argument; tier the benchmark figure ⚠.)*
+*(Source: HBR, "To Thrive Alongside AI, Focus on Mindset-Not Skillset," Jun 2026 — cites OpenAI's GDPval benchmark; the roughly 80 percent parity, up from roughly 50 percent six months prior, figure is reported by the piece and unverified against the primary GDPval source in this pass. Carry the data-unification argument; tier the benchmark figure ⚠.)*
 
 ## How to use this skill
 
@@ -122,6 +122,27 @@ Every context stack has a layer nobody can populate from documents, because the 
 **One open question worth holding rather than resolving.** This pattern replaces an expert who *produces* decisions with an expert who *answers questions about* decisions. Whether the expert who answers a hundred such questions a year keeps the judgment that made the early answers good is unmeasured, and it is the exact question `rtp-judgment-guard` exists to ask. There is a real argument on both sides: interrogation concentrates the expert's remaining attention on boundary cases, which is where judgment is worked hardest. Treat the substitution as unresolved rather than as a loss you have priced.
 
 *(Source: HBR, "4 Steps to Transform the 'Middle Office' with AI," Aug 2026 — ⚠ throughout. Four of six authors work for a consultancy and two for a cloud vendor; the evidence base is their own unpublished cross-industry analysis of unnamed clients. **The quarter-of-decisions figure is the load-bearing number for this pattern and it has no stated method, population or sample.** The claim that a single correction generalizes an entire class of exceptions is the authors' own and is not demonstrated. Carry the pattern, which is reusable; do not carry the numbers.)*
+
+## RETRIEVAL ON YOUR OWN RESEARCH IS A FLOW PROBLEM, NOT A STORAGE PROBLEM
+
+**Putting a model over your own customer and market research produces real gains in finding and summarizing what you already know, and it is the narrow half of the problem.** Treating it as storage and access repeats the mistake the 1990s knowledge-management wave made.
+
+**Knowledge flows have four steps, in order: created, analyzed, stored, accessed.** Storage and access are the last two, and they are the only two most tooling addresses. **If creation and analysis are broken, better retrieval circulates worse material faster.**
+
+**Four organizational conditions decide whether any tool moves the flow at all**, and each one has a failure signature you can look for before you build:
+
+| Condition | What it looks like when broken | Consequence |
+|---|---|---|
+| **Common vocabulary across units and geographies** | No companywide agreement on names for brands, categories, distribution approaches | Incoherent pockets of knowledge, contradicting numbers, and a tool adopted by only a few geographies |
+| **Insights are part of strategy and culture** | Decision makers are not real consumers of this knowledge | Research falls flat regardless of tooling |
+| **Clear data ownership with agencies** | External agencies conduct the research and retain the results | Employees cannot serve customers without going back outside |
+| **The insights function shapes requests** | The team is treated as an order-taking library | Budget and headcount cuts, and low demand even after self-service arrives |
+
+**The first row is a context-spec problem in the most literal sense.** If two units call the same category by different names, your retrieval layer will treat one concept as two and your synthesis will report a contradiction that does not exist. **Vocabulary reconciliation is not preprocessing. It is the spec.**
+
+**The check to run before scoping a retrieval build on internal research:** ask which of the four is currently broken. If it is one of the last three, the tool will be adopted and will not change anything, and the honest recommendation is to fix the condition first.
+
+*(Source: Davenport & Dörfler, MIT Sloan Management Review, "How GenAI Can and Can't Help Manage Customer Insights," Jul 2026 — ⚠ inductive from an eight-company interview set with no sampling frame stated. The four conditions are the authors' own sorting of what they observed, with no comparative data on organizations where the conditions held. Falsifier: a company with broken cross-unit vocabulary whose retrieval layer nonetheless produced coherent, adopted synthesis.)*
 
 ## RETRIEVAL ADJUDICATION — when the corpus disagrees with itself
 

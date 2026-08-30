@@ -1,6 +1,6 @@
 ---
 name: feedback-flywheel
-version: v1.2_latest
+version: v1.4_latest
 description: 'Turn what users do with your AI''s output into the thing that improves the AI, automatically, on a cadence, with owners. Most products collect feedback (thumbs, edits, regenerations) that sits in a database and never reaches the model; this designs the closed loop from signal to labeling to a measured model gain. Collection is easy and feels like progress. Closure is rare and is the actual moat, but ONLY if the loop''s inputs are yours alone. Use when designing feedback capture, auditing why collected feedback changes nothing, or bootstrapping before you have users. Do NOT use for one-shot/batch systems, under ~500 active users, or when annotation velocity is permanently <5% of collection. Pairs with: eval-framework + eval-driven-development (the fix→regression cycle lives there), moat-finder (anti-moat check), ai-product-metrics (signals worth logging), gossip-mode (informal-signal sibling). Triggers: ''feedback loop'', ''why does our feedback change nothing'', ''data flywheel''.'
 imports: [first-principles, stress-test]
 ---
@@ -22,6 +22,25 @@ And here is the sharp edge most teams miss: a mature flywheel is one of the stro
 1. **Rank the signal, then capture it** — corrections > explicit feedback > implicit behavior > acceptance; ~80% of signal should be zero-friction implicit. (SIGNAL & CAPTURE.)
 2. **Fix the bottleneck — annotation velocity** — measure the % of feedback reaching the model per week; if labeling can't keep up with collection, that's the broken link, not capture. (ANNOTATION.)
 3. **Close the loop on a cadence with owners, and check the moat condition** — weekly→quarterly pipeline; then place yourself on the 1–5 maturity curve and confirm the inputs are yours alone. (THE CLOSED LOOP + MATURITY + MOAT.)
+
+## WATCH WHAT USERS DO WITH IT, NOT WHAT THEY ASKED FOR
+
+This loop captures corrections and complaints. **Devotion mining below adds the extreme-positive channel. This adds a third: repurposing.**
+
+**"The street finds its own uses for things."** The highest-value signal is often a user doing something with your product that you did not design for and would not have asked about.
+
+**The case that makes it concrete.** The Walkman was expected to be a study aid. Users made it a commute, jogging and private-world device, and it sold 200 million units. TikTok was a karaoke app; users invented short-form video and the company rebuilt the algorithm around what people actually did.
+
+**The instrumentation question: can your loop even see a repurposing?** Most cannot. A feedback channel built on ratings and bug reports captures reactions to the intended use. **A user succeeding at something you never designed shows up as an outlier session, not as feedback**, and outliers usually get filtered.
+
+**Two additions to the loop:**
+
+- **Sample your outlier sessions deliberately**, on a cadence, and read them for intent rather than for error. The question is what were they trying to do, not what went wrong.
+- **Separate "the data says no" from "the data cannot say."** Data explains reactions to what exists. **It is silent on what could exist**, and treating silence as a negative signal is how a repurposing gets killed before anyone notices it.
+
+**The honest limit, and it cuts against the cases above.** Every example here is a survivor. **A company that overrode its data and was simply wrong does not get written up**, so the base rate for "trust intuition over the survey" is unknown and probably poor. Use this to widen what the loop can see, not to license ignoring what it says.
+
+*(Source: Schonthal & Alt, HBR, Apr 2026 — ⚠ case-tier, and heavily survivor-selected. The Walkman, Game Boy, Liquid Death, Pokemon, TikTok and Slack cases are all outcomes chosen because they worked. Carry the instrumentation point; treat the "trust intuition" conclusion as unfalsified rather than supported.)*
 
 ## DEVOTION MINING: the signal source this loop has no channel for
 
@@ -52,6 +71,32 @@ Later ones cannot activate until earlier ones are met. Not every loved experienc
 **Where it plugs in.** This is a parallel track beside the existing correction hierarchy, not a replacement. Both feed the same ingestion-and-closure loop this skill already owns. See `rtp-ai-product-metrics` for why the averaging rule matters to your dashboard, and `rtp-attitudinal-segmentation` for the cohort split.
 
 *(Source: Marcus Buckingham, discussed in HBR, Jun 2026, drawing on his book *Design Love In*. The five conditions are ⚠ framework-tier with one company's worked examples and no outcome data attached. **The curvilinear shape is the better-evidenced part**, sourced there to a Gallup meta-analysis and to Anderson and Mittal's satisfaction-retention work ◆. The article claims the same shape recurs in investor sentiment, developer happiness and patient experience, and gives no citation for any of the three; do not repeat those.)*
+
+## DELIVERY FORMAT GATE: CHECK IT BEFORE YOU SPIN THE LOOP FASTER
+
+**A flywheel turning faster with the wrong delivery format accelerates disengagement, not improvement.** This skill optimizes loop velocity and signal quality. Neither one checks whether the human receiving the signal will act on it.
+
+**The split that matters is verdict against conversation:**
+
+- **Verdict-framed feedback** is a rating, a pass or fail, a score presented without context. Kluger and DeNisi's meta-analysis found feedback of this kind **makes performance worse in roughly one case in three.** Not neutral. Worse.
+- **Conversation-framed feedback** is the same information delivered as a two-way exchange about what happened and what to try. It does not carry the same backfire rate. Adobe's move from annual performance ratings to a recurring check-in conversation is the best-documented company case.
+
+**The mechanism is threat response.** A verdict is an evaluation of the person, and a brain in defense mode is not in learning mode. The same content framed as data about the work, delivered by someone visibly invested in the person getting better, lands as support.
+
+**So the gate, run before any change to loop speed or granularity:**
+
+1. **What format does the signal arrive in?** If it is a number with no context attached, you have a verdict.
+2. **Would increasing frequency make it more useful or more relentless?** A weekly verdict is not a better annual verdict. It is worse.
+3. **Is there a return path?** A loop the recipient cannot answer back into is a broadcast, and broadcasts get tuned out.
+
+**Two habits that raise the odds the signal gets used:**
+
+- **Frame mistakes as data, not indictments.** This is a wording choice with a measurable effect, not a softness.
+- **Replace the status-only update with one question: what are you stuck on?** It normalizes surfacing a blocker early, which is when the loop can still act on it.
+
+**Where this connects to the machine side.** The same rule holds for automated quality signals delivered to engineers. **An eval dashboard that reports a failing score with no trace and no path to respond is a verdict**, and it will be routed around exactly as a performance rating is.
+
+*(Sources: Ron Friedman's superteam work, reported via HBR, Jul 2026 — ◆ proprietary survey plus company cases; the Kluger & DeNisi meta-analysis is ✅ published and long-established, and it is the load-bearing evidence here rather than the survey. Adobe's check-in case is ◆ company-disclosed. Falsifier: a team where increasing the frequency of verdict-framed feedback improved performance as much as switching to conversation framing did.)*
 
 ## KEY TERMS (plain language)
 

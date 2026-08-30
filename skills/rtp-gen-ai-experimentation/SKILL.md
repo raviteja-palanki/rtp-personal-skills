@@ -1,6 +1,6 @@
 ---
 name: "gen-ai-experimentation"
-version: v1.2_latest
+version: v1.3_latest
 description: 'Run gen-AI experiments at BOTH altitudes: the macro/organizational question (should we scale this AI capability into the workforce?): Productivity J-Curve, pilots vs experiments vs A/B tests, control groups) AND the micro/product question (is this model/prompt/config change actually better?): offline evals -> shadow -> online A/B -> progressive rollout, with kill switches). The unifying rule: production evidence is the ultimate arbiter at both altitudes: it overrides benchmarks, offline evals, and team opinion. Use when validating a gen-AI capability before scaling, or testing whether a change is really better. Pairs with: eval-driven-development (the offline gate), production-observability (where online tests are measured), ai-product-metrics (the business metrics), confidence-tuner (the judge), ship-decision. Triggers: "gen AI experiment", "AI pilot design", "productivity J-curve", "shadow deployment", "A/B test the model", "is the new prompt better".'
 imports: ["eval-driven-development", "eval-framework", "production-observability"]
 ---
@@ -72,7 +72,7 @@ Before you pick a pilot's use case, answer one question first: what is this pilo
 
 **Where this breaks down:** a single pilot cannot cleanly serve both jobs. A noncontroversial use case rarely has enough uncertainty to produce real information, and a high-uncertainty use case is, by definition, higher-stakes than a permission pilot can afford. If you need both outcomes, run two pilots in sequence rather than asking one to do both jobs at once.
 
-*(Source: a July 2026 media-company case study on gen AI pilot selection. Single-company account, ⚠ tier, unverified for generalizability. The transferable part is the mechanism, not a number to replicate. Add this as the required first question before designing any pilot in this skill's checklist.)*
+*(Source: HBR, "Warner Bros. Discovery: Seeking Growth With Generative AI," Jul 2026, a media-company case on pilot selection. Single-company account, ⚠ tier, unverified for generalizability. The transferable part is the mechanism, not a number to replicate. Add this as the required first question before designing any pilot in this skill's checklist.)*
 
 ---
 

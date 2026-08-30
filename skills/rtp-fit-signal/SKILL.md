@@ -1,6 +1,6 @@
 ---
 name: fit-signal
-version: v1.1_latest
+version: v1.2_latest
 description: 'Tell whether an AI product has earned real user dependence, or just survived a lucky stretch. Standard PMF metrics (NPS, retention, DAU) get inflated by AI''s own variance, so a team can "confirm PMF" on users who are stress-testing the product, not depending on it. The one signal immune to that variance is the trust curve: rising, plateauing confidence in AI output over weeks, which luck can''t fake because it takes many good experiences in a row. Builds a fidelity-based trust score, the magic moment that predicts who reaches it, correction-rate decay (and the resignation trap that fakes it), switching cost, and a four-verdict scorecard: confirmed, emerging, uncertain, absent. Use when you have 8+ weeks of active users and must decide scale, iterate, or pivot, or when NPS looks fine but something feels off. Do NOT use pre-launch, on deterministic products, or under 100 weekly active users. Pairs with: falsification, feedback-flywheel, stress-test, ai-product-metrics.'
 imports:
   - falsification
@@ -138,6 +138,25 @@ Target a 50–60% reduction from week 1 to week 8 (⚠ illustrative bar — set 
 - **Reads as resignation if:** corrections fall while complaints rise or downstream use quietly drops — users accepting worse output because checking isn't worth their time anymore. This is a leading indicator of churn, not fit.
 
 Expect different baselines by use case — code generation should sit above 90% used-as-is-or-minor-edit, open-ended creative work closer to 60–70% (⚠ illustrative). A use case running 80% correction when you expected 40% means either the use case is wrong for AI or the product is failing it specifically.
+
+## SEPARATE THE INSTINCT FROM THE IDEA BEFORE YOU READ ANY SIGNAL
+
+**A team often has a winning instinct trapped inside a losing idea, and more testing does not free it.** A negative signal tells you the idea failed. It does not tell you whether the belief underneath was right.
+
+**Two objects, and most teams treat them as one:**
+
+- **The instinct** is the belief that the world ought to work a better way. "Booking a contractor should not take four phone calls."
+- **The idea** is the particular packaging you assumed that belief needed. "A marketplace app for contractor bookings."
+
+**When a signal comes back weak, you learned something about the packaging and nothing about the belief.** Teams read it as a verdict on the whole direction, kill it, and walk away from an instinct that was correct.
+
+**The move: generate four or five variants from the same instinct and be equally curious about each.** Not a favorite plus four strawmen. Variants you would genuinely build, which is the discipline, because the first idea has a head start that has nothing to do with its merit.
+
+**Then the harder half: be equally curious about what other people think the instinct should look like.** The common failure is five variants that are the same idea in different clothes, because nobody left their own frame to make them.
+
+**How this changes a kill decision in this skill.** A flat trust curve on one packaging is not a flat trust curve on the instinct. **Before killing a direction, write the instinct in one sentence with no product in it, then ask whether your evidence would still count against that sentence.** Usually it would not, and you have a packaging problem rather than a fit problem.
+
+*(Source: an HBR piece on creating products with curiosity and humility, Jul 2026 — ⚠ practitioner-tier, drawn from founder observation with no comparison between teams that separated the two objects and teams that did not. Falsifier: a set of ventures where testing several variants of one instinct produced no better hit rate than testing one and moving on.)*
 
 ## AI MADE INTEREST CHEAP, SO INTEREST STOPPED BEING A SIGNAL
 

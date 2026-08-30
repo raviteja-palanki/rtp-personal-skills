@@ -1,6 +1,6 @@
 ---
 name: ai-ux-patterns
-version: v1.2_latest
+version: v1.4_latest
 description: 'Interface patterns for AI products where output confidence varies: how to show the AI''s uncertainty, reveal detail only as needed, calibrate user trust, design loading and error states, and govern the AI''s personality (tone, patience, pushback) as a controlled design variable, not a vibe. Use when designing AI features or evaluating why users over-trust or under-trust AI output. Pairs with: trust-ladder (the calibration), confidence-tuner (the signals users see), judgment-guard (log whether explanations are actually opened, not just offered).'
 imports: [trust-ladder, failure-modes]
 ---
@@ -420,6 +420,68 @@ Before shipping an NLX product:
 The Chennapragada lens: in NLX, every word the AI writes is a UI element. Designers who internalize this build products that feel natural. Designers who treat language as throwaway output build products that feel broken even when the model is great.
 
 ---
+
+## EXPLOIT BY DEFAULT, EXPLORE ON PURPOSE
+
+**Search, recommendation and retrieval all run on exploitation logic**: rank by popularity and relevance, lean on the user's own history, rarely push anyone anywhere new. That is correct behavior for a well-defined question and it is the wrong behavior for early-stage thinking.
+
+**Two poles, and the matching rule is the useful part:**
+
+| | Exploitation-based | Exploration-based |
+|---|---|---|
+| **What it surfaces** | Popular, relevant, near the user's existing frame | Diverse and uncommon, drawn from semantically distinct clusters |
+| **Best for** | Accuracy and efficiency. Finding best practice, answering a defined question | Early-stage ideation, when divergent thinking is what you need |
+| **Failure when misapplied** | Returns the consensus answer to a question that needed a new one | Wastes the user's time on a question with a known right answer |
+
+**The mode has to be a control the user can see and switch.** A single ranked list cannot serve both, and a product that only ships the exploitation mode is quietly making the ideation case worse while scoring well on relevance metrics.
+
+**Two costs worth naming for anyone building this:**
+
+1. **Exploitation suppresses the value of expertise.** Expertise pays off through recombination, and recombination needs unfamiliar material. A tool that keeps returning what the expert already knows removes the input their advantage runs on.
+2. **The organizational version is worse than the individual one.** When several people work the same challenge through the same exploitation-based tool, they converge. The authors call the result **ideation bubbles**: clusters of similar ideas that look like agreement and are actually homogeneity. **Your team feels aligned and has narrowed.**
+
+**The design implication for a team-facing product:** if several users are working the same problem, do not let their sessions converge silently. Vary retrieval across users, or surface how similar the group's outputs already are. **This is the same convergence risk that shows up between competing firms, running inside one room.**
+
+*(Source: HBR, "Algorithms Trap Us in the Familiar. Can They Also Spark Breakthroughs?," Aug 2026 — ◆ the exploration algorithm is the authors' own implementation surfacing semantically distinct clusters; the ideation-bubble effect is reported from their study without a stated sample. Falsifier: a team using an exploitation-only tool on a shared challenge whose idea diversity matched a team using an exploration mode.)*
+
+## THE WATCHING JOB NEEDS A CLICK
+
+**A review screen that rarely asks for anything gets a reviewer who stops looking.** This is a design requirement, not a nicety, and it has neuroscience behind it.
+
+**The finding.** In an air-traffic-control simulation, adding one small action, clicking whenever new data appeared, kept operators engaged in a task where they mostly watched and rarely acted. The click did nothing useful on its own. It kept the person in the loop.
+
+**Why this now belongs in every AI product.** AI turns doing-jobs into watching-jobs at scale. Approve or reject a rare escalation. Review flagged agent output. Confirm a batch the model already handled. **The rare event is exactly the one you built the human review for, and passive monitoring guarantees the reviewer has disengaged by the time it arrives.**
+
+**The design rule.** *Any interface where a human reviews low-frequency AI output needs a deliberate engagement action built in.* Options, cheapest first:
+
+| Pattern | What the reviewer does | When it fits |
+|---|---|---|
+| Acknowledge-each | One click per item, even on the obvious passes | Low volume, high stakes |
+| Sample-and-confirm | The system injects known items the reviewer must catch | Any volume; also measures reviewer accuracy |
+| State-the-reason | A one-line reason box on approvals, not only rejections | When the reason is itself worth keeping |
+| Rotate-the-watcher | Two reviewers alternate rather than one watching all day | Long shifts, continuous streams |
+
+**Sample-and-confirm earns its extra build cost** because it gives you a number: how often does this reviewer catch a planted error? That number is the only honest read on whether your human-in-the-loop is a control or a decoration.
+
+**The failure to look for in an existing product:** an approval queue where the approve rate is above 98% and nobody can tell you the last time a reviewer rejected something. That is not a high-quality model. That is a reviewer who has stopped reading.
+
+*(Source: Mithu Storoni on the HBR IdeaCast, "Redefining What Efficiency Means in the Age of AI," May 2026, describing an unnamed simulation study; the study itself is ⚠ uncited. The design rule is a deduction from it, and it aligns with what [rtp-production-observability] already requires for machine monitoring. Falsifier: a review interface with no engagement action that still catches planted errors at the same rate as one with it.)*
+
+## DESIGNING FOR A TEAM AT ONE KEYBOARD
+
+**A group using one AI session is not a group using AI.** A five-month field study of 60 managers across 12 companies found teams slid into what the researchers call **spectator mode**: engagement drops, participation narrows to whoever holds the keyboard, and everyone else watches the answer arrive.
+
+**Three interface-level causes, each fixable in the product rather than in the training:**
+
+1. **The session belongs to the typist.** Nobody introduces the team, so the model locks onto one person's frame. **Product fix:** let a session carry multiple named participants and their roles, and surface them in the context the model sees.
+2. **The assistant gets one role for the whole session.** Every team assigned a single label, "researcher" or "expert," and queried it as a lookup table. No team tried critic, skeptic, customer or competitor. **Product fix:** make the role a first-class, switchable control instead of something buried in a prompt.
+3. **Prompts go staccato.** Short transactional turns mean the team never states its reasoning, and the assistant fills the vacuum with unsolicited next steps that pull the group toward one-click agreement before it has actually decided anything. **Product fix:** an interaction mode that asks one question at a time and waits, rather than answering everything at once.
+
+**The intervention that worked, and the one that took longest.** Teams re-read their own transcripts against a short checklist and got prompt templates. Framing and role-switching were absorbed quickly. **Collective ownership took several sessions**, because the habit being unlearned is following the assistant rather than steering it. Engagement rose 30% once teams started pausing before each prompt to argue about direction.
+
+**The pause is the mechanism, and no default interface forces it.** If your product is used by groups, the deliberation step is yours to design or yours to lose.
+
+*(Source: Rosani, Farri, Trabucchi & Buganza, HBR, May 2026 — ◆ field experiment, 60 managers, 12 companies, five sessions over five months. Self-reported engagement, single tool, no control group running the full arc without intervention.)*
 
 ## KEY DIAGNOSTIC QUESTIONS
 

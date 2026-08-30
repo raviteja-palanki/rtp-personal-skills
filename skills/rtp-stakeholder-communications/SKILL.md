@@ -1,6 +1,6 @@
 ---
 name: stakeholder-communications
-version: v1.3_latest
+version: v1.7_latest
 description: 'Audience-tailored communication for AI features: exec summaries, engineering briefs, launch announcements, risk escalations, weekly digests. The differentiator is AI-native confidence framing: every claim about a model''s behavior carries an eval-backed band, a named drift surface, and a mandatory "what could be wrong" section. Use when a single piece of information needs to land in three rooms (exec, engineering, customer) and each room is going to ask a different "but what''s the failure rate?" question. Do NOT use for internal team chat, casual PR updates, or comms about deterministic features where probabilistic framing is theater. Triggers: "stakeholder update," "exec briefing," "escalate to leadership," "launch announcement," "weekly digest," "send a note to." Pairs with: dual-lens (business AND technical legibility), trust-under-fog (confident comms on uncertain outcomes), first-principles (read the live need before supplying your default).'
 imports:
   - ai-product-metrics
@@ -192,7 +192,7 @@ Most of this skill is about what you write. This is about the thirty seconds bef
 
 **When this is wrong:** most of what this skill covers (the weekly digest, the engineering brief) should stay asynchronous and written, because the record matters more than the framing, and a live conversation would only slow it down. Reach for the synchronous-channel rule only when the content is sensitive enough that a reader who encounters it cold, without you present, would draw the wrong conclusion.
 
-*(Source: a museum marketing case, Jul 2026 — weak evidence, no outcome numbers, cited for mechanism only, ⚠.)*
+*(Source: HBR, "How a Museum Marketing Team Used AI to Bring People Closer to Art," Jul 2026 — weak evidence, no outcome numbers, cited for mechanism only, ⚠.)*
 
 ## THE FAILURE MODE OF A VOLUNTARY INITIATIVE IS SILENCE
 
@@ -215,6 +215,97 @@ A specific ordering rule for anything that goes out in your name.
 **Then read it aloud.** If you stumble, lose your breath, or hear a sentence you would never say to the person receiving it, rewrite that sentence. This is the same gate the voice section applies, and it catches AI-shaped prose faster than any checklist.
 
 *(Sources: the goal-roles-block instrument, HBR, "How the Best Leaders Shape Conversations," Aug 2026 — ◆ the authors' own dataset across more than a hundred teams; the four questions are verbatim. The withdrawal finding, HBR, "AI Experiments Need Domain Experts," Aug 2026 — ◆ two-year qualitative field study, two sites, n=2. The outline-not-draft ordering, HBR, Lancefield, Aug 2026 — ⚠ asserted with no evidence and considerable face validity; treat as a working rule, not a finding.)*
+
+## GETTING A BIG IDEA THROUGH: work the restraint, not the push
+
+**The instinct when an idea stalls is to push harder. That is the lever with the worst return.**
+
+An organization sits at equilibrium between forces pushing for a change and forces restraining it. Two ways to move it:
+
+- **Increase the push.** Reliably triggers pushback, because people resist being pressured.
+- **Decrease the restraint.** Understand the resistant party's actual position and make the change work for them. **Produces movement with far less backlash.**
+
+**So the question to ask is not "how do I make this more compelling." It is "what is this costing the person who is blocking it, and can I remove that cost."**
+
+### The routing rule, and it is the part most people get wrong
+
+Map three groups: **obvious allies, obvious blockers, fence-sitters.** Then map a second, parallel thing: **the decision-maker, and who *they* personally trust.** Those two maps are different, and the second one is the one that moves outcomes.
+
+**Then: mobilize your allies to influence your fence-sitters to pressure the blockers.**
+
+**Never approach the blocker directly.** A direct approach is pure push, aimed at the person most primed to resist it, and it hardens the position you were trying to move.
+
+**Where this sits against the rest of this skill.** The audience-tier map tells you how to word the message per room. This tells you **which room to be in, and in what order.** A perfectly worded escalation delivered straight to the blocker still loses.
+
+*(Source: Sue Ashford on issue selling, HBR, May 2026, building on Kurt Lewin's force-field model of unfreeze, change, refreeze — ⚠ practitioner-tier. The three-faction map and the routing rule are Ashford's operational addition to Lewin, and the source carries no measured effect sizes.)*
+
+## THE SEVEN SHIFTS FROM RUNNING A FUNCTION TO RUNNING A COMPANY
+
+**Every one of these is a communication change before it is a job change**, which is why they sit in this skill rather than in a leadership one.
+
+| From | To | What changes in how you communicate |
+|---|---|---|
+| Specialist | Generalist | You stop being the person with the answer and start being the person who can tell whose answer is good |
+| Analyst | Integrator | You present a resolution across functions, not the best case from yours |
+| Tactician | Strategist | You argue for a direction, not for a next step |
+| Bricklayer | Architect | You describe a system, and people have to see it before it exists |
+| Problem solver | Agenda setter | **You choose what the room discusses, which is a larger lever than what you say about it** |
+| Warrior | Diplomat | You stop winning arguments and start building the coalition that makes the argument unnecessary |
+| Unit leader | Enterprise leader | Your audience is people whose incentives you do not control |
+
+**Three forces have compressed the runway for making these shifts**, which is what is new about an old list:
+
+1. **AI has made technology use almost indistinguishable from the work itself**, so technical fluency stopped being a differentiator and stopped being a thing you can defer.
+2. **Geopolitical turbulence became a primary focal point** rather than background noise that someone else handled.
+3. **Leadership pipelines compressed.** Flatter organizations plus the disappearance of entry-level work mean people arrive at senior roles with less time and less accumulated experience than the previous cohort had.
+
+**The consequence for how Ravi should read a room:** the senior person across the table has probably made fewer of these seven transitions than their title implies, because they got there faster. **A communication pitched at a fully-transitioned enterprise leader will overshoot someone still operating as an integrator**, and the tell is which question they ask first. An integrator asks how the pieces fit. An agenda setter asks why this is the thing we are discussing.
+
+*(Source: Michael Watkins, "The New Rules for Becoming an Enterprise Leader," Jul 2026 — ⚠ framework-tier, an update of his own decade-old model with the three forces as his companion argument. No measured population and no outcome data on people who made the transitions against people who did not. **The seven are a well-worn practitioner model; the three forces are the new part.** Falsifier: a cohort of newly promoted enterprise leaders showing no compression in transition time against an earlier cohort.)*
+
+## CANDOR IS A PAYOFF PROBLEM BEFORE IT IS A CULTURE PROBLEM
+
+**Leaders who say they want candor get silence because they did not change the payoff.** Speaking up costs the speaker privately and benefits the organization publicly. That is individually irrational unless the speaker is rewarded, **and the reward that works is social esteem rather than money.** Naming the person who raised the objection, in front of the people whose opinion they care about, does what a bonus does not.
+
+**Psychological safety is the enabling condition, and it is tactical rather than temperamental.** Two behaviors carry most of it:
+
+1. **Equal conversational turn-taking.** Measurable in a meeting, and the cheapest thing to fix.
+2. **Listening that is visibly demonstrated.** Not listening. Listening the room can see: restating the point before responding to it, and attributing it by name.
+
+**One more mechanic that explains a lot of failed candor attempts.** Three kinds of conversation run at work: practical, emotional, and social. **Successful communication requires both people to be having the same kind at the same time.** A report raising a concern emotionally, met with a practical answer, reads the answer as dismissal and stops raising things. Match the kind first, then solve.
+
+**A ritual that structures dissent instead of hoping for it, reported from practice.** Circulate a written memo, read it silently together in the room, and collect objections in writing before anyone speaks. **The silent read is the mechanism**: it removes the first-speaker anchor that otherwise sets the range for every response.
+
+**Then the boundary that makes dissent affordable: disagree and commit.** Two phases with a defined line between them. Argue fully until the decision, then execute it fully whether or not you won. **Without the second phase people withhold the objection to avoid owning the loss.** Without the first, commitment is just compliance.
+
+**The diagnostic:** in your last three decisions, can you name who objected and what happened to them afterward? If you cannot name the objector, you did not get candor. If you can name them and nothing good happened, you will not get it again.
+
+*(Source: Charles Duhigg on the HBR IdeaCast, "Why Your Team Won't Speak Up (And How to Fix It)," Jul 2026, drawing on *Supercommunicators* — ⚠ practitioner account. The three-conversation-types model is credited loosely to neuroscience and psychology with no citation; the turn-taking and listening pair compresses a much larger literature, credited to Google's team-effectiveness work and Amy Edmondson. **One number in the transcript is wrong and is not repeated here:** Duhigg says Amazon has fourteen leadership principles; the published figure is sixteen since 2021, and the principle is "Have Backbone; Disagree and Commit." Falsifier: a team where esteem-based recognition for objectors produced no more dissent than a control.)*
+
+## WHEN REVIEW IS THE BOTTLENECK, MOVE THE JUDGMENT DOWN A LEVEL
+
+**AI collapsed the execution timeline, so the constraint moved from how fast people build to how fast one person can evaluate.** Delegate Monday, review Friday assumed execution took the week. When the work ships the next morning, the manager becomes the queue.
+
+**The instinct is to process the queue faster. That does not work**, because the volume grows with the tool and the reviewer does not. The alternative is to stop being the chokepoint, which means changing what you are responsible for evaluating.
+
+**Four standing questions, answered by the report rather than the manager.** Before anyone gets a project, they should be able to answer:
+
+1. What is the core problem we are solving?
+2. What specific change are we driving?
+3. How will we measure success?
+4. Who owns it?
+
+**The shift is from assigning tasks to naming the destination.** AI executes sequential tasks in minutes, so a task list is a low-value thing to hand over. A mission, a single tracked metric, and a report who can answer those four is a high-value thing to hand over. **This is a communication change before it is a management change:** you are moving from instruction to framing, and framing has to be written down or it does not survive contact with the week.
+
+**Three more moves that each remove you from a chokepoint:**
+
+- **Set the quality standard out loud, once.** "Do not send me something you did not read and edit." That single sentence relocates the first line of defense against low-effort AI output from you to the sender. Unstated, you own it by default.
+- **Filter, do not flatten.** Blanket AI summarization treats a careful analysis and a padded deck identically, which is worse than useless because it hides the difference. What helps is targeted signal detection: significant metric moves, threads with unusual comment volume, the same data point recurring across decks. Surface the few items worth deep attention rather than compressing everything equally.
+- **Compress the loop, do not lengthen it.** Automate status so the standing meeting is judgment and coaching only. Then shorten the interval. A junior person can now burn real time and money running in the wrong direction between weekly checkpoints, which is an argument for daily contact, not for a longer agenda.
+
+**The relational cost nobody prices.** Faster, denser messaging strips out the recognition and tone that a slower cadence carried implicitly. If you compress the loop and change nothing else, the team reads it as surveillance. Say the recognition explicitly, because it no longer arrives on its own.
+
+*(Source: HBR, "Managers Are Struggling to Keep Up with the AI Productivity Boom," May 2026 — ⚠ practitioner-interview tier across several named companies, plus two secondhand survey citations. No study of the authors' own, and no measured before-and-after on any of the five moves. Carry the diagnosis, which is well argued, and treat the prescriptions as sensible defaults rather than tested ones. Falsifier: a team whose review bottleneck cleared by adding reviewer capacity rather than by relocating judgment.)*
 
 ## CLAIM THE MODERATOR SEAT WHEN YOU ARE NOT THE EXPERT
 
@@ -304,7 +395,7 @@ The discipline: never let a hand-waving claim into a stakeholder comm. The first
 
 **When this is wrong:** a governance topic with no plausible revenue or loss framing yet (a new regulation with no enforcement history, a novel failure mode with no incident precedent) cannot be forced into this shape without inventing a number that will not survive scrutiny. There, say plainly that the exposure is not yet quantifiable, and ask for a scoping budget to make it quantifiable, rather than fabricate a number that looks eval-backed but is not.
 
-*(Source: sovereign-AI executive survey, n=1,928 executives, Jul 2026, ◆ single-vendor-commissioned — self-reported and commercially interested, treat the figure as directional; paired with a Corporate Digital Responsibility framework.)*
+*(Source: the sovereign-AI executive survey in HBR, "What CEOs Need to Know About Sovereign AI," Jul 2026, n=1,928 executives, ◆ single-vendor-commissioned — self-reported and commercially interested, treat the figure as directional; paired with a Corporate Digital Responsibility framework.)*
 
 ## REAL-WORLD ENTERPRISE-SCALE EXAMPLES
 

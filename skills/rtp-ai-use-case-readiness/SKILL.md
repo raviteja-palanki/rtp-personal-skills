@@ -1,6 +1,6 @@
 ---
 name: ai-use-case-readiness
-version: v2.4_latest
+version: v2.5_latest
 description: 'Right-size the autonomy for a use case: the minimum that captures the value, not the maximum you could build. The question is never ''can we make this autonomous?'' but ''what''s the least autonomy that still works?'' Autonomy is a governance question, not a capability one: you CAN build a level-5 agent; cost-of-error, verifiability, and policy decide whether you SHOULD. Runs a 5-phase diagnostic: 12 questions, the 0-7 spectrum, two matrices, a floor/ceiling gap and a phased roadmap. The output is framed as a testable hypothesis, not a rubber stamp. Use when a team says ''let''s build an agent'', or when ''can it be autonomous?'' is asked before ''should it be?''. Do NOT use for a monolithic undecomposed use case (first-principles first) or a pure tech-stack choice. Pairs with: problem-ai-fit (whether AI at all), autonomy-spectrum (quick level reference), determinism-compass (what stays deterministic), cost-model (control-burden economics). Triggers: ''let''s build an agent'', ''how autonomous'', ''can this be an agent''.'
 imports:
   - first-principles
@@ -87,7 +87,7 @@ You will optimize for *maximum* autonomy instead of *right-sized* autonomy. The 
 
 ## PHASE 2: DIAGNOSE
 
-**Zero, classify foundation dependency (required before any other dimension).** Every use case falls into one of three classes. **Low-foundation** works standalone, with no upstream dependency. **Data-dependent** needs a specific pipeline or data source to function, so breaking the pipeline breaks the use case. **Foundation-critical** breaks if the underlying infrastructure changes: a platform migration, a model swap, or a schema change takes it down too. The mechanism this guards against: without classifying first, a team can score a foundation-critical use case "ready" on every autonomy dimension and still ship something that dies the next time the data team touches a schema, because the readiness score was measuring the wrong risk entirely. **Wrong when:** the classes blur within one use case, with some sub-tasks data-dependent and others low-foundation. Classify per sub-task once you decompose, not once for the whole use case. *(Source: three anonymized AI-vs-IT-team advisory cases, Jul 2026 — ◆ company-disclosed pattern, no public citation available given anonymization; carried as a practitioner pattern, not a measured statistic.)*
+**Zero, classify foundation dependency (required before any other dimension).** Every use case falls into one of three classes. **Low-foundation** works standalone, with no upstream dependency. **Data-dependent** needs a specific pipeline or data source to function, so breaking the pipeline breaks the use case. **Foundation-critical** breaks if the underlying infrastructure changes: a platform migration, a model swap, or a schema change takes it down too. The mechanism this guards against: without classifying first, a team can score a foundation-critical use case "ready" on every autonomy dimension and still ship something that dies the next time the data team touches a schema, because the readiness score was measuring the wrong risk entirely. **Wrong when:** the classes blur within one use case, with some sub-tasks data-dependent and others low-foundation. Classify per sub-task once you decompose, not once for the whole use case. *(Source: HBR, "AI and IT Teams Often Clash. But They Don't Have To.," Jul 2026, three anonymized advisory cases — ◆ company-disclosed pattern, no public citation available given anonymization; carried as a practitioner pattern, not a measured statistic.)*
 
 **Then decompose.** Restate the job in operational terms (trigger, inputs/outputs, actors, systems, permissions, success metric, consequence-if-wrong), then break it into sub-tasks and rate each on: foundation dependency · explicit vs. tacit · advisory vs. executional · cost of error · verifiability · best-fit level. **Critical rule:** if one sub-task is much riskier than the rest, do not let the average hide it. Most good architectures are **hybrids** (level 3 for stable parts, level 1 for risky parts).
 
@@ -209,6 +209,35 @@ So a low readiness score is not only a delivery risk. It is a statement about wh
 **Where this reframe is wrong:** readiness that is high because the use case is trivial is not a moat. The asset is change capacity demonstrated on hard work, not an easy deployment that went smoothly.
 
 *(Source: MIT SMR, Westerman, "6 questions to guide your AI strategy," 3 Aug 2026 — the six questions are his, ◆ reported company examples with **no measurement anywhere in the article** and no adoption figures of any kind. The moat reframe is this corpus's: he names organizational change capacity as the constraint and calls it a strategy question rather than a scarce complementary input. Note that this article's only statistic is broken in an instructive way; it is carried as a teaching case in `rtp-trendslop-check`, and its governance framing is refuted in `rtp-responsible-ai-program`. Ledger patterns A and N.)*
+
+## CAN THE REVIEWER JUDGE WITHOUT PRODUCING?
+
+**Before you approve a use case on the theory that AI lets a wider group do this work, run one test: can a person judge whether the output is good without being able to produce it themselves?**
+
+Two tasks, same subject, opposite answers:
+
+- **Come up with article topics.** You can tell a good topic from a weak one without being able to write the article. Judgment here needs less expertise than production.
+- **Write the article.** You cannot tell whether the language lands without knowing how to make language land. Judgment here *is* production.
+
+A controlled experiment at a UK fintech put 78 employees through both tasks in three groups: writers who did the work daily, marketing specialists from the same department who shared the vocabulary but had never written an article, and developers and data scientists from neither world.
+
+**On topic generation, AI collapsed the gap.** The spread between best and worst group fell from 0.80 to 0.13 on a five-point rating. AI-assisted marketers slightly beat AI-assisted writers, and every AI-assisted group beat the unassisted writers.
+
+**On writing, the gap held, and for the furthest group AI added nothing at all.** With AI: writers 3.96, marketers 3.92, technologists 3.38. The technologists' score *without* AI was 3.42. **They were no better with the tool than without it.**
+
+**The mechanism, and it is not what the headline suggests.** Every group got comparable output from the model. Only some could act on it. The marketers had enough shared language to refine what the model produced; the technologists "could not effectively use or improve the AI's suggestions," and many simply pasted the output straight in. **The limit is not on what the model can generate. It is on who can edit.** Editing capacity is exactly the thing the tool does not supply.
+
+**Turn it into a readiness screen, run before the effort estimate:**
+
+| Ask | If yes | If no |
+|---|---|---|
+| Can the intended user state the acceptance standard without producing the artifact? | The use case widens. Score it accordingly. | The use case does not widen. Score it as an assist for people who already do this work. |
+| Is the intended user inside the domain's vocabulary, even without production experience? | Adjacent. Expect near-expert results with review. | Distant. Expect no gain, and expect paste-through. |
+| Can you detect paste-through in production? | Proceed. | Build that detection first. It is the only signal that tells you the widening failed. |
+
+**The rule this replaces.** "AI lets anyone do this now" is not a readiness finding. **The honest version is that AI redistributes capability inside a neighborhood and does nothing across the fence.** Widening a task from writer to marketer is a real plan. Widening it from writer to data scientist is a staffing decision dressed as a capability one, and it will show up as output nobody edited.
+
+*(Source: Vendraminelli et al., HBR, "Gen AI Won't Make Your Employees Experts," Apr 2026 — ◆ controlled experiment, n=78, single UK fintech, executive raters on a 1-5 scale, one task pair. Small n and one company; the design is unusually clean and the grouping variable, distance from the domain rather than seniority, is the right one. Falsifier: a task where a group with no domain vocabulary matches experts on the production half, not only the judgment half.)*
 
 ## HARD RULES
 

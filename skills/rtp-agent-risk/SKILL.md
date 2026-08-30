@@ -1,6 +1,6 @@
 ---
 name: agent-risk
-version: v1.2_latest
+version: v1.3_latest
 description: 'For every agent: is the value worth the potential harm? And can you pull the plug fast enough? Proportionality analysis (value vs worst-case) + kill-switch design (manual, anomaly-triggered, time-elapsed). If you can''t kill it faster than harm cascades, don''t deploy it. Use for any agentic system (AI agents, automated workflows, autonomous processes), pre-launch risk reviews, or when debating autonomy levels. Skip for static systems (no autonomous actions) or systems with trivial harm potential. Pairs with: autonomy-spectrum (choosing the level), agent-spec (checkpoints), judgment-guard (does the human overseer still choose to own it), adoption-launch (when insiders have a reason to want the rollout to fail).'
 imports: [stress-test, failure-modes, autonomy-spectrum]
 ---
@@ -19,6 +19,29 @@ Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
 3. Identify output format: Document, presentation, or both?
 
 Then proceed with the skill-specific analysis below.
+
+## WHAT 272 EXPERTS PUT AT MORE THAN A ONE-IN-TEN CHANCE OF CATASTROPHE
+
+**A three-round Delphi panel of 272 international AI experts rated 24 risk domains on likelihood and severity for 2025 to 2030, under two scenarios.** The numbers are worth carrying precisely, because they are the rare case where a risk conversation has a stated population and a stated definition.
+
+**The definition of catastrophic, as the panel used it:** more than a million deaths, more than $100 billion in financial loss, or comparable civilization-scale intangible damage.
+
+| Scenario | Risk domains at 10% or higher probability of a catastrophic outcome |
+|---|---|
+| **Business as usual** | **18 of 24** |
+| **Pragmatic mitigation** | **5 of 24** |
+
+**Read the gap, not either number.** The panel's own estimate is that deliberate mitigation removes thirteen of eighteen domains from the catastrophic-probability band. **That is the strongest available expert case that this class of risk is tractable rather than fated**, and it is a better argument for a mitigation budget than any single scary figure.
+
+**The sectors the panel named as most vulnerable:** information, national security, and finance.
+
+**How to use it in a product risk review.** This is a field-level prior, not a per-product one. Use it for two things and not a third:
+
+- **Use it to justify the existence of a mitigation program**, since the panel's own delta says mitigation moves the number.
+- **Use the sector list to weight review depth** if you build into information, national security or finance.
+- **Do not use it to score your feature.** A domain-level probability across all of AI says nothing about whether your retrieval pipeline is dangerous. Borrowing a civilizational figure to characterize a product risk is the error this skill exists to prevent.
+
+*(Source: MIT Sloan, "These are the most urgent AI risks, according to 272 experts," Jul 2026 — ◆ three-round Delphi panel, n=272 international experts. Elicited expert judgment, not measurement: Delphi produces calibrated opinion and its convergence is partly an artifact of the method. The catastrophic threshold is the panel's own definition and should always be quoted with the number. Falsifier: an independent elicitation with a comparable panel returning a materially different count in either scenario.)*
 
 ## THE TRAP
 

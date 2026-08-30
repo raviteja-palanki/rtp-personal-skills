@@ -1,6 +1,6 @@
 ---
 name: trendslop-check
-version: v1.3_latest
+version: v1.4_latest
 description: 'Catch when AI-generated strategy defaults to trendy advice instead of context-specific strategy. Grounded in a real, named HBR study (Romasanta, Thomas & Levina, Mar 2026): across ~15,000 simulations on 6 frontier models, LLMs showed consistent bias on 6 of 7 classic strategic tensions: differentiation over commoditization (96%), augmentation over automation (93%), plus long-term, collaboration, radical, and decentralization. The one axis with NO bias: exploration vs. exploitation. The counterintuitive finding: adding rich context shifts the bias only ~11%; reversing which option is listed first shifts it ~19%. Prompting harder doesn''t fix this. Use when bootstrapping strategy, running multi-scenario planning, or validating AI-generated recommendations.'
 imports: [first-principles, bias-spotter]
 ---
@@ -86,6 +86,26 @@ Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 > **5. Who would your ideal competitor be for this same space?** If you named a different company type (e.g., a bootstrapped company vs. venture-backed), what strategy would you recommend to them instead?
 
 ---
+
+## TEACHING CASE: TWO NUMBERS FROM ONE ARTICLE, BOTH BROKEN IN DIFFERENT WAYS
+
+A 2026 piece arguing that a new organizational form is replacing the ordinary startup carried two figures. Both are the kind that travel, and each fails a different check.
+
+**Number one, the unit mismatch.** *"It took Netflix years to get to 1 million users, but it took ChatGPT just five days."*
+
+**This is a category error dressed as a comparison.** Netflix's early million were paying subscribers of a DVD-by-mail service carrying warehouse, postage and inventory economics. ChatGPT's five-day million were free signups on a web page. **Provisioning is not usage, and a free signup is not a subscriber.** The two numbers have different units, so the ratio between them means nothing. Population unstated on both sides.
+
+**The check it fails:** before comparing two figures, confirm they count the same kind of thing. A comparison across units is not a fast fact, it is not a fact at all.
+
+**Number two, the out-of-order sequence.** A bookkeeping startup was cited at *"as little as $23,000 in ARR per FTE before filing for bankruptcy in January 2025."*
+
+The date is defensible. **The implied story is out of order, and the order is what carries the argument.** The company announced closure and ceased service on 27 December 2024. It was acquired three days later, on 30 December. The Canadian bankruptcy filing came in January 2025. **So the platform was acquired and revived rather than liquidated**, which is close to the opposite of the "low efficiency ratio kills you" reading the figure is supplying. "As little as" is also doing undisclosed work with no stated method.
+
+**The check it fails:** when a number is offered as the cause of an outcome, reconstruct the sequence of events before repeating it. A correct date attached to a wrong sequence is more persuasive than a wrong date and harder to catch.
+
+**The general rule both cases produce.** These two sit either side of the same line. **The first number is wrong in its units. The second is right in its facts and wrong in its story.** A source-checking pass that only verifies figures against records catches the second and misses the first entirely, because both halves of the Netflix comparison are individually true.
+
+*(Source: a Jul 2026 piece on AI-driven enterprises. Both corrections were checked against primary records during the note pass — ⚠ the article's figures are single-source with no stated method. **Neither number should travel from this corpus.** The ARR-per-FTE metric itself is a reasonable idea and is carried in `rtp-ai-product-metrics` without these two illustrations.)*
 
 ## THE TRAP
 

@@ -1,6 +1,6 @@
 ---
 name: build-or-buy
-version: v2.3_latest
+version: v2.4_latest
 description: 'Should you build this AI capability yourself or buy it? Six stop-at-the-first-''no'' checks (problem type, whether examples-in-the-prompt already do it, data, speed, cost, upkeep) across the four ways to get AI: prompt a general model, ground it in your own documents (RAG), train your own (fine-tune), or buy a finished product. Companion lenses decide which work is even worth owning. Use when: scoping features, vendor renewals, ''should we train a model'' debates, comparing custom vs. API costs. Pairs with: moat-finder (is what you''d build defensible, and which value-chain layer a vendor sits in), cost-model (what it costs at scale), agent-harness (orchestration cost multiplier once you''ve decided to build). Triggers: ''build or buy'', ''fine-tune vs prompt'', ''RAG vs API'', ''in-context vs fine-tune'', ''should we train a model'
 imports: [determinism-compass, stress-test, agent-harness]
 ---
@@ -289,7 +289,7 @@ At $19/month × millions of developers, code completion API costs at scale plaus
 
 ## Companion Lenses: Which Work to Own, and Which Bought Software to Keep (2026)
 
-The five gates answer "how should we build this AI capability: prompt, RAG, fine-tune, or buy?" Seven 2026 findings sit one level *up*: they help you decide which work is even worth owning, and which purchased software is safe to keep vs. worth replacing. Use them before the gates, then run the gates on whatever you decide to own. *(These are companion lenses, not new gates — they don't change the five-gate logic above.)*
+The five gates answer "how should we build this AI capability: prompt, RAG, fine-tune, or buy?" Eight 2026 findings sit one level *up*: they help you decide which work is even worth owning, and which purchased software is safe to keep vs. worth replacing. Use them before the gates, then run the gates on whatever you decide to own. *(These are companion lenses, not new gates — they don't change the five-gate logic above.)*
 
 ### Lens 0 — Buying a capability is not building an advantage (frame the asset first)
 
@@ -357,7 +357,7 @@ Three rules that follow:
 
 1. **Build the specific asset anyway.** Not building it means not being selected at all, and exclusion is worse than a toll.
 2. **Fund the hedge in parallel, not after.** Your direct channel is your switching capability, and **switching capability is the only stop authority you hold** over a platform. A hedge that arrives after the dependency is not a hedge.
-3. **Write the investment case honestly: this asset is a defense against exclusion, not a source of margin.** Approving it on a margin story it cannot deliver is how it gets cut in year two, at the worst possible moment. Route the margin question to `rtp-moat-finder`, fake-moat loop #4, which separates universality assets from exclusive ones.
+3. **Write the investment case honestly: this asset is a defense against exclusion, not a source of margin.** Approving it on a margin story it cannot deliver is how it gets cut in year two, at the worst possible moment. Route the margin question to `rtp-moat-finder`, fake-moat loop #4, which separates universality assets from exclusive ones, and `rtp-marketing-to-ai-agents` for what the asset has to contain to work at all.
 
 *(Sources: the expertise-retirement mechanism, HBR, Garr, "How to Respond to the Coming AI Cost Shock," Aug 2026 — ◆, and see `rtp-token-economics` for the dated subsidy facts. The hold-up structure, HBR, "Algorithmic Shopping Is Here," Aug 2026 — ⚠ framework-tier; the article names both halves in separate pillars and never joins them, so the hold-up reading is this corpus's. The platform-move timeline in that article is its verifiable part and its Gartner projection is not.)*
 
@@ -370,7 +370,7 @@ Three rules that follow:
 **The mechanism:** Data residency law and export-control regimes bind specific workloads to specific legal jurisdictions, and inside a given jurisdiction only a subset of the four archetypes is legally usable. AstraZeneca runs one provider inside China for regulated work and a separate provider outside China for R&D, split by legal requirement rather than preference. Where that kind of split applies, failing over to a different provider is not automatically a safety net. It can itself be the compliance violation, because the failover provider may not be licensed to handle that data in that jurisdiction. Multi-provider optionality can collapse to a single legally usable option even while several technically capable providers exist.
 
 **When this is wrong:** for a workload with no cross-border data movement and no regulated-data component, this check does not apply, and the four-archetype taxonomy is just a map of the field, useful for comparing capability and price with no jurisdictional wrinkle. Don't run the compliance check on a single-country internal tool with no sensitive data. Run it whenever a Gate 4 or Gate 5 case leans on vendor flexibility as part of the resilience or negotiating argument, and the workload touches regulated or cross-border data.
-*(Source: Accenture/MIT Sloan Management Review sovereign AI survey, Jul 2026 — ◆ single-vendor-commissioned; n=1,928 executives, 28 countries. Case cited: AstraZeneca's dual-jurisdiction infrastructure split.)*
+*(Source: the Accenture/MIT Sloan Management Review survey in HBR, "What CEOs Need to Know About Sovereign AI," Jul 2026 — ◆ single-vendor-commissioned; n=1,928 executives, 28 countries. Case cited: AstraZeneca's dual-jurisdiction infrastructure split.)*
 
 ### Lens 6 — Stock or flow decides how strong your "we have the data" case really is
 
@@ -384,6 +384,24 @@ Three rules that follow:
 *(Source: HBR Cold Call podcast, Caroline Elkins on the Atlantic/OpenAI licensing deal, Jul 2026 — ⚠ tier; no disclosed terms, mechanism only.)*
 
 ---
+
+### Lens 7 — When the capability is real but the institution cannot carry it alone
+
+A pattern from research-heavy institutions that generalizes to any organization whose core capability is discovery rather than delivery.
+
+**The five moves, and the third is the build-or-buy decision proper:**
+
+1. **Adopt portfolio management for the pipeline**, industry-style, rather than funding projects one at a time.
+2. **Integrate the emerging technology into the process itself**, not alongside it. Generative models for structure prediction and de novo design, self-driving labs pairing AI with robotic automation, and **a human retained in the loop for defining the research question and judging risk.**
+3. **Use strategic partnerships instead of a full in-house build**, and accept that this creates dependence. **The governance frameworks for managing that dependence, the data privacy exposure and the IP risk are the cost of the partnership**, not an afterthought to it.
+4. **Extend investment beyond the early stage.** Venture-style financing to bridge discovery and commercialization, because grant funding, philanthropy and operating margin do not reach across that gap.
+5. **Keep the global collaborations**, for trial design, manufacturing, real-world evidence and regulatory harmonization.
+
+**The transferable rule for move 3.** When you partner rather than build, **the governance work is the build.** You have not avoided the engineering cost; you have converted it into a contract, a data-exposure surface and an IP question. Price all three, or the partnership looks cheaper than it is.
+
+**A limit the source states about itself, which is worth respecting.** The authors note that **no institution has fully implemented all five elements.** It is a synthesis across observed practice, not one organization's proven playbook, and it carries no acronym or outcome data.
+
+*(Source: Offodile, Kadakia, Dash, Snider, Wu & Vickers, HBR, "U.S. Medical Centers Need a New Model for Drug Discovery and Development," Apr 2026 — ⚠ synthesis-tier, explicitly incomplete by the authors' own statement.)*
 
 ## Multi-Agent Harness: When Orchestration Kills Your ROI
 

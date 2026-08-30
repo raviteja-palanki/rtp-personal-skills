@@ -1,6 +1,6 @@
 ---
 name: judgment-guard
-version: v1.5_latest
+version: v1.7_latest
 description: 'Decide, on purpose, where human judgment sits inside an AI system, because if you don''t, adoption decides for you and the default removes the human. Two cases. ATROPHY: leaning on AI silently fades expert judgment over 6–18 months and stops an organization making new experts; design deliberate friction (rotation, calibration, state-first override, repair, reasoning capture) to keep humans sharp. COMPLEMENTARITY: in regulated, catastrophic-cost work (surgery, aviation, lending) the human stays permanently because human and AI together are more precise and more certain than either alone; design the labor split so each brings its best, the tail not the average setting the floor. Use when deploying high-stakes AI, users stop questioning AI outputs, designing human-in-the-loop for regulated work, or rolling AI into a team of experts. Do NOT use for low-stakes work where full automation is intended. Pairs with: determinism-compass, autonomy-spectrum, trust-ladder, agent-risk.'
 imports: []
 ---
@@ -166,6 +166,49 @@ One note on the numbering, because it is historical rather than chronological. *
 - **When this is wrong:** where the group has no independent judgment to pre-empt, a shared summary raises the floor rather than lowering the ceiling. Pre-emption is a loss only where someone in the room could have produced a competing read.
 *(Source: HBR, Lancefield, "Don't Let AI Flatten Your Leadership Style," Aug 2026 — ⚠ anecdote-tier, four anonymized coaching cases, no comparison group, and the article's one external citation is an unrefereed preprint this corpus has already read at primary and struck. Cite the mechanism, never the claim that AI flattens thinking, which the article does not evidence. The group-scaling rule is this corpus's reading of the case, not the author's; he files it as one leader's judgment going slack. Ledger candidate U.)*
 
+### The four capabilities that only exist through use
+
+**A short list worth carrying, because it names what the drains actually take.** Four capabilities do not develop automatically and are maintained only through use:
+
+1. **Judgment under uncertainty.**
+2. **Systems thinking.**
+3. **Ethical escalation.**
+4. **Interpretive reasoning**, meaning the ability to view an opportunity or a challenge through the lens of a chosen strategy.
+
+**Three erosion mechanisms, each with its own countermeasure**, and they are not interchangeable:
+
+| The mechanism | What it looks like | The response |
+|---|---|---|
+| **People stop thinking** | the drains in this skill | identify the critical human capabilities explicitly, by name |
+| **Rules get buried in systems** | the criterion moves into a model and stops being arguable | protect the structures that produce expertise |
+| **Social ties are weakened** | the colleague you used to ask is now a prompt | rebuild the communities the tool thins out |
+
+**The third one is the one this skill has been weakest on.** Drains 1 through 7 are about a person and a model. **Erosion also runs through the relationships that used to carry correction**, and no checkpoint in this skill measures whether anyone still asks a colleague. See `rtp-needs-guard` on relatedness.
+
+*(Source: HBR, "Don't Let AI Destroy the Skills That Make Your Company Competitive," Apr 2026 — ⚠ practitioner-tier, no measured data. The four-capability list is given verbatim there and only the fourth is defined.)*
+
+### The state the reviewer is in decides whether any checkpoint works
+
+Every checkpoint below assumes the reviewer can think. **That assumption has a physiological floor, and oversight work sits right on top of it.**
+
+Cognitive performance follows an inverted-U against arousal. Three usable states:
+
+| Gear | State | Good for | Bad for |
+|---|---|---|---|
+| **1** | low arousal, hazy, slow | incubation, wide-angle framing, connecting ideas | anything targeted |
+| **2** | the Goldilocks zone, sustained focus | **deep review, catching the plausible-but-wrong** | nothing, this is the target |
+| **3** | high arousal, fast, narrow | incident response, speed | **accuracy, nuance, second-order consequences** |
+
+**Two consequences for checkpoint design.**
+
+**Scheduling a review into gear 3 guarantees rubber-stamping.** A reviewer under deadline pressure or in a message flood is physiologically narrowed. They will approve faster and catch less, and the override log will look healthy. If a checkpoint matters, protect a gear-2 window for it rather than adding it to a queue.
+
+**Monitoring work fails the other way, and this is the counterintuitive one.** An AI-oversight role is low-action by design, which drops the reviewer into gear 1. **Boredom is not a motivation problem here, it is an arousal problem**, and the fix adds stimulus rather than removing distraction. One air-traffic-control simulation raised engagement in a low-action supervisory task with nothing more than a simple click-on-new-data step. **Build a lightweight feedback loop into any standing monitoring role**, or the monitor drifts out of the state where noticing is possible.
+
+**When this is wrong:** for a genuinely mechanical check with a binary answer, arousal state barely matters. This applies where the reviewer has to exercise judgment, which is every checkpoint in this skill that is worth having.
+
+*(Source: Mithu Storoni, *Hyperefficient*, discussed in HBR, May 2026 — ⚠ the three-gear model is her application of decades-old inverted-U arousal research, not a new finding, and the transcript carries no effect sizes. The air-traffic-control study is cited there without a full reference. Carry the design consequence, not the numbers.)*
+
 ### How much friction is enough (the sizing question this skill has left open)
 
 The checkpoints below say friction must exist. **They have never said how much**, and that gap has stayed open across several sightings.
@@ -180,7 +223,7 @@ The checkpoints below say friction must exist. **They have never said how much**
 
 **So the practical rule: demand a full state-first comparative review where all three are high, and a lighter confirmation step where they are not.** A heavy checkpoint applied to a low-commitment, unpredictable, unfamiliar reviewer produces theater, which is worse than a light one because it looks like control.
 
-*(Source: an HBR research summary on consumer control, Jun 2026 — ◆ single study, ad-tech domain. **Carried for the equivalence result, which is domain-general, not for the percentages.** The three-variable sizing applied to review design is this corpus's. See `rtp-trust-ladder` for the user-facing version.)*
+*(Source: HBR, "Research: When Consumers Have More Control Over Ads, They Respond Better," Jun 2026 — ◆ single study, ad-tech domain. **Carried for the equivalence result, which is domain-general, not for the percentages.** The three-variable sizing applied to review design is this corpus's. See `rtp-trust-ladder` for the user-facing version.)*
 
 ### The seven drains have an organizational twin: the training function you removed with the role
 
@@ -194,7 +237,7 @@ Professional development runs roughly **70% from doing the job, 20% from working
 
 Route the workforce-level version, including the three-question audit, to `rtp-capability-tracking`.
 
-*(Source: an HBR piece on talent strategy and AI transformation, Jun 2026 — ⚠ practitioner-tier. The 70-20-10 model is the Center for Creative Leadership's. This is the second independent sighting of capability debt in a month, after the engineering-provenance version.)*
+*(Source: HBR, "Your Talent Strategy Has to Keep Up with Your AI Transformation," Jun 2026 — ⚠ practitioner-tier. The 70-20-10 model is the Center for Creative Leadership's. This is the second independent sighting of capability debt in a month, after the engineering-provenance version.)*
 
 ### The six checkpoints (treatment)
 
@@ -392,11 +435,11 @@ The same error appears in the prescriptions. Two 2026 articles, in two journals,
 
 **Three challenges to this skill's central premise, all live, none settled.** The premise is that judgment is a byproduct of producing the work. Carry these openly rather than defending the premise, because a claim that cannot lose is not doing any work.
 
-**One: the premise is role-relative, and a single deployment can move two people in opposite directions.** An ambient clinical scribe at Mass General Brigham drafts the visit note. The attending stops producing it, so atrophy applies, and the recognition failure is already audible in what they say: "when I read this note, this is not how I would write the note." The resident standing in the same room now hears reasoning that used to happen silently, because the tool requires the clinician to speak it. Non-formation runs backwards for them. **So the premise is production-fed for the person who was producing and observation-fed for the person who was watching, and you have to say which role you are reasoning about before you prescribe anything.** Two consequences. The reviewer who no longer recognizes the output as something they would have written has lost the fastest error signal they had, which is a red flag for checkpoint 3 in the reviewer's own words. And the trainee question ("do we train residents on AI or keep them AI-independent") is probably the wrong variable; whether the senior is now speaking their reasoning where the junior can hear it looks more consequential than either option. *(Source: an MGB deployment discussed in HBR, Aug 2026 — ◆ practitioner interview, roughly 800 self-selected clinicians in the pilot, no controlled comparison. The role-relative restriction is this corpus's reading.)*
+**One: the premise is role-relative, and a single deployment can move two people in opposite directions.** An ambient clinical scribe at Mass General Brigham drafts the visit note. The attending stops producing it, so atrophy applies, and the recognition failure is already audible in what they say: "when I read this note, this is not how I would write the note." The resident standing in the same room now hears reasoning that used to happen silently, because the tool requires the clinician to speak it. Non-formation runs backwards for them. **So the premise is production-fed for the person who was producing and observation-fed for the person who was watching, and you have to say which role you are reasoning about before you prescribe anything.** Two consequences. The reviewer who no longer recognizes the output as something they would have written has lost the fastest error signal they had, which is a red flag for checkpoint 3 in the reviewer's own words. And the trainee question ("do we train residents on AI or keep them AI-independent") is probably the wrong variable; whether the senior is now speaking their reasoning where the junior can hear it looks more consequential than either option. *(Source: a Mass General Brigham deployment in HBR, "Can an AI-Powered Scribe Curb Physician Burnout?," Aug 2026 — ◆ practitioner interview, roughly 800 self-selected clinicians in the pilot, no controlled comparison. The role-relative restriction is this corpus's reading.)*
 
 **Two: interrogation may preserve judgment, and if it does, the premise's central term is wrong.** One 2026 prescription states the substitution as a goal: "Experts stop being reviewers who inspect output case by case and become teachers who set the unwritten rules once." Read through this skill, that is a designed-in loss. Read the other way, it is the strongest counter-argument in the corpus, because **an expert answering one targeted question per exception is engaged only with the boundary cases, which is where judgment is worked hardest.** The interrogation regime concentrates whatever production the expert has left onto exactly the material the premise says forms judgment. That runs at the premise rather than around it. The study that settles it is ordinary and nobody has run it: does an expert who answers a hundred exception questions a year retain the judgment that made the early answers good? Until someone does, treat a move from reviewing to rule-setting as unresolved rather than as a loss you have already priced. *(Source: HBR, "4 Steps to Transform the 'Middle Office' with AI," Aug 2026 — ⚠ the article asserts that interrogation preserves expertise and demonstrates nothing. Ledger pattern E, fifth falsifier firing.)*
 
-**Three: a controlled comparison against an AI-only baseline finds a failure this skill has no name for.** A KPMG/UT Austin field study split 523 early-career staff against an AI-only baseline (n=523, ◆ single-site, unpublished) and found three profiles, not the two this skill's language expects. **AI apprentices** (24.1%) had high measured skill and were actively engaged, and still finished below the baseline: engaged, skilled, and net value-destroying. **AI delegators** (25.8%) had the lowest skill and the least engagement, and matched the baseline anyway, which is invisible underperformance no dashboard catches. **AI amplifiers** (50.1%) beat the baseline not on higher skill but on sequence: they set their evaluation criteria before seeing the model's output, where apprentices reacted to the output after it appeared, carrying a producing reflex, rewriting and reorganizing, into what should have been a directing role. Foundational skills (critical thinking, domain knowledge, AI literacy) did not separate the three groups; sequence did. **Call this misapplication: judgment formed by producing does not automatically transfer to directing and reviewing.** It's a third failure mode, distinct from atrophy (fading judgment) and non-formation (judgment that never built), and it's a role-relative failure this skill's checkpoints were not built to catch. The fix is cheap: require the evaluation criteria in writing before the AI's output is visible, converting the producing reflex into a directing discipline, a one-line extension of checkpoint 3's state-first override aimed at a failure this section had not named. *(Source: KPMG/UT Austin field study, n=523, ◆ single-site, unpublished — strong but unreplicated. Falsifier: a longitudinal study showing unassisted and AI-assisted judgment scores correlate strongly across a real population would undercut misapplication as a distinct failure mode from atrophy.)*
+**Three: a controlled comparison against an AI-only baseline finds a failure this skill has no name for.** A KPMG/UT Austin field study split 523 early-career staff against an AI-only baseline (n=523, ◆ single-site, unpublished) and found three profiles, not the two this skill's language expects. **AI apprentices** (24.1%) had high measured skill and were actively engaged, and still finished below the baseline: engaged, skilled, and net value-destroying. **AI delegators** (25.8%) had the lowest skill and the least engagement, and matched the baseline anyway, which is invisible underperformance no dashboard catches. **AI amplifiers** (50.1%) beat the baseline not on higher skill but on sequence: they set their evaluation criteria before seeing the model's output, where apprentices reacted to the output after it appeared, carrying a producing reflex, rewriting and reorganizing, into what should have been a directing role. Foundational skills (critical thinking, domain knowledge, AI literacy) did not separate the three groups; sequence did. **Call this misapplication: judgment formed by producing does not automatically transfer to directing and reviewing.** It's a third failure mode, distinct from atrophy (fading judgment) and non-formation (judgment that never built), and it's a role-relative failure this skill's checkpoints were not built to catch. The fix is cheap: require the evaluation criteria in writing before the AI's output is visible, converting the producing reflex into a directing discipline, a one-line extension of checkpoint 3's state-first override aimed at a failure this section had not named. *(Source: the KPMG/UT Austin field study in HBR, "Research: Why Some Junior Employees Work Well with AI-and Others Don't," Jul 2026, n=523, ◆ single-site, unpublished — strong but unreplicated. Falsifier: a longitudinal study showing unassisted and AI-assisted judgment scores correlate strongly across a real population would undercut misapplication as a distinct failure mode from atrophy.)*
 
 ---
 

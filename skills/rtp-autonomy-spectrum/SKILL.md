@@ -1,6 +1,6 @@
 ---
 name: autonomy-spectrum
-version: v1.3_latest
+version: v1.5_latest
 description: 'Place every AI interaction at the level it deserves, not the highest the model can reach, by asking one question: who decides what happens next, the code or the model? Gives the 7-level spectrum (Feature → Chatbot → Assistant → Copilot ‖ Agent → Autonomous Agent → Multi-Agent), with plain-language ''what the AI does against what the human does'' for each. Also covers the structural shift at Level 4→5 where the model takes over the workflow, consequence-based leveling, leash length and progressive trust, and the effective-against-designed level (the rubber-stamping trap). Use when someone says ''let''s build an agent'', when designing any AI feature, evaluating a competitor, or deciding how much control to hand the model. Pairs with: ai-use-case-readiness (deep governance diagnostic; this is the quick reference), trust-ladder, agent-spec, agent-risk, tool-architecture, agent-harness, judgment-guard. Triggers: ''autonomy level'', ''agent spectrum'', ''how autonomous'', ''let''s build an agent''.'
 imports:
   - determinism-compass
@@ -120,6 +120,43 @@ Checking every output by hand cancels the efficiency that justified the AI. So m
 
 This predicts *before* you ship why over-reaching rollouts get pulled back — a shopping agent that auto-checked-out was pulled to a human-present mode within months because it had been pushed past the point the setup alone could guarantee the outcome. The leash (below) is *how much* you let the agent do; the cut line is *the ceiling the leash can never cross* — no track record earns autonomy past the point you can no longer check the design. *(When wrong: "can I verify the design?" is itself a judgment call — a team can convince itself it verified a setup it didn't understand. The cut line sets the ceiling, not the guarantee; pair it with consequence magnitude. Source: "Beyond Verification," Renieris, Kiron, Mills & Kleppe, MIT Sloan Management Review, 12 May 2026.)*
 
+## AUTOMATION CLIFFS: THE OPTIMAL LEVEL JUMPS, IT DOES NOT SLIDE
+
+**Organizations plan for a smooth trade: slightly better model, slightly more automation.** A formal model of the routing decision says the shape is a step, not a slope.
+
+**The setup.** A coordinator routes a stream of tasks between AI-only, human-only, and AI-assisted review, under a hard constraint on how much human attention is available, and the reviewer chooses how much effort to spend. The reviewer's effort is not fixed, which is the part most models omit and the part that produces the result.
+
+**The finding.** While the model sits below human performance, **many arrangements can be optimal, including human-only.** Once it crosses key performance thresholds, the equilibrium shifts abruptly toward AI-only. **Small technical improvements trigger large reallocations of work.**
+
+**What that means for anyone running this spectrum.** Your current level is not a point you will slide along. It is a plateau you will sit on until a threshold is crossed, and then the right answer moves several levels at once. **Two consequences:**
+
+1. **Do not plan a level-by-level migration.** A roadmap that moves Level 3 to Level 4 next quarter and Level 4 to Level 5 the quarter after is modelling a slope that does not exist. Plan the plateau you are on and the jump you would make.
+2. **Know your thresholds in advance.** The jump is triggered by a measurable crossing, so the useful preparation is naming which metric at which value would move you, before a release forces the question.
+
+**And the conclusion the authors draw, which cuts against the default:** adding human-in-the-loop steps feels safer and is not always better. Stretch people across too many AI-assisted decisions and the expected gains do not materialize. **The right strategy is sometimes full automation, and sometimes no AI at all.** Collaboration is a design choice, not a responsible default.
+
+*(Source: Gu, Li & Zhu, reported as "Out of the Loop?," Jul 2026 — ◆ a formal model, and the authors state plainly that future work should include empirical validation using data from real workflows. **Nothing in it has been tested against a running system.** Carry the structural insight, not a prediction about your own thresholds. Falsifier: a real deployment whose optimal human-AI arrangement shifted smoothly as model quality improved.)*
+
+## THE JUMP FROM ASSISTANT TO AGENT IS NOT A STEP ALONG THIS SPECTRUM
+
+**Two dimensions separate an assistant from an agent, and both have to move.** Autonomy is how long the product runs unattended. Context integration is how many digital environments it can read from and write to. Assistants sit low on both, agents high on both. **That combination is what turns "answer my question" into "do the job."**
+
+**What measurement shows when a team crosses it, and the third number is the one nobody plans for:**
+
+| What changes | Observed shift |
+|---|---|
+| **Machine work per session** | Roughly 40 to 48 times as much. The agent pauses far more often and is stopped no more often. |
+| **Task time and cost** | Roughly 87% less time and 94% less cost, modelled against an assistant-plus-human workflow. |
+| **The work people attempt** | More cognitively demanding, spanning more knowledge domains, crossing occupational boundaries. **A large block is work nobody attempted with the assistant at all.** |
+
+**The user's posture changes from operating to supervising**, and the pause-versus-stop split is the evidence: the agent asks far more often and gets halted no more often, which means the human is answering rather than steering.
+
+**The management consequence, and it is the reason this belongs in a leveling skill.** A dashboard tracking time saved will faithfully report the efficiency gain and be completely blind to the scope change. **The efficiency number is real and it is the least interesting of the three.** The one that changes your roadmap is that people started attempting work they previously did not attempt at all, because that is new demand, not a cheaper version of old demand.
+
+**What to do with it when you level a product:** if you are moving a feature from Level 3 or 4 up to Level 5, instrument the scope change before you ship, not after. Log what tasks users bring, not only how long they take. Otherwise your first read on the upgrade will be an efficiency figure and your second read, six months later, will be a surprise about what the product is now used for.
+
+*(Source: HBR, "Research: How AI Agents Broaden the Scope of Knowledge Work," Jul 2026 — ◆ study-disclosed. The time and cost reductions are modelled against a counterfactual workflow rather than measured against a running one, so treat 87% and 94% as directional. The 40-to-48x machine-work range and the pause-versus-stop split are the more solid observations. Falsifier: an assistant-to-agent upgrade where the mix of tasks users attempt stayed the same and only throughput moved.)*
+
 ## THE EFFECTIVE LEVEL — what you operate at, not what you designed
 
 **The most dangerous gap in this whole framework: the level you designed is not the level you are running if people rubber-stamp.** A product built as a Level 4 copilot (the AI *suggests*, a human *approves*) quietly becomes a Level 5 agent the first time operators approve without reading. You wrote a Level 4 safety case and are now operating at Level 5 without one. Automation bias makes this drift the default, not the exception: when the AI is usually right, the human stops being a checkpoint and becomes a click. Five things follow:
@@ -127,7 +164,7 @@ This predicts *before* you ship why over-reaching rollouts get pulled back — a
 - **Measure the effective level, not the designed one.** A high acceptance rate with near-zero edit or override rate on consequential actions is the tell that your "Level 4" is really a Level 5. Over-trust is a failure mode, not a success signal (`ai-product-metrics` treats acceptance-with-zero-edits as an anti-metric for exactly this reason).
 - **A human checkpoint is not automatically a control.** "Keep a human in the loop" and "train people to be skeptical" fail two ways — under volume they rubber-stamp, and when the model argues back they get talked out of the correction (active persuasion, not just passive bias). What actually holds is *structural*: independent human analysis *before* the AI's answer is shown, a parallel check, or a clean split between AI-drafting and final human judgment. Design the friction; don't exhort people to resist. (This is `judgment-guard` and `trust-under-fog`.)
 - **"Humans monitor" at Level 6 decays — the supervision paradox.** The longer an agent runs on its own, the more the overseer's own skill fades, so when the rare edge-case failure finally arrives, the monitor has the *least* context to catch it. "Humans monitor" is not a stable control unless you design the monitor's engagement on purpose — rotation, spot-checks that require real work, state-first review — or it becomes "humans watch a dashboard they no longer understand" (`judgment-guard`).
-- **A cheap three-answer self-test surfaces rubber-stamping before you measure it.** Ask whoever signs off on a consequential action who decided it: "the code decided," "I decided and the model only drafted," or **"the model is the default and I am only the ratifier."** The third answer is the tell. It describes ratification, not judgment, and it means a "Level 4 copilot" is running as an unacknowledged Level 5 agent. *(Source: a management-tips piece, n=10, ⚠ weak evidence, a diagnostic prompt rather than a validated instrument. When wrong: a ratifier with real rejection power and a demonstrated track record of using it is still exercising judgment; use the acceptance/edit-rate metric above as the tiebreaker, not the self-report alone.)*
+- **A cheap three-answer self-test surfaces rubber-stamping before you measure it.** Ask whoever signs off on a consequential action who decided it: "the code decided," "I decided and the model only drafted," or **"the model is the default and I am only the ratifier."** The third answer is the tell. It describes ratification, not judgment, and it means a "Level 4 copilot" is running as an unacknowledged Level 5 agent. *(Source: HBR, "Our Favorite Management Tips on Decision-Making," Jun 2026, n=10, ⚠ weak evidence, a diagnostic prompt rather than a validated instrument. When wrong: a ratifier with real rejection power and a demonstrated track record of using it is still exercising judgment; use the acceptance/edit-rate metric above as the tiebreaker, not the self-report alone.)*
 - **The slack test: widen a hard-coded threshold and watch the distribution, not the mean.**
 
   Telemetry alone cannot tell you whether a number reflects a judgment the system is making or a rule it is merely obeying. This test separates them.
@@ -212,7 +249,7 @@ Every level above assumes the same direction: shed execution, keep judgment. Cli
 
 **Condition for when this applies:** the capability compounds through repeated hands-on doing (reading the film, drafting the reply, running the diagnosis), not through repeatedly being handed a decision to ratify. A decision-fed capability, where judgment sharpens from making the call rather than from doing the manual steps, still follows the standard default: automate the execution, keep the human deciding.
 
-*(Source: a podcast on process knowledge, framing-tier evidence. Treat this as a named exception to test against one specific capability, not a reversal of the spectrum's general direction. When wrong: most execution in most workflows is decision-fed, not exercise-fed, so inverting the default there just re-imports the toil this whole framework exists to remove.)*
+*(Source: Dan Wang on the HBR IdeaCast, on process knowledge, 2026, framing-tier evidence. Treat this as a named exception to test against one specific capability, not a reversal of the spectrum's general direction. When wrong: most execution in most workflows is decision-fed, not exercise-fed, so inverting the default there just re-imports the toil this whole framework exists to remove.)*
 
 ## THE LAUNCH GATE FOR ANY SYSTEM THAT CAN CONTRADICT A HUMAN
 
@@ -233,7 +270,7 @@ The levels above answer *how much the machine decides*. This answers a question 
 
 **When this is wrong:** a system with no standing to dissent, one that only ranks or drafts, does not need a resolution rule. The gate applies the moment the output can be read as a contrary judgment rather than a suggestion.
 
-*(Source: an HBR case discussion of Franklin Templeton, Jun 2026 — ◆ single company, self-described, and the article does not notice the tension. Both the observation and the gate are this corpus's. Pairs with `rtp-trust-ladder`.)*
+*(Source: HBR, "Transforming Investing With AI at Franklin Templeton," Jun 2026 — ◆ single company, self-described, and the article does not notice the tension. Both the observation and the gate are this corpus's. Pairs with `rtp-trust-ladder`.)*
 
 ## PRODUCTS ARE MULTI-LEVEL BY DESIGN — three patterns
 

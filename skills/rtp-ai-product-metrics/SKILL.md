@@ -1,6 +1,6 @@
 ---
 name: ai-product-metrics
-version: v1.4_latest
+version: v1.7_latest
 description: 'Pick the leading indicators that actually predict AI product health: acceptance, correction, regeneration, conversational burden, cost-per-successful-outcome, and the 5-stage AI funnel (Surfaced -> Invoked -> Completed -> Accepted -> Retained). DAU and retention are lagging indicators that miss model regressions. Also carries the two moves most metrics decks skip: reading the dashboard as a demand-signal aggregator (evals as discovery), and the executive-translation layer that turns an eval-score move into the business number a CFO/GC/COO/CHRO acts on. Use when designing an AI metrics dashboard, debugging why DAU is stable but users complain, mapping North Star + AARRR for AI, or translating eval scores for a board. Pairs with: eval-framework, feedback-flywheel, confidence-tuner (is the judge trusted), cost-model/token-economics, stakeholder-communications, fit-signal. Triggers: "AI metrics", "North Star metric", "acceptance rate", "AI funnel", "cost per successful outcome".'
 imports:
   - eval-framework
@@ -58,6 +58,49 @@ Each era layers on; it doesn't replace the prior one. Name where your dashboard 
 - **Modeled counterfactual denominator** — a "time saved" or "cost saved" baseline estimated from the AI's own action steps rather than measured from an actual human doing the task; treat it as unverified no matter how precise the resulting percentage looks.
 - **Rational disengagement** — a reviewer who, once AI reliably clears the acceptance bar, optimally reduces review effort toward zero; this looks identical to genuine improvement without a seeded check.
 
+## REVENUE PER PERSON IS BECOMING THE JUDGING METRIC, AND IT HAS ONE HONEST USE
+
+**Capital raised and headcount are losing their status as the measures of a young company, and annual recurring revenue per full-time employee is replacing them.** The argument behind it: a company that deploys AI across every function from the start reaches meaningful scale with far fewer people and far less capital, so the old metrics measure inputs that no longer track the thing they used to proxy.
+
+**The honest use of ARR per FTE: as a comparison within a cohort, over time.** Your own figure this quarter against your own figure last quarter, or against companies at the same stage in the same category. **It reads as an efficiency signal and it is a real one.**
+
+**Three ways it goes wrong, and all three show up in practice:**
+
+1. **It punishes the investment years.** A team building the data asset that will carry the moat looks inefficient the whole time it is building. The metric cannot distinguish that from waste.
+2. **It rewards contracting out.** Move the work to an agency or a vendor and the numerator holds while the denominator drops. **The ratio improves and nothing about the company did.** Any serious use has to state whether contractors count.
+3. **A low figure is not a cause of death.** It is correlated with fragile companies and it is not the mechanism, and treating it as one produces confident wrong post-mortems.
+
+**The version to actually put on a dashboard:** ARR per FTE, with contractors counted and stated, tracked as a trend against your own history, alongside a second line for what the company is building that the ratio cannot see. **One number and one caveat, or the number will be used as a verdict.**
+
+*(Source: a Jul 2026 piece on AI-driven enterprises — ⚠ single-source argument-tier, no measured population. **The two headline figures in that article are both broken and are carried as a teaching case in `rtp-trendslop-check` rather than as evidence here.** The metric idea stands on its own reasoning. Falsifier: a cohort where ARR per FTE at an early stage predicted survival no better than capital efficiency did.)*
+
+## START FROM THE DECISION, NOT FROM THE QUESTION
+
+**Most AI analytics work is scoped as an access problem: how do we let more people ask more questions of more data. That is the wrong starting point, and it is why the dashboards get built and the decisions do not change.**
+
+The distinction, in one line each:
+
+- **Self-service analytics starts with the user's question.** "What do you want to know?"
+- **Decision-service analytics starts one step earlier.** "What decision are you trying to improve?"
+
+**Everything downstream follows from that one step:** which comparison is the right one, what standard of evidence the answer has to clear, and how the measurement should be designed. Skip it and you get a fast, well-governed answer to a question nobody needed settled.
+
+**A three-tier read on where a company actually is:**
+
+| Tier | What it invests in | What it gets |
+|---|---|---|
+| **Efficiency** | Automated queries, faster turnaround, fewer bottlenecks | More answers, sooner |
+| **Reliability** | Semantic layers, documentation, provenance, validation, expert review | Answers you can trust |
+| **Decision quality** | Redesigning analytics around the decisions that matter most | Different decisions |
+
+**Most organizations stop at tier one and call it a platform.** Tier two is where the good ones get to. **Tier three is a different exercise entirely, because it starts by naming decisions rather than by naming data.**
+
+**The ownership split that makes tier three work, and it is unusual enough to state plainly:** leaders own the decisions. Analytics teams own the measurement discipline. Senior executives own the incentives. **If the analytics team owns the decision list, you are back at tier one with better vocabulary**, because the team will pick the decisions their data can already answer.
+
+**The metric consequence for this skill.** Before you add a metric, name the decision it is supposed to change and who makes it. A metric with no decision attached is instrumentation, not measurement, and it will survive every review because nobody can say what it was for.
+
+*(Source: HBR, "Don't Let AI Make Bad Analytics Worse," Jul 2026 — ⚠ framework-tier. The two-position typology and the six-part operating model are the authors' own, with the three maturity tiers attributed loosely as "many companies," "better companies," "the best companies" and no measured population behind any of them. Falsifier: an organization that reached tier three by scaling self-service access without ever naming a decision list.)*
+
 ## THE TRAP
 
 **The "Vanity Metrics" Trap**
@@ -88,7 +131,30 @@ A causal chain can sound complete and still be entirely unmeasured. "Cognitive l
 
 A related instrument gap: self-report measures of cognitive load or burnout tend to underreport exactly where the problem is worst, because the people most affected are often the least able to step back and describe it. Where you can, pair self-report with a behavioral substitute: after-hours message volume, calendar fragmentation, or the number of open work surfaces at once. None of these prove causation alone, but they move independently of how someone feels that day, which self-report does not.
 
-*(Source: an HBR article on invisible mental workload, 2026 — the article makes no quantitative claims of its own; the mechanism is cited here, not any figure.)*
+*(Source: HBR, "The Invisible Work Draining Your Best Employees," Jul 2026 — the article makes no quantitative claims of its own; the mechanism is cited here, not any figure.)*
+
+## PICKING THE METRIC THAT MAKES ADOPTION PULL INSTEAD OF PUSH
+
+**The single highest-leverage choice in an internal AI rollout is which metric you prove value in.** Prove it in a metric nobody is rewarded on and adoption stays a push forever.
+
+**Two axes, and you need one from each:**
+
+| | **Lead** (short-term validation) | **Lag** (long-horizon projection) |
+|---|---|---|
+| **Creating upside** | win rate, asset utilization | incremental revenue from repeat customers |
+| **Preventing downside** | reduction in customer complaints | cost leakage, service disruptions avoided |
+
+**Pick a combination, never lag alone.** A lag metric cannot validate anything inside the window where people decide whether to keep using the tool.
+
+**The ordering that turns push into pull, and the source states it only at the end:**
+
+> **Demystify, then embed, then prove value in the metrics already used to reward or penalize people.** Adoption becomes pull at that third step, not before.
+
+**The third step is the one teams skip.** Proving value in a metric invented for the AI program is proving it to nobody. **The metric has to already sit on someone's review.**
+
+**Three blockers this sequence is answering**, worth naming because each needs a different move: the tool feels inaccessible and scary; it looks like a lot of avoidable work; and the benefit does not seem worth the pain. The third is the only one a metric fixes. The first two are handled by everyday analogies and by embedding into systems people already use.
+
+*(Source: MIT Sloan Management Review, "The Human Side of AI Adoption: Lessons From the Field," Apr 2026 — ⚠ practitioner-tier, no measured data. **The metric-selection two-by-two is the most reusable thing in it**, and the demystify-embed-prove ordering is stated only in the closing section, never in the body.)*
 
 **The "Averaged Top Two Boxes" Trap**
 

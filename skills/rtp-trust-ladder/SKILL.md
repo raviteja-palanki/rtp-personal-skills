@@ -147,7 +147,7 @@ The calibration work above assumes the user chose to be there. **This is the inv
 
 **Watch specifically for delay-and-stray.** A timing choice is the easiest to ship and the one with a silent failure mode. If you offer "later," instrument whether "later" ever arrives.
 
-*(Source: an HBR research summary on consumer control over advertising, Jun 2026 — ◆ single-study, the effect sizes are the study's own and the domain is ad tech rather than AI. **Carried because the mechanism is domain-general and the equivalence result is the useful part**, not because the percentages transfer. The three-variable routing and the AI-product framing are this corpus's.)*
+*(Source: HBR, "Research: When Consumers Have More Control Over Ads, They Respond Better," Jun 2026 — ◆ single-study, the effect sizes are the study's own and the domain is ad tech rather than AI. **Carried because the mechanism is domain-general and the equivalence result is the useful part**, not because the percentages transfer. The three-variable routing and the AI-product framing are this corpus's.)*
 
 ## TRUST REPAIR MECHANISMS
 

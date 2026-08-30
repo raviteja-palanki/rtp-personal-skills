@@ -1,6 +1,6 @@
 ---
 name: needs-guard
-version: v1.1_latest
+version: v1.2_latest
 description: 'Ensure AI deployment doesn''t threaten what workers actually care about: autonomy, competence, belonging. When workers resist AI, it''s usually not fear of change or a skill gap: the AI removed something they depend on to feel like a professional. Resistance is a need-violation problem, which makes it a product problem, not a change-management one. You diagnose which psychological need is broken (Self-Determination Theory: autonomy, competence, relatedness) with the AWARE diagnostic, then redesign the deployment to protect it. Use when workers resist AI, adoption plateaus at months 3–4, or people use unauthorized ''shadow AI'' tools. Do NOT use before tools are selected (ai-use-case-readiness first), or when resistance is really a UX or AI-quality problem. Pairs with: attitudinal-segmentation (stance vs. need), adoption-launch (the phased motion), problem-type (need violation = adaptive challenge), eval-framework (rule out quality issues). Triggers: ''workers resist AI'', ''adoption dropping'', ''shadow AI''.'
 imports: [first-principles, bias-spotter]
 ---
@@ -24,6 +24,42 @@ The bias that hides this is **fundamental attribution error**: blaming the perso
 1. **Map the touch points** — every moment a worker interacts with the AI: what they see, where they can intervene, what happens to their input.
 2. **Run the AWARE diagnostic** — score each touch point Green/Yellow/Red on the five need dimensions. (THE AWARE DIAGNOSTIC.)
 3. **Name the dominant violation and redesign the deployment to protect it** — not the model, the *workflow and framing* around it — then measure *voluntary* adoption, not forced compliance.
+
+## THE THREE NEEDS, AND HOW EACH ONE GETS THREATENED
+
+Three psychological needs sit under most AI resistance, and each has a satisfying path and a threatening one:
+
+| Need | Definition | Threatened when |
+|---|---|---|
+| **Competence** | the feeling of being effective and capable | the tool outperforms them at the thing they were good at |
+| **Autonomy** | the feeling of being in control of one's actions | the tool decides, and they execute |
+| **Relatedness** | having meaningful interpersonal connections | the tool replaces the colleague they used to ask |
+
+**Read the coping behavior to find which need is broken.** People respond in two directions, and the maladaptive column is the one that reaches you as a delivery problem rather than as feedback:
+
+**Adaptive**, each mapped to a need: enhancing skills (competence), adjusting tasks and workflows (autonomy), collaborating with colleagues to learn and refine the tool together (relatedness).
+
+**Maladaptive**, and these are the tells:
+
+- **Task avoidance, withdrawal, disengagement**, escalating in the worst case to active sabotage.
+- **Dissociating**: withdrawing psychologically, or reducing their identification with the domain where they feel threatened. **This one looks like calm acceptance and is not.**
+- **Shadow AI use**: secretly adopting unsanctioned tools. Read it as a signal about autonomy, not as a compliance problem.
+
+## THE AWARE RESPONSE
+
+Five moves, and the order matters because the first two are diagnosis:
+
+1. **Acknowledge** workers' psychological needs.
+2. **Watch** for adaptive and maladaptive coping behaviors.
+3. **Align** support systems with the needs you actually found.
+4. **Redesign** roles to create genuine human-AI complementarity.
+5. **Empower** through transparency and participation.
+
+**The allocation that makes step 4 concrete**, in three levels rather than the usual binary: **automate the simpler tasks; assist where people and AI perform similarly; and free people for the difficult and ambiguous work.** The cruder two-way version, give AI the repetitive work and people the empathy and judgment, is directionally right and skips the middle band where most real work sits.
+
+**When this is wrong:** where the threat is accurate and the role genuinely is being eliminated, this framework addresses the wrong problem. **A need-based intervention aimed at a real headcount threat reads as manipulation**, and correctly so. Route that to a straight answer about the conflict.
+
+*(Source: HBR, "Why Gen AI Feels So Threatening to Workers," Apr 2026 — ⚠ practitioner-tier. The three needs are the authors' synthesis of self-determination theory, which the article never names. AWARE and the coping taxonomy are the article's own, with no measured data attached to either.)*
 
 ## KEY TERMS (plain language)
 

@@ -1,6 +1,6 @@
 ---
 name: invisible-stack
-version: v2.1_latest
+version: v2.2_latest
 description: 'Every AI feature has a visible part (the model writing the answer) and a stack of hidden parts (retrieval, safety, memory, tools) that decide whether that answer is any good. This maps those hidden layers (the seven CONTEXT layers), measures each, and finds the single weakest layer capping quality, because a perfect model fed bad context still ships a bad product. Use when reviewing an AI architecture or diagnosing why a demo works but production doesn''t. Do NOT use for simple single-turn features with no retrieval, memory, or tools. Pairs with: context-spec (this finds the weak layer, that writes the build spec for all seven), eval-framework (every eval failure traces to one broken layer here), production-observability (instruments each layer), failure-modes (each layer''s break maps to a named failure), moat-finder (skipping the stack is now a negative-flywheel survival risk). Triggers: ''demo works, production doesn''t'', ''AI architecture review'', ''why is quality capped'', ''RAG quality''.'
 imports: [determinism-compass, stress-test]
 ---
@@ -101,7 +101,7 @@ When an eval fails, trace it to the layer that caused it instead of blaming the 
   - **Customer data** (a specific user's documents, conversations, behavior) is worth more kept exclusive. Competitors cannot see it, and that exclusivity is the moat.
   - **Network or registry data** (identity, reputation and trust records meant to be checked across an ecosystem of agents and vendors) works the opposite way. Its value comes from how many participants can verify against the same record. Hoarding it behind a private wall shrinks the network to your own users and destroys the trust signal that made it worth building.
 
-  **When this split is wrong:** a field that looks like "reputation" but is really an internal ranking score you never intend to federate still follows the customer-data rule. Don't apply the keep-it-universal logic just because a field is named "trust" or "identity." *(Source: a podcast on the AI agent economy, Jul 2026 — ⚠ single researcher's position, disclosed conflict of interest; carry the structural distinction only, not the forecast.)*
+  **When this split is wrong:** a field that looks like "reputation" but is really an internal ranking score you never intend to federate still follows the customer-data rule. Don't apply the keep-it-universal logic just because a field is named "trust" or "identity." *(Source: MIT Sloan, "Who will own the AI agent economy?," Jul 2026 — ⚠ single researcher's position, disclosed conflict of interest; carry the structural distinction only, not the forecast.)*
 - **`rtp-ai-use-case-readiness`** *(upstream)* — the skill that usually hands you the feature to architect. It sets the autonomy level; that level constrains which layers even exist — a level-2 use case has no Equipment (tools) or heavy eXecution layer to audit, a level-5 agent has both and they dominate the stack. Take the level as the input; don't design a seven-layer stack for a feature that only needed two. (The chain: opportunity-solution-tree greenlights → use-case-readiness sizes autonomy → this skill designs the stack to fit.)
 
 ## VECTOR DB & RE-RANKING (PM decisions, not engineering-only)

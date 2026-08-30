@@ -1,6 +1,6 @@
 ---
 name: ai-portfolio-management
-version: v1.3_latest
+version: v1.5_latest
 description: "Manage AI initiatives as an interconnected investment portfolio with stage gates, dual-lens oversight, a five-types investment classification, and Buy/Sell/Hold scoring. Prevents the 'too many pilots, no strategic coherence' failure mode. Grounded in the real ROI base rate (most AI initiatives don't hit their target; a small share of companies capture most of the value) so gates and exits are calibrated to reality, not optimism. Use when running 3+ concurrent AI initiatives, setting up an AI Centre of Excellence or governance board, or when leadership can't say which pilots are worth continued funding. Pairs with: strategy-canvas (the strategy each initiative should serve), moat-finder (which bets build durable advantage), build-or-buy (the Stage 2 partnership decision), cost-model (unit economics behind each initiative's ROI case). Triggers: 'AI portfolio', 'AI initiatives prioritisation', 'stage gate AI', 'AI investment review', 'AI project governance', 'OPEN framework', 'five types of AI investment'."
 imports: [strategy-canvas, moat-finder, build-or-buy]
 ---
@@ -282,6 +282,55 @@ Lloyds Banking Group's "GenAI Control Tower" demonstrates portfolio management a
 **The lesson:** Portfolio management works at enterprise scale when it has real authority, cross-functional representation, and genuine willingness to kill projects.
 
 ---
+
+## FIVE TYPES OF AI INVESTMENT, AND WHY ONE ROI TEST BREAKS FOUR OF THEM
+
+**The aggregate "AI ROI is disappointing" finding is largely a measurement artifact.** It comes from scoring every AI investment against one standard return test, when the five kinds of investment have different financial logic and only one of them is a return-generating bet in the ordinary sense.
+
+**Two tactical types. These sustain your position and do not build advantage:**
+
+| Type | What it is | The right question | The wrong question |
+|---|---|---|---|
+| **1. Competitive parity** | Matching what rivals already field, so you do not fall behind | **What is the cost of not doing this?** | What is the return? There is none; nobody gains an edge from having the table-stakes thing |
+| **2. Option value** | Spending that builds institutional fluency and opens future moves | Does this buy us access to a class of opportunity we otherwise could not reach? | Did it pay back this year? |
+
+**Three strategic types. These are where durable advantage comes from, and all three are chronically under-funded and mis-measured:**
+
+- **3. Unique integration.** AI embedded in your specific workflows, inseparable from how you actually operate. Not portable, which is exactly why it is defensible.
+- **4. Data flywheels and lock-in ecosystems.** Use generating data generating better product generating more use.
+- **5. Organizational capability building.** The ability to absorb the next thing, which is the input every later bet consumes.
+
+**The pattern to look for in your own portfolio: over-investment in types 1 and 2, under-investment in 3 through 5.** It happens because the tactical two are legible to a standard business case and the strategic three are not. **A portfolio review that applies one ROI hurdle will systematically starve the half that produces advantage**, and then the aggregate numbers will confirm the pessimism the process created.
+
+**What to do in practice:** tag every bet with its type before it is scored, and give each type its own test. Parity gets a cost-of-inaction number. Option value gets a named future opportunity it unlocks. The strategic three get a multi-year measure and an explicit statement that they will look bad on a one-year return test.
+
+*(Source: Baba Prasad, HBR, "The 5 Types of AI Investment-and How to Capture Their Value," Jun 2026 — ⚠ taxonomy-tier. The five types are the author's own sorting, illustrated with named company cases and no comparative outcome data across the types. The opening failure statistics are secondhand consultancy figures. Falsifier: a portfolio scored on one ROI hurdle whose strategic investments were funded at the same rate as its tactical ones.)*
+
+## THE DATA FOUNDATION IS A PORTFOLIO DECISION, AND IT IS SEQUENCED FIRST
+
+**A portfolio of AI bets sitting on a fragmented data layer is a portfolio of bets on the same unpriced risk.** The usual failure is that the data work gets delegated to IT, scored on cost and tool adoption, and never appears in the portfolio at all.
+
+**The five drivers, and each is a forcing function rather than a value statement.** That distinction is the whole point: a value statement can be agreed to and ignored, a forcing function changes what people can do next.
+
+| Driver | What it forces |
+|---|---|
+| 1. Set and monitor an aggressive revenue target for the use of data | Prioritization. A number narrows the effort onto the few data domains that serve it, which tells the platform team exactly what to clean first. |
+| 2. Give senior business executives ownership of data | Peer accountability. Once a named peer owns customer data, no other executive funds a competing customer database. |
+| 3. Commit multi-year resources to an enterprise platform | Architecture over expedience. Short funding cycles reliably produce one more application-specific silo. |
+| 4. Give internal and external stakeholders a formal voice | Adoption fit before rollout instead of resistance after it. |
+| 5. Layer AI investments on top of the new data capability | Sequencing. AI built beside the platform rather than on it inherits the fragmentation. |
+
+**Monitor the value in three tiers, because a multi-year build needs a visible chain to the income statement or patience runs out:**
+
+- **Value enablement.** The count of accurate records in the domains you named. Asset quality.
+- **Value created.** Users, usage frequency, growth rate of usage. Whether anyone touches it.
+- **Value realized.** Revenue attributable to the new solutions. Income-statement impact.
+
+**The move worth stealing: make the data layer itself your first AI use case.** In the worked case, machine-learning models built with domain experts corrected anomalies in incoming data, bad serial numbers and inconsistent customer records. Two things happened at once. Quality standards kept pace with data volume, and business leaders learned what AI could actually do before anyone asked them to sponsor an AI product. **AI automated the creation of the foundation AI would later need**, which is a cheaper way to build sponsor literacy than a pilot that has to succeed on its own terms.
+
+**How to run this against your portfolio:** for each bet, ask which data domain it depends on and who owns that domain by name. Bets that depend on an unowned domain are not independent bets. They share one failure, and they should be scored as one.
+
+*(Source: Wixom, Redzic, Hootman, Rodriguez, Piccoli & Beath, MIT Sloan Management Review, "Data Transformation Is the CEO's Business," May 2026, from MIT CISR case research at Caterpillar — ◆ single deep case, self-reported. The services-revenue growth cited alongside it is company-disclosed and not attributable to the data program alone. Falsifier: a multi-year enterprise data platform that delivered on all five drivers and produced no measurable revenue line.)*
 
 ## Portfolio Composition: Balancing the Mix
 

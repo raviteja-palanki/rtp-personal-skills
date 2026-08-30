@@ -1,6 +1,6 @@
 ---
 name: eval-framework
-version: v1.2_latest
+version: v1.4_latest
 description: "How do you know your AI is actually good? Designs the testing approach: what to measure, how to turn real production failures into repeatable tests, why the hard rare cases matter more than the common ones, and how tests must evolve as the product matures. Use when: launching a feature, diagnosing quality complaints, setting up monitoring. Pairs with: eval-driven-development (the tests as the spec), ai-product-metrics (the dashboard), confidence-tuner (calibrating the LLM judge), production-observability (where evals run in prod), judgment-guard (keeping the human reviewers sharp). Triggers: 'how to evaluate', 'eval framework', 'quality metrics'"
 imports: [feedback-flywheel, first-principles, stress-test]
 ---
@@ -338,7 +338,48 @@ Every test above checks whether the *system's outputs* are correct. The more dan
 **Why it matters:** a pilot "win" declared too early is a false lesson that gets very expensive once you scale it — the output evals can all be green while the conclusion drawn from them is wrong. **When this is wrong:** it's the least-developed of these ideas — ship it as a prompt with a named owner, not a finished rubric, and don't let it become one more gate that slows every decision.
 *(Source: "Beyond Verification," Renieris, Kiron, Mills & Kleppe, MIT Sloan Management Review, 12 May 2026.)*
 
-### Connecting to Business Outcomes
+### THE CEILING CUT: NEVER DEFINE THE POSITIVE CLASS BY A TOP SCORE
+
+**If you define your positive class as "everything rated at the maximum," you have destroyed the variance you needed to check whether the rater was generous.**
+
+**How it happens, and it looks reasonable at every step.** You have a rated dimension, say helpfulness on a five-point scale. You want to study what separates excellent outputs from ordinary ones. So you define excellent as a 5 and compare it to everything else. Clean, defensible, and it removes the only evidence that would have told you whether a 5 means what you think it means.
+
+**Why the cut is the problem.** Inside the top bucket every item now has the same score, so **you cannot correlate the score with anything.** You cannot check whether one rater gives 5s freely and another almost never does, because within the bucket there is no spread left to check against. **The confound is not merely unmeasured; the cut made it unmeasurable.**
+
+**The signature to look for in someone else's study, including a vendor's.** A finding of the form "teams that rate themselves 10 out of 10 share these three properties" is this exact design. The properties are correlated with self-rating generosity, and the design cannot separate that from the properties being real.
+
+**What to do instead:**
+
+- **Keep the full scale and model it.** Correlate the dimension against outcomes across the whole range, so a generous rater shows up as a weak slope rather than as an invisible passenger.
+- **If you need a class, cut below the ceiling.** Top-quartile against bottom-quartile preserves spread on both sides.
+- **Score the rater separately.** Plant known items and measure how each rater scores them. That gives you the generosity term as a number instead of a worry.
+
+**Add one standing item to every eval review: the stuck question, with a logged return path.** Ask what the reviewers could not decide, and where the answer will come from. **An eval review with no unresolved items is not a clean result; it is a review where nobody was allowed to be uncertain**, and those items are where the rubric is actually failing.
+
+*(Source: Ron Friedman's superteam research, reported via HBR, Jul 2026 — ◆ proprietary survey of 6,000-plus knowledge workers. **The ceiling-cut critique is this corpus's reading of that study's design, not the author's own caveat**: the "superteams" class is defined by a perfect self-rating on two items, which is the flaw described above. Carry the methodological rule; treat the study's three-strength finding as unseparated from self-rating generosity. Falsifier: a re-analysis of the same data using a below-ceiling cut that returns the same three strengths at the same magnitude.)*
+
+## WHEN THERE IS NO GROUND TRUTH, BORROW A NORMATIVE MODEL
+
+**The hardest eval problem is a domain where nobody can say what the right answer was.** Financial advice, career guidance, medical triage explanations, strategy recommendations. There is no label, so teams fall back on a rubric they wrote themselves, which measures whether the output matches their taste.
+
+**There is a better move, and it is transferable to any domain with an accepted theory:** import the domain's own normative model and score the output against its prescriptions.
+
+**The worked case.** Researchers evaluating LLM financial advice did not write a rubric. They took life-cycle theory, which is the discipline's accepted account of what a household *should* do, and tested whether the model's advice moved a person toward or away from its prescriptions: stock-market participation, diversified equity holdings, a savings buffer, risk declining after the mid-forties.
+
+**The design has four parts, and each one is doing work:**
+
+1. **Import an accepted normative model from the domain**, rather than authoring an evaluation standard yourself. If practitioners argue about the model, say so and pick one explicitly.
+2. **Decompose it into separable diagnostic tests**, not one composite score. Theirs were consumption smoothing, diversification, and rebalancing. **Three tests that can disagree tell you where the model fails; one blended number tells you nothing you can act on.**
+3. **Use real user inputs, not researcher-written ones.** This is the step most evals skip and it changes the result: advice quality depends on the prompt, so an eval built on well-formed expert prompts measures a system nobody is actually using.
+4. **Keep the tests fixed across model generations**, so the suite is a yardstick rather than a snapshot.
+
+**The result shape worth expecting.** Their headline was that the advice would move most people closer to the normative prescription than their current behavior does, **and that it leans on round-number heuristics and fails in characteristic ways.** That is the honest form of a positive eval result: better than the realistic baseline, wrong in a describable pattern. **An eval that returns only "better than baseline" has not finished.**
+
+**Where to use it in this framework.** Run it as the outer layer when your golden set cannot be labeled. It answers a different question from a rubric: not "is this output good" but "does this system move users toward what the field says is right."
+
+*(Source: Choukhmane et al., an MIT Sloan working paper on LLM financial advice, reported Jul 2026 — ◆ unrefereed working paper. Life-cycle theory is a contested normative standard within economics, which is a feature here rather than a flaw: the method requires naming the standard you chose. Falsifier: a domain where scoring against its own normative model ranked systems differently from expert human judgment of the same outputs.)*
+
+## Connecting to Business Outcomes
 
 Eval pass rates are internal. Users don't care about your eval scores. Ask:
 
