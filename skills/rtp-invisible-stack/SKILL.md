@@ -1,6 +1,6 @@
 ---
 name: invisible-stack
-version: v2.2_latest
+version: v2.3_latest
 description: 'Every AI feature has a visible part (the model writing the answer) and a stack of hidden parts (retrieval, safety, memory, tools) that decide whether that answer is any good. This maps those hidden layers (the seven CONTEXT layers), measures each, and finds the single weakest layer capping quality, because a perfect model fed bad context still ships a bad product. Use when reviewing an AI architecture or diagnosing why a demo works but production doesn''t. Do NOT use for simple single-turn features with no retrieval, memory, or tools. Pairs with: context-spec (this finds the weak layer, that writes the build spec for all seven), eval-framework (every eval failure traces to one broken layer here), production-observability (instruments each layer), failure-modes (each layer''s break maps to a named failure), moat-finder (skipping the stack is now a negative-flywheel survival risk). Triggers: ''demo works, production doesn''t'', ''AI architecture review'', ''why is quality capped'', ''RAG quality''.'
 imports: [determinism-compass, stress-test]
 ---
@@ -38,6 +38,32 @@ And the mechanism that makes this decisive is the **weakest-layer ceiling:** the
 ## GROUNDING (Before Starting)
 
 Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: name the feature and whether it has retrieval, memory, or tools (if not, skip — there's no invisible stack). **Go deep** when architecting a feature with retrieval/tools/state, reviewing production failures, or diagnosing a demo-vs-production gap. Then route depth and output format.
+
+## A WORKED PLATFORM, WITH THE PREREQUISITE THAT CAME FIRST
+
+**The sequencing is the lesson, and it takes years rather than quarters.** Before shipping AI into its consumer products, one large financial-software company did two things in order: **unified its data out of siloed databases into one platform with real curation and quality roles**, then built a generative AI operating system on top of it.
+
+**Six components, and they map almost one-to-one onto the layers this skill describes:**
+
+| Component | What it does | The layer it is |
+|---|---|---|
+| **Workbench** | Talks to commercial, internal and open-source models, and **picks the right model for the task**. 13 base models, up to 70 modified ones | Model routing |
+| **Studio** | Imports a new model into the platform in a few days | Model onboarding |
+| **Runtime** | Orchestration, memory management, planning, execution, and company-specific knowledge retrieval. **Named by its own chief data officer as the most important component** | The harness proper |
+| **Eval** | Measures hallucination rate at scale, and supports autonomous planning and execution for agents | Evaluation |
+| **SRF** | Security, risk and fraud, checking every generative experience against built-in guardrails | Governance |
+| **UX** | **Over 140 reusable widgets** and interface patterns for consistency | Presentation |
+
+**The claimed payoff is velocity, and it is the right thing to claim.** Soon after the platform launched, hundreds of teams were building thousands of applications, **including teams outside engineering.** That is what an invisible stack is for: the second team should not rebuild what the first one solved.
+
+**Two things worth taking from it beyond the component list:**
+
+1. **The data unification was not a phase of the AI project. It was the precondition, with its own curation and quality roles.** A platform built over siloed data gives every team the same fast access to inconsistent ground truth.
+2. **Naming the runtime as the most important piece is a useful corrective**, because the attention usually goes to model choice. Orchestration, memory, and grounding in company-specific facts is where a platform earns its keep.
+
+**And the honest note on the outcome:** the measured business result reported alongside all this was **modest and specific rather than sweeping.** A platform that unlocks a thousand applications is a real achievement and it is not the same claim as a large revenue number, which is a distinction most platform stories blur.
+
+*(Source: an HBR case on AI at Intuit, "TurboTax Meets Turbo Innovation," Apr 2025 — ◆ single company, self-disclosed, component names and counts from the company's own chief data officer. **Now more than a year old, which on platform architecture is a historical data point rather than current practice.** Falsifier: a company that reached comparable build velocity across non-engineering teams without a unified data layer underneath.)*
 
 ## THE TRAP
 

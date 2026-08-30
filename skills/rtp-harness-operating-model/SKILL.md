@@ -1,6 +1,6 @@
 ---
 name: harness-operating-model
-version: v1.2_latest
+version: v1.3_latest
 description: 'How to fund, staff, run, and future-proof a harness as a multi-year program: the discipline around the machine, not the machine. Covers the cost shape (front-load/plateau/compound), the five cost centers, the reliability dividend (failure getting cheap is the business case), the lock-in and runtime wedges, and the stopping rule. Then the maturity ladder, nine-day kit and stakeholder scripts. Then the four org models and deployment shapes, the Harness PM role, build against buy, and open against closed. Finally the longevity layer: permanent residents against the dissolving ladder, and why the harness is the moat. Use when budgeting or defending a harness program, deciding open/closed or build/buy, naming the harness owner, or placing your team on the maturity ladder. Sibling: agent-harness (the machine). Pairs with: cost-model, adoption-launch, alignment-check, capability-tracking, moat-finder. Triggers: ''harness cost'', ''harness ROI'', ''harness owner'', ''open vs closed harness'', ''human in the harness''.'
 imports: [agent-harness, cost-model, capability-tracking]
 ---
@@ -79,6 +79,32 @@ Every budget ranks tokens first; every program that *runs* has the opposite rank
 ### Break-even: three signs, none numerical
 
 Break-even is legible in behavior a quarter before the dashboard shows it. **(1)** Engineers stop rewriting prompts every sprint (the eval suite absorbed the drift). **(2)** The eval suite catches regressions before users do (the loop runs backwards; incident cost drops 1–2 orders of magnitude). **(3)** The CFO stops asking for the business case and starts asking for the *expansion* plan ("can we run compliance on it too?"). Watch the CFO; the CFO will tell you.
+
+## THE AI SPINE: A THIRD ORG SHAPE, AND THE FUNDING TRICK THAT MAKES IT WORK
+
+Most companies pick one of two shapes and both have a known failure. **A center of excellence hoards the expertise and never learns the business process. Business-unit squads learn the process and rebuild the same plumbing five times.** A third shape sits between them.
+
+**The AI spine is a permanent cross-functional structure that owns use cases end to end**, centralizing technical and business-process knowledge in the same body rather than splitting them across two.
+
+**Inside the spine, three permanent roles:**
+
+- **A technology owner**, who prevents fragmentation of data and tools and runs the shared platform: prompt libraries, models, evaluation, and cost metrics including token consumption.
+- **AI developers and engineers.**
+- **A risk and compliance role that lives inside the spine**, not an outside compliance group consulted at gates. That placement is the design decision, because a reviewer who is not in the room reviews artifacts rather than choices.
+
+**Connected in from each business unit, three more:**
+
+- **A business owner** who identifies use cases, sets nontechnical targets (a minimum star rating, say), and is **accountable for killing underperforming use cases.**
+- **A knowledge owner** who curates ground truth, captures tacit knowledge, and holds **the authority to declare a solution good enough even when it is not technically perfect.** That authority has to sit somewhere or nothing ever ships.
+- **End users** who validate usefulness and surface edge cases.
+
+Overseen by a C-suite leader who keeps it aligned to strategy. Cadence: biweekly standups inside the spine, a monthly summit with end users for demos and feedback.
+
+**The funding mechanism is the part worth stealing.** Top management allocates capital, **and the spine keeps a cut of the revenue or cost savings it generates.** Two things follow that no governance document achieves on its own: ROI discipline becomes self-interested rather than imposed, and **killing a weak use case stops being political**, because the spine is spending its own future budget by keeping it alive.
+
+**The three practices this structure institutionalizes:** expand a use case across a whole process rather than one task, treat every use case as continual work in progress, and kill underperformers fast.
+
+*(Source: Schmitt, Vial & Blohm, in the MIT Sloan Management Review special report "Scaling AI in the Enterprise," Summer 2026, sponsored by Workhuman — ⚠ and the sponsorship matters: a vendor-sponsored special report is not neutral ground. The spine is the authors' own model, diagrammed rather than measured, with no comparative outcome data against centers of excellence or unit squads. Falsifier: a company that scaled generative AI across many processes on a hub-and-spoke center of excellence with no cross-functional owner.)*
 
 ## THE MATURITY LADDER + THE MONDAY KIT
 

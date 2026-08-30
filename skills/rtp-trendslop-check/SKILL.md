@@ -1,6 +1,6 @@
 ---
 name: trendslop-check
-version: v1.5_latest
+version: v1.6_latest
 description: 'Catch when AI-generated strategy defaults to trendy advice instead of context-specific strategy. Grounded in a real, named HBR study (Romasanta, Thomas & Levina, Mar 2026): across ~15,000 simulations on 6 frontier models, LLMs showed consistent bias on 6 of 7 classic strategic tensions: differentiation over commoditization (96%), augmentation over automation (93%), plus long-term, collaboration, radical, and decentralization. The one axis with NO bias: exploration vs. exploitation. The counterintuitive finding: adding rich context shifts the bias only ~11%; reversing which option is listed first shifts it ~19%. Prompting harder doesn''t fix this. Use when bootstrapping strategy, running multi-scenario planning, or validating AI-generated recommendations.'
 imports: [first-principles, bias-spotter]
 ---
@@ -86,6 +86,27 @@ Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
 > **5. Who would your ideal competitor be for this same space?** If you named a different company type (e.g., a bootstrapped company vs. venture-backed), what strategy would you recommend to them instead?
 
 ---
+
+## TEACHING CASE: A HEADLINE NUMBER WHOSE COMPONENTS CANNOT BE CHECKED
+
+A large asset manager reported roughly **$500 million** of tracked AI value, composed of exactly four categories. The categories are the finding, not the total.
+
+| Bucket | What it counts | Can it be checked? |
+|---|---|---|
+| **Cost avoidance** | Spend that did not happen | **No.** Counterfactual by construction |
+| **Shareholder value creation** | At a client-owned mutual, value returned to fund investors | **No.** The measurement is never defined |
+| **Risk reduction** | Losses that did not occur | **No.** Counterfactual by construction |
+| **Operational efficiency** | Output against a before-and-after baseline | **Yes.** The only one |
+
+**Three of the four are unfalsifiable, no per-bucket figure is disclosed, and the sum is reported as one number.** Nothing here is fabricated. Every bucket is a legitimate category of value that finance teams really do track. **The problem is that the composite cannot be audited and is presented as though it can.**
+
+**The check this produces, and it generalizes past AI:** when a headline value figure is a sum of categories, **ask for the split before accepting the total.** If the split is not disclosed, ask which buckets are counterfactual. A number that is mostly "losses that did not occur" is a modelling assumption wearing a dollar sign.
+
+**How to cite such a figure honestly if you must.** Name the four buckets, say that three are counterfactual, and say the split was not disclosed. **That sentence is more useful to a reader than the $500 million**, because it tells them what kind of claim they are holding.
+
+**The related signal on the same page.** The same source noted the firm was piloting a few dozen applications and deliberately holding most back until the kinks were worked out. **A large value figure standing next to a small deployed footprint is a prompt to ask which one the number describes.**
+
+*(Source: HBR, "Investing in AI Payoffs at Vanguard," Oct 2025 — ◆ single company, self-reported by its CIO and chief data analytics officer. **No per-bucket split and no method for any bucket is disclosed**, and the firm is client-owned, so "shareholder value creation" means something different there than at a listed company. **Roughly a year old now.** The four-bucket structure is the reusable part; the $500 million is not a number to repeat. Falsifier: a disclosed split showing operational efficiency, the one checkable bucket, carrying most of the total.)*
 
 ## TEACHING CASE: TWO NUMBERS FROM ONE ARTICLE, BOTH BROKEN IN DIFFERENT WAYS
 

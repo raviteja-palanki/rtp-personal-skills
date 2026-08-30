@@ -1,6 +1,6 @@
 ---
 name: build-or-buy
-version: v2.4_latest
+version: v2.5_latest
 description: 'Should you build this AI capability yourself or buy it? Six stop-at-the-first-''no'' checks (problem type, whether examples-in-the-prompt already do it, data, speed, cost, upkeep) across the four ways to get AI: prompt a general model, ground it in your own documents (RAG), train your own (fine-tune), or buy a finished product. Companion lenses decide which work is even worth owning. Use when: scoping features, vendor renewals, ''should we train a model'' debates, comparing custom vs. API costs. Pairs with: moat-finder (is what you''d build defensible, and which value-chain layer a vendor sits in), cost-model (what it costs at scale), agent-harness (orchestration cost multiplier once you''ve decided to build). Triggers: ''build or buy'', ''fine-tune vs prompt'', ''RAG vs API'', ''in-context vs fine-tune'', ''should we train a model'
 imports: [determinism-compass, stress-test, agent-harness]
 ---
@@ -287,9 +287,9 @@ At $19/month × millions of developers, code completion API costs at scale plaus
 
 ---
 
-## Companion Lenses: Which Work to Own, and Which Bought Software to Keep (2026)
+## Companion Lenses: Which Work to Own, and Which Bought Software to Keep (2025-2026)
 
-The five gates answer "how should we build this AI capability: prompt, RAG, fine-tune, or buy?" Eight 2026 findings sit one level *up*: they help you decide which work is even worth owning, and which purchased software is safe to keep vs. worth replacing. Use them before the gates, then run the gates on whatever you decide to own. *(These are companion lenses, not new gates — they don't change the five-gate logic above.)*
+The five gates answer "how should we build this AI capability: prompt, RAG, fine-tune, or buy?" Nine findings, mostly from 2026, sit one level *up*: they help you decide which work is even worth owning, and which purchased software is safe to keep vs. worth replacing. Use them before the gates, then run the gates on whatever you decide to own. *(These are companion lenses, not new gates — they don't change the five-gate logic above.)*
 
 ### Lens 0 — Buying a capability is not building an advantage (frame the asset first)
 
@@ -402,6 +402,25 @@ A pattern from research-heavy institutions that generalizes to any organization 
 **A limit the source states about itself, which is worth respecting.** The authors note that **no institution has fully implemented all five elements.** It is a synthesis across observed practice, not one organization's proven playbook, and it carries no acronym or outcome data.
 
 *(Source: Offodile, Kadakia, Dash, Snider, Wu & Vickers, HBR, "U.S. Medical Centers Need a New Model for Drug Discovery and Development," Apr 2026 — ⚠ synthesis-tier, explicitly incomplete by the authors' own statement.)*
+
+### Lens 8 — Assess the industry before the company, and name who leaves self-sufficient
+
+A private-equity firm's repeatable process for installing AI capability in the companies it buys. **The order is the transferable part**, and it inverts what most acquirers and most internal build-or-buy reviews do.
+
+**Four steps, in order:**
+
+1. **Assess AI's effect on the target's whole industry, before investing.** Not the company's AI readiness. The industry's. A well-run company in a sector AI is about to reprice is a different asset from the same company in a stable one.
+2. **Run company-level diligence on products and projects.** Only now does the individual company's position matter.
+3. **Identify use cases and an implementation plan for after close**, before the deal completes. The plan is diligence output, not a first-hundred-days exercise.
+4. **Secure senior buy-in on both tools and talent.** Both, because a tool agreed to without the hires is a licence nobody operates.
+
+**The central-team design, and the stated exit condition is the useful part.** A central data, digital and AI team supplies tools, vendors, senior hires and consultants, **and aims to leave each company self-sufficient.** A central team with no stated exit condition becomes a permanent dependency, which is the same pricing-power transfer Lens 4 describes, run internally instead of against a supplier.
+
+**One more move worth noting: the firm runs its own cross-portfolio AI system reading purchasing contracts and invoices across all its companies.** That is an asset no single portfolio company could build, because it exists only at the level that sees all of them. **When you are the parent, ask what you can see that none of your units can**, because that is the only thing you can build that they could not have bought.
+
+**How to run this as a build-or-buy lens:** before scoping a capability, ask whether the question is being asked at the right altitude. Some capabilities are only defensible one level up.
+
+*(Source: HBR, "Building AI Capabilities Into Portfolio Companies at Apollo," Jun 2025 — ◆ single firm, self-described, no outcome data attached to the process. **Over a year old and from private equity rather than product**, so treat the sequence as a structure to borrow rather than as current practice. Falsifier: an acquirer whose company-first diligence produced AI outcomes as good as an industry-first assessment did.)*
 
 ## Multi-Agent Harness: When Orchestration Kills Your ROI
 
