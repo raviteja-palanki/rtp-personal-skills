@@ -1,6 +1,6 @@
 ---
 name: autonomy-spectrum
-version: v1.6_latest
+version: v1.7_latest
 description: 'Place every AI interaction at the level it deserves, not the highest the model can reach, by asking one question: who decides what happens next, the code or the model? Gives the 7-level spectrum (Feature → Chatbot → Assistant → Copilot ‖ Agent → Autonomous Agent → Multi-Agent), with plain-language ''what the AI does against what the human does'' for each. Also covers the structural shift at Level 4→5 where the model takes over the workflow, consequence-based leveling, leash length and progressive trust, and the effective-against-designed level (the rubber-stamping trap). Use when someone says ''let''s build an agent'', when designing any AI feature, evaluating a competitor, or deciding how much control to hand the model. Pairs with: ai-use-case-readiness (deep governance diagnostic; this is the quick reference), trust-ladder, agent-spec, agent-risk, tool-architecture, agent-harness, judgment-guard. Triggers: ''autonomy level'', ''agent spectrum'', ''how autonomous'', ''let''s build an agent''.'
 imports:
   - determinism-compass
@@ -264,6 +264,8 @@ Every level above assumes the same direction: shed execution, keep judgment. Cli
 **Condition for when this applies:** the capability compounds through repeated hands-on doing (reading the film, drafting the reply, running the diagnosis), not through repeatedly being handed a decision to ratify. A decision-fed capability, where judgment sharpens from making the call rather than from doing the manual steps, still follows the standard default: automate the execution, keep the human deciding.
 
 *(Source: Dan Wang on the HBR IdeaCast, on process knowledge, 2026, framing-tier evidence. Treat this as a named exception to test against one specific capability, not a reversal of the spectrum's general direction. When wrong: most execution in most workflows is decision-fed, not exercise-fed, so inverting the default there just re-imports the toil this whole framework exists to remove.)*
+
+**A second, independent case, with no AI system present.** School of Rock's Method App centralized the input layer of music instruction (a legally cleared song and show library) and left the execution layer (actual teaching) untouched and local. Teaching musicianship is an exercise-fed capability: instructors form judgment by doing the work repeatedly, not by reviewing someone else's decision about it. The company's design choice, standardize the ingredients, never the recipe's execution, is this exception's own prescription, reached without any model involved. This strengthens the exercise-fed exception by showing it is not an AI-era discovery but a general design principle AI happens to make more visible; it would be wrong to cite as proof the exception applies broadly, since it remains a named exception to test against one specific capability. *(Source: HBR Cold Call, "How School of Rock Created Structure in Order to Scale with Agility and Creativity," Jun 2026.)*
 
 ## THE LAUNCH GATE FOR ANY SYSTEM THAT CAN CONTRADICT A HUMAN
 
