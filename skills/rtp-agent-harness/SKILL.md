@@ -1,6 +1,6 @@
 ---
 name: agent-harness
-version: v1.4_latest
+version: v1.5_latest
 description: 'The machine that turns a model''s reasoning into work that ships, and how to diagnose it when it breaks. Covers the MHTE frame (Model/Harness/Tools/Environment), the five harness clusters (Identity, Memory Policy, Orchestration, Interception, Observability & Evals) + Governance, Session/Harness/Sandbox, the six failure signatures, the Anatomy Atlas (symptom→cluster→fix), phase-relative perception, the four shippable patterns + feedback flywheel, and the six paradoxes. Use when diagnosing why an agent fails, designing or reviewing a harness, deciding what to change this sprint, or evaluating a vendor''s harness. Sibling: harness-operating-model (the economics/org/longevity of the program). Pairs with: agent-ecosystem, tool-architecture, invisible-stack/context-spec, production-observability, eval-framework, safety-by-design. Triggers: ''agent harness'', ''why did the agent fail'', ''MHTE'', ''harness anatomy'', ''planner generator evaluator''.'
 imports: [agent-ecosystem, tool-architecture, eval-framework, production-observability]
 ---
@@ -34,6 +34,8 @@ The proof this is real, not rhetoric: [Harness-Bench (July 2026)](https://arxiv.
 ## THE FOUR-LAYER MODEL (MHTE) — Where the Harness Lives
 
 Anthropic's March 2026 [NIST RFI response](https://www.anthropic.com/news/anthropic-nist-rfi-response) set the shared vocabulary: **Agent = Model + Harness + Tools + Environment.** The model reasons, the harness orchestrates, the tools act, the environment contains. The harness is "the natural home for observability and verification."
+
+**A lay analogy for a stakeholder who has never heard the word "harness":** Atlassian separates "where work happens" from "how work happens." Employees get total freedom on the first axis, work from anywhere, and zero freedom on the second, every meeting produces a two-page document and a recorded decision, no exceptions. The freedom on one axis is what makes the constraint on the other tolerable, and the constraint is what makes the freedom survivable. That is the model-proposes/harness-decides split in a form nobody needs prior AI vocabulary to follow. The analogy breaks down past the surface: Atlassian's structure is a human habit with no technical enforcement, while MHTE's harness layer is a technical control layer with actual guardrails. Use it only as a first-contact bridge, not as a substitute for the four-layer model above. *(Source: HBR Cold Call, "Atlassian Anchors Remote Flexibility in Structured Daily Practices," Aug 2025, case HBS 925-029.)*
 
 | Layer | Role | Owns |
 |---|---|---|

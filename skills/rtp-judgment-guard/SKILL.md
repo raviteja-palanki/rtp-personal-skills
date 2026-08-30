@@ -1,6 +1,6 @@
 ---
 name: judgment-guard
-version: v1.7_latest
+version: v1.8_latest
 description: 'Decide, on purpose, where human judgment sits inside an AI system, because if you don''t, adoption decides for you and the default removes the human. Two cases. ATROPHY: leaning on AI silently fades expert judgment over 6–18 months and stops an organization making new experts; design deliberate friction (rotation, calibration, state-first override, repair, reasoning capture) to keep humans sharp. COMPLEMENTARITY: in regulated, catastrophic-cost work (surgery, aviation, lending) the human stays permanently because human and AI together are more precise and more certain than either alone; design the labor split so each brings its best, the tail not the average setting the floor. Use when deploying high-stakes AI, users stop questioning AI outputs, designing human-in-the-loop for regulated work, or rolling AI into a team of experts. Do NOT use for low-stakes work where full automation is intended. Pairs with: determinism-compass, autonomy-spectrum, trust-ladder, agent-risk.'
 imports: []
 ---
@@ -238,6 +238,20 @@ Professional development runs roughly **70% from doing the job, 20% from working
 Route the workforce-level version, including the three-question audit, to `rtp-capability-tracking`.
 
 *(Source: HBR, "Your Talent Strategy Has to Keep Up with Your AI Transformation," Jun 2026 — ⚠ practitioner-tier. The 70-20-10 model is the Center for Creative Leadership's. This is the second independent sighting of capability debt in a month, after the engineering-provenance version.)*
+
+### The organizational twin has a second case: the accountability layer you removed with the role
+
+The entry-level case above loses a training function. Cutting middle management loses a different one: oversight. In most organizations, accountability functions run through middle managers, who bridge strategy and execution, own implementation decisions, and know when to override a recommendation. That is a live instance of this skill's own alterability question: the person accountable has to be able to change the outcome, or the accountability is theater.
+
+**Why this matters here specifically.** A 2025 Korn Ferry survey found 41% of companies have already reduced managerial layers, in part because of AI (◆ Korn Ferry's own disclosed survey finding; the AI-attribution is the article's own hedge, not a controlled measurement). The discovery cost shows up later: in a survey of 600 HR leaders who made AI-driven layoffs in the year to February 2026, 55% said the cuts required more human oversight than they had expected (⚠ reported, polling organization not named). Same shape as the training-function loss: the metric that shows the headcount saving does not show the oversight capacity that went with it, and nobody notices until the AI is wrong about something that matters and no one in the room can still tell.
+
+**When this is wrong.** Not every management layer carries this function; some middle-management roles are coordination overhead with no accountability content, and cutting those loses nothing this mechanism describes. The test is the same one this skill already applies elsewhere: ask whether the role, before it was cut, was a place where a bad call actually got stopped, not just reviewed. If it was pure pass-through, the accountability-layer twin does not apply.
+
+Route the workforce-level audit question, "what oversight capacity does this role provide that no metric currently measures," to `rtp-capability-tracking`'s Capability Debt three-question audit as an optional fourth question.
+
+*(Source: HBR, "AI Transformation Requires Redesigning Work, Not Cutting Roles," Aug 28 2026 — the Korn Ferry figure is ◆, the 55%-oversight figure is ⚠.)*
+
+**The atrophy drain is not confined to technical judgment.** A room-reading practitioner names, unprompted, the identical shortcut-versus-depth trade this skill documents for code and clinical review: AI can "speed read somebody... right before you meet them," but the practice that actually produces influence is "much deeper and it's much more thoughtful." The mechanism generalizes past technical review into interpersonal skill; it does not extend the mechanism itself, only its scope. *(Source: Pamela Meyer, HBR IdeaCast, Aug 2026 — ⚠ single practitioner aside, illustrative rather than measured.)*
 
 ### The six checkpoints (treatment)
 

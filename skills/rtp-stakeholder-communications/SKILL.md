@@ -1,6 +1,6 @@
 ---
 name: stakeholder-communications
-version: v1.7_latest
+version: v1.8_latest
 description: 'Audience-tailored communication for AI features: exec summaries, engineering briefs, launch announcements, risk escalations, weekly digests. The differentiator is AI-native confidence framing: every claim about a model''s behavior carries an eval-backed band, a named drift surface, and a mandatory "what could be wrong" section. Use when a single piece of information needs to land in three rooms (exec, engineering, customer) and each room is going to ask a different "but what''s the failure rate?" question. Do NOT use for internal team chat, casual PR updates, or comms about deterministic features where probabilistic framing is theater. Triggers: "stakeholder update," "exec briefing," "escalate to leadership," "launch announcement," "weekly digest," "send a note to." Pairs with: dual-lens (business AND technical legibility), trust-under-fog (confident comms on uncertain outcomes), first-principles (read the live need before supplying your default).'
 imports:
   - ai-product-metrics
@@ -328,6 +328,24 @@ Everything above is about what you say. This is about **which role you take**, a
 **One caution on pairing.** Adding value and asserting yourself have to travel together. Value alone under-signals: hierarchies run on contribution, and people-pleasers still do not end up running them. Assertion alone reads as noise. **The moderator role is the cheapest way to do both at once**, because synthesizing is a contribution and directing is an assertion.
 
 *(Source: Chris Lipp, *The Science of Personal Power*, discussed in HBR, Jun 2026 — ⚠ practitioner-tier, a book-and-interview source with no measured effect sizes attached to the meeting-status model. The moderation tactic is credited there to Maggie Neale at Stanford GSB. Treat the three roles as a usable frame, not a validated taxonomy, and do not attach numbers to it.)*
+
+## FIVE PATHS WHEN YOU HAVE NO AUTHORITY TO SPEND
+
+Everything above assumes you are in the room. This is what to do with people you have no standing over at all, and the reason a direct ask fails with them: it threatens their autonomy, one of three needs (competence, relatedness, autonomy) every person carries at work, and a threatened autonomy need produces reactance, a pullback, not compliance. "Claim the moderator seat," above, works when you are already in the meeting. This is what to do before the meeting, or with someone who will never be in one with you.
+
+Five roles, each moving a decision without an instruction:
+
+1. **Influence spotter.** Do not read job titles. Watch who actually shapes a hard decision, then run a **chain analysis**: go back a link or two to find who is influencing the person who has the influence. Approach gently, optionally, and bring something of value, never a direct ask.
+2. **Backchanneler.** When a group is frozen, pull the two sides into a private conversation. The rule that keeps this legitimate instead of political: close the channel and bring the finalized decision back to the group, publicly. A backchannel that never surfaces reads as a power grab, no matter how well-intentioned.
+3. **Precision mover.** Win on timing, not content. Think in windows, not moments. A well-reasoned delay that gets pre-empted by someone else's disclosure reads as evasive regardless of intent, so this fails hard and often; practice on small stakes first.
+4. **Connector.** Fill a gap, expertise, coordination, an introduction, only where both sides genuinely benefit. The moment it reads as transactional or one-sided, your credibility with everyone goes with it.
+5. **Pulse reader.** Pause, watch, name what the room feels before anyone else says it. Requires a second judgment on top of the read: whether the room can hear it now, or is too contracted for the observation to land.
+
+**What this adds to the skill:** a stakeholder-mapping technique (chain analysis) and a standard for informal, off-the-record negotiation (the backchanneler), both of which every cross-functional AI PM already does half-consciously with no written standard. Chain analysis in particular gives this skill a way to find the actual decision-maker in a network where the org chart is wrong.
+
+**When wrong:** requires an organization loose enough to have real informal channels to find, and requires the practitioner to have already earned baseline trust; attempted early, or in a rigid, fully formalized hierarchy, any of the five reads as calculating rather than skilled.
+
+*(Source: Pamela Meyer, HBR IdeaCast, "How People Without Formal Power Gain Influence," Aug 2026 — ⚠ practitioner craft and self-determination theory, no measured outcome for any of the five paths in the transcript.)*
 
 ## AI-NATIVE CONFIDENCE FRAMING
 
