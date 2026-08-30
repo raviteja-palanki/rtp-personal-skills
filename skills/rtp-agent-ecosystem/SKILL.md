@@ -1,6 +1,6 @@
 ---
 name: agent-ecosystem
-version: v1.5_latest
+version: v1.6_latest
 description: 'When two or more AI agents must work together, the hard problem stops being intelligence and becomes coordination: who owns shared state, how work hands off without losing context, and what happens at the merge when agents disagree. Covers coordination topologies (supervisor, pipeline, fan-out/fan-in, peer), handoff protocols, state ownership, the multi-agent failure taxonomy (race, context drift, cascade, sub-agent divergence), and the graduation gate. Also the human twin of every handoff: the named owner of the seam, and where value concentrates beyond the agents themselves. Use when designing a system of two or more agents, choosing a topology, or diagnosing agents that collide or lose work. This skill owns the seams between agents; agent-harness owns the single-agent machine. Pairs with: agent-harness, harness-operating-model, autonomy-spectrum. Triggers: ''multi-agent'', ''agent orchestration'', ''agent handoff''.'
 imports:
   - determinism-compass
@@ -87,7 +87,7 @@ Distributed teams blame collaboration failures on cultural difference. **The usu
 
 **The diagnostic for either kind of seam:** list your last five coordination failures and sort them into the two columns. If most land on the left, you have a design problem you have been describing as an environment problem.
 
-*(Source: an HBR piece on global team collaboration, Jul 2026 — ⚠ framework-tier, no measured population. **The article's own chart placing the seven elements on a control spectrum did not survive into the captured PDF**, so the two buckets and their members are recovered from the prose and are complete, while the ranking within each is unavailable. The multi-agent translation is this corpus's. Falsifier: a distributed team whose collaboration improved most from work on the three amplifiers rather than the four multipliers.)*
+*(Source: HBR, "How Highly Effective Global Teams Collaborate Across Cultures," Jul 2026 — ⚠ framework-tier, no measured population. **The article's own chart placing the seven elements on a control spectrum did not survive into the captured PDF**, so the two buckets and their members are recovered from the prose and are complete, while the ranking within each is unavailable. The multi-agent translation is this corpus's. Falsifier: a distributed team whose collaboration improved most from work on the three amplifiers rather than the four multipliers.)*
 
 ## THE COORDINATION TOPOLOGIES
 

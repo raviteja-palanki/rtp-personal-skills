@@ -1,6 +1,6 @@
 ---
 name: fit-signal
-version: v1.2_latest
+version: v1.3_latest
 description: 'Tell whether an AI product has earned real user dependence, or just survived a lucky stretch. Standard PMF metrics (NPS, retention, DAU) get inflated by AI''s own variance, so a team can "confirm PMF" on users who are stress-testing the product, not depending on it. The one signal immune to that variance is the trust curve: rising, plateauing confidence in AI output over weeks, which luck can''t fake because it takes many good experiences in a row. Builds a fidelity-based trust score, the magic moment that predicts who reaches it, correction-rate decay (and the resignation trap that fakes it), switching cost, and a four-verdict scorecard: confirmed, emerging, uncertain, absent. Use when you have 8+ weeks of active users and must decide scale, iterate, or pivot, or when NPS looks fine but something feels off. Do NOT use pre-launch, on deterministic products, or under 100 weekly active users. Pairs with: falsification, feedback-flywheel, stress-test, ai-product-metrics.'
 imports:
   - falsification
@@ -156,7 +156,7 @@ Expect different baselines by use case — code generation should sit above 90% 
 
 **How this changes a kill decision in this skill.** A flat trust curve on one packaging is not a flat trust curve on the instinct. **Before killing a direction, write the instinct in one sentence with no product in it, then ask whether your evidence would still count against that sentence.** Usually it would not, and you have a packaging problem rather than a fit problem.
 
-*(Source: an HBR piece on creating products with curiosity and humility, Jul 2026 — ⚠ practitioner-tier, drawn from founder observation with no comparison between teams that separated the two objects and teams that did not. Falsifier: a set of ventures where testing several variants of one instinct produced no better hit rate than testing one and moving on.)*
+*(Source: HBR, "Creating Products with Curiosity, Humility, and Play," Jul 2026 — ⚠ practitioner-tier, drawn from founder observation with no comparison between teams that separated the two objects and teams that did not. Falsifier: a set of ventures where testing several variants of one instinct produced no better hit rate than testing one and moving on.)*
 
 ## AI MADE INTEREST CHEAP, SO INTEREST STOPPED BEING A SIGNAL
 

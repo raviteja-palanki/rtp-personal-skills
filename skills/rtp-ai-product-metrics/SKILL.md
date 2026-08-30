@@ -1,6 +1,6 @@
 ---
 name: ai-product-metrics
-version: v1.7_latest
+version: v1.8_latest
 description: 'Pick the leading indicators that actually predict AI product health: acceptance, correction, regeneration, conversational burden, cost-per-successful-outcome, and the 5-stage AI funnel (Surfaced -> Invoked -> Completed -> Accepted -> Retained). DAU and retention are lagging indicators that miss model regressions. Also carries the two moves most metrics decks skip: reading the dashboard as a demand-signal aggregator (evals as discovery), and the executive-translation layer that turns an eval-score move into the business number a CFO/GC/COO/CHRO acts on. Use when designing an AI metrics dashboard, debugging why DAU is stable but users complain, mapping North Star + AARRR for AI, or translating eval scores for a board. Pairs with: eval-framework, feedback-flywheel, confidence-tuner (is the judge trusted), cost-model/token-economics, stakeholder-communications, fit-signal. Triggers: "AI metrics", "North Star metric", "acceptance rate", "AI funnel", "cost per successful outcome".'
 imports:
   - eval-framework
@@ -72,7 +72,7 @@ Each era layers on; it doesn't replace the prior one. Name where your dashboard 
 
 **The version to actually put on a dashboard:** ARR per FTE, with contractors counted and stated, tracked as a trend against your own history, alongside a second line for what the company is building that the ratio cannot see. **One number and one caveat, or the number will be used as a verdict.**
 
-*(Source: a Jul 2026 piece on AI-driven enterprises — ⚠ single-source argument-tier, no measured population. **The two headline figures in that article are both broken and are carried as a teaching case in `rtp-trendslop-check` rather than as evidence here.** The metric idea stands on its own reasoning. Falsifier: a cohort where ARR per FTE at an early stage predicted survival no better than capital efficiency did.)*
+*(Source: MIT Sloan, "Why AI-driven enterprises are the future of entrepreneurship," Jul 2026 — ⚠ single-source argument-tier, no measured population. **The two headline figures in that article are both broken and are carried as a teaching case in `rtp-trendslop-check` rather than as evidence here.** The metric idea stands on its own reasoning. Falsifier: a cohort where ARR per FTE at an early stage predicted survival no better than capital efficiency did.)*
 
 ## START FROM THE DECISION, NOT FROM THE QUESTION
 

@@ -1,6 +1,6 @@
 ---
 name: trendslop-check
-version: v1.4_latest
+version: v1.5_latest
 description: 'Catch when AI-generated strategy defaults to trendy advice instead of context-specific strategy. Grounded in a real, named HBR study (Romasanta, Thomas & Levina, Mar 2026): across ~15,000 simulations on 6 frontier models, LLMs showed consistent bias on 6 of 7 classic strategic tensions: differentiation over commoditization (96%), augmentation over automation (93%), plus long-term, collaboration, radical, and decentralization. The one axis with NO bias: exploration vs. exploitation. The counterintuitive finding: adding rich context shifts the bias only ~11%; reversing which option is listed first shifts it ~19%. Prompting harder doesn''t fix this. Use when bootstrapping strategy, running multi-scenario planning, or validating AI-generated recommendations.'
 imports: [first-principles, bias-spotter]
 ---
@@ -105,7 +105,7 @@ The date is defensible. **The implied story is out of order, and the order is wh
 
 **The general rule both cases produce.** These two sit either side of the same line. **The first number is wrong in its units. The second is right in its facts and wrong in its story.** A source-checking pass that only verifies figures against records catches the second and misses the first entirely, because both halves of the Netflix comparison are individually true.
 
-*(Source: a Jul 2026 piece on AI-driven enterprises. Both corrections were checked against primary records during the note pass — ⚠ the article's figures are single-source with no stated method. **Neither number should travel from this corpus.** The ARR-per-FTE metric itself is a reasonable idea and is carried in `rtp-ai-product-metrics` without these two illustrations.)*
+*(Source: MIT Sloan, "Why AI-driven enterprises are the future of entrepreneurship," Jul 2026. Both corrections were checked against primary records during the note pass — ⚠ the article's figures are single-source with no stated method. **Neither number should travel from this corpus.** The ARR-per-FTE metric itself is a reasonable idea and is carried in `rtp-ai-product-metrics` without these two illustrations.)*
 
 ## THE TRAP
 

@@ -1,6 +1,6 @@
 ---
 name: alignment-check
-version: v1.7_latest
+version: v1.8_latest
 description: 'Check if your organization is actually ready for AI (structure, roles, accountability) before spending on technology. 93% of AI failures are organizational, not technical. This skill maps the 5-link chain (Purpose → Strategy → Capability → Architecture → Systems) and finds which one is broken. Use when kicking off an AI initiative, inheriting a stalled project, evaluating why pilots fail to scale, assessing readiness before a major investment, or diagnosing production failures. Do NOT use to delay decisions or as a perfectionist checklist. It is diagnostic, not a maturity model. Pairs with: problem-type (technical fix vs. organizational change), responsible-ai-program (the governance layer), adoption-launch (the people side of readiness).'
 imports: []
 ---
@@ -326,7 +326,7 @@ The case that makes it concrete: a large humanitarian organization ran an eight-
 
 **The practical version, and it is uncomfortable:** the reforms most worth doing now are the ones with no current forcing function, because a forcing function means you are already late. **A reform proposed during good conditions has no urgency behind it and is exactly the one that will matter.** That is a hard case to make, and knowing it is the case is most of what makes it makeable.
 
-*(Source: an HBR IdeaCast interview with a UNHCR leader on organizational transformation, Jun 2026 — ⚠ single-organization practitioner narrative. **The article names no framework and states no thesis**; the sequencing argument above is this corpus's reading of the account, and there is no counterfactual for what would have happened without the eight years of prior work. Falsifier: an organization that built comparable resilience during a contraction rather than before it.)*
+*(Source: an HBR IdeaCast interview with a UNHCR leader, "Reinventing an Organization to Do More with Less," Jun 2026 — ⚠ single-organization practitioner narrative. **The article names no framework and states no thesis**; the sequencing argument above is this corpus's reading of the account, and there is no counterfactual for what would have happened without the eight years of prior work. Falsifier: an organization that built comparable resilience during a contraction rather than before it.)*
 
 ## WHERE YOUR BOARD SITS DECIDES WHICH ALIGNMENT IS EVEN AVAILABLE
 
@@ -346,7 +346,7 @@ An alignment chain has to terminate somewhere, and for anything strategic it ter
 
 **The claim underneath all of it, worth stating plainly because it is the article's thesis:** AI commoditizes hard expertise, so the traits that differentiate a leader move to learning speed and judgment quality. **The best leaders of this era will not be the ones who know the most.**
 
-*(Source: an HBR piece on how C-suite and board roles are being reshaped around AI, Jun 2026 — ⚠ argument-tier for the pyramid, which is the author's own model with no measured population and a stated forecast date rather than evidence. **The CFO and CHRO skills-shift tables are the stronger part**: ◆, from a Russell Reynolds analysis of job descriptions, 2019 against 2025. Falsifier: boards observed moving through these stages out of order, or skipping straight from stage 1 to stage 3.)*
+*(Source: HBR, "How C-Suite and Board Roles Are Being Reshaped Around AI," Jun 2026 — ⚠ argument-tier for the pyramid, which is the author's own model with no measured population and a stated forecast date rather than evidence. **The CFO and CHRO skills-shift tables are the stronger part**: ◆, from a Russell Reynolds analysis of job descriptions, 2019 against 2025. Falsifier: boards observed moving through these stages out of order, or skipping straight from stage 1 to stage 3.)*
 
 ## WHO IS ACTUALLY IN THE ROOM, AND HOW LONG THEY WILL BE THERE
 
