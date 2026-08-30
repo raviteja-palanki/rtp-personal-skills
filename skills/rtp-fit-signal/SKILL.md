@@ -1,6 +1,6 @@
 ---
 name: fit-signal
-version: v1.0_latest
+version: v1.1_latest
 description: 'Tell whether an AI product has earned real user dependence, or just survived a lucky stretch. Standard PMF metrics (NPS, retention, DAU) get inflated by AI''s own variance, so a team can "confirm PMF" on users who are stress-testing the product, not depending on it. The one signal immune to that variance is the trust curve: rising, plateauing confidence in AI output over weeks, which luck can''t fake because it takes many good experiences in a row. Builds a fidelity-based trust score, the magic moment that predicts who reaches it, correction-rate decay (and the resignation trap that fakes it), switching cost, and a four-verdict scorecard: confirmed, emerging, uncertain, absent. Use when you have 8+ weeks of active users and must decide scale, iterate, or pivot, or when NPS looks fine but something feels off. Do NOT use pre-launch, on deterministic products, or under 100 weekly active users. Pairs with: falsification, feedback-flywheel, stress-test, ai-product-metrics.'
 imports:
   - falsification
@@ -138,6 +138,39 @@ Target a 50–60% reduction from week 1 to week 8 (⚠ illustrative bar — set 
 - **Reads as resignation if:** corrections fall while complaints rise or downstream use quietly drops — users accepting worse output because checking isn't worth their time anymore. This is a leading indicator of churn, not fit.
 
 Expect different baselines by use case — code generation should sit above 90% used-as-is-or-minor-edit, open-ended creative work closer to 60–70% (⚠ illustrative). A use case running 80% correction when you expected 40% means either the use case is wrong for AI or the product is failing it specifically.
+
+## AI MADE INTEREST CHEAP, SO INTEREST STOPPED BEING A SIGNAL
+
+**The problem this skill exists for just got worse.** A demo request, a pilot, a proposal ask: each used to cost the buyer something to produce, which is what made it informative. **AI has made several of those behaviors cheap to produce without underlying intent.**
+
+**The check before counting anything as pipeline:** has AI made this specific behavior cheap? If yes, it is no longer a costly signal and should not be scored as one.
+
+**The replacement, which is still expensive:** a **trigger event the buyer names unprompted.** Not "this is important to us," which is free. Something that changed, that they raise themselves, that makes solving it now rather than later.
+
+### Six behaviors that separate founders who convert interest into revenue
+
+A qualification frame for when the founder is the primary seller and the company is pre-PMF:
+
+| | Creates | The test |
+|---|---|---|
+| **Speed** | attention | did this person just describe my situation better than I could? |
+| **Problem** | urgency | what has changed to make solving this *now* essential? |
+| **Results** | belief | can the buyer describe the outcome to their own board without you in the room? |
+| **Implementation** | safety | did you answer the risk question before they raised it? |
+| **Niche** | repeatability | one buyer type, one problem, one motion that repeats |
+| **Trust** | permission | is your credibility transferable, or does it live only in you? |
+
+**Two matter most for a fit read.** **Problem** is the qualifying gate, because that is where the trigger event surfaces. **Trust** is the scaling risk: founder credibility is a feature early and a liability later, because it does not transfer to a hire.
+
+**The named failure inside Implementation is worth knowing.** Buyers who seemed enthusiastic go quiet **not because they stopped believing in the product**, but because someone upstream raised a risk nobody answered. Silence after enthusiasm is usually an unanswered objection you never heard.
+
+## DO NOT AVERAGE YOUR TOP TWO BOXES
+
+**Satisfaction and outcome are not linearly related.** The curve runs close to flat through mild-and-good, then bends steeply once experience crosses into genuine attachment.
+
+**So averaging 4s and 5s destroys the signal.** A rising average can simply mean more 4s, which predicts very little. **The 5s are the population that predicts retention and advocacy, and they have to be counted on their own.** That is the specific reason NPS and "improve average satisfaction" are weak north stars for a fit read. See `rtp-feedback-flywheel` for how to mine that cohort deliberately.
+
+*(Sources: SPRINT is Rubinstein & Onyemah, HBR, 24 Jun 2026 — ⚠ inductive from an interview set, no effect sizes, single worked case. The costly-signal reframe is this corpus's. The curvilinear finding is ◆ via HBR, Jun 2026, sourced there to a Gallup meta-analysis and Anderson and Mittal's satisfaction-retention research.)*
 
 ## SWITCHING COST — the indirect confirmation
 

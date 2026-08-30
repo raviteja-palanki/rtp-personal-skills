@@ -1,6 +1,6 @@
 ---
 name: adoption-launch
-version: v1.4_latest
+version: v1.5_latest
 description: 'Treat AI adoption as a product launch, with personas, phases and phase-specific support, rather than as a training program. Adoption curves are predictable: Surge → Dip → Rebound, and the shape repeats across unrelated companies and tool types (Novo Nordisk, Microsoft). One-time training doesn''t prevent the dip; the dip is a product and organizational-design problem, not a training problem. Use when planning AI rollout, adoption is stalling, or designing change management. Pairs with: needs-guard (which psychological need the rollout threatens), attitudinal-segmentation (embracers vs. skeptics), agent-risk (when someone has a rational reason to want it to fail), purpose-dialogue (connecting the rollout to what people believe in), judgment-guard (the multi-year capability-debt question: apprenticeship pipelines thinning as AI absorbs junior tasks, which is distinct from this skill''s single-rollout competency trap, below).'
 imports: [first-principles, needs-guard]
 ---
@@ -214,7 +214,7 @@ The three phases below tell you *what* the adoption curve does. This gate tells 
 
 **Consultation after the decision cannot build ownership, and calling it co-creation makes it worse.** The distinction that matters: consensus shows up in the room, appetite shows up months later when priorities collide and people decide what to protect. Appetite is built by authorship, and **authorship has a deadline**: soliciting input and genuinely listening *before the plan is fully formed*, rather than after it has been announced. So a rollout plan written after the decision was made can still do useful things, and building ownership is not one of them. Stop the Surge phase from promising it. A related correction on the capacity side: bandwidth is created by **removing work**, not by adding people. Of the four standard moves for creating capacity (postpone a competing initiative, clarify who owns decisions, shift resources to what matters most, protect uninterrupted thinking time), three take work away. If your readiness plan adds headcount and postpones nothing, it has not created capacity.
 
-**The first lever that makes all five gates easier: state the benefit in the adopter's currency, not the buyer's.**
+**The first lever that makes all six gates easier: state the benefit in the adopter's currency, not the buyer's.**
 
 Rio Tinto's leaders talked to employees about mining automation as **safety**: *"a mine where no miner will ever get hurt again."* Not efficiency.
 
@@ -231,6 +231,39 @@ Here is why that works. For a miner, the live metric is not cost per tonne. It i
 **Why it matters:** adoption is gated by whether people feel *safe enough to experiment*, and experimenting with a tool that might replace you is a risk nobody takes when they don't feel safe ("why would anyone be enthusiastic about training their replacement?"). An announced rollout skips the step that builds that safety, so it enters the Surge phase already fragile — the Month-3 dip below isn't only novelty wearing off, it's fear that was present from day one. This is the causal variable the dip-causes list doesn't yet name. **When this is wrong:** where use is genuinely non-negotiable and universal (a tool everyone must use to do the core job), the safety dynamic is weaker and the curve is driven more by workflow fit than by fear; and where the fear is *accurate* (the AI really is eliminating the role), empathy and co-creation are the wrong lever — the honest move is a straight answer about the conflict, not a co-creation workshop.
 
 *(Sources: "Empathetic Leadership Can Make or Break AI Adoption," Zaki, HBR, 30 Apr 2026. The 76%-vs-31% gap is ◆ [BCG 2026](https://www.bcg.com/publications/2026/ai-at-work-why-strategy-matters-more-than-tools); the "~60% plan to lay off non-adopters" companion finding is ⚠ reported. The 85%/25%/61-point IBM figure is ◆ company-disclosed (IBM Institute for Business Value 2026 Global CEO Study, 2,000 CEOs, 33 geographies, 21 industries). "AI Adoption Is Overloading Your Middle Managers," Shin & Sucher, HBR, 26 Jun 2026 — the role-elevation/burial framework and its three breakdowns are ⚠ reported (18 semi-structured interviews at two unnamed consulting firms; treat the mechanism as directional, not a measured population rate). **Decay clock:** re-verify the IBM and BCG figures before citing past mid-2027 — adoption-gap numbers move fast as tooling and organizational practice mature.)*
+
+## TWO LEVERS DRIVE ADOPTION, AND ONLY ONE OF THEM CARES ABOUT QUALITY
+
+Gate Zero's currency translation is one lever. **There is a second, and this skill has been folding them together.**
+
+| Lever | The mechanism | Cost to run | The catch |
+|---|---|---|---|
+| **Currency translation** | denominate the benefit in a metric the adopter is already measured on | high: you have to do the metric work | slow, and it needs a credible claim |
+| **Audience exposure** | make the tool's use **visible to an external audience the employee cares about** | low: no metric work at all | **it drives use, not skilled use** |
+
+**The exposure case.** One asset manager reported rapid adoption of virtually every AI tool it released. The stated mechanism was not that anyone showed employees a metric. It was that **the tools were visible to clients and partners.** A salesperson uses the tool because the adviser across the table can see whether they did.
+
+**The failure mode, and it is specific and checkable.** Someone who opens a tool because a client will notice has every incentive to open it and **none to use it well.** So exposure predicts a distinctive signature: **high adoption, flat output quality, and nobody measuring the second one.** That same company reported rapid adoption of everything and not one quality metric.
+
+**The rule: if you pull the exposure lever, you must instrument quality**, because the lever you pulled does not care about it. Currency translation at least points at an outcome. Exposure points at a behavior.
+
+**When exposure is unavailable:** it only exists where the tool touches an external audience the employee cares about. For purely internal tooling there is no exposure lever, and currency translation is the only one you have.
+
+## FIVE CONDITIONS FOR AN ONBOARDING THAT PEOPLE ACTUALLY LIKE
+
+The phase model below is about **timing**. This is about **content**, and the two are independent.
+
+The conditions are **sequential**: a later one cannot activate until the earlier ones are met. Not every good experience needs all five, but the ones that change behavior tend to have them.
+
+1. **Control.** "What is this, and how should I engage with it?" Orientation and a clear choice, given before anything else is asked.
+2. **Harmony.** "Do you know what I am feeling, and do you care?" Meet people where they are emotionally before asking them to move.
+3. **Significance.** "Do you know my story, and do you care?" Personalization that signals this specific person matters.
+4. **Warmth.** "Who is with me, and how can they help?" Visible, reachable support.
+5. **Growth.** "How will I be more capable tomorrow?" **This one collapses entirely if 1 through 4 are unmet**, which is why a training-first rollout with no orientation fails.
+
+**Use it as a checklist against your Surge-phase materials.** Most rollouts jump to condition 5, because training is the thing that looks like adoption support. See `rtp-feedback-flywheel` for how to source these from your own top-decile users rather than assuming.
+
+*(Sources: the two-lever split, an HBR case discussion of Franklin Templeton, Jun 2026 — ◆ single company, self-reported, and the quality-signature prediction is this corpus's inference from the absence of quality metrics rather than a measured finding. The five conditions, Marcus Buckingham in HBR, Jun 2026 — ⚠ framework-tier, one company's worked examples, no outcome data.)*
 
 ## THE ADOPTION CURVE: Three Phases, Three Different User Needs
 

@@ -1,6 +1,6 @@
 ---
 name: agent-spec
-version: v1.0_latest
+version: v1.1_latest
 description: "The design document for an AI agent: what it does at each step, how much it may act alone (levels 0–4), when it must hand back to a human, how it recovers from failure, and who owns the outcome. Includes the chain-reliability math every stakeholder underestimates: 90% reliable per step × 5 steps ≈ 59% reliable end-to-end. Use when: building multi-step agents, setting autonomy levels, placing checkpoints. Pairs with: autonomy-spectrum (choosing the level), agent-risk (worst-case screening), ai-prd (the product spec around it). Triggers: 'agent autonomy', 'agent spec'"
 imports: [trust-ladder, failure-modes, determinism-compass]
 ---
@@ -97,6 +97,36 @@ The dangerous variant: designing agents that have no recovery path. The AI commi
 - **Sprint contract** — an upfront agreement on exactly what the agent must build, the pass/fail tests, and when to stop iterating.
 - **Boundary matrix** — the table mapping each step to its autonomy level, failure mode, recovery cost, and blast radius.
 - **Accountable owner** — a named person set up (mindset / meaning / mechanisms) to actually *choose* to own the agent's output, not just a name in the audit log.
+
+## THE DECISION-DEFINITION GATE (run before you assign any autonomy level)
+
+**The most common agent-deployment failure is not miscalibrated autonomy. It is that the decision was never defined, so a human and an agent both believe they own the same underspecified step.**
+
+That failure looks like an autonomy problem and is not one. No autonomy level fixes it, because the ambiguity happened upstream of the question "how much should this agent decide."
+
+**The sequence, and the order is the whole point:**
+
+1. **Define the decision before assigning roles.** Break the broad goal into specific decisions and subgoals. **Ownership disputes come from vague goals, not from unclear people.**
+2. **Build the decision rights together.** Co-create them with the people affected rather than issuing them top-down. The conversation itself surfaces disagreement early, which is the point of having it.
+3. **Make roles behaviorally specific.** A title is not a role. Name who gives input, who debates, who makes the final call, and who communicates the outcome.
+4. **Match roles to the decision, not the hierarchy.** Assign by relevant expertise. A leader stepping back from a decision someone else is better positioned to make increases the team's speed rather than reducing control.
+
+**The one-question version, for a design review:** *was the decision defined before the role was assigned, or after?* After is the failure.
+
+**Applied to an agent, each step has a direct translation:**
+
+| Step | The agent question |
+|---|---|
+| Define the decision | which specific call is this, stated in one sentence? |
+| Build rights together | do the humans who will live with this agree the agent should own it? |
+| Behavioral specificity | does the agent decide, or recommend? Who is told, and when? |
+| Match to expertise | does the agent actually have better context here than the person? |
+
+**Only after all four does the autonomy-level question become answerable.** Route there via `rtp-autonomy-spectrum` for the level itself, and `rtp-ai-use-case-readiness` for whether the use case should be autonomous at all.
+
+**When this is wrong:** for a genuinely trivial, reversible, single-owner step, running a four-part decision-rights exercise is ceremony. The gate earns its cost where two parties could each plausibly believe they own the call.
+
+*(Source: Greer, Jordan & Sytch, "What Companies Get Wrong About Decision Rights," HBR Jul-Aug 2026, reached through an HBR management digest, Jun 2026 — ⚠ practitioner-tier. **The digest carries no statistics at all.** The four practices are the authors'; the agent translation is this corpus's.)*
 
 ## THE PROCESS
 

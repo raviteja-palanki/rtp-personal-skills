@@ -1,6 +1,6 @@
 ---
 name: capability-tracking
-version: v2.3_latest
+version: v2.4_latest
 description: 'Decide whether to build an AI feature now or wait for model capability uplift to deliver it free. The build-vs-wait call for ONE capability''s trajectory. Not the workforce question (apprenticeship erosion, which is judgment-guard''s ''capability debt''), and not harness architecture (what model upgrades absorb). Covers the capability radar, half-life benchmarks, the quarterly capability test, and build-vs-wait signals. Also: capability parity doesn''t guarantee task automation, since friction (judgment, human assurance, error tolerance, regulation) can hold a ready capability at ''assist'' for years. Use when scoping 12-18 month roadmaps, fine-tune-vs-wait calls, or a capability watchlist. Pairs with: harness-operating-model, judgment-guard, strategy-canvas, build-or-buy, cost-model. Triggers: ''should we build this'', ''wait for the next model'', ''18-month roadmap'', ''commoditization risk'', ''build vs. wait''.'
 imports: [strategy-canvas, first-principles]
 ---
@@ -130,6 +130,30 @@ Half-life reasoning needs a number to anchor on, and until now this skill has ha
 **The consequence for your build-versus-wait call below:** size the *capability* window on the halving rate, and size the *commercial* window on something else entirely. Capability is a smooth curve produced by many labs improving independently. Price is a step function produced by a few vendors making dated decisions on a board's calendar. Organizations routinely compute their adaptation window on the first and get hit by the second. See `rtp-cost-model` section 4B.
 
 *(Source: MIT FutureTech, reported via MIT Sloan, Aug 2026 — ◆ study-disclosed. **No human comparison arm**, so none of this supports a substitution claim on its own. **Decay clock:** a halving rate is itself a claim about the near past; re-verify before citing past end-2027.)*
+
+### 2B. Capability Debt: the liability automation creates and nobody books
+
+This skill tracks whether the *model* can do the work. **This tracks whether your people still can**, which is a different question and the one that goes unmeasured.
+
+**The construct, stated as a debt rather than a gap, and the distinction matters.** A skills *gap* puts the burden on individuals to catch up. A **capability debt** is a systemic obligation the organization took on and must repay. It "accumulates silently, one automated function at a time," and does not appear anywhere until it becomes a crisis.
+
+**Why entry-level automation is the expensive kind.** Professional development runs roughly **70% from doing the job, 20% from working alongside experienced colleagues, and 10% from formal training** (the Center for Creative Leadership model). Entry-level roles are the main vehicle for the first two. **So removing the role removes about 90% of the development model, not a training line item.** The training budget survives; the pipeline does not.
+
+**The three-question audit. Run it per automated function, against every entry-level function automated in the last 36 months:**
+
+1. **Who could perform this work without AI if required?**
+2. **Who can reliably evaluate AI outputs for accuracy?**
+3. **What developmental pathways no longer exist?**
+
+Question 3 is the one nobody asks, and it is where the debt actually sits. Questions 1 and 2 measure today. Question 3 measures whether you can still make someone who passes 1 and 2 in five years.
+
+**Run it cross-functionally or it returns the comfortable answer.** The source specifies a team including the CHRO, the CTO, and at least two business-unit leaders. A single function auditing itself will not name the pathway it removed.
+
+**The repair, if the audit finds debt.** Rebuild entry-level roles as deliberately leaner capability-building cohorts, AI-augmented from day one, designed around **healthy friction**: productive discomfort that stretches people past their current skill. One organization replaced a 200-person program with a structured 50-person cohort on this logic. Pair that with apprenticeship written into performance expectations and compensation, rather than treated as volunteer work.
+
+**How this bounds the build-versus-wait call below.** A capability you wait for is a capability you are also not building people around. **If the wait is long and the function is a training ground, the honest cost of waiting includes a pipeline you stopped filling.** See `rtp-judgment-guard` for the individual-level version of the same mechanism.
+
+*(Source: an HBR piece on talent strategy and AI transformation, Jun 2026 — ⚠ practitioner-tier. The 70-20-10 model is the Center for Creative Leadership's, named in the article without an individual author. "Healthy friction" and the 200-to-50 cohort redesign are the article's own single unnamed case, so **carry the mechanism and not the numbers**. This is the second independent sighting of capability debt in one month, after the engineering-provenance version; a third would justify its own skill.)*
 
 ### 3. Build vs. Wait Decision Tree
 

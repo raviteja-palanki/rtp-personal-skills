@@ -122,6 +122,33 @@ An early AI sepsis-flagging tool gave no reasoning, and doctors ignored it. Once
 
 A 604-person survey of daily AI-using US employees found that 30.3% intentionally withheld AI-related knowledge from coworkers or their employer, even though about 80% agreed that sharing it would help the team. Organizational trust was the strongest predictor, independent of job insecurity, competitiveness, or a formal AI policy: employees in the lowest-trust quartile hid at 47%, versus 14% in the highest-trust quartile, a gap of roughly 3.4 times. **The mechanism:** trust does not stop hiding on its own. It builds psychological safety, and safety is what stops the hiding. Add safety to the statistical model and the trust-hiding relationship weakens substantially. Call this the visibility tax: what an employee pays whenever using AI openly could read as a threat rather than a contribution, paid in withheld knowledge rather than in a formal complaint. **The counterintuitive part:** where trust is already low, giving employees access to sanctioned, approved AI tools increases hiding instead of reducing it, because logging reads as evidence-gathering against the employee, not as support. Sanctioned tools amplify existing trust. They do not substitute for it. Rolling out approved AI tooling into a low-trust team can backfire before anyone has changed how they work. **When this is wrong:** the data is correlational and cross-sectional. It could partly reflect that organizations already good at building trust are also better at rolling out tools well, not that tools causally amplify trust. Treat the visibility tax as a design lens to test against your own rollout data, not a proven causal chain. **Falsifier:** an organization that rolled out heavily logged AI tooling into a documented low-trust environment and saw hiding decrease instead of increase would break the amplification-not-substitution claim. *(Source: 604-person survey of daily AI-using US employees, full citation not supplied with this brief — ◆ self-reported survey data, n=604, US-only, self-selected into daily AI use. Flag: verify title, author, publication, and date before this enters the corpus's citation graph.)*
 
+## HANDING CONTROL BACK WHEN THE INTERACTION IS FORCED
+
+The calibration work above assumes the user chose to be there. **This is the inverse case: a mandatory step, an interruption, a consent gate, a required review.** The user is captive, and the instinct is to minimize the interruption by removing all choice from it.
+
+**That instinct is wrong, and there is measured evidence against it.** Handing back a small, well-matched choice performs better than handing back none. Attention rose 9 to 15 percent and annoyance fell 8 to 17 percent (◆ single study).
+
+**The finding that makes this practical: a well-matched low-cost choice performs as well as a high-cost one.** You do not have to give the user a big decision. You have to give them the right small one.
+
+**Two kinds of choice, equivalent in effect, different in failure mode:**
+
+| Choice offered | What it costs the user | How it fails |
+|---|---|---|
+| **Timing** ("not now", "remind me later") | almost nothing | **delay and stray**: the deferred obligation never resolves and the session is abandoned |
+| **Content** (pick which of two, compare options) | real attention | the user disengages from the comparison itself if it is too heavy |
+
+**Route the choice by three variables, not by uniform policy:**
+
+- **Commitment.** How invested is this user in finishing? High commitment tolerates a content choice; low commitment needs a timing choice.
+- **Attentional predictability.** Does the user know what is coming next in this session? Predictable sessions absorb heavier choices.
+- **Familiarity depth.** How well does the user know the inventory or the domain? Unfamiliar users cannot use a comparison choice, so give them timing.
+
+**The design rule:** never offer the same control to everyone. **Match the choice to the user's state, and prefer the cheapest choice that fits**, because the equivalence result means you gain nothing from the expensive one when the cheap one matches.
+
+**Watch specifically for delay-and-stray.** A timing choice is the easiest to ship and the one with a silent failure mode. If you offer "later," instrument whether "later" ever arrives.
+
+*(Source: an HBR research summary on consumer control over advertising, Jun 2026 — ◆ single-study, the effect sizes are the study's own and the domain is ad tech rather than AI. **Carried because the mechanism is domain-general and the equivalence result is the useful part**, not because the percentages transfer. The three-variable routing and the AI-product framing are this corpus's.)*
+
 ## TRUST REPAIR MECHANISMS
 
 After visible mistakes, trust drops **2–3x faster than it builds**. Unlike earning trust (slow, incremental), losing trust is catastrophic and immediate.

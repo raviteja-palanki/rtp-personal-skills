@@ -1,6 +1,6 @@
 ---
 name: rtp-marketing-to-ai-agents
-version: v1.0_latest
+version: v1.1_latest
 description: 'When an AI assistant picks the shortlist, your brand competes to be retrieved rather than remembered. Runs the two-stage funnel this research cluster implies but never states. Stage one is inclusion, decided by whether your value survives translation into attributes and evidence a model can reason with: entity clarity, attribute structure, evidence base. Stage two is selection among those included, decided by price and ratings, where reasoning models penalize overt persuasion. Separates the two metrics teams conflate: share of model (exposure) against AI recall share (fit). Adds problem literacy, the upstream lever that shapes query vocabulary before any recommendation runs. Use when an assistant sits between you and the buyer, when a well-known brand is missing from AI answers, or when GEO work produces citations and no sales. Pairs with: competitive-map, moat-finder, build-or-buy, prompt-as-product. Triggers: ''AI recall share'', ''share of model'', ''GEO'', ''agentic commerce''.'
 imports:
   - competitive-map
@@ -133,6 +133,53 @@ Across **16,000 simulated choice situations** (4 models × 4 product categories 
 *(Source: HBR, Sabbah & Acar, "Traditional Marketing Doesn't Work on AI Shopping Agents," May 2026, underlying paper "Marketing to Machines," SSRN 6406639 ✅ located and authorship confirmed, full text behind an access wall, so study specifics stay ◆. A 50-executive survey arm in the same article is ⚠ exploratory; do not quote figures from it, because the article gives none.)*
 
 ---
+
+## WHERE THE MONEY MOVES WHEN AGENTS BUY
+
+Getting included is stage one. Winning selection is stage two. **This is the question underneath both: if agents mediate the purchase, which part of your business still earns anything?**
+
+### The answer the market gave, in public, with numbers
+
+OpenAI launched Instant Checkout in September 2025: complete the whole purchase inside ChatGPT. The results were poor enough to reverse.
+
+- **Completion ran at roughly one third the rate of the retailer's own site.**
+- **About 8% of US adult ChatGPT users tried it** in the first month.
+- **Roughly a dozen Shopify merchants integrated.**
+
+In **March 2026 it was scaled back**, not killed, and repositioned: **discovery in ChatGPT, checkout in the retailer's own app** (Instacart, Target, Expedia, Booking.com among the partners).
+
+**Read the retreat as the finding, because it is more informative than the launch.** The agent won the discovery step and lost the transaction step. Buyers were willing to let a model tell them what to buy and unwilling to let it complete the purchase.
+
+### What that means for where you defend
+
+**The defensible layer retreats to checkout, loyalty and fulfillment.** Discovery is the part agents take first and take most completely. If your entire advantage sits in being found and being persuasive, an agent absorbs it. If it sits in the transaction, the account relationship, the returns experience or the delivery promise, the agent has to route through you.
+
+**Two live incumbent strategies, and they are genuinely different bets:**
+
+| Strategy | Who runs it | The bet |
+|---|---|---|
+| **Own the agent** | Amazon, with Rufus | keep the customer inside your own surface, so no third party mediates |
+| **Hedge** | Walmart, with Sparky plus an open catalog | let discovery happen anywhere, own the checkout. Explicitly "discovery on ChatGPT, checkout on Walmart" |
+
+**The hedge is the cheaper bet and the one most companies can actually run.** Owning the agent requires being a destination people already open. Almost nobody is.
+
+### Three layers had to exist before any of this worked
+
+Useful when someone asks why agentic commerce is only now real:
+
+1. **Protocol.** Agents need a shared way to talk to merchants. Google's **UCP** (Universal Commerce Protocol) and OpenAI's **ACP** (Agentic Commerce Protocol, built with Stripe) are **two different standards and are frequently conflated.** Know which one a partner means.
+2. **Commerce.** Machine-accessible entry points into the store, which Shopify, Etsy and Salesforce have been enabling.
+3. **Governance and payments.** Banks must verify a human authorized the agent, merchants need liability clarity, and the card networks must tell a compliant agent from a bot. **No industrial-grade system for that last part exists yet**, which is the real constraint on how fast this scales.
+
+### Three assumptions to check for in your own team's thinking
+
+Each is a human-era habit that quietly survives into agent planning:
+
+- **"There is always a human at the other end."** Increasingly there is not, and the machine reads differently from the person.
+- **"We just need AI crawlers to read our content."** Answer-engine optimization gets you parsed. **Agents decide, they do not merely filter**, so being readable is necessary and nowhere near sufficient. That is stage one of the funnel above, and it is only stage one.
+- **"AI is just another channel."** A channel distributes your offer. An intermediary that chooses on the buyer's behalf can disintermediate you from the customer entirely.
+
+*(Sources: HBR, Hosanagar, "How Do You Market to an AI Customer?," Jun 2026, for the reframe and the three-layer model. The Instant Checkout figures are ◆ corroborated against primary reporting rather than taken from the article: [OpenAI's launch post](https://openai.com/index/buy-it-in-chatgpt/), [CNBC, 24 Mar 2026](https://www.cnbc.com/2026/03/24/openai-revamps-shopping-experience-in-chatgpt-after-instant-checkout.html), and Forrester's analysis of the pullback. **The article says Instant Checkout was "killed"; the record says scaled back to discovery-only, and the precise version makes the discovery-versus-checkout split stronger, not weaker.** Walmart's partnerships are ✅ primary: [OpenAI in Oct 2025, Google UCP on 11 Jan 2026](https://corporate.walmart.com/news/2026/01/11/walmart-and-google-turn-ai-discovery-into-effortless-shopping-experiences). ⚠ **Cite those absolute dates, never the article's relative phrasing**, which says "two months before" and "last month" and does not reconcile with the record.)*
 
 ## THE TWO METRICS TEAMS CONFLATE
 

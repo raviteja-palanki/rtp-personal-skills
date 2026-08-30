@@ -1,6 +1,6 @@
 ---
 name: ai-product-metrics
-version: v1.3_latest
+version: v1.4_latest
 description: 'Pick the leading indicators that actually predict AI product health: acceptance, correction, regeneration, conversational burden, cost-per-successful-outcome, and the 5-stage AI funnel (Surfaced -> Invoked -> Completed -> Accepted -> Retained). DAU and retention are lagging indicators that miss model regressions. Also carries the two moves most metrics decks skip: reading the dashboard as a demand-signal aggregator (evals as discovery), and the executive-translation layer that turns an eval-score move into the business number a CFO/GC/COO/CHRO acts on. Use when designing an AI metrics dashboard, debugging why DAU is stable but users complain, mapping North Star + AARRR for AI, or translating eval scores for a board. Pairs with: eval-framework, feedback-flywheel, confidence-tuner (is the judge trusted), cost-model/token-economics, stakeholder-communications, fit-signal. Triggers: "AI metrics", "North Star metric", "acceptance rate", "AI funnel", "cost per successful outcome".'
 imports:
   - eval-framework
@@ -89,6 +89,22 @@ A causal chain can sound complete and still be entirely unmeasured. "Cognitive l
 A related instrument gap: self-report measures of cognitive load or burnout tend to underreport exactly where the problem is worst, because the people most affected are often the least able to step back and describe it. Where you can, pair self-report with a behavioral substitute: after-hours message volume, calendar fragmentation, or the number of open work surfaces at once. None of these prove causation alone, but they move independently of how someone feels that day, which self-report does not.
 
 *(Source: an HBR article on invisible mental workload, 2026 — the article makes no quantitative claims of its own; the mechanism is cited here, not any figure.)*
+
+**The "Averaged Top Two Boxes" Trap**
+
+**Satisfaction and outcome are not linearly related, so an average hides the only part that predicts anything.**
+
+The curve runs close to flat through mild-and-good, then bends steeply once experience crosses into genuine attachment. **Averaging the 4s with the 5s therefore destroys the signal you were measuring for.** A rising average can simply mean more 4s, and more 4s predicts very little about retention or advocacy.
+
+**Three consequences for your dashboard:**
+
+- **Report the 5s as their own line.** Not top-two-box, not an average. The extreme-positive count is the predictive one.
+- **NPS inherits this defect.** It buckets promoters at 9 and 10 together and reports a net, which is an average of an average.
+- **"Improve average satisfaction" is a weak north star** for an AI product, because the cheapest way to move it is converting 3s to 4s, which is the flat part of the curve.
+
+**When this is wrong:** in an early product with too few 5s to be a population, the average is the only thing you can read. Say so, and stop using it the moment the top box is large enough to count on its own.
+
+*(Source: HBR, Jun 2026, on studying the most-satisfied cohort — ◆, sourced there to a Gallup meta-analysis and Anderson and Mittal's satisfaction-retention research. The same article claims the shape recurs in investor sentiment, developer happiness and patient outcomes, and cites nothing for any of the three; do not repeat those.)*
 
 **The "Two Opposite Causes" Trap**
 

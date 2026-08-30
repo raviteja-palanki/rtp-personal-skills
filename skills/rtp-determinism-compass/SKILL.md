@@ -1,6 +1,6 @@
 ---
 name: determinism-compass
-version: v1.2_latest
+version: v1.3_latest
 description: 'Which parts of your AI product must give the same answer every time, and where is variety acceptable, or even the point? Sorts every component into ''must be consistent'' vs. ''may vary'', then sets the testing, caching, and autonomy rules that follow from the sort. Use when: designing the architecture, QA planning, spec reviews. Pairs with: autonomy-spectrum (how far the AI may act alone), problem-ai-fit (whether AI belongs here at all). Triggers: ''variation acceptable'', ''test AI component'', ''cache'', ''reproducible'
 imports: []
 ---
@@ -114,6 +114,28 @@ The general rule this connects to: monitoring-over-gating, loosening a control a
 **When this is wrong:** a documented case where loosened, monitoring-only governance over irreversible actions still caught and reversed harm before it became permanent would break this. That would require a reversal path this skill does not currently name.
 
 *(Source C: "Minimum Viable Governance," MIT Center for Information Systems Research, Talking Points briefing, 19 Mar 2026, with a public summary in MIT Sloan Management Review's Ideas Made to Matter. Tier: framework's own stated diagnosis; the two-quarter estimate is this skill's inference from that diagnosis, not a figure MVG itself publishes.)*
+
+## A WORKED AUTONOMY PULLBACK, WITH NUMBERS
+
+The clearest public case of a company deciding a step should **not** be probabilistic, after shipping it.
+
+**What was built.** OpenAI launched Instant Checkout in September 2025: complete the entire purchase inside ChatGPT, with the agent handling the transaction step.
+
+**What happened.**
+
+- **Completion ran at roughly one third the rate of the retailer's own site.**
+- **About 8% of US adult ChatGPT users** tried it in the first month.
+- **Roughly a dozen** Shopify merchants integrated.
+
+**What changed.** In **March 2026 it was scaled back**, not killed, and repositioned: **discovery inside the assistant, checkout in the retailer's own app.**
+
+**Read it as a determinism finding, because that is what it is.** Discovery is a good fit for a probabilistic system: many acceptable answers, cheap errors, the user reviews the output anyway. **Checkout is not.** One correct outcome, an irreversible money movement, and a user who will not forgive a wrong one. The market drew the line in the same place this skill would.
+
+**The transferable test.** When a workflow spans discovery and commitment, **the boundary between them is usually the determinism boundary.** Let the model roam on the exploration half. Make the commitment half deterministic, or at minimum put a confirmation gate on it.
+
+**Watch for the version of this in your own product:** any step where the user is choosing among options is probabilistic-friendly; the step where the choice becomes binding usually is not.
+
+*(Source: ◆ corroborated against primary reporting rather than a single article: [OpenAI's launch post](https://openai.com/index/buy-it-in-chatgpt/) and [CNBC, 24 Mar 2026](https://www.cnbc.com/2026/03/24/openai-revamps-shopping-experience-in-chatgpt-after-instant-checkout.html). **Some secondary coverage says "killed"; the record says scaled back to discovery-only**, and the accurate version makes the determinism boundary clearer. See `rtp-marketing-to-ai-agents` for the commercial reading of the same event.)*
 
 ## THE PROCESS
 

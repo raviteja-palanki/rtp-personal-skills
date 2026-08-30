@@ -1,6 +1,6 @@
 ---
 name: stakeholder-communications
-version: v1.2_latest
+version: v1.3_latest
 description: 'Audience-tailored communication for AI features: exec summaries, engineering briefs, launch announcements, risk escalations, weekly digests. The differentiator is AI-native confidence framing: every claim about a model''s behavior carries an eval-backed band, a named drift surface, and a mandatory "what could be wrong" section. Use when a single piece of information needs to land in three rooms (exec, engineering, customer) and each room is going to ask a different "but what''s the failure rate?" question. Do NOT use for internal team chat, casual PR updates, or comms about deterministic features where probabilistic framing is theater. Triggers: "stakeholder update," "exec briefing," "escalate to leadership," "launch announcement," "weekly digest," "send a note to." Pairs with: dual-lens (business AND technical legibility), trust-under-fog (confident comms on uncertain outcomes), first-principles (read the live need before supplying your default).'
 imports:
   - ai-product-metrics
@@ -215,6 +215,28 @@ A specific ordering rule for anything that goes out in your name.
 **Then read it aloud.** If you stumble, lose your breath, or hear a sentence you would never say to the person receiving it, rewrite that sentence. This is the same gate the voice section applies, and it catches AI-shaped prose faster than any checklist.
 
 *(Sources: the goal-roles-block instrument, HBR, "How the Best Leaders Shape Conversations," Aug 2026 — ◆ the authors' own dataset across more than a hundred teams; the four questions are verbatim. The withdrawal finding, HBR, "AI Experiments Need Domain Experts," Aug 2026 — ◆ two-year qualitative field study, two sites, n=2. The outline-not-draft ordering, HBR, Lancefield, Aug 2026 — ⚠ asserted with no evidence and considerable face validity; treat as a working rule, not a finding.)*
+
+## CLAIM THE MODERATOR SEAT WHEN YOU ARE NOT THE EXPERT
+
+Everything above is about what you say. This is about **which role you take**, and it matters more in rooms where you are outranked on technical depth.
+
+**Three roles people take in a meeting, and only one of them reads as senior:**
+
+| Role | What it optimizes for | What it looks like |
+|---|---|---|
+| **Low** | being liked and accepted | joking, or taking the menial task (getting coffee, running the deck) |
+| **Medium** | adding value | discussing the problem, offering solutions. **This is a perfectly respectable position, not a weak one** |
+| **High** | adding value **and directing the flow** | asking what the next question is, soliciting input, synthesizing it, handing the synthesis back |
+
+**The move that changes the room, and it is counterintuitive.** When you are *not* the deepest technical expert present, the instinct is to contribute better content. **Moderate instead.** Ask "what do you think" repeatedly, synthesize what you hear, and give the synthesis back to the group. You are directing attention rather than competing for it.
+
+**Why it works:** the person in the spotlight is not the most powerful person in the room. **The person controlling where the spotlight points is.** Power sits in allocating attention, not in being its object.
+
+**This upgrades what this skill already tells you to do.** Translating for the audience is a medium-status move: valuable, and still reactive. Controlling the agenda is the high-status one. Use the audience-tier map above to decide *what* to say, and this to decide *how to hold the room* while saying it.
+
+**One caution on pairing.** Adding value and asserting yourself have to travel together. Value alone under-signals: hierarchies run on contribution, and people-pleasers still do not end up running them. Assertion alone reads as noise. **The moderator role is the cheapest way to do both at once**, because synthesizing is a contribution and directing is an assertion.
+
+*(Source: Chris Lipp, *The Science of Personal Power*, discussed in HBR, Jun 2026 — ⚠ practitioner-tier, a book-and-interview source with no measured effect sizes attached to the meeting-status model. The moderation tactic is credited there to Maggie Neale at Stanford GSB. Treat the three roles as a usable frame, not a validated taxonomy, and do not attach numbers to it.)*
 
 ## AI-NATIVE CONFIDENCE FRAMING
 

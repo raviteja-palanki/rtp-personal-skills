@@ -1,6 +1,6 @@
 ---
 name: feedback-flywheel
-version: v1.1_latest
+version: v1.2_latest
 description: 'Turn what users do with your AI''s output into the thing that improves the AI, automatically, on a cadence, with owners. Most products collect feedback (thumbs, edits, regenerations) that sits in a database and never reaches the model; this designs the closed loop from signal to labeling to a measured model gain. Collection is easy and feels like progress. Closure is rare and is the actual moat, but ONLY if the loop''s inputs are yours alone. Use when designing feedback capture, auditing why collected feedback changes nothing, or bootstrapping before you have users. Do NOT use for one-shot/batch systems, under ~500 active users, or when annotation velocity is permanently <5% of collection. Pairs with: eval-framework + eval-driven-development (the fix→regression cycle lives there), moat-finder (anti-moat check), ai-product-metrics (signals worth logging), gossip-mode (informal-signal sibling). Triggers: ''feedback loop'', ''why does our feedback change nothing'', ''data flywheel''.'
 imports: [first-principles, stress-test]
 ---
@@ -22,6 +22,36 @@ And here is the sharp edge most teams miss: a mature flywheel is one of the stro
 1. **Rank the signal, then capture it** — corrections > explicit feedback > implicit behavior > acceptance; ~80% of signal should be zero-friction implicit. (SIGNAL & CAPTURE.)
 2. **Fix the bottleneck — annotation velocity** — measure the % of feedback reaching the model per week; if labeling can't keep up with collection, that's the broken link, not capture. (ANNOTATION.)
 3. **Close the loop on a cadence with owners, and check the moat condition** — weekly→quarterly pipeline; then place yourself on the 1–5 maturity curve and confirm the inputs are yours alone. (THE CLOSED LOOP + MATURITY + MOAT.)
+
+## DEVOTION MINING: the signal source this loop has no channel for
+
+**Everything in this skill captures what went wrong.** Corrections, explicit complaints, implicit drop-off signals, silence. That is a defect-finding architecture, and it is only half the available signal.
+
+**The gap it leaves:** a team running this loop as built has **no mechanism for learning why something works exceptionally well**, so it systematically under-invests in what its power users already love.
+
+### The method
+
+**Study the devoted, not the dissatisfied.** Interview the top decile by engagement or satisfaction. Ask what specific mechanism produced the feeling. Then **treat the answer as a design input rather than a testimonial**, which is the part teams get wrong.
+
+**One hard rule on who you sample: never average the 5s with the 4s.** The relationship between experience and outcome is not a diagonal line. It is close to flat through mild-and-good, then bends steeply once experience crosses into genuine attachment. **Averaging the top two boxes together destroys exactly the signal you came for**, which is why NPS and "improve average satisfaction" are weak north stars for this purpose.
+
+### The five conditions, and they are sequential
+
+Later ones cannot activate until earlier ones are met. Not every loved experience needs all five; experiences with all five are the ones that change behavior.
+
+| | The question it answers | What it needs |
+|---|---|---|
+| **1. Control** | what is this, and how should I engage with it? | orientation and clear choice, given before anything else |
+| **2. Harmony** | do you know what I am feeling, and do you care? | meeting people emotionally where they are before asking them to move |
+| **3. Significance** | do you know my story, and do you care? | personalization that signals the person matters |
+| **4. Warmth** | who is with me, and how can they help? | visible, reachable support |
+| **5. Growth** | how will I be more capable tomorrow? | and it collapses entirely if 1 through 4 are unmet |
+
+**Run it quarterly, on the top-decile cohort only**, and map the answers against those five for your onboarding and interaction design. Output is a design change, not a quote for the website.
+
+**Where it plugs in.** This is a parallel track beside the existing correction hierarchy, not a replacement. Both feed the same ingestion-and-closure loop this skill already owns. See `rtp-ai-product-metrics` for why the averaging rule matters to your dashboard, and `rtp-attitudinal-segmentation` for the cohort split.
+
+*(Source: Marcus Buckingham, discussed in HBR, Jun 2026, drawing on his book *Design Love In*. The five conditions are ⚠ framework-tier with one company's worked examples and no outcome data attached. **The curvilinear shape is the better-evidenced part**, sourced there to a Gallup meta-analysis and to Anderson and Mittal's satisfaction-retention work ◆. The article claims the same shape recurs in investor sentiment, developer happiness and patient experience, and gives no citation for any of the three; do not repeat those.)*
 
 ## KEY TERMS (plain language)
 

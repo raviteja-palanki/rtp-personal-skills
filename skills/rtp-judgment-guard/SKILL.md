@@ -1,6 +1,6 @@
 ---
 name: judgment-guard
-version: v1.4_latest
+version: v1.5_latest
 description: 'Decide, on purpose, where human judgment sits inside an AI system, because if you don''t, adoption decides for you and the default removes the human. Two cases. ATROPHY: leaning on AI silently fades expert judgment over 6–18 months and stops an organization making new experts; design deliberate friction (rotation, calibration, state-first override, repair, reasoning capture) to keep humans sharp. COMPLEMENTARITY: in regulated, catastrophic-cost work (surgery, aviation, lending) the human stays permanently because human and AI together are more precise and more certain than either alone; design the labor split so each brings its best, the tail not the average setting the floor. Use when deploying high-stakes AI, users stop questioning AI outputs, designing human-in-the-loop for regulated work, or rolling AI into a team of experts. Do NOT use for low-stakes work where full automation is intended. Pairs with: determinism-compass, autonomy-spectrum, trust-ladder, agent-risk.'
 imports: []
 ---
@@ -165,6 +165,36 @@ One note on the numbering, because it is historical rather than chronological. *
 - **A companion instrument: the dissent log.** A cheap, optional, timestamped field ("I proceeded and disagreed, because [X]") readable by someone other than the person who overrode the dissent. Keep it optional. Making it mandatory converts an honest empty channel into confident fabricated prose, because a compulsory field gets filled whether or not real review happened, while an optional field's emptiness is itself information. *(Source: HBR IdeaCast, Duhigg, on the Amazon memo ritual, 2026 — ⚠ practitioner account, no measured anchoring rate. Falsifier: a setting with a cheap recorded-dissent channel where reviewers who are accountable but cannot alter outcomes still fabricate justification at the same rate as without one.)*
 - **When this is wrong:** where the group has no independent judgment to pre-empt, a shared summary raises the floor rather than lowering the ceiling. Pre-emption is a loss only where someone in the room could have produced a competing read.
 *(Source: HBR, Lancefield, "Don't Let AI Flatten Your Leadership Style," Aug 2026 — ⚠ anecdote-tier, four anonymized coaching cases, no comparison group, and the article's one external citation is an unrefereed preprint this corpus has already read at primary and struck. Cite the mechanism, never the claim that AI flattens thinking, which the article does not evidence. The group-scaling rule is this corpus's reading of the case, not the author's; he files it as one leader's judgment going slack. Ledger candidate U.)*
+
+### How much friction is enough (the sizing question this skill has left open)
+
+The checkpoints below say friction must exist. **They have never said how much**, and that gap has stayed open across several sightings.
+
+**The finding that closes it: a well-matched low-cost friction performs as well as a high-cost one.** You do not need the heaviest review. You need the one that fits the situation. Attention rose 9 to 15 percent and irritation fell 8 to 17 percent when the control offered was matched rather than maximal (◆ single study, from consumer research rather than review design).
+
+**Size the friction on three variables, not on stakes alone:**
+
+- **Reviewer commitment.** How invested is this reviewer in the outcome? High commitment carries a full comparative review. Low commitment will not complete one.
+- **Session predictability.** Does the reviewer know what is coming? Predictable queues absorb heavier checks; unpredictable ones need lighter ones.
+- **Case familiarity.** A reviewer deep in the domain can use a comparison. One who is not cannot, and will rubber-stamp it.
+
+**So the practical rule: demand a full state-first comparative review where all three are high, and a lighter confirmation step where they are not.** A heavy checkpoint applied to a low-commitment, unpredictable, unfamiliar reviewer produces theater, which is worse than a light one because it looks like control.
+
+*(Source: an HBR research summary on consumer control, Jun 2026 — ◆ single study, ad-tech domain. **Carried for the equivalence result, which is domain-general, not for the percentages.** The three-variable sizing applied to review design is this corpus's. See `rtp-trust-ladder` for the user-facing version.)*
+
+### The seven drains have an organizational twin: the training function you removed with the role
+
+Drain 2 covers the organization that stops making experts. **This is the mechanism underneath it, and it explains why the loss is larger than the headcount.**
+
+Professional development runs roughly **70% from doing the job, 20% from working alongside experienced colleagues, and 10% from formal training.** Entry-level roles carry the first two.
+
+**So automating an entry-level function removes about 90% of the development model, not a training line item.** The training budget survives untouched, which is exactly why nobody notices.
+
+**This sharpens why friction matters here.** The checkpoints below exist to catch bad output in the moment. **They also matter because the role that generated the friction was carrying a training function alongside it.** Remove the role and you remove both, and only one of them shows up in a metric.
+
+Route the workforce-level version, including the three-question audit, to `rtp-capability-tracking`.
+
+*(Source: an HBR piece on talent strategy and AI transformation, Jun 2026 — ⚠ practitioner-tier. The 70-20-10 model is the Center for Creative Leadership's. This is the second independent sighting of capability debt in a month, after the engineering-provenance version.)*
 
 ### The six checkpoints (treatment)
 

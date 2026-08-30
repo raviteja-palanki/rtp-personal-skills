@@ -1,6 +1,6 @@
 ---
 name: autonomy-spectrum
-version: v1.2_latest
+version: v1.3_latest
 description: 'Place every AI interaction at the level it deserves, not the highest the model can reach, by asking one question: who decides what happens next, the code or the model? Gives the 7-level spectrum (Feature → Chatbot → Assistant → Copilot ‖ Agent → Autonomous Agent → Multi-Agent), with plain-language ''what the AI does against what the human does'' for each. Also covers the structural shift at Level 4→5 where the model takes over the workflow, consequence-based leveling, leash length and progressive trust, and the effective-against-designed level (the rubber-stamping trap). Use when someone says ''let''s build an agent'', when designing any AI feature, evaluating a competitor, or deciding how much control to hand the model. Pairs with: ai-use-case-readiness (deep governance diagnostic; this is the quick reference), trust-ladder, agent-spec, agent-risk, tool-architecture, agent-harness, judgment-guard. Triggers: ''autonomy level'', ''agent spectrum'', ''how autonomous'', ''let''s build an agent''.'
 imports:
   - determinism-compass
@@ -213,6 +213,27 @@ Every level above assumes the same direction: shed execution, keep judgment. Cli
 **Condition for when this applies:** the capability compounds through repeated hands-on doing (reading the film, drafting the reply, running the diagnosis), not through repeatedly being handed a decision to ratify. A decision-fed capability, where judgment sharpens from making the call rather than from doing the manual steps, still follows the standard default: automate the execution, keep the human deciding.
 
 *(Source: a podcast on process knowledge, framing-tier evidence. Treat this as a named exception to test against one specific capability, not a reversal of the spectrum's general direction. When wrong: most execution in most workflows is decision-fed, not exercise-fed, so inverting the default there just re-imports the toil this whole framework exists to remove.)*
+
+## THE LAUNCH GATE FOR ANY SYSTEM THAT CAN CONTRADICT A HUMAN
+
+The levels above answer *how much the machine decides*. This answers a question they skip: **when the machine disagrees with the person, who wins, and what gets written down.**
+
+**Why "copilot, not autopilot" does not settle it.** One asset manager states that objective plainly, then describes an agentic analyst that can "independently analyze nuanced topics, fact-check humans, and offer contrarian viewpoints." **A system with standing to fact-check a portfolio manager and argue the other side is not a copilot in the sense the phrase implies.** It is a second analyst with dissent rights.
+
+**"Copilot, not autopilot" has become the enterprise phrase for "we have not settled the autonomy question,"** and it is load-bearing in exactly the places a decision is needed.
+
+**Two things to name before launch, not after:**
+
+1. **The resolution rule.** When the model dissents and the human proceeds anyway, is that allowed, allowed-with-sign-off, or blocked? Name it per decision class.
+2. **The log record.** What is written when a human overrides a model's contrary read?
+
+**Why the log is not optional.** If the model flags a contrarian view, the human proceeds, and the position loses money, **that disagreement record is either a governance asset or a litigation exhibit.** Somebody should decide which in advance, and by default nobody does.
+
+**The inverse of the usual question, and worth stating plainly.** Most governance work asks who can stop the model. This asks **who overrules the human when the model disagrees.** Both need an answer, and only the first one usually gets one.
+
+**When this is wrong:** a system with no standing to dissent, one that only ranks or drafts, does not need a resolution rule. The gate applies the moment the output can be read as a contrary judgment rather than a suggestion.
+
+*(Source: an HBR case discussion of Franklin Templeton, Jun 2026 — ◆ single company, self-described, and the article does not notice the tension. Both the observation and the gate are this corpus's. Pairs with `rtp-trust-ladder`.)*
 
 ## PRODUCTS ARE MULTI-LEVEL BY DESIGN — three patterns
 

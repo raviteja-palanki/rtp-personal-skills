@@ -1,6 +1,6 @@
 ---
 name: harness-operating-model
-version: v1.0_latest
+version: v1.1_latest
 description: 'How to fund, staff, run, and future-proof a harness as a multi-year program: the discipline around the machine, not the machine. Covers the cost shape (front-load/plateau/compound), the five cost centers, the reliability dividend (failure getting cheap is the business case), the lock-in and runtime wedges, and the stopping rule. Then the maturity ladder, nine-day kit and stakeholder scripts. Then the four org models and deployment shapes, the Harness PM role, build against buy, and open against closed. Finally the longevity layer: permanent residents against the dissolving ladder, and why the harness is the moat. Use when budgeting or defending a harness program, deciding open/closed or build/buy, naming the harness owner, or placing your team on the maturity ladder. Sibling: agent-harness (the machine). Pairs with: cost-model, adoption-launch, alignment-check, capability-tracking, moat-finder. Triggers: ''harness cost'', ''harness ROI'', ''harness owner'', ''open vs closed harness'', ''human in the harness''.'
 imports: [agent-harness, cost-model, capability-tracking]
 ---
@@ -18,6 +18,31 @@ imports: [agent-harness, cost-model, capability-tracking]
 3. **At some point the org organizes *around* the harness — deliberately or reactively.** Three of the four MHTE layers already have owners (Model → Applied AI, Tools → Platform, Environment → Security). The harness is the one layer without a default owner, and "shared responsibility is another word for nobody's job." Naming the owner is the first org decision; every other one is downstream.
 
 The machine wins a sprint. The program wins the eighteen months that decide whether your agents get renewed or quietly wound down.
+
+## A WORKED OPERATING MODEL, WITH THE PART EVERYONE SKIPS STAFFED
+
+This skill argues in the abstract for how to staff and run a harness program. Here is one financial-services firm's actual structure, useful because **it is the only one in this corpus that staffs adoption as a function rather than as an afterthought.**
+
+**Four units, all reporting through a chief AI officer who owns product management, engineering, research and adoption together:**
+
+| Unit | Shape | What it owns |
+|---|---|---|
+| **Embedded product teams** | one per business unit, run "AI-first" | product management, engineering and data science **fused into one team**, not three functions collaborating across boundaries |
+| **Common AI platform team** | shared, central | the shared substrate |
+| **Research team** | shared, central | scope not described in the source |
+| **Adoption and solutions team** | shared, central | drives employee implementation **and** ties the tools back to a business benefit |
+
+**Two things worth taking from this, and one worth noticing about what is missing.**
+
+**Take the fusion.** Embedding product, engineering and data science in a single unit per business line is the structural answer to handoff latency, which is the failure this skill's org section already names.
+
+**Take the staffed adoption function.** Most programs treat adoption as change management bolted onto a launch. Giving it a standing team with two explicit mandates, usage *and* business-benefit alignment, is the version that survives past the launch quarter. Route to `rtp-adoption-launch` for what that team should actually do.
+
+**Notice what is not described.** The source names the platform team and then never explains it. **That absence is the finding**, not an omission in the write-up: the platform layer is the one everyone agrees they need and nobody specifies, which is exactly why this skill exists.
+
+**One design principle from the same firm, carried with its own tension attached.** The stated objective is **"copilot, not autopilot"**: support investment advice rather than automate it, through better information and faster iteration. Hold that against the systems the same source describes, which can contradict a human analyst. **A stated copilot posture and a system with standing to dissent are not automatically compatible**, and the resolution rule is the thing to specify. See the launch gate in `rtp-trust-ladder`.
+
+*(Source: an HBR case discussion of Franklin Templeton's AI operating model, Jun 2026 — ◆ single company, self-described, no outcome data attached to the structure. Carry it as one worked example, not as a reference architecture.)*
 
 ## KEY TERMS (plain language)
 

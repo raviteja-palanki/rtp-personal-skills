@@ -6,7 +6,7 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `1.14.1`  ·  **Commit:** `9cd0fdb`  ·  **Generated:** 30 Aug 2026 00:22
+**Version:** `1.15.0`  ·  **Commit:** `4b5f570`  ·  **Generated:** 30 Aug 2026 08:07
 
 ## Totals
 
@@ -29,7 +29,7 @@ The description claims a split; these are checked against the filesystem every r
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.14.1**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **1.15.0**.
 
 ## Composition
 
@@ -107,6 +107,7 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 1.13.0 | 232268f | 29 Aug 2026 23:46 | 251 | 87 | 11 |
 | 1.14.0 | 9d6f9a4 | 29 Aug 2026 23:57 | 251 | 88 | 11 |
 | 1.14.1 | 9cd0fdb | 30 Aug 2026 00:22 | 252 | 88 | 11 |
+| 1.15.0 | 4b5f570 | 30 Aug 2026 08:07 | 252 | 88 | 11 |
 HISTORY-->
 | 1.4.14 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
 | 1.4.15 | b269f74 | 16 Jul 2026 18:13 | 236 | 82 | 11 |
@@ -121,3 +122,4 @@ HISTORY-->
 | 1.13.0 | 232268f | 29 Aug 2026 23:46 | 251 | 87 | 11 |
 | 1.14.0 | 9d6f9a4 | 29 Aug 2026 23:57 | 251 | 88 | 11 |
 | 1.14.1 | 9cd0fdb | 30 Aug 2026 00:22 | 252 | 88 | 11 |
+| 1.15.0 | 4b5f570 | 30 Aug 2026 08:07 | 252 | 88 | 11 |

@@ -1,6 +1,6 @@
 ---
 name: agent-ecosystem
-version: v1.2_latest
+version: v1.3_latest
 description: 'When two or more AI agents must work together, the hard problem stops being intelligence and becomes coordination: who owns shared state, how work hands off without losing context, and what happens at the merge when agents disagree. Covers coordination topologies (supervisor, pipeline, fan-out/fan-in, peer), handoff protocols, state ownership, the multi-agent failure taxonomy (race, context drift, cascade, sub-agent divergence), and the graduation gate. Also the human twin of every handoff: the named owner of the seam, and where value concentrates beyond the agents themselves. Use when designing a system of two or more agents, choosing a topology, or diagnosing agents that collide or lose work. This skill owns the seams between agents; agent-harness owns the single-agent machine. Pairs with: agent-harness, harness-operating-model, autonomy-spectrum. Triggers: ''multi-agent'', ''agent orchestration'', ''agent handoff''.'
 imports:
   - determinism-compass
@@ -86,6 +86,26 @@ Add cross-lab model diversification as a named harness-design axis, separate fro
 **A board-ready governance device from the same source.** A model portfolio governance policy: a board-level cap on the percentage of critical agentic decisions allowed to depend on a single vendor's model, framed the way procurement already frames supplier-concentration risk.
 
 **Condition this is wrong.** A firm with one dominant, well-understood failure mode that a homogeneous, well-evaluated pipeline already catches reliably gains nothing here. Diversification only adds handoff friction and integration failure points, with no decorrelation benefit to offset them. There is also a real ceiling here: cross-lab diversification decorrelates a firm's own pipeline, but does nothing to decorrelate that firm's aggregate behavior from the market's if every competitor is drawing agents from the same three frontier labs. Diversification within a pipeline is not diversification from the market.
+
+## ONE COMPANY RUNS SEVERAL GOVERNANCE REGIMES AT ONCE
+
+**The assumption worth breaking early: that governance is one dial the company sets.** It is not. A single company usually runs several go-to-market motions concurrently, and **each needs a different governance architecture, not a different setting on the same one.**
+
+| Motion | What it optimizes | Typical shape |
+|---|---|---|
+| **Digital-first** | efficient scale across high volume | endless-assortment e-commerce |
+| **Hybrid** | synchronizing digital and human channels | distributed mid-sized accounts |
+| **Relationship-led** | trusted, high-impact enterprise relationships | a named account team of seven or more roles, supported by one digital assistant |
+
+**Why this matters for a multi-agent system.** An agent in the digital-first motion can hold broad decision rights, because volume is high and a single error is cheap and reversible. **The same agent with the same rights inside a relationship-led enterprise account is a liability**, because one wrong action reaches a named human who will remember it.
+
+**So the seam-ownership question below has a prior question underneath it: which motion is this seam in?** Assign decision rights per motion first, then per seam. One platform-wide policy is too loose for the enterprise accounts and too tight for the volume business at the same time.
+
+**The named barrier, worth quoting to anyone pushing a single standard.** The authors' research finds the conflict between standardized platforms and commercial-operating-need alignment is **a primary barrier to performance.** Standardization is a trade against fit, not a free win.
+
+**When this is wrong:** a company genuinely running one motion should run one regime. Three regimes for one motion is overhead pretending to be rigor.
+
+*(Source: an HBR piece on tailoring digital strategy across go-to-market models, Jun 2026 — ⚠ framework-tier. The three-model typology is the authors' own, with named company illustrations and no comparative outcome data. The typology is the useful part; mapping it onto agent governance is this corpus's.)*
 
 ## THE FOUR THINGS TO OWN
 

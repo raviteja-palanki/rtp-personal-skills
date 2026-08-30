@@ -1,6 +1,6 @@
 ---
 name: ai-use-case-readiness
-version: v2.3_latest
+version: v2.4_latest
 description: 'Right-size the autonomy for a use case: the minimum that captures the value, not the maximum you could build. The question is never ''can we make this autonomous?'' but ''what''s the least autonomy that still works?'' Autonomy is a governance question, not a capability one: you CAN build a level-5 agent; cost-of-error, verifiability, and policy decide whether you SHOULD. Runs a 5-phase diagnostic: 12 questions, the 0-7 spectrum, two matrices, a floor/ceiling gap and a phased roadmap. The output is framed as a testable hypothesis, not a rubber stamp. Use when a team says ''let''s build an agent'', or when ''can it be autonomous?'' is asked before ''should it be?''. Do NOT use for a monolithic undecomposed use case (first-principles first) or a pure tech-stack choice. Pairs with: problem-ai-fit (whether AI at all), autonomy-spectrum (quick level reference), determinism-compass (what stays deterministic), cost-model (control-burden economics). Triggers: ''let''s build an agent'', ''how autonomous'', ''can this be an agent''.'
 imports:
   - first-principles
@@ -160,6 +160,27 @@ THE ASSUMPTION THAT SCARES ME MOST: [name it; test first]
 **Recommend level 5+ ONLY when ALL five hold:** (1) genuinely needs dynamic planning/multi-step orchestration; (2) action rights can be scoped safely; (3) outcomes are verifiable or reversible; (4) consequence is bounded enough for learning (errors <$100K or <100 users); (5) economics justify the control burden (>$500K/yr or strategic). If any one is shaky, recommend 3–4.
 
 **Phase the rollout — smallest valuable wedge first.** Phase 1 (level 2–3 assistive, ~20% savings, basic eval, exit at >30% acceptance + zero critical failures) → Phase 2 (level 4 bounded, ~50%, tool design + fallback + audit logs, exit at <2% escalation + <0.5% critical errors) → Phase 3 (level 5–6, ~70%, governance + monitoring + incident response, exit at zero critical errors over 4 weeks + policy approval). Each phase is its own hypothesis. **Controls to specify at every phase:** approvals, policy constraints, eval plan, monitoring, rollback/recovery, auditability, kill switches.
+
+## A LIGHTWEIGHT QUALIFICATION FRAME FOR PRE-PMF WORK
+
+The five phases above are built for an organization deciding how autonomous a use case should be. **When the company is pre-PMF and the founder is the primary seller, that is too heavy.** Six behaviors do most of the work:
+
+| | Creates | The test |
+|---|---|---|
+| **Speed** | attention | did this person just describe my situation better than I could? |
+| **Problem** | urgency | what has changed to make solving this *now* essential? |
+| **Results** | belief | can the buyer describe the outcome to their own board without you present? |
+| **Implementation** | safety | did you answer the risk question before they raised it? |
+| **Niche** | repeatability | one buyer type, one problem, one motion that repeats |
+| **Trust** | permission | is your credibility transferable, or does it live only in you? |
+
+**Use Problem as the qualifying gate.** The named failure it catches: a founder pitching generically, unable to state the buyer's tension precisely. One worked case reframed around "revenue at risk" rather than a generic service pitch, which **disqualified deals that had been consuming the pipeline** and promoted earlier-stage conversations previously dismissed.
+
+**Implementation is the one that explains silence.** Buyers who seemed enthusiastic go quiet **not because they stopped believing**, but because someone upstream raised a risk nobody answered.
+
+**Where this sits relative to the phases above.** This qualifies the *opportunity*. The five phases size the *autonomy*. Run this first when the question is whether anyone wants it, and the phases when the question is how much the system should decide. See `rtp-fit-signal` for the demand-side signals.
+
+*(Source: Rubinstein & Onyemah, HBR, 24 Jun 2026 — ⚠ inductive from an interview set of founders, no effect sizes, and the worked case is a single German manufacturer. Use it as a conversation frame, not as a validated model.)*
 
 ## READ YOUR READINESS SCORE AS A MOAT AUDIT
 

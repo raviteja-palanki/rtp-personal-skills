@@ -1,6 +1,6 @@
 ---
 name: rtp-thinking-skills
-version: v1.1_latest
+version: v1.2_latest
 description: 'Encodes Ravi''s cognitive operating system: judgment under uncertainty, systemic thinking, hypothesis discipline, assumption surfacing, and ethical guardrails. Load alongside any skill when Ravi asks for product decisions or analysis.'
 ---
 # Ravi's Judgment Engine
@@ -225,6 +225,23 @@ Read together they resolve into a calibration rule neither states alone:
 The bottom-right cell is where an AI copilot that auto-summarizes and pre-fills a recommendation does the most damage, because it removes the "look at the people and signals behind the data" step exactly where that step was load-bearing.
 
 *(Sources: HBR, McCall, Wolfberg, Bilsborough & Pruna, "How Elite Sports Coaches Make High-Pressure Decisions," Jul-Aug 2026 — ⚠ anecdote-tier, structured interviews with 11 coaches, no numbers of any kind. Cite the mechanic, not the quotes. The calibration rule is this corpus's synthesis of that article against the judgment-erosion evidence in `rtp-judgment-guard`; neither source states it. The recognition-primed decision literature on firefighters and clinicians makes the same compressed-deliberation claim and the article does not cite it.)*
+
+### #19: The Delegation Test
+
+**Four questions, asked before you take a decision on yourself.** Delegation is its own decision type and it has its own test, separate from prioritization or judgment under uncertainty.
+
+1. **Who is closest to the action?** Proximity is a form of expertise, and it is the form most often overlooked.
+2. **Have we made this decision before?** If yes, stop deciding it. Systematize it: write the criteria, document the process, hand it off.
+3. **Could someone else offer a better perspective?** Seniority does not guarantee the full picture, and often obstructs it.
+4. **Where is work stuck?** A project stalled because nobody feels authorized to act **is itself the delegation signal.** You do not need any other evidence.
+
+**How to read the answers.** Question 2 is the highest-leverage one, because a repeated decision you keep making personally is a process you have failed to build. Question 4 is the one that finds delegation debt you did not know you had.
+
+**Where it applies to AI work specifically.** Substitute "the agent" for "someone else" and the test still runs. Question 1 asks whether the agent has better context than you at that step. Question 2 asks whether the decision is deterministic enough to encode. Question 3 asks whether the model sees something your seniority hides. See `rtp-agent-spec` for the decision-definition gate that has to run before any of this.
+
+**When this is wrong:** a decision whose cost of error is severe and irreversible stays with the person accountable for it, however well the four questions score. The test allocates work, not accountability.
+
+*(Source: Cheryl Strauss Einhorn, "Should You Delegate That Decision? Ask These 4 Questions," via an HBR management digest, Jun 2026 — ⚠ practitioner-tier. **The digest carries no statistics of any kind**, so the four questions are a heuristic worth using and not a measured finding.)*
 
 ## THE 24 AI WRITING ANTI-PATTERNS — Always Active
 
