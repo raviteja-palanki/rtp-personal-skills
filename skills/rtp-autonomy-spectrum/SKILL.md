@@ -1,6 +1,6 @@
 ---
 name: autonomy-spectrum
-version: v1.5_latest
+version: v1.6_latest
 description: 'Place every AI interaction at the level it deserves, not the highest the model can reach, by asking one question: who decides what happens next, the code or the model? Gives the 7-level spectrum (Feature → Chatbot → Assistant → Copilot ‖ Agent → Autonomous Agent → Multi-Agent), with plain-language ''what the AI does against what the human does'' for each. Also covers the structural shift at Level 4→5 where the model takes over the workflow, consequence-based leveling, leash length and progressive trust, and the effective-against-designed level (the rubber-stamping trap). Use when someone says ''let''s build an agent'', when designing any AI feature, evaluating a competitor, or deciding how much control to hand the model. Pairs with: ai-use-case-readiness (deep governance diagnostic; this is the quick reference), trust-ladder, agent-spec, agent-risk, tool-architecture, agent-harness, judgment-guard. Triggers: ''autonomy level'', ''agent spectrum'', ''how autonomous'', ''let''s build an agent''.'
 imports:
   - determinism-compass
@@ -119,6 +119,20 @@ Checking every output by hand cancels the efficiency that justified the AI. So m
 > **Autonomy may rise as far as you can still verify the *design*, and must stop where it would require verifying every *output*.** You can hand off as far as you can check the setup, and no further.
 
 This predicts *before* you ship why over-reaching rollouts get pulled back — a shopping agent that auto-checked-out was pulled to a human-present mode within months because it had been pushed past the point the setup alone could guarantee the outcome. The leash (below) is *how much* you let the agent do; the cut line is *the ceiling the leash can never cross* — no track record earns autonomy past the point you can no longer check the design. *(When wrong: "can I verify the design?" is itself a judgment call — a team can convince itself it verified a setup it didn't understand. The cut line sets the ceiling, not the guarantee; pair it with consequence magnitude. Source: "Beyond Verification," Renieris, Kiron, Mills & Kleppe, MIT Sloan Management Review, 12 May 2026.)*
+
+## AUTONOMY IS A LEVER, NOT A GOAL
+
+**Do not treat autonomy as a binary switch, and do not treat moving up this spectrum as progress in itself.**
+
+**Design for a deliberate progression** from advisory, to human-in-the-loop decision-making, to full execution rights under oversight. **And expect the progression to be non-uniform across tasks inside the same function.** In structured, low-risk areas such as repetitive analysis or contract validation, an agent moves quickly along the curve. In high-stakes activities such as negotiation, **the agent may stay in a coaching role indefinitely, and that is a finished design rather than an unfinished one.**
+
+**Read that against the cliff finding above and the two fit together.** The optimal arrangement jumps rather than slides, so you cannot plan a smooth migration. **But the jumps happen per task, not per function.** Which means the practical unit of this spectrum is a task, and a function-level autonomy level is an average that describes nothing you can operate.
+
+**The failure this prevents, and it is the most common one in regulated functions.** Where decisions carry contractual or financial consequences, organizations limit autonomy and preserve human approval **so strongly that they neutralize the benefit of the agentic system entirely.** They then conclude the technology underdelivered. The honest read is that they bought a Level 5 system and operate it at Level 2, which is the effective-versus-designed gap this skill already names, arriving through caution rather than through rubber-stamping.
+
+**What to specify before the first agent runs**, rather than negotiating it after a compliance question forces the issue: approval rights, audit trails, escalation paths, and override mechanisms. **Governance is a design parameter here, not a review gate.** A working pilot that cannot scale because the governance layer was bolted on late is the most common failure in agentic deployment.
+
+*(Source: Himmelreich, Oshri, Scala & Zaidani, HBR, "Why Agentic AI Could Transform Procurement," Aug 2026 — ⚠ practitioner-tier for the graduated-autonomy prescription, drawn from interviews with no comparative data against binary-switch deployments. The phrase "autonomy is a lever, not a goal" is the authors' own. Falsifier: a deployment that reached durable value by treating autonomy as a single function-level setting.)*
 
 ## AUTOMATION CLIFFS: THE OPTIMAL LEVEL JUMPS, IT DOES NOT SLIDE
 

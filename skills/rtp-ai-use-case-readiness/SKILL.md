@@ -1,6 +1,6 @@
 ---
 name: ai-use-case-readiness
-version: v2.5_latest
+version: v2.6_latest
 description: 'Right-size the autonomy for a use case: the minimum that captures the value, not the maximum you could build. The question is never ''can we make this autonomous?'' but ''what''s the least autonomy that still works?'' Autonomy is a governance question, not a capability one: you CAN build a level-5 agent; cost-of-error, verifiability, and policy decide whether you SHOULD. Runs a 5-phase diagnostic: 12 questions, the 0-7 spectrum, two matrices, a floor/ceiling gap and a phased roadmap. The output is framed as a testable hypothesis, not a rubber stamp. Use when a team says ''let''s build an agent'', or when ''can it be autonomous?'' is asked before ''should it be?''. Do NOT use for a monolithic undecomposed use case (first-principles first) or a pure tech-stack choice. Pairs with: problem-ai-fit (whether AI at all), autonomy-spectrum (quick level reference), determinism-compass (what stays deterministic), cost-model (control-burden economics). Triggers: ''let''s build an agent'', ''how autonomous'', ''can this be an agent''.'
 imports:
   - first-principles
@@ -209,6 +209,28 @@ So a low readiness score is not only a delivery risk. It is a statement about wh
 **Where this reframe is wrong:** readiness that is high because the use case is trivial is not a moat. The asset is change capacity demonstrated on hard work, not an easy deployment that went smoothly.
 
 *(Source: MIT SMR, Westerman, "6 questions to guide your AI strategy," 3 Aug 2026 — the six questions are his, ◆ reported company examples with **no measurement anywhere in the article** and no adoption figures of any kind. The moat reframe is this corpus's: he names organizational change capacity as the constraint and calls it a strategy question rather than a scarce complementary input. Note that this article's only statistic is broken in an instructive way; it is carried as a teaching case in `rtp-trendslop-check`, and its governance framing is refuted in `rtp-responsible-ai-program`. Ledger patterns A and N.)*
+
+## WHICH FUNCTION SHOULD GO FIRST: A THREE-CHARACTERISTIC SCREEN
+
+Most companies pick the function that is loudest about AI. **Three characteristics predict agentic fit, and a function that has all three is better positioned than one that has any two.**
+
+1. **Economic visibility.** Does activity in this function translate directly into financial outcomes, **measurable in the same currency the CFO uses?** If the value has to be argued rather than counted, every scaling conversation will be a negotiation.
+2. **Process structure at scale.** Are the workflows repeatable and multi-step? That is where agents that reason, act and adapt across tasks deliver disproportionate value, as opposed to a single-call assistant.
+3. **Persistent judgment-heavy friction.** Is there manual intervention at specific points that **resisted traditional automation precisely because it needs judgment rather than rule-following?**
+
+**The third is the discriminating one and it is the one most screens omit.** It separates work that rules-based automation already solved from work that stayed manual because it needed a person to weigh something. **Friction that RPA could have removed and did not is an RPA project. Friction that RPA could not remove is the agent-shaped opportunity.**
+
+**The worked ranking that makes the point.** In a survey of 385 organizations, agentic adoption ran software development 35%, IT operations 31%, marketing 26%, and **procurement 9%** — despite procurement scoring highest on all three characteristics. The lag was organizational, not technological.
+
+**Three organizational barriers to check before you name a first function**, because scoring well on the three characteristics does not mean the function can carry the work:
+
+- **Accountability and control.** Where decisions carry contractual or financial consequences, organizations respond by **limiting autonomy and preserving human approval so strongly that they neutralize the benefit.** A function with heavy approval structures needs the autonomy design solved before the pilot, not after.
+- **Fragmented ownership.** Is the function the *owner* of the initiative or its *beneficiary*? Solutions designed by IT with limited operational input succeed in controlled conditions and stall against exception-rich reality. **The trade-offs should be made by the people who will live with the consequences.**
+- **Data as an afterthought.** Inconsistent master data and incomplete categorization mean the agent never had a chance, and the conclusion drawn will be that the technology failed.
+
+**Then the failure mode to name out loud before anyone starts, because it has a name and it is common.** Practitioners call it **the belief stage**: pilots launched, adoption celebrated, accountability for value left unclear, initiative stalls there indefinitely. **The antidote is a requirement, not a warning. Every agent carries an investment case from the outset, mapped to a specific process phase, a defined value lever, and measurable financial KPIs.** A pilot that cannot name its value lever is already in the belief stage on day one.
+
+*(Source: Himmelreich, Oshri, Scala & Zaidani, HBR, "Why Agentic AI Could Transform Procurement," Aug 2026 — drawing on the authors' decade of research through ERP, RPA and intelligent automation plus practitioner interviews. The adoption percentages are ◆ from a survey of 385 organizations cited without its sampling frame or its definition of adoption, so **the ordering is usable and the levels are not.** The three characteristics are presented as a description of procurement; treating them as a general screen is this corpus's move. Falsifier: a function scoring low on all three that captured durable agentic value ahead of one scoring high.)*
 
 ## CAN THE REVIEWER JUDGE WITHOUT PRODUCING?
 

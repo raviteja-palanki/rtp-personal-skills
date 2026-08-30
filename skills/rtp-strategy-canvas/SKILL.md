@@ -1,6 +1,6 @@
 ---
 name: rtp-strategy-canvas
-version: v1.1_latest
+version: v1.2_latest
 description: 'The AI product strategy skill: what to solve, why only you can win it, and what you do when the model changes under you. Runs the 7-step framework (Objective → Users → Superpowers → Vision → Pillars → Impact → Roadmap) with the moves AI actually changes: separating stable anchors from volatile capability, writing capability-conditional bets (IF model X by date → Path A, ELSE Path B), reset triggers, and a strategy half-life measured in months. Anchors on the 2026 moat thesis: the durable edge is a compounding feedback loop wrapped in a workflow, not the model. Use to set or review an AI product strategy, run a quarterly reset, or push back on a static roadmap. Pairs with: moat-finder (Superpowers), vision-setting (Vision), ai-portfolio-management (Pillars), capability-tracking (what''s volatile), harness-operating-model (harness as moat), token-economics. Triggers: ''AI strategy'', ''product strategy for AI'', ''strategic direction'', ''quarterly strategy reset''.'
 imports: [first-principles, moat-finder]
 ---
@@ -69,6 +69,29 @@ The cost shows up in the people, not just the roadmap. Corroborating data, tier 
 7. Is one person holding the connection between this initiative and the organizational strategy, or has that connection been left implicit?
 8. When engineering, design, and finance each ask "why this," does the same answer satisfy all three, or does the story change per audience?
 9. Does the roadmap show a path to a new value category, or only a faster version of the current one?
+
+## DESIGN FOR THE HARDEST CONSTRAINT, THEN RELAX UPWARD
+
+**The common path is to build for the well-resourced case and water it down for everyone else. It reliably fails**, and the reverse order produces products that work in both places.
+
+**Start where the constraints are toughest and solve them most efficiently there.** The resulting design travels upward cheaply. The reverse does not: a product built assuming abundant resources has that assumption distributed through every component, and removing it later is a rebuild rather than an adaptation.
+
+**The objection is worth answering directly, because someone always raises it.** If you design for everyone you design for no one. The answer: a broadly attractive product rests on **finding the core value shared across markets**, then making relatively small modifications for price point or feature set. The core persists; the adaptations sit on top.
+
+**The barrier is not engineering, and naming it correctly is what makes it addressable.** Product design has concentrated on well-resourced markets for two centuries, so **a dominant logic forms inside the organization**: the constrained customer becomes invisible rather than rejected. Market data does not dislodge it, because the data is read through the logic. **The intervention is exposure, not analysis.**
+
+**The transfer to AI products, which is where this bites for us.** Your demo context is the wealthy market. The degraded case is the real one:
+
+| The wealthy-market assumption | The constrained reality to design for first |
+|---|---|
+| A well-formed prompt from someone who knows the domain | A vague prompt from someone still learning it |
+| A fresh reviewer with time to read carefully | Someone triaging at the end of a long shift |
+| Clean, complete, well-labeled context | Partial context with two fields missing |
+| Fast connection, large screen | Neither |
+
+**Build for the bottom row and the top row is free. Build for the top row and the bottom row is a rewrite.**
+
+*(Source: Amos Winter and Vijay Govindarajan on the HBR IdeaCast, "The Innovation Strategy Most Companies Miss," Aug 2026, drawing on their book *Global by Design* — ⚠ conversation-tier with no figures, populations or effect sizes. **The named examples are chosen because they worked**, which is survivor selection and should be flagged whenever the argument is repeated. The transfer to AI product contexts is this corpus's. Falsifier: a product line built for the well-resourced market that adapted downward as cheaply as a constraint-first design adapted upward.)*
 
 ## WHAT AI ACTUALLY CHANGES — the adaptive layer
 

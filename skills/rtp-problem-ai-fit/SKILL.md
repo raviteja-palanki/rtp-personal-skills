@@ -1,6 +1,6 @@
 ---
 name: problem-ai-fit
-version: v1.2_latest
+version: v1.3_latest
 description: 'Determines whether a problem genuinely needs AI or if rules, search, and simple logic deliver better outcomes. Then, for problems that do need AI, it decides which seat it takes: the engine that produces the recommendation, or the helper that widens the evidence while humans keep the judgment. Use when teams propose AI features, stakeholders say "use AI," or during discovery. Runs hypothesis-driven AI-necessity analysis. Pairs with: first-principles (find the real operation first), ai-use-case-readiness (score the autonomy), build-or-buy (how to source it), determinism-compass (rules vs. patterns).'
 imports: [first-principles]
 ---
@@ -67,6 +67,31 @@ Follow the [Universal Deliverable Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md
 - **Decision engine vs. helper** — AI that *produces* the recommendation (engine, for narrow decisions) versus AI that *broadens the evidence* while humans keep judgment (helper, for wide ones).
 - **Analytical vs. generative AI** — analytical predicts/optimizes from structured data; generative writes/synthesizes from language.
 - **AI-washing** — dressing up a rules or lookup problem as "AI" for hype.
+
+## INFORMATION, JUDGMENT, OR INCENTIVES? THE QUESTION THAT DECIDES WHETHER AI HELPS
+
+**Ask this before adopting any tool or workflow: what specifically is slowing this down: a problem of information, a problem of human judgment, or a problem of organizational incentives?**
+
+**The governing principle: the mechanism behind a bottleneck decides whether AI helps or hurts it, not the sophistication of the AI.**
+
+| Bottleneck type | Looks like | What AI does |
+|---|---|---|
+| **Informational, high-volume, procedural** | Too many submissions to review, too much text to read, a rigid format that hides quality | **Genuinely dissolves it**, provided you design the system deliberately |
+| **Human judgment rooted in lived experience** | Customers cannot articulate a preference for a category they have never seen | **No amount of model scaling touches it** |
+| **Organizational incentives** | A manager with two years of political capital in a failing project reads the data charitably | **No amount of model scaling touches it**, and a fluent summary makes it easier to defend the prior belief |
+
+**The uncomfortable finding underneath: at three of four stages of an innovation pipeline, AI's default effect used naively is to deepen the bottleneck rather than shrink it.** A model trained on the aggregate of existing human output reproduces the tendencies that caused the bottleneck, faster and at scale.
+
+**Four worked examples, because the abstraction alone will not survive a real meeting:**
+
+1. **Ideation narrows twice.** The model gravitates to the statistically typical answer, then the person who reads it becomes fixated on it and stops producing the unusual ideas they would have had unprompted. **The fix targets the model's prompting, not the person's mindset**: ask it to draft and then revise toward bolder, more distinct territory. Telling a fixated person to think more broadly does not work and can deepen the fixation.
+2. **Screening rewards polish.** Evaluators were already biased against novel ideas. AI pitches are fluent by design, and fluency gets mistaken for quality. **The fix is structural: strip submissions to a common format before scoring, and hide whether an idea came from a person or a model.**
+3. **Simulated customers answer the wrong question.** Covered below in the consumer-research section of this skill.
+4. **Post-launch synthesis is the one that genuinely shrinks**, and it hands you a new problem: which of the hundreds of themes deserve action rather than being merely loudest.
+
+**The move this gives you in a scoping meeting.** When someone proposes AI for a bottleneck, make them name which of the three it is. **If the honest answer is incentives, the tool is not the intervention and buying it will make the problem harder to see**, because the output will be fluent enough to cite.
+
+*(Source: De Freitas, Israeli, Nave, Timoshenko & Toubia, HBR, "Research: The Innovation Problems AI Can't Solve," Aug 2026, synthesizing a working paper invited by the International Journal of Research in Marketing — ⚠ as reported: the article carries almost no numbers of its own and each finding is sourced to a linked study whose sample sizes it does not reproduce. The synthesis method is sound and the magnitudes are not available here. [VERIFY] against the working paper before citing any effect size. Falsifier: an incentive-rooted bottleneck measurably dissolved by a tool with no change to who is accountable for what.)*
 
 ## THE TWO QUESTIONS ASKED BEFORE THE PURCHASE
 

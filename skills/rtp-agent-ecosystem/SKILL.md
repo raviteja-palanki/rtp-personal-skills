@@ -1,6 +1,6 @@
 ---
 name: agent-ecosystem
-version: v1.6_latest
+version: v1.7_latest
 description: 'When two or more AI agents must work together, the hard problem stops being intelligence and becomes coordination: who owns shared state, how work hands off without losing context, and what happens at the merge when agents disagree. Covers coordination topologies (supervisor, pipeline, fan-out/fan-in, peer), handoff protocols, state ownership, the multi-agent failure taxonomy (race, context drift, cascade, sub-agent divergence), and the graduation gate. Also the human twin of every handoff: the named owner of the seam, and where value concentrates beyond the agents themselves. Use when designing a system of two or more agents, choosing a topology, or diagnosing agents that collide or lose work. This skill owns the seams between agents; agent-harness owns the single-agent machine. Pairs with: agent-harness, harness-operating-model, autonomy-spectrum. Triggers: ''multi-agent'', ''agent orchestration'', ''agent handoff''.'
 imports:
   - determinism-compass
@@ -63,6 +63,33 @@ The pre-design worksheet, run before the orchestration-pattern choice:
 - When do they slow down, and why? Deliberate friction is often where judgment lives.
 
 **Condition this is wrong.** The worksheet assumes tacit knowledge can be articulated on request. That assumption is often false by definition: the deepest tacit knowledge resists recall and surfaces only in the moment it is needed, not in an interview about it. Treat the worksheet as a partial elicitation tool, not a complete one. The only success case cited here, Ramp, is also low-stakes, high-volume, and transactional; the method is unproven in high-stakes, relationship-driven domains and should not be assumed to transfer there untested.
+
+## BUILD A FACTORY, NOT A FLEET OF PROJECTS
+
+**Treat the first agent as the start of a portfolio rather than as a deliverable.** The organizations pulling ahead build repeatable internal approaches to identifying, deploying and scaling agents, with **the team that built the first one carrying reusable components and shared governance patterns forward into every subsequent one.**
+
+**The role shift that follows: people move from task executors to curators of an agentic ecosystem**, applying judgment where the agents fall short. That is a staffing plan, and it is not the same as a redeployment plan.
+
+**Why this compounds and a project portfolio does not.** Each deployment lowers the cost of the next one, so the gap between an organization on its eighth agent and one on its first is not eight units of progress. **Late entrants find it increasingly hard to catch up**, which makes the factory itself the durable asset rather than any agent in it.
+
+**Two ownership rules that decide whether the factory forms at all:**
+
+- **The function owns the initiative end to end** — defining the use case, owning the success metrics, holding accountability for the operational outcome. Technology teams enable and do not dictate. **The trade-offs get made by the people who will live with the consequences.**
+- **Start where the pain is greatest, not where the risk is lowest.** Target the clearest economic or operational bottleneck. **The principle is value concentration**: it accelerates learning and produces results too significant to dismiss when the scaling questions arrive. The mature version goes further and targets the high-leverage category rather than the convenient one.
+
+**And measure commercial outcomes rather than adoption.** Track agents on the same metrics you apply to the function overall. **Cycle-time reduction, tool usage and pilot adoption are secondary process metrics**, and a program measured on them can look healthy for two years while contributing nothing.
+
+## DIVERSITY THAT PAYS IS DIVERSITY OF FORMATION, NOT OF ROLE
+
+This skill already treats cross-lab model diversity as a design axis separate from functional role. **A study of more than 4,200 musicians over fifteen years supplies the human twin, with the discriminating variable named.**
+
+Collaborations drew significantly more attention when the two people **had grown up in different national cultures. Different craft specialization barely mattered.** Different traditions mean different techniques, and a better result than either would produce alone.
+
+**The combined rule neither source states: pair on different formation, not on different job title.** Two engineers trained in different places may decorrelate more than an engineer and a designer trained in the same one. **That is close to the opposite of how most teams are assembled when someone asks for diversity of perspective**, and it is the same logic that makes two models from different labs worth more than two personas on one model.
+
+**The transfer test:** when you claim a team or an agent roster is diverse, ask what would have to differ for their errors to be uncorrelated. If the answer is "they have different responsibilities," you have division of labor, not decorrelation.
+
+*(Sources: the factory, ownership and measurement rules from Himmelreich, Oshri, Scala & Zaidani, HBR, "Why Agentic AI Could Transform Procurement," Aug 2026 — ⚠ practitioner-tier from interviews, no comparative data. The pairing finding from Deshmane & Martinez-de-Albeniz, HBR, "The Science of Developing Creative Talent," Aug 2026 — ◆ 4,200-plus musicians over 15 years, **observational rather than experimental**, so selection is doing unmeasured work; the useful part is the contrast between background and craft, not either magnitude. The transfer to agent rosters is this corpus's. Falsifier: an agent roster or team whose errors decorrelated on role difference alone, with formation held constant.)*
 
 ## SORT SEAM PROBLEMS INTO WHAT YOU CAN CHANGE AND WHAT YOU CAN ONLY MANAGE
 

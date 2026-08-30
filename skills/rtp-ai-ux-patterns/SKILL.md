@@ -1,6 +1,6 @@
 ---
 name: ai-ux-patterns
-version: v1.4_latest
+version: v1.5_latest
 description: 'Interface patterns for AI products where output confidence varies: how to show the AI''s uncertainty, reveal detail only as needed, calibrate user trust, design loading and error states, and govern the AI''s personality (tone, patience, pushback) as a controlled design variable, not a vibe. Use when designing AI features or evaluating why users over-trust or under-trust AI output. Pairs with: trust-ladder (the calibration), confidence-tuner (the signals users see), judgment-guard (log whether explanations are actually opened, not just offered).'
 imports: [trust-ladder, failure-modes]
 ---
@@ -443,6 +443,30 @@ The Chennapragada lens: in NLX, every word the AI writes is a UI element. Design
 **The design implication for a team-facing product:** if several users are working the same problem, do not let their sessions converge silently. Vary retrieval across users, or surface how similar the group's outputs already are. **This is the same convergence risk that shows up between competing firms, running inside one room.**
 
 *(Source: HBR, "Algorithms Trap Us in the Familiar. Can They Also Spark Breakthroughs?," Aug 2026 — ◆ the exploration algorithm is the authors' own implementation surfacing semantically distinct clusters; the ideation-bubble effect is reported from their study without a stated sample. Falsifier: a team using an exploitation-only tool on a shared challenge whose idea diversity matched a team using an exploration mode.)*
+
+## SHOWING THE MODEL'S REASONING CAN MAKE REVIEW WORSE
+
+**This inverts the design default the whole industry is building toward, and it was measured rather than argued.**
+
+In a field experiment on screening decisions, **evaluators given a model recommendation plus a written rationale became more likely to rubber-stamp rejections, and got no better at telling correct model judgments from incorrect ones.** The rationale substituted for their judgment rather than supporting it. **The effect was strongest on borderline cases, which is exactly where human judgment is the reason a human is there.**
+
+**In the same experiment, a black-box recommendation with no rationale improved decisions relative to keeping the rationales in.**
+
+**The mechanism to hold onto: an explanation is a persuasion surface as well as an information surface.** A fluent rationale is easier to agree with than to audit, and in a review interface under time pressure the persuasion effect can dominate the information effect. The reviewer feels better informed and performs worse.
+
+**This does not mean never explain.** It means the explanation has to earn its place against a measurement rather than against an intuition:
+
+| If your review interface shows a rationale | Then you owe this measurement |
+|---|---|
+| To help reviewers catch wrong recommendations | **Plant known-wrong items and measure catch rate with the rationale on and off.** If catch rate does not improve, the rationale is decoration that costs accuracy |
+| To satisfy a regulator or an audit trail | Log it, and consider **not showing it to the reviewer at decision time.** Recording a rationale and displaying it are separable choices |
+| To help the reviewer write their own justification | Show it **after** they commit to a decision, not before |
+
+**The sequencing fix is the cheapest one and most products get it backwards.** Ask for the reviewer's own read first, then reveal the model's recommendation and reasoning. That preserves an independent judgment you can compare against, and it is the same move as forming your own view before opening the tool.
+
+**The failure signature in a live product:** agreement rate with the model above 95%, and no measurement of whether reviewers catch planted errors. That is not a well-calibrated reviewer. That is a rationale doing the deciding.
+
+*(Source: a field experiment reported in De Freitas, Israeli, Nave, Timoshenko & Toubia, HBR, "Research: The Innovation Problems AI Can't Solve," Aug 2026 — ◆ as reported, and **the article gives no sample size, effect size or domain for this experiment**, which is a real limitation on a result this counterintuitive. [VERIFY] against the underlying working paper before citing it as settled. Carry the design implication, which is testable in your own product in a week. Falsifier: a review interface where showing the rationale measurably improved catch rate on planted errors.)*
 
 ## THE WATCHING JOB NEEDS A CLICK
 

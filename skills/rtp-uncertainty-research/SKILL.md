@@ -1,6 +1,6 @@
 ---
 name: uncertainty-research
-version: v1.4_latest
+version: v1.5_latest
 description: 'Research for non-deterministic AI, where two users asking the same question get different answers, which quietly breaks every standard research method. You can''t measure a moving target with a fixed ruler: a one-session usability study captures week-1 caution when real trust stabilizes at week 4, and averages hide terrible tail quality. Instead measure behavior over time (acceptance/edit/rejection rate), stratify by output quality, find the ''good enough'' acceptance threshold empirically, and build an expiry condition into every finding because the model moves. Use when planning trust studies, threshold studies, or validating an AI feature. Do NOT use for deterministic software, batch/offline AI, or under ~50 weekly active users. Pairs with: interview-synthesis (synthesize the interviews), jtbd-analysis (the switch-interview method), ai-product-taste (defines the bar; this measures the threshold), ai-use-case-readiness (downstream). Triggers: ''trust study'', ''threshold study'', ''how good is good enough''.'
 imports:
   - first-principles
@@ -51,6 +51,31 @@ You will apply traditional research methods unmodified — **methodological anch
 ## EXPECTATION CALIBRATION (the prerequisite)
 
 Before any study, interview 10–15 active users — this determines which method you need. Ask: what do you think this AI can/can't do? if it makes a mistake, what would you expect? how confident are you (1–10)? what would make you stop using it? **Interpret:** if they expect 95% and the AI delivers 75%, the *expectation gap* destroys trust regardless of quality — fix the UX framing before researching trust. If they say "I don't know what it does," your UX isn't clear — fix that first. **Post-launch,** re-run at week 2 and week 8; *inflated* expectations are the dangerous ones — they precede sharp trust collapses.
+
+## SIMULATED CUSTOMERS ANSWER A DIFFERENT QUESTION THAN YOU ASKED
+
+**A model asked to role-play consumers reacting to a price change does not treat the price variation as an experiment. It treats it as a clue about context.** A higher price reads as "premium," not as "the same product costing more." So instead of the downward-sloping demand curve real shoppers produce, **you can get a flat or even upward-sloping one.**
+
+That is not noise. It is a systematic misreading of what you were testing, and it will look like a clean result.
+
+**Digital twins do better and still miss the thing that decides adoption.** Twins built from rich behavioral profiles of real people are a reasonable stand-in for some questions. But **real customers behave irrationally in ways that matter enormously for whether they adopt something new.** They cling to sunk costs. They overweight the pain of switching. **Simulated twins make the rational choice far more often than actual humans, so they systematically underestimate the exact frictions that kill new product launches.**
+
+**Read that failure direction carefully, because it is the dangerous one.** Simulation does not add random error around the truth. **It biases optimistic on adoption**, and it biases most optimistic on the products that are most novel, because those are the ones whose fate turns on switching cost and framing.
+
+**Where to use them and where not:**
+
+| Question | Simulated customers |
+|---|---|
+| Rough comprehension of a message, early filter on a long list of concepts | **Reasonable.** Fast, cheap, directionally useful |
+| Anything hinging on price sensitivity | **No.** The context-clue failure hits this directly |
+| Anything hinging on sunk costs, switching costs, or how a choice is framed | **No.** Keep it with human research |
+| Whether a genuinely new product will be adopted | **No.** This is where the optimism bias is largest |
+
+**What to run instead for the excluded rows:** lead-user panels and ethnographic fieldwork that **watch how people actually behave rather than record what a model predicts they will choose.** The distinction is the same one this skill makes everywhere between stated and revealed preference, arriving now with a new way to get it wrong at scale.
+
+**There is no clean fix for this yet**, and saying so is more useful than a workaround that restores confidence without restoring validity.
+
+*(Source: De Freitas, Israeli, Nave, Timoshenko & Toubia, HBR, "Research: The Innovation Problems AI Can't Solve," Aug 2026, synthesizing linked empirical work — ⚠ as reported: the article carries the direction of each finding and not its magnitude, and the underlying studies' samples are not reproduced. Falsifier: a simulated-consumer study whose price-sensitivity estimates matched a real population's within the study's own confidence bounds.)*
 
 ## GET THE GRAIN RIGHT, OR YOU DETECT A PROBLEM YOU CANNOT LOCATE
 
