@@ -1,6 +1,6 @@
 ---
 name: token-economics
-version: v1.2_latest
+version: v1.3_latest
 description: "How to charge for an AI product, where your best users are your most expensive users and the work is done by the model, not the seat. Built on six first-principles axioms (cost is power-law physics; incentives must align with value not consumption; budgets are hierarchical; margin lives in the applied/harness layer; opacity kills trust; negative margins are temporary subsidies). Answers the two questions SaaS never had to: which value metric (the six 2026 models, ranked), and which budget (software vs the ~10× salary budget). Carries the agentic value-metric decision tree, the transition arc with stage gates, spend-visibility + routing as survival infrastructure, the Default-FAIL gate for outcome pricing, a mandatory margin-floor check at P90, and 2026 case law. Consumes cost-per-outcome@P90 from cost-model; produces the pricing decision + spend-control design. Pairs with: cost-model, moat-finder, adoption-launch. Triggers: 'pricing for AI', 'how to price', 'token economics', 'per-seat is dying'."
 imports: [stress-test, red-team]
 ---
@@ -84,7 +84,7 @@ Mapped across the 50 highest-valued AI companies. **Pure-play pricing is dying �
 | **3. Credit / token pools** | Flat sub buys a depleting credit pool | Multi-feature / agentic products | Trust revolt when a predictable plan turns variable | Cursor (the $7,225 invoice) |
 | **4. Outcome-based** | Pay per successful outcome | Clean, measurable, Default-FAIL outcomes | Revenue drops on a bad model week; needs measurement infra | Intercom Fin $0.99/resolution |
 | **5. Seat-based + AI add-on** | Per-seat base, AI in a premium tier | Established SaaS adding Assist features | Heaviest users pay the same as lightest | Notion, GitHub Copilot, Harvey |
-| **6. Freemium / reverse trial** | Give AI away to build habit | PLG, consumer scale | Brutal burn; <2-3% conversion = too generous | OpenAI (900M weekly), Perplexity |
+| **6. Freemium / reverse trial** | Give AI away to build habit | PLG, consumer scale | Brutal burn; <2-3% conversion = too generous | OpenAI (900M weekly), Perplexity, Duolingo (~8% of MAU paid ✅, well above the <2-3% failure line) |
 
 **Preference order (long-term alignment, from the axioms):** Outcome / Services-as-Software **>** agent-run credits **>** hybrid with transparent overage **>** pure usage **>** pure seat (a temporary bridge only). Reverse trial beats a permanently crippled free tier.
 
@@ -165,6 +165,8 @@ Separate from the value metric: *do you charge for the AI separately at all?* Th
 - **Marginal cost at P90.** <5% of revenue → bundle is safe. 5-20% → bundle with fair-use, or hybrid. >20% → add-on or usage-based mandatory.
 - **New value vs improvement.** Fill in "Before our AI, users could ___." "Do this manually/worse" = *improvement* → **bundle**. "Couldn't do this at all" = *new value* → **add-on**, or **standalone** only if it reaches a genuinely new buyer.
 - **Separable WTP.** When sales mentions AI, does the prospect ask "what's the price for that?" (→ add-on) or "is that included?" (→ bundle). Standalone sold to the same buyer/cycle/logo is just an add-on with bad packaging.
+
+**A worked example where all three signals point the same way.** Duolingo tried a standalone math app first, then folded it into one super app with language and music, for three stated reasons that map directly onto the tests above. Discoverability: with 2.2 million apps on the Apple App Store and 3 million on Google Play, even a known brand starts from zero in a new app. Friction: a new app means a new download, username, and login; an existing user opening a bundled feature is already signed in. Cost: gamification mechanics (leaderboards, streaks, experience points) get engineered once and reused, rather than rebuilt per subject, the practical form of the marginal-cost-at-P90 test above (◆, HBR Cold Call, "How Duolingo Aims to Diversify Beyond Language Learning," Apr 2025). The unresolved risk the case names itself: bundling means a new user's first impression of the whole product can come from its weakest line, not its strongest.
 
 ## THE QUALITY-COST-LATENCY TRIANGLE
 
