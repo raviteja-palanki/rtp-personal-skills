@@ -1,6 +1,6 @@
 ---
 name: ship-decision
-version: v1.1_latest
+version: v1.2_latest
 description: 'The formal go/no-go gate for launching an AI feature: quality tested on 150+ real cases, error rates within severity thresholds, cost still survivable at 10× usage, monitoring live before launch (not after), failure behavior mapped, fallback defined, plus a pre-agreed reward for the person who kills their own failing feature, so the bad news arrives before the spend. Use when: one week before any production launch. Pairs with: eval-framework (the test set), cost-model (the 10× math), stress-test (production readiness), agent-risk (can you pull the plug fast enough). Triggers: ''ship gate'', ''launch checklist'', ''go/no-go'
 imports: [stress-test, safety-as-moat, failure-modes, cost-model]
 ---
@@ -123,6 +123,8 @@ Ordinary corporate-finance discipline, routinely absent from AI business cases:
 You will be optimistic. The feature works in staging. The team has tested it. A PM has used it. You feel ready to ship. The bias is **availability bias** — the most recent successful experience (the feature working) is more vivid than distant failure modes (the feature breaking at 10x scale, or costing 2x more than budgeted, or causing a PR crisis because users didn't understand its limits).
 
 Shipping without rigor feels fast. It is. Shipping when you're not ready feels slow. It is. Slow is correct.
+
+**The mirror trap, and this skill's own advice is what arms it.** Once "slow is correct" is internalized, the not-ship option quietly stops being a decision and becomes the baseline, and baselines do not get costed. Every downside of shipping gets a review, an owner and a risk register; the downside of waiting another quarter gets a shrug. That is not a comparison, it is a full assessment of one option against an assumption about the other. **Price the null option in the same units and over the same horizon as the active one.** Run it out six months, a year, three years, and include the costs that never appear on a launch checklist: the competitor who ships first and sets the user expectation, the team that stops believing the thing will ever go out, the eval set that goes stale because nothing is in production generating real failures. Tim Ferriss puts the general form of this well, and names the exact population most prone to it: analytical people at strong institutions are "very good at thinking about all the possible downsides of doing the new thing," and "they don't spend as much time thinking about the cost of inaction or the status quo or taking the safe route." **The tell that you have defaulted rather than decided: your "don't ship" column is empty or qualitative while your "ship" column has numbers in it.** **When wrong:** this is a correction to the accounting, not a thumb on the scale toward shipping. If you price both columns honestly and the gates in this skill still say no, they say no, and this passage must never be used to argue past a failed eval gate or an unmet finance prerequisite. *(Source: HBR Cold Call, "Tim Ferriss at a Career Crossroads," Oct 2025 — ⚠ autobiographical, from a live taping. The observation is inserted for its structure, not as evidence.)*
 
 ## THE PROCESS
 

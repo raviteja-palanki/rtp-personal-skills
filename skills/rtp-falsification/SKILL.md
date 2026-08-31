@@ -1,6 +1,6 @@
 ---
 name: falsification
-version: v1.0_latest
+version: v1.1_latest
 description: 'Turns ''this will work'' into a claim that can lose: named numbers, pre-agreed kill conditions, and stakeholders signed up to act before launch momentum makes honesty expensive. In a probabilistic system you can always find an example where the model got it right, so the only defense is deciding in advance what evidence would prove you wrong, then genuinely looking for it. Use when reviewing a strategy, before committing resources or launching, or when someone is sure it ''will work'' without saying what failure looks like. Never to block action (de-risk with it) or on cheap, reversible decisions. Pairs with: bias-spotter (the bias making the claim feel safe), problem-type (its antidote to ''we''ll wait''), stress-test (the technical pre-mortem sibling), eval-driven-development (pre-registered criteria, daily), ship-decision (the gate the kill conditions arm). Triggers: ''this will improve X'', ''we should launch this'', ''we need this to compete''.'
 imports: []
 ---
@@ -52,6 +52,14 @@ You will look for evidence that you're right (**confirmation bias**), and in AI 
 - **Metric gaming** — the team optimizes the metric, not the outcome: "cut tickets 20%" → the AI deflects tickets into a new category that doesn't count as a ticket. Metric hits, problem unsolved.
 - **Distribution mismatch** — the eval set is curated or synthetic; production is typos and off-label requests. 85% in eval becomes 65% live.
 - **Silent failure** — models don't crash, they return confident garbage; by the time complaints surface, you've trained on contaminated feedback.
+
+### The opposite failure, and the only condition that licenses it
+
+Everything above guards against discounting evidence that you are wrong. The mirror error is real too: sometimes the market, the reviewers or the funding committee are wrong, and updating fully toward them destroys something correct. Because that is true, "they just don't get it" is available to everyone, and it is the standard psychology of the person who should have stopped. So the condition has to be stated, and it is narrow.
+
+**Discount disconfirming external signal only when your private evidence came from a better instrument than the one your rejectors used, and only when you can name the difference.** Not a stronger conviction, a better *instrument*: a different population, a higher fidelity, a later stage of the artifact. *The 4-Hour Workweek* was rejected 29 times, and the usual moral is grit. Ferriss refuses that reading: he persisted because he had workshopped the material with roughly a thousand students and collected written feedback after every session, and he is explicit about the counterfactual, "if I had not had that data, I don't think I would've persisted. I wouldn't have had any grounds for plowing head in that way." The publishers were evaluating a proposal; he was evaluating delivered material against measured response. **Different instrument, and that difference is the entire licence.** His own guardrail travels with it: "just because people are rejecting your idea does not mean it's a good idea."
+
+In an AI context the instrument comparison is usually concrete and worth writing down. A stakeholder rejecting a feature from a demo and a team holding an eval run over 2,000 production-distribution cases are not disagreeing, they are measuring different things, and the eval is the better instrument only if its distribution actually matches production (see distribution mismatch, above). **If you cannot name the instrument difference in one sentence, the external rejection is the better evidence and you should update.** **When wrong:** the failure mode here is self-serving and severe. Belief in one's own private data is exactly what the person who should stop also has. This condition bites only when the evidence is specifiable and of a genuinely different kind; "I've been doing this a long time" is not an instrument. *(Source: HBR Cold Call, "Tim Ferriss at a Career Crossroads," Oct 2025 — ⚠ autobiographical and self-reported. The rule is inserted for its logic; the illustrating case is not verification.)*
 
 ## THE PROCESS
 

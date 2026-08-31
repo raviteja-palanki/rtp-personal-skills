@@ -1,6 +1,6 @@
 ---
 name: agent-risk
-version: v1.3_latest
+version: v1.4_latest
 description: 'For every agent: is the value worth the potential harm? And can you pull the plug fast enough? Proportionality analysis (value vs worst-case) + kill-switch design (manual, anomaly-triggered, time-elapsed). If you can''t kill it faster than harm cascades, don''t deploy it. Use for any agentic system (AI agents, automated workflows, autonomous processes), pre-launch risk reviews, or when debating autonomy levels. Skip for static systems (no autonomous actions) or systems with trivial harm potential. Pairs with: autonomy-spectrum (choosing the level), agent-spec (checkpoints), judgment-guard (does the human overseer still choose to own it), adoption-launch (when insiders have a reason to want the rollout to fail).'
 imports: [stress-test, failure-modes, autonomy-spectrum]
 ---
@@ -82,6 +82,16 @@ What stopped the damage? Amazon had a **24-hour audit layer** — human analysts
 - **Attachment scope** — whether an agent is scoped to a company function (firm-attached) or to one person's judgment (person-attached); the two need different accountability designs, and person-attached raises a new question the other doesn't: what happens to the agent's accumulated judgment when that person leaves.
 
 ## THE PROCESS
+
+### 0. SET THE RISK DIAL BY DOMAIN, BEFORE ANY SINGLE AGENT
+
+The proportionality test below runs per agent. It assumes something that usually does not exist: that your organization has a usable risk appetite to test against. Most do not, because appetite is stated as one number, and **a single organizational risk number cannot be executed.** Told to "take more risks," an employee has to privately guess which domains the instruction excludes. Guessing wrong on an excluded domain (a compliance filing, an access control) ends a career; guessing wrong on an included one is merely unrewarded. **So the rational response to an unqualified instruction is to take no new risks anywhere**, and the organization then looks culturally intransigent while behaving sensibly under the instruction it was actually given.
+
+Fix it by stating at least two numbers, with the exempt domains named first. Verizon's CEO does it on a 1-to-10 scale against an inherited company baseline of 2: **"I'm a one when it comes to the integrity of our financial results, cybersecurity. I have no tolerance for any risk in that. But trying new things, failing, learning from them, moving forward, I'm probably an 8 or a 9."** Naming the exemptions is what makes the permission usable at all.
+
+**For AI deployment this is the difference between a governance policy and a governance slogan**, because AI spans both domains inside a single portfolio: irreversible, externally-visible decisions sit beside cheap, recoverable internal ones, and one number for both produces either blanket prohibition or unbounded permission. Write the dial before you run the proportionality test, then run the test inside the domain the agent actually lives in.
+
+**When wrong:** Schulman *states* this policy; nothing in the source shows the organization behaving differently across the two domains, and stating a risk posture is the easy half. A dial nobody enforces is worse than no dial, because it grants the permission without the exemption ever being tested. **Falsifier:** an organization that issued an unqualified "take more risks" instruction with no exemptions stated, and then measured increased experimentation in low-consequence domains without a rise in incidents in high-consequence ones, would show employees resolve the ambiguity on their own and explicit exemption is not load-bearing. *(Source: HBR IdeaCast, "Why Great Turnarounds Start with Culture, Not Strategy," Aug 2026 — ⚠ stated policy in a live, unfinished turnaround narrated by its own CEO. The construct is inserted for its logic, not as evidence it worked at Verizon.)*
 
 ### 1. PROPORTIONALITY TEST
 
@@ -278,7 +288,7 @@ Answer these honestly to assess agent risk:
 
 ## ADVERSARIAL-USER RISK — When the People Inside Have a Reason to Want It to Fail
 
-The proportionality, cascade, and kill-switch analysis above screens whether the agent can cause harm and whether users are paying enough attention (§3.5). It misses a third surface: users who deliberately work *against* the rollout — feeding sensitive data to unauthorized tools, tampering with outputs to make the AI look worse, ignoring guidelines on purpose.
+The proportionality, cascade, and kill-switch analysis above screens whether the agent can cause harm and whether users are paying enough attention (section 3.5). It misses a third surface: users who deliberately work *against* the rollout: feeding sensitive data to unauthorized tools, tampering with outputs to make the AI look worse, ignoring guidelines on purpose.
 
 Treat this as a named risk category with a base rate, not an edge case: in one 2026 enterprise survey, **29% of employees (44% of Gen Z) admitted to sabotaging their company's AI strategy** (◆).
 
