@@ -68,7 +68,24 @@ The shape that works: **name the boundary, give the method, name what would chan
 
 An answer without a real deployment behind it is a book report. Before any mock or grading session, pull the real material rather than inventing placeholder experience.
 
-**Sources, in order:** `1_Projects/0_interview-prep/` for existing prep, `5_My Resume/` for the shipped record, `3_Research/08_career/` for the collected guides, and the harness, evals and context-engineering deep dives in `3_Research/01_agentic-stack/`, `02_harness-engineering/` and `03_ai-evals/` prefixed `Ravi_`, which are his own authored analysis and the strongest evidence of depth he has.
+**Source zero, read it before anything else: the playbooks shelf.**
+
+```
+1_Projects/1_my-personal-website/1_My Series-MD-FILES/Important playbooks/
+```
+
+That folder is the canonical home for every finished playbook and every personal interview-prep playbook. Two files on it do this skill's job better than any prep note:
+
+- **`playbook-harness. engg/final playbook/How-I-Explain-Harness-Engineering-Interview-Definitive-Draft-6.md`** (4,937 words). The spoken register, already worked out. Three answer lengths (30 seconds, 90 seconds, 5 minutes), four moves per answer, and the rule that a strong answer carries an outcome, an owner, or a test. **This is the shape this skill teaches, written out in Ravi's own voice.** Use it as the template for any new domain, not only for harness questions.
+- **`playbook-harness. engg/final playbook/The-Harness-Engineering-Playbook-Definitive-Draft-6.md`** (9,620 words). The depth behind it: nine contracts, four ownership verbs, seven failure shapes, five decisions, the economics. When round 1 or round 2 goes past where a skill's spine ends, this is where the next level of detail already exists.
+
+`Frontier playbook/The-Frontier-Companies-Playbook-Draft-6-Combined.md` does the same job for a company-strategy round. `AI_Playbook.md` is the breadth source.
+
+**Cite `final playbook/` only. `Version_1/` is superseded**, and rehearsing from a draft that Draft 6 already corrected is how a candidate walks in with a stale number.
+
+**Then, in order:** `1_Projects/0_interview-prep/` for the question banks and company research, `5_My Resume/` for the shipped record, `3_Research/08_career/` for the collected guides, and the harness, evals and context-engineering deep dives in `3_Research/01_agentic-stack/`, `02_harness-engineering/` and `03_ai-evals/` prefixed `Ravi_`, which are his own authored analysis and the strongest evidence of depth he has.
+
+**The division of labor:** the playbook shelf holds the argument, `0_interview-prep/` holds the drilling. Reaching for the second without the first produces answers that are well-rehearsed and shallow.
 
 **The three anchors every answer should be able to reach for:**
 - **Honeywell, twelve years, Fortune 100 scale.** Enterprise constraint is his edge over candidates whose only context is a startup. Regulated, safety-critical, slow-moving stakeholders, real procurement.

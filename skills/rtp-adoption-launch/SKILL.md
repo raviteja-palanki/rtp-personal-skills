@@ -1,6 +1,6 @@
 ---
-name: adoption-launch
-version: v1.8_latest
+name: rtp-adoption-launch
+version: v1.9_latest
 description: 'Treat AI adoption as a product launch, with personas, phases and phase-specific support, rather than as a training program. Adoption curves are predictable: Surge → Dip → Rebound, and the shape repeats across unrelated companies and tool types (Novo Nordisk, Microsoft). One-time training doesn''t prevent the dip; the dip is a product and organizational-design problem, not a training problem. Use when planning AI rollout, adoption is stalling, or designing change management. Pairs with: needs-guard (which psychological need the rollout threatens), attitudinal-segmentation (embracers vs. skeptics), agent-risk (when someone has a rational reason to want it to fail), purpose-dialogue (connecting the rollout to what people believe in), judgment-guard (the multi-year capability-debt question: apprenticeship pipelines thinning as AI absorbs junior tasks, which is distinct from this skill''s single-rollout competency trap, below).'
 imports: [first-principles, needs-guard]
 ---
@@ -8,6 +8,16 @@ imports: [first-principles, needs-guard]
 # Adoption Launch
 
 Adoption curves for enterprise software are predictable. Yours will follow the same pattern. The question is not whether your team will hit the Month 3 dip — they will. The question is whether you've planned for it.
+
+## Research, adoption, stitch
+
+Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
+
+**This skill owns the adoption law.** A rate is a historical trend through today, not a snapshot and not a slogan. For each named product: who was counted, when, and the verb (tried / WAU / paid seat / deploy). Never blend. Seats sold is not software used. An announcement is not a renewal. Segment: enterprise vs SMB; Microsoft internal vs GitHub customers; completions vs metered chat and agents. Copilot is the worked example. Generous limits moved to credits (GitHub announced 27 APR 2026, live 01 JUN 2026). Record backlash against the primary, not a viral percent. Graph only if it changes the belief. Use the source's chart. Caption who, when, tier. Two independents or soften.
+
+Stitch one narrative: is this "adopted," or is a seat sold while usage and credits tell a different story? Claim → series → what would change your mind. No fact pile.
+
+When this skill should have caught a miss, write the tenet here (Rule 41) before the session ends.
 
 > "Adoption is not 'once and done.' It's a product launch with phases, personas, and repeated value realization." — Everett Rogers, adapted for AI
 

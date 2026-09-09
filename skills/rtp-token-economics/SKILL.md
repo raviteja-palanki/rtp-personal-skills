@@ -1,11 +1,19 @@
 ---
-name: token-economics
-version: v1.3_latest
+name: rtp-token-economics
+version: v1.4_latest
 description: "How to charge for an AI product, where your best users are your most expensive users and the work is done by the model, not the seat. Built on six first-principles axioms (cost is power-law physics; incentives must align with value not consumption; budgets are hierarchical; margin lives in the applied/harness layer; opacity kills trust; negative margins are temporary subsidies). Answers the two questions SaaS never had to: which value metric (the six 2026 models, ranked), and which budget (software vs the ~10× salary budget). Carries the agentic value-metric decision tree, the transition arc with stage gates, spend-visibility + routing as survival infrastructure, the Default-FAIL gate for outcome pricing, a mandatory margin-floor check at P90, and 2026 case law. Consumes cost-per-outcome@P90 from cost-model; produces the pricing decision + spend-control design. Pairs with: cost-model, moat-finder, adoption-launch. Triggers: 'pricing for AI', 'how to price', 'token economics', 'per-seat is dying'."
 imports: [stress-test, red-team]
 ---
 
 # Token Economics
+
+## Research, adoption, stitch
+
+Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
+
+A seat price is not a usage bill. Credits, premium requests, and included completions are different meters. Copilot-class: list the plan price and the included credit allotment separately; say what stays unlimited; date the shift off generous limits. Never blend paid subscribers with "users." Stitch one pricing narrative (who pays, for which verb of use, what breaks at P90).
+
+When this skill should have caught a miss, write the tenet here (Rule 41) before the session ends.
 
 ## THE ONE IDEA
 

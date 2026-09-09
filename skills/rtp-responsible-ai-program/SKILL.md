@@ -1,12 +1,20 @@
 ---
-name: "responsible-ai-program"
+name: rtp-responsible-ai-program
 description: 'Build or audit a company-wide responsible-AI program that actually functions instead of existing to be seen. Diagnoses the three gaps that make ethics programs fail: nobody truly accountable, no strategy connecting ethics to the business, no budget or people behind it (the MIT Sloan ''3 Gaps'' lens), then designs governance that wires ethics into how products get built (the SHARP system; both explained in plain terms inside). Use when: standing up AI governance, auditing an existing program, translating an ethics risk into a number executives act on. Pairs with: safety-as-moat (the business case), safety-by-design (the technical half), alignment-check (org readiness). Triggers: ''responsible AI'', ''AI governance program'', ''ethics program'', ''SHARP framework'', ''accountability gap'', ''AI ethics by design'
 imports: ["safety-as-moat", "safety-by-design", "dual-lens"]
-version: v1.7_latest
+version: v1.8_latest
 framework_source: "MIT Sloan Management Review — Öykü Işık & Ankita Goswami, 'The Three Obstacles Slowing Responsible AI', October 2025"
 ---
 
 # Responsible AI Program
+
+## Research, adoption, stitch
+
+Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
+
+A safety or adoption claim is a trend: population, date, verb. Never blend seats, use, and announcements. Two independents or soften. Stitch: the gap → the series that proves it → the condition that would retire the program.
+
+When this skill should have caught a miss, write the tenet here (Rule 41) before the session ends.
 
 ## DEPTH DECISION
 

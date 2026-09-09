@@ -1,7 +1,7 @@
 ---
 name: rtp-hbr-research
 version: v3.7_latest
-description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written, then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/09_hbr-and-journals/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with rtp-humanizer (the mandatory language gate, opened and read before the first note), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
+description: 'Monthly research-synthesis and apply engine for Harvard Business Review, MIT Sloan, and other top management research. Reads every PDF in full, writes one citation-disciplined note per article (numbers tagged by evidence strength, company claims backed by primary links, plain HBR-grade prose), finds patterns across articles, and checks each insight against what Ravi has already written, then ships those insights into the three places his thinking lives: the AI-PM skills, the website series, and the playbook. Everything versioned, tracked, git-synced. Use whenever Ravi adds research to 3_Research/09_hbr-and-journals/, says "HBR research", "research synthesis", "process the articles", "run the monthly cycle", "apply the cards", or asks what earlier research said. Pairs with rtp-thinking-writing (the default gate, opened and read before the first note), rtp-humanizer (secondary, named slop patterns), rtp-deep-dive-writer (website articles), rtp-claude-admin (governance sync).'
 ---
 # HBR research synthesis engine v3.6
 
@@ -241,7 +241,7 @@ A retrofit is a re-read of finished synthesis files against their source article
 
 **Per file, in order:**
 
-1. Open `rtp-humanizer` in full, once per session.
+1. Open `rtp-thinking-writing` in full, once per session. Open `rtp-humanizer` only if a line needs a named pattern to convict it.
 2. Open the synthesis file and its source article. The article is beside the note, same filename stem, `.pdf` or `.txt`.
 3. Read the note against the article, paragraph by paragraph. You are looking for two things: sentences that are harder than the article's sentence about the same thing, and sentences that say less than they appear to.
 4. Replace invented phrasing with the article's, per "Reuse is the default".
@@ -297,18 +297,18 @@ The voice, named once so every card and every applied edit carries it: the world
 
 **Two files get opened and read in full before the first note of a run is written. Not recalled, opened.**
 
-1. `2_Skills/writing/rtp-humanizer/SKILL.md` — Ravi's version, which supersedes the generic `humanizer` plugin skill. It carries the banned characters, the cut-list and 16 named patterns.
+1. `2_Skills/writing/rtp-thinking-writing/SKILL.md` — the default gate. It carries the five-stage job (understand the source, decide what the reader must do, build the path, write in Ravi's spoken language, prove nothing was lost), the coverage ledger, the simplification-is-not-compression rule, and the evidence discipline. `2_Skills/writing/rtp-humanizer/SKILL.md` is the secondary reference, opened when a specific line needs a named pattern to convict it: banned characters, the cut-list, 16 named patterns.
 2. The article itself, for its plain lines, per "Borrow the article's language" above.
 
 **Why this is a gate and not advice.** It was advice twice in this file and it still failed. The 06 AUG 2026 session worked from a memorised word list, avoided every banned word, and shipped thirty unreadable batch sections: "bears on", "carries", "arrives", "yields", "worth naming", a superlative per section, and the same three-beat skeleton thirty times. **A word list catches words. The patterns that break a note are shapes.** Only the skill lists the shapes.
 
 **Order matters.** Read the skill first, then read the article's plain lines, then write. Reversing this produces a note that gets cleaned afterwards, and cleaning afterwards is what produced the 06 AUG failure: the surface was scrubbed and the register underneath was still invented.
 
-**Two lines belong in every run's opening report to Ravi:** which two files were opened, and the timestamp. "Ran the humanizer" without that is the exact claim the failed session made all day.
+**Two lines belong in every run's opening report to Ravi:** which two files were opened, and the timestamp. "Ran the humanizer" without that is the exact claim the failed session made all day. **And note which gate ran.** A humanizer pass on a note with no pattern in Part 8 produces clean prose about nothing, which is the more expensive failure.
 
 ## How not to write (anti-patterns)
 
-The skill preaches clean prose, so it must follow it. These are the tells that mark writing as AI-generated. Strip them from the notes and from anything the notes feed. **Full reference: `2_Skills/writing/rtp-humanizer/SKILL.md`, which is Ravi's own and supersedes the generic `humanizer` plugin skill.** The list below is the floor. The skill is the gate.
+The skill preaches clean prose, so it must follow it. These are the tells that mark writing as AI-generated. Strip them from the notes and from anything the notes feed. **Full reference: `2_Skills/writing/rtp-thinking-writing/SKILL.md`, the default gate, with `2_Skills/writing/rtp-humanizer/SKILL.md` as the named-pattern dictionary behind it.** The list below is the floor. The skill is the gate.
 
 - No em dashes. This is the most common tell. Use a comma, a period, a colon, or parentheses instead. (Same for the spaced-hyphen used as a dash.)
 - No AI vocabulary: delve, underscore, intricate, robust, landscape (as a metaphor), testament, showcase, vibrant, tapestry, foster, garner, enhance, additionally, crucial, pivotal, vital, seamless. Plain words instead.
@@ -387,7 +387,7 @@ Stage 0, frame the run. Recount the corpus (folders drift, so count again instea
 
 Stage 1, read and write up (in parallel, by cluster). One reader per cluster reads its PDFs in full and writes one 15-part note each, to the writing and citation bar. Patterns collect in `synthesis/RUNNING-PATTERNS.md` as they show up (three or more articles makes a rule candidate, two makes a hypothesis, one that is strong gets a "watch"). A coverage reader then checks that every tracker row has a note. For a large corpus, run the readers as bounded cluster jobs with a check after each, never one giant run.
 
-Stage 1b, the humanizer pass (required, on the output). Run every note through the `humanizer` skill before it counts as done. The goal is writing that reads like a human analyst's notebook, not AI output. The rigor, the numbers, the citations, and above all the pattern analysis stay exactly as they are. Only the slop goes: em dashes, AI vocabulary, copula avoidance, inflated significance, forced threes. Quality is unchanged. Readability goes up.
+Stage 1b, the thinking-and-writing pass (required, on the output). Run every note through `rtp-thinking-writing` before it counts as done, and reach for `rtp-humanizer` only where a line needs its named-pattern list. The goal is writing that reads like a human analyst's notebook, not AI output. The rigor, the numbers, the citations, and above all the pattern analysis stay exactly as they are. Only the slop goes: em dashes, AI vocabulary, copula avoidance, inflated significance, forced threes. Quality is unchanged. Readability goes up.
 
 Stage 2, synthesize. Lead with the one or two structural insights that reorganize the field. Reconcile contradictions and note which source wins and why. Produce the maps that drive Stage 3: a skills map, a website-refine map, a playbook map. Then write a coverage ledger, one row per article (id, title, one-line thesis, primary routing), as proof that no note was dropped from the synthesis. Read the richest notes in full, not only their compressed summary, so their analysis survives intact. Cross-reference earlier runs for patterns that strengthened, faded, or flipped. Run the synthesis through the humanizer pass too. Ravi reviews before any edit lands.
 
@@ -498,7 +498,8 @@ Evidence:
 - Where the article's wording is looser than the record, did I cite the precise truth and note the gap?
 
 Writing (the language gate ran):
-- Was `rtp-humanizer` opened and read this session, before the first note was written? Name when. A remembered word list is not the gate.
+- Was `rtp-thinking-writing` opened and read this session, before the first note was written? Name when. A remembered word list is not the gate, and neither is a remembered version of this one.
+- Does the note carry a join, a position, and the evidence tier on every number? A note that passes the slop scan and states no pattern has not done the job.
 - Does Part 7 carry a `### Plain lines` block with two or three of the author's plainest sentences, and do Parts 8 and 14 use that register?
 - Zero em dashes in running prose. Zero section symbols. None of the AI vocabulary. No copula avoidance, no inflated significance, no forced threes, no inline-header lists where prose works.
 - **The five shapes checked by name:** fake-strong verbs, superlative reaching, faux-insight setups, negative listing, robotic rhythm. Checking for banned words does not check for these.

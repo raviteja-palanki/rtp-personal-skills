@@ -1,6 +1,6 @@
 ---
-name: eval-framework
-version: v1.4_latest
+name: rtp-eval-framework
+version: v1.5_latest
 description: "How do you know your AI is actually good? Designs the testing approach: what to measure, how to turn real production failures into repeatable tests, why the hard rare cases matter more than the common ones, and how tests must evolve as the product matures. Use when: launching a feature, diagnosing quality complaints, setting up monitoring. Pairs with: eval-driven-development (the tests as the spec), ai-product-metrics (the dashboard), confidence-tuner (calibrating the LLM judge), production-observability (where evals run in prod), judgment-guard (keeping the human reviewers sharp). Triggers: 'how to evaluate', 'eval framework', 'quality metrics'"
 imports: [feedback-flywheel, first-principles, stress-test]
 ---
@@ -8,6 +8,14 @@ imports: [feedback-flywheel, first-principles, stress-test]
 # Evaluation Framework
 
 **The objective:** find out whether your AI product is actually good — for *these* users, in *this* domain — by turning real failures into repeatable tests, for the PM who owns the quality bar and has no way to know if the feature works beyond "the demo looked fine."
+
+## Research, adoption, stitch
+
+Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
+
+A usage metric in an eval is a verb: tried, weekly, paid seat, or deployed. Never blend. A snapshot pass rate is not a trend. Graph only if the series changes the belief. Use the source's chart. Two independents or soften. Stitch: what "good" means → the series that supports or kills it → the condition that would reopen the gate.
+
+When this skill should have caught a miss, write the tenet here (Rule 41) before the session ends.
 
 ## The one idea
 

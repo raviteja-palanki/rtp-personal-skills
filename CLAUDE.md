@@ -116,13 +116,15 @@ Executive clarity on the surface, PhD rigor underneath.
 
 ## The writing gate (always active)
 
-**Read `rtp-humanizer` in full before writing, then run it over the output.** Every skill in this library assumes that pass has happened. It is the first gate, not the last polish.
+**Read `rtp-thinking-writing` in full before writing, then run its quality gate over the output.** Every skill in this library assumes that pass has happened. It is the first gate, not the last polish.
+
+**`rtp-humanizer` is the second pass**, opened when a specific line needs a named slop pattern to convict it, or when auditing a draft someone else wrote. Reaching for it first produces the failure below in a different shape: a draft with clean words, no join, and no position.
 
 Reading the skill is the rule because the shortcut fails. A session on 06 AUG 2026 worked from a memorised word list instead of opening the skill, avoided "delve" and "robust" for a full day, and shipped this:
 
 > "bears directly on your ruling" · "the transcript carries four letters" · "the rule this yields" · "and it is the sharpest result in the batch" · "Not flagged, not escalated. Stopped."
 
-Every one of those is a named pattern in the skill: fake-strong verbs, importance puffery, superlative reaching, negative listing, dramatic fragmentation. **A word list cannot catch a pattern.** The list below is the floor, not the gate.
+Every one of those is a named pattern in the skill: fake-strong verbs, importance puffery, superlative reaching, negative listing, dramatic fragmentation. **A word list cannot catch a pattern, and a pattern list cannot catch an absent argument.** That is why the gate moved: `rtp-thinking-writing` governs whether the sentence was worth writing, and `rtp-humanizer` governs whether it reads as though a human wrote it. The list below is the floor, not the gate.
 
 - **Never inflate significance.** No "pivotal moment," "enduring testament," "evolving landscape."
 - **Never use AI vocabulary.** No "delve," "foster," "underscore," "intricate," "landscape" (abstract), "testament," "showcase," "vibrant."

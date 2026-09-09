@@ -1,6 +1,6 @@
 ---
-name: jtbd-analysis
-version: v1.1_latest
+name: rtp-jtbd-analysis
+version: v1.2_latest
 description: 'Demand-side Jobs-to-be-Done for AI features. The reframe most PMs miss: users don''t hire the AI for the surface task they name, they hire it for the hidden job (offloading cognition, sharing blame, reducing anxiety, looking competent). Design for the surface job and the feature dies in production; design for the hidden job and users defend it even when it''s wrong. Runs the four-forces diagram, the switch-interview script, and the surface-vs-hidden map. Output is a job statement plus a design implication, not a 40-page empathy deck. Use when scoping a new AI feature, or when a working feature has flat adoption. Do NOT use for commodity, mandated, or captive tools with no real switch decision. Pairs with: problem-ai-fit (is AI the right hire), uncertainty-research (scaling the switch interviews), failure-modes (which failures the hidden job makes catastrophic), opportunity-solution-tree (the job as top-of-tree outcome). Triggers: ''what should this AI do'', flat adoption despite working as designed.'
 imports:
   - problem-ai-fit
@@ -11,6 +11,14 @@ imports:
 # JTBD Analysis
 
 **The objective:** decipher what users are actually hiring an AI feature to do — and design for that, not for the task they name — for the PM scoping a new AI feature or staring at a working one nobody adopts.
+
+## Research, adoption, stitch
+
+Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
+
+If adoption looks flat, name the verb before you diagnose the job: tried, weekly, paid seat, or deployed. Those are different numbers. Never blend them. Stitch one narrative (hidden job → evidence series → what would kill it). No interview-quote pile.
+
+When this skill should have caught a miss, write the tenet here (Rule 41) before the session ends.
 
 ## The one idea
 

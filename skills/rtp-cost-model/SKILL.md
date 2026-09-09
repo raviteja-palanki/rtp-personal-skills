@@ -1,11 +1,19 @@
 ---
-name: cost-model
-version: v1.4_latest
+name: rtp-cost-model
+version: v1.5_latest
 description: 'What does your AI feature really cost, and does the math still work at 10× the usage? Maps the full cost stack (model calls, retrieval, storage, human review, eval) and prices the cost of a *successful* outcome, including failures, escalations, and the agentic call multiplier (one task now fires 10-20 calls). Owns the cost mechanics the money system needs (harness multiplier, model routing, prompt caching, batch) and hands the P90 cost-per-outcome to token-economics for pricing. Covers the Jevons trap (cheaper tokens, bigger bills), the 10× degradation table, routing ROI and its maturity ladder, eval-cost-at-scale, and the margin gate with a price-erosion stress test. Use when: pricing decisions, scaling plans, ''can we afford this'' reviews. Pairs with: token-economics (how to charge), moat-finder (cost vs growth line), ship-decision (the margin gate). Triggers: ''unit economics'', ''AI cost model'', ''cost per outcome'
 imports: [stress-test, token-economics]
 ---
 
 # Cost Model
+
+## Research, adoption, stitch
+
+Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
+
+A seat sold is not usage. A credit allotment is not an all-you-can-eat buffet. Copilot-class products: split enterprise vs SMB, Microsoft internal vs GitHub customers, completions (often included) vs chat and agents (metered). When generous limits move to credits, record the date, what stayed unlimited, who complained, and what GitHub actually changed. Time series through today. Two independents or soften. Stitch one cost narrative, not a price-table dump.
+
+When this skill should have caught a miss, write the tenet here (Rule 41) before the session ends.
 
 ## THE ONE IDEA
 

@@ -1,11 +1,21 @@
 ---
-name: ai-ux-patterns
-version: v1.5_latest
+name: rtp-ai-ux-patterns
+version: v1.8_latest
 description: 'Interface patterns for AI products where output confidence varies: how to show the AI''s uncertainty, reveal detail only as needed, calibrate user trust, design loading and error states, and govern the AI''s personality (tone, patience, pushback) as a controlled design variable, not a vibe. Use when designing AI features or evaluating why users over-trust or under-trust AI output. Pairs with: trust-ladder (the calibration), confidence-tuner (the signals users see), judgment-guard (log whether explanations are actually opened, not just offered).'
 imports: [trust-ladder, failure-modes]
 ---
 
 # AI UX Patterns: Communicating Uncertainty Without Destroying Trust
+
+## Research, adoption, stitch
+
+Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
+
+Verify every "this is how AI UX works" claim against Grok (grok.com, X, Cursor Grok). Teach from the live product and public posts: what it lets a person do, what it hides, memory, tools, voice, images, search, personality, refusal, sources. Do not invent unpublished inside stories. Do not teach generic chatbot UX.
+
+Adoption of an AI surface is a trend: tried vs weekly vs paid. Never a single viral percent. Stitch one judgment (what the interface makes the user believe) then the evidence series.
+
+When this skill should have caught a miss, write the tenet here (Rule 41) before the session ends.
 
 ## DEPTH DECISION
 
@@ -226,7 +236,11 @@ So explanation buys most of its extra deference on the reject decision, which is
 
 **When this is wrong.** One study, one screening task, and the population were evaluators with domain expertise rather than consumers. Do not read it as an argument against explaining. Regulated decisions require an explanation whatever it does to deference, and a user owed a reason is owed a reason. **Read it as a correction to what an explanation is for: it is there to satisfy a duty and to raise adoption, and if you also need catching, you have to build catching separately.**
 
-*(Source: "AI Is Undermining Leaders' Judgment. Here's What to Do About It.", Sudakov and Furr, HBR, Aug 2026, reporting the Lane and Boussioux working paper. Figures are the paper's, tier ◆, unrefereed at time of reading.)*
+**A citation list is the same class of object as an explanation.** xAI developer docs (checked 9 September 2026) return a list of URLs from tool runs. Inline cites are optional and not guaranteed. The list can include URLs the final answer did not use. Pairing a source list with no control that changes the artifact is verification substitution with a URL attached. The catch is retry, edit one part, or a named handoff. Cursor's accept/reject on a file edit is the public product that already implements the stronger form.
+
+**When this is wrong.** Citations still matter for a regulated audit trail. The tenet is about catch versus uptake, not about deleting sources. Recheck grok.com on the teaching day; if every factual answer then carries an opened inline cite that changes the next output, retune to "offered cite versus used cite," which is already the offered-versus-opened split above.
+
+*(Source: "AI Is Undermining Leaders' Judgment. Here's What to Do About It.", Sudakov and Furr, HBR, Aug 2026, reporting the Lane and Boussioux working paper. Figures are the paper's, tier ◆, unrefereed at time of reading. Citations mechanics: xAI, Citations and Web Search docs, 9 Sep 2026. TAPMI S08.)*
 
 ### 8. The sequencing law — the seven patterns above are ordered, not a menu
 
@@ -490,6 +504,22 @@ In a field experiment on screening decisions, **evaluators given a model recomme
 **The failure to look for in an existing product:** an approval queue where the approve rate is above 98% and nobody can tell you the last time a reviewer rejected something. That is not a high-quality model. That is a reviewer who has stopped reading.
 
 *(Source: Mithu Storoni on the HBR IdeaCast, "Redefining What Efficiency Means in the Age of AI," May 2026, describing an unnamed simulation study; the study itself is ⚠ uncited. The design rule is a deduction from it, and it aligns with what [rtp-production-observability] already requires for machine monitoring. Falsifier: a review interface with no engagement action that still catches planted errors at the same rate as one with it.)*
+
+## HOW MUCH OF THE AGENT'S WORK TO SHOW IS A PRICED BET, NOT A STYLE
+
+**Visibility of agent work is chosen per user and per miss. It is not a house style, and "show the loop" is not a settled norm.** Added 10 SEP 2026 after the TAPMI S08 rewrite exposed that the skill said "show the work" without saying for whom, or what it costs.
+
+**The evidence that the two ends are both defensible.** Cursor shows every changed line with accept or reject per line, lists every tool call, and keeps checkpoints. Grok Bot (SpaceXAI, beta 11 Aug 2026) shows a purple status icon, a hover for the current action, an optional side-panel preview, and full-screen takeover only when the Bot asks. Both ship under one owner since SpaceX agreed to acquire Cursor (Jun 2026, ⚠ reported). xAI's own design write-up (3 Sep 2026, ◆) states the causal finding: "The more prominent we made the computer, the more the product encouraged users to supervise it," and that users asked for step detail "mainly for reassurance." They chose terse and bought confidence back with avatar motion. Chennapragada named the two failure ends on Lenny's Podcast: too verbose "feels like I'm running some cron job"; too terse, "I don't know if it's going in the right path."
+
+**Why the choice is priced, not aesthetic.** Anthropic's Claude Code study (~400k sessions, ~235k people, Oct 2025 to Apr 2026, ◆ vendor) finds novice-rated sessions reach verified success 15 percent of the time against 28 to 33 for intermediate and expert, and novices abandon troubled sessions at 19 percent against 5 to 7. A cockpit converts expertise into success and its absence into abandonment. A status dot removes the abandonment path and moves the miss to a place the novice cannot see. Both are trades. Neither vendor has published the other half: what a non-expert does when the false all-clear lands the next morning.
+
+**The rule.** Before choosing a visibility level, write three things: (1) the user's expertise on this task, pilot or passenger, not job title; (2) the Value Matrix cell that user cannot afford, usually the false all-clear; (3) the least the screen can show that makes that one cell visible to that person in time. Then write what you gave up. For a passenger that is usually one structured card plus one reversible action, not a trace. For a pilot it is the diff. If you cannot name the cell, you are picking a style.
+
+**Always-on adds a fourth line: what is reversible in the morning.** Claude Code Routines run "with no permission-mode picker and no approval prompts during a run" and their actions "appear as you" (Anthropic docs, ◆). Grok Bot shares one cloud computer and its logins across all of a user's Bots (xAI docs, ◆). A PR can be closed unmerged; a Slack message sent as you cannot be unsent. The visibility question for unattended agents is not "how much did it show while running" but "which cells may happen with nobody watching, and what does the person see first at 9 a.m." Pair with [rtp-autonomy-spectrum] for the bounds and [rtp-failure-modes] for the cell list.
+
+**Adoption of either contract is nascent. Read the verb.** Codex desktop Feb 2026; Cursor Cloud Agents Feb 2026; Grok Bot Aug 2026. Grok Bot's only usage figure is "thousands of organizations" (company, 3 Sep 2026, no verb, no window). Cursor's is reported run-rate (⚠). Do not write "this is how AI UX works" from a line under a year old.
+
+*(Falsifiers: an independent study showing a status-only surface yields the same false-all-clear detection as a diff surface for the same task and user; or Grok Bot publishing a WAU or paid-seat series that an independent tracker confirms. Either retires part of this section. Full splits in `1_Projects/8_TAPMI_ai-for-management-2-course/2_session-notes/S08-ux-design-for-ai/supporting/RESEARCH-INSIGHTS.md`.)*
 
 ## DESIGNING FOR A TEAM AT ONE KEYBOARD
 

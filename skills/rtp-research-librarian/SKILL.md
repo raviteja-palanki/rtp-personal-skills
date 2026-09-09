@@ -1,6 +1,6 @@
 ---
 name: rtp-research-librarian
-version: v1.1_latest
+version: v1.2_latest
 description: 'File new third-party material into 3_Research correctly, and keep the library''s map honest. Triggers whenever anything lands in 3_Research/00_NEW/, when Ravi says "file this", "organize this", "I''ve added resources", or when a session notices unfiled material. Carries the full folder map, the naming conventions, a content-hash dedup protocol, an image-identification protocol (images are opened and viewed, never named from their filename), and a quality gate built from real filing failures. Its first principle: a wrong file is worse than an unfiled file. When the right shelf is not obvious, ask Ravi rather than guess. Pairs with: rtp-claude-admin (folder governance), rtp-hbr-research (consumes 05_playbook-intel), rtp-deep-dive-writer (consumes the series shelves), rtp-skill-refresh (consumes research for skill passes).'
 imports: []
 ---
@@ -13,7 +13,7 @@ The library is `3_Research/`. It is the **only** home for third-party material. 
 
 ## VOICE — the prose this skill produces
 
-Everything written here gets read by a human or reasoned over by an agent: `CONTEXT.md` files, `MAP.md`, filing-run reports, the OPEN questions you send Ravi. **Run `humanizer` before any of it ships.**
+Everything written here gets read by a human or reasoned over by an agent: `CONTEXT.md` files, `MAP.md`, filing-run reports, the OPEN questions you send Ravi. **Run `rtp-thinking-writing` before any of it ships**, read from disk. `rtp-humanizer` is the second pass, for a line that needs a named pattern to convict it. A `CONTEXT.md` written in slop is worse than a sloppy message, because the next agent reads it, trusts it, and copies the register.
 
 Write descriptions that say what a thing *is*, not what it gestures at. "Eval methods, LLM-as-judge, observability — mostly 2025–2026, heaviest on Hamel Husain and Shreya Shankar" beats "a comprehensive collection of valuable evaluation resources." The first tells an agent whether to open the folder; the second tells it nothing.
 
@@ -25,6 +25,21 @@ No hype, no AI vocabulary, no bullets where a sentence works. Say what you verif
 - Ravi says "file this", "organize this", "I dropped some resources", "add this to research".
 - A session notices third-party material sitting in `1_Projects/`, `2_Skills/`, or `5_Knowledge/` — it does not belong there.
 - Do **not** run this to reorganize the whole library on a whim. Structural change is a Ravi decision (see WHEN TO ASK).
+
+## WHEN RESEARCHING (not filing)
+
+This skill also names how to *read* the library. Assigned reading is a start, not a closed set.
+
+On any research task:
+1. Open the assigned reading with an open mind.
+2. Deep-read `3_Research` (MAP.md → folder CONTEXT.md → INDEX.csv / PODCAST-INDEX.csv / BOOKS-INDEX.csv / ARTICLE-GRAPH.csv) and the live five-series MD files (`1_Projects/1_my-personal-website/1_My Series-MD-FILES/My Website all latest MD files/`, never `version1/`). Author books: relevant chapters thoroughly. Prefer `_book-text/` extracts; cite the PDF path in the extract header. Never cite an O'Reilly Early Release as a published book. Newest-first on fast-moving claims.
+3. Search X and the web when a claim might have a newer primary, a contradiction, or a stale number. File first, then web/X, then Ravi. X is first-class. Never write "X is not crawlable." Never invent tweets, handles, dates, quotes, or URLs. Empty `site:x.com` is an index gap, not a skip. If x.com 403s, say so and keep looking.
+
+Adoption is a historical trend, not a snapshot. Population, date, verb (tried / WAU / paid seat / deploy). Never blend. Graph only if it changes the belief. Use the source's chart. Caption who, when, tier. Two independents or soften.
+
+UX for AI: verify "this is how AI UX works" against Grok (grok.com, X, Cursor Grok where relevant), not generic chatbot UX.
+
+A session that only consumes this skill is extraction. When filing or reading exposes a sharper tenet, write it here (Rule 41), then the registry and `CHANGE_LOG.md`, before the session ends.
 
 ## THE MAP — where things go
 
