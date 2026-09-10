@@ -1,6 +1,6 @@
 ---
-name: autonomy-spectrum
-version: v1.7_latest
+name: rtp-autonomy-spectrum
+version: v1.8_latest
 description: 'Place every AI interaction at the level it deserves, not the highest the model can reach, by asking one question: who decides what happens next, the code or the model? Gives the 7-level spectrum (Feature → Chatbot → Assistant → Copilot ‖ Agent → Autonomous Agent → Multi-Agent), with plain-language ''what the AI does against what the human does'' for each. Also covers the structural shift at Level 4→5 where the model takes over the workflow, consequence-based leveling, leash length and progressive trust, and the effective-against-designed level (the rubber-stamping trap). Use when someone says ''let''s build an agent'', when designing any AI feature, evaluating a competitor, or deciding how much control to hand the model. Pairs with: ai-use-case-readiness (deep governance diagnostic; this is the quick reference), trust-ladder, agent-spec, agent-risk, tool-architecture, agent-harness, judgment-guard. Triggers: ''autonomy level'', ''agent spectrum'', ''how autonomous'', ''let''s build an agent''.'
 imports:
   - determinism-compass
@@ -225,6 +225,29 @@ As long-running harnesses and stronger models improve (Claude 4.8, Fable 5, GPT-
 **Progressive trust escalation — earn the leash, don't grant it:** start Supervised → after a clean streak move to Spot-check → then Exception-based → consider Autonomous only if consequence magnitude is low. Any error resets the streak (regress one mode, not to zero); never auto-raise past the domain boundary; re-certify on a schedule; and expose the record to the user ("246/247 correct; last error [date]; recommending exception-based for 30 days") so autonomy never escalates by surprise. *(Track-record thresholds are design choices, not universal constants — calibrate to your error cost.)*
 
 **Context anxiety** — decision quality degrades *nonlinearly* as the context window fills, well before 100%. Drop autonomy by a level around 40–60% utilization, go advisor-only by 60–80%, read-only past 80%, and alert automatically at the threshold. *(Anthropic finding ⚠; measure your own knee.)* And design **rollback before you deploy**: if you can't undo an action within its window, the agent doesn't get access to it.
+
+## PERMISSION GRANULARITY IS WHERE AUTONOMY IS ACTUALLY LOST
+
+**The level you designed does not survive a permission dialog written at the wrong grain.** This is the most common way a level-4 system operates at level 1 in production, and it has nothing to do with the model.
+
+| Grain | What the user sees | What they can calibrate |
+|---|---|---|
+| **Tool-level** | "Read and send emails" | Nothing. The safe half and the consequential half arrive as one switch |
+| **Verb-level** | "Draft, but do not send" | The consequential boundary, directly |
+
+**Why tool-level permissions fail in both directions at once.** They force a single decision that is simultaneously too coarse to approve safely and too coarse to deny usefully. The user grants too much, or denies everything and gets an agent that constantly gets stuck. Either way the calibration the spectrum depends on never happens.
+
+Adam Seligman, CTO of Workato, states the operating form:
+
+> "Companies need to be able to say, 'You can draft this email, but you can't send it,' or 'You can recommend inventory moves, but you can't execute them.' Without clear controls, agents stay stuck on trivial tasks, because nobody trusts them with anything important."
+
+**The test, and run it on every permission your product requests: could a user grant half of this?** If not, the grain is wrong. "Access, create and delete all files" fails the test three times over, because read, create and delete are three different consequence classes bundled as one.
+
+**Where this sits against the seven levels.** The spectrum says what the system may decide. **Permission grain says what the user can actually authorize**, and it caps the effective level regardless of design. A system built for level 5 whose permissions are expressed at tool level will be operated at level 2, because that is the only setting a cautious person can choose.
+
+**The reference implementation** is ServiceNow's "control tower": guardrails set in advance, activity monitored, decisions overridable, routine tasks left to the agent. That is the same verb-level idea expressed as an operating surface rather than a dialog.
+
+*(Source: HBR, "To Adopt AI at Scale, Employees Need to Trust Agents", McKinlay, Puntoni and Saka, 9 Sep 2026. The Seligman quote is ⚠ practitioner testimony with no numbers behind it. **The verb-level framing is this corpus's own join**, not a framework the article names: the article supplies the scene and the quote and stops one level short of connecting them.)*
 
 ## ALLOCATING *YOUR OWN* WORK — the four-mode table, and a usable entry gate
 

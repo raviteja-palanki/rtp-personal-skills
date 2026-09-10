@@ -1,7 +1,7 @@
 ---
-name: stakeholder-communications
-version: v1.8_latest
-description: 'Audience-tailored communication for AI features: exec summaries, engineering briefs, launch announcements, risk escalations, weekly digests. The differentiator is AI-native confidence framing: every claim about a model''s behavior carries an eval-backed band, a named drift surface, and a mandatory "what could be wrong" section. Use when a single piece of information needs to land in three rooms (exec, engineering, customer) and each room is going to ask a different "but what''s the failure rate?" question. Do NOT use for internal team chat, casual PR updates, or comms about deterministic features where probabilistic framing is theater. Triggers: "stakeholder update," "exec briefing," "escalate to leadership," "launch announcement," "weekly digest," "send a note to." Pairs with: dual-lens (business AND technical legibility), trust-under-fog (confident comms on uncertain outcomes), first-principles (read the live need before supplying your default).'
+name: rtp-stakeholder-communications
+version: v1.9_latest
+description: 'Audience-tailored communication for AI features: exec summaries, engineering briefs, launch announcements, risk escalations, weekly digests. Two stacked skills. The evidence half is AI-native confidence framing: every claim about a model carries its eval, its boundary condition and its drift surface, framed three ways without losing the evidence. The relationship half (v1.9) is the substrate that decides whether any of it is read as signal: map the real network not the org chart, climb the four-level trust pyramid, pay in the currency the person accepts, match channel richness to message difficulty, and defend a room by inviting the attack and answering the crowd. Carries the AI-era join: artifact polish is now free, so the evidence chain is the only remaining failed-simulation signal. Use when writing anything a stakeholder will act on, or when good work is not landing. Pairs with rtp-trust-under-fog, rtp-confidence-tuner, rtp-eval-framework, rtp-ai-product-metrics.'
 imports:
   - ai-product-metrics
   - eval-framework
@@ -27,6 +27,8 @@ Most PMs treat stakeholder communication as a tone problem. It is not. **It's an
 The 0.1% move: **one set of eval evidence, three audience-shaped framings.** Engineers see the eval matrix and prompt diff. Execs see the boundary condition in plain English ("works for use case X, degrades when Y exceeds Z, fallback is W"). Customers see the experience and the human-in-the-loop. All three are anchored to the same number, the same regression test, the same drift watch. You cannot be caught with a different story in different rooms.
 
 This is the Bridger move applied to comms. Not "translate jargon." Translate the *underlying evidence* into each audience's decision language without losing the evidence.
+
+**And a second insight sits under that one, added v1.9.** Evidence lands on a surface, and the surface is what the room already believes about you. See **The relationship substrate** below. The two are not alternatives: in the AI era, where anyone can generate a polished artifact in a minute, the evidence chain is what produces the standing, and the standing is what gets the evidence read.
 
 ## KEY TERMS (plain language)
 
@@ -215,6 +217,82 @@ A specific ordering rule for anything that goes out in your name.
 **Then read it aloud.** If you stumble, lose your breath, or hear a sentence you would never say to the person receiving it, rewrite that sentence. This is the same gate the voice section applies, and it catches AI-shaped prose faster than any checklist.
 
 *(Sources: the goal-roles-block instrument, HBR, "How the Best Leaders Shape Conversations," Aug 2026 — ◆ the authors' own dataset across more than a hundred teams; the four questions are verbatim. The withdrawal finding, HBR, "AI Experiments Need Domain Experts," Aug 2026 — ◆ two-year qualitative field study, two sites, n=2. The outline-not-draft ordering, HBR, Lancefield, Aug 2026 — ⚠ asserted with no evidence and considerable face validity; treat as a working rule, not a finding.)*
+
+## THE RELATIONSHIP SUBSTRATE: evidence only lands on a surface that will carry it
+
+**The rest of this skill treats communication as an evidence problem. That is right, and it is not sufficient.** The same eval matrix, the same boundary condition, the same three-audience framing will be read as signal by one room and as noise by another, and the difference is not the wording. It is what the room already believes about the person delivering it.
+
+**So there are two skills stacked here, and most PMs are strong at one.** A PM can be 8.75 out of 10 at moving metrics and 6 out of 10 at stakeholders, and the second number is the one that decides whether the first one is ever seen. Aakash Gupta's account of exactly that case at Apollo.io is the source for this section, and the recovery took **three quarters, with almost no visible progress for the first two.** That timeline is the most useful number in it. Relationship repair compounds late, so a two-quarter flat stretch is the expected shape, not evidence that it failed.
+
+### Map the actual network, not the org chart
+
+The org chart tells you reporting lines. It does not tell you who the decision-maker trusts. Build the real map in concentric rings:
+
+| Ring | Who is in it |
+|---|---|
+| 1. Reporting line | Your manager, their manager |
+| 2. Core product team | Your designer, your engineering manager |
+| 3a. Leaders | Design skip, engineering skip, CEO |
+| 3b. Wider product org | Analyst, legal, compliance, product marketing, sales ops |
+| 4. Influencers who actually matter | Other directors and PMs; the SME in sales who holds the customer truth; CRO, CTO, CFO |
+
+**Ring 4 is where the surprises are.** In the Apollo.io case a staff engineer and a sales SME mattered more to the outcome than two of the formal leaders. Neither appears on an org chart as important.
+
+**This map and the three-faction map in "Getting a big idea through" are different tools.** That one is for a specific idea in flight: allies, blockers, fence-sitters, and who the decision-maker trusts. This one is standing: it is the set of people whose read of you is either carrying your evidence or discounting it, before any particular idea exists.
+
+### The trust pyramid: four levels, and most people should stop at two
+
+**Level 1. Do not make mistakes.** Reply on time, show up prepared, do the core job cleanly. In practice this is mostly **getting good at saying no**, so that what you do take on you can do well. Every meeting and every message is an interview.
+
+*The exercise:* go person by person through your map and name the specific mistakes you have made with each one recently. Then commit to the system that prevents a repeat. Identifying them together is where most of the movement comes from.
+
+**Level 2. Do good work, as each person defines good.** Here is the part that is easy to miss: **there is very little overlap between the work you actually do and the work any one person sees you do.** A design director in another org sees you at product reviews and all-hands. Your own designer still does not see your customer calls, your legal reviews, or the late-night exec pings.
+
+*The exercise:* per person, review the last quarter of interactions. Where should they be seeing your impact and are not? Then close the gap structurally, not by telling them how hard you work. In the Apollo.io case: a bot posting weekly discovery-call takeaways into the trio channel, and getting on the all-hands agenda through the formal process.
+
+**Levels 1 and 2 are enough for most good PMs. Levels 3 and 4 are the advanced game.**
+
+**Level 3. Treat stakeholders like customers.** Run your discovery skillset on them. Ask a real question and then listen, using the two moves that actually work:
+
+- **The calibrated question.** Starts with "how" or "what" and hands the other person the problem. "What would have to be true for this to be worth your team's quarter?"
+- **Labeling.** Say back what you heard, labelled, then stop talking. People correct you or confirm you, and either way you learn where they actually are.
+
+**The customer analogy is load-bearing in both directions.** It tells you to go deep on their needs, and it tells you where to stop: you have a backbone with customers who make unreasonable demands, and you keep one here. Otherwise level 3 decays into appeasement.
+
+**Level 4. Create the failed simulation effect.** Colleagues are silently running one question on everything you produce: *could I have made this?* When the honest answer is no, you become the obvious person to own the work.
+
+**And this is where AI changes the game, which is the join between this section and the rest of the skill.** Anyone can now generate a long document with charts. **Artifact polish has gone to zero as a signal**, so the old level-4 moves no longer fire. What survives as a failed-simulation signal is exactly what this skill already demands: the evidence chain nobody else bothered to build. A boundary condition with the eval behind it, a number with its population and its tier, a drift-watch line that names what would change the answer. **The confidence framing later in this file is not only how you communicate honestly. It is now the main way a senior PM produces a failed simulation.**
+
+### Five things about human wiring that decide whether any of this lands
+
+**1. Reciprocity, and paying in the currency they accept.** People expect to be paid back for what they do for others, and that exchange is what makes an organization function. Two operating rules follow: assume everyone is a potential ally, including after a bad interaction; and give in **their** currency, not yours. Positive currencies are vision, mentoring, organizational support, information, gratitude, personal connection. Negative currencies are pulling recognition, escalating over someone's head, exposing people publicly. **Repairing a relationship means reducing the negative currencies and increasing the relevant positive ones, and those are two separate jobs.**
+
+**2. The harder the message, the richer the channel.** In a study by Mahdi Roghanizad and Vanessa Bohns, 45 people asked 10 strangers each for a small favor from an identical script. **The in-person asks were 34 times more likely to get a yes, and both groups were equally confident beforehand** (⚠ study-disclosed, strangers-and-a-survey population, not workplace escalation). The confidence is the finding: we cannot feel the difference, so we route by convenience. The week's gravity puts a status update in a room and a budget ask in an email. Reverse that deliberately.
+
+**3. One bad moment outweighs many good ones.** Baumeister and colleagues' 2001 review "Bad Is Stronger Than Good" found this across close relationships, feedback and first impressions. It is why level 1 sits at the bottom of the pyramid. Practically: protect your sleep and your inputs, because own-goal negative moments come from a depleted brain; and **say no to enough things**, because too many open loops is what makes you short in a meeting. More scope is not the answer. Right scope usually is.
+
+**4. People take their read of you from other people.** Harold Kelley, 1950: two groups got identical biographies of a guest lecturer, differing by one phrase, "rather cold" or "very warm". The warm group rated him more considerate and better natured afterwards, and **56% of them spoke up in the discussion against 32% of the cold group.** Two words. So the composition of the meetings you call and the threads you start is doing work before you say anything. If you need legal to trust you, a launch meeting where product marketing describes your planning does more than a direct pitch. Do not let this override who should actually be in the room; use it at the margin.
+
+**5. The halo effect is real and it is not fair.** Thorndike, 1920: army officers rating soldiers on physique, intelligence, leadership and character produced ratings that moved together, physique correlating with intelligence at .51. A century of replication since. One good trait spills onto everything else people believe about you. Practically, the small things get read as a proxy for the quality of your thinking: how you speak, whether "um" is in it, your video setup, how you show up. **This feels shallow and none of it substitutes for levels 1 to 4.** It is still true.
+
+### Room-scale defense: invite the attack, answer the crowd
+
+Most of your highest-leverage stakeholder time happens in rooms of 10 to 15 people, which is exactly where good ideas get killed. Kotter and Whitehead's counterintuitive move in *Buy-In*: **invite the attacks.** Encourage critics to shoot. Then answer the room, not the attacker.
+
+Four attack shapes, four different responses, and all four responses are short:
+
+| Attack | What it looks like | The response |
+|---|---|---|
+| **Fear mongering** | Starts from an undeniable fact, ends somewhere frightening | Grant the fact. Then show the guardrail that caps it |
+| **Death by delay** | Reasonable-sounding push for later | Accept the delay, put a date on it, keep moving everything it does not touch |
+| **Confusion** | An edge case presented as a hole in the plan | Say where the answer lives, and bring the room back to the decision you actually convened for. Do not solve it live |
+| **Ridicule or character attack** | What it sounds like | Name the motive out loud, hand the judgment back to the room |
+
+**The shortness is the technique.** Over-defending against an attack signals the attack landed. Address it and move.
+
+**For an AI feature specifically**, three of the four have a predictable form: fear mongering arrives as "what if it hallucinates to a customer" (grant it, then name the boundary condition and the fallback), confusion arrives as a single spectacular failure screenshot (say where the eval coverage lives, return to the decision), and death by delay arrives as "let's wait for the next model" (date it, and keep the harness work moving, which is the part a model swap does not touch).
+
+*(Sources: Aakash Gupta, "Stakeholder Management: Advanced Study", Product Growth, 2 Sep 2026, filed at `3_Research/04_ai-pm-os/leadership-and-teams/`, drawing on Chris Voss, Never Split the Difference; Allan Cohen and David Bradford, Influence Without Authority, 1989; John Kotter and Lorne Whitehead, Buy-In. Study tiers as marked above; the Roghanizad/Bohns, Baumeister, Kelley and Thorndike findings are ⚠ study-disclosed as relayed, and none was read in the original for this pass.)*
 
 ## GETTING A BIG IDEA THROUGH: work the restraint, not the push
 
@@ -580,3 +658,7 @@ This skill is wrong, or should be bypassed, when:
 - **Speed-to-decision dominates polish.** A 2-line slack to unblock something in the next 30 minutes shouldn't go through this skill's structure. Send the 2 lines.
 
 The signal you've over-applied this skill: people start saying "the AI launch comms feel formulaic." That's a real cost. Use the skill where it earns its weight; bypass it where it doesn't.
+
+---
+
+*v1.9, 10 SEP 2026. Adds **The relationship substrate**: the real-network map beyond the org chart, the four-level trust pyramid, the five wiring principles (reciprocity and currencies, channel richness, negativity bias, reputation cues, halo effect), and Kotter's invite-the-attack defense with the four attack shapes. The join this pass adds: artifact polish has gone to zero as a quality signal, so the evidence discipline already in this skill is now also the main way a senior PM produces Cal Newport's failed simulation effect. Source: Aakash Gupta, "Stakeholder Management: Advanced Study", Product Growth, 2 Sep 2026. Prior: v1.8.*

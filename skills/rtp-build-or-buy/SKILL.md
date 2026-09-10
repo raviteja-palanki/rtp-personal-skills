@@ -1,6 +1,6 @@
 ---
-name: build-or-buy
-version: v2.5_latest
+name: rtp-build-or-buy
+version: v2.6_latest
 description: 'Should you build this AI capability yourself or buy it? Six stop-at-the-first-''no'' checks (problem type, whether examples-in-the-prompt already do it, data, speed, cost, upkeep) across the four ways to get AI: prompt a general model, ground it in your own documents (RAG), train your own (fine-tune), or buy a finished product. Companion lenses decide which work is even worth owning. Use when: scoping features, vendor renewals, ''should we train a model'' debates, comparing custom vs. API costs. Pairs with: moat-finder (is what you''d build defensible, and which value-chain layer a vendor sits in), cost-model (what it costs at scale), agent-harness (orchestration cost multiplier once you''ve decided to build). Triggers: ''build or buy'', ''fine-tune vs prompt'', ''RAG vs API'', ''in-context vs fine-tune'', ''should we train a model'
 imports: [determinism-compass, stress-test, agent-harness]
 ---
@@ -421,6 +421,32 @@ A private-equity firm's repeatable process for installing AI capability in the c
 **How to run this as a build-or-buy lens:** before scoping a capability, ask whether the question is being asked at the right altitude. Some capabilities are only defensible one level up.
 
 *(Source: HBR, "Building AI Capabilities Into Portfolio Companies at Apollo," Jun 2025 — ◆ single firm, self-described, no outcome data attached to the process. **Over a year old and from private equity rather than product**, so treat the sequence as a structure to borrow rather than as current practice. Falsifier: an acquirer whose company-first diligence produced AI outcomes as good as an industry-first assessment did.)*
+
+## THE GATE MOST BUILD-OR-BUY REVIEWS SKIP: WHAT DOES THE VENDOR LEARN?
+
+**Every gate above prices what you get. None of them prices what you give.** When the bought thing is a general-purpose model rather than software, usage is not neutral: the vendor's product improves at your problem class because you used it on your problem class, and that improvement is then sold to everyone including your competitors.
+
+**Add this question to the buy side of every gate:** *if we run our highest-value work through this vendor, what do they learn, and can they sell it?*
+
+**Three leakage channels, and a contract review that stops at "no training on our data" closes none of them:**
+
+- **Feedback.** Prompts and outputs are protected; **feedback is a separate contract category** with a use-without-restriction grant. OpenAI and Anthropic carry near-identical clauses, which means this is a standard industry structure and therefore a negotiation posture, not a reason to switch vendors. Name feedback, ratings, corrections and interaction logs explicitly at renewal.
+- **Synthetic reuse.** Providers train the next model on their own best outputs. Anything outside the enterprise agreement, including shadow AI on personal accounts, is fair game.
+- **Structural lift.** The platform gets better at your kind of problem because you and others like you kept solving it there. **This one has no incident behind it and is reasoning, not evidence.** Treat as hypothesis.
+
+**What it changes about the decision, concretely:**
+
+| If the work is | Then |
+|---|---|
+| Genuinely differentiating | Buy the capability, but deploy it where nothing returns to the provider: private cloud or on-premises. **Price that delta explicitly, because it is the real cost of the buy option here** and the source does not price it |
+| Routine | Public general-purpose tool. There is no proprietary logic in the interaction to absorb |
+| Differentiating but decomposable | Modularize. Send the pieces that do not reveal the approach, keep the method that stitches them together in-house |
+
+**And the control most teams already have does not help.** A sandbox stops data leaving. It does nothing to stop the provider learning your team's problem-solving patterns from usage inside it. Containment and capability leakage are different problems; check which one each of your controls actually addresses.
+
+**The second-order effect the source implies and does not name:** tightening restrictions on the sanctioned enterprise tool pushes traffic to personal accounts, where there is no agreement at all. In a 2025 MIT study, about 40% of companies had bought an official AI subscription while employees at more than 90% of surveyed companies were regularly using personal AI tools for work (◆ study-disclosed; **two different denominators, do not compress to one ratio**). **A restriction that makes the sanctioned path harder can increase total leakage.**
+
+*(Source: HBR, "Is Your AI Training the Competition?", William Marks, HBS, 8 Sep 2026. Filed with a full note, frameworks and cases extraction in `3_Research/09_hbr-and-journals/`.)*
 
 ## Multi-Agent Harness: When Orchestration Kills Your ROI
 

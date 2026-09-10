@@ -1,8 +1,8 @@
 ---
-name: "trust-ladder"
+name: rtp-trust-ladder
 description: 'How much should users trust your AI, and does their trust match its real reliability? Designs autonomy that grows only with a proven track record, catches both failure directions (blind acceptance of AI output, and rejecting a tool that actually works), and repairs trust after a visible mistake, which drops trust 2–3× faster than it builds. Use when: defining permission models, staging autonomy, detecting over-reliance, post-incident trust repair. Do NOT use: to justify maximum trust or full autonomy without the track record. Pairs with: autonomy-spectrum (the levels), confidence-tuner (the signals users see), judgment-guard (keeping reviewers engaged). Triggers: ''calibrated trust'', ''over-reliance'', ''trust repair'', ''progressive autonomy'
 imports: ["determinism-compass"]
-version: "1.3"
+version: "1.4"
 ---
 
 ## DEPTH DECISION
@@ -121,6 +121,28 @@ An early AI sepsis-flagging tool gave no reasoning, and doctors ignored it. Once
 ### Worked example — knowledge-hiding is a trust symptom, and sanctioned tools can make it worse
 
 A 604-person survey of daily AI-using US employees found that 30.3% intentionally withheld AI-related knowledge from coworkers or their employer, even though about 80% agreed that sharing it would help the team. Organizational trust was the strongest predictor, independent of job insecurity, competitiveness, or a formal AI policy: employees in the lowest-trust quartile hid at 47%, versus 14% in the highest-trust quartile, a gap of roughly 3.4 times. **The mechanism:** trust does not stop hiding on its own. It builds psychological safety, and safety is what stops the hiding. Add safety to the statistical model and the trust-hiding relationship weakens substantially. Call this the visibility tax: what an employee pays whenever using AI openly could read as a threat rather than a contribution, paid in withheld knowledge rather than in a formal complaint. **The counterintuitive part:** where trust is already low, giving employees access to sanctioned, approved AI tools increases hiding instead of reducing it, because logging reads as evidence-gathering against the employee, not as support. Sanctioned tools amplify existing trust. They do not substitute for it. Rolling out approved AI tooling into a low-trust team can backfire before anyone has changed how they work. **When this is wrong:** the data is correlational and cross-sectional. It could partly reflect that organizations already good at building trust are also better at rolling out tools well, not that tools causally amplify trust. Treat the visibility tax as a design lens to test against your own rollout data, not a proven causal chain. **Falsifier:** an organization that rolled out heavily logged AI tooling into a documented low-trust environment and saw hiding decrease instead of increase would break the amplification-not-substitution claim. *(Source: 604-person survey of daily AI-using US employees, full citation not supplied with this brief — ◆ self-reported survey data, n=604, US-only, self-selected into daily AI use. Flag: verify title, author, publication, and date before this enters the corpus's citation graph.)*
+
+## FIVE TECHNIQUES THAT MOVE CALIBRATION, AND ONE THAT IS A TRAP
+
+**The adoption number that frames this: 59% of enterprise organizations say they use agentic AI, and 9% have turned it into autonomous workflows** (⚠ reported, survey self-report, 2026). Read the verbs. "Say they use" and "have autonomous workflows" measure different things, and the 9% is the one that matters. Trust is the named cause of the gap.
+
+**The scene the whole thing turns on.** A manager sets up an agent. Three permissions appear: access, create and delete all files; read and send emails; view and make payments. All three feel unsafe. Denied. The agent gets stuck constantly, the manager closes it more disillusioned than before. **The failure happened at the permission dialog, before the agent did anything.**
+
+| # | Technique | Why it moves calibration | Effect, as reported |
+|---|---|---|---|
+| 1 | **State where it fails, specifically** | Disclosure of a known weakness is read as self-awareness, which raises perceived transparency, which raises trust | up to 14.6% more transparent, up to 7.2% better collaboration, across two experiments |
+| 2 | **Competent, not warm** | Warmth reads as a substitute for capability, so agreeableness suppresses delegation | People were less willing to use a friendly agent than a competent one |
+| 3 | **Show it understands the longer goal** | An action tied to a stated objective beats an isolated recommendation | Recommendations accepted **54% more often**. Largest effect in the source and the most underused |
+| 4 | **Frame as helper, not authority** | Perceived power flips the risk read | 13.8% lower perceived privacy risk than a human doing the same task, **reversing entirely once the agent's real power was made salient** |
+| 5 | **Keep people in control where it matters** | Moderate autonomy beats both minimal and total | Confirmation before any consequential action |
+
+**Technique 1 is the counterintuitive one and it matches a pattern already in this corpus.** Voluntarily disclosing a weakness raises credibility, the same mechanism as a bank advertising the drawbacks of its own credit card. Note that neither Gemini nor Claude does this at task level; both give a blanket error disclaimer. **If you deploy on someone else's model, technique 1 is yours to build.**
+
+**Technique 4 is the trap, and the source does not name it.** Framing a system as less powerful than it is, in order to lower perceived risk, manages the perception rather than the risk. Where the agent genuinely holds consequential permissions, that is a **trust exploit and it is in direct contradiction with technique 1**. Use technique 4 on framing verbs ("assisting", not "deciding") only where the underlying permission model actually matches. If it does not, fix the permissions instead.
+
+**The reversal in technique 4 is the real finding, not the 13.8%.** An agent reads as safer than a person right up until people remember it can act. Any trust gain that depends on the user not thinking about what the agent can do will evaporate the first time something goes wrong, and it will take the rest of your credibility with it.
+
+*(Source: HBR, "To Adopt AI at Scale, Employees Need to Trust Agents", Thomas McKinlay, Stefano Puntoni and Serkan Saka, 9 Sep 2026, drawn from the Wharton Blueprint for AI Agent Adoption. All effect sizes ◆ study-disclosed and experimental, none from a production deployment; the concern-decomposition study is a consumer financial-adviser population, not employees. Note in `3_Research/09_hbr-and-journals/hbr-articles/ai-agents/`.)*
 
 ## HANDING CONTROL BACK WHEN THE INTERACTION IS FORCED
 

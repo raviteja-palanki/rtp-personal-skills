@@ -1,6 +1,6 @@
 ---
-name: moat-finder
-version: v2.14_latest
+name: rtp-moat-finder
+version: v2.15_latest
 description: 'Will your AI advantage survive copycats and the next model? Separates real moats from features. Runs a P&L pre-screen, then scores five compounding moats on a quarterly scorecard: proprietary data, workflow depth, harness mastery, trust and reliability, network effects. Three or more clear the 18-month wall. Adds the network-effects filter, the acquisition test, and fake-moat checks that catch data which is only storage and loops fed by public signals everyone else has. Closes by asking which complementary input is scarcest, because that is where the margin actually sits. The core call: the model is the recipe, the moat is the system around it. Use when setting strategy, judging whether an edge is defensible or merely parity, or about 18 months out when models catch up. Pairs with: build-or-buy, safety-as-moat, feedback-flywheel. Triggers: ''defensibility'', ''moat'', ''competitive advantage''.'
 imports: [bias-spotter, determinism-compass]
 ---
@@ -152,6 +152,37 @@ The five moats are the *what*. These are the *how* — the architectural choices
 **Living Software + Workspace DNA (the architecture).** Treat every user interaction as first-class training signal, not a log to archive, across three layers: **Micro** (per-trace: did the user accept, override, escalate?), **Meso** (per-workflow: which types fail consistently?), **Macro** (per-organization: the terminology, shortcuts, and edge cases the AI learns over 18+ months — *Workspace DNA*). The Macro layer is the customer-side moat: a competitor switching the customer starts from zero, and the customer feels it as "the new AI doesn't get us." Fresh data is non-negotiable — stale-data systems show ~35% more hallucinations (⚠ directional, Stanford HAI). Dogfooding is the simplest form of this architecture.
 
 **Cycle-time is the moat (the rate).** The deepest harness moat is a system that improves *itself* at machine cycle, not human cycle: identify weakness → hypothesize → shadow-test → validate on evals and cost-per-outcome → ship → repeat (Karpathy's Autoresearch loop). Shopify's rendering pipeline improved 53% over 93 autonomous commits — ~5 years of work at human cycle (◆). The human role shifts from executing each iteration to *designing the loop's architecture* (what counts as success, what may ship autonomously, what needs review). A competitor improving quarterly cannot catch a competitor improving daily, and the gap widens each cycle. *(This is the moat side of the loop; the build mechanics live in `feedback-flywheel`, the governance in `production-observability` + `gen-ai-experimentation`.)*
+
+## WHERE DOES YOUR IMPROVEMENT LOOP CLOSE? THE SAME LOOP RUNS BACKWARDS
+
+**A data moat and a capability leak are one mechanism seen from opposite ends.** Everything above says a refreshed proprietary loop compounds. It compounds **to whoever owns the surface the loop closes on.** If that surface is a shared platform, the platform compounds and you do not, and it then sells the improved capability to your competitors.
+
+**So the diagnostic question is not "do we have proprietary data." It is "where does our improvement loop close."**
+
+| Where the loop closes | Who compounds |
+|---|---|
+| A system you own | You |
+| A shared general-purpose platform | The platform, then everyone who buys access |
+
+**Three channels through which the loop leaks outward**, each needing a different fix. Together they are what William Marks calls AI Sherlocking: a platform absorbing the reasoning that produced a good answer rather than the data or the answer.
+
+| Channel | Mechanism | Fix |
+|---|---|---|
+| **Employee feedback** | Thumbs up/down, "try again", manual corrections. Enterprise agreements protect prompts and outputs but treat **feedback as a separate category** with a use-without-restriction grant. OpenAI and Anthropic carry near-identical clauses, so this is a standard contract structure, not one vendor's quirk | Name feedback, ratings, corrections and interaction logs explicitly at renewal. "No training on our data" does not cover them |
+| **Synthetic reuse** | Providers train the next model on their own best outputs. Anything outside the enterprise contract is fair game | Private cloud or on-premises for the highest-value use cases; the public tool for lower-stakes work |
+| **Structural capability lift** | Platforms improve by learning from their most sophisticated users. **The more innovative your use, the more you teach it your problem class** | Modularize. Send the pieces, keep the method that stitches them in-house |
+
+**The single sharpest line in the source, and it is a general lesson about controls:**
+
+> "A sandbox stops your data from leaking out. It does nothing to stop the AI provider from learning your team's problem-solving patterns every time they use the tool inside that sandbox."
+
+**Containment and capability leakage are different problems.** Most AI controls address the first and are assumed to address the second because both are filed under security. Run the test on every control you have.
+
+**What this adds to stock-versus-flow.** The corpus already holds two conditions on a flow moat: it must be continuously refreshed, and the people producing it must have consented. **This is the third: the flow must close somewhere you own.** A company with a genuine flow, full consent, and a loop that closes inside a vendor's general-purpose model has a moat on paper and a subsidy in practice.
+
+**Falsifier.** If a provider published an audited attestation that enterprise feedback logs never enter any training or evaluation pipeline, and capability gains on a customer's problem class could be shown independent of that customer's usage, channels one and three collapse. Channel two survives.
+
+*(Source: HBR, "Is Your AI Training the Competition?", William Marks, Lecturer in Technology & Operations Management, HBS, 8 Sep 2026. Every number in it is ◆ company- or study-disclosed; there is no audited figure. The structural-lift channel has **no incident behind it** and is the author's reasoning, so treat it as hypothesis. Note and frameworks in `3_Research/09_hbr-and-journals/`.)*
 
 ## THE MODEL IS NOT THE MOAT — MODEL-AGNOSTIC VS MODEL-DEPENDENT
 

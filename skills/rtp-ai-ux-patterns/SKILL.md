@@ -1,6 +1,6 @@
 ---
 name: rtp-ai-ux-patterns
-version: v1.8_latest
+version: v1.9_latest
 description: 'Interface patterns for AI products where output confidence varies: how to show the AI''s uncertainty, reveal detail only as needed, calibrate user trust, design loading and error states, and govern the AI''s personality (tone, patience, pushback) as a controlled design variable, not a vibe. Use when designing AI features or evaluating why users over-trust or under-trust AI output. Pairs with: trust-ladder (the calibration), confidence-tuner (the signals users see), judgment-guard (log whether explanations are actually opened, not just offered).'
 imports: [trust-ladder, failure-modes]
 ---
@@ -481,6 +481,28 @@ In a field experiment on screening decisions, **evaluators given a model recomme
 **The failure signature in a live product:** agreement rate with the model above 95%, and no measurement of whether reviewers catch planted errors. That is not a well-calibrated reviewer. That is a rationale doing the deciding.
 
 *(Source: a field experiment reported in De Freitas, Israeli, Nave, Timoshenko & Toubia, HBR, "Research: The Innovation Problems AI Can't Solve," Aug 2026 — ◆ as reported, and **the article gives no sample size, effect size or domain for this experiment**, which is a real limitation on a result this counterintuitive. [VERIFY] against the underlying working paper before citing it as settled. Carry the design implication, which is testable in your own product in a week. Falsifier: a review interface where showing the rationale measurably improved catch rate on planted errors.)*
+
+## WARMTH READS AS A SUBSTITUTE FOR COMPETENCE, SO STOP SHIPPING IT AS THE DEFAULT
+
+**The personality default in most AI products is friendly and agreeable. The evidence says that setting suppresses the thing you want.** Across multiple experiments, people were **less** willing to use an AI that came across as warm and friendly than one that came across as competent (◆ study-disclosed, experimental).
+
+The everyday version: you would struggle to trust a new lawyer who showed up cracking jokes in flip-flops, or who agreed enthusiastically with your most dubious request, however sharp they actually were.
+
+Chris Caldwell, CEO of Concentrix, on the same effect at the customer end: "Customers tend to get frustrated with overly polite and obedient technology that isn't accomplishing things at speed." **Note the population shift** between the experiments (employees deciding whether to delegate) and Caldwell (end customers). Same direction, different people.
+
+**What competence actually looks like in an interface**, and all three are cheap:
+
+- **Say what it did.** "I used these three criteria."
+- **Say why it chose that.** "This task is more urgent, so I prioritized it."
+- **Say where it is weak, by task.** Not a blanket error disclaimer. Stating a specific known weakness raised perceived transparency by up to 14.6% and collaboration effectiveness by up to 7.2%.
+
+**Tie every action to the user's stated goal, which is the largest effect and the least used.** Recommendations were accepted **54% more often** when the system demonstrated it understood the broader objective. Not "here is a recommendation" but "I'm reconciling this with the HR budget because it may clash with the headcount plan you outlined." Cleo, the personal-finance assistant, is the reference implementation: every suggestion ties to a daily goal and a long-term roadmap.
+
+**How this sits with the personality-as-a-design-variable material above.** That section says tone, patience and pushback are controlled variables rather than vibe. This adds the direction the evidence points: **on the warmth-competence axis, the default should sit further toward competence than most teams ship**, and the tuning move that looks like polish (more warmth, more agreeableness) is the one that costs delegation.
+
+**Where it breaks.** These are experimental effects on willingness-to-use, measured on systems that worked. None was measured on an unreliable agent. A competent-sounding agent that is wrong is a worse outcome than a warm one that is wrong, because confidence display without calibration is exactly the failure the trust ladder exists to prevent.
+
+*(Source: HBR, "To Adopt AI at Scale, Employees Need to Trust Agents", McKinlay, Puntoni and Saka, 9 Sep 2026, from the Wharton Blueprint for AI Agent Adoption. All effects ◆ study-disclosed and experimental; none carries a population or date in the article itself, so go to the Blueprint before citing one.)*
 
 ## THE WATCHING JOB NEEDS A CLICK
 

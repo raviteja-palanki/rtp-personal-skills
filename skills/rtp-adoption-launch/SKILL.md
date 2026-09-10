@@ -1,6 +1,6 @@
 ---
 name: rtp-adoption-launch
-version: v1.9_latest
+version: v1.10_latest
 description: 'Treat AI adoption as a product launch, with personas, phases and phase-specific support, rather than as a training program. Adoption curves are predictable: Surge → Dip → Rebound, and the shape repeats across unrelated companies and tool types (Novo Nordisk, Microsoft). One-time training doesn''t prevent the dip; the dip is a product and organizational-design problem, not a training problem. Use when planning AI rollout, adoption is stalling, or designing change management. Pairs with: needs-guard (which psychological need the rollout threatens), attitudinal-segmentation (embracers vs. skeptics), agent-risk (when someone has a rational reason to want it to fail), purpose-dialogue (connecting the rollout to what people believe in), judgment-guard (the multi-year capability-debt question: apprenticeship pipelines thinning as AI absorbs junior tasks, which is distinct from this skill''s single-rollout competency trap, below).'
 imports: [first-principles, needs-guard]
 ---
@@ -329,6 +329,26 @@ Gate Zero's currency translation is one lever. **There is a second, and this ski
 **The rule: if you pull the exposure lever, you must instrument quality**, because the lever you pulled does not care about it. Currency translation at least points at an outcome. Exposure points at a behavior.
 
 **When exposure is unavailable:** it only exists where the tool touches an external audience the employee cares about. For purely internal tooling there is no exposure lever, and currency translation is the only one you have.
+
+## FOR AGENTS SPECIFICALLY, THE DIP HAS A NAMED CAUSE AND IT IS NOT TRAINING
+
+**59% of enterprise organizations say they are using agentic AI. 9% have turned that into autonomous workflows.** Only 27% of middle managers see real ROI, against an average stated AI investment of $202 million over the next 12 months (all ⚠ reported, survey self-report, 2026; the $202m is a stated intention, never cite it as committed spend).
+
+**Read the verbs before you use these numbers.** "Say they are using" and "have turned into autonomous workflows" are different measures, and the 59% is the one that will get quoted while the 9% is the one that matters.
+
+**The named cause of the gap is trust, and it fails at a specific moment: the permission dialog.** A manager who cannot calibrate what an agent is asking for denies everything, watches it get stuck on trivial tasks, and concludes agents do not work. That is a dip with a cause that no amount of training touches, because the decision was made before the agent did anything.
+
+**What the concern is actually made of**, from a study of over 3,000 people adopting an AI financial adviser: privacy 31%, fear it would take unwanted actions 23%, not understanding its actions 11%. Technological performance came second to trust overall. **The population caveat travels with the number**: that is consumers choosing a financial adviser, not employees using a workplace agent, and the source generalizes across the gap without flagging it.
+
+**So for an agent rollout, the dip levers are different from the three above.** The three general levers still apply. These three sit on top:
+
+1. **Fix the permission grain before the rollout, not after.** "Draft but do not send" is a decision a person can make. "Read and send emails" is not. See `rtp-autonomy-spectrum`.
+2. **Ship task-specific failure guidance, because your vendor will not.** Gemini and Claude both give a blanket error disclaimer, not the tasks where errors are likely. That guidance is yours to write, and stating it raises trust rather than lowering it.
+3. **Give the rollout a control tower.** Guardrails set in advance, activity monitored, decisions overridable. It addresses the fear of irreversible mistakes directly, which is 23% of the stated concern.
+
+**The question the source raises and never answers, which is the one worth taking into your own rollout:** what did the 9% who reached autonomous workflows do differently? Nobody in this corpus knows yet. If you get there, that is the finding worth writing down.
+
+*(Source: HBR, "To Adopt AI at Scale, Employees Need to Trust Agents", McKinlay, Puntoni and Saka, 9 Sep 2026. Adoption statistics ⚠ reported survey self-report; effect sizes ◆ study-disclosed experimental. No production deployment measurement anywhere in the source.)*
 
 ## FIVE CONDITIONS FOR AN ONBOARDING THAT PEOPLE ACTUALLY LIKE
 
