@@ -6,13 +6,13 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `2.7.1`  ·  **Commit:** `b70ece0`  ·  **Generated:** 10 Sep 2026 22:17
+**Version:** `2.7.2`  ·  **Commit:** `d7d0797`  ·  **Generated:** 11 Sep 2026 03:04
 
 ## Totals
 
 | Metric | Count |
 |---|---:|
-| **Total tracked files** | **257** |
+| **Total tracked files** | **258** |
 | **Skills** (`SKILL.md`) | **90** |
 | Supporting files inside `skills/` | 119 |
 | Slash commands | 11 |
@@ -29,14 +29,14 @@ The description claims a split; these are checked against the filesystem every r
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **2.7.1**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **2.7.2**.
 
 ## Composition
 
 | Area | Files |
 |---|---:|
 | `skills` | 209 |
-| `diagrams` | 15 |
+| `diagrams` | 16 |
 | `commands` | 11 |
 | `workflows` | 6 |
 | `frameworks` | 4 |
@@ -94,7 +94,6 @@ These folders are renamed for plugin namespacing; content is identical to source
 | Version | Commit | Generated | Files | Skills | Commands |
 |---|---|---|---:|---:|---:|
 <!--HISTORY
-| 1.14.0 | 9d6f9a4 | 29 Aug 2026 23:57 | 251 | 88 | 11 |
 | 1.14.1 | 9cd0fdb | 30 Aug 2026 00:22 | 252 | 88 | 11 |
 | 1.15.0 | 4b5f570 | 30 Aug 2026 08:07 | 252 | 88 | 11 |
 | 1.16.0 | 2a902e4 | 30 Aug 2026 14:56 | 252 | 88 | 11 |
@@ -109,8 +108,8 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 2.6.0 | ac8b38e | 31 Aug 2026 09:59 | 252 | 88 | 11 |
 | 2.7.0 | 9c667a0 | 10 Sep 2026 03:24 | 257 | 90 | 11 |
 | 2.7.1 | b70ece0 | 10 Sep 2026 22:17 | 257 | 90 | 11 |
+| 2.7.2 | d7d0797 | 11 Sep 2026 03:04 | 258 | 90 | 11 |
 HISTORY-->
-| 1.14.0 | 9d6f9a4 | 29 Aug 2026 23:57 | 251 | 88 | 11 |
 | 1.14.1 | 9cd0fdb | 30 Aug 2026 00:22 | 252 | 88 | 11 |
 | 1.15.0 | 4b5f570 | 30 Aug 2026 08:07 | 252 | 88 | 11 |
 | 1.16.0 | 2a902e4 | 30 Aug 2026 14:56 | 252 | 88 | 11 |
@@ -125,3 +124,4 @@ HISTORY-->
 | 2.6.0 | ac8b38e | 31 Aug 2026 09:59 | 252 | 88 | 11 |
 | 2.7.0 | 9c667a0 | 10 Sep 2026 03:24 | 257 | 90 | 11 |
 | 2.7.1 | b70ece0 | 10 Sep 2026 22:17 | 257 | 90 | 11 |
+| 2.7.2 | d7d0797 | 11 Sep 2026 03:04 | 258 | 90 | 11 |

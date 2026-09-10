@@ -1,6 +1,9 @@
 # Architecture
 
-How 55 skills compose into a thinking system — not just a collection of files.
+How 90 skills compose into a thinking system — not just a collection of files.
+
+
+> **Staleness warning, 11 SEP 2026.** The counts above are current. **The named skill lists in each section are not.** They were written when the library held 55 skills and have not been regenerated since; they omit roughly a third of what ships and still name `failure-design`, which merged into `failure-modes` on 5 APR 2026. Trust `README.md` and `diagrams/skill-map.svg`, which are generated from the repo. This document needs a full pass.
 
 <p align="center">
   <img src="diagrams/01-architecture-overview.svg" alt="Three-layer architecture — 55 AI PM skills, 6 expert teams" width="900"/>
@@ -18,7 +21,7 @@ Most AI product tools give you templates. Fill in the PRD. Check the boxes. Ship
 
 The problem: the template doesn't know that you're anchored on what a competitor built instead of what your users need. It doesn't know that the feature you're specifying needs to be predictable every time (rules) in some places and can tolerate variability (AI) in others. It doesn't know that your cost model collapses at 10x scale.
 
-The three-layer architecture solves this by making checking automatic across 55 skills:
+The three-layer architecture solves this by making checking automatic across 90 skills:
 
 - **Layer 1 (Thinking)** catches mistakes before any decision gets made
 - **Layer 2 (Judgment)** makes the hard AI-specific decisions that templates can't encode
@@ -38,7 +41,7 @@ Every Layer 2 and Layer 3 skill imports from this layer first. It's the immune s
 |-------|----------------|----------------|
 | `first-principles` | Assumptions you didn't know you were making | Strips a problem to the one irreducible operation before you start solving the wrong thing |
 | `bias-spotter` | The cognitive bias about to derail the decision | Names the specific bias (anchoring, sunk cost, survivorship) — not "be careful" but "you're anchored on the competitor's approach" |
-| `red-team` | Overconfidence in untested hypotheses | Forces the question "under what conditions would this be wrong?" before you build |
+| `falsification` | Overconfidence in untested hypotheses | Forces the question "under what conditions would this be wrong?" before you build |
 | `dual-lens` | Communication that only one side of the table can use | Tests whether both business leaders AND technical leaders can act on this. If only one can, the communication failed |
 | `determinism-compass` | The most common AI architecture mistake | Classifies which parts must be predictable every time (rules) vs. where AI variability is acceptable. Miss this and you build the wrong thing |
 | `stress-test` | Plans that look great until they meet production | Pressure-tests across 6 dimensions: scale, adversarial input, model degradation, bad data, cascade failure, cost blowup |
@@ -51,11 +54,11 @@ Every Layer 2 and Layer 3 skill imports from this layer first. It's the immune s
 
 ---
 
-## Layer 2: Judgment — "The hard calls" (37 skills across 5 domains)
+## Layer 2: Judgment — "The hard calls" (46 skills across 5 domains)
 
 These are the decisions that separate strong AI PMs from everyone else. Not "what is RAG" but "when is RAG the wrong choice for your context." Not "what is an agent" but "how much autonomy should this agent have on day one."
 
-### Product Sense (9 skills)
+### Product Sense (14 skills)
 Whether AI is the right solution to the right problem.
 
 - `problem-ai-fit` — Scores AI fit 0-16. Runs the "lookup table test" — would rules solve 80%?
@@ -68,7 +71,7 @@ Whether AI is the right solution to the right problem.
 - `ai-use-case-readiness` — Maps right-sized autonomy: solution spectrum (0-7), dual matrices, 25 diagnostic questions with answer nudges. Bridges product sense, agent design, and strategy
 - `needs-guard` — Ensures AI deployment doesn't threaten worker psychological needs (autonomy, competence, belonging). 31% actively resist; 54% use unauthorized tools. AWARE framework diagnoses which need is broken
 
-### AI Strategy (10 skills)
+### AI Strategy (12 skills)
 Strategy when the capabilities you're building on change every quarter.
 
 - `strategy-canvas` — Capability-conditional roadmaps with expiration dates
@@ -93,7 +96,7 @@ Safety as competitive advantage, not compliance cost.
 - `agent-risk` — Proportionality analysis (value vs worst-case harm) + kill-switch design. If you can't kill it faster than harm cascades, don't deploy
 - `trust-under-fog` — Communicates confidently when outcomes are genuinely uncertain. Bounded promises, transparent ranges, uncertainty budgets
 
-### Agent Design (5 skills)
+### Agent Design (6 skills)
 For AI that acts, not just answers.
 
 - `autonomy-spectrum` — Maps each capability from Level 0 (suggest) to Level 4 (autonomous). Progressive trust
@@ -102,7 +105,7 @@ For AI that acts, not just answers.
 - `multi-modal-product-design` — Cross-modal AI features. Modality-specific failure modes
 - `agent-harness` — Planner → Generator → Evaluator architecture. Sprint contracts. Context management
 
-### Eval & Quality (6 skills)
+### Eval & Quality (7 skills)
 If you can't measure it, you can't ship it.
 
 - `eval-framework` — pass@k (one good result in k tries) vs pass^k (every result must be good). LLM-as-judge
@@ -116,7 +119,7 @@ If you can't measure it, you can't ship it.
 
 ---
 
-## Layer 3: Craft — "Production-ready output" (8 skills)
+## Layer 3: Craft — "Production-ready output" (11 skills)
 
 Artifact generators. But because each one imports Layers 1 and 2 first, the output arrives pre-tested.
 
@@ -318,7 +321,7 @@ World-class PMs know what questions to ask, not what steps to follow. A rigid pr
 Practitioners are busy. A PM mid-PRD doesn't need all 250 lines of `eval-framework` — they need to know if they should go deep, skim, or skip. Progressive disclosure respects time while making depth available when needed.
 
 **Why 6 workflows instead of 1?**
-Different contexts need different skill subsets. You don't run all 55 skills for an incident. Workflows are curated paths: `new-ai-feature` uses the full set; `ai-incident-response` uses 25 focused on diagnosis and recovery.
+Different contexts need different skill subsets. You don't run all 90 skills for an incident. Workflows are curated paths: `new-ai-feature` uses the full set; `ai-incident-response` uses 25 focused on diagnosis and recovery.
 
 ---
 

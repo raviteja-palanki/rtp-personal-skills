@@ -7,8 +7,8 @@
 <rect x="40" y="150" width="280" height="168" rx="14" fill="#FFFFFF" stroke="#14B8A6" stroke-width="2" filter="url(#s)"/>
 <rect x="40" y="150" width="280" height="38" rx="14" fill="#14B8A6"/><rect x="40" y="174" width="280" height="14" fill="#14B8A6"/>
 <text x="180.0" y="175" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Sense-Maker</text>
-<text x="180.0" y="214" text-anchor="middle" fill="#5F6B7A" font-size="12.5">The real problem isn't</text>
-<text x="180.0" y="234" text-anchor="middle" fill="#5F6B7A" font-size="12.5">insights — it's alert fatigue.</text>
+<text x="180.0" y="214" text-anchor="middle" fill="#5F6B7A" font-size="12.5">The real problem is not</text>
+<text x="180.0" y="234" text-anchor="middle" fill="#5F6B7A" font-size="12.5">insights. It is alert fatigue.</text>
 <text x="180.0" y="254" text-anchor="middle" fill="#5F6B7A" font-size="12.5">AI fit: 12/16. Pattern</text>
 <text x="180.0" y="274" text-anchor="middle" fill="#5F6B7A" font-size="12.5">recognition on sensor data.</text>
 <path d="M 320 234 L 331 234" stroke="#9CA3AF" stroke-width="2"/>
@@ -17,7 +17,7 @@
 <text x="473.0" y="175" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">Strategist</text>
 <text x="473.0" y="214" text-anchor="middle" fill="#5F6B7A" font-size="12.5">Ship anomaly detection</text>
 <text x="473.0" y="234" text-anchor="middle" fill="#5F6B7A" font-size="12.5">now. Earn predictive</text>
-<text x="473.0" y="254" text-anchor="middle" fill="#5F6B7A" font-size="12.5">at Month 3 — a roadmap</text>
+<text x="473.0" y="254" text-anchor="middle" fill="#5F6B7A" font-size="12.5">at Month 3, a roadmap</text>
 <text x="473.0" y="274" text-anchor="middle" fill="#5F6B7A" font-size="12.5">with an expiry date.</text>
 <path d="M 613 234 L 624 234" stroke="#9CA3AF" stroke-width="2"/>
 <rect x="626" y="150" width="280" height="168" rx="14" fill="#FFFFFF" stroke="#EC4899" stroke-width="2" filter="url(#s)"/>
@@ -44,6 +44,6 @@
 <text x="660" y="436" fill="#374151" font-size="13.5">&#10003;  Success measurable before a line of code</text>
 <text x="660" y="462" fill="#374151" font-size="13.5">&#10003;  Kill switch with a named trigger and date</text>
 <text x="660" y="488" fill="#374151" font-size="13.5">&#10003;  Failure behavior designed, not defaulted</text>
-<text x="620" y="540" text-anchor="middle" fill="#92400E" font-size="13.5" font-weight="700">The VP asked for a feature. What shipped was a decision — engineering review found zero open AI questions.</text>
-<text x="620" y="620" text-anchor="middle" fill="#9CA3AF" font-size="13">The thinking happened in the right order, so the document arrived already tested.</text>
+<text x="620" y="540" text-anchor="middle" fill="#92400E" font-size="13.5" font-weight="700">The VP asked for a feature. What shipped was a decision. Engineering review found zero open AI questions.</text>
+<text x="620" y="620" text-anchor="middle" fill="#9CA3AF" font-size="13">An illustrative walkthrough. The thinking happened in the right order, so the document arrived already tested.</text>
 </svg>

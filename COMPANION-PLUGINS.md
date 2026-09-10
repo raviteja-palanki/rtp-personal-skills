@@ -30,7 +30,7 @@ The orchestrator's tier map (in `skills/rtp-aipm-orchestrator/SKILL.md` → "FUL
 
 After install, every RTP skill is addressable as `rtp-personal-skills:rtp-{name}` (e.g., `rtp-personal-skills:rtp-first-principles`, `rtp-personal-skills:rtp-ai-prd`).
 
-**80 skills + 10 slash commands.** Full list in `README.md`.
+**90 skills + 11 slash commands.** Full list in `README.md`.
 
 ---
 
