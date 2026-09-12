@@ -272,7 +272,7 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 | **craft** (2/8) | cost-model, ship-decision |
 | **ai-strategy** (1/5) | token-economics |
 
-**Total: 24/39 skills** (agent-launch focused subset)
+**Total: the 24 skills named below** (agent-launch focused subset)
 
 ---
 

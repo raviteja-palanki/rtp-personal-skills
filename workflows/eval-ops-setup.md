@@ -228,7 +228,7 @@ A structured workflow for teams building AI evaluation infrastructure from scrat
 | **safety-and-trust** (2/3) | trust-ladder, safety-by-design | 4 |
 | **craft** (3/8) | prompt-as-product, ship-decision, cost-model | 4,5 |
 
-**Total: 22/39 skills** (eval-focused subset)
+**Total: the 22 skills named below** (eval-focused subset)
 
 ---
 

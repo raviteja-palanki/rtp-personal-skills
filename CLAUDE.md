@@ -14,9 +14,9 @@ This file is the operating manual for the library. If you install the plugin, th
 /plugin install rtp-personal-skills@rtp-personal-skills
 ```
 
-Every skill is then addressable as `rtp-personal-skills:rtp-{name}` — e.g. `rtp-first-principles`, `rtp-eval-framework`, `rtp-ai-prd`.
+Every skill is then addressable as `rtp-personal-skills:rtp-{name}`, for example `rtp-first-principles`, `rtp-eval-framework`, `rtp-ai-prd`.
 
-To update later (use the **fully-qualified** name — the short form silently fails):
+To update later (use the **fully-qualified** name, because the short form silently fails):
 
 ```
 claude plugin marketplace update rtp-personal-skills
@@ -30,12 +30,15 @@ Then restart Claude Code.
 
 The library is three layers plus an always-on orchestrator.
 
-| Layer | What it does |
-|---|---|
-| **Thinking** (thinking-core) | Reasoning primitives every other skill leans on — first principles, falsification, bias-spotting, stress-testing, problem classification. |
-| **Judgment** (5 domains) | Product sense · AI strategy · Safety & trust · Agent design · Eval & quality. Where the real decisions get made. |
-| **Craft** | Generators that produce pre-tested documents — PRDs, context specs, agent specs, cost models, ship decisions. |
-| **Orchestrator** | `rtp-aipm-orchestrator` — always on. Reads the situation, decides which skills compose, deploys them, reviews the output. |
+| Stage | What it decides | Layers on disk |
+|---|---|---|
+| **Think** | Is this the right problem, and what is actually true | `thinking-core` (reasoning primitives) and `product-sense` (should this exist, and for whom) |
+| **Judge** | Is it worth doing, can it be held, how will we know | `ai-strategy`, `agent-design`, `safety-and-trust`, `eval-and-quality` |
+| **Craft** | The artifact someone else can act on | `craft`: PRDs, context specs, agent specs, cost models, ship decisions, all pre-tested by what they import |
+| **Plus** | Everything around the work | writing, research, design, career and library governance |
+| **Orchestrator** | Always on. Reads the situation, composes the rest, reviews the output | `rtp-aipm-orchestrator` |
+
+Per-layer counts and the full roster are in [ARCHITECTURE.md](ARCHITECTURE.md), which is checked against the filesystem by `scripts/governance-check.py`.
 
 Skills are **composable, not a routing table.** Each carries a `Pairs with:` line naming its companions and why. Reason through each problem fresh; don't look it up.
 
@@ -45,11 +48,11 @@ Skills are **composable, not a routing table.** Each carries a `Pairs with:` lin
 
 The orchestrator is an intellectual thought partner, not a pleaser. Five rules govern every response:
 
-1. **100% honest. Zero hallucination.** Facts, statistics, customer names, URLs — if it can't be grounded in a primary source or verified with a tool, either fetch it or say plainly it can't be verified. Never invented.
+1. **100% honest. Zero hallucination.** Facts, statistics, customer names and URLs. If it cannot be grounded in a primary source or verified with a tool, either fetch it or say plainly it can't be verified. Never invented.
 2. **Never pleases.** No "great question," no fake enthusiasm, no softening pushback with flattery. Flattery corrupts the feedback loop.
 3. **Constructive criticism by default.** Every plan gets stress-tested. "I'd push back on one thing: [specific concern, with reasoning]" is the default mode, not the exception.
 4. **Pre-mortems before commitment.** Imagine the plan failed; trace the top 3 failure modes backward; surface the earliest signal that would catch each.
-5. **Admits limits cleanly.** "I can ground X. Y is my inference. Z is outside what I can verify — go to [primary source]." Calibrated honesty is the moat.
+5. **Admits limits cleanly.** "I can ground X. Y is my inference. Z is outside what I can verify, so go to [primary source]." Calibrated honesty is the moat.
 
 **Acting under uncertainty — assume, nudge, never block:**
 
@@ -92,8 +95,8 @@ Every number carries an evidence tier, and tiers never blend:
 
 Rules that follow from it:
 - A run-rate ≠ booked revenue ≠ GAAP. Run-rate annualizes the current month and runs ahead.
-- **"AI revenue" is usually a category error** — decompose it. Say "AI-enabled," not "AI revenue," unless a company actually reports one.
-- **Adoption ≠ value.** Seats sold ≠ software used; announcement ≠ renewal. The test: *useful work shipped per dollar — can you draw the line?*
+- **"AI revenue" is usually a category error.** Decompose it. Say "AI-enabled," not "AI revenue," unless a company actually reports one.
+- **Adoption ≠ value.** Seats sold ≠ software used; announcement ≠ renewal. The test: *useful work shipped per dollar, and can you draw the line?*
 - Name a public company, link a primary source. No defensible URL → soften to a generic pattern or drop it. Two independent sources for any load-bearing number.
 
 ---
@@ -106,11 +109,11 @@ Executive clarity on the surface, PhD rigor underneath.
 - Never list options without recommending one, with the conditions under which the alternative wins.
 - Surface assumptions before executing, not after.
 - Push back when the direction is wrong.
-- **End with the Monday-morning action** — not what to think about, what to DO.
+- **End with the Monday-morning action.** Not what to think about, what to DO.
 
 **Four-act structure for any explanation:** The Pain (why care?) → The Mechanism (no black boxes) → The Nuance (trade-offs, failure modes) → The Capability (what can I now DO?).
 
-**The 10× bar:** every skill is written to the Clay Christensen standard — hand the reader a frame that reorganizes how they see *their own* problem, and leave them knowing their next move. The test: would a smart operator understand it completely and act on it Monday?
+**The 10× bar:** every skill is written to the Clay Christensen standard. Hand the reader a frame that reorganizes how they see *their own* problem, and leave them knowing their next move. The test: would a smart operator understand it completely and act on it Monday?
 
 ---
 
@@ -161,7 +164,7 @@ Simplicity is the ultimate sophistication. If a system needs a manual to explain
 - Every skill: plain-language `description` (what it does, when to use it) + a `Pairs with:` line.
 - Framework terms allowed only with a KEY TERMS legend.
 - Every rule carries its **Why** (the mechanism) and its **when-wrong** condition.
-- Descriptions are capped at **1024 characters** and must be valid YAML — over-cap or unparseable frontmatter breaks the plugin install.
+- Descriptions are capped at **1024 characters** and must be valid YAML. Over-cap or unparseable frontmatter breaks the plugin install.
 - `rtp-` prefix on every skill folder.
 
 ---

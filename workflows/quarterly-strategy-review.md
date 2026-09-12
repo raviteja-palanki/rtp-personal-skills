@@ -7,7 +7,7 @@ A structured quarterly workflow for product strategy review, especially critical
 **Frequency:** Every quarter (or when major model releases happen)
 **Audience:** Product leaders, strategy leads, engineering heads, AI specialists
 **Output:** Updated strategy document; identified moat erosion; build-or-buy reassessment; eval health check; adjusted roadmap for next quarter
-**Skill Coverage:** 35 of 39 skills (strategy-focused subset; 4 agent-design skills used only when agent features are in scope)
+**Skill coverage:** the named sequence below. This file was written against an earlier roster, so verify a skill name against ARCHITECTURE.md before relying on it.
 
 ---
 
@@ -313,7 +313,7 @@ AI moves fast. A moat built on proprietary data erodes if a new model makes your
 
 *failure-design used implicitly in stress-test; ai-prd/context-spec/agent-spec reviewed if existing specs need updating
 
-**Total: 35-39/39 skills referenced** (agent-design skills conditional on having agent features; all others always used)
+**Total: 35-the the skills named below named below referenced** (agent-design skills conditional on having agent features; all others always used)
 
 ---
 
@@ -362,7 +362,7 @@ If any red flag is identified, schedule an emergency strategy session before rel
 
 ## Connecting to Product Cycles
 
-- **Q1 Review + New Feature Decisions** → Enter **new-ai-feature** workflow (all 39 skills) for major projects
+- **Q1 Review + New Feature Decisions** → Enter **new-ai-feature** workflow (the skills named below) for major projects
 - **Q2 Review + Competitive Threat** → May trigger **ai-discovery-sprint** on adjacent problems
 - **Q3 Review + PMF Concerns** → User research sprint; deep feedback-flywheel and fit-signal analysis
 - **Q4 Review + Planning** → Input to annual strategy refresh; capability-tracking drives next year roadmap

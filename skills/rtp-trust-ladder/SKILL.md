@@ -2,7 +2,7 @@
 name: rtp-trust-ladder
 description: 'How much should users trust your AI, and does their trust match its real reliability? Designs autonomy that grows only with a proven track record, catches both failure directions (blind acceptance of AI output, and rejecting a tool that actually works), and repairs trust after a visible mistake, which drops trust 2–3× faster than it builds. Use when: defining permission models, staging autonomy, detecting over-reliance, post-incident trust repair. Do NOT use: to justify maximum trust or full autonomy without the track record. Pairs with: autonomy-spectrum (the levels), confidence-tuner (the signals users see), judgment-guard (keeping reviewers engaged). Triggers: ''calibrated trust'', ''over-reliance'', ''trust repair'', ''progressive autonomy'
 imports: ["determinism-compass"]
-version: "1.4"
+version: v1.4_latest
 ---
 
 ## DEPTH DECISION

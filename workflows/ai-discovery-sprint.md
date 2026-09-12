@@ -7,7 +7,7 @@ A compressed, high-intensity discovery sprint for teams that need to understand 
 **Audience:** Product managers, design leads, technical leads, research leads
 **Cadence:** Run quarterly, when a new AI idea emerges, or when core assumptions feel shaky
 **Output:** Validated problem-solution fit; mapped failure landscape; architecture clarity; research roadmap; falsified and validated key assumptions
-**Skill Coverage:** 30 of 39 skills (discovery-focused subset; remaining 9 are spec/launch skills used in new-ai-feature workflow)
+**Skill coverage:** the named sequence below. This file was written against an earlier roster, so verify a skill name against ARCHITECTURE.md before relying on it.
 
 ---
 
@@ -267,7 +267,7 @@ A compressed, high-intensity discovery sprint for teams that need to understand 
 | **eval-and-quality** (4/4) | eval-framework, eval-driven-development, ai-product-metrics, production-observability | 4 |
 | **craft** (0/8) | *(craft skills are spec/launch artifacts — used in new-ai-feature workflow, not discovery)* | — |
 
-**Total: 30/39 skills referenced** (remaining 9 are craft/artifact generators used during specification, not discovery)
+**Total: the 30 skills named below referenced** (remaining 9 are craft/artifact generators used during specification, not discovery)
 
 **Skills NOT used in discovery** (intentionally — these produce artifacts, not insights):
 - ai-prd, context-spec, agent-spec, cost-model, ship-decision, competitive-map, fit-signal, prompt-as-product, build-or-buy
@@ -326,7 +326,7 @@ Each day follows this pattern:
 ## Follow-Up
 
 After the sprint, the next phase depends on your findings:
-- **Strong product-market signals:** Move to **new-ai-feature** workflow (strategy → spec → launch) — uses all 39 skills including craft artifacts
+- **Strong product-market signals:** Move to **new-ai-feature** workflow (strategy → spec → launch) — uses the skills named below including craft artifacts
 - **Mixed signals:** Run a 2-week MVP to test core assumptions with users
 - **Falsified assumptions:** Kill or pivot the idea; restart discovery with new hypothesis
 - **Technical blockers:** Spike on infrastructure, model capabilities, or feasibility

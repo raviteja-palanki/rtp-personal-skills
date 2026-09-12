@@ -1,6 +1,6 @@
 ---
 name: rtp-ai-ux-patterns
-version: v1.9_latest
+version: v1.9.1_latest
 description: 'Interface patterns for AI products where output confidence varies: how to show the AI''s uncertainty, reveal detail only as needed, calibrate user trust, design loading and error states, and govern the AI''s personality (tone, patience, pushback) as a controlled design variable, not a vibe. Use when designing AI features or evaluating why users over-trust or under-trust AI output. Pairs with: trust-ladder (the calibration), confidence-tuner (the signals users see), judgment-guard (log whether explanations are actually opened, not just offered).'
 imports: [trust-ladder, failure-modes]
 ---
@@ -11,7 +11,7 @@ imports: [trust-ladder, failure-modes]
 
 Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
 
-Verify every "this is how AI UX works" claim against Grok (grok.com, X, Cursor Grok). Teach from the live product and public posts: what it lets a person do, what it hides, memory, tools, voice, images, search, personality, refusal, sources. Do not invent unpublished inside stories. Do not teach generic chatbot UX.
+Inspect the current product surface relevant to the user's comparison. Grok, Cursor and other products can teach different decisions; no one product validates every AI UX claim. Distinguish direct interaction, a published interface example, vendor documentation and an inferred design effect. Verify changing facts and underlying studies before teaching their numerical or causal claims. Do not invent unpublished inside stories.
 
 Adoption of an AI surface is a trend: tried vs weekly vs paid. Never a single viral percent. Stitch one judgment (what the interface makes the user believe) then the evidence series.
 
@@ -23,7 +23,7 @@ You are designing an interface where the system's confidence varies. Sometimes t
 
 **Who uses this:** Product designers building AI features. PMs deciding how much AI to expose to users. Anyone shipping features where AI output quality varies.
 
-**Skip if:** The AI component of your feature is deterministic (always produces the same output for the same input) — use standard UX patterns instead.
+**Skip if:** The task has no material uncertainty, interpretation, delegation or recovery question that benefits from these patterns. Deterministic output can still be wrong or rely on incomplete data; repeatability alone is not a reason to skip uncertainty design.
 
 ## DELIVERABLE FORMAT
 
@@ -504,44 +504,34 @@ Chris Caldwell, CEO of Concentrix, on the same effect at the customer end: "Cust
 
 *(Source: HBR, "To Adopt AI at Scale, Employees Need to Trust Agents", McKinlay, Puntoni and Saka, 9 Sep 2026, from the Wharton Blueprint for AI Agent Adoption. All effects ◆ study-disclosed and experimental; none carries a population or date in the article itself, so go to the Blueprint before citing one.)*
 
-## THE WATCHING JOB NEEDS A CLICK
+## DESIGN REVIEW THAT CAN DETECT AN ERROR
 
-**A review screen that rarely asks for anything gets a reviewer who stops looking.** This is a design requirement, not a nicety, and it has neuroscience behind it.
+Low-event-rate monitoring can make sustained attention difficult. Investigate the task, reviewer workload, evidence and error-detection performance before choosing an engagement mechanism. A click, reason field or rotation is a candidate intervention, not a universal guarantee of attention.
 
-**The finding.** In an air-traffic-control simulation, adding one small action, clicking whenever new data appeared, kept operators engaged in a task where they mostly watched and rarely acted. The click did nothing useful on its own. It kept the person in the loop.
+The HBR IdeaCast discussion “Redefining What Efficiency Means in the Age of AI” (May 2026) describes an unnamed air-traffic-control simulation. That indirect account is a research lead; locate the original study before asserting an effect size or generalising it to an AI review workflow.
 
-**Why this now belongs in every AI product.** AI turns doing-jobs into watching-jobs at scale. Approve or reject a rare escalation. Review flagged agent output. Confirm a batch the model already handled. **The rare event is exactly the one you built the human review for, and passive monitoring guarantees the reviewer has disengaged by the time it arrives.**
+| Candidate design | Question to test |
+|---|---|
+| Acknowledge an item | Does this improve detection, or merely add habitual clicking? |
+| Sample known cases | Can representative errors be tested safely, without live consequences or contaminating operational decisions? |
+| Record a reason | Does it improve the decision and provide useful evidence, or encourage boilerplate? |
+| Rotate reviewers | Does it reduce fatigue while preserving context and responsibility? |
 
-**The design rule.** *Any interface where a human reviews low-frequency AI output needs a deliberate engagement action built in.* Options, cheapest first:
+A high approval rate alone cannot distinguish reliable outputs from inattentive review. Examine independently labelled cases, missed errors, review workload and relevant task segments. A seeded-error test can help, but it is not the only valid measure and must be representative and safely isolated. No universal approval-rate threshold establishes rubber-stamping.
 
-| Pattern | What the reviewer does | When it fits |
-|---|---|---|
-| Acknowledge-each | One click per item, even on the obvious passes | Low volume, high stakes |
-| Sample-and-confirm | The system injects known items the reviewer must catch | Any volume; also measures reviewer accuracy |
-| State-the-reason | A one-line reason box on approvals, not only rejections | When the reason is itself worth keeping |
-| Rotate-the-watcher | Two reviewers alternate rather than one watching all day | Long shifts, continuous streams |
+## CHOOSE VISIBILITY FOR THE USER'S DECISION
 
-**Sample-and-confirm earns its extra build cost** because it gives you a number: how often does this reviewer catch a planted error? That number is the only honest read on whether your human-in-the-loop is a control or a decoration.
+A progress signal can reassure someone that work continues; it does not prove that the work is correct. An evidence view can support checking; its presence does not prove the user understood it. Compare the decision the person must make, the information needed, their ability to interpret it and the effort the interface adds.
 
-**The failure to look for in an existing product:** an approval queue where the approve rate is above 98% and nobody can tell you the last time a reviewer rejected something. That is not a high-quality model. That is a reviewer who has stopped reading.
+**Dated examples, not universal endpoints.** SpaceXAI's [3 September 2026 Grok Bot design account](https://x.ai/news/designing-grok-bot) describes layered status, workspace preview and takeover. It reports design-team observations without enough published study detail here to establish a controlled causal effect. Cursor's [10 September 2026 Projects announcement](https://cursor.com/blog/projects) describes coordination of longer-running work; do not reduce all Cursor surfaces to line-by-line supervision. Cursor [announced completion of its SpaceX acquisition on 14 August 2026](https://cursor.com/blog/joining-spacex); an earlier agreement date is not the completion date. Refresh these references before reusing changing product details.
 
-*(Source: Mithu Storoni on the HBR IdeaCast, "Redefining What Efficiency Means in the Age of AI," May 2026, describing an unnamed simulation study; the study itself is ⚠ uncited. The design rule is a deduction from it, and it aligns with what [rtp-production-observability] already requires for machine monitoring. Falsifier: a review interface with no engagement action that still catches planted errors at the same rate as one with it.)*
+Do not assert that Cursor exposes every tool call, offers accept/reject for every line in every surface, that a cockpit causes novice abandonment, or that an animated status signal eliminates abandonment. Each would need evidence about the exact surface, task, users and comparison. Observational session data cannot, by itself, establish the interface's causal effect.
 
-## HOW MUCH OF THE AGENT'S WORK TO SHOW IS A PRICED BET, NOT A STYLE
+Before recommending a visibility level, explain: what decision is needed; what mistake matters; what the user can inspect and understand in time; and what effort or capability the design gives up. Expertise is task-specific. A person skilled at reviewing a spreadsheet may need help with code, and vice versa. Test the proposed minimum information with appropriate users rather than assuming less is always easier or more is always safer.
 
-**Visibility of agent work is chosen per user and per miss. It is not a house style, and "show the loop" is not a settled norm.** Added 10 SEP 2026 after the TAPMI S08 rewrite exposed that the skill said "show the work" without saying for whom, or what it costs.
+For unattended work, specify what may happen without the person present, how an unresolved state remains visible and what recovery is possible. A record may be reversible while an external consequence is not. Verify current permissions and capabilities directly; source descriptions of one deployment do not establish every user's configuration.
 
-**The evidence that the two ends are both defensible.** Cursor shows every changed line with accept or reject per line, lists every tool call, and keeps checkpoints. Grok Bot (SpaceXAI, beta 11 Aug 2026) shows a purple status icon, a hover for the current action, an optional side-panel preview, and full-screen takeover only when the Bot asks. Both ship under one owner since SpaceX agreed to acquire Cursor (Jun 2026, ⚠ reported). xAI's own design write-up (3 Sep 2026, ◆) states the causal finding: "The more prominent we made the computer, the more the product encouraged users to supervise it," and that users asked for step detail "mainly for reassurance." They chose terse and bought confidence back with avatar motion. Chennapragada named the two failure ends on Lenny's Podcast: too verbose "feels like I'm running some cron job"; too terse, "I don't know if it's going in the right path."
-
-**Why the choice is priced, not aesthetic.** Anthropic's Claude Code study (~400k sessions, ~235k people, Oct 2025 to Apr 2026, ◆ vendor) finds novice-rated sessions reach verified success 15 percent of the time against 28 to 33 for intermediate and expert, and novices abandon troubled sessions at 19 percent against 5 to 7. A cockpit converts expertise into success and its absence into abandonment. A status dot removes the abandonment path and moves the miss to a place the novice cannot see. Both are trades. Neither vendor has published the other half: what a non-expert does when the false all-clear lands the next morning.
-
-**The rule.** Before choosing a visibility level, write three things: (1) the user's expertise on this task, pilot or passenger, not job title; (2) the Value Matrix cell that user cannot afford, usually the false all-clear; (3) the least the screen can show that makes that one cell visible to that person in time. Then write what you gave up. For a passenger that is usually one structured card plus one reversible action, not a trace. For a pilot it is the diff. If you cannot name the cell, you are picking a style.
-
-**Always-on adds a fourth line: what is reversible in the morning.** Claude Code Routines run "with no permission-mode picker and no approval prompts during a run" and their actions "appear as you" (Anthropic docs, ◆). Grok Bot shares one cloud computer and its logins across all of a user's Bots (xAI docs, ◆). A PR can be closed unmerged; a Slack message sent as you cannot be unsent. The visibility question for unattended agents is not "how much did it show while running" but "which cells may happen with nobody watching, and what does the person see first at 9 a.m." Pair with [rtp-autonomy-spectrum] for the bounds and [rtp-failure-modes] for the cell list.
-
-**Adoption of either contract is nascent. Read the verb.** Codex desktop Feb 2026; Cursor Cloud Agents Feb 2026; Grok Bot Aug 2026. Grok Bot's only usage figure is "thousands of organizations" (company, 3 Sep 2026, no verb, no window). Cursor's is reported run-rate (⚠). Do not write "this is how AI UX works" from a line under a year old.
-
-*(Falsifiers: an independent study showing a status-only surface yields the same false-all-clear detection as a diff surface for the same task and user; or Grok Bot publishing a WAU or paid-seat series that an independent tracker confirms. Either retires part of this section. Full splits in `1_Projects/8_TAPMI_ai-for-management-2-course/2_session-notes/S08-ux-design-for-ai/supporting/RESEARCH-INSIGHTS.md`.)*
+When tracking adoption, separate trial, recurring use, paid use and measured outcomes. Record the population, period and metric definition. Omit unverified counts and causal claims rather than turning a missing result into a conclusion.
 
 ## DESIGNING FOR A TEAM AT ONE KEYBOARD
 
@@ -564,21 +554,16 @@ Chris Caldwell, CEO of Concentrix, on the same effect at the customer end: "Cust
 **Q1: Confidence Appropriateness**
 Does your interface's stated confidence match users' actual accuracy experience?
 
-> **How to actually measure this (not estimate it):**
+> **Measure calibration on matching scales.** For a defined task and correctness criterion, collect representative outputs with numerical predicted probabilities. Group comparable probabilities and compare each group's mean prediction with its observed correctness rate. State the sample size and uncertainty; the data needed depends on the precision and segments that matter.
 >
-> Take 100 representative outputs from your AI feature. For each output:
-> 1. Record the confidence signal you displayed (or would display) — Level 1 assertion, Level 2 verbal, etc.
-> 2. Have a domain expert rate the actual accuracy (correct / partially correct / wrong)
-> 3. Plot: confidence signal on X-axis, actual accuracy on Y-axis
+> Plot mean predicted probability on X and observed correctness rate on Y, both from 0 to 1:
+> - On the diagonal: predictions and observed rates agree within sampling uncertainty.
+> - Above the diagonal: underconfidence. A group predicted at 0.60 but correct 0.80 of the time performs better than its stated confidence.
+> - Below the diagonal: overconfidence. A group predicted at 0.80 but correct 0.60 of the time performs worse than its stated confidence.
 >
-> **Diagnose the plot:**
-> - Diagonal line = calibrated. Your confidence signal matches reality.
-> - Above the diagonal = overconfident. You're displaying more certainty than the AI actually has. Users will learn to distrust after errors.
-> - Below the diagonal = underconfident. You're underselling accurate outputs. Users ignore a feature that could help them.
+> Verbal labels, icons and ordered ladder levels are not numerical probabilities. Do not plot them against accuracy and interpret a diagonal without a justified mapping. Test whether users interpret the signal appropriately and take the intended action. A model's self-reported confidence also needs empirical checking.
 >
-> **Red flag:** If you've never run this audit, your confidence signals are guesses. Most teams discover they're overconfident at the edges (low-confidence outputs displayed as assertions) and underconfident in the mid-range.
->
-> **Sharpen it:** Run this audit on 3 different user query types (simple, medium, complex). Calibration often looks fine on average but breaks on complex queries — which are exactly where users need the signal most.
+> Examine relevant task and user segments as well as the aggregate. Calibration does not establish useful discrimination, an acceptable error cost or successful human verification; those are separate questions.
 
 ---
 
@@ -702,9 +687,4 @@ Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKI
 
 ## VISUAL SUMMARY
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. The diagram should show:
-- The Uncertainty Communication Ladder (Level 1-5) as a vertical scale with confidence ranges and example products
-- The calibration plot concept (diagonal = calibrated, above/below = over/underconfident)
-- The trust recovery timeline by product type (enterprise 3-6 months vs. consumer within session)
-
-Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Use the artifact format the user requested. Add a visual only when it clarifies the decision: for example, an input-to-action path, an evidence/recovery view, or a correctly labelled calibration plot. For a probability plot with predicted confidence on X and observed correctness on Y, above the diagonal means underconfidence and below means overconfidence. Do not present verbal confidence levels as calibrated probabilities or prescribe universal trust-recovery times without supporting evidence.

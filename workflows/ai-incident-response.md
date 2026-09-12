@@ -302,7 +302,7 @@ Users affected: [count]
 | **safety-and-trust** (2/3) | safety-as-moat, trust-ladder |
 | **craft** (2/8) | prompt-as-product, cost-model |
 
-**Total: 25/39 skills** (incident-response focused subset)
+**Total: the 25 skills named below** (incident-response focused subset)
 
 ---
 

@@ -6,7 +6,7 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `2.7.2`  ·  **Commit:** `d7d0797`  ·  **Generated:** 11 Sep 2026 03:04
+**Version:** `2.7.3`  ·  **Commit:** `d629378`  ·  **Generated:** 12 Sep 2026 09:35
 
 ## Totals
 
@@ -29,7 +29,7 @@ The description claims a split; these are checked against the filesystem every r
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **2.7.2**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **2.7.3**.
 
 ## Composition
 
@@ -94,7 +94,6 @@ These folders are renamed for plugin namespacing; content is identical to source
 | Version | Commit | Generated | Files | Skills | Commands |
 |---|---|---|---:|---:|---:|
 <!--HISTORY
-| 1.14.1 | 9cd0fdb | 30 Aug 2026 00:22 | 252 | 88 | 11 |
 | 1.15.0 | 4b5f570 | 30 Aug 2026 08:07 | 252 | 88 | 11 |
 | 1.16.0 | 2a902e4 | 30 Aug 2026 14:56 | 252 | 88 | 11 |
 | 1.16.1 | 6b59a46 | 30 Aug 2026 14:59 | 252 | 88 | 11 |
@@ -109,8 +108,8 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 2.7.0 | 9c667a0 | 10 Sep 2026 03:24 | 257 | 90 | 11 |
 | 2.7.1 | b70ece0 | 10 Sep 2026 22:17 | 257 | 90 | 11 |
 | 2.7.2 | d7d0797 | 11 Sep 2026 03:04 | 258 | 90 | 11 |
+| 2.7.3 | d629378 | 12 Sep 2026 09:35 | 258 | 90 | 11 |
 HISTORY-->
-| 1.14.1 | 9cd0fdb | 30 Aug 2026 00:22 | 252 | 88 | 11 |
 | 1.15.0 | 4b5f570 | 30 Aug 2026 08:07 | 252 | 88 | 11 |
 | 1.16.0 | 2a902e4 | 30 Aug 2026 14:56 | 252 | 88 | 11 |
 | 1.16.1 | 6b59a46 | 30 Aug 2026 14:59 | 252 | 88 | 11 |
@@ -125,3 +124,4 @@ HISTORY-->
 | 2.7.0 | 9c667a0 | 10 Sep 2026 03:24 | 257 | 90 | 11 |
 | 2.7.1 | b70ece0 | 10 Sep 2026 22:17 | 257 | 90 | 11 |
 | 2.7.2 | d7d0797 | 11 Sep 2026 03:04 | 258 | 90 | 11 |
+| 2.7.3 | d629378 | 12 Sep 2026 09:35 | 258 | 90 | 11 |

@@ -1,9 +1,9 @@
 ---
 name: rtp-skill-refresh
-version: v1.0_latest
+version: v1.0.1_latest
 description: 'The monthly (and on-touch) refresh discipline for Ravi''s skill library: one executable ritual instead of governance rules scattered across five files. Owns the full loop: evidence-gated selection (no evidence, no edit), Rule-41 archiving before any edit, and the four revision passes (content-as-node, structure, voice, verify-against-exemplar). Then the cold-run stress test for signature skills, because content review is not runnability review. Then CONCEPT.md absorb-and-archive, and the governance close through mirror sync and /plugin update, since git push is not the finish line. Use when: the monthly refresh fires, a skill produced a defective output, Ravi''s review lands on a skill, or the HBR research loop demands updates. Pairs with: rtp-claude-admin (folder governance), skill-creator (new skills; this refreshes existing ones), rtp-hbr-research (the research input). Triggers: ''skill refresh'', ''monthly skill pass'', ''revise this skill'
 imports:
-  - rtp-claude-admin
+  - claude-admin
 ---
 
 # Skill Refresh: The Library's Maintenance Ritual

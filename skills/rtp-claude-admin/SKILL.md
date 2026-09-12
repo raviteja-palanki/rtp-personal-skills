@@ -1,6 +1,6 @@
 ---
 name: rtp-claude-admin
-version: v1.0_latest
+version: v1.1_latest
 description: 'Ravi''s personal folder governance and administration skill. Invoked ONLY when Ravi explicitly says "RTP Claude Admin" or "Claude Admin" or "admin mode". Performs: folder health checks, archive cleanup with permanent deletion, skill version audits, CHANGE_LOG review, DEPRECATED-TRACKER review, cross-project knowledge promotion, MASTER_INDEX updates, and CLAUDE.md maintenance. USE WHEN user says "RTP Claude Admin", "admin review", "clean up archive", "delete deprecated files", "folder health check", "update master index", "promote to rules", "skill audit", or "what changed recently". Do NOT use for content creation, skill invocation, project work, or any non-administrative task.'
 ---
 # RTP Claude Admin — Folder Governance Skill
@@ -9,7 +9,7 @@ This skill manages Ravi's Claude folder system. It is the only skill authorized 
 
 ## Who This Serves
 
-Ravi Teja Palanki — Senior Technical PM at Honeywell, Perplexity AI Fellow 2025. His career target is Director-level at Anthropic. Every admin output should meet the bar: would Anthropic's CPO look at this folder structure and say "this person runs a tight ship"?
+Ravi Teja Palanki, Senior Technical PM at Honeywell, Perplexity AI Fellow 2025. His career target is Director-level at Anthropic. Every admin output should meet the bar: would Anthropic's CPO look at this folder structure and say "this person runs a tight ship"?
 
 Ravi is a **Bridger** — he translates across engineering, design, business, and leadership contexts. The folder system must support that fluency: skills compose dynamically, research feeds into skills, skills feed into projects, and everything compounds.
 
@@ -17,13 +17,13 @@ Ravi is a **Bridger** — he translates across engineering, design, business, an
 - **Anthropic CPO-level rigor:** Governance docs should be precise, current, and honest. No stale dates, no aspirational counts, no mismatches between registry and reality.
 - **Apple-level polish:** File names are wake-up clear. Folder structure is self-documenting. A new session should understand the system in under 2 minutes by reading CLAUDE.md → ACTION-PLAN.md.
 - **Enterprise practitioner depth:** Every admin action must answer "what changed, why, and what does the next session need to know?" If it can't, the action isn't finished.
-- **Dynamic, not rigid:** The folder system serves Ravi's thinking — it should evolve. Flag when structure no longer matches how work actually flows.
+- **Dynamic, not rigid:** The folder system serves Ravi's thinking, so it should evolve. Flag when structure no longer matches how work actually flows.
 
 ### What Ravi Dislikes in Admin Output
 - Stale governance docs that don't match reality
 - Generic health reports that could apply to any folder ("everything looks good")
-- Frozen structures that resist change — if a better organization exists, propose it
-- Silent deletions or moves — every change must be called out explicitly
+- Frozen structures that resist change. If a better organization exists, propose it
+- Silent deletions or moves. Every change must be called out explicitly
 
 ## When This Skill Activates
 
@@ -37,16 +37,14 @@ Ravi is a **Bridger** — he translates across engineering, design, business, an
 - "Delete deprecated files"
 - "Update the master index"
 
-**Also auto-suggest a health check** (added 12 MAY 2026) at session start when ANY of these conditions are true:
-- `ACTION-PLAN.md` last updated > 7 days ago
-- `CHANGE_LOG.md` last entry > 7 days ago
-- `SKILL-REGISTRY.md` last updated > 7 days ago
-- `MASTER_INDEX.md` last updated > 14 days ago
-- `git worktree list` shows >1 non-current worktree
+**Also auto-suggest a health check** at session start when EITHER of these is true:
 
-When auto-triggered, the skill should propose: "Last governance update was [N] days ago. Recommend running HEALTH CHECK before new work. Should I?" — wait for Ravi's confirmation. Don't auto-execute admin actions without confirmation.
+- **The backstop has not reported.** No `## DD MMM YYYY — Governance health check` heading in `CHANGE_LOG.md` within the last 8 days.
+- **The backstop is gone.** The scheduled task `governance-health-check` is missing from the scheduler. See "The scheduler" below.
 
-**Why this addition:** Between 6 APR and 12 MAY 2026, governance drifted silently for 36 days because no session invoked the health check. The skill HAS the capability — the gap was a missing trigger. Auto-suggestion at session start closes that gap without violating the "Ravi authorizes destructive actions" principle.
+When auto-triggered, propose: "The last governance health check reached CHANGE_LOG.md [N] days ago. Recommend running it before new work. Should I?" Wait for Ravi's confirmation. Never auto-execute an admin action.
+
+**Why this trigger and not the old one.** v1.0 fired when a governance file had gone 7 days untouched. Every session writes to those files, so in an active system the condition was never met and the suggestion never fired once. Meanwhile the scheduled task itself disappeared some time after 31 AUG 2026 and nothing noticed for eleven days. That is Rule 46: key the trigger on the failure, not on activity, and give the backstop a heartbeat something else reads. The health check's own `CHANGE_LOG.md` entry is that heartbeat, and `scripts/governance-check.py` G13 reads it.
 
 ## Core Principle
 
@@ -59,21 +57,27 @@ When auto-triggered, the skill should propose: "Last governance update was [N] d
 When invoked, ask Ravi which action he wants, or suggest based on context.
 
 ### Action 1: HEALTH CHECK
-**What it does:** Scans the entire Claude folder and reports on its condition. Now includes the 6 governance-vs-filesystem reconciliation checks added 12 MAY 2026 (see "Governance Reconciliation Checks" below).
+**What it does:** Runs the deterministic check, then applies judgment to what the script cannot see.
 
-**Governance Reconciliation Checks (added 12 MAY 2026):**
+**Step 0, before anything else:**
 
-Run these in addition to the original checks. Each one verifies a governance claim against actual filesystem state:
+```bash
+cd ~/Desktop/Claude && python3 scripts/governance-check.py
+```
 
-1. **Archive integrity.** For each `## DD MMM YYYY` entry in `DEPRECATED-TRACKER.md`, check whether `_archive/{date_folder}/` actually exists AND contains the listed content. Flag any entry that claims files that aren't there.
-2. **Skill count accuracy.** Run `find 2_Skills -name SKILL.md | wc -l`. Compare to the total claimed in `SKILL-REGISTRY.md`. Flag any drift.
-3. **AIPM layer count accuracy.** Run `find 2_Skills/ai-pm-skills -name SKILL.md | wc -l`. Compare to claims in the AIPM section header. Flag drift.
-4. **Active projects table accuracy.** Run `ls 1_Projects/`. Compare to the active-projects table in `MASTER_INDEX.md`. Flag any project listed that doesn't exist, or any folder that exists but isn't listed.
-5. **Worktree hygiene.** Run `git worktree list`. For each non-current worktree, check filesystem mtime: any modifications in the last 5-10 minutes? → active session, leave it. Otherwise flag as stale + propose `git worktree remove`.
-6. **Zone fit.** Scan for content in wrong zones:
-   - `5_Knowledge/` should have NO binary files (PNG, PDF, MP4). It's a text-only zone.
-   - `3_Research/` root should have NO loose files — everything goes in subfolders.
-   - `2_Skills/` should have NO folders with spaces or loose `.skill` files at top level (those go in `_web-app-skills/`).
+**`scripts/governance-check.py` owns every claim that code can verify** (G1 to G13: three-way skill sync, `references/` parity, import resolution, registry version cells, the three generators, repo-doc counts and links, volatile counts, `5_Knowledge` hygiene, root hygiene, archive indexing, and whether this health check has itself run). It prints one line per check and exits non-zero on any failure. Read its output, not just the exit code.
+
+**Why the split.** v1.0 carried six reconciliation checks in prose. Three scheduled health checks ran between 20 JUL and 31 AUG 2026 without catching 83 binaries sitting in the text-only `5_Knowledge` zone, because a check written as prose gets interpreted and sampled while a check written as code gets run. The first coded run failed ten of thirteen checks and found three defects no manual read had found. Prose keeps only what needs judgment.
+
+**Never use `du` for a size question in this tree.** The Desktop sits in iCloud Drive with optimisation on, so an offloaded file reports zero blocks while its bytes are intact. A `du`-based emptiness check once produced a false report that a 39KB governance file had been lost. Use `stat -f %z` or `wc -c`.
+
+**The judgment half, which no script can do:**
+
+1. **Does `MASTER_INDEX.md` still describe the real projects?** Run `ls 1_Projects/`. A project listed that does not exist, or a folder that exists and is not listed, is a finding. The script cannot tell you which of the two is correct.
+2. **Is `ACTION-PLAN.md` honest?** Items marked open that are actually finished are worse than no plan, because the next session works from them.
+3. **Has a hypothesis met its promotion condition?** Open `5_Knowledge/hypotheses.md` and read the ready-to-promote table. Three confirmations across different sessions or domains promotes it to `rules.md` as the next number. Never renumber.
+4. **Worktree hygiene.** Run `git worktree list`. For a non-current worktree, check whether the filesystem was modified in the last few minutes. If yes it is an active session, so leave it. Otherwise propose `git worktree remove`.
+5. **Does the structure still match how the work flows?** This is the one Ravi actually wants. If a zone boundary is being worked around rather than followed, say so and propose the change.
 
 Steps:
 1. Read `MASTER_INDEX.md` — check if it matches actual folder state
@@ -115,7 +119,7 @@ Steps:
    1. _archive/3_APR_2026/old-1-My-Projects/ (413 files)
       Replaced by: 1_Projects/ and 3_Research/
       Archived on: 3 APR 2026
-      Reason: Folder reorganization — all files verified copied
+      Reason: Folder reorganization, all files verified copied
 
    Delete these? [List specific items or "all of the above"]
    ```
@@ -138,8 +142,8 @@ Steps:
 2. For each registered skill, verify:
    - SKILL.md exists at the listed location
    - Version in registry matches version in the actual file (if stated)
-   - `versions/` folder exists and has at least one historical version
-   - CHANGELOG.md exists for the skill
+   - Under Rule 41, the version it replaced is archived at that skill's own `archive/SKILL-vX.Y.md`, taken from the mirror, which holds the last shipped state
+   - No per-skill `versions/` folder and no per-skill `CHANGELOG.md`. Both were retired: snapshots go to the root `versions/{zone}/{DDMMMYYYY}/`, and skill history lives in `2_Skills/CHANGE_LOG.md`
 3. Check `.claude/skills/` deployment — are deployed skills up to date with source?
 4. Check `_web-app-skills/` — are web versions current?
 5. Report findings:
@@ -234,7 +238,7 @@ Steps:
    ```
    The YAML colon trap: unquoted parenthetical version notes like `(v3.0: comprehensive...)` or `(canonical): Live Trace...` get interpreted as nested mapping keys and break the parser silently. Quote them or replace the inner colon with an em-dash.
 
-3. **Field-vocabulary audit.** Count distinct frontmatter fields across all skills. Only `name` and `description` are required by Anthropic's Skill spec. Everything else (`imports`, `version`, `author`, `title`, `id`, `category`, `difficulty`, `last_updated`, `plugin`, `updated`, `status`, `tags`, `created`, `triggers`, `type`, etc.) is noise that creates invisible debt. If field count > 2, propose stripping the rest.
+3. **Field-vocabulary audit.** Count distinct frontmatter fields across all skills. Anthropic's Skill spec requires only `name` and `description`. This library deliberately adds two more, and **they are never stripped**: `version` is what Rule 41, the registry and `governance-check.py` G4 all read, and `imports` is what makes the library a graph rather than a pile, checked by G3. Anything beyond those four (`author`, `title`, `id`, `category`, `difficulty`, `last_updated`, `plugin`, `updated`, `status`, `tags`, `created`, `triggers`, `type`) is drift, and stripping it is safe. v1.0 of this skill proposed stripping everything except name and description, which would have deleted the version history and the dependency graph in one pass.
 
 4. **Orphan plugin manifest scan.** Search the entire workspace (excluding `_archive/` and worktrees) for ALL `.claude-plugin/plugin.json` files. There should be exactly ONE (the canonical `rtp-personal-skills-repo/.claude-plugin/plugin.json`). Any others are orphans from the old multi-plugin architecture — archive them to `_archive/{DATE}/legacy-plugin-manifests/` and remove the source directories. Claude's plugin scanner picks up orphans and shows phantom plugins in the directory UI.
    ```bash
@@ -252,10 +256,7 @@ Steps:
    cd ~/.claude/plugins/marketplaces/rtp-personal-skills && git fetch origin main && git reset --hard origin/main
    ```
 
-6. **`.plugin` bundle freshness check.** The manual-upload `.plugin` file is a zip; its contents are dated by zip metadata, NOT by the file's mtime. An old bundle on disk uploaded after fixes were pushed will reproduce the original failure. Rebuild from the current repo state:
-   ```bash
-   cd ~/Desktop/Claude/rtp-personal-skills-repo && zip -r ~/Desktop/Claude/rtp-personal-skills.plugin . -x "*.git/*"
-   ```
+6. **`.plugin` bundle freshness.** The manual-upload `.plugin` file is a zip, and its contents are dated by zip metadata rather than by the file's mtime, so an old bundle uploaded after a fix was pushed reproduces the original failure. **Do not hand-roll a second bundle.** `./scripts/plugin-release.sh` builds it, names it `rtp-personal-skills-vX.Y.Z-DDMMMYYYY.plugin`, retires the previous build into `_archive/plugin-archives/`, and leaves exactly one canonical `rtp-personal-skills.plugin` at the root. Hand-zipping produced two byte-identical bundles plus a Finder " 2" copy sitting at the root, which `governance-check.py` G11 now fails.
 
 7. **Post-push: refresh the local cache and re-validate.**
    After `git push origin main`, immediately:
@@ -285,7 +286,32 @@ After completing any admin action, always:
 
 ## Date Format
 
-All dates in governance files use: `D MMM YYYY` (e.g., `3 APR 2026`). This is Ravi's preferred format — readable at a glance.
+**Two formats, one for each use, per `CLAUDE.md` section 9.**
+
+- **In governance prose:** `DD MMM YYYY`, so `03 APR 2026`. This is what the `CHANGE_LOG.md` health-check heading uses, and what G13 parses.
+- **In a filename or folder name:** `DDMMMYYYY`, so `03APR2026`. No spaces, unambiguous, sorts predictably.
+- **In a research filename:** the suffix `_Mon_YYYY`, so `_Apr_2026`, read from the file's own content and never guessed.
+
+## The scheduler
+
+The weekly backstop is a scheduled task, and this skill is responsible for it existing.
+
+| | |
+|---|---|
+| **Task id** | `governance-health-check` |
+| **Schedule** | `0 9 * * 0`, Sundays at 09:00 local |
+| **Stored at** | `~/.claude/scheduled-tasks/governance-health-check/SKILL.md` |
+| **What it runs** | `scripts/governance-check.py`, then this skill's HEALTH CHECK for the judgment half, then logs to `CHANGE_LOG.md` |
+
+**It runs while the Claude app is open**, and on the next launch if the app was closed when a run was due. It is not a cron daemon. A machine left closed for two weeks gets one catch-up run, not two.
+
+**Check it exists at the start of any admin pass.** If `list_scheduled_tasks` does not show it, recreating it is the first action of the session, before anything else. It has disappeared once already: it ran on 12 JUL, 13 JUL, 20 JUL, 24 AUG and 31 AUG 2026 and was gone by 12 SEP with no record of how.
+
+## This skill is governed too
+
+The thing that checks everything else is the thing nobody checks. v1.0 sat unchanged from 12 MAY to 12 SEP 2026 while four of its instructions went stale: it looked for per-skill `versions/` folders that Rule 41 had replaced, proposed stripping the two frontmatter fields the library runs on, told sessions to hand-zip a second plugin bundle, and carried a trigger that could not fire. None of that was visible from inside the skill.
+
+**So every admin pass ends by asking one question of this file: which instruction here is now false?** An answer goes into the next version under Rule 41, the same as any other skill. `governance-check.py` G4 reads this skill's version cell in the registry like every other.
 
 ---
 

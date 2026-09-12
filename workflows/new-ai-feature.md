@@ -1,12 +1,12 @@
 # New AI Feature: Full Cycle Workflow
 **Discovery → Strategy → Spec → Launch**
 
-A complete workflow for taking a new AI feature from initial concept through production launch. Orchestrates all 39 skills across the 7-plugin system to ensure no blind spots.
+A complete workflow for taking a new AI feature from initial concept through production launch. Orchestrates skills across every layer of the library to ensure no blind spots.
 
 **Timeline:** 12 days (can compress to 6 or expand to 4 weeks based on complexity)
 **Audience:** Product managers, design leads, engineering leads, AI specialists
 **Output:** Fully specified, risk-vetted, economically defensible AI feature ready for launch
-**Skill Coverage:** All 39 skills across thinking-core, product-sense, ai-strategy, safety-and-trust, agent-design, eval-and-quality, craft
+**Skill coverage:** the named sequence below. This file was written against an earlier roster, so verify a skill name against ARCHITECTURE.md before relying on it.
 
 ---
 
@@ -169,7 +169,7 @@ A complete workflow for taking a new AI feature from initial concept through pro
 | **eval-and-quality** (4/4) | eval-framework, eval-driven-development, ai-product-metrics, production-observability | 3,4 |
 | **craft** (8/8) | ai-prd, context-spec, agent-spec, cost-model, ship-decision, competitive-map, fit-signal, prompt-as-product | 1,2,3,5 |
 
-**Total: 39/39 skills referenced**
+**Total: the the skills named below named below referenced**
 
 ---
 
