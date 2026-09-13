@@ -1,82 +1,26 @@
-# Theme Taxonomy — HBR Research Classification System
+# Research theme taxonomy
 
-**Established:** April 2026 (Cycle 1 — 103 articles)
-**Purpose:** Auto-classify incoming research PDFs into thematic batches for parallel agent processing.
+Reference revision 3.7.1 — reviewed 13 September 2026. Established in April 2026. The original cycle counts below are historical observations from the earlier skill, not the current corpus inventory.
 
----
+Use themes to organize reading and find relevant skills. They are distinct from physical shelf paths and do not require parallel processing. A title and keywords can suggest an initial tag; confirm it against the article's actual argument and use secondary tags where useful.
 
-## Active Themes
+| Theme | Central question | Search vocabulary | Historical April count and framework examples | Current routing candidates |
+|---|---|---|---|---|
+| **T1: AI strategy and portfolio** | Where should we invest, and how should the portfolio work? | strategy, investment, portfolio, returns, startup, ROI, initiative, pilot, transformation | 13; 5Rs, Three-Horizon Portfolio, Deep & Narrow | strategy-canvas, moat-finder, ai-portfolio-management, capability-tracking |
+| **T2: Agentic AI and agent design** | How should agents be designed, deployed, and managed? | agent, autonomy, bot, onboarding, multi-agent, orchestration | 8; Toddler Model, Four Frictions, Onboarding Principles | autonomy-spectrum, agent-ecosystem, agent-harness, tool-architecture |
+| **T3: Quality, evaluation, and trust** | How do we assess output, detect failures, and support appropriate trust? | quality, trust, eval, bias, validation, explainability, hallucination, accuracy, persuasion | 11; Warnings & Endorsements, Four Trust Factors, Persuasion Bombing | eval-framework, eval-driven-development, ai-product-metrics, trust-ladder |
+| **T4: Workforce and adoption** | How does AI change work, learning, and adoption? | workforce, employees, skills, learning, coding, creativity, productivity, anxiety | 16; Three-Phase Adoption Curve, Expertise Paradox, Midcycle Dip | adoption-launch, judgment-guard, ai-ux-patterns, ai-product-taste |
+| **T5: Product design and UX** | What experience serves the user, and when is AI appropriate? | product, UX, design, customer, sound, voice, coordination, wisdom, healthcare | 9; Coordination > Automation, Shared Wisdom, Domain Dialect | problem-ai-fit, ai-ux-patterns, ai-product-taste |
+| **T6: Responsible AI, governance, and security** | What responsibilities, controls, and security measures apply? | governance, security, accountability, disclosure, ethics, regulation, compliance | 6; SHARP, Three Obstacles, Breach Resilience | responsible-ai-program, safety-by-design, safety-as-moat, agent-risk, breach-ready |
+| **T7: Transformation and change** | What enables or obstructs organizational change? | change, scale, innovation, digital, silos, execution, dexterity | 14; Hero Trap, 5Rs Operating System, Digital Dexterity; earlier company examples included Michelin, Schneider, and Pernod Ricard | problem-type, alignment-check, adoption-launch, harness-operating-model |
+| **T8: Strategic leadership and decisions** | How should leaders decide, align, and act under uncertainty? | leadership, decision, uncertainty, alignment, trust, foresight, culture, empathy | 26; Five-Link Alignment, Strategic Foresight, Toxic Five | vision-setting, purpose-dialogue, alignment-check, uncertainty-research, stakeholder-communications |
 
-### T1: AI Strategy & Portfolio
-**Core question:** Where should we invest in AI, and how do we structure the portfolio?
-**Keywords:** strategy, invest, portfolio, returns, startup, ROI, initiative, pilot, transformation
-**Typical articles:** Investment surveys, portfolio frameworks, startup taxonomies, strategy reviews
-**April 2026 baseline:** 13 articles → key frameworks: 5Rs, Three-Horizon Portfolio, Deep & Narrow
-**Maps to AI PM plugin:** AI Strategy (strategy-canvas, moat-finder, ai-portfolio-management, capability-tracking)
+The listed counts sum to the original 103-article cycle. They do not establish the strength of any framework or verify its attribution; open its source record before reusing it. Routing names are discovery candidates, not instructions to invoke every skill or claims that every source needs an edit. Resolve their full identifiers and paths through the current registry.
 
-### T2: Agentic AI & Agent Design
-**Core question:** How do we design, deploy, and manage AI agents at scale?
-**Keywords:** agent, agentic, autonomous, bot, onboarding, multi-agent, orchestration
-**Typical articles:** Agent architectures, deployment case studies, management implications
-**April 2026 baseline:** 8 articles → key frameworks: Toddler Model, Four Frictions, Onboarding Principles
-**Maps to AI PM plugin:** Agent Design (autonomy-spectrum, agent-ecosystem, agent-harness, tool-architecture)
+The earlier labels “NEW: adoption-as-product-management,” “Organizational Excellence,” and “Strategic Leadership” were proposed routing categories. They are not installed skill IDs. Do not create or invoke a missing skill on the basis of those labels.
 
-### T3: AI Quality, Evaluation & Trust
-**Core question:** How do we evaluate AI output, catch failures, and build customer trust?
-**Keywords:** quality, trust, eval, bias, validate, explainability, hallucination, accuracy, persuasion
-**Typical articles:** Quality control frameworks, bias studies, trust-building strategies, LLM limitation research
-**April 2026 baseline:** 11 articles → key frameworks: Warnings & Endorsements, Four Trust Factors, Persuasion Bombing
-**Maps to AI PM plugin:** Eval & Quality (eval-framework, eval-driven-development, ai-product-metrics) + Safety & Trust (trust-ladder)
+For classification, choose a primary theme around the central argument and retain secondary tags when needed. If the opening is ambiguous, read further; a two-page look is provisional. Review a new theme when several sources expose a recurring gap, but three sources is a discussion trigger, not an automatic T9 rule.
 
-### T4: AI Workforce & Adoption
-**Core question:** How does AI change work, and how do we drive adoption?
-**Keywords:** workforce, adoption, employees, skills, learn, coding, creativity, productivity, anxiety
-**Typical articles:** Adoption studies, productivity research, skill development, workforce transformation
-**April 2026 baseline:** 16 articles → key frameworks: Three-Phase Adoption Curve, Expertise Paradox, Midcycle Dip
-**Maps to AI PM plugin:** Product Sense (ai-ux-patterns, ai-product-taste) + NEW: adoption-as-product-management
+Choose manageable reading groups according to scope, source length, and dependencies. The historical eight-to-twelve-per-worker range is not mandatory. Keep a small coherent group intact when merging it would obscure the question, and work sequentially when requested.
 
-### T5: AI Product Design & UX
-**Core question:** What should AI products feel like, sound like, and when should we NOT use AI?
-**Keywords:** product, UX, design, customer, sound, voice, coordination, wisdom, healthcare
-**Typical articles:** Product design principles, domain-specific AI, human-AI collaboration
-**April 2026 baseline:** 9 articles → key frameworks: Coordination > Automation, Shared Wisdom, Domain Dialect
-**Maps to AI PM plugin:** Product Sense (problem-ai-fit, ai-ux-patterns, ai-product-taste)
-
-### T6: Responsible AI, Governance & Security
-**Core question:** How do we govern AI responsibly, and what are the security implications?
-**Keywords:** responsible, governance, security, accountability, disclosure, ethics, regulation, compliance
-**Typical articles:** Governance frameworks, regulatory analysis, security assessments, disclosure requirements
-**April 2026 baseline:** 6 articles → key frameworks: SHARP, Three Obstacles, Breach Resilience
-**Maps to AI PM plugin:** Safety & Trust (responsible-ai-program, safety-by-design, safety-as-moat)
-
-### T7: Transformation & Change Management
-**Core question:** How do organizations actually transform with AI, and why do most fail?
-**Keywords:** transformation, change, scale, innovation, digital, silos, execution, dexterity
-**Typical articles:** Case studies (Michelin, Schneider, Pernod Ricard), scaling frameworks, change management
-**April 2026 baseline:** 14 articles → key frameworks: Hero Trap, 5Rs Operating System, Digital Dexterity
-**Maps to AI PM plugin:** NEW: Organizational Excellence
-
-### T8: Strategic Leadership & Decision-Making
-**Core question:** What leadership skills enable CPO-level AI product management?
-**Keywords:** leader, decision, strategy, uncertainty, alignment, trust, foresight, culture, empathy
-**Typical articles:** Leadership frameworks, strategic alignment, decision-making, organizational culture
-**April 2026 baseline:** 26 articles → key frameworks: Five-Link Alignment, Strategic Foresight, Toxic Five
-**Maps to AI PM plugin:** NEW: Strategic Leadership
-
----
-
-## Classification Rules
-
-1. **Title-first:** Most articles can be classified from the title alone
-2. **Content-check:** If title is ambiguous, read pages 1-2 for the core argument
-3. **Primary theme wins:** If an article spans 2 themes, assign to the one where its central thesis lives
-4. **New theme threshold:** Only create T9+ if 3+ articles cluster around a topic that doesn't fit any existing theme
-5. **Batch size enforcement:** 8-12 articles per agent. Split >12, merge <4 with adjacent theme.
-
-## Theme Evolution Protocol
-
-After each cycle:
-- Review theme boundaries — do any need splitting or merging?
-- Update keyword lists based on new article titles
-- Update "Maps to" as the AI PM skill architecture evolves
-- Add the cycle's baseline stats (article count, key frameworks discovered)
+After a cycle, review boundaries, update useful keywords and routing, and add clearly dated observations when they help. Derive current counts from the generated graph instead of maintaining competing live totals here.

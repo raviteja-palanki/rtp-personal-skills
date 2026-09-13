@@ -1,96 +1,57 @@
 # Alignment Check — Concept Guide
 
-## FIRST PRINCIPLES
+## What this skill helps you see
 
-93% of AI failures are organizational, not technical. This is the foundational insight that drives this skill.
+An AI initiative can have a capable model and still struggle because its purpose, incentives, ownership, workflow, or operating practice do not fit together. It can also have strong organizational support and a technical limitation that genuinely prevents success. Alignment Check examines both possibilities.
 
-The mechanism: A technology problem creates one failure mode (the model doesn't work). An organizational misalignment creates cascading failures. Teams succeed or fail based on whether five structural links hold together:
+The five-link lens connects:
 
-Purpose → Strategy → Capability → Architecture → Systems
+1. **Purpose:** the problem and intended outcome.
+2. **Strategy:** the approach to creating and sustaining value.
+3. **Capability:** skills, resources, authority, and capacity to execute.
+4. **Architecture:** the design and dependencies that support the task.
+5. **Systems:** the operating practices that keep the service useful.
 
-If any link breaks, the deployment fails. The most insidious failures are the ones where the first four links are strong but the fifth (Systems) breaks — the team builds the right thing, manages adoption well, but then has no monitoring or feedback loops. The model degrades silently. Users lose trust without anyone knowing why. The investment compounds backward.
+These categories organize the diagnosis. They are not an empirically validated set of five irreducible conditions, and a weakness does not always mean total failure. Find the gap that matters for the actual commitment.
 
-## DUAL DEFINITION
+**Business definition:** diagnose what must change for an AI initiative to deliver its intended outcome, so investment addresses the real constraint.
 
-**Business definition:** Alignment-check is a diagnostic framework that identifies which of the five links (Purpose → Strategy → Capability → Architecture → Systems) is the constraint, preventing unnecessary technical spending when the constraint is organizational.
+**Technical definition:** assess stakeholder expectations, strategic choices, capability, design, and operations, tracing how an evidenced gap affects execution and identifying a proportionate repair.
 
-**Technical definition:** A cascading assessment that maps stakeholder understanding, strategic positioning, skill distribution, technical architecture decisions, and operational readiness — identifying the weakest link and the failure mode it would produce.
+## Avoid the convenient diagnosis
 
-## THE 5-LINK CHAIN (Expanded)
+Technology is often visible and tractable: a team can buy a model, add data, or improve latency. Organizational problems can be harder to discuss. That can encourage a premature technical fix. The reverse is possible too: “culture” can become an explanation that avoids investigating real technical weaknesses.
 
-### Why These Five?
+The earlier claim that “93% of AI failures are organizational” was unsupported as stated. A related primary survey asks leaders about their greatest adoption obstacle; it does not measure the causes of failed projects. The [research notes](references/research-and-limits.md) explain the distinction and preserve the other original statistical leads without treating them as verified facts.
 
-Every successful AI deployment requires:
-1. **Purpose:** A shared understanding of what problem the AI solves (executive clarity)
-2. **Strategy:** A competitive and financial thesis for how AI fits into the business (business model clarity)
-3. **Capability:** The right mix of technical and organizational skills to build and run the AI (human capital clarity)
-4. **Architecture:** Technical design that's built for the actual business problem and includes failure handling (technical correctness)
-5. **Systems:** Operational processes that keep the AI working over time (sustainability)
+## Illustrative cases
 
-You could add more (governance, compliance, culture). But these five are irreducible — if any one breaks, the deployment fails.
+**An underwriting investment with blocked adoption.** A firm spends $2M and reports 94% model accuracy, but underwriters distrust the workflow, incentives conflict, and a required review arrives late. These facts suggest purpose, strategy, and design questions. They do not establish that the model is “fine”: the accuracy measure, error costs, fairness, and task coverage still need examination. A better model alone may not resolve the operating barriers.
 
-### Why Organizational Misalignment Dominates
+**A pilot that does not transfer.** A readmission-prediction pilot reports 87% accuracy and positive clinician feedback. Broader use is 12% at month three. A supportive pilot leader and differing departmental incentives are possible explanations. Check workflow, suitability, data, resources, and alternatives before attributing the result solely to resistance or autonomy concerns.
 
-The data:
-- Gartner: "90% of enterprise AI projects fail to progress past the pilot stage"
-- McKinsey: "Most AI initiatives fail because of organizational, not technical, issues"
-- BCG: "Only 8% of companies report running large-scale AI initiatives successfully"
+**An inventory agent people override.** A retail team repeatedly bypasses recommendations. Missing operational participation may matter, but overrides can also reflect legitimate local constraints or poor recommendations. Investigate the reasons and outcomes, then decide whether to improve the model, change the workflow, or involve operators differently.
 
-The organizational factors cited: misalignment on strategy, lack of accountability, insufficient change management, unclear ROI thesis, competing priorities.
+**A recommendation feature loses its lift.** Click-through rate is 30% above a defined baseline in month one, back to baseline in month six, and 5% below by month twelve in this hypothetical example. The figures alone do not prove drift or missing retraining caused the decline. Check seasonality, user mix, experiment design, product changes, and the relevance of CTR to the intended outcome. Use valid findings to choose the fix.
 
-## THE TRAP (Expanded)
+These are teaching scenarios, not verified company cases or domain-specific deployment recommendations.
 
-**Availability heuristic:** You can see the technology problem (need better models, more data, faster inference). You can't see the organizational problem because it's abstract (misalignment, unclear purpose, diffused accountability). So you solve the visible problem and miss the invisible constraint.
+## Use agreement as an input to action
 
-**Real example:** A financial services firm spent $2M on an AI model for credit underwriting. The model was technically brilliant — 94% accuracy, SOTA architecture, state-of-the-art monitoring. But adoption stalled because:
-- The underwriters didn't trust it (Purpose broken — nobody had explained why the model was necessary)
-- The compensation model hadn't changed, so underwriters saw it as a threat (Strategy broken — business model didn't work)
-- The compliance team wasn't involved in design, so they blocked deployment mid-process (Architecture broken — compliance wasn't a design constraint)
+Independent, concrete descriptions can reveal differences hidden by broad assent. Compare the problem, future workflow, trade-offs, and responsibilities before a consequential group decision. Then resolve meaningful differences under clear decision rights and record the resulting commitment.
 
-The team's instinct: "We need a better model." Wrong diagnosis. The model was fine. The organization wasn't ready.
+Do not require identical views or unanimous agreement. An authorized decision may proceed with a recorded objection and explicit conditions for review. Conversely, a signature without resources, understanding, or ability to act may not establish readiness.
 
-## INTELLECTUAL LINEAGE
+Use the check before a major commitment, during pilot-to-production planning, after a failure, or when joining an unfamiliar initiative. The original $1M investment threshold and one-week diagnosis budget were examples, not requirements. Scale the work to consequence and uncertainty; early exploration needs enough alignment for a safe, useful experiment rather than a complete transformation plan.
 
-- **Ronald Heifetz** — *Leadership Without Easy Answers.* The distinction between technical problems and adaptive challenges. Here applied to AI deployments.
-- **Peter Senge** — *The Fifth Discipline.* Organizational systems thinking. Why individual excellence doesn't guarantee organizational success.
-- **Jim Collins** — *Good to Great.* The importance of alignment on "what we're best at" before scaling.
-- **Clayton Christensen** — *The Innovator's Dilemma.* How organizational incentives (not technology) determine whether innovations succeed or fail.
-- **Donella Meadows** — *Thinking in Systems.* Why changing one variable in a system doesn't create expected outcomes if upstream variables are unaligned.
+## Intellectual lineage
 
-## REAL-WORLD EXAMPLES
+- **Ronald Heifetz, *Leadership Without Easy Answers*:** technical problems and adaptive challenges.
+- **Peter Senge, *The Fifth Discipline*:** interactions and feedback across an organization.
+- **Jim Collins, *Good to Great*:** practitioner ideas about focus and organizational capability.
+- **Clayton Christensen, *The Innovator's Dilemma*:** incentives and established business processes that can shape innovation choices.
+- **Donella Meadows, *Thinking in Systems*:** examining relationships, feedback, and consequences beyond a single intervention.
 
-**Example 1: The pilot that couldn't scale.** A healthcare company built an AI model to predict patient readmissions. Pilot results: 87% accuracy, doctors loved it. Scale attempt: adoption was 12% at month 3. Why? The pilot was in one department with a supportive leader. At scale, other departments saw it as a threat to their autonomy. Capability broken (no change management). Strategy broken (the business model didn't account for department-level incentives).
+These works inform the lens; they do not validate this exact five-link diagnostic. The earlier “AI Engineering, various authors” reference was underspecified; verify the intended work before using it to support a particular case or claim.
 
-**Example 2: The beautiful architecture that nobody used.** A retail company invested in an agent system for inventory management. Technically exceptional. Monitoring was flawless. But operations teams kept overriding the AI and using manual processes instead. Why? The AI was designed by product people, not operations people. No one in operations felt ownership. Purpose broken (operations teams didn't understand why this AI existed or how it would help their lives).
-
-**Example 3: The model that degraded and nobody noticed.** An e-commerce company deployed an AI recommendation engine. Month 1: 30% CTR improvement. Month 6: CTR back to baseline. Month 12: CTR 5% below baseline. Why? No retraining process. The model drifted with seasonal changes and user behavior shifts. Systems broken (no monitoring or feedback loops).
-
-## PRODUCTION DISCIPLINE
-
-**When to use this skill:**
-- Pre-investment (before spending $1M+ on AI)
-- Pre-implementation (when transitioning from pilot to production)
-- Post-failure (when a deployed AI isn't delivering value)
-- During hiring (when joining a company with AI initiatives)
-
-**When NOT to use this skill:**
-- Early-stage exploratory work (pilot phase doesn't need full alignment)
-- Low-stakes decisions with reversible consequences
-- When the organization is already aligned and executing well
-
-**The timing question:** Diagnose early. A 1-week alignment check during problem definition can save 3 months of building in the wrong direction.
-
-**Red flags that alignment is being skipped:**
-- "Let's just build it and see what happens"
-- Pilot succeeded but nobody's talking about how it scales
-- Different stakeholders describe the AI's purpose differently
-- Technology is approved but go-to-market strategy is unclear
-- The AI is technically perfect but adoption is low
-
-## FURTHER READING
-
-- Ronald Heifetz, *Leadership Without Easy Answers* — On distinguishing technical problems from adaptive challenges
-- Peter Senge, *The Fifth Discipline* — Systems thinking applied to organizations
-- Jim Collins, *Good to Great* — Alignment on competitive positioning
-- Donella Meadows, *Thinking in Systems* — Why changing one lever doesn't work if the whole system isn't aligned
-- O'Reilly, *AI Engineering* (various authors) — Real-world case studies of AI deployments that failed and why
+The [main skill](SKILL.md) contains the workflow and report. The [15-question guide](references/diagnostic-questions.md) provides warning signs, stronger evidence, and concrete spectrum anchors.

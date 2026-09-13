@@ -1,253 +1,192 @@
 ---
 name: rtp-token-economics
-version: v1.4.1_latest
-description: "How to charge for an AI product, where your best users are your most expensive users and the work is done by the model, not the seat. Built on six first-principles axioms (cost is power-law physics; incentives must align with value not consumption; budgets are hierarchical; margin lives in the applied/harness layer; opacity kills trust; negative margins are temporary subsidies). Answers the two questions SaaS never had to: which value metric (the six 2026 models, ranked), and which budget (software vs the ~10× salary budget). Carries the agentic value-metric decision tree, the transition arc with stage gates, spend-visibility + routing as survival infrastructure, the Default-FAIL gate for outcome pricing, a mandatory margin-floor check at P90, and 2026 case law. Consumes cost-per-outcome@P90 from cost-model; produces the pricing decision + spend-control design. Pairs with: cost-model, moat-finder, adoption-launch. Triggers: 'pricing for AI', 'how to price', 'token economics', 'per-seat is dying'."
+version: v1.4.2_latest
+description: "Choose how to charge for an AI product and package its value while keeping customer spending understandable and the business sustainable. Use for launch pricing, a plan change, an enterprise offer, bill shock, or a claim that per-seat pricing no longer works. Compare six model families against willingness to pay, usage and cost distributions, outcome measurability, procurement, and competition. Cover software and labor budgets, bundle/add-on/standalone packaging, discounts, renewal defaults, pricing transitions, and spending controls. Consume full delivery costs from cost-model; assess portfolio contribution, customer-level tail exposure, and growth scenarios without treating a percentile as a universal launch gate. Produce a pricing decision, evidence gaps, a margin analysis, and an implementation plan. Connect to moat-finder, harness-operating-model, adoption-launch, and stakeholder-communications."
 imports: [stress-test, falsification]
 ---
 
 # Token Economics
 
-## Research, adoption, stitch
+Choose a price, billing unit, and package that customers understand and that the business can support. AI delivery costs can vary substantially by workload, so assess the joint distribution of customer revenue, usage, quality, and cost. A heavy user is not necessarily the most valuable customer, and a useful pricing model need not follow a universal progression away from seats.
 
-Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
+## Start with the commercial decision
 
-A seat price is not a usage bill. Credits, premium requests, and included completions are different meters. Copilot-class: list the plan price and the included credit allotment separately; say what stays unlimited; date the shift off generous limits. Never blend paid subscribers with "users." Stitch one pricing narrative (who pays, for which verb of use, what breaks at P90).
+Identify the product line, target segment, buyer, payer, use case, alternatives, contract context, and decision owner. Establish whether this is a new offer, a pilot, a negotiated deal, or a change to an existing commitment. Record the currency, geography, tax treatment where relevant, billing period, and effective date of comparisons.
 
-When this skill should have caught a miss, write the tenet here (Rule 41) before the session ends.
+Use available cost and customer evidence. Before launch, create explicit usage and willingness-to-pay hypotheses and test them with a bounded offer; do not release an unpriced product merely to collect thirty days of data. After launch, use enough representative history to capture relevant cycles and tail workloads. Thirty days or six months may help in some businesses but are not universal minimums.
 
-## THE ONE IDEA
+Keep a proposed price separate from authorization to change customer contracts, send announcements, or charge anyone. For existing customers, check obligations and plan migration before recommending implementation.
 
-In normal software, one more user costs almost nothing, so you charge per seat and forget it — margins run 70-90%. In AI, every prompt, document, and agent run burns compute, so **your best users are your most expensive users**, and margins run 20-60%. That single fact breaks per-seat pricing and forces two questions SaaS never had to ask: **which value metric tracks your cost-and-value distribution**, and **which budget are you billing against**. Get the metric wrong and power users bankrupt you (Cursor's $7,225 invoice; GitHub Copilot losing money per user at launch). Get the budget wrong and you either leave 10× on the table or price yourself out of the deal.
+### Six principles to reason from
 
-## FIRST PRINCIPLES OF AI PRICING (reason from these, not from SaaS)
+1. **Costs are real and may be uneven.** Include the full delivery process, including failed attempts, human work, and support. Examine totals and averages alongside customer and workload tails. A power-law distribution is a hypothesis to test, not a law of AI economics.
+2. **The billing unit should fit value and incentives.** Seats, work units, credits, and outcomes each distribute risk differently. Charging for an outcome can reward useful work but can also encourage easy-case selection or gaming. Price need not reproduce every underlying cost.
+3. **Find the actual budget and value case.** Software, labor, services, revenue growth, risk reduction, or a combination may fund the purchase. The payer's authority and realized benefit matter more than a presumed tenfold salary-budget ceiling.
+4. **Test where pricing power comes from.** Routing, domain context, verification, and workflow integration can improve economics. Models and infrastructure can also differentiate. Open weights do not establish a permanent inference-price floor or make every pass-through service worthless.
+5. **Make spend and terms understandable.** Explain inclusions, limits, rates, expiry, and changes in familiar work units. Predictability matters, but some buyers prefer flexible consumption over a fixed commitment.
+6. **Make subsidies explicit and bounded.** Measure sustainable contribution and the fixed costs it must eventually cover. A funded pilot, acquisition offer, research service, or cross-subsidized feature can rationally lose money within an approved budget. Do not disguise losses or assume growth will cure them.
 
-Before you pick a model, reason from the ground up. Six basics keep this skill sound when new models ship, open-weight models get cheaper, or funding tightens.
+## Inputs and shared definitions
 
-1. **Cost is real, and lopsided.** Every token is real energy, chip time, and scarce-GPU cost — never free, never uniform. A tiny fraction of users, sessions, and agents run up most of the bill. **The average user is a lie.** The only number that decides survival is cost at the **90th/99th percentile, after all the real overhead** (harness loops, regenerations, tool calls, failed attempts, support).
-2. **Incentives must align with value created, not consumption.** Per-seat: seller wants seats, buyer wants usage — breaks when AI does the work. Pure per-token: seller wants tokens, buyer feels taxed for thinking. Outcome/services-as-software: both want correct, completed work. The ultimate unit is the **economic surplus created** (usually displaced expensive human labor).
-3. **Budgets stack, and they're sticky.** The software/IT budget is small, closely watched, and capped. The salary/labor budget is ~10× bigger and opens up *once you can prove you replace a person or make one do 10× the work*. Stay in the software budget and your ceiling stays permanently low.
-4. **The raw model is becoming a cheap commodity; the money is in the layer around it.** Open-weight models (DeepSeek-class, at 1/30–1/100th the price) set a permanent price floor on plain inference. The margin you keep comes from what you build *on top* — smart routing, checking the work, domain context. Price only the model and you have no lasting pricing power.
-5. **Complexity and opacity destroy trust and sales velocity.** Hidden limits, seat cliffs, opaque credit burn, bill shock → freezes, renegotiations, churn. Simple, transparent, predictable-with-clear-overage beats clever.
-6. **Negative unit economics are temporary subsidies.** Capital is currently funding deep negative margins. When conviction on payback weakens, only products with **positive contribution margin after full real cost** survive. "Grow into margins" is a dangerous delusion.
+Get the cost model from `cost-model`, including model calls, tool and retrieval costs, retries, verification, human review, support, and infrastructure. Distinguish variable delivery costs, fixed costs, and accounting cost-of-revenue treatment. Use the same periods and units on the revenue and cost sides.
 
-## THE TRAP
+Collect or estimate:
 
-You will copy SaaS pricing and be wrong within six months. The bias is **inherited mental models** — every product you know charges per seat, so you will too. But per-seat charges your most expensive user the same as your cheapest, and in AI those differ by 10-100×. Flat-rate subsidizes power users until the margin bleeds out; pure per-token kills adoption because users feel taxed for thinking; outcome pricing only works where the outcome is unambiguous *and* you can measure it. There is no safe default — the model has to match your actual usage distribution and the budget you displace.
+- Customer and workload distributions: count, volume, total cost, revenue, P10/P50/P90/P99 where sample size supports them, and known extreme cases.
+- Cost per attempted task and per successful outcome, with the success definition and all failed-task costs included in the relevant total.
+- Usage mix, routing policy, limits, billing delays, seasonality, and adoption assumptions.
+- Willingness to pay, customer value, alternatives, competitive terms, procurement authority, and available budget.
+- Actual human/AI responsibilities from `strategy-canvas` and the operating design. Labels such as copilot or agent do not determine pricing by themselves.
 
-## KEY TERMS (plain, industry-standard)
+**Value metric** is the customer-facing unit being priced. **Meter** is how consumption is counted. **Packaging** is which capabilities and entitlements are sold together. A token, credit, request, agent run, and completed outcome are different units; define their conversion or explain why it varies.
 
-- **Value metric** — the unit you charge for: a seat, a token, a credit, an agent-run, or an outcome. The most consequential choice.
-- **The P90/P99 user** — the 90th/99th-percentile user by cost. Price against them, not the average; the average is irrelevant to survival.
-- **Software budget vs salary budget** — the budget your value comes from. Software is a low single-digit % of revenue; salary is the loaded cost of the person you replace — ~10× larger.
-- **Applied / harness layer** — everything above the raw model call (routing, verification, context compression, caching) — where margin is protected against the open-weights floor.
-- **Default-FAIL measurement** — an outcome counts as success only if it provably passed an auditable, shared definition; the default is failure until proven (mirrors the harness `feature_list.json passes=false` pattern).
-- **Contribution margin floor** — revenue minus *full* variable cost (harness multiplier, regenerations, support) at P90. If negative at expected scale, the pricing is a subsidy.
-- **Spend visibility / token shock** — real-time cost instrumentation + soft/hard limits. Token prices fell ~67% in 2025 yet many bills *rose* — from missing routing and runaway agents, not model price.
-- **Pricing transition arc ("SaaSpocalypse")** — per-seat → tiered → outcome → abstracted-value → services-as-software.
-- **Services-as-Software** — the customer pays for the work done, like an outsourced service, not a license. Foundation Capital's default B2B-AI frame for 2026.
+**P90 cost** needs an entity and period: for example, monthly total delivery cost per active account. It is not interchangeable with P90 task cost or a percentile of cost-per-success ratios. Small samples may not estimate P99 usefully. Inspect exceptional workloads directly where necessary.
 
-## WHAT THIS SKILL CONSUMES & PRODUCES
+**Contribution** is revenue less the variable costs defined for the decision. **Gross margin** follows the organization's cost-of-revenue accounting and can differ. Specify both when needed; do not label contribution as gross margin.
 
-Pricing sits between the cost side and the go-to-market side. Name the handoffs before you start.
+## 1. Find the budget and the value being purchased
 
-**Consumes (inputs):**
-- **Cost per successful outcome at P90/P99** — from `cost-model`, *after* the harness multiplier, regenerations, tool calls, and failed trajectories. If you cannot get this number, stop and measure it first.
-- **Usage distribution** — P10/P50/P90/P99 requests and cost per user, from 30+ days of instrumentation.
-- **The routing strategy + spend instrumentation design** — from `cost-model` / the harness: how requests route by complexity, and whether real-time spend tracking exists.
-- **Competitive pricing** — what the alternative charges and how it breaks, from `competitive-map`.
-- **Which budget the buyer pays from** — software or salary (Step 0).
-- **Segment + architecture** — B2B API / SaaS / B2C / platform, and Assist / Copilot / Agent / Autonomous, from `strategy-canvas`.
+Identify what the buyer can actually redirect and when. Quantify the value of faster work, greater capacity, improved quality, avoided losses, or new revenue. Include the buyer's remaining human work, implementation effort, and switching costs. Time saved is not automatically cash released or headcount removed.
 
-**Produces (outputs):**
-- **The pricing decision** = value metric × pricing model × packaging, with the transition arc planned.
-- **The spend-control design** → ships *with* the pricing: the spend dashboard, soft/hard limits, and approval gates (survival infrastructure, not a follow-up).
-- **The launch motion** → `adoption-launch`: bundle = feature update; add-on = new SKU; standalone = full GTM.
-- **The margin target + margin-floor result** → back to `cost-model`.
-- **The pricing-as-strategy narrative** → `stakeholder-communications` / the board.
+The earlier software-versus-salary distinction remains useful as a procurement question. The approximate tenfold ratio and requirement to replace a person or create tenfold productivity are not universal facts. A valuable lookup tool can justify a substantial price; an expert-like output may have little realizable value. Labor benefits may still be purchased through the software budget.
 
-## STEP 0 — WHICH BUDGET ARE YOU BILLING? (THE CEILING)
+Use the work pattern to generate candidates:
 
-Before any pricing mechanic, answer this — it sets how *high* you can charge. A tool that is just more software is paid from the **software budget** (capped by IT-procurement norms). A tool that does the work of a paid expert is paid from the **salary budget** — the loaded cost of the person plus mistakes avoided — roughly ten times larger.
-
-This is the real reason outcome and value pricing command a premium: a judgment outcome crosses into the salary budget. It is also the agentic-era reframe of the per-seat death — an agent isn't a seat, it does a person's job, so its pricing *migrates* to the salary budget. **When wrong:** the salary ceiling only holds where you genuinely replace expert labor. A record-lookup tool dressed as "judgment software" stays on the software budget, and the higher ceiling is a mirage that prices you out. *(Stanton, HBR, 27 May 2026; Agrawal, HBR, 5 Jun 2026.)*
-
-## THE AGENTIC SHIFT — VALUE METRIC × BUDGET DECISION TREE
-
-The deepest structural change of 2026: agents break the old math, and **better agents make per-seat worse** (they do multi-seat work, so you sell fewer seats as the product improves). Route by what the AI actually does:
-
-| What the AI does | Value metric | Budget | Notes |
-|---|---|---|---|
-| **Assist / Copilot** (suggests, human acts) | Seat + AI add-on, or hybrid | Software (+ some labor) | Seat still viable — usage variance is bounded |
-| **Agent** (multi-step work, human approves) | Credit pools designed around **agent-runs**, or outcome | Crossing into labor | Per-seat is actively anti-aligned here; price the run |
-| **Autonomous labor** (replaces headcount) | **Services-as-software / pay-for-work** | Salary/labor | Bill the salary budget; the outcome *is* the product |
-
-## THE SIX PRICING MODELS (2026)
-
-Mapped across the 50 highest-valued AI companies. **Pure-play pricing is dying — nearly half run two or three at once.** Pick per product line, not per company.
-
-| Model | Mechanism | Fits | How it breaks | Example |
-|---|---|---|---|---|
-| **1. Hybrid tiered subscription** | Tiers with rising limits + model access | Consumer AI; the default | Undisclosed limits → users feel gaslit hitting a wall | Claude Free→Pro $17→Max $100/$200 |
-| **2. Usage-based / per-token** | Pay per unit of compute | B2B APIs, developers | Surprise bills; thin moat (inference fell ~78% in 2025) | Anthropic/OpenAI API |
-| **3. Credit / token pools** | Flat sub buys a depleting credit pool | Multi-feature / agentic products | Trust revolt when a predictable plan turns variable | Cursor (the $7,225 invoice) |
-| **4. Outcome-based** | Pay per successful outcome | Clean, measurable, Default-FAIL outcomes | Revenue drops on a bad model week; needs measurement infra | Intercom Fin $0.99/resolution |
-| **5. Seat-based + AI add-on** | Per-seat base, AI in a premium tier | Established SaaS adding Assist features | Heaviest users pay the same as lightest | Notion, GitHub Copilot, Harvey |
-| **6. Freemium / reverse trial** | Give AI away to build habit | PLG, consumer scale | Brutal burn; <2-3% conversion = too generous | OpenAI (900M weekly), Perplexity, Duolingo (~8% of MAU paid ✅, well above the <2-3% failure line) |
-
-**Preference order (long-term alignment, from the axioms):** Outcome / Services-as-Software **>** agent-run credits **>** hybrid with transparent overage **>** pure usage **>** pure seat (a temporary bridge only). Reverse trial beats a permanently crippled free tier.
-
-## THE THREE INPUTS THAT PICK THE MODEL
-
-1. **Cost structure.** Tokens as a % of *gross margin* (not revenue), at P90. >50% → usage or outcome mandatory; 20-50% → hybrid; <20% → seat survivable.
-2. **Usage distribution.** P90 ÷ P10 request ratio. Under ~2× → flat-rate works; over ~5× → flat-rate fails (coding copilots run ~32× median-to-P99). Gini > 0.6 = flat-rate is risky.
-3. **Competitive landscape.** No competitor → optimize margin. Competitor on per-seat → win on fairer usage-based. Competitor on per-token → match unless quality justifies a premium. Derive tiers from *your* usage data, never off a competitor's page.
-
-## APPLIED-LAYER / ROUTING AS PRICING POWER
-
-Pure model pass-through has no moat: open-weights set a permanent price floor, so a product that only marks up inference gets squeezed to zero. **Margin and pricing power now live in the applied/harness layer** — routing by complexity (studies show ~8× cost differences for the same output quality), verification loops, context compression, batching, and caching. This is the tight link to `harness-operating-model` and `cost-model`: the harness efficiency you build *is* the margin you protect. Under-invest here and every pricing model in this skill fails against a cheaper open-weights competitor.
-
-## THE PRICING TRANSITION ARC — STAGE-GATED, AND WATCH THE SUBSIDY
-
-Per-seat dies because AI costs are wildly uneven across users. The response is a stage-aware arc:
-
-- **Pre-PMF:** reverse trial + a generous hybrid. Optimize for habit and learning the usage distribution, not margin.
-- **Growth:** credits + spend visibility + soft limits. Add tiered caps *before* per-seat fails — proactively, not in crisis.
-- **Leadership:** committed spend / outcome / services-as-software. Bill the salary budget.
-
-Two rules decide whether a transition costs a quarter or a customer. **Price for the actual usage profile, not the headline** (Klarna priced for "AI replaces 853 FTEs"; reality was ~65% AI / 35% human, and both sides renegotiated). **Start before per-seat fails** (Cursor's reactive flip was public and the brand paid). **The capital warning:** many high-growth products run on subsidized unit economics — plan explicitly for the day capital reprices. "We'll grow into margins" is the trap.
-
-**The subsidy is being withdrawn on published dates, and this is what a buyer sees from the other side of your price list.** Enterprise vendors absorbed GPU, inference and token cost as a customer-acquisition move, and the invoice language was "unmetered," "complimentary" or "included." Investors want the companies powering the transformation profitable, so that is unwinding. The dated facts, tiered:
-
-- Oracle includes its base model in the subscription and **charges by usage for premium models** ◆ vendor-disclosed.
-- SAP is expected to follow the same split, free simple queries and paid premium features ⚠ reported, forward-looking, no source and no date.
-- **Workday's shift has a date: 31 January 2027** ◆ disclosed, with a stated grace period ("will not charge overages for Application APIs while customers investigate and optimize their usage") explicitly designed to avoid slowing adoption. This is the best-sourced and only dated item of the three.
-
-**The framing sentence to carry into any pricing conversation, in either direction:** deploying AI agents at scale *"structurally shifts resources from capacity it controls (employee wages) to capacity it rents (variable token consumption)."* Rented capacity reprices on the vendor's calendar. That is why a grace period, a cap and credit rollover are worth more to a buyer than a rate concession, and why offering them is a real differentiator rather than a giveaway.
-
-**What this changes on your side of the table.** Your customer is now being told to model their elasticity, negotiate caps and treat your tokens as a headcount substitute. Three consequences:
-
-- **Publish a unit-of-work definition** that holds for the contract term. The buyer's sharpest question is no longer your rate. It is how much work one unit buys.
-- **Expect caps and credit rollover to become table stakes** in enterprise deals through 2027.
-- **Remember what a dated repricing feels like on their side.** It lands as a step change on their budget, even when your own cost curve moved gradually.
-
-*(Source: HBR, Garr, "How to Respond to the Coming AI Cost Shock," Aug 2026. **Note the disclosure quality, which is the batch benchmark:** the author runs an analyst firm whose consortium takes fees from more than twenty HR tech vendors including Workday, discloses it in-body at first mention naming the mechanism, and argues against the disclosed party's interest by telling buyers to negotiate caps. Every dollar figure in that article derives from **the author's own illustrative one-cent-per-unit rate**, stated openly by her and not attributed to any vendor; do not carry those dollar figures without that sentence attached. Cost-side modelling lives in `rtp-cost-model` section 4B. Ledger patterns N and H.)*
-
-## RENEWAL DEFAULTS: read the market, do not copy the competitor
-
-**Auto-renew is not a best practice. It is a bet on what kind of market you are in**, and the two axes are both observable rather than guessed.
-
-**Axis 1: market composition, measured by period-over-period repurchase rate.**
-
-| Repurchase rate | Market type | What it implies |
+| Work pattern | Pricing options to investigate | Main question |
 |---|---|---|
-| **above 70 to 80%** | **inertial**: subscribers who like the product retain themselves | **auto-cancel is likely optimal.** Contractual friction is unnecessary and actively suppresses acquisition and goodwill |
-| **below 50%** | **variety-seeking**: subscribers rotate among options even when satisfied | **auto-renewal serves a real function**, carrying the subscriber through moments of restlessness |
+| Assistance or copilot, with people acting | Seat, add-on, tier, usage, or hybrid | Does the entitlement fit value and delivery cost across users? |
+| Agent performs multi-step work with oversight | Run, credit pool, outcome, subscription, or hybrid | What bounds a run, and who pays for retries and review? |
+| Service performs an agreed business function | Work unit, outcome, service fee, commitment, or hybrid | Which result is controllable, observable, valuable, and contractible? |
 
-**Axis 2: competitive position.** Above roughly 50% share, you are defending an installed base and auto-renewal protects it. Below that, the friction costs you more in acquisition than it returns in retention.
+Services-as-software describes selling completed work rather than only access to a tool. It is an option, not the inevitable destination of every AI business. A better agent may reduce needed seats or create more useful activity; estimate the actual effect.
 
-**The trap this closes:** copying the incumbent's renewal default when you are the challenger. **It is the one setting where the market leader's choice is actively wrong for you**, because the two axes point opposite directions at different share positions.
+## 2. Compare the six pricing families
 
-**For an AI product specifically**, the repurchase-rate read is complicated by usage variance. A subscriber who used the product heavily and one who barely opened it can both "renew," and only the first is real retention. Segment the rate by usage before you read it off the axis.
+These families overlap. Select a combination for the product line, and explain why it fits better than the next-best alternative.
 
-## DISCOUNTING IS SEGMENTATION, NOT GENEROSITY
+| Family | Mechanism and useful fit | Risk to resolve |
+|---|---|---|
+| Hybrid tiered subscription | Predictable recurring price with differentiated entitlements, access, or usage allowances | Hidden limits, confusing upgrades, and expensive included usage |
+| Usage-based pricing | Charge per disclosed token, request, work unit, or compute measure; often useful for APIs and variable workloads | Uncertain bills, incentives to consume unnecessarily, and weak linkage to value |
+| Credit pools | A purchase or subscription provides credits across capabilities or agent work | Opaque conversion, expiry, changing work per credit, and pooling surprises |
+| Outcome-based pricing | Charge for an agreed qualifying result, potentially with a base commitment | Attribution, delayed evidence, disputes, outcome gaming, and delivery-cost risk |
+| Seat-based pricing with or without an AI add-on | Price access per user, team role, or licensed entitlement | Value may move away from seats; unlimited promises can expose cost tails |
+| Freemium or reverse trial | Free ongoing access or temporary premium access supports acquisition and learning | Acquisition cost, abuse, conversion, cannibalization, and ongoing service cost |
 
-**A discount is a hurdle that sorts customers by willingness to pay.** The discount's job is to be *inconvenient enough* that only the price-sensitive clear it, so you capture them without giving margin away to everyone.
+There is no universal ranking of these models. A reverse trial can help users experience value; a permanent free tier can also serve a sound acquisition, public-benefit, or network strategy. A conversion rate below 2–3% does not alone establish failure. Evaluate acquisition economics and the value of the free population.
 
-Four sorting mechanisms, and each sorts on a different variable:
+Compare candidates using three connected inputs:
 
-1. **Self-selected price sensitivity.** Coupons, codes, rebates, waiting, asking, identity markers like a student or local status. The friction is the filter.
-2. **Purchase quantity.** Bundles and volume discounts, which work off diminishing marginal value.
-3. **Acquisition moment.** Partnership discounts, cart-abandonment nudges, deadline pressure in B2B.
-4. **Time and market value.** Dynamic pricing against time of day, season, weather, a competitor's move, a complementary event.
+1. **Cost structure:** variable cost per billable unit, account-period cost, total cost of revenue, and the contribution available at plausible prices. Express cost as a share of revenue or delivery cost with a named denominator. Avoid using token spend divided by gross-margin percentage or a near-zero profit amount as a gate.
+2. **Usage distribution:** revenue and cost together, including their correlation. P90/P10, median-to-P99, and Gini can describe inequality; they cannot by themselves decide whether flat pricing works. P10 may be zero. Broad usage can remain affordable when absolute costs are small.
+3. **Alternatives and willingness to pay:** compare the full offer, switching costs, quality, risk, and buyer preferences. An absence of direct competitors does not imply unlimited pricing power; manual work, doing less, and doing nothing may be alternatives.
 
-**The design test: does this discount require the customer to do something the full-price buyer would not bother doing?** If it does not, it is not a hurdle. **A discount with no friction is a price cut applied to everyone**, including every customer who would have paid full price.
+The old 20%/50% cost bands, 2×/5× usage ratios, and Gini thresholds of 0.4 or 0.6 are exploratory prompts, not mandatory pricing rules. Test candidate economics directly.
 
-**Where AI products break the pattern.** Usage-based pricing already sorts by intensity, so a volume discount can double-count the same segmentation and give margin away twice. Check which variable your meter is already sorting on before adding a hurdle that sorts on the same one.
+## 3. Define outcome billing before promising it
 
-*(Sources: the renewal matrix is Miller & Zhang, 2026, via HBR, May 2026 — ◆ the thresholds are the authors' own and are stated as bands rather than measured cut-points. The discounting structure is Rafi Mohammed in HBR, May 2026 — ⚠ the four mechanisms are reconstructed from the article's prose, which names no formal framework. The AI-specific cautions in both sections are this corpus's.)*
+The library's **Default-FAIL** principle means an unverified billing claim should not silently become a confirmed billable success. Use explicit states such as pending, qualified, failed, reversed, and disputed. Pending is not necessarily a technical failure.
 
-## THE PACKAGING DECISION — BUNDLE / ADD-ON / STANDALONE
+Agree the observable event, unit boundaries, relevant population, exclusions, attribution, evidence, timing, audit access, and dispute/refund process. Specify duplicates, retries, customer inactivity, reopened cases, human involvement, and outcomes that depend on customer actions. If using a proxy or assumed outcome, state that clearly and evaluate its validity.
 
-Separate from the value metric: *do you charge for the AI separately at all?* Three signals (Broe's 44-incumbent study: 59% bundle, 23% add-on, 18% standalone).
+An outcome does not have to be a final business result under the vendor's sole control. A useful intermediate result may be billable if both parties agree. Conversely, a discrete output or expensive task is not automatically a clean outcome: diagnosis and legal judgment may be harder to verify than a routine classification. High task volume does not prevent automated outcome metering.
 
-- **Marginal cost at P90.** <5% of revenue → bundle is safe. 5-20% → bundle with fair-use, or hybrid. >20% → add-on or usage-based mandatory.
-- **New value vs improvement.** Fill in "Before our AI, users could ___." "Do this manually/worse" = *improvement* → **bundle**. "Couldn't do this at all" = *new value* → **add-on**, or **standalone** only if it reaches a genuinely new buyer.
-- **Separable WTP.** When sales mentions AI, does the prospect ask "what's the price for that?" (→ add-on) or "is that included?" (→ bundle). Standalone sold to the same buyer/cycle/logo is just an add-on with bad packaging.
+When the agreed result cannot yet be measured reliably enough, mark `OPEN: outcome measurement — [evidence needed]`. Use a defined work-unit, subscription, pilot fee, or another suitable interim model. Do not describe vendor billing definitions as proof of correctness or customer benefit. Current Fin and Agentforce distinctions are in the [case notes](references/cases-and-evidence.md).
 
-**A worked example where all three signals point the same way.** Duolingo tried a standalone math app first, then folded it into one super app with language and music, for three stated reasons that map directly onto the tests above. Discoverability: with 2.2 million apps on the Apple App Store and 3 million on Google Play, even a known brand starts from zero in a new app. Friction: a new app means a new download, username, and login; an existing user opening a bundled feature is already signed in. Cost: gamification mechanics (leaderboards, streaks, experience points) get engineered once and reused, rather than rebuilt per subject, the practical form of the marginal-cost-at-P90 test above (◆, HBR Cold Call, "How Duolingo Aims to Diversify Beyond Language Learning," Apr 2025). The unresolved risk the case names itself: bundling means a new user's first impression of the whole product can come from its weakest line, not its strongest.
+## 4. Choose the package separately from the meter
 
-## THE QUALITY-COST-LATENCY TRIANGLE
+Compare **bundle**, **add-on**, and **standalone** against incremental cost, customer value, separable demand, purchase process, and distribution.
 
-Pick two; the third suffers. Flat-rate buys quality + latency but cost spirals. Per-token buys cost + latency but quality drops (users avoid hard questions). Outcome buys quality + cost but the user waits. Translate and instrument each vertex before pricing: **quality = acceptance rate** (% used as-is), **cost = price per outcome** (not per token), **latency = time to first useful token** (P50/P95, client-side). And watch the multiplier: **a regeneration doubles the real cost per outcome** — quality failures are cost failures.
+- Bundle when shared access and distribution improve the offer and its economics. Significant variable cost requires an explicit funding or limit design, not necessarily a separate SKU.
+- Use an add-on when a distinct entitlement, buyer need, or usage pattern benefits from separate choice and pricing. An improvement to an existing job can justify an add-on.
+- Consider standalone when an independent product and purchase experience are useful. It can serve the same buyer as another product; a different buyer is not mandatory.
 
-## SPEND VISIBILITY + LIMITS — SURVIVAL INFRASTRUCTURE, NOT A FEATURE
+Questions such as “is this included?” and “what does that cost?” are clues, not willingness-to-pay measurements. Test actual trade-offs and purchasing behavior. The former 5% and 20% cost cutoffs and 59%/23%/18% incumbent-study split do not choose the package for you.
 
-This is the #1 operational failure destroying ROI and renewals right now. Token prices fell ~67% in 2025 yet enterprise bills *rose* — because of missing routing and runaway agents, not model price (one runaway agent loop reportedly burned ~$500M in a month; whole enterprise AI budgets gone in 3-4 months on unmetered API rates). Ship these *with* the pricing, never after:
+Duolingo's move from a separate math app into its broader app illustrates discovery, sign-in friction, and reuse of product mechanics. It also exposes the whole brand to a weak first experience in a new subject. Shared engineering cost is not the same measure as P90 inference cost. Treat this as an analogy to investigate, not a universal bundling result.
 
-- **Real-time spend instrumentation** — cost per user/feature/agent-run, visible to the buyer.
-- **Soft limits (alert) + hard limits (block) + approval gates** for expensive agent runs.
-- **No seat-threshold cliffs.** The hybrid failure mode: crossing a seat count (e.g. ~150) strips included usage and forces full API rates — a 3-3.5× overnight jump ($400K → $1.4M/yr in one real case). Design transparent staircases, not cliffs.
+## 5. Design spending controls and service behavior together
 
-## DEFAULT-FAIL MEASUREMENT — THE HARD GATE FOR OUTCOME PRICING
+Show the buyer the plan price and included credits or requests separately. State what remains unlimited and which usage incurs additional charges. For a Copilot-class plan, distinguish paid subscribers, licensed seats, active users, credits, and completions. Date comparisons and transitions.
 
-Outcome pricing is theater without measurement. It is viable **only** when both parties share a **Default-FAIL, instrumented, auditable definition of success** — the outcome is a failure until it provably passed (mirrors the harness pattern). Intercom Fin works because "resolved" is defined (customer confirms, or no follow-up in 24h) and Intercom takes the LLM cost risk. Salesforce Agentforce charges $2 only on a full resolution with no human escalation and no negative feedback. **If you cannot measure the outcome cleanly, do not price on it** — flag `OPEN: outcome not yet measurable` and ship a different model until the instrumentation exists.
+Provide controls proportionate to exposure:
 
-## THE MARGIN-DISCIPLINE MOVES + THE MANDATORY MARGIN FLOOR
+- Usage and spend by account, team, feature, or run, with estimated versus invoiced cost and known reporting lag.
+- Notifications before an allowance is exhausted, authorized overage options, and clear soft and hard limits.
+- A response to limits: pause before starting more work, use an agreed fallback, request additional budget, or finish an already-reserved operation. Consider safe stopping and avoid abandoning consequential work mid-action.
+- Bounded agent loops, concurrency and run budgets, retry limits, and approval rules for expensive actions.
+- Transparent changes in seat tiers, included capacity, rate cards, and credit conversion. Explain any step change rather than hiding it in an upgrade.
 
-- **The rate-limit staircase.** Want heavy usage, but throttle the top <5% toward the per-token API where cost is covered precisely (Anthropic's $17 → $100 → $200 + weekly limits). Undisclosed limits buy flexibility at the cost of trust — decide that trade knowingly.
-- **The trust trap.** Never convert a predictable plan to variable without over-communicating. Cursor flipped flat-500 to credit pools and the CEO apologized twelve days later. Contrast: Snowflake/Twilio shipped metering + visibility *before* scaling usage pricing and hit 127-158% net revenue retention. **Visibility first.**
-- **THE MARGIN FLOOR (do this before locking any pricing).** Compute contribution margin at P90 after the full harness multiplier, regenerations, support, and the open-weights floor. **If it's negative at expected scale, redesign the architecture or the pricing first — do not ship.** This enforces the sustainability axiom and stops the "grow into margins" delusion.
+A dashboard alone cannot enforce a cap. Delayed billing and concurrent operations can overshoot it; reserve budgets or define the permitted exposure. Exact real-time billing may be unavailable. Give the buyer an honest estimate and reconciliation process.
 
-## THE COST SIDE LIVES IN `cost-model` — NOT HERE
+Track the whole work equation: **requests × work per request × metered units per work unit × price per unit**, plus fixed and other charges. A model or routing change can increase the bill without changing the nominal unit price. Define representative workloads and re-benchmark rights or change notices where suitable; do not promise a fixed token count for every possible request.
 
-Pricing *consumes* cost numbers; it does not compute them. The full mechanics — the harness multiplier (a Planner/Generator/Evaluator loop is 10-22× a single call), hidden costs, model routing, prompt caching (~90% off cached tokens), and batch APIs (~50% off) — live in `cost-model`. Pull one number before you price: **cost per successful outcome at P90, after regenerations and harness overhead.** If it isn't available, you have a measurement problem, not a pricing problem — fix it first.
+Customer dependence may grow as workflows change and internal substitutes disappear. Include migration, retained competence, alternative suppliers, and exit costs when assessing the customer's value and renewal risk. No single loss of internal expertise establishes a predictable price increase.
 
-## CASE LAW (2026) — STRESS-TEST EVERY DECISION AGAINST THESE
+## 6. Check contribution, tail exposure, and trade-offs
 
-| Model | Got it right | Classic failure | The lesson |
-|---|---|---|---|
-| Hybrid tiered | Anthropic Free/Pro/Max staircase | Anthropic ~150-seat cliff ($400K→$1.4M) | Transparent staircase, no hidden cliffs |
-| Usage / per-token | Snowflake / Twilio (visibility first) | Surprise bills, no routing (Uber-scale burn) | Ship spend visibility *before* scaling |
-| Credit pools | Cursor (post-fix), Linear ($20 credits) | Cursor mid-2025 flip ($7,225 invoice) | Never flip predictable→variable without over-comms |
-| Outcome-based | **Intercom Fin $0.99/res**, Salesforce Agentforce $2/res, Zendesk $1.50-2, Sierra | Any outcome without a Default-FAIL definition | Default-FAIL definition + take the cost risk |
-| Seat + add-on | Harvey (~$1,200/seat, huge surplus) | Pure-seat Copilot (lost money per power user) | Seat is a temporary bridge for AI features |
-| Agentic / hybrid | Microsoft Copilot Credits (seat + ~$0.01/credit) | Pure seat on multi-step agents | Price the agent-run; better agents kill seat math |
+Reuse `cost-model` calculations rather than creating an inconsistent second model. The minimum decision check is:
 
-Test any proposal: *would it survive a Cursor-style power-user week, or an Anthropic 150-seat cliff?*
-
-## WHERE YOU ARE — OUTPUT
-
-```
-## Pricing Decision: [Product / line]
-
-Which budget: [software (~low single-digit % rev) | salary (~10×) — evidence you displace expert work]
-What the AI does: [Assist | Copilot | Agent | Autonomous] → implied metric [seat | agent-run credit | outcome]
-Value metric × model × packaging: [e.g., outcome × per-resolution × add-on]  (preference order respected?)
-Chosen from: cost structure [tokens % of P90 margin] · usage spread [P90/P10] · competition
-Transition arc: [stage: pre-PMF/growth/leadership] · next step = [the 1-2 quarter project]
-Spend-control shipping with it: [real-time dashboard · soft/hard limits · approval gates · no seat cliff]
-Outcome measurable? [Default-FAIL definition, or OPEN: not yet measurable → use model X meanwhile]
-MARGIN FLOOR: gross margin at P90 after full harness+regen+support = ___%  [ship only if >0 at scale]
-  at 10× usage: ___%   at 100×: ___%  (where it breaks)
-Applied-layer margin move: [routing by complexity | caching | verification — vs the open-weights floor]
-Trust guardrail: [comms plan if changing a predictable plan to variable]
+```text
+Account contribution = account revenue - attributable variable delivery cost
+Portfolio contribution = total revenue - total variable delivery cost
+Contribution margin % = portfolio contribution / total revenue × 100
+Operating result for this model = portfolio contribution - relevant fixed costs
 ```
 
-Flag anything open as `OPEN: [decision] — [evidence that would settle it]`.
+Use actual revenue paired with cost for each account or workload. A P90-cost customer is not necessarily a P10-margin customer. Calculate the distribution of contribution directly when possible; never subtract unrelated percentiles and call the result observed margin. With zero revenue, report contribution in money and label the percentage undefined.
 
-## WHEN WRONG
+Inspect P90/P99 costs, the worst plausible run, portfolio exposure, and 10×/100× scenarios where useful. Specify what scales: customers, usage per customer, complexity, or all three. Include plausible revenue, price, and cost changes. Do not assume revenue stays fixed when customer count grows, or grows when existing users consume more included work.
 
-- **Pre-launch.** Pricing is premature until you know the usage distribution; ship, instrument 30 days, then price.
-- **Fully custom / enterprise-negotiated** deals where standardized models don't apply.
-- **Non-profit or subsidized research** contexts.
-- **When pricing is already committed** — raising alienates, lowering is permanent. Price correctly the first time.
+A negative tail account is not an automatic launch prohibition. Determine whether the loss is bounded, budgeted, understood, and offset in a durable way. An unfunded or unbounded loss requires redesign, a limit, or deferral. Positive contribution also does not prove overall profitability.
 
----
+Assess quality, cost, and latency together. Quality includes task correctness and relevant harm, not only acceptance without edits. Measure both time to first useful response and time to completed work, using suitable percentiles. These can trade off, but improvements may move all three favorably; no pricing model mechanically “buys two.” One extra attempt adds its actual cost. It doubles a one-attempt cost only when the extra attempt costs the same and other conditions are unchanged.
 
-## GROUNDING, DELIVERABLE, TRADE-OFFS & CONCLUSION
+Routing, caching, batching, context management, and verification may improve economics. Measure their end-to-end effects, including quality and delay. The old 8× routing example, 10–22× harness multiplier, 90% cache saving, and 50% batch saving are workload- or provider-specific, not constants to paste into a price.
 
-Before starting, follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) Section 1 grounding questions (who is the customer, what problem, YES/NO scope) and confirm output format (Word / deck / inline; default Word). Close with the Trade-Off Ledger (Section 3) and the Conclusion Protocol (Section 5): state the recommendation, name the key trade-off, acknowledge the biggest risk, define the next action. If the decision hands off to `adoption-launch` or `cost-model`, generate the markdown handoff.
+## 7. Plan renewal, discounts, and transitions
 
-## VISUAL SUMMARY
+### Renewal defaults
 
-After the primary output, invoke the **excalidraw-svg** skill for one visual — the six-model matrix (cost transparency × customer alignment, segment fit annotated) or the pricing transition arc with the trigger for each stage. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Assess the full acquisition-to-renewal funnel: trial take-up, paid conversion, genuine repurchase preference, usage value, contribution, cancellation, complaints, and customer understanding. A high observed auto-renewal rate can contain inertia; low usage can still deliver valued availability. Neither is a complete measure of retention.
+
+Miller and Zhang's newspaper research motivates testing the trade-off between easy trial entry and continued subscription. Its former 70–80% repurchase and 50% market-share bands are not universal optima for AI. Do not copy a market leader's default without testing fit, but do not assume the leader is always wrong for a challenger. Clearly disclose recurring charges and cancellation, and check applicable requirements for the actual market before implementation.
+
+### Discounts
+
+Discounts can segment willingness to pay, support access, reward commitment, or reflect lower cost to serve. Four mechanisms to compare are self-selected eligibility or effort; purchase quantity; acquisition channel or moment; and time or market conditions. These categories are the library's synthesis of Rafi Mohammed's discussion.
+
+If a hurdle is the intended mechanism, ask whether it reaches the price-sensitive group without unnecessary friction or exclusion. A discount does not have to be inconvenient to be useful. Volume metering and a volume discount are not automatically duplicate segmentation: assess marginal cost, commitment, elasticity, and contribution. Use clear eligibility and genuine deadlines; avoid manufacturing urgency.
+
+### Pricing transitions
+
+At an early stage, use a bounded pilot, trial, subscription, or hybrid to learn value and demand. During growth, refine entitlements, controls, segmentation, and support. At scale, consider commitments, service fees, or outcome pricing where they improve the offer. These are options, not mandatory stages in a seat-to-outcome progression.
+
+For a change, model affected cohorts, explain old and new bills on representative workloads, provide notice and migration choices, and monitor unexpected charges. Price increases can be justified and reductions can be revised; existing commitments and customer expectations determine the path. Avoid claiming the first price must be permanently correct.
+
+Treat vendor subsidy withdrawals and future dates as scoped contract facts to verify. Caps, rollover, grace periods, and rate concessions have different value for different buyers; quantify them rather than ranking them universally.
+
+## Deliver the pricing decision
+
+```text
+PRICING DECISION — [product line, segment, owner, date]
+Buyer / payer / budget: [authority, realized value, alternatives]
+Value metric / meter / package: [definition, inclusions, chosen family]
+Offer: [currency, rate, base fee, allowance, term, overage, expiry]
+Selection rationale: [cost distribution, WTP evidence, competitive comparison]
+Outcome rules: [qualification, pending states, exclusions, disputes; or N/A]
+Economics: [portfolio contribution, fixed costs, account tails, subsidies]
+Stress scenarios: [what changes at 10×/100×; exposure and controls]
+Spend controls: [visibility, reporting lag, limits, safe stop, authorization]
+Renewal / discounts: [rationale, disclosure, eligibility, economics]
+Migration / next decision: [affected cohorts, communication, owner, date]
+Open questions: OPEN: [decision] — [evidence that would settle it]
+```
+
+Return margin assumptions to `cost-model`, launch and migration requirements to `adoption-launch`, and the strategic rationale to `stakeholder-communications`. `harness-operating-model` owns deeper delivery-economics choices; `moat-finder` tests durable pricing power. Use `stress-test` for costly workload scenarios and `falsification` for the assumptions that could overturn the offer.
+
+Close with the recommendation, hypothesis and falsifier, main trade-off, largest risk and mitigation, and next action. Use the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) for a proportionate trade-off ledger and handoff in the requested format. An optional `excalidraw-svg` matrix or transition diagram can help compare choices; show alternatives rather than an inevitable maturity ladder.
+
+Use relevant local research before broad searching; verify current commercial claims with dated primary sources. Read specific book or article sections when they help resolve the decision. Social posts may supply leads but do not replace evidence or justify invented quotes. Reusable learning can be proposed for the library; a one-off pricing task does not itself require modifying this skill.
+
+See [CONCEPT.md](CONCEPT.md) for corrected worked calculations and [cases and evidence](references/cases-and-evidence.md) for historical claims and source limits.

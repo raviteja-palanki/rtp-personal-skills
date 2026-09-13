@@ -1,45 +1,59 @@
 # Failure Modes — Concept Guide
 
-## FIRST PRINCIPLES
+A system can complete a request successfully at the software level and still fail the user's task. The result might be incomplete, false, stale, biased, or inappropriate for the action it informs. That problem exists in deterministic software too; generative AI adds ways to produce plausible-looking unsupported content without an explicit error signal.
 
-Traditional software has a small, well-understood failure space: crashes, bugs, timeout, data corruption. AI products have an expansive, poorly understood failure space because the system can produce outputs that are syntactically correct but semantically wrong, contextually inappropriate, or subtly biased — without any error signal.
+Failure analysis makes those possibilities concrete enough to test and address. It does not promise to identify every future failure or reduce every consequence to money.
 
-The atomic insight: **AI failure is not an event. It's a spectrum.** The model doesn't crash — it produces an output that's somewhere between perfect and harmful, and the product's job is to handle every point on that spectrum.
+## Business and technical meaning
 
-## DUAL DEFINITION
+**For the business:** identify who is affected, how the failure changes their outcome, how long it could persist, and what prevention or recovery is justified. Include user harm, denied service, lost time, operational burden, and nonfinancial consequences.
 
-**Business definition:** Failure mode analysis for AI features identifies every way the feature can fail users, quantifies the business impact of each failure type, and ensures mitigation investment is proportional to risk — preventing both under-investment in dangerous failure modes and over-investment in trivial ones.
+**For engineering:** connect a specific failure condition to components, inputs, permissions, state, detection, response, and validation. Test semantic correctness and intended outcomes alongside structure, uptime, and latency.
 
-**Technical definition:** A systematic taxonomy of non-deterministic system failures — hallucination, refusal, drift, latency degradation, cost overrun, and output bias — with probability estimates, consequence magnitude calculations, detection mechanisms, and mitigation architectures for each.
+The central distinction is between **successfully producing an output** and **successfully completing the job**. A current-looking citation can refer to no real source. A well-formatted brief can use stale data. A fast response can be wrong, and a correct response can arrive too late.
 
-## THE TRAP (Expanded)
+## Three recurring traps
 
-**The Accuracy Mono-focus.** Teams obsess over model accuracy while ignoring latency, cost, and drift. A model that's 95% accurate but takes 4 seconds to respond loses users faster than a model that's 88% accurate at 500ms. Accuracy is one of six failure dimensions, not the only one.
+**Accuracy alone:** compare task quality with end-to-end time, cost, coverage, and failure consequences. The earlier 95%-accurate/4-second versus 88%-accurate/500-ms example does not establish which product users prefer. The right comparison depends on what the errors and delay cost in the task.
 
-**The Silent Drift.** Model providers update models without announcement. Behavior changes subtly. The team doesn't have automated regression tests against a reference set. Weeks later, support tickets spike. Nobody connects the dots because the model "didn't change" — but it did.
+**Untracked change:** model versions, prompts, retrieval data, tools, policy, and user mix can all change behavior. Keep change records and regression checks. Do not assume every provider changes a pinned model silently, or that a model swap is the only possible cause of drift.
 
-**The Bias Blindspot.** Teams test with representative data and conclude "no bias." But the test data itself reflects existing biases. The model performs well on majority cases and poorly on minority cases, and the aggregate accuracy metric hides the disparity.
+**Aggregate performance:** a strong overall score can hide poor results for an important task or group. Check relevant segments, label quality, coverage, and the decision's fairness requirements. Representative sampling and targeted difficult-case testing answer different questions and may both be useful.
 
-## INTELLECTUAL LINEAGE
+## Four illustrative cases
 
-- **Aman Khan (Arize AI)** — Production ML observability. On the difference between offline metrics and production behavior.
-- **Anthropic's 4D Framework** — Evaluating AI systems across multiple dimensions, not just accuracy.
-- **FMEA (Failure Mode and Effects Analysis)** — Industrial engineering methodology adapted for AI products.
-- **Eugene Yan** — On the gap between model metrics and product metrics in production systems.
+### 1. Fabricated legal citation
 
-## REAL-WORLD EXAMPLES
+A legal-research draft contains a plausible-looking case reference that cannot be verified. Its familiar format may make the defect harder to notice, but the citation is not inherently undetectable. Check that the case exists and that the relevant holding, jurisdiction, date, and quoted passage support the actual claim.
 
-**Hallucination in legal tech (catastrophic consequence magnitude).** An AI legal research tool hallucinated case citations — LLM-generated names like "United States v. Margenthau (2019)" that sounded plausible but didn't exist. Consequence magnitude: catastrophic — lawyers cited fake cases in briefs, creating legal liability for the company and malpractice exposure for law firms. Detectability: near-zero (fake citations matched the format of real ones perfectly). Mitigation cost: high (every citation verified against a deterministic case database via deterministic API call before display, adding 200ms latency). Business impact: the mitigation cost was justified because the cost of not mitigating (lawsuits, destroyed trust, regulatory scrutiny) was orders of magnitude higher.
+A database lookup can verify existence; it does not automatically validate the entire legal argument. Define behavior when the database is unavailable or coverage is incomplete. The older guide's invented case name, fixed 200-ms verification cost, and unsourced liability narrative are not a documented incident. Use a clearly fictional example unless a real case has been sourced.
 
-**Drift in customer support (silent failure).** Claude 2 to Claude 3 transition: a support team updated their AI backend. Model performance on accuracy metrics remained flat. But tone shifted from formal/professional to conversational/casual. Enterprise customers (Fortune 500 financial institutions) escalated, saying "your AI sounds like a teenager." No accuracy drop. No error signals. No monitoring caught it. Detectability: zero with standard LLM benchmarks; tone regression wasn't in their eval suite. Root cause: different system prompts between versions, never formally tested. Mitigation: integrated tone/voice regression testing into the eval pipeline (daily runs on reference customer support queries).
+### 2. Tone changes in support
 
-**Cost explosion in document processing (tail risk).** A document analysis feature that worked well for typical 5-20 page contracts. Context window scaled linearly with document length. Average cost per document: $0.08. Median: acceptable. But 5% of documents were 200+ pages (massive contracts, regulatory filings). These 5% documents consumed 10x average tokens, driving 40% of total costs. This tail-risk cost model wasn't visible in average-case metrics. Mitigation: hard limits on document length with graceful degradation (first 50 pages analyzed, user offered options for selective analysis or chunked processing). Business impact: reduced costs by 35% while maintaining 95% feature utility (most users didn't need all 200 pages analyzed).
+A team changes its model or prompt and factual accuracy remains similar, but the new replies violate the product's communication standards. A task-specific tone rubric and representative review may detect the change that a factual test misses.
 
-**Bias in hiring.** An AI screening tool used to rank candidates was trained on historical hiring data. It systematically downranked women for senior engineering roles (27% lower callback rate, statistically significant). Consequence magnitude: catastrophic (discrimination liability, reputation damage, regulatory risk). Detectability: missed during development (accuracy metrics looked fine; no fairness metrics were in the eval). Root cause: training data reflected existing hiring bias; aggregate accuracy masked disparate impact. Mitigation: added stratified evaluation (separately measure performance by gender/race), hired fairness auditors, changed training data curation, added explicit diversity constraints to the model.
+The older Claude 2-to-Claude 3 story, named customer class, and attributed complaint were unsourced. Treat this as a hypothetical model/prompt-change case rather than a verified provider incident. Record what actually changed, compare suitable versions, and test whether the effect comes from the model, prompt, context, or another factor. A daily cadence is an option, not a guarantee of adequate monitoring.
 
-## FURTHER READING
+### 3. Long documents create a cost tail
 
-- Aman Khan, "Observability for ML in Production" — Production failure detection
-- FMEA methodology — ISO 60812 standard adapted for software
-- Eugene Yan, "Evaluation Metrics for LLMs" — Beyond accuracy
-- Anthropic, "Challenges in Evaluating AI Systems" — Multi-dimensional assessment
+A document feature usually handles short contracts but occasionally receives much longer material. Measure the cost distribution, retries, tool work, and processing approach; token use does not always track page count or scale linearly with it.
+
+If 5% of documents cost ten times as much as the other 95%, that group contributes about **34.5%** of total cost, not 40%. If “ten times” refers instead to the overall mean, its share is **50%**. The denominator changes the answer. See the [calculation notes](references/examples-and-calculations.md).
+
+Possible responses include an informed document limit, selective analysis, chunking, or a priced extended workflow. Analyzing only the first fifty pages is not an acceptable silent fallback for a task requiring full-document coverage. Show what was processed, what was omitted, and what that means for the conclusion. The old 35% cost saving and 95% retained utility were hypothetical outcomes, not observed benefits.
+
+### 4. Unequal hiring-screening outcomes
+
+A screening model trained on historical outcomes may reproduce or amplify a problematic pattern. Investigate task validity, data, criteria, group-level outcomes, uncertainty, and the effect of the full workflow. An aggregate accuracy score alone does not establish fairness.
+
+The earlier claim of a statistically significant 27% lower callback rate for women was unsourced and is not a verified study. Use the example to explain what must be measured, not to assert that outcome occurred. A disparity does not by itself isolate the cause or establish a legal conclusion. Select remediation with appropriate domain and legal expertise; do not prescribe demographic quotas or “diversity constraints” as a generic technical fix.
+
+## How the disciplines connect
+
+Failure Mode and Effects Analysis provides a useful lineage for identifying modes, effects, causes, and treatments. The standard cited by the old guide is **IEC 60812:2018**, not “ISO 60812.” It covers hardware, software, processes, human actions, and interfaces; its generic scope is not a substitute for application-specific safety requirements. [IEC primary description](https://webstore.iec.ch/en/publication/26359).
+
+Production-observability work associated with Aman Khan and Arize, and Eugene Yan's writing on evaluation, informs the distinction between offline scores and operational behavior. Verify the exact primary article before attributing a specific numerical prescription to either practitioner.
+
+Anthropic's **4D AI Fluency** framework concerns Delegation, Description, Discernment, and Diligence. It is not a four-axis production failure taxonomy. Discernment and diligence are relevant influences, while this skill's register and controls need their own evidence. [Primary framework](https://www.anthropic.com/ai-fluency/overview).
+
+Review both local steps and the whole task. Schema validation, a source list, a human sign-off, and a complete log each do a particular job; none should receive credit for a different check it does not perform. Maintain the failure register as the product, environment, and evidence change.

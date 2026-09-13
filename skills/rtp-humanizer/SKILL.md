@@ -1,299 +1,141 @@
 ---
 name: rtp-humanizer
-version: v2.1_latest
-description: 'Secondary verification pass for named AI-slop patterns. `rtp-thinking-writing` is the default gate and runs first; open this when a specific line needs a named pattern to convict it, or when auditing a draft someone else wrote. Two modes: edit (minimum effective change) and detect (name each pattern with the offending line, no rewrite). Carries the banned-character rules (no section symbol, no decorative emoji, em dashes in structural slots only, straight quotes), the cut-list, and 16 named patterns including fake-strong verbs, superlative reaching, faux-insight setups, negative listing and robotic rhythm, which a banned-word scan does not catch. Use when Ravi says humanizer, slop check, does this read as AI, or when a draft is clean at word level and still reads processed. Pairs with rtp-thinking-writing (the default gate), rtp-trendslop-check (numbers), rtp-deep-dive-writer (long-form).'
+version: v2.1.1_latest
+description: 'Review a draft for wording and structural habits that make it feel generic, inflated, repetitive, or difficult to follow. Use after rtp-thinking-writing when a specific passage needs diagnosis, when Ravi asks for a humanizer or slop check, or when reviewing someone else''s draft. Edit mode makes the smallest useful changes; detect mode identifies passages and explains the issue without rewriting or guessing authorship; structure mode repairs the remaining organization of a draft. Preserve meaning, evidence, personality, warranted uncertainty, quotations, and functional syntax. Includes 17 named patterns, a contextual word list, formatting preferences, and practical checks for rhythm, headings, assumptions, and sourcing. Pairs with rtp-thinking-writing for reasoning and voice, rtp-trendslop-check for empirical claims, and rtp-deep-dive-writer for long articles.'
 ---
-# rtp-humanizer
 
-**The objective:** make every line read as though a sharp human wrote it on purpose, without sanding away the things that make it Ravi's.
+# Ravi's Humanizer
 
-## Where this skill sits, as of 10 SEP 2026
+Make the draft easier to understand while preserving its meaning and the qualities that make it the writer's own. Diagnose the passage, explain the problem when useful, and make the smallest change that resolves it.
 
-**`rtp-thinking-writing` is the default gate. This skill is secondary verification.**
+`rtp-thinking-writing` remains the starting point for reasoning, evidence, structure, and voice. This skill supports that work when a specific writing problem needs attention. Read the master when needed at the start of a session or when its guidance changes; do not repeatedly reopen unchanged files before every sentence.
 
-The reason is a real failure, and it is the one a word list cannot catch. A session in Aug 2026 memorised the banned words, avoided every one of them for a full day, and still shipped prose Ravi could not read. The words were clean. The thinking underneath had no join, no position, and no reversal condition. **A slop dictionary audits the surface of a sentence. It has nothing to say about whether the sentence was worth writing.**
+A clean vocabulary cannot repair a missing argument. If the problem is unsupported reasoning or lost content, return to the master writing process rather than polishing the surface. Apply this guidance to the material in scope, including short replies, specifications, instructions, and longer prose, with effort suited to the request.
 
-So the order is fixed:
+## Choose the requested mode
 
-1. **`rtp-thinking-writing`, read from disk, before the first sentence.** It governs the whole job: understand the source, decide what the reader must do, build the causal path, write in Ravi's spoken language, prove nothing was lost.
-2. **This skill, second, when it earns its place.** A line reads wrong and you need the named pattern to convict it. A draft arrived from somewhere else and needs an audit. A detect pass is requested by name.
-
-Reaching for this skill first produces the failure it was written to prevent: a clean draft that says nothing. The patterns below are still the sharpest named list in the system, and that is exactly what a second pass should be.
-
-This still runs on **everything** it is invoked for, not just long prose. A CONTEXT.md written in slop is worse than one written plainly, because an agent will trust it and inherit the register.
-
-Adapted from the `no-ai-slop` skill (Sam Rowe, MIT licence) with Ravi's own banned characters and evidence-discipline rules folded in.
-
-## Three jobs
-
-**Edit (default).** A draft arrives to fix. Make the minimum effective edit and return the edited draft plus a short **What changed** section.
-
-**Detect.** The user asks whether something reads as AI, or asks for an audit without a rewrite. Name each pattern below that appears, quote the line, give the fix in a few words. Do not rewrite, do not score the draft, do not guess whether AI wrote it. **Detectors guess; named patterns are evidence the reader can check.** Offer to edit afterwards.
-
-**Structure (v2.0).** The draft is clean and still does not read like business writing. Apply **How to structure it** below: headings that carry the argument, an Assumptions section, format that matches the content, and the interview-answer discipline on length. Cutting slop was never sufficient; a formless clean draft still loses a senior reader. **As of v2.1 the fuller version of this job lives in `rtp-thinking-writing`**, which owns the argument, the coverage ledger and the evidence discipline. Use this mode when that skill has already run and the structure still reads flat.
-
-## The banned characters (absolute, no exceptions)
-
-These are Ravi's, and they override any source style guide.
-
-- **`§` the section symbol is banned outright.** It is slop. Write "section 11" or name the section: "the value question." Never "§11."
-- **No decorative emoji.** Not in headings, not as bullets, not as tone softeners. Evidence-tier glyphs (✅ ◆ ⚠) are notation, not decoration, and are allowed where the tier discipline requires them.
-- **Em dashes in structural slots only:** a heading label, a definition label, a quote attribution, a tier or flag tag. **Zero in running prose.** Use a comma, a period, a colon, or parentheses.
-- **Straight quotes, not curly**, wherever a tool will render them literally.
-- **Sentence case in headings.** Not Title Case, not ALL CAPS for emphasis.
-
-## Editing principles
-
-- **Preserve the writer's real voice first.** Before changing anything, notice the draft's vocabulary, cadence, bluntness, humour, uncertainty, and digressions. Keep what feels personal. Do not make every paragraph equally tidy.
-- **Minimum effective edit.** Fix slop, errors, repetition, and genuinely unclear passages. Leave strong human sentences alone. A rough draft with a real voice should still sound like the same person afterwards.
-- **Open it up, do not dumb it down.** Keep the substance, the nuance, the precision. Strip only what makes it hard to read: jargon, tangled structure, abstract nouns, sentences that lost their way.
-- **Be concrete.** Abstraction is where writing dies. "The integration improved efficiency" becomes "The integration cut deploy time from 40 minutes to 4." Names, numbers, dates, mechanisms.
-- **Protect the specific fact.** Never smooth a useful detail into generic importance. A figure with its population intact beats a rounded figure that reads better.
-- **Active voice; make verbs work.** "Made a decision" becomes "decided." "Has the ability to" becomes "can." Never let an inanimate thing perform a human verb.
-- **Keep useful edge.** Strong opinions, blunt language, humour, self-interruption, honest admission. Do not replace them with safer wording. Ravi's writing is supposed to have a point of view.
-- **Vary the rhythm.** Clean is not enough. Voiceless writing reads as AI too. Vary sentence length, let one honest aside through, state an opinion somewhere.
-
-## Words to cut
-
-**Banned outright:** delve, foster, leverage (as a verb), utilize, facilitate, empower, streamline, robust, cutting-edge, paradigm shift, game changer, this changes everything, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, transformative, elevate, embark, supercharge, harness, ever-evolving, underscore, showcase, testament, seamless, landscape (as a metaphor), pivotal, crucial, vital, additionally, garner, enhance.
-
-**Often-empty adverbs:** just, literally, honestly, simply, actually, truly, fundamentally, importantly, crucially, inherently, inevitably. Cut when they add nothing; keep when they carry real emphasis, uncertainty, or Ravi's spoken rhythm.
-
-**Banned because it is a house tic, not English:** "Monday move", "Monday morning", "what to do on Monday". Measured 01 SEP 2026: it appears in 3 of 221 real 2026 HBR and MIT Sloan articles, and in 259 files across this system. Write the heading that says what the section is: "Where to start", "First 30 days", "What to do differently", or a named action. If a piece needs to tell the reader what to do, name the action, not the weekday.
-
-**Often-empty phrases:** it's worth noting, it's important to note, at the end of the day, when it comes to, at its core, in today's world, in the age of, the reality is, the truth is, in terms of, with regard to, in order to (use "to"), going forward, in this article, let's dive in, due to the fact that (use "because").
-
-## Patterns to cut
-
-**Binary contrasts.** "This is not X, it's Y." / "The question isn't X, it's Y." State Y directly.
-
-**Throat-clearing openers.** "Here's the thing," "Let me be clear," "I'll be honest," "The uncomfortable truth is." Cut and state the point.
-
-**Faux-insight setups.** "What most people get wrong," "Here's what nobody tells you," "The part everyone misses." These flatter the writer as lone expert. Make the claim stand alone.
-
-**Colon reveals.** A noun phrase, a colon, a lowercase dramatic reveal. "The detail that makes it work: a separate agent grades it." Rewrite as a plain sentence. Colons are for lists, labels, and quotes, not drama.
-
-**Superficial analysis.** Trailing `-ing` clauses pretending to explain: "highlighting," "underscoring," "reflecting," "showcasing." Cut or replace with a real point.
-
-**Importance puffery.** "Marks a pivotal moment," "stands as a testament," "plays a vital role." State the fact; let the reader judge.
-
-**Weasel attribution.** "Experts agree," "studies show," "industry reports suggest." Name the source and date, or cut the claim. Never invent one. This is also an evidence-discipline failure, not only a style one.
-
-**Fake-strong verbs.** "Serves as," "stands as," "boasts," "features." Use "is" and "has."
-
-**Synonym cycling.** Repeat the clearest word rather than rotating thesaurus entries.
-
-**Negative listing.** "Not a X. Not a Y. A Z." Say Z.
-
-**Dramatic fragmentation.** "X. And Y. And Z." / "That's it. That's the whole thing."
-
-**Robotic rhythm.** Repeated sentence shapes, identical paragraph lengths, stacked punchy fragments.
-
-**Rhetorical setups.** "What if I told you," "Think about it:", "Plot twist:", self-answered question-answer pairs.
-
-**Fake-profound kickers.** The final "deep" line that turns a point into an aphorism. Delete it. Do not rewrite it into a better metaphor. End on the clearest concrete sentence already in the draft.
-
-**Summary-recap endings.** "In conclusion," "Ultimately," "Overall," or a last paragraph restating the piece. The reader was just there. End on the last concrete point or the next action.
-
-**Formatting slop.** Emoji in headings, bold sprinkled mid-sentence, bullets where two sentences of prose read better, headers over two-sentence sections. Format follows content; it does not decorate it.
-
-**Forced rule of three.** Use the number of items the idea actually has.
-
-## How to structure it
-
-This half of the skill is the one that was missing. Cutting slop makes prose
-clean. It does not make it read like business writing, and a clean draft with a
-formless middle still loses a senior reader.
-
-The reference set is 221 HBR and MIT Sloan articles from 2026, read on 01 SEP
-2026. What follows is their grammar, not an invented style.
-
-### Headings carry the argument
-
-A heading is a claim, a question the reader is already asking, or a named thing.
-It is never a label. "Overview", "Introduction", "Key considerations",
-"Deep dive" and "Thoughts" tell a reader nothing and are the tell of a deck
-built from a template.
-
-Five heading shapes, all lifted from the reference set:
-
-| Shape | Real examples | Use when |
+| Mode | What to do | What to return |
 |---|---|---|
-| The reader's own question | "Is your tech foundation solid?" · "How will you govern your efforts?" · "Narrow or wide?" | The section resolves a decision they are stuck on |
-| A named construct with its count | "The Four Modes of AI Collaboration" · "The Five Centers" · "Six Steps for AI-Supported Decision-Making" | You are introducing a framework worth remembering |
-| The claim itself | "What Really Drives Data Transformation" · "What Sets Superteams Apart" · "Why This Matters" | The section has one finding and you want it read |
-| The imperative | "Consider redesigning workflows" · "Shift assessment from answers to process" | The reader has to change something |
-| The comparison | "Before and After Caterpillar's Data Transformation" | Two states, and the delta is the point |
+| Edit, the default for a requested rewrite | Read the draft, preserve its voice and substance, and make the minimum effective changes | The finished draft; add a brief change note when useful or requested |
+| Detect | Identify specific patterns and explain their effect without rewriting | Short excerpts or precise locations, the pattern, and the repair direction; no authorship guess or invented score |
+| Structure | After the master writing review, repair unclear sequence, headings, placement, or format | The revised structure or draft at the requested scope, with significant moves explained |
 
-Sentence case for prose headings. Title case only where the heading names a
-formal construct.
+When asked "Does this read as AI?", discuss the observable features of the prose. These patterns do not establish whether AI wrote it. If no material problem appears, say so; do not manufacture defects to justify using the skill.
 
-### The high-signal section names
+## Protect what must survive the edit
 
-Use these words in headings when the section genuinely is that thing. They carry
-more signal than any phrasing you could invent, because a business reader already
-knows what each one promises.
+Read the full draft within the requested scope. Identify the main point and a few voice characteristics: vocabulary, cadence, humor, directness, uncertainty, or a useful digression. Keep short working notes when the revision is substantial. If the purpose is materially ambiguous, ask for the missing context while continuing independent repairs.
 
-- **Problem statement** — what is actually broken, stated without the solution in it
-- **Value** — what it is worth, in the unit the reader is measured on
-- **Hypothesis** — the claim you are testing, written so it could be wrong
-- **Solution approach** — the mechanism, not the roadmap
-- **Risks** — what breaks, with likelihood or impact where you have it
-- **Assumptions** — see the rule below, this one is mandatory
-- **Trade-off** — what you are giving up, named
-- **Evidence** — figures with tier and population
-- **Where it breaks** — the honest limit
-- **Takeaways for {audience}** — when two audiences need different actions
+- Preserve useful facts, qualifications, examples, distinctions, and the writer's deliberate register. A governance file and a cinematic presentation can both be clear while sounding different.
+- Keep strong sentences that already work. Do not make every paragraph equally tidy, or deliberately untidy.
+- Explain jargon that obstructs the intended reader; retain technical terms that carry necessary meaning.
+- Use concrete actors, actions, and consequences where the evidence supports them. Do not invent numbers to make a sentence specific. "Reduced deployment time" cannot become "from 40 minutes to 4" without supplied or verified data.
+- Prefer active verbs when they clarify responsibility. Passive voice is useful when the actor is unknown or irrelevant. An ordinary construction such as "the report explains" is acceptable; do not imply that a system has judgment or authority it lacks.
+- Keep a genuine opinion, aside, blunt phrase, or joke when it serves the piece. Do not add one merely to simulate personality.
+- Preserve exact quotations, titles, identifiers, code, URLs, legal citations, and syntax where changing a character would change the source or function. Editing surrounding prose is a separate choice.
 
-Never stack all of them. Three or four earn their place in a normal piece.
+## Apply the shared formatting preferences
 
-### Assumptions get their own section. Always.
+In Ravi's newly authored prose, name a section in words, omit decorative emoji, use straight quotes where supported, and keep em dashes out of running sentences. Structural uses such as a heading label or attribution may remain. Prefer sentence case for headings while preserving proper names and source titles.
 
-If the argument rests on anything unverified, it goes under its own
-**Assumptions** heading, near the end, as a list. Not a parenthesis, not a hedge
-folded into a sentence, not a footnote.
+These preferences apply to prose, not blind substitutions across a file. Preserve a section symbol in an exact legal citation or quotation, required characters in code, an established evidence symbol with its legend, and a user-requested format. A reference table may retain evidence notation; plain evidence labels usually read more clearly in prose.
 
-Two reasons, and the second is the one that matters. An assumption buried in
-prose is invisible to a reader scanning for what to attack. And an assumption
-you were willing to write down is one you can revisit when it turns out to be
-wrong, which is the only way an argument improves.
+## Review words in context
 
-Write each as a testable statement plus what would settle it:
+The original cut-list targets inflated or generic usage:
 
-> **Assumptions**
-> - Usage is log-normal rather than flat. Settles by pulling P50, P90 and P99 cost per user from last quarter.
-> - The 30% figure came from a controlled comparison, not a survey. Settles by asking for the method.
+delve; foster; leverage as a verb; utilize; facilitate; empower; streamline; robust; cutting-edge; paradigm shift; game changer; this changes everything; tapestry; realm; beacon; multifaceted; meticulous; intricate; paramount; transformative; elevate; embark; supercharge; harness; ever-evolving; underscore; showcase; testament; seamless; landscape as a metaphor; pivotal; crucial; vital; additionally; garner; enhance.
 
-### Format follows content
+Prefer a familiar, precise alternative in authored prose when it preserves meaning. This list is a review aid, not a ban on legitimate technical language, source wording, or product names. For example, "agent harness" names an established concept in this library, "robust statistics" has a technical meaning, and a literal landscape is not a writing defect.
 
-Prose is the default. Reach for structure only where the content already has that
-shape, and never to decorate.
+Review often-empty adverbs such as just, literally, honestly, simply, actually, truly, fundamentally, importantly, crucially, inherently, and inevitably. Cut them when they add nothing; retain a word that supplies real emphasis, limitation, or the writer's natural rhythm.
 
-- **A table** when there are two or more dimensions to compare. Options against criteria, before against after, tiers against evidence. If the table has one column, it was a list.
-- **Bullets** for genuinely parallel items. Sub-bullets only for a real hierarchy, never for a second thought.
-- **A quote** when the source's own words are more precise than a paraphrase, or when who said it is part of the evidence. Attribute it inline.
-- **A comparison pair** when the reader is choosing. State both sides fairly, then say which and why.
-- **A number** in a table, a story in prose. Do not narrate a table.
+Review filler such as "it's worth noting," "at the end of the day," "when it comes to," "at its core," "in today's world," "the reality is," "in terms of," "with regard to," "in order to," "going forward," and "let's dive in." Keep necessary orientation, such as a useful roadmap in a long article. Prefer "to" for "in order to" and "because" for "due to the fact that" where meaning is unchanged.
 
-Vary it. Four sections with identical shape reads as machine-written even when
-every word is clean, and the reference set almost never repeats a shape twice in
-a row.
+Replace a habitual "Monday move" or "what to do on Monday" heading with the actual action. Keep a weekday when the message concerns a real schedule. Earlier instructions reported a September 1 count of three uses in 221 articles and 259 local files; that historical count has not been reproduced here and is not a general rule about good writing.
 
-### Tight beats complete
+## Diagnose the 17 named patterns
 
-The test is an interview answer, not a briefing document. A senior person asks
-you something and you have ninety seconds. You lead with the answer, give the
-mechanism, name the trade-off, and stop. You do not warm up, you do not cover
-what they did not ask, and you do not summarise at the end.
+Use the name when it helps explain an edit. Judge what the passage does, not whether it contains a trigger word.
 
-Length follows the question. A definition is a paragraph. A decision is three.
-If it runs past a page, the extra material is either a second piece or it is
-padding.
+| Pattern | What to look for | Useful repair |
+|---|---|---|
+| 1. Formulaic binary contrast | Repeated "This isn't X; it's Y" without a necessary distinction | State the finding directly, or explain the real comparison |
+| 2. Throat-clearing | "Here's the thing" or "Let me be clear" before an ordinary claim | Begin with the claim |
+| 3. Faux-insight setup | "What nobody tells you" or "the part everyone misses" without evidence of that absence | Explain the specific observation and its consequence |
+| 4. Dramatic colon reveal | A colon used repeatedly to stage an ordinary point | Write a connected sentence; retain colons that organize an explanation, list, label, or quotation |
+| 5. Superficial analysis | A trailing "highlighting" or "reflecting" clause that adds no mechanism | Supply the actual relationship or remove the clause |
+| 6. Importance puffery | An unsupported "pivotal moment" or claim of exceptional significance | Give the relevant fact or comparison |
+| 7. Vague attribution | "Experts agree" or "studies show" without traceable support | Identify the source and scope, or remove the unsupported conclusion |
+| 8. Inflated substitute verbs | "Serves as," "stands as," or "boasts" obscuring a simple relationship | Use "is," "has," or the specific action; retain "features" when it accurately means presents or includes |
+| 9. Synonym cycling | Several names for the same thing that make the subject hard to track | Repeat the clearest term |
+| 10. Negative listing | "Not a X. Not a Y. A Z" used as a routine dramatic device | State Z and the distinction the reader actually needs |
+| 11. Dramatic fragmentation | Stacked fragments that break a thought without adding emphasis | Reconnect the idea; keep an occasional purposeful fragment |
+| 12. Robotic rhythm | Repeated sentence shapes or forced punchy paragraphs | Let sentence and paragraph length follow the thought |
+| 13. Staged rhetorical setup | A self-answered question or "plot twist" that delays an obvious point | Give the answer directly; retain genuine reader questions and useful Q&A formats |
+| 14. Fake-profound ending | An aphorism that exaggerates or introduces an unearned conclusion | End on the clearest supported consequence, action, or complete thought |
+| 15. Redundant recap | An ending that merely repeats a short piece | Remove it; retain a synthesis or summary when the reader needs one or asked for one |
+| 16. Decorative formatting | Bold, headings, emoji, or bullets without a navigational purpose | Match formatting to the information and medium |
+| 17. Forced groups of three | Padding or cutting ideas to fit a familiar pattern | Use the number of items the content requires |
 
-### Think integratively, and from first principles
+The earlier description said 16 patterns while listing 17. Use the complete list above. None requires rewriting a quotation or erasing a deliberate register.
 
-Clean prose with a borrowed argument is still a borrowed argument. Two habits
-separate writing worth a senior reader's time from writing that merely reads well.
+## Repair structure where the reader needs help
 
-**Integrative.** The value is in the join, not the inventory. Three findings
-listed is a summary. Two findings connected by a mechanism nobody stated is a
-contribution. Before you write, ask what these sources say together that none of
-them says alone, and lead with that.
+### Headings should reveal the section's purpose
 
-**First principles.** Strip the framing before you answer. Most questions arrive
-carrying an assumption that is doing the real work, and the useful answer often
-rejects the premise. "Why did our AI pilot not move the P&L" is usually not a
-question about AI.
+Useful shapes include the reader's question, a named framework, a supported claim, an action, or a comparison. For example: "Which failures need review?", "The four collaboration modes", "Review capacity limits rollout", "Check the missing inputs", and "Before and after the migration." These are illustrative heading shapes, not sourced article titles.
 
-## Be authentic, and never oversell
+Functional labels are also valid when they tell the reader what is there. Problem statement, Value, Hypothesis, Solution approach, Risks, Assumptions, Trade-off, Evidence, Where it breaks, and Takeaways for a named audience can all work. Use only the sections the content needs. An accurate "Overview" in a reference guide is not inherently a defect.
 
-This is the half that protects everything else. Prose can pass every rule above
-and still be untrustworthy.
+### Place assumptions beside the decisions they affect
 
-### Never claim what you have not done
+State a material assumption when the reader first needs it, including what changes if it is wrong. A dedicated Assumptions section helps when several assumptions need tracking; it should not delay essential qualifications until the end.
 
-Write from what you have read and reasoned, and say so. The line is simple: a
-claim the reader cannot check is a claim you should not make.
+For a testable assumption, identify evidence that would confirm, narrow, or overturn it. If user costs appear uneven, examine the distribution and its causes; P50, P90, and P99 describe selected percentiles but do not alone establish a log-normal distribution. If a 30% result may come from a survey rather than a controlled comparison, verify the method before presenting a causal conclusion.
 
-| Do not write | Write instead |
-|---|---|
-| "In my experience..." | "Across these three cases..." |
-| "I have seen this a hundred times" | "This shows up in the Klarna and Salesforce reversals" |
-| "Teams I have worked with..." | "The pattern in the corpus is..." |
-| "As an expert, I would say" | Say it. The reasoning is the credential |
-| "Trust me on this" | Give the mechanism and let them check it |
+### Match format and length to the task
 
-Ravi's own writing is allowed to draw on his actual work at Honeywell and
-Perplexity. Anything written on his behalf is not, unless the source material
-states it.
+Use connected prose for explanation, bullets for parallel items, numbered steps for sequence, and tables for comparisons across consistent dimensions. Attribute quotations. Use a comparison pair when a choice is real and represent both sides fairly. A few numbers can be clear in prose; use a table when it improves comprehension.
 
-### Never overhype
+Repeated structure can help a manual, checklist, or comparison. Vary section shape where it improves reading, not merely to avoid repetition. Do not force all definitions into one paragraph, all decisions into three, or every answer under a page. Preserve requested completeness and remove repetition before reasoning the reader needs.
 
-No superlatives you cannot defend. Not "the most important shift", "a
-fundamental rethink", "the single biggest lever", unless you can name the
-comparison that makes it true. State the finding and let the reader judge its
-size. A reader who feels sold to stops reading, and a senior one stops trusting.
+For an interview response, lead with the answer, explain the mechanism, name the trade-off, and stop at the depth requested. Ninety seconds is a rehearsal target until timed. A long briefing has a different purpose and may need substantially more detail.
 
-The tell: if removing the adjective leaves the sentence just as informative, the
-adjective was doing sales work.
+### Check the argument, not just the prose
 
-### Be factually right, and show the receipts
+Examine the question's assumptions and explain a useful connection when the evidence supports it. Do not reject a sound premise for effect. A requested summary, inventory, or factual answer can be complete without a new thesis. If you infer a mechanism across sources, show why it follows and where another explanation remains possible.
 
-- Every figure carries its **population** and its **tier**: audited, disclosed, or reported. Tiers never blend.
-- A number you cannot source is either softened to a qualitative claim or cut. There is no third option.
-- Never invent a source **type**. "According to earnings materials" when you do not know that is a fabrication, and it is worse than a wrong number because the provenance is what tells a reader to stop checking.
-- Where the evidence is thin, say it is thin. That sentence buys more credibility than the paragraph it qualifies.
+## Keep claims and sourcing honest
 
-### Sources go at the end, where they can be checked
+Use personal experience only when the author or supplied material establishes it. Replacing "in my experience" with "across three cases" is valid only if those cases were actually inspected. Do not invent an alternative credential, research corpus, or firsthand observation during an edit.
 
-When the piece rests on data, close with a short **Sources** list. Not inline
-footnote clutter, not a wall of links mid-argument. Each line names the article,
-the author where it matters, and the date, so a reader can go and disagree with
-you.
+Support superlatives with a relevant comparison, or use a narrower claim. Removing an adjective can help expose what a sentence actually says; some adjectives carry necessary technical distinctions and should remain.
 
-> **Sources**
-> - HBR, "Managers Are Struggling to Keep Up with the AI Productivity Boom", May 2026
-> - MIT SMR, "When Not to Use AI", Jun 2026
+For empirical figures, preserve the population, period, units, denominator, source, and material uncertainty. Distinguish audited within a documented scope, study-disclosed, company-disclosed, reported, and disputed evidence. Do not claim a source type such as "earnings materials" unless verified. A forecast, illustration, or assumed input should be labeled as such.
 
-Naming the article is the citation. A description of the article is not, and it
-makes the claim unauditable.
+An unsupported number cannot be repaired merely by turning it into an unsupported qualitative claim. Verify, narrow, attribute with an explicit limitation, or omit it. A placeholder can remain in an unfinished draft when its status is clear. Use `rtp-trendslop-check` for consequential numerical claims that need deeper review.
 
-## Workflow
+Place a citation near the claim it supports. For substantial research, a concise end list can also help, with the actual title, responsible author or organization, date, and verified link or local source location. A title alone may be ambiguous. Do not replace useful inline citations with an end-only list that makes the argument harder to check.
 
-1. Read the whole draft before touching it.
-2. Identify the core point and three to five voice signals to preserve. Keep this note internal. If the core point is unclear, ask.
-3. For a detect request, return the findings and stop.
-4. For an edit, make the minimum effective changes, then run the quality gate below.
-5. Fix and re-run until it passes.
-6. Return the edited draft plus **What changed**.
+## Finish with a proportionate review
 
-## Quality gate
+After editing, reread the affected passage and its connections. For a substantial draft, sample the opening, middle, and ending for natural rhythm and check the preservation record. Read aloud when available or silently otherwise; never claim an audio or reader test that did not happen.
 
-- [ ] Zero `§`. Zero decorative emoji. Em dashes only in structural slots, none in running prose.
-- [ ] No word from the banned list survives.
-- [ ] Every number carries its population and, where the corpus requires it, its evidence tier.
-- [ ] No weasel attribution. Every claim has a named source or is softened honestly.
-- [ ] Paragraph lengths vary. At least one sentence carries a real opinion.
-- [ ] **The read-aloud test.** Read a paragraph out loud. A stumble, a lost breath, or a sentence you would never say to a colleague means rewrite.
-- [ ] The last line is a concrete fact or a move, not a flourish.
-- [ ] **Every heading is a claim, a question, or a named thing.** Zero label headings ("Overview", "Key considerations", "Thoughts").
-- [ ] **Every unverified thing the argument rests on is under its own Assumptions heading**, as a testable statement with what would settle it.
-- [ ] Structure matches the content: tables where there are dimensions, bullets where items are parallel, prose everywhere else. No decoration.
-- [ ] Section shapes vary. Nothing repeats the same skeleton twice in a row.
-- [ ] Zero "Monday move" or "Monday morning". Name the action instead.
-- [ ] **The piece makes a join, not a list.** If it only summarises sources, it has not earned a senior reader.
-- [ ] **Zero claimed experience the author does not have.** No "in my experience" written on someone else's behalf.
-- [ ] **Zero undefendable superlatives.** Remove each adjective and check the sentence still says the same thing.
-- [ ] Every figure carries population and tier. Nothing is sourced to a type of document you did not verify.
-- [ ] **Sources listed at the end** where the piece rests on data, each naming article, author and date.
-- [ ] Ask directly: "what still makes this read like AI?" Name the remaining tells, then cut them.
+Confirm that:
 
-## When wrong
+- The requested purpose, scope, length, and format are met.
+- Meaning, voice, evidence, uncertainty, and functional syntax survived.
+- Specific patterns were corrected without mechanical word substitution.
+- Necessary assumptions and limits appear where they affect understanding.
+- Headings and layout help the intended reader.
+- The ending completes the piece without an unsupported flourish or needless repetition.
+- Facts, personal experience, sources, and completed-work claims are accurate.
 
-- **Do not run this on quoted source material.** A verbatim quote keeps its author's slop; that is what makes it a quote.
-- **Do not flatten a deliberate register.** A cinematic deck and a governance file have different voices, both legitimate.
-- **Do not strip hedging that reflects genuine uncertainty.** "We think" is honest when the evidence is thin. False confidence is a worse failure than a hedge.
+Fix remaining material defects and stop when the requested work is complete. A pattern-free draft is not a guarantee of truth or quality. In detect mode, return findings and stop; in edit mode, provide the revision without an unnecessary audit report unless requested.
 
-## Attribution
+## Attribution and revision
 
-Pattern list adapted from `no-ai-slop` by Sam Rowe (MIT licence), extended with Ravi's banned-character rules, the evidence-discipline overlaps from `CLAUDE.md`, and the read-aloud gate.
+The original skill credits Sam Rowe's `no-ai-slop` under the MIT license, extended with Ravi's preferences and evidence discipline. Preserve that attribution and any applicable license notice when distributing the library. This revision did not independently locate the upstream source or verify its license text. The claimed 221-article heading study and earlier session anecdote are historical editorial background, not research independently reproduced here.
+
+**Revision 2.1.1, 13 Sep 2026.** Preserves all three modes, the complete 17-pattern list, word-review vocabulary, formatting preferences, structure guidance, and factual discipline. Aligns them with the approved master writing standard and replaces conflicting absolutes with clear conditions.

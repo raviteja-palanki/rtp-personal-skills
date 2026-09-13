@@ -1,302 +1,208 @@
-# The AI-PRD — World-Class Template (v1.0)
+# AI product requirements template
 
-> **The atomic insight:** the quality of an AI product is not determined by how well the AI performs. It's determined by how well the product handles when the AI *doesn't* perform. A normal spec describes one right answer; an AI feature returns a **distribution** of answers — so this document's job is to pin down what happens across that distribution, and to end in production-grade user stories that inherit every decision made here.
->
-> **The one test every section must pass (from the teardowns):** *does it add a decision, not prose?* "Improve engagement" is a hope. "Graduate at P50 reply time −10% vs. control; kill at guardrail breach" is a decision.
+Revision 1.1, 13 September 2026. Companion to AI-PRD v1.2.1.
 
-**How to use this template:** each section states (a) what it must pin down, (b) which upstream skill computes it (consume — don't recompute), (c) a filled mini-example, and (d) the user-story types it seeds. The running example is **Athena** — AI-drafted reply suggestions for enterprise support agents. Depth scales with consequence magnitude: a medical diagnostic needs the 40-page version of §9; a content recommender needs one page total.
+Use this template to connect the user problem to product behavior, evidence, costs, launch decisions, and implementation. Keep §0–13 identifiers for traceability. Reuse the team's existing format where it provides the same decisions. Link detailed examples, architecture, and stories rather than repeating them.
 
-**Length discipline:** the body is 6–8 pages of decisions. Behavior examples (§4) and user stories (appendix) are annexes. Don't use an LLM for the first draft — use it to sharpen your draft.
+The running example, **Athena**, is a fictional draft-only support assistant. All figures below are illustrative assumptions or proposed criteria, not measured results. Replace them with appropriate evidence before the decision that depends on them. Roles are placeholders for assignment, not named people who have approved the work.
 
----
+## Contents
 
-## Table of Contents
+0. Header and decision summary
+1. Opportunity
+2. Boundaries
+3. Users and job
+4. Behavior contract
+5. Solution and architecture
+6. Success measurement
+7. Probabilistic behavior
+8. Rollout and experiment
+9. Risk and incident response
+10. Instrumentation
+11. Economics
+12. Lifecycle and launch
+13. Questions and decisions
 
-| § | Section | The decision it pins down |
-|---|---------|---------------------------|
-| [0](#0--header--decision-summary-one-screen-always-current) | Header & Decision Summary | Stage, owner, the 3 numbers an exec needs |
-| [1](#1--opportunity-why-this-why-now-why-ai) | Opportunity | Why this, why now, why AI — and the $ case |
-| [2](#2--boundaries-scope-non-goals-accepted-side-effects-autonomy) | Boundaries | Scope, non-goals, accepted side effects, autonomy level |
-| [3](#3--users--the-job-who-and-the-hidden-job) | Users & the Job | Segments and the hidden job they hire the AI for |
-| [4](#4--behavior-contract-1525-labeled-examples--the-spec-language-of-probabilistic-systems) | Behavior Contract | 15–25 good/bad/reject examples, acceptable variance |
-| [5](#5--solution--architecture-the-approach-the-determinism-map-prompts-as-product) | Solution & Architecture | Approach one-liner, determinism map, prompts as product |
-| [6](#6--success-measurement--three-legs-each-ending-in-a-decision) | Success Measurement | Offline golden set · human rubric · online dual metrics — each threshold paired with a decision |
-| [7](#7--probabilistic-spec-thresholds-as-ui-logic-the-degradation-ladder) | Probabilistic Spec | Confidence thresholds as UI logic, degradation ladder, refusal UX |
-| [8](#8--rollout--experiment-design-adult-rollout-plans) | Rollout & Experiment Design | Exposure, duration, randomization unit, MDE, ramp gates, kill criteria |
-| [9](#9--risk-failure--incident-response-the-section-that-saves-you-at-2am) | Risk, Failure & Incident Response | Failure modes, kill switch, runbook, legal/sec/PII, named owners |
-| [10](#10--instrumentation--telemetry-what-every-story-must-log) | Instrumentation & Telemetry | The event schema every story must log |
-| [11](#11--cost--unit-economics-baseline--10--100) | Cost & Unit Economics | Baseline/10×/100×, ceiling, pivot trigger |
-| [12](#12--launch-gates--lifecycle-the-living-spec) | Launch Gates & Lifecycle | Stage checklists, prototype loop, iterate/scale/retire |
-| [13](#13--open-questions--decisions-log-the-alignment-engine) | Open Questions & Decisions Log | What's unresolved, who owns it, when it's due |
-| [A](#appendix--the-user-story-bridge) | Appendix: User Story Bridge | The six story types that inherit from this document |
+Use available discovery, strategy, readiness, architecture, evaluation, safety, observability, and cost work as inputs. Resolve conflicts and stale evidence; a missing upstream artifact is not proof that no useful work can begin. Record consequential gaps in §13.
 
-## Upstream Inputs at a Glance — where previous skills' outputs slot in
+## 0 Header and decision summary
 
-This document assembles decisions computed upstream; it recomputes nothing. Before writing, collect these inputs. A missing input means the upstream work isn't done — go run it, don't improvise it here. **Cold-start exception (Speclet stage, interviews, greenfield):** write a tagged ⚠ assumption in the input's place, log it in §13 with an owner, and proceed — provisional numbers must be replaced by simulation or telemetry before the PRD passes Kickoff.
+Record feature, stage, owner and assignment status, document/configuration version, date, recommendation, supporting evidence, unresolved restrictions, and links to prototype, evals, stories, runbook, and results.
 
-| Input you paste in | Produced by (skill) | Lands in |
+**Athena example:** Stage: Speclet. Owner: PM role, assignment pending. Recommendation: test whether reviewable reply drafts reduce routine-ticket handle time without reducing response quality. Proposed target: 15% lower handle time; proposed fully allocated cost target: $0.04 per verified resolution. No production exposure is approved by this example. The proposed stop mechanism and its response time still need testing.
+
+## 1 Opportunity
+
+State the problem, working hypothesis, strategy fit, reason to consider AI now, alternative approaches, expected impact, and prototype findings. Sources: discovery, `jtbd-analysis`, `strategy-canvas`, `problem-ai-fit`, and `cost-model`.
+
+**Athena example:** Suppose support agents spend 4.2 minutes composing a routine reply across 480,000 routine tickets a year. At $0.90 per minute, a 15% reduction represents 302,400 minutes and $272,160 of annual labor capacity. It is not automatically cash savings or realized benefit. Check adoption, review time, rework, volume, and whether freed capacity can be used.
+
+The hypothesis is that source-linked drafts reduce this time while preserving quality. Compare against templates, better retrieval, and workflow changes. A prototype session with five agents could reveal whether timing, tone control, or editing matters; it cannot establish population-level benefit. Record what was actually observed and what remains assumed.
+
+**Seeds:** the capability story's user outcome and the impact-review comparison.
+
+## 2 Boundaries
+
+Define scope, non-goals, resources, accepted trade-offs, actual permissions, and conditions that limit use. Sources: `autonomy-spectrum`, `ai-use-case-readiness`, and `agent-spec` where applicable.
+
+**Athena example:** English routine-ticket drafts in the support console; staff review and send through the existing authorized workflow. Athena can read permitted ticket/order/knowledge-base records and prepare text. It cannot send replies, issue refunds, change subscriptions, or create new customer commitments.
+
+Voice, additional languages, knowledge-base authoring, and employee performance scoring are outside this initial experiment. Exclusion is a scope choice, not a claim that these users or channels are unimportant. State how unsupported cases receive normal service.
+
+Use **Copilot, shared library Level 4**, if a broader label helps; the draft-only permissions above control. High acceptance or short review time does not automatically change authority or prove careless review. Audit the quality of accepted drafts before drawing that conclusion.
+
+**Seeds:** capability boundaries and relevant guardrail requirements.
+
+## 3 Users and job
+
+Describe users, their task, unmet need, access constraints, and the evidence behind each segment. Sources: `jtbd-analysis`, `attitudinal-segmentation`, and `interview-synthesis`.
+
+| User group | Need to investigate | Design hypothesis |
 |---|---|---|
-| Problem + hidden job + segments | `jtbd-analysis`, `interview-synthesis` | §1, §3 |
-| Greenlit bet + the "no" list | `opportunity-solution-tree` | §1, §2 |
-| Strategy fit (which pillar, why now) | `strategy-canvas` | §1 |
-| AI-necessity verdict (engine vs helper seat) | `problem-ai-fit` | §1 |
-| Autonomy level + readiness gates | `autonomy-spectrum`, `ai-use-case-readiness` | §2 |
-| Attitudinal split (Embracer/Neutral/Skeptic) | `attitudinal-segmentation` | §3, §7 |
-| Approach (prompt / RAG / fine-tune / buy) + rules-vs-model map | `build-or-buy`, `determinism-compass`, `context-spec` | §5 |
-| Eval criteria, golden-set design, validated judge | `eval-framework`, `confidence-tuner` | §6 |
-| Funnel + leading-indicator metric set | `ai-product-metrics` | §6, §10 |
-| Rollout mechanics (shadow → A/B → ramp, MDE) | `gen-ai-experimentation` | §8 |
-| Failure taxonomy + kill-switch design | `failure-modes`, `agent-risk` | §9 |
-| Safety constraints + legal/PII obligations | `safety-by-design`, `responsible-ai-program` | §9 |
-| Trace/event conventions | `production-observability` | §10 |
-| Cost per successful outcome at P90, ceiling | `cost-model` | §11 |
-| Go/no-go gate structure | `ship-decision` | §8, §12 |
+| Experienced support staff | Preserve judgment and quality while saving drafting time | Editable drafts and inspectable sources may help |
+| New support staff | Understand policy and avoid unsupported commitments | Contextual guidance and appropriate review may help |
+| Team leads | Understand quality, workload, and exceptions | A representative quality report and recovery visibility may help |
 
-**Downstream consumers of this document:** the six story types (appendix + `ai-user-stories.md`) · `ship-decision` (reads §6 + §12 gates) · `plan-launch` (readiness chain) · `production-observability` + `ai-product-metrics` (§10 monitoring spec) · `ai-ux-patterns` + `trust-ladder` (§7 UI states) · `retro` (audits §1's hypothesis at Impact Review).
+Do not assume tenure determines AI attitude. Test these needs and provide useful controls without forcing “skeptics need explanation” or “enthusiasts need friction” as universal rules.
 
----
+## 4 Behavior contract
 
-## §0 · Header & Decision Summary (one screen, always current)
+Assign stable IDs. Record input/context, authorization, expected behavior, acceptable variation, source/provenance, and the error or boundary the example tests. Label constructed cases. A set of 15–25 examples can start a substantial contract; scope and coverage matter more than count.
 
-*Pins down:* what stage this document is at, who owns it, and the three numbers a skimming exec needs.
+**G1 — Verified order status.** In a test fixture, the authorized order record states shipment on 3 March with a tracking reference. The draft accurately summarizes that record and links the available tracking source. It does not invent an arrival date when none is supplied.
 
-| Field | Entry |
-|---|---|
-| Feature | Athena — AI reply drafts for support agents |
-| Stage | `Speclet → Kickoff → Solution Review → Launch Ready → Impact Review` — **Kickoff** |
-| PRD owner | R. Palanki (PM) · Eng: T. Osei · Design: M. Iyer |
-| Status / last updated | Draft v0.4 · 16 JUL 2026 · prompt v1.2_beta |
-| Decision summary | Betting agent-assisted drafts cut handle time ≥15% at ≤$0.04/resolved ticket. Ship gate: all §12 evals green. Kill switch: on-call toggle, <60s. |
-| Links | Prototype · Eval dashboard · Runbook · Results doc (post-launch) |
+**G2 — Confirmed refund already issued.** The fixture includes an authorized, completed refund record. The draft may accurately say the refund was issued and use the recorded reference and supported timing. Athena itself did not issue it.
 
-*Stage rule:* match rigor to stage — 3–5 behavior examples at Speclet; the full document only at Kickoff+. Tag it, or you'll over-engineer exploration and under-spec launch.
+**B1 — Duplicate-charge assumption.** Two equal charges appear on different dates. A draft declares one a duplicate and says a refund has started without evidence. Correct behavior: identify the observed charges, preserve uncertainty, and help the support agent follow the authorized investigation process.
 
----
+**B2 — Unsupported reassurance.** No shipment record is available, but the draft claims the order will arrive tomorrow. Correct behavior: state the evidence gap and suggest the permitted next check; do not manufacture certainty.
 
-## §1 · Opportunity (why this, why now, why AI)
+**R1 — Action outside authority.** A ticket asks for a $10,000 refund. Athena does not execute it. The draft or internal guidance points staff to the applicable refund policy and authorized review route. Any approval limit or response-time promise must come from actual policy and capacity.
 
-*Pins down:* the business case before any AI talk. **Consumes:** `jtbd-analysis` (the hidden job), `strategy-canvas` (strategy fit), `problem-ai-fit` (does this need AI at all), `cost-model` (the $ sizing).
+**R2 — Restricted legal request.** A fixture triggers the organization's defined legal-handling policy. The product routes the affected work to that process and explains the limitation to the support agent. A legal keyword alone is not a universal reason to suppress all assistance.
 
-- **Core problem (one sentence):** Support agents spend a median 4.2 min composing replies to the 62% of tickets that are routine, driving $310K/mo in handle-time cost and 11% SLA breaches.
-- **Working hypothesis (one sentence):** If agents get a high-confidence draft reply inside the ticket view, median handle time on routine tickets drops ≥15% without CSAT or quality regression.
-- **Strategy fit:** advances the FY26 "agent-assist before agent-replace" pillar; explicitly *not* the autonomous-resolution bet (that's a separate PRD).
-- **Why now (capability unlock):** frontier models now pass our internal drafting eval at 91% on routine intents (they didn't 12 months ago); ticket corpus + resolution labels give us a proprietary golden set competitors lack.
-- **Financial impact model (order of magnitude):** 15% × 4.2 min × 480K routine tickets/yr × $0.9/min ≈ **$270K/yr gross**, against ~$95K/yr run cost at baseline volume (§11). Sensitivity: benefit survives down to 8% time reduction.
-- **Prototype learnings (the loop):** 3 Cursor prototypes tested with 5 agents; learned drafts must appear <2s or agents type over them; tone control matters more than length. This PRD constrains the next prototype round.
+Wording may vary; facts, permission scope, and commitments must remain supported. Link these examples to relevant tests and stories. Maintain an independent evaluation set when measuring generalization.
 
-*Seeds:* the story epic's "so that" clause and the impact-sizing assumptions the Impact Review (§12) will audit.
+## 5 Solution and architecture
 
----
+Describe the approach, alternatives considered, rule/model map, data and context boundaries, dependencies, prompt/configuration versions, and recovery. Sources: `build-or-buy`, `determinism-compass`, `context-spec`, `prompt-as-product`, and `prompt-craft`.
 
-## §2 · Boundaries (scope, non-goals, accepted side effects, autonomy)
+**Athena example:** retrieve permitted ticket, order, and knowledge-base context; generate a draft; check relevant content and authorization constraints; display for staff review. Retrieval may include learned ranking, intent gating may use a classifier, and safety checks may combine rules and models. Identify each actual implementation; do not describe the entire path as having only one probabilistic stage.
 
-*Pins down:* what you are saying NO to, and the side effects you accept on purpose. **Consumes:** `autonomy-spectrum` (the level), `ai-use-case-readiness` (minimum autonomy that captures the value).
+Version prompts and relevant context/index/model/tool settings. Malformed-output retries are bounded and cannot expand permissions. If valid drafting is unavailable, preserve the original ticket and the support agent's normal workflow.
 
-- **In scope:** English tickets, 8 routine intents (billing, shipping, returns, password…), draft-only (agent must send), web console.
-- **Non-goals (explicit):** auto-send; voice/chat channels; non-English (fast-follow after fairness audit §9); knowledge-base authoring; agent performance scoring.
-- **Accepted side effects (worth it, on purpose):** ~3% of drafts will be discarded as off-tone (cost of speed); minor homogenization of reply style across agents; +180ms ticket-view load.
-- **Autonomy level:** Level 3 (Copilot) — model proposes, human disposes. The *effective* level will be audited: if agents rubber-stamp >90% of drafts unread in <5s, that's Level 4 by behavior and triggers the §9 trust review.
+## 6 Success measurement
 
-*Seeds:* rejection criteria in capability stories ("out-of-scope intent → no draft shown") and the guardrail story for rubber-stamping detection.
+Define offline, human-review, and online evidence. For every metric, record denominator, population, baseline, sampling, window, uncertainty, owner, and the decision it supports. Sources: `eval-framework`, `confidence-tuner`, and `ai-product-metrics`.
 
----
+**Offline plan:** build representative cases by intent, difficulty, relevant user/context segment, and risk. A 500-case design with adversarial and rare-intent cases is a planning example, not sufficient evidence by itself. Validate labels and automated judges; separate prompt-tuning examples from held-out tests. Use discrete checks for unsupported commitments and suitable rubrics for tone and usefulness.
 
-## §3 · Users & the Job (who, and the hidden job)
+**Human review:** sample accepted, edited, discarded, and fallback cases. Define how reviewers assess factual support, usefulness, permissible commitments, and task outcome. Resolve disagreement and record missing labels. Choose reviewer count and cadence from the question and risk rather than a fixed 50-per-week rule.
 
-*Pins down:* segments and the job the user actually hires the AI for. **Consumes:** `jtbd-analysis`, `attitudinal-segmentation` (Embracer / Neutral / Skeptic split), `interview-synthesis`.
+**Online decision examples, all provisional:**
 
-| Segment | Surface job | Hidden job | Design implication |
-|---|---|---|---|
-| Tenured agents (Skeptic-heavy) | Draft faster | Protect craft & stats they're judged on | Show *why* the draft (sources); edit-first UX; never auto-send |
-| New agents (Embracer-heavy) | Don't sound wrong | Reduce anxiety, look competent | Confidence signal + tone guidance; guard against over-trust |
-| Team leads | Hit SLA | Defend quality to CX leadership | Weekly quality digest; correction analytics |
-
-*Seeds:* per-segment onboarding stories and the calibration differences in §7 thresholds (Skeptics get more explanation, Embracers get more friction on low confidence).
-
----
-
-## §4 · Behavior Contract (15–25 labeled examples — the spec language of probabilistic systems)
-
-*Pins down:* GOOD / BAD / REJECT examples — the most precise requirement language an AI feature has (the OpenAI Model Spec pattern). **Consumes:** production traces, research sessions; **feeds** both the eval golden set (§6) and story acceptance criteria (appendix) — the dual seed.
-
-Counts: 5–8 GOOD (the quality bar), 5–8 BAD (observed/anticipated failures, each with the corrected output), 5–9 REJECT (inputs the AI must refuse or stay silent on). Full set lives in Annex A; three exemplars inline:
-
-- **GOOD** — Input: ticket asking where order #4521 is. Draft: "Your order #4521 shipped Mar 3 via UPS (1Z999…). Expected delivery Mar 6. Track it here: …" *Why correct: pulled real order data, specific, actionable, on-tone.*
-- **BAD** — Input: "Why was I charged twice?" Draft: "Sorry for the inconvenience! We'll look into it." *What's wrong: empty acknowledgment, no data pulled, no action.* **Correct:** cite both charges with dates, identify the duplicate, state the refund initiated + reference number.
-- **REJECT** — Input: ticket containing a legal threat / subpoena language. Expected behavior: **no draft rendered**; banner routes to Legal queue. *Why: out of automated authority; PII/legal risk.*
-
-**Acceptable variance (state it):** wording and structure may vary run-to-run; facts, amounts, commitments, and tone class may not. Any draft asserting an unverifiable fact is a §9 hallucination event regardless of fluency.
-
-*Quality check:* if an engineer can build from the examples without asking "what happens when X?", the contract is sufficient. If they ask, add examples.
-
-*Seeds:* every story links ≥3 of these; each example is also an eval test case.
-
----
-
-## §5 · Solution & Architecture (the approach, the determinism map, prompts as product)
-
-*Pins down:* the one-line technical approach and where AI is vs. isn't. **Consumes:** `build-or-buy` (prompt vs RAG vs fine-tune vs buy), `determinism-compass` (rules vs model), `context-spec` (what reaches the window), `prompt-as-product` / `prompt-craft`.
-
-- **Approach one-liner:** RAG over ticket + order + KB context on a mid-tier model, prompt-only (no fine-tune — few-shot beat our fine-tune pilot at 1/6 the upkeep); rules for intent gating and PII scrubbing.
-- **Determinism map:** input scrub (rules) → intent gate (rules + classifier) → retrieval (deterministic) → draft generation (AI) → safety/PII filter (rules + safety model) → render (rules). Only one probabilistic stage; guardrails on both sides of it.
-- **Prompts as product:** system prompt versioned in Git, tagged (v1.2_beta), logged with every request; changes require regression pass on the golden set + canary plan (§8 applies to prompt changes too). Single named prompt owner.
-- **Recovery UX:** retry once on malformed output; on second failure show "no draft available" (never a broken draft); all failures logged with trace ID.
-
-*Seeds:* instrumentation stories (§10 events), the fallback story chain (§7), prompt-change ops stories.
-
----
-
-## §6 · Success Measurement — three legs, each ending in a decision
-
-*Pins down:* offline golden set, human review rubric, and online dual metrics — **with the decision each threshold triggers.** **Consumes:** `eval-framework` (the harness), `confidence-tuner` (validate the LLM judge before trusting its scores), `ai-product-metrics` (funnel + leading indicators).
-
-**Leg 1 — Offline golden set:** 500 labeled tickets (stratified: 8 intents × difficulty × segment; 60 adversarial; 40 rare-intent). Binary evals, no Likert: factual consistency ≥98%; intent-match ≥95%; tone-class match ≥97%; zero confident-wrong (confidence >0.8 paired with factual error). *Decision: any red = prompt/model change does not ship.*
-
-**Leg 2 — Human review rubric:** 50 drafts/week, 2 reviewers, 4 binary dimensions (would send as-is? factually right? on-tone? nothing risky?); reviewer agreement (kappa) tracked; rubric disagreements feed new behavior examples. *Decision: "would send as-is" <70% two weeks running = quality review before any ramp step.*
-
-**Leg 3 — Online dual metrics:**
-
-| Metric | Type | Target | Decision at threshold |
-|---|---|---|---|
-| Median handle time (routine) | User outcome | −15% vs control | <−8% at 50% ramp → don't graduate; investigate UX not model |
-| Draft acceptance (sent w/ ≤minor edit) | User outcome (leading) | ≥45% | <30% for 7 days → pause ramp, segment analysis |
-| CSAT on AI-drafted replies | Guardrail | ≥ control −0 pts | any significant drop → auto-hold ramp |
-| Hallucination rate (sampled + judge) | AI-specific | ≤1% | >2% → kill switch criteria met (§9) |
-| Confidence calibration gap | AI-specific | ≤5 pts | >10 pts → threshold re-simulation (§7) |
-| P95 draft latency | AI-specific | ≤2,000ms | >2s sustained → degrade to cached/template mode |
-| Cost per resolved ticket (AI-assisted) | Economics | ≤$0.04 | >$0.06 for 14 days → §11 pivot trigger |
-
-*Why dual metrics:* 95% accuracy with 30% acceptance means a trust/UX problem — redesign, don't retrain. 75% accuracy with 80% acceptance means agents filter well — maybe ship. One metric alone always lies.
-
-*Seeds:* eval/quality stories (build the golden set, wire the judge, ship the review queue) — these are backlog items, not "monitoring later."
-
----
-
-## §7 · Probabilistic Spec (thresholds as UI logic, the degradation ladder)
-
-*Pins down:* what the user sees at every confidence band — product decisions, not model internals. **Consumes:** threshold simulation on the golden set (never guess thresholds), `ai-ux-patterns`, `trust-ladder`.
-
-| Confidence | Product behavior | Cost routing |
+| Measure | Proposed criterion | Action and interpretation |
 |---|---|---|
-| > 0.85 | Draft auto-inserted, sources shown, one-click send-after-review | Mid-tier model |
-| 0.70 – 0.85 | Draft shown collapsed: "Suggested draft — review carefully" + diff-style source highlights | Mid-tier |
-| < 0.70 | No draft. Show retrieved KB snippets instead (useful fallback, not a dead end) | Cheap model for snippet ranking |
-| Safety/PII flag any band | No draft + route per §9 | Safety model always-on |
+| Routine-ticket handle time | Target 15% reduction; proposed graduation minimum 10% | Compare with control and review uncertainty, quality, and adoption before advancing |
+| Response quality and CSAT | Pre-agreed noninferiority margins | Hold expansion if evidence crosses the limit; failure to detect a difference is not proof of equivalence |
+| Unsupported factual claims | Defined claim- or draft-level limit | Investigate and contain according to severity; one severe incident can justify action |
+| Calibration, if a score is used | Validated error bound by relevant group | Reassess evidence policy if calibration changes |
+| Draft latency | Proposed P95 at most 2 seconds | Review degraded paths if sustained breach affects usefulness |
+| Full cost per verified resolution | Target at most $0.04; review above $0.06 | Validate denominator and allocation, then consider cost or scope changes |
 
-**Degradation ladder (explicit, ordered):** model timeout → retry once → template library (rules) → snippets-only → feature auto-off (kill switch). Each rung is faster, dumber, safer — and each rung is a user story with its own acceptance criteria.
+Acceptance and review speed are supporting signals. Include audits of accepted-but-wrong outputs; a declining exception rate can mean fewer errors or weaker detection. The same metrics do not identify which explanation is true.
 
-**Refusal UX:** refusal is a designed state, not an error state — the snippet fallback keeps the agent moving. Measure refusal rate; >25% of routine tickets refused = thresholds mis-tuned, re-simulate.
+## 7 Probabilistic behavior
 
-**Accuracy as ranges, not a number:** 88–93% on the 8 core intents; ≥85% on every attitudinal/language segment; ≥70% on rare intents (accepted, disclosed). A single accuracy number is a lie about variance.
+Specify the evidence needed to display a draft, request targeted review, show source material, or pause the affected path. Sources: `confidence-tuner`, `ai-ux-patterns`, and `trust-ladder`.
 
-*Seeds:* fallback & degraded-UX stories (one per rung), refusal-UX story.
+**Athena candidate policy:** where a score estimates a defined quality event and has been calibrated, test bands above 0.85, 0.70–0.85 inclusive, and below 0.70. These might correspond to a normal reviewable draft, a draft with a specific uncertainty highlighted, and no generated draft with useful permitted source material instead. The thresholds remain provisional until validated. Without a useful score, use required evidence checks.
 
----
+All bands remain draft-only. A safety or permission failure takes precedence. Source snippets must themselves be authorized, relevant, and safe to show. A timeout may lead to one bounded retry, an approved template, snippets, or normal manual handling; test each alternative rather than assuming every lower rung is safer. If a fallback is unavailable, explain that state honestly.
 
-## §8 · Rollout & Experiment Design (adult rollout plans)
+Report quality by relevant segment with estimates and uncertainty. Rare cases are not automatically safe to handle at a lower standard. Refusal volume triggers investigation, not an automatic threshold reduction.
 
-*Pins down:* exposure, duration, randomization unit, MDE, ramp gates — "start small then ramp" is not a plan. **Consumes:** `gen-ai-experimentation` (shadow → A/B → progressive rollout mechanics), `ship-decision` (the gate itself).
+## 8 Rollout and experiment
 
-| Element | Decision |
-|---|---|
-| Randomization unit | **Team-level** (agents share queues — user-level would contaminate control) |
-| Shadow phase | 2 weeks: drafts generated + logged, never shown. Validates evals against reality before any exposure |
-| Exposure ramp | 5% teams (1 wk) → 25% (2 wks) → 50% (2 wks) → 100% |
-| MDE / power | Sized to detect 8% handle-time change at 80% power at the 25% stage |
-| Ramp gates (to advance) | All §6 guardrails green + hallucination ≤1% + no unresolved Sev-2 incident |
-| Graduation criteria | Handle time ≥−10% and CSAT flat at 50% for 2 weeks → GA decision to `ship-decision` |
-| Kill criteria (pre-agreed) | CSAT −2pts, or hallucination >2%, or cost >1.5× ceiling → auto-hold + incident review |
-| Finance sign-off | Required before 50% (inference spend crosses budget line) |
+Define the question, proposed exposure, evaluation design, duration/evidence needs, advance/hold/stop criteria, and budget authority. Sources: `gen-ai-experimentation` and `ship-decision`.
 
-*Seeds:* rollout/ops stories (shadow-mode plumbing, ramp tooling, holdout dashboards).
+**Athena example:** a shadow phase can test operation on real inputs without displaying drafts, subject to privacy, cost, and access requirements. It cannot directly measure user acceptance or causal effects on handle time. A subsequent controlled exposure measures those outcomes.
 
----
+If staff share queues, consider team-level assignment and evaluate spillovers, number of teams, and clustering in the power calculation. An illustrative 5% → 25% → 50% → 100% exposure sequence is not a schedule commitment. Set minimum evidence, duration, guardrails, and operational capacity for each step. A proposed 8% minimum detectable change at 80% power requires actual baseline variance and cluster assumptions; percentages alone do not size the study.
 
-## §9 · Risk, Failure & Incident Response (the section that saves you at 2am)
+Define handle-time reduction as `(control − treatment) / control`; a proposed graduation criterion is **at least 10% reduction**, alongside quality and cost requirements. Avoid the reversed rule “handle time ≥ −10%,” which could admit a slowdown. Assign budget approval according to real delegated limits, not an arbitrary ramp percentage.
 
-*Pins down:* the failure-mode table, the kill switch, the runbook, legal/sec/PII, and the named owners with the conditions that keep them owning it. **Consumes:** `failure-modes` (taxonomy), `agent-risk` (kill-switch design + proportionality), `safety-by-design`, `responsible-ai-program`, `breach-ready`.
+## 9 Risk and incident response
 
-**Failure-mode table (top rows shown; full table = Annex B):**
+Sources: `failure-modes`, `agent-risk`, `safety-by-design`, `responsible-ai-program`, and `breach-ready`.
 
-| Mode | P(occur) | Consequence | Detection (real-time?) | Containment | Recovery | Feeds learning? |
-|---|---|---|---|---|---|---|
-| Confident-wrong fact in draft | ~1–2% of drafts | Wrong info sent to customer; trust damage | Safety-judge sample + agent edit-distance spike | Threshold raise; intent off | Correction macro to customer; example → golden set | Yes — new BAD example + eval case |
-| PII echo (other customer's data) | rare, severe | Privacy incident | PII filter + honeypot evals | **Kill switch** | Breach runbook; legal notify | Yes — filter rule + regression test |
-| Drift (new product line vocab) | expected, quarterly | Acceptance decays silently | Weekly eval on rolling fresh sample | Threshold floor | Retrieval refresh; prompt rev | Yes — golden-set refresh cadence |
-| Rubber-stamping (effective autonomy creep) | grows with trust | Unreviewed sends | Read-time <5s on >90% drafts | Friction injection for that agent cohort | Trust-review with team lead | Yes — §2 autonomy audit |
+| Failure | Detection and limitation | Containment and recovery |
+|---|---|---|
+| Unsupported fact or commitment | Source checks, representative review; fluent text may evade a judge | Restrict affected draft path; correct affected material and follow actual customer communication authority |
+| Cross-customer disclosure | Isolation tests and authorized canary fixtures; generic PII matching is insufficient | Block affected access/output, preserve proportionate evidence, invoke privacy/incident process |
+| New terminology or changed policy | Fresh samples, task-mix and source-freshness checks | Correct the relevant data/context/policy and verify before restoring affected use |
+| Inadequate review | Audit accepted-output correctness plus review context | Improve workflow, evidence, training, or permissions according to findings |
+| Tool injection or unauthorized action | Boundary and exfiltration tests, action logs | Enforce permissions before effects; stop and reconcile any uncertain action |
 
-- **Kill switch:** feature-flag toggle, on-call reachable, <60s to full-off, degrades to template mode (not blank). Tested in staging **and prod drill before 25% ramp**. Owner: on-call eng.
-- **Runbook:** symptom → check → action pages for each failure mode above; linked in §0.
-- **Legal / Security / Privacy gate:** PII scrub verified by red-team before shadow; legal review of auto-drafted commitments (refund promises = binding); DPA check for model provider. *Launch-blocking.*
-- **Accountable owner (chosen, not mandated):** Failure owner: **M. Chen (CX Quality Lead)** — judged on catch rate, not velocity; weekly correction review is on her calendar, in her goals; she accepted the role explicitly. An unnamed or unconsenting owner is escalation theater. The autonomous *execution* layer (retrieval, logging) is owner-none-by-design; any *customer-visible artifact* snaps back to a named human.
+Name the incident owner, backup coverage, intervention rights, and expected response. A proposed disable-within-60-seconds target must define which effects stop and be tested. Stopping future drafts does not erase drafts already shown or reverse staff actions. Choose safe drill environments and controlled production drills only when justified and authorized.
 
-*Seeds:* guardrail & safety stories (kill switch, PII honeypots, rubber-stamp detector) — each with binary acceptance criteria.
+Record applicable privacy, legal, security, and contractual requirements, with competent review where needed. A draft promise is not universally binding or universally harmless; its treatment depends on context. Reviewers need capacity and useful incentives, not an error-catching quota.
 
----
+## 10 Instrumentation
 
-## §10 · Instrumentation & Telemetry (what every story must log)
+Sources: `ai-product-metrics` and `production-observability`.
 
-*Pins down:* the event schema — without it, none of §6–§9 is observable. **Consumes:** `ai-product-metrics` (the funnel), `production-observability` (traces, not requests).
+Define applicable events such as draft generated, eligible, shown, opened, edited, sent, discarded, fallback, and corrected. Include safe identifiers, version/configuration references, authorized source references, decision/evidence status, elapsed latency, tokens/billing basis, and relevant user action. Derive latency percentiles over a defined population; individual events do not have their own P95.
 
-**Mandatory event fields, every draft:** trace ID · prompt version · model + params · confidence score · intent class · retrieval doc IDs · latency (P50/P95 buckets) · tokens in/out · cost · outcome (`shown / collapsed / refused / fallback-rung`) · agent action (`sent-as-is / minor-edit / major-edit / discarded`) · edit distance · time-to-send · feedback flag.
+The funnel may be Eligible → Shown → Opened → Accepted → Sent → Verified outcome. Specify denominators, missing events, deduplication, and joins. CSAT, factual labels, and resolution may need survey, human-review, or ticket-system data; they cannot necessarily be computed from model logs alone.
 
-**Funnel:** Surfaced → Opened → Accepted → Sent → (CSAT). Every §6 online metric must be computable from these events alone — if a metric can't be computed from logged events, the story that ships the feature isn't done.
+Set access, retention, sampling, redaction, and deletion rules. Store raw text, keystrokes, or personal data only when justified and permitted. A model-generated confidence field is optional when no useful score exists.
 
-*Seeds:* instrumentation stories (often the first stories built — shadow mode depends on them).
+## 11 Economics
 
----
+Source: `cost-model`; connect to `token-economics` if the feature is priced externally.
 
-## §11 · Cost & Unit Economics (baseline → 10× → 100×)
+**Coherent planning example:** 480,000 annual draft attempts over 250 operating days equals 1,920 attempts/day. Suppose 80% lead to a verified resolution: 1,536/day. Include the costs of all attempts, failures, review, and applicable overhead in the numerator.
 
-*Pins down:* cost per *successful* outcome at P90, the ceiling, the pivot trigger. **Consumes:** `cost-model` (owns the math incl. harness multiplier, routing, caching), `token-economics` (if priced externally).
+| Scenario | Draft attempts/day | Verified resolutions/day | Assumed full cost/resolution | Implied full cost/day |
+|---|---:|---:|---:|---:|
+| Baseline | 1,920 | 1,536 | $0.031 | $47.616 |
+| 10 times volume | 19,200 | 15,360 | $0.024 | $368.64 |
+| 100 times volume | 192,000 | 153,600 | $0.020 | $3,072 |
 
-| Scenario | Assumption | Cost/day | Cost per resolved ticket |
-|---|---|---|---|
-| Baseline | 1,900 drafts/day · ~3 calls/draft (retrieve+draft+safety) · P90 tokens | ~$260 | ~$0.031 |
-| 10× | elastic demand + cache hit ≥60% | ~$1,950 | ~$0.024 |
-| 100× | requires routing (cheap model ≥50% of calls) + batch evals | modeled | ≤$0.02 target |
+These are internally consistent **assumptions**, not a bottom-up cost estimate. Validate each cost rate against the real mix of input/output tokens, tools, retries, evaluation, infrastructure, staff time, and fixed allocations. The growth rows assume economies that must be demonstrated.
 
-- **Ceiling:** $0.06/resolved ticket. **Pivot trigger:** >$0.06 for 14 days → route more traffic to cheap tier, cut context, or deprecate intents — decision forced, not drifted into.
-- **Overheads counted:** retries, eval sampling (1–10% of traffic), judge calls, monitoring — the harness multiplier, not naked inference.
-- **Price-shock test:** feature survives token price ×2 (margin math in cost-model workbook, linked).
+At baseline, the implied annual full cost is $11,904. If a separate estimate says $95,000/year, the full cost per 384,000 annual verified resolutions is about **$0.2474**, which fails the $0.04 target. Resolve this conflict; do not label a variable-cost subtotal as the full cost. A previous $260/day estimate over 1,900 attempts also cannot yield $0.031 per resolution within that same workflow.
 
-*Seeds:* the cost line inside every capability story + a cost-dashboard ops story.
+State the cost ceiling, review window, and response. Test price shocks and usage/review changes. Define any P90 scenario or per-outcome distribution explicitly; do not confuse it with the average above. Compare realized benefit with cost on a consistent scope and period.
 
----
+## 12 Lifecycle and launch
 
-## §12 · Launch Gates & Lifecycle (the living spec)
+Match requirements to the decision and risk:
 
-*Pins down:* the stage checklists, the pre-launch gate, and the post-launch decision. **Consumes:** `ship-decision` (the formal go/no-go), `eval-driven-development` (the rubric-as-spec cadence).
+- **Speclet:** problem, hypothesis, alternatives, a small behavior set, bounded next test, and open questions.
+- **Kickoff:** agreed scope, resources, intended outcomes, material risks, and validation work.
+- **Solution Review:** architecture, behavior contract, tests, telemetry, fallbacks, economics, and exposure design.
+- **Launch Ready:** required evaluation and safety/validity checks passed for the proposed exposure; monitoring, owners, recovery, and actual approvals ready.
+- **Impact Review:** results versus original hypothesis, harms, costs, surprises, and a decision to iterate, scale, hold for evidence, or retire.
 
-**Stage checklists (advance only when green):**
-- **Speclet:** problem + data (quant + 3 quotes) · hypothesis · strategy fit · comp set & prior art · 3–5 behavior examples · open questions + owners.
-- **Kickoff:** scope/non-goals · napkin mock (throwaway) · success metrics + MDE + guardrails · impact sizing · this document at v1.
-- **Solution Review:** behavior contract 15–25 · red-team list · tracking requirements (§10) · rollout design v1 · prompt v1.0 + regression suite.
-- **Launch Ready (the non-negotiable gate):** offline golden set green · human rubric live · runbook + fallbacks + **kill switch wired and drilled** · legal/sec reviewed · monitoring live *before* launch · rollback tested.
-- **Impact Review (30 days post):** results doc linked at §0 · what surprised us · annex updated with new good/bad/reject from real traffic · **decision: iterate / scale / retire** (choose one, in writing).
+Monitoring needed for safe exposure is ready before that exposure. Continuing evaluation after launch is not permission to skip a required check. Review timing follows evidence accumulation and consequence; thirty days does not guarantee significance. Prototype findings update the PRD and the next experiment. Stable criteria need no arbitrary monthly rewrite.
 
-**The living cadence:** daily AI-metric dashboard · weekly refreshed behavior examples from production corrections · monthly refreshed acceptance criteria on the top-10 AI stories · quarterly bias/fairness audit + capability-decay check (new model gen = reverify assumptions). The spec that stops updating the backlog has stopped being true.
+## 13 Questions and decisions
 
-**The prototype loop (continuous):** each prototype round tests a §13 open question; learnings update §1; the PRD constrains the next round. PRD and prototype are partners, not rivals.
+| Question or assumption | Evidence status | Responsible role | Needed before | Resolution and effect |
+|---|---|---|---|---|
+| Does reviewable drafting save meaningful time? | Provisional hypothesis | PM / research | Expansion decision | Link result and resulting choice |
+| Is team assignment sufficient to control spillover? | Needs queue and workflow evidence | Experiment owner | Controlled exposure | Record design and limits |
+| Is the cost target feasible on a full allocation basis? | Scenario assumption | Finance / engineering | Budget and launch decision | Reconcile estimates |
+| What can drafts say about refunds and legal requests? | Actual policy needed | Authorized policy owner | Affected use | Link policy and behavior examples |
 
----
+Record dates when agreed, assignment gaps where real, sources, and what new evidence would change the decision. “Verified” means a claim was checked against suitable evidence, not that every future outcome is certain.
 
-## §13 · Open Questions & Decisions Log (the alignment engine)
+## Appendix User story handoff
 
-*Pins down:* what's unresolved, who owns it, when it's due — the PRD is first an alignment tool; assumptions carry evidence tiers (⚠ reported / ◆ verified).
+Use [AI user stories](ai-user-stories.md) for the six coverage areas and worked items. Each item links the applicable decisions, evidence, ownership, monitoring/change trigger, cost implication, and unresolved assumptions. Shared requirements can be referenced; unnecessary copies can drift apart.
 
-| # | Open question / assumption | Evidence | Owner | Due | Resolution |
-|---|---|---|---|---|---|
-| 1 | Will Skeptic-segment agents accept drafts at ≥30%? | ⚠ 5-agent prototype only | PM | 25% ramp | — |
-| 2 | Is team-level randomization sufficient against queue contamination? | ◆ queue-sharing data pulled | Data | pre-shadow | — |
-| 3 | Legal: are auto-drafted refund commitments binding at draft stage? | open | Legal | pre-shadow | — |
+Measure User Story Health over defined reviewed items and applicable requirements. Complete documentation supports readiness but does not prove a safe or successful product. Send §6/§12 evidence to `ship-decision`, §7 to UX/trust work, §10 to observability, and §1 results to the retrospective.
 
----
-
-## Appendix · The User Story Bridge
-
-This PRD is not finished as a document; it's finished as a **backlog**. Every AI story inherits from a named section — see the companion deliverable `ai-user-stories.md` for the six story types (capability · eval/quality · fallback & degraded-UX · guardrail & safety · instrumentation · rollout/ops), the full template, and worked examples. The health metric: **% of AI stories carrying confidence thresholds + named failure owner + ≥3 behavior examples + drift trigger + cost target = 100% for anything shipping.** A story missing them is a deterministic story wearing an AI costume — send it back.
-
----
-
-*Sources synthesized: rtp-ai-prd SKILL.md v416 + CONCEPT.md (probabilistic core, ownership, cost, stories) · Aakash Gupta, "AI PRDs: Everything You Need to Know" (Aug 2025 — decision spine, behavior contract, teardowns, stage checklists, prototype loop) · Miqdad Jaffer (OpenAI) collaboration therein · Pawel Huryn, Complete Course: AI PM (alignment-first framing, why-now, acceptable variance, recovery UX) · OpenAI Model Spec pattern (examples as spec language).*
+The [evidence notes](prd-evidence.md) distinguish source guidance from this library's examples and design choices.

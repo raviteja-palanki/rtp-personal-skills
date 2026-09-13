@@ -1,28 +1,35 @@
-# Judge panel scoring sheet
+# Five-perspective board review
 
-Score the exported PNG. Not the Lucid editor. Not the JSON.
+Review the specific delivered asset. Also compare it with the live Lucid document when one is part of the deliverable. These five perspectives may be applied by one reviewer; they do not imply five independent judges or actual student participation.
 
-Session ______  Page tab (the claim) ______  Date ______
-Document id ______  PNG path ______
+```text
+Session / page / teaching claim:
+Document and page IDs:
+Asset path and revision or date:
+Intended use, placed dimensions, viewing distance:
+Reviewer and method:
+Checks performed: live export / local reconstruction / grayscale / simulated scale / physical print / classroom
+Checks still required:
+```
 
-Each seat scores 1 to 10. **The page ships only if every seat is 10.** A 9 is a fail. Do not average. Do not settle. A failed seat writes a one-line fix. Rebuild. Re-export. Re-score.
-
-| Seat | Score (1-10) | One-line reason | Fix if below 10 |
+| Perspective | What must pass | Score or not tested | Evidence and repair |
 |---|---|---|---|
-| Back-row student | | Can 19 TAPMI MBA-AI&DS students retell the claim after one look, from ten feet or an A4 Xerox? | |
-| Print producer | | Grayscale still splits adjacent planes. Type 24 pt or larger. Ink on light, or white on dark. Only those two. | |
-| Lucid native | | Poster grain. One of four page types. Assisted layout off. One rectangle per field. Not a website, slide, or Excalidraw card grid. | |
-| Copy chief | | Word caps. Claim is a claim. No coined lock. No classroom clock. No slop. Read it out loud. | |
-| Swiss poster | | Two planes, not confetti. Empty space load-bearing. Squint test. Would you pin this at A3? | |
+| Back-row learner | Essential text is readable at the intended distance or handout size; the main point is clear to the intended audience | | |
+| Print producer | Delivered type and lines are legible; grayscale preserves meaning; crop and resolution suit the destination | | |
+| Lucid practitioner | The live source and delivered asset agree as claimed; text and relationships render correctly; editable structure is preserved | | |
+| Copy editor | The claim is accurate and natural; necessary qualifications remain; supporting text earns its space | | |
+| Poster designer | Hierarchy, grouping, alignment, contrast, and empty space guide attention to the teaching purpose | | |
 
-**Ship rule (binary)**
+The TAPMI convention uses a **1–10 score and requires 10 in all five perspectives for final status**. Here, 10 means the defined checks pass for the identified artifact and conditions, with no known material defect. It does not mean objective perfection. Use the other scores only to indicate the extent of a diagnosed gap, with a concrete reason; do not invent precision or scores for unperformed tests.
 
-- [ ] Back-row student = 10
-- [ ] Print producer = 10
-- [ ] Lucid native = 10
-- [ ] Copy chief = 10
-- [ ] Swiss poster = 10
+The Print producer’s detailed inspection is [the readability checklist](readability-gate.md), not a separate competing release rule. Passing one perspective cannot compensate for a material failure in another.
 
-If any box is unchecked, the page does not exist. Do not start the next page. Do not drop it into Word or PPT. Do not call it a draft that is "good enough for class."
+## Record the result honestly
 
-Readability is the design. Color is extra. Never average a failed seat into a 10.
+- **Final for the stated use:** all five perspectives pass and all required validation is performed.
+- **Draft with a known defect:** identify the failed criterion and next repair.
+- **Reviewable, validation pending:** identify the missing check and what it would establish. A simulated distance review does not become an actual classroom test.
+
+Save drafts, evidence, and open issues throughout. Repair a representative page before replicating the same design defect across a batch. After a change, recheck affected properties and the final export; do not repeatedly rescore unchanged work solely to produce five tens.
+
+Historical class size and famous designer names are context or inspiration, not reviewer identities. A self-review must be labeled as such. If actual learner feedback conflicts with a previous score, investigate and revise the judgment rather than treating the score as proof that the learner is wrong.

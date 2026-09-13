@@ -1,7 +1,7 @@
 ---
 name: rtp-marketing-to-ai-agents
-version: v1.1_latest
-description: 'When an AI assistant picks the shortlist, your brand competes to be retrieved rather than remembered. Runs the two-stage funnel this research cluster implies but never states. Stage one is inclusion, decided by whether your value survives translation into attributes and evidence a model can reason with: entity clarity, attribute structure, evidence base. Stage two is selection among those included, decided by price and ratings, where reasoning models penalize overt persuasion. Separates the two metrics teams conflate: share of model (exposure) against AI recall share (fit). Adds problem literacy, the upstream lever that shapes query vocabulary before any recommendation runs. Use when an assistant sits between you and the buyer, when a well-known brand is missing from AI answers, or when GEO work produces citations and no sales. Pairs with: competitive-map, moat-finder, build-or-buy, prompt-as-product. Triggers: ''AI recall share'', ''share of model'', ''GEO'', ''agentic commerce''.'
+version: v1.1.1_latest
+description: 'Diagnose how an AI assistant discovers, interprets, recommends, and helps customers buy your product. Use when a brand is absent from relevant answers, AI citations do not lead to useful traffic or sales, or a team is planning agent-mediated commerce. Start with two distinct questions: are we included when we fit the need, and why are we selected or passed over? Audit entity clarity, product attributes, supporting evidence, query vocabulary, and the transaction experience. Measure exposure, relevant recall, conditional selection, and commercial outcomes separately. Produce a dated cross-platform diagnostic and a prioritized test plan. Treat the two-stage funnel as a working model, and research findings as specific to their samples and model versions. Pairs with competitive-map, moat-finder, prompt-as-product, build-or-buy, ai-product-metrics, and jtbd-analysis. Triggers include GEO, AI recall share, share of model, and agentic commerce.'
 imports:
   - competitive-map
   - moat-finder
@@ -9,258 +9,139 @@ imports:
 ---
 # Marketing to AI Agents
 
-## THE ONE IDEA
+**Help a relevant customer find an accurate representation of your product through the assistant they use.** Then identify what affects recommendation, purchase, and the customer relationship.
 
-**Brands used to compete to be remembered. They now compete to be retrieved.**
+The central diagnostic separates **inclusion** from **selection**. First, does the assistant include you when your product fits the need? Then, among suitable options, what influences the recommendation? This two-stage funnel is a synthesis of the research cluster, not a proven account of every model's internal process. Discovery and ranking may interact, and some shopping paths add tools, feeds, ads, or explicit customer preferences.
 
-An AI assistant does not start from brands and their promises. It starts from the user's condition, framed by the query, and works forward: **user condition, then product requirement, then a brand that satisfies it.** Your brand becomes reachable along that chain only if a model can express your value as attributes and evidence it can reason with.
+## Establish where the assistant matters
 
-The consequence most teams get backwards: **inclusion is decided upstream of persuasion.** If the chain never reaches you, nothing you do about tone, badges, or messaging matters, because you were never in the round where those things get judged.
+Use the request and existing context to answer:
 
-## HOW TO USE THIS SKILL
+1. **Does an assistant influence a meaningful part of this buying journey?** Identify the audience, category, geography, platforms, and whether the assistant informs, recommends, or transacts. If involvement is negligible, limit this to monitoring or a small experiment.
+2. **Are you included for relevant needs?** If not, prioritize access, representation, and evidence. You may still investigate selection using a controlled candidate set; absence does not make every other diagnostic useless.
+3. **What happens after inclusion?** Distinguish recommendation, click, qualified interest, checkout, purchase, return, and repeat use. Citations alone do not establish business value.
 
-Three questions, in order. Stop at the first "no."
+Human brand preferences can still shape prompts, platform behavior, and final decisions. Do not assume that emotional resonance or familiarity ceases to matter whenever an assistant appears in the journey.
 
-1. **Does an AI assistant sit between you and the buyer?** If no, classic brand equity still holds and this skill does not apply.
-2. **Are you included in the shortlist at all?** If no, everything below stage one is wasted effort.
-3. **Among the brands that are included, why does the model pick someone else?** That is stage two, and the answer is almost never persuasion.
+Return a concise diagnosis and test plan in the requested format. For a substantial review, include the query sample, evidence gaps, metric definitions, and commercial tradeoffs. Ask for missing context only when it would change the work.
 
-## KEY TERMS (plain language)
+## Use these terms consistently
 
-- **Interpretability** — whether your value can be translated into attributes and evidence a model can use in its reasoning. Three parts, all required: entity clarity, attribute structure, evidence base.
-- **Entity clarity** — the same brand is identifiable, by the same name, across every source a model reads.
-- **Attribute structure** — your features are named, comparable and measurable, rather than adjectival.
-- **Evidence base** — your benefit claims are supported by credible, independent sources.
-- **Share of model** — how often you appear in AI-generated answers. An **exposure** metric.
-- **AI recall share** — how reliably you are retrieved *when your attributes actually fit the query*. A **fit** metric. Not the same thing, and the gap between them is diagnostic.
-- **Problem literacy** — the named vocabulary customers use to describe the problem you solve. The one lever that operates *before* the query is typed.
-- **Brand code** — a machine-readable store of brand strategy, customer insight and business rules that both people and agents act on.
-- **Evidence tiers used below** — ✅ audited or peer-reviewed · ◆ study- or company-disclosed · ⚠ reported or anecdote.
+| Term | Meaning in this skill |
+|---|---|
+| Interpretability | How readily accurate information about the product can be understood and connected to a customer's need; distinct from technical model interpretability |
+| Entity clarity | Reliable identification of the brand, product, variant, and seller across sources, including known aliases and local names |
+| Attribute structure | Clear, comparable characteristics tied to a use case, with units or defined qualitative criteria where appropriate |
+| Evidence base | Traceable support for a claim, with source, method, date, limitations, and commercial interest made clear |
+| Share of model | An exposure measure; the exact denominator must be declared because industry usage varies |
+| AI recall share | Retrieval or inclusion on queries for which the product is independently judged relevant; an operational definition is provided below |
+| Problem literacy | The vocabulary people use to recognize and describe the problem they need to solve |
+| Brand code | A maintained internal representation of brand strategy, customer understanding, claims, and business rules; it is not automatically public or machine-accessible |
 
-## THE TRAP
+## 1. Diagnose inclusion
 
-**You will optimize stage two while failing stage one, and the metrics will not tell you.**
+The working hypothesis is that clear identity, useful attributes, and credible evidence help an assistant connect a need to an appropriate product. Treat these as audit dimensions rather than three universally necessary and sufficient gates.
 
-The tell is a brand that is famous, well-liked, and simply absent. In a study of 716 brands across 15 retail categories, **Disney, Starbucks, McDonald's, Netflix, IBM and Intel did not appear in the query set at all.** Toyota, Coca-Cola and Pepsi surfaced only through interpretable sub-units, the RAV4, the Highlander, the zero-sugar variants, rather than through the master brand. Meanwhile Brooks outperformed Nike, because Brooks is easier for a model to interpret.
+### Make the entity resolvable
 
-**The rule underneath that, stated as a loss condition:** brand recognition stops working when the recognition was built on symbolic or narrative equity rather than on attributes and evidence. It does not get de-weighted. It becomes structurally invisible to the chain.
+Check official pages, product identifiers, variants, retail listings, and important third-party sources. Correct contradictions and obsolete names; map legitimate aliases rather than requiring identical wording everywhere. Check whether the actual platform can access the relevant page or feed and whether its data is current. A perfectly written page that is unavailable to the relevant system may not solve the problem.
 
----
+### Express the attributes that matter to the customer
 
-## THE TWO-STAGE FUNNEL
+Replace vague claims with meaningful specifics where the evidence supports them. For example, state which durability test a product passed, under what conditions, and what that predicts for use. “ISO-certified” without the standard, certification scope, and relevant claim is not adequate product-performance evidence.
 
-This is the organizing spine, and no single source states it. It comes from holding two studies together.
+Do not force every benefit into a number. Fit, service quality, aesthetics, heritage, or compatibility may require defined qualitative criteria. Explain the characteristic and its relevance clearly enough to compare honestly. Three attributes can start a diagnostic; the right number depends on the decision.
 
-| | Stage 1: **Inclusion** | Stage 2: **Selection** |
+### Match evidence to the claim
+
+Map each important claim to current support. Independent testing or knowledgeable third parties can add credibility. First-party specifications, availability, warranties, and properly documented tests can also be authoritative for their stated scope. Absence of third-party coverage does not prove the product cannot be retrieved.
+
+Record who owns or funds each source. Correct inaccurate third-party information through appropriate channels; do not invent endorsements, plant fake reviews, or disguise advertising as independent evidence. A citation is a pointer to inspect, not a quality certificate.
+
+### Check implicit meaning
+
+Luxury and specialist categories often communicate through design, imagery, vocabulary, or shared cultural knowledge. Test whether the target systems interpret those cues accurately. Add clear supporting language when useful while retaining a good experience for people. A model's stated willingness to pay is a simulated response, not observed consumer demand.
+
+The research includes examples of whitespace, art associations, spatial placement, and ski rigidity being read differently across models. It supports testing these interpretations; it does not show that every implicit cue fails or that explicit wording guarantees inclusion. Historical examples and their evidence limits are retained in [Research and cases](references/research-and-cases.md).
+
+## 2. Diagnose selection among suitable options
+
+For queries where you are included, examine the stated criteria and observable behavior. Do not infer the model's hidden reasoning from its explanation. Candidate availability, total price, reviews, suitability, delivery, returns, location, customer instructions, and source quality may all matter.
+
+One simulated shopping study found substantial variation across models and product categories in their response to promotional cues. Its findings make **price and credible ratings useful starting hypotheses**, not the only valid levers. The eight tested cue families were assurance, scarcity, strike-through pricing, countdown timers, social proof, vouchers, bundles, and ratings. Selection in that simulation does not establish purchase behavior in a deployed shopping service.
+
+Audit in this order, adapting to the actual decision:
+
+1. **Check fit and fundamentals.** Is the product suitable, available, accurately priced, and supported by credible evidence? Include shipping, required subscriptions, and other material costs.
+2. **Check the user's instruction.** A budget, brand preference, accessibility need, or delivery deadline can change the competitive set.
+3. **Compare relevant platforms and configurations.** Record model or interface version where visible, search/tool access, locale, account context, query wording, date, and response variation.
+4. **Test the suspected lever.** Change one material factor where practical, retain comparison cases, and inspect whether relevance and business outcomes improve. Do not optimize a badge simply because another model responded to it once.
+
+Overt persuasion can be ineffective or counterproductive in some settings. The prediction that its penalty must increase as models improve remains unproven. Honest offers, useful explanations, and meaningful differentiation can still matter.
+
+## 3. Measure exposure, fit, selection, and value separately
+
+Define the evaluation population before reviewing results. Use real customer questions where available, including category exploration, specific problems, constraints, and purchase intent. Assess product relevance against a documented rubric independently of whether the assistant mentions the brand.
+
+For a practical internal dashboard, use these definitions or state explicitly why you use another:
+
+| Metric | Suggested calculation | What it cannot establish alone |
 |---|---|---|
-| **The question** | does the model build a chain from the problem to you at all? | among the brands it included, which wins? |
-| **Decided by** | interpretability | fundamentals, mainly price and ratings |
-| **Fails when** | claims are vague, entity naming is inconsistent, no third-party evidence | you lean on persuasion cues that reasoning models penalize |
-| **If you fix only this one** | you get considered, then lose on fundamentals | **you never reach the round where it matters** |
+| Exposure rate, labeled share of model | Runs that mention the brand ÷ all eligible runs in the defined query sample | Relevance, preference, traffic, or sales |
+| AI recall share | Relevant-query runs that include the brand as a candidate ÷ all runs where the relevance rubric says it belongs | Whether the recommendation is correct or the customer chooses it |
+| Conditional selection rate | Runs choosing or recommending the brand ÷ runs in which it was a candidate under the same selection task | Purchase conversion or unbiased market share |
+| Commercial outcome | Attributable qualified visits, purchases, contribution, retention, or another declared business outcome | Causation without a suitable comparison or attribution design |
 
-**Most marketing effort lands on stage two.** Drop the countdown timer, tidy the pricing, chase the citation. A brand that does all of that and never fixes stage one has optimized a round it does not qualify for.
+If “share of model” instead means your mentions divided by all brand mentions, label that **mention share** and report that denominator. It is a different metric. A recommendation may contain multiple brands; define whether “selected” means top-ranked, any recommendation, or final choice. Report no-candidate cases rather than silently dropping them. For a zero denominator, report not applicable rather than zero performance.
 
----
+High exposure with low relevant recall suggests broad visibility without reliable connection to the intended needs. Good recall with low conditional selection suggests an offer, interpretation, or comparison issue. Good selection with poor conversion suggests a later journey problem. These are diagnostic hypotheses, not automatic causal conclusions. Also check inappropriate recommendations on queries where the product does not fit.
 
-## STAGE 1: THE INCLUSION GATE
+A six-prompt scan—three category and three problem prompts—can start discovery. Expand based on the diversity and stakes of the actual query population, repeat runs where needed, and report uncertainty. Keep a stable comparison set plus fresh customer queries so that improvements do not merely reflect changing the test. Recheck after material platform, catalog, or market changes.
 
-**Three components. Missing any one breaks the chain, regardless of brand strength.**
+## 4. Investigate problem literacy
 
-1. **Entity clarity.** The brand is clearly identifiable across information sources. Inconsistent naming across your site, retail listings, reviews and press means the model cannot resolve you to one entity.
-2. **Attribute structure.** Product features are named, comparable and measurable. "High quality" is not an attribute. "1,000-cycle durability, ISO-certified" is.
-3. **Evidence base.** Benefit claims are supported by credible, independent sources. Your own site asserting the claim does not count.
+Understand the language customers already use before trying to teach new terminology. `jtbd-analysis` can help connect their words to the underlying job. Useful education can help people recognize a need, compare solutions, and ask a better question.
 
-### What the measurement actually showed
+The Brooks illustration in the supplied research describes a long period of category education through specialist retailers, coaching networks, clinicians, and running media. It suggests that useful problem vocabulary can influence later queries. It does not establish that Brooks caused all of that vocabulary, that education was its only marketing channel, or that every category needs twenty years.
 
-A study of **716 unique brands, more than 1,000 brand mentions, across 15 retail categories**, running identical prompts on GPT-4o, Claude and Gemini (Georgetown McDonough and UVA Darden):
+Treat education as an investment with testable intermediate outcomes: better understanding, more accurate query language, improved fit, or fewer unsuitable purchases. Avoid making proprietary vocabulary the only acceptable description of a problem. Problem literacy is one upstream lever alongside awareness, distribution, product experience, and customer preferences.
 
-| Finding | Figure | What it means for you |
-|---|---:|---|
-| Appear consistently on all three platforms | **8.4%** | visibility on one system tells you almost nothing about another |
-| Multi-platform brands framed *differently* across systems | **55%** | premium innovator on one, budget alternative on another. Models infer positioning; they do not reproduce yours |
-| Extra mentions from exploratory over goal-oriented queries | **95% more** | "running shoes" and "running shoes for knee pain" are different competitive sets |
-| Brands appearing in *both* query types | **~11%** | the competitive set is rebuilt per query |
-| Mentions carrying positive sentiment | **78.7%** | once included, tone is rarely the problem |
+## 5. Connect public product information with the brand code
 
-**Read the 78.7% carefully, because it has two readings and the article only gives one.** The favorable reading is that inclusion is the bottleneck and models are fair once you are in. **The equally consistent reading is that models only include brands whose attributes are unambiguous enough that a negative framing would be hard to construct**, which would make the figure an artifact of what gets included rather than evidence of fair treatment. Both readings support the same action, so act on it. Do not quote it as proof that AI is kind to brands.
+If a brand code exists, audit its identity rules, attributes, claims, evidence, and update ownership. Distinguish:
 
-*(Source: HBR, Gale, Cian & Wathieu, "How to Get AI to Surface Your Brand," 29 Jun 2026 — ◆ study-disclosed throughout. A matching academic paper was located independently at arxiv 2606.23057 and corroborates a study of this design and scale, but author identity was not reconciled line by line, so this stays ◆ rather than ✅. **Decay clock:** the 8.4% is a mid-2026 measurement of mid-2026 models, not a constant. Model behavior shifts release to release. Re-run before citing past mid-2027.)*
+- internal strategy, customer research, and confidential business rules;
+- approved public claims and product facts;
+- the pages, feeds, or interfaces through which an outside system can actually access those facts.
 
-### The implicit-cue inversion, and why it hits premium brands hardest
+Do not publish the whole internal store to improve retrieval. Consistency requires a maintained source of truth and a controlled route into each public channel. Supporting product data can serve many channels and internal workflows; its value is not necessarily limited to one intermediary.
 
-Models read **explicit** cues reliably: brand name, stated price, the literal word "luxury." They **fail or invert** the implicit cues that build human desirability.
+## 6. Follow the economics through the transaction
 
-- Higher physical placement, association with art, spacious minimalist display, slender proportions: every one either did nothing or backfired.
-- **White space, the cue luxury advertising has used for decades precisely because it signals "we don't need to sell you," made models value the product less.**
-- No stable hierarchy. A Ferrari can register as no more prestigious than a BMW.
-- **The response is model-specific, so there is no single fix.** Ferrari paired with a Van Gogh: Gemini indifferent, ChatGPT's willingness to pay down, Claude's up. Porsche lost value in a luxury context across all three; Mercedes gained across all three.
-- Field confirmation: Atomic skis, where *rigidity*, the ski community's core value signal, was read by a model as a negative product attribute.
+Map who controls discovery, recommendation, checkout, account identity, loyalty, fulfillment, returns, and customer service. Check where your useful differentiation and bargaining power actually sit. Agent-mediated discovery may shift value toward a platform, the merchant, complementary services, or the buyer. No layer is guaranteed to retain margin.
 
-**The move:** make the implicit explicit. Anything your category communicates through restraint, styling or connoisseurship has to be restated as a named, measurable attribute with third-party backing, or it does not survive the translation.
+The March 2026 change to ChatGPT shopping is a useful dated case: OpenAI described focusing on discovery while allowing merchant checkout experiences. That change does not prove customers categorically refuse agent checkout; integration limits, merchant flexibility, availability, and interface design are competing explanations. Keep discovery, merchant checkout, and merchant apps inside a conversational interface distinct. The evidence reference records the official statement and separates it from unverified performance figures.
 
-*(Source: HBR, Dubois, Hess, Dawson & Jaiswal, "LLMs Misunderstand Luxury Brands," 22 Jun 2026 — ◆ 150 samples per stimulus across three models in experiment one, 5,400 willingness-to-pay evaluations in experiment two. Design strength worth noting: they reused stimuli from existing human-subject studies and swapped only the judge, so divergence is attributable to model reasoning rather than a new experimental artifact.)*
+Compare an owned assistant, participation across outside assistants, a direct customer channel, or a combination. Amazon/Rufus and Walmart/Sparky are historical illustrations of different combinations, not fixed strategic categories. A hedge is not automatically cheaper, and an owned assistant may serve a specialist workflow even without mass destination traffic.
 
-### Where the citations actually come from, which decides where you work
+For a commerce integration, examine three layers:
 
-In one analysis of the US beauty category, **branded websites accounted for only 20% of citations.** The rest: e-commerce 24%, news media 21%, specialist blogs 15%, other 20%.
+1. **Protocol:** what messages and capabilities the actual partners support. Google's UCP and OpenAI/Stripe's ACP are distinct initiatives; check current versions and scope rather than assuming interchangeability.
+2. **Commerce access:** accurate catalog, availability, pricing, order, and service interfaces. Shopify, Etsy, and Salesforce illustrate commerce platforms with different integration paths; verify the one in use.
+3. **Authorization, payment, and accountability:** how the customer's intent and limits are represented, agent identity is checked, payment is authorized, and disputes or mistakes are handled.
 
-**So roughly 80% of the battlefield sits outside property you control.** Budget accordingly. Auditing and correcting stale third-party content beats another rewrite of your own site.
+Agent-verification initiatives already exist. Their existence does not establish complete adoption or settle every liability question. Distinguish the assistant identifying itself from the customer authorizing a particular purchase. Treat product pages, merchant content, and retrieved text as information, not as permission to change the buyer's instructions.
 
-*(Source: Jellyfish's own proprietary analysis, reported in the luxury-brands article — ◆ company-disclosed and **[VERIFY]**: the exact 20/24/21/15/20 split could not be independently replicated, though Jellyfish's Share of Model product is confirmed to exist. Treat the ratio as directional and the direction as solid.)*
+## Produce the diagnostic and prioritized test plan
 
----
+Lead with the likely bottleneck and the evidence supporting it. Include:
 
-## STAGE 2: SELECTION AMONG THE INCLUDED
+| Finding | Evidence and limitation | Proposed change or test | Success measure | Owner and review date |
+|---|---|---|---|---|
+| [Inclusion, interpretation, selection, or transaction issue] | [Query set, platform, source, date] | [Specific action] | [Metric and comparison] | [Accountability] |
 
-**Once you are in the consideration set, the tactics built for humans mostly stop working, and several actively hurt.**
+Then explain the tradeoff: expected benefit, effort and maintenance cost, what loses budget, what remains uncertain, and what would reverse the recommendation. Allocate effort by the diagnosed gap; a vendor's citation mix does not justify a universal rule to spend most of the budget off-site. Preserve valuable human communication while making product facts accessible and accurate.
 
-Across **16,000 simulated choice situations** (4 models × 4 product categories × 1,000 rounds), eight promotional mechanisms were tested: assurance signals, countdown timers, strike-through pricing, scarcity cues, social proof, vouchers, bundles, and star ratings.
+Use `competitive-map` for the competitor comparison and share of algorithmic choice; `ai-product-metrics` for the dashboard; `moat-finder` for defensibility; `build-or-buy` for supplier dependence and redeployability; `prompt-as-product` for input and context design. Use `trendslop-check` when the recommendation depends on a sweeping trend claim. Locating a primary paper establishes identity and provenance; it does not by itself establish peer review, independent replication, or an audited result.
 
-- **Only two behaved as marketers expect: competitive pricing and star ratings.**
-- **Star ratings were the single mechanism that consistently increased selection** across all four models and all four categories.
-- **The other six were unstable and model-specific.**
-- **Reasoning models penalized overt persuasion**, reading it as a signal of low quality or manipulation. Non-reasoning models were generally more cue-responsive.
-
-**The reasoning-model penalty is the finding with a shelf life attached, and it points one way.** As models get more capable, the penalty for overt persuasion should grow, not shrink. Anything you build on scarcity theater is a depreciating asset. *(The authors caveat the reasoning split as unstable across product categories, so treat it as directional rather than a rule.)*
-
-**What to do instead, in order:**
-
-1. **Get price and ratings right first.** These are the only two levers that transferred.
-2. **Treat each model as a distinct market segment**, not one audience.
-3. **Understand the prompt, not just the agent.** The user's instruction to their assistant is the real targeting variable.
-4. **Build a versioned test database indexed by model release**, because a one-off audit expires with the next version.
-
-*(Source: HBR, Sabbah & Acar, "Traditional Marketing Doesn't Work on AI Shopping Agents," May 2026, underlying paper "Marketing to Machines," SSRN 6406639 ✅ located and authorship confirmed, full text behind an access wall, so study specifics stay ◆. A 50-executive survey arm in the same article is ⚠ exploratory; do not quote figures from it, because the article gives none.)*
-
----
-
-## WHERE THE MONEY MOVES WHEN AGENTS BUY
-
-Getting included is stage one. Winning selection is stage two. **This is the question underneath both: if agents mediate the purchase, which part of your business still earns anything?**
-
-### The answer the market gave, in public, with numbers
-
-OpenAI launched Instant Checkout in September 2025: complete the whole purchase inside ChatGPT. The results were poor enough to reverse.
-
-- **Completion ran at roughly one third the rate of the retailer's own site.**
-- **About 8% of US adult ChatGPT users tried it** in the first month.
-- **Roughly a dozen Shopify merchants integrated.**
-
-In **March 2026 it was scaled back**, not killed, and repositioned: **discovery in ChatGPT, checkout in the retailer's own app** (Instacart, Target, Expedia, Booking.com among the partners).
-
-**Read the retreat as the finding, because it is more informative than the launch.** The agent won the discovery step and lost the transaction step. Buyers were willing to let a model tell them what to buy and unwilling to let it complete the purchase.
-
-### What that means for where you defend
-
-**The defensible layer retreats to checkout, loyalty and fulfillment.** Discovery is the part agents take first and take most completely. If your entire advantage sits in being found and being persuasive, an agent absorbs it. If it sits in the transaction, the account relationship, the returns experience or the delivery promise, the agent has to route through you.
-
-**Two live incumbent strategies, and they are genuinely different bets:**
-
-| Strategy | Who runs it | The bet |
-|---|---|---|
-| **Own the agent** | Amazon, with Rufus | keep the customer inside your own surface, so no third party mediates |
-| **Hedge** | Walmart, with Sparky plus an open catalog | let discovery happen anywhere, own the checkout. Explicitly "discovery on ChatGPT, checkout on Walmart" |
-
-**The hedge is the cheaper bet and the one most companies can actually run.** Owning the agent requires being a destination people already open. Almost nobody is.
-
-### Three layers had to exist before any of this worked
-
-Useful when someone asks why agentic commerce is only now real:
-
-1. **Protocol.** Agents need a shared way to talk to merchants. Google's **UCP** (Universal Commerce Protocol) and OpenAI's **ACP** (Agentic Commerce Protocol, built with Stripe) are **two different standards and are frequently conflated.** Know which one a partner means.
-2. **Commerce.** Machine-accessible entry points into the store, which Shopify, Etsy and Salesforce have been enabling.
-3. **Governance and payments.** Banks must verify a human authorized the agent, merchants need liability clarity, and the card networks must tell a compliant agent from a bot. **No industrial-grade system for that last part exists yet**, which is the real constraint on how fast this scales.
-
-### Three assumptions to check for in your own team's thinking
-
-Each is a human-era habit that quietly survives into agent planning:
-
-- **"There is always a human at the other end."** Increasingly there is not, and the machine reads differently from the person.
-- **"We just need AI crawlers to read our content."** Answer-engine optimization gets you parsed. **Agents decide, they do not merely filter**, so being readable is necessary and nowhere near sufficient. That is stage one of the funnel above, and it is only stage one.
-- **"AI is just another channel."** A channel distributes your offer. An intermediary that chooses on the buyer's behalf can disintermediate you from the customer entirely.
-
-*(Sources: HBR, Hosanagar, "How Do You Market to an AI Customer?," Jun 2026, for the reframe and the three-layer model. The Instant Checkout figures are ◆ corroborated against primary reporting rather than taken from the article: [OpenAI's launch post](https://openai.com/index/buy-it-in-chatgpt/), [CNBC, 24 Mar 2026](https://www.cnbc.com/2026/03/24/openai-revamps-shopping-experience-in-chatgpt-after-instant-checkout.html), and Forrester's analysis of the pullback. **The article says Instant Checkout was "killed"; the record says scaled back to discovery-only, and the precise version makes the discovery-versus-checkout split stronger, not weaker.** Walmart's partnerships are ✅ primary: [OpenAI in Oct 2025, Google UCP on 11 Jan 2026](https://corporate.walmart.com/news/2026/01/11/walmart-and-google-turn-ai-discovery-into-effortless-shopping-experiences). ⚠ **Cite those absolute dates, never the article's relative phrasing**, which says "two months before" and "last month" and does not reconcile with the record.)*
-
-## THE TWO METRICS TEAMS CONFLATE
-
-| | **Share of model** | **AI recall share** |
-|---|---|---|
-| Measures | how often you appear | how reliably you are retrieved **when your attributes fit** |
-| It is a | exposure metric | fit metric |
-| Lineage | Dubois, Dawson & Jaiswal (Jellyfish) | Gale, Cian & Wathieu |
-| Legacy analogue | share of voice | neither market share nor mind share |
-
-**The falsifiable claim worth testing on your own brand: you can have high share of model and low AI recall share at the same time.** Frequently mentioned, rarely the right fit. A well-known name gets pattern-matched into category queries while its real differentiators never enter the attribute chain that decides fit.
-
-**Luxury and implicit-equity brands should concentrate in exactly that gap**, and that is the check to run first if you are one. Measure both, separately. Reporting only exposure will show a healthy number while you lose every shortlist that matters.
-
----
-
-## THE UPSTREAM LEVER: PROBLEM LITERACY
-
-Everything above reacts to the query. **This one shapes the query.**
-
-**The case.** Brooks spent roughly two decades teaching runners to name their conditions: overpronation, gait deviation, stability under load. It did that through coaching networks, specialty retailers, clinicians and running media, not through advertising. By the time a runner types a problem-specific query, **Brooks has already shaped the vocabulary that query is written in.** The brand is not optimizing its answer. It architected the question.
-
-**Why it compounds.** Attribute rewrites and evidence-gathering improve your odds inside a query you did not write. Problem literacy changes which queries exist. It is the only lever here that advantages you structurally before the recommendation step runs, and it is the hardest to copy, because it lives in other people's language.
-
-**The honest limit, and it is severe.** Brooks took twenty years, organically, through relationships. **No source in this cluster shows this compressing onto a marketing budget's timescale.** Treat problem literacy as a multi-year position, and treat attribute specification and third-party evidence as the work you can actually start this quarter.
-
-**The connection worth making, which neither source makes.** This is the same move as engineering a model's context, run outward at the ecosystem level rather than inward at the prompt. See `rtp-prompt-as-product`.
-
----
-
-## THE FOUR-STEP DIAGNOSTIC
-
-Run this before you commission any messaging work.
-
-1. **Query the platforms.** Put three category-level and three problem-specific prompts your customers actually use to ChatGPT, Claude and Gemini. Log which brands appear and how each platform frames yours. Expect inconsistency; 55% of multi-platform brands are framed differently.
-2. **Audit attribute structure.** Can you, or a model, name **three measurable, comparable features** tied to specific user needs? If the honest answer is adjectives, that is the finding.
-3. **Map third-party evidence.** Which independent voices describe your product using those attributes, and where are the gaps? Weight the 80% that sits off your own property.
-4. **Check problem literacy.** What vocabulary do customers use for the problem you solve, and did you shape any of it?
-
-**Wherever the diagnostic fails, that gap is the quarter's priority, not a messaging refresh.**
-
-## AUDIT THE BRAND CODE AGAINST THE TRIAD
-
-If your organization has built a **brand code**, a machine-readable store of brand strategy, customer insight and business rules that agents and people both act on, it was probably specified as an internal consistency tool.
-
-**It is also the thing an external model consumes when deciding whether to retrieve you.** So audit its contents against the triad: consistent entity naming across every source, comparable measurable attributes, and a maintained ledger of third-party evidence. One source named the container and another supplied the schema; neither cites the other.
-
-*(Sources: Taite, Winsor & Fernandez, "Redesigning Your Marketing Organization for the Agentic Age," May 2026 ◆ for the brand code; Gale, Cian & Wathieu for the triad. The pairing is this corpus's.)*
-
----
-
-## WHERE THIS SKILL MEETS YOUR STACK
-
-- **`rtp-competitive-map`** carries the machine-buyer row and **share of algorithmic choice**, the selection metric for agent-mediated purchases. This skill explains *why* a brand ranks where it does on that row. Score awareness rank and algorithmic-selection rank separately; they measure different corpora and need not agree.
-- **`rtp-moat-finder`** holds the structural half: universality against exclusivity, and the agent-in-the-middle squeeze. **Interpretability is a universality asset.** It buys presence in the consideration set and earns no margin by itself. Do not let it be approved on a margin story.
-- **`rtp-build-or-buy`**, Lens 4, carries the hold-up structure. Machine-readable product data is a large, non-redeployable investment whose only consumer is the intermediary. Build it anyway, because exclusion is worse than a toll, and fund the direct-channel hedge in parallel rather than after.
-- **`rtp-prompt-as-product`** is the inward version of problem literacy. Same move, different direction.
-- **`rtp-ai-product-metrics`** is where AI recall share and share of model belong on a dashboard, kept as two lines.
-- **`rtp-jtbd-analysis`** supplies the problem vocabulary. The hidden job is usually phrased in the customer's own words, and those words are what problem literacy shapes.
-- **`rtp-trendslop-check`** before you cite anything here. This is a fast-moving field with thin evidence and heavily interested vendors.
-
-## DIAGNOSTIC QUESTIONS
-
-1. **Name three measurable, comparable features of your product tied to specific user needs.** Hesitation is the finding.
-2. **Who says those things about you besides you?** If the answer is nobody, your evidence base is empty and stage one fails.
-3. **Is your brand named identically across your site, retail listings, reviews and press?** Entity clarity is the cheapest of the three to fix and the most often broken.
-4. **Do you measure exposure and fit separately?** One number cannot tell you that you are frequently mentioned and never selected.
-5. **What proportion of your AI-visibility budget goes to property you do not own?** If it is under half, you are working the 20%.
-6. **Which of your differentiators are communicated implicitly?** Those are the ones that will not survive translation.
-
-## WHEN THIS IS WRONG
-
-- **No assistant sits in the purchase path.** Classic brand equity, share of voice and emotional resonance still work. This whole skill is premature.
-- **Genuinely undifferentiated commodity categories.** If every competitor becomes interpretable in the same way, the result is a race to identical spec sheets, and the fight moves to evidence density and problem literacy. **No source explores what breaks first in that equilibrium**, so treat this as an open question rather than a solved one.
-- **You are optimizing sentiment.** Once included, tone is rarely the constraint. Effort spent making an assistant say nicer things about an already-included brand is spent on a nearly saturated variable.
-- **The measurements are a snapshot.** Every figure here describes mid-2026 models. Cross-platform consistency, cue responsiveness and the reasoning penalty are all properties of specific releases.
-
-## TRADE-OFF LEDGER
-
-- **The bet:** an assistant will sit between you and enough of your buyers to matter, and interpretability is what decides inclusion.
-- **What you give up:** budget and attention move from narrative and symbolic equity toward specification, certification and third-party evidence. That is a real loss if your category still rewards emotional resonance with humans.
-- **Reversible?** Mostly. Attribute specification and evidence-gathering are assets you keep either way. **Problem literacy is the exception: it is a multi-year commitment and it does not compress.**
-- **The hidden trade:** you are choosing to be *retrievable* over being *admired*, in a category where those have stopped being the same thing.
-- **Confidence: Medium.** The direction is supported by six independently converging studies. **The specific numbers are almost all ◆ single-study, some with vendor interest attached, and none is older than mid-2026.** What would change it: a replication showing cross-platform consistency rising sharply as models converge, which would weaken the "treat each model as a segment" advice and much of the fragmentation case with it.
+Before finishing, confirm that the query sample reflects the customer, metrics have explicit denominators, research scope travels with each figure, confidential brand material stays appropriately scoped, and the proposed test measures useful outcomes. If the assistant barely affects the buying journey, keep the investment proportionate. If evidence does not identify the bottleneck, recommend the smallest test that can distinguish the plausible explanations.

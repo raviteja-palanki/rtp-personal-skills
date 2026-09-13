@@ -1,56 +1,48 @@
 # Responsible AI Program — Concept
 
-## What Problem Does This Skill Solve?
+This skill helps an organization turn responsible-AI principles into decisions, controls, resources, and learning. It examines how a program operates, including who can act and what evidence shows that the action was appropriate.
 
-Most enterprise AI ethics programs fail not because of bad intentions but because of structural design flaws. Teams write principles nobody enforces, create committees with no authority, and audit AI after it's already in production. The result: responsible AI as a PR exercise rather than an operating system.
+## Two complementary tools
 
-This skill exists to diagnose and fix the structural failures — using two research-backed frameworks from MIT Sloan.
+The **three gaps** locate recurring obstacles:
 
-## The Two Frameworks
+- Accountability: responsibility and follow-through are unclear or ineffective.
+- Strategy: ethical considerations are disconnected from product choices and business objectives.
+- Resources: people lack the competence, time, tools, access, funding, or authority to do the work.
 
-### Framework 1: The 3 Gaps (Diagnosis)
+**SHARP** provides five ways to address them:
 
-MIT Sloan research identified three recurring gaps in enterprise responsible AI programs:
+- Structure ownership at the project level.
+- Hardwire ethics into everyday procedures.
+- Align ethical risk with business risk.
+- Reward responsible behavior.
+- Practice ethical judgment as well as compliance.
 
-1. **Accountability Gap** — No individual is personally accountable when AI causes harm. Responsibility is diffuse across teams, vendors, and systems.
-2. **Strategy Gap** — AI ethics is reactive (fix problems when they occur) not proactive (ethics is a gate before launch).
-3. **Resource Gap** — Ethics teams can write policies but cannot implement or enforce them. They have voice, not authority.
+Işık and Goswami's October 2025 *MIT Sloan Management Review* article draws on over twenty interviews. Its five strategies are complementary, not sequential steps or universal templates. The skill's diagnostic questions and optional scores are adaptations; they are not validated measures of maturity or compliance.
 
-Use the 3 Gaps to diagnose WHERE the failure is before prescribing solutions.
+## What makes the review useful
 
-### Framework 2: SHARP (Implementation)
+A named owner needs an effective way to act, but that may include delegation, escalation, appeal, or system-level controls rather than personal override of every case. A committee can make accountable decisions when its mandate and follow-through are clear. Review technical capability, detection competence, decision rights, and operating capacity together.
 
-Five structural changes that close the gaps:
+Written authority, a working implementation, an exercised control, and evidence from operation are different states. Real stops and redesigns are useful evidence, but a stop count alone cannot distinguish good governance from unnecessary blocking. Examine justified approvals, upstream changes, representative exercises, and whether material issues were resolved.
 
-- **S**tructure ownership — Named individual, not committee, accountable for outcomes
-- **H**ardwire ethics — Ethics reviews as mandatory product development gates
-- **A**lign ethical and business risk — Translate ethics concerns into financial risk language
-- **R**eward responsible behaviour — Incentive structures that make ethics psychologically safe
-- **P**ractise judgment — Regular case studies and simulations to build the ethical judgment muscle
+Participation can improve a governance artifact when it creates understanding and feasible commitments. Requiring the receiving team to edit the document does not prove either. Similarly, stable criteria can remain appropriate, and embedded controls can prevent harm; their form alone does not determine effectiveness.
 
-## How This Fits the Safety-and-Trust Layer
+## Fit with the safety-and-trust layer
 
-| Skill | What it covers |
-|-------|---------------|
-| **Responsible AI Program** (this skill) | Organisational governance — who owns what, what gates exist, how ethics is embedded into the organisation |
-| **Safety-by-Design** | Technical architecture — how safety is encoded into AI system design |
-| **Safety-as-Moat** | Commercial positioning — how safety posture becomes enterprise competitive advantage |
+| Skill | Main decision |
+|---|---|
+| Responsible AI Program | Who owns decisions, how the lifecycle is governed, and what resources and evidence support it. |
+| Safety-by-Design | How the product implements appropriate safeguards and user controls. |
+| Agent Risk | What authority is justified and how unacceptable harm is prevented or contained. |
+| Safety-as-Moat | Whether demonstrated safety creates commercial value in the relevant market. |
 
-The three are complementary, not redundant. Organisations typically need all three, but in this order: governance first, then technical architecture, then commercial positioning.
+These areas develop together. Commercial claims should be supported by operating evidence; a new organization does not need to finish an elaborate governance structure before addressing an urgent product risk.
 
-## AIPM Course Mapping
+## Teaching and course mapping
 
-- **Module 14 (AI Governance)** — Primary mapping: 3 Gaps diagnostic, SHARP framework
-- **Module 15 (Responsible AI)** — Primary mapping: SHARP P (Practice judgment), ethics program design
-- **Module 06 (Enterprise AI)** — Secondary mapping: Resource gap, how enterprise AI teams are structured
-- **Module 16-17 (Leadership)** — Secondary mapping: How executives can lead responsible AI programs
+Retain the library's course mapping as a navigation aid: Module 14 for governance and the three gaps; Module 15 for responsible-AI practice; Module 06 for enterprise resources and structure; Modules 16–17 for leadership. Confirm the current course syllabus before presenting module labels as official requirements.
 
-## Key Insight for Teaching
+A useful teaching exercise is to follow one consequential AI decision from risk identification through challenge, authorization, enforcement, and outcome. Compare that evidence with the policy's promises, then identify the smallest change that addresses a real gap. Principles, training, checklists, and committees can all contribute when they connect to this work.
 
-The counterintuitive claim: **Responsible AI programs fail because they're built for awareness, not authority.** The fix is not more training, more principles, or more committees — it's structural redesign of who can say NO and at what stage.
-
-This reframe — from values to structure — is what makes the MIT Sloan research genuinely actionable rather than aspirational.
-
----
-
-*Version 1.0 — 5 APR 2026*
+Editorial revision 1.8.1 — 13 September 2026. [Main skill](SKILL.md) and [evidence notes](references/governance-evidence.md).

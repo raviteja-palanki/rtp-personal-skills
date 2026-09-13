@@ -1,108 +1,43 @@
 # Moat Finder — Concept Guide
 
-## FIRST PRINCIPLES
+Read [SKILL.md](SKILL.md) for the assessment process and [the evidence reference](references/evidence-and-historical-claims.md) for the research and historical examples.
 
-In traditional software, moats come from distribution (Salesforce), network effects (Slack), or switching costs (SAP). In AI products, most of these break down. Your model is licensed from OpenAI or Anthropic. Your distribution channel is the web and an API. Network effects require a two-sided market.
+## The core distinction
 
-What remains? **Data, workflow coupling, engineered context, and trust.** These are the four moats in AI products. One is not enough. Two is defensible. Three or more is fortress-grade.
+A useful product helps a customer. A defensible product also has an advantage a credible competitor cannot readily match, replace, or bypass on comparable terms. Those are related claims, but they require different evidence.
 
-The atomic insight: **A moat is a barrier that makes it expensive for competitors to replicate your value, not the absence of competitors.** Ten clones of your product can ship tomorrow if they have the same model. The moat is what makes the tenth clone worse than the original.
+For an AI application, a broadly available model is one input. Ask what turns it into distinctive customer value: useful information, workflow knowledge, reliable operation, relationships, distribution, or another scarce resource. Model development and specialized technical performance can also matter. The phrase “the model is the recipe” is a reminder to inspect the operating system around it, not a rule that models can never contribute to a moat.
 
-## DUAL DEFINITION
+## Five mechanisms, plus distribution
 
-**Business definition:** A moat is the aspect of your AI product that remains defensible 18 months after launch, when the model you use is commoditized and competitors have copied every visible feature.
+1. **Data:** information that changes a useful outcome, is lawfully usable, and is difficult to substitute. Volume, age, or the word “proprietary” is insufficient.
+2. **Workflow:** valuable integration and accumulated context that make replacement costly or less useful. Measure migration rather than assuming all customers are locked in.
+3. **Harness:** engineering and practices that turn model outputs into reliable results. Context, evaluations, memory, tools, and recovery may share one mechanism rather than count as separate moats.
+4. **Trust:** a demonstrated ability to meet the promise customers care about. Assess performance, recovery, and effects on customer choice; trust does not disappear or recover on a universal schedule.
+5. **Network effects:** participants benefit from other participants. Data accumulation alone is not enough, and neither a two-sided marketplace nor a price premium is required.
 
-**Technical definition:** A category of product advantage (data accumulation, user workflow state, proprietary systems engineering, or reputation) that increases in value as scale and time increase, creating increasing returns against competitors attempting to replicate the product.
+**Distribution** can reinforce any of these through default surfaces, partners, or useful ecosystems. Consider who controls access and what alternatives exist.
 
-## MOAT TYPES (Deep Dive)
+The earlier concept guide used four categories and treated three moats as “fortress-grade.” The current five-category framework includes network effects explicitly and treats counts as descriptive. One strong mechanism can matter more than several weak or overlapping ones.
 
-### 1. Data Flywheel
+## A compounding loop needs evidence
 
-The gold standard. Every user interaction generates training data that improves the model, which attracts more users, which generates more data. This is how Anthropic (in theory) creates moat: Constitutional AI feedback loops compound.
+The candidate loop is: useful participation → informative signal → validated improvement → better customer outcomes → continued participation. Every arrow can fail. Usage can produce noise; data rights may limit reuse; the metric can reward the wrong behavior; an improvement may not affect the customer; a competitor may obtain an effective substitute.
 
-**Why it works:** Competitors can't catch up without equivalent data volume. Even with identical model architecture, their version is weaker.
+Measure the loop instead of assuming every interaction trains the model. Public and synthetic data can be useful when appropriately validated. A stock of historical information can remain valuable, and a current flow can still be easy to copy. Identify who can use the signals and who receives the improvement.
 
-**Why it fails:**
-- Model capabilities improve faster than your data accumulates. If GPT-7 is 10x better than your fine-tuned GPT-4, your data moat vanishes.
-- Usage plateau. You stop generating new data at volume.
-- Data stagnation. Your users aren't generating the right kind of data anymore — they're using the product in stable ways that don't improve the model.
+## Retain the asset through change
 
-**Real examples:**
-- Google Maps: billions of routes improve routing algorithms; competitors start from scratch
-- Anthropic (potential): if Constitutional AI feedback truly compounds, moat is unbreakable
-- Weather.com: historical weather data + user corrections improve models; no competitor has equivalent data
+Test three changes: a better model becomes available, a customer switches systems, or key people leave. The question is what remains useful and hard to reproduce in each case. Portability for an authorized owner can coexist with strong restrictions on competitor access. Tacit knowledge can contribute to advantage even when transfer requires practice, observation, documentation, or collaboration.
 
-### 2. Workflow Lock-in
+An acquisition or license can transfer valuable scarce resources. It does not automatically transfer the routines and relationships that make them productive. Inspect what actually moves and what must be rebuilt.
 
-Users have trained on your interface, rewritten their workflows around your API contract, or fine-tuned a model that's specific to your format. Switching means retraining, recoding, or data migration.
+## Intellectual connections
 
-**Why it works:** Switching cost is real. A financial analyst who's been using your system for a year has invested 200+ hours learning it.
+Buffett's moat language and Helmer's Seven Powers remain useful: scale, brand, switching costs, scarce resources, networks, and processes do not cease to matter in AI. Ravi's CONTEXT framework helps locate technical and operating responsibilities, but advantage can emerge across several layers.
 
-**Why it fails:**
-- Standardization. If an open standard emerges (like OpenAI's plugin standard), switching becomes cheaper because the new tool can plug into the same infrastructure.
-- Commoditization of the underlying tool. If your moat was "proprietary fine-tuning of GPT-3," and GPT-4 makes fine-tuning irrelevant, your lock-in evaporates.
-- Incumbents lock in harder. Salesforce can lock in 1000x better than your startup because they have 20 years of customer data.
+The earlier Anthropic example proposed context depth, trust, and a data flywheel as three hypotheses. Constitutional AI is a training approach with supervised and reinforcement-learning components, not merely a context trick or proof of an automatic customer-feedback loop. Assess any current company against current evidence rather than inheriting those scores. The evidence reference also preserves the Google Maps, Weather.com, Slack, Salesforce, Apple, and other examples with their limitations.
 
-**Real examples:**
-- Slack: switching means migrating thread history, integrations, and muscle memory. Moat is strong but eroding as Discord, Teams, and Discord improve.
-- Anthropic's Claude API (potential): if the Constitutional AI model becomes essential for safety-critical tasks, lock-in is in the contract itself. But moat is fragile if GPT-7 is safer.
+## What a good conclusion says
 
-### 3. Context Engineering Depth
-
-The invisible advantage. Your prompts, constitutional principles, evals, system prompts, and fine-tuning approach are so sophisticated that they produce reliably better results than competitors using the same base model.
-
-**Why it works:** It takes months of R&D to build equivalent sophistication. It's the 90% of work that users don't see but feels magical.
-
-**Why it fails:**
-- Reverse engineering. Competitors can eventually reverse-engineer your prompts and evals from your outputs.
-- Capability leaps. When the base model improves dramatically (GPT-3 → GPT-4), the gap from context engineering shrinks because the raw capability is already there.
-- Commoditization of tools. Better prompt testing frameworks, automated eval suites, and open-source constitution libraries compress the moat timeline.
-
-**Real examples:**
-- Anthropic: The entire Constitutional AI stack is context engineering depth. This is their primary moat today and will be for 24+ months.
-- OpenAI's ChatGPT: The system prompt and RLHF tuning are context depth. competitors are catching up as they adopt similar approaches.
-
-### 4. Trust
-
-You have a track record of reliability, alignment, safety, or accuracy. Users trust your outputs because you've consistently delivered. This is earned, not built.
-
-**Why it works:** Trust compounds. One bad incident can destroy it, but years of good incidents build it. Anthropic's brand in safety-critical domains is trust moat.
-
-**Why it fails:**
-- One bad incident. A single failure at scale ("Claude made up case law") erases years of trust-building.
-- Commoditization of trust markers. If every AI company gets regulatory approval or certifications, the difference flattens.
-- Young companies lack track record. You can't fast-track trust.
-
-**Real examples:**
-- Anthropic in biotech and government: the brand is "we care about AI safety." This moat is real but fragile.
-- Medical device companies: FDA approval is a trust moat. Competitors need to go through the same process.
-
-## THE TRAP (Expanded)
-
-**Confusing visibility with moat.** Teams ship an impressive context engineering solution (a clever prompt, a good eval system) and think they've built a moat. Six months later, every competitor uses similar prompts. The team scrambles to add features they don't need instead of building real moat.
-
-**Moat imitability bias.** "Our moat is our people" is code for "we don't have a moat, we're just executing well right now." Moats should survive talent churn.
-
-**Moat precedence error.** Launching without deciding the moat type. This forces the product into the worst-case moat: neither flywheel, nor locked-in, nor unique context, nor trusted. Just a feature.
-
-## INTELLECTUAL LINEAGE
-
-- **Warren Buffett, "Moat"** — The foundational business thinking. Buffett's moat types (network effects, switching costs, brand, cost advantages) mostly don't apply to AI; thus a new framework is needed.
-- **Ravi's CONTEXT Framework** — The seven-layer architecture where moats live in the Constitution and Equipment layers, not the Execution layer.
-- **Anthropic's Safety as Moat** — The bet that Constitutional AI depth and trust become more defensible than raw model capability.
-- **OpenAI's Data Flywheel Theory** — The belief that usage at scale (ChatGPT) compounds into better models.
-
-## REAL-WORLD EXAMPLE: Three Moats in Anthropic's Strategy
-
-1. **Context Engineering Depth (strongest now):** Constitutional AI, RLHF, safety layer. Takes competitors 12+ months to match.
-2. **Trust (building):** Track record of safe, aligned models. Every safe release strengthens this.
-3. **Data Flywheel (potential):** Constitutional AI feedback from users could compound, but only if usage scales fast enough.
-
-What Anthropic is *not* betting on: workflow lock-in (Claude isn't that coupled to any workflow) or exclusive data (they publish research, they don't hoard data).
-
-## FURTHER READING
-
-- Warren Buffett & Charlie Munger, "Berkshire Hathaway Letters" — Foundational moat thinking
-- Ravi Teja Palanki, "The CONTEXT Framework" — Seven-layer production AI architecture
-- Anthropic, "Constitutional AI" research papers — How to engineer context as moat
-- Peter Thiel, "Zero to One" — Monopoly thinking (closely related to moats)
+Name the valuable advantage, why it is hard to substitute, who controls it, what threatens it, and the next test or investment. If the evidence only supports a useful feature or operating capability, say so. That can still be worth building. A moat claim earns its place by improving the decision, not by making the product sound invulnerable.

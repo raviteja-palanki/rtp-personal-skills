@@ -1,8 +1,10 @@
-# Diagram Type Catalog
+# Diagram pattern catalog
+
+Reference revision 1.4.1 — reviewed 13 September 2026. These are layout sketches, not complete XML templates or claims about the content of every system. The main skill owns readability and geometry guidance. Size from the actual text, delivered image width, and connection lanes.
 
 ## 1. Layer Cards (Architecture Diagrams)
 
-**Story:** "These layers build on each other. Nothing ships without passing through all of them."
+**Story:** "These layers relate in the direction shown." Describe the actual dependency; a layer arrangement does not by itself establish a mandatory release sequence.
 
 **Layout:** 2-3 large cards horizontally, connected by labeled arrows.
 Each card has a colored header bar, subtitle, description, and chip tags.
@@ -31,7 +33,7 @@ maturity models, any "A feeds B feeds C" narrative.
 
 ## 2. Grid Cards (Feature Catalogs)
 
-**Story:** "Here's the complete set. Each one is distinct. Pick what you need."
+**Story:** "Here are the options in scope." Say whether the set is exhaustive and how the reader should choose.
 
 **Layout:** 2×3, 3×3, or 4×2 grid of uniform cards with colored headers.
 Row 2 can have fewer cards (centered).
@@ -42,7 +44,7 @@ Row 2 can have fewer cards (centered).
 ```
 [Header Band]
 
-[Card] [Card] [Card] [Card]    ← Row 1 (4 cards @ 270px)
+[Card] [Card] [Card] [Card]    ← Row 1 (4 cards @ 260 units)
   [Card] [Card] [Card]         ← Row 2 (3 cards, centered)
 
 [Story callout]
@@ -50,9 +52,9 @@ Row 2 can have fewer cards (centered).
 ```
 
 **Card sizing:**
-- 4 per row: 270px wide, 20px gap → starts at x=40, 330, 620, 910
-- 3 per row: 270px wide, centered → starts at x=135, 465, 795
-- 2 per row (wide): 555px wide → starts at x=40, 615
+- 4 per row: 260 units wide, 20-unit gaps → starts at x=50, 330, 610, 890
+- 3 per row: 340 units wide, 40-unit gaps → starts at x=50, 430, 810
+- 2 per row: 535 units wide, 30-unit gap → starts at x=50, 615
 
 **When to use:** Skill catalogs, tool comparisons, feature lists,
 option menus, team capabilities.
@@ -80,7 +82,7 @@ Optional branching with decision diamonds or split paths.
 ```
 
 **Box sizing:** 180-200px wide, 48-54px tall, 12px rounded corners.
-Arrow spacing: 25-30px gap between box edge and arrow tip.
+Reserve a connector lane that fits the arrow, endpoint clearances, and label. A 25–30-unit clearance can work in a wide lane but is not a universal minimum.
 
 **When to use:** Import chains, data pipelines, user journeys,
 deployment flows, decision processes.
@@ -89,7 +91,7 @@ deployment flows, decision processes.
 
 ## 4. Grouped Sections (Plugin/Domain Maps)
 
-**Story:** "Five domains, each with its own specialization. Together they cover everything."
+**Story:** "These domains group the work in scope." Do not claim total coverage without checking the inventory.
 
 **Layout:** Large containers with colored borders, each holding
 a subtitle and multiple chip tags. Containers stack or tile.
@@ -115,8 +117,8 @@ a subtitle and multiple chip tags. Containers stack or tile.
 ```
 
 **Container sizing:**
-- 2 per row: 555px wide
-- 3 per row: 370px wide
+- 2 per row: 535 units wide with a 30-unit gap
+- 3 per row: 340 units wide with 40-unit gaps
 
 **When to use:** Plugin catalogs, department structures, domain maps,
 multi-team overviews, capability matrices.
@@ -147,7 +149,7 @@ multi-team overviews, capability matrices.
 [Footer]
 ```
 
-**Card sizing:** 370px wide, 200px tall, each with different header color.
+**Card sizing:** Start with 340-unit widths and fit height to the content. Distinguish workflows through labels and grouping; a different color for every card is optional.
 
 **When to use:** Workflow menus, playbook selection, decision trees
 where the first choice is "which path am I on?"
@@ -196,8 +198,7 @@ Skill name in bold color, quote in body text.
 
 **Story:** "This is the gap. This is what closes it."
 
-**Layout:** Two panels side by side. Left panel red-tinted (problem/without).
-Right panel green-tinted (solution/with).
+**Layout:** Two panels side by side. For a genuine before/after story, use labeled problem and outcome panels. For options with trade-offs, use neutral or balanced treatments rather than automatically making one red and one green.
 
 **Dimensions:** 1200 × 200-400px (often used as a section within a larger diagram)
 
@@ -228,4 +229,8 @@ Most real diagrams combine 2-3 types. Common combinations:
 | Grouped Sections | Insight lines | Domain map where each section has its own punchline |
 
 The rule: **the combination should serve the story, not show off technique.**
-If two types can tell the story, use one. Add the second only if it adds clarity.
+Use one pattern when it is sufficient. Add a second when it explains a distinct relationship.
+
+## Additional patterns
+
+Use **Nested Groups** for containment, **Step Ladder** for ordered stages, **Hub-Spoke** for relationships to a central item, and **Funnel** for narrowing inputs or choices. A **Context Bar** shows capacity only with units and a denominator. An **Agentic Loop** should show exit conditions and failed or escalated paths, not imply endless repetition. A **Deliverable Map** connects each owner to its artifact and recipient. These names describe visual structures, not hidden runtime behavior.

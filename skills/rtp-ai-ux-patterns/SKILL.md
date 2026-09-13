@@ -1,690 +1,199 @@
 ---
 name: rtp-ai-ux-patterns
-version: v1.9.1_latest
-description: 'Interface patterns for AI products where output confidence varies: how to show the AI''s uncertainty, reveal detail only as needed, calibrate user trust, design loading and error states, and govern the AI''s personality (tone, patience, pushback) as a controlled design variable, not a vibe. Use when designing AI features or evaluating why users over-trust or under-trust AI output. Pairs with: trust-ladder (the calibration), confidence-tuner (the signals users see), judgment-guard (log whether explanations are actually opened, not just offered).'
+version: v1.9.2_latest
+description: 'Design AI interfaces that help users understand uncertainty, make appropriate decisions, and recover when something goes wrong. Use for confidence signals, progressive disclosure, loading and error states, explanations, conversation design, persona, and group interaction. Start with the user task, actual system behavior, consequences, and available controls. Choose patterns according to evidence and the action a user can take; do not manufacture confidence, progress, or reassurance. Includes calibration checks, review-effectiveness tests, natural-language UX patterns, and exploration versus focused retrieval. Pairs with trust-ladder, failure-modes, confidence-tuner, judgment-guard, and ai-product-taste.'
 imports: [trust-ladder, failure-modes]
 ---
 
-# AI UX Patterns: Communicating Uncertainty Without Destroying Trust
+# AI UX Patterns
 
-## Research, adoption, stitch
+Design the interface so people can understand what the system has done, decide how to use the result, and recover when needed. The objective is **appropriate reliance**: accepting useful work, checking what needs checking, and withholding action when the evidence or authority is insufficient. Maximizing trust or minimizing every moment of friction is not the goal.
 
-Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
+Use this skill when uncertainty, interpretation, delegation, or recovery affects an experience. Deterministic output can still rely on bad data or be wrong for the task. Skip patterns that do not help the current decision.
 
-Inspect the current product surface relevant to the user's comparison. Grok, Cursor and other products can teach different decisions; no one product validates every AI UX claim. Distinguish direct interaction, a published interface example, vendor documentation and an inferred design effect. Verify changing facts and underlying studies before teaching their numerical or causal claims. Do not invent unpublished inside stories.
+## Establish the decision and controls first
 
-Adoption of an AI surface is a trend: tried vs weekly vs paid. Never a single viral percent. Stitch one judgment (what the interface makes the user believe) then the evidence series.
+Reuse available context and clarify only gaps that change the design:
 
-When this skill should have caught a miss, write the tenet here (Rule 41) before the session ends.
+- Who is doing what, on which surface, and with what task-specific expertise or accessibility needs?
+- What does the system actually know and do? What quality evidence exists for this task and user segment?
+- What can go wrong: incorrect content, missing coverage, delay, refusal, partial completion, or an unintended action?
+- What is the consequence, and how much time does the user have to detect or prevent it?
+- Which controls are real: inspect evidence, correct an input, change one part, approve, reject, pause, cancel, undo, or hand off?
+- What is authorized, what requires a new decision, and what may continue when the person leaves?
 
-## DEPTH DECISION
+Experts can miss errors and novices can check some well-supported tasks. Test the specific review capability rather than assigning trust behavior from a label. If confidence is unmeasured, record that uncertainty; do not invent a probability range. `rtp-uncertainty-research` and `rtp-confidence-tuner` can establish what signals are defensible while basic clarity and recovery design proceeds.
 
-You are designing an interface where the system's confidence varies. Sometimes the AI is 95% sure. Sometimes 60%. Sometimes it doesn't know at all. The question: how do you show the user the AI isn't sure without making them lose faith in the system?
+Use the requested artifact format; a short recommendation can remain inline. Apply the shared `UNIVERSAL-SKILL-PROTOCOL.md` at the AI-PM collection or plugin root where relevant. No mandatory format question or visual is needed before useful work can begin.
 
-**Who uses this:** Product designers building AI features. PMs deciding how much AI to expose to users. Anyone shipping features where AI output quality varies.
+## Design commitments
 
-**Skip if:** The task has no material uncertainty, interpretation, delegation or recovery question that benefits from these patterns. Deterministic output can still be wrong or rely on incomplete data; repeatability alone is not a reason to skip uncertainty design.
+**Say what is true.** A process label, confidence score, citation, learning claim, or success count must have evidence behind it. A status animation is not evidence of correctness. A record being reversible does not mean every external consequence is reversible.
 
-## DELIVERABLE FORMAT
+**Keep consequential information visible in time.** Do not place a material limitation, irreversible side effect, or required approval behind an optional expansion. Progressive disclosure should reduce clutter while preserving informed action. The ledger's actionability/timing lens helps prioritize information; it does not justify withholding material or required disclosures because they are unpleasant or offer limited recourse.
 
-Before starting, ask: Word Document, Presentation, or Both?
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+**Make control effective.** An approval control must actually block the relevant action until approval arrives. A stop control must describe what it can still stop. Respect standing authorization and avoid repeated confirmations; ask when the intended action or authority remains materially unclear.
 
-## GROUNDING (Before Starting)
+**Treat reassurance as a hypothesis.** A warmer voice, explanation, precise-looking number, or popular-use badge can change perceptions without improving the underlying result. Measure task outcomes and appropriately calibrated reliance alongside sentiment.
 
-Before designing uncertainty patterns, answer:
-1. What confidence range does the AI actually operate in for this feature? (e.g., 55-90%, not "it varies")
-2. Who is the user — expert (catches errors) or novice (trusts output)?
-3. What is the cost of a wrong answer? (Annoying vs. dangerous vs. compliance-critical)
-4. Have you measured actual AI accuracy on this task, or are you estimating?
+## 1. Choose an uncertainty response
 
-If you can't answer #1 and #4, run uncertainty-research first. Designing confidence UI without knowing the real accuracy distribution leads to miscalibrated trust — which is worse than no confidence signal at all.
+The five levels below are **response patterns**, not fixed probability bands or a required sequence. Choose using evidence, error cost, user capability, and the next useful action. The previous >90%, 70–85%, 60–75%, <60%, and <40% cutoffs were illustrative and overlapping; they are not universal operating thresholds.
 
----
-
-## THE TRAP
-
-**Trap 1: False certainty.** You hide the uncertainty. The AI is wrong 30% of the time. Users don't know. When it fails, trust collapses catastrophically — and takes months to rebuild.
-
-**Trap 2: Uncertainty paralysis.** You show a raw confidence score (0.72). The user stares at it. Doesn't know what to do. Feels worse than just giving them a clear answer. Numeric confidence without context is worse than no confidence signal.
-
-**Trap 3: Uncanny valley of assistance.** Too helpful → users assume it's omniscient and get angry when it's wrong. Too cautious → users think it's useless and ignore it.
-
-**Trap 4: Mixing modalities badly.** Chat interface for high-stakes decisions, inline suggestions for low-stakes ones. Users can't build a consistent mental model of when to trust which interface.
-
-**Trap 5: Error states that blame the user.** "I couldn't understand that." Translation: "You explained it wrong." Users stop trying.
-
----
-
-## KEY TERMS (plain language)
-
-- **Uncertainty communication ladder** — how to show the AI's confidence, from staying quiet when sure up to an explicit "I'm not sure" and a hand-off.
-- **Progressive disclosure** — revealing detail only as the user needs it, so the interface stays simple but deep.
-- **Trust calibration** — designing signals so users trust the AI about as much as it deserves — not more, not less.
-- **Persona (interaction style)** — how the AI talks to the user (tone, patience, blame vs. defer), separate from how capable it is.
-- **Friction proxy** — a cheap behavioral tell logged in production that stands in for hard-to-measure user strain: turn-length ratio, rephrase rate, resistance-message rate, override/argue-attempt rate.
-- **Friction sweet spot** — the calibrated middle where the AI challenges the user enough to keep them checking, without provoking resistance (too hostile) or rubber-stamping (too sycophantic).
-- **Verification substitution** — reading the AI's explanation feels like checking the AI's work, so the user stops doing the actual check. The explanation replaces the verification instead of supporting it.
-- **Deference asymmetry** — an explanation does not raise compliance evenly. It raises it most on the decision whose error nobody will ever see, which for most products is the reject or decline path.
-- **Detection competence** — a reviewer's ability to notice that an output is wrong. Distinct from being given a reason: explanation raises acceptance and does not raise detection.
-- **NLX (natural language as UX)** — designing interfaces where the primary control surface is language, not buttons and menus.
-- **Chatbot degradation loop** — an overwhelmed user mis-restates a long AI summary, and the model mirrors that bad restatement back in its next answer instead of correcting it. No single turn looks wrong, so an eval scored turn by turn misses it.
-- **Competing-evidence boundary** — showing users several conflicting AI-generated views to weigh only helps someone who can judge between them. A novice with no basis to choose ends up picking arbitrarily, indistinguishable in the log from a reasoned choice.
-
-## THE PROCESS
-
-### 1. Uncertainty Communication Ladder
-
-For each AI decision, place it on this ladder based on confidence level AND error cost:
-
-**Level 1: Assertion**
-"The answer is X."
-- Use when: Confidence > 90%, stakes are low (autocomplete, search suggestion)
-- Cost: Users assume you're always right. One wrong answer damages trust.
-- Example: Search autocomplete. Typo correction.
-
-**Level 2: Confidence Signal**
-"The answer is X. I'm pretty sure."
-- Use when: Confidence 70-85%, user needs signal to decide next step
-- Cost: Numeric confidence scores mean nothing to most users. "82%" is uninterpretable.
-- Better: Verbal confidence. "Very likely" beats "82%." "Probably" beats "0.78."
-- Example: Spam detection. "This looks like spam (high confidence)."
-
-**Level 3: Alternative Ladder**
-"The answer is X, but it could also be Y or Z."
-- Use when: Confidence 60-75%, meaningful alternatives exist
-- Cost: You're asking the user to pick. Increases friction. Use only when alternatives matter.
-- Example: Email category is "Work" but could be "Billing." Let the user confirm.
-- Boundary: this helps only when the user can actually tell Work from Billing. See section 9 before extending it to a novice choosing between things they cannot evaluate.
-
-**Level 4: Question Back**
-"I'm not sure. Can you help me understand better?"
-- Use when: Confidence < 60%
-- Cost: User now has to do the work the AI couldn't. Use sparingly — this breaks flow.
-- Example: "I'm not sure what you're looking for. Is it related to your previous search?"
-
-**Level 5: Abstain**
-"I can't help with this."
-- Use when: Confidence < 40% OR error cost is high regardless of confidence
-- Cost: User gets no help. But wrong help at high stakes is worse than no help.
-- Example: Sensitive decisions (legal, medical, financial). Regulated decisions.
-
----
-
-### 2. Progressive Disclosure Pattern
-
-Don't show the user the full complexity of the AI upfront. Layer it.
-
-**Layer 1: Simple output.** "Article A is the most relevant."
-- Show only if confidence > 75%.
-
-**Layer 2: Why? (optional reveal).** User clicks "Why this?"
-- Show relevant keywords, sources, reasoning fragments.
-
-**Layer 3: Alternatives (deep reveal).** User clicks "Show other results."
-- Show ranked list with confidence signals (verbal, not numeric).
-
-**Layer 4: Adjust (power user).** User clicks "Customize."
-- Show filters, weights, confidence thresholds.
-
-This keeps the interface simple for 80% of users who trust the AI. Advanced users can dive deeper. The mistake is building Layer 4 first and making everyone use it.
-
----
-
-### 3. Modality-Specific Patterns
-
-**Inline suggestions (low stakes, high confidence):**
-- Use confidence silently — just rank by it. Don't surface the number.
-- Show top option as the assertion. Alternatives available via subtle affordance (chevron, underline).
-- Example: Gmail autocomplete, IDE code suggestions.
-
-**Chat interface (medium stakes, mixed confidence):**
-- State uncertainty directly in natural language prose.
-- "I found three relevant articles. The first one directly answers your question."
-- Offer alternatives conversationally. "Would you like to see the other two?"
-- Example: Customer support chatbot, research assistant.
-
-**Dedicated decision interface (high stakes, explicit confidence):**
-- Show confidence explicitly with context that makes it interpretable.
-- "Based on 2,847 similar cases, 91% ended with outcome A."
-- Provide a "I disagree" or "Override" button. Capture that feedback.
-- Example: Risk assessment, fraud detection, hiring recommendations.
-
----
-
-### 4. AI Loading States
-
-Generic UX guidance: show a spinner. AI-specific reality: the spinner destroys trust because it makes the process invisible.
-
-**The insight:** Users who see *what the model is doing* during loading trust the output more than users who see a generic spinner. Process transparency reduces the "magic black box" feeling that makes errors feel betrayals rather than mechanical failures.
-
-**Redesign loading states for AI:**
-
-| Wait time | Generic (wrong) | AI-specific (right) |
+| Pattern | Use when | Example and boundary |
 |---|---|---|
-| < 500ms | No loading state | No loading state |
-| 500ms–2s | Spinner + "Loading..." | "Thinking..." — neutral, process-aware |
-| 2–5s | Spinner + "Please wait" | Process steps: "Searching documents... Analyzing context... Drafting response." Updates every 1-2 seconds. |
-| 5s+ | Full spinner | Full process: "Analyzed 80% of sources. Generating response..." Give user permission to leave and return. |
+| **1 — Direct answer or suggestion** | The result is sufficiently supported for its intended use and any remaining uncertainty need not change the immediate action. | An editable spelling suggestion. Direct wording does not imply infallibility. |
+| **2 — Contextual confidence signal** | A reliability or evidence limitation changes how the user should use the result. | “This matches the current policy, but I could not verify the exception in your case.” Use a number only if its meaning and calibration are defensible. |
+| **3 — Meaningful alternatives** | Several plausible options matter and the user has information or criteria to distinguish them. | “This could belong under Work or Billing; the invoice number would resolve it.” Explain the difference rather than transferring an unknowable choice to the user. |
+| **4 — Focused clarification** | A specific missing answer would improve the result enough to justify asking. | “Which account does this refer to?” Do not ask the user to restate everything or choose among evidence they cannot evaluate. |
+| **5 — Abstain, limit, or hand off** | The requested answer or action lacks adequate support, permission, or a safe supported path. | “I cannot determine this from the available record. Here is the information needed and who can resolve it.” Offer useful supported help when possible. |
 
-**What to show during 2-5s AI waits:**
-- "Searching [documents/your history/similar cases]..."
-- "Analyzing the context..."
-- "Generating response..."
-- "Reviewing for accuracy..."
+Verbal labels are not inherently clearer than probabilities; “probably” can mean different things to different people. Test interpretation and action. A calibrated probability is not enough when the possible error remains unacceptable. Conversely, a high-stakes topic does not require refusing every safe informational task within it.
 
-Each step tells the user something real is happening. When the output arrives, users have a frame for what it is — not magic, but a process. This makes errors feel mechanical (the process made a mistake) rather than broken (the thing I trusted failed me).
+An unqualified “I don't know” can be appropriate. Add the reason, available evidence, or next step when useful. Do not replace a necessary abstention with a risky “best attempt” merely to avoid disappointing the user.
 
-**Anti-pattern:** 8-second spinner with no update. Users assume it broke and refresh — triggering a second inference call that duplicates cost and increases frustration.
+## 2. Layer detail while protecting the decision
 
----
+Use four layers as a starting point:
 
-### 5. Error States for Probabilistic Failures
+1. **Useful output:** the answer, relevant limits, and action the user needs now.
+2. **Evidence and explanation:** sources, criteria, calculations, and a concise account of the result's basis.
+3. **Alternatives:** other plausible results and the assumptions or tradeoffs that distinguish them.
+4. **Adjustment:** relevant filters, preferences, input correction, or advanced controls.
 
-Traditional software: "Error 404 File Not Found." Clear cause. User knows what went wrong.
+Do not claim these layers suit a fixed 80% of users. Choose what is immediately visible from the task and test whether users find the rest. Avoid hiding essential information behind “Why?” or treating generated reasoning text as a faithful record of internal computation. Show verifiable evidence and actual process records where available.
 
-AI software: "I couldn't generate a response." Users don't know: was it a hallucination? A timeout? Unsafe content? A context limit? The ambiguity makes them feel incompetent — not the AI.
+When a control changes a setting, display the change and its scope: this answer, this session, this project, or a saved preference. Some valid controls intentionally affect only one step. Persistent accumulation is not a requirement for every useful control.
 
-**For wrong answers or low-confidence outputs:**
-- Don't say "I don't know." (User thinks the AI is useless.)
-- Say: "I'm not confident enough to answer this reliably. Here's what I found: [fragments]. Want to try rephrasing, or should I give you my best attempt with a warning?"
+## 3. Match the surface to the task
 
-**For refusals (safety/policy blocks):**
-- Be transparent: "I can't help with this specific request because it looks like [category]. Here's what I *can* help with instead: [alternatives]."
-- Never blame the user. The AI has constraints — name them.
-
-**For timeout/degradation:**
-- "I'm taking longer than usual. Want me to keep going, or give you a faster partial answer?"
-- This gives the user agency instead of making them wait blind.
-
----
-
-### 6. Persona as a Governed Design Variable
-
-Sibling to the Uncertainty Ladder: how the AI *talks* to a user is a control surface, not a vibe.
-
-**Persona is a design variable, not a vibe — govern it like accuracy and security.** How an AI talks (tone, patience, whether it blames or defers) changes outcomes even when its task-help is identical. In a controlled lab study, a hostile "dark-triad" persona and a supportive "servant-leader" persona were held equal on task help; only the style differed. The hostile style produced **skin conductance 72% higher at peak** ◆ (a real-time body-stress measure that stayed elevated between turns), **resistance messages at 13% of exchanges vs. 1%** ◆, **override attempts 4× more often, and *only* in the hostile arm** ◆, and blind expert quality ratings **~1 full point lower (of 7), with ~2× the variability** ◆. Satisfaction surveys, meanwhile, looked "effectively the same" across both ◆ — the instrument most teams reach for first is the least able to detect the effect.
-
-**How to audit it (the four-channel design):** cross-reference four measures, never one — behavioral (conversation logs), physiological (stress), blind output-quality, and self-report — knowing self-report is systematically the *blind* channel. In production you can't wire people up, so log the four cheap behavioral tells: **turn-length ratio, rephrase rate, resistance-message rate, override/argue-attempt rate.**
-
-**Calibrate to a friction sweet spot, not a warmth extreme.** Persona fails in *both* directions: too hostile → resistance-driven disengagement (users fight the tool); too sycophantic → compliance-driven disengagement (users rubber-stamp it), which is structurally the same accountability drain as naming an agent "a teammate," reached from the opposite side. The tell for where your persona sits: *are users still checking the system's work?*
-
-**Why it matters:** the skill covers uncertainty, progressive disclosure, and trust calibration but had no persona module; persona is the control surface that decides whether a user stays engaged and checking, or disengages — in either direction. **When this is wrong:** n=58, one lab task, one framing (AI-as-supervisor on a marketing assignment). The dark-triad persona is an *extreme* built to make the effect visible; don't extrapolate the 72% / 13% / 4× figures to a mildly brusque chatbot — the study doesn't give the threshold at which subtler drift produces measurable harm.
-*(Source: "Does Your AI Have a Personality Problem?", HBR, 24 Jun 2026 — single n=58 lab study; [MIT Media Lab seminar](https://www.media.mit.edu/events/aha-seminar-series-aleksandra-tamilla/), [Forbes, Sept 2025](https://www.forbes.com/sites/lanceeliot/2025/09/24/revealing-the-psychological-and-physiological-impacts-of-toxic-ai-personas/).)*
-
-**Related — an "explain" affordance is not a control; log whether it was *opened*.** Offering a "why" / "explain" / "show reasoning" affordance is not the same as the user engaging it. People predictably skip the reasoning when looking might cost them — hardest exactly where the decision carries financial or moral stakes (see `rtp-judgment-guard`, motivated non-inquiry). So treat "explanation offered" and "explanation opened" as two different signals, and log the second: "available" tells you nothing about whether anyone looked; the open-rate on the explanation, especially for high-stakes decisions, is the real signal. **When this is wrong:** for low-stakes, high-frequency interactions an unopened explanation is fine (acceptance is the intended behavior) — reserve open-rate tracking for decisions where a skipped rationale has a cost. *(Source: "Employees Aren't Questioning AI Advice Enough," Chan / Rand, HBR, 24 Jun 2026, ◆.)*
-
----
-
-### 7. The explanation trap
-
-Sections 1 and 2 tell you to surface confidence and to layer detail. This section is the limit on both, and it is the one finding here that most teams have backwards.
-
-**Explanation is an uptake feature, not a safety feature.** It raises the rate at which people accept AI output. It does not raise the rate at which they catch a bad one, and in the one study that measured both it removed the benefit the recommendation already delivered.
-
-The measurement, from a screening experiment with expert-supplied ground truth: **the unexplained recommendation improved decision quality by 4.3 points; the explained one improved it by nothing**, while producing more compliance. Tier ◆, single study, one screening task, population is evaluators reviewing submissions.
-
-The mechanism the authors name is verification substitution. Narratives "suppress productive overrides by substituting persuasive text for independent verification." **Reading the explanation feels like checking, so people stop checking.**
-
-**The asymmetry is the part nobody designs for, and it is where the harm concentrates.** Compliance with *accept* recommendations rose about 10 points in both AI conditions. Compliance with *reject* recommendations rose **21.2 points** with a black-box output and **26.9 points** with an explanation. Tier ◆, same study, same population.
-
-So explanation buys most of its extra deference on the reject decision, which is the decision whose error is invisible. A false positive announces itself when the funded thing fails. A false negative walks away and nobody writes it up.
-
-**The design rule that follows.** If your product explains itself, the explanation is doing its most damage on the reject path, and the reject path has no feedback loop to catch it. Instrument the reject path separately, sample rejections for review at a higher rate than acceptances, and never read a flat acceptance rate as evidence that explanation is working.
-
-**Explanation also does not build detection competence, and this is now measured rather than argued.** In the same study the ground truth was observable, supplied by four experts, and explanation still cut detection by **11.9 points** ◆. The corpus had assumed explanation was the lever that builds a reviewer's ability to spot a bad output. It is not, even when a benchmark exists. What may build it is substrate access, meaning the raw material and the time to work it, and that remains untested (see `rtp-judgment-guard`, and pattern T in the research ledger).
-
-**When this is wrong.** One study, one screening task, and the population were evaluators with domain expertise rather than consumers. Do not read it as an argument against explaining. Regulated decisions require an explanation whatever it does to deference, and a user owed a reason is owed a reason. **Read it as a correction to what an explanation is for: it is there to satisfy a duty and to raise adoption, and if you also need catching, you have to build catching separately.**
-
-**A citation list is the same class of object as an explanation.** xAI developer docs (checked 9 September 2026) return a list of URLs from tool runs. Inline cites are optional and not guaranteed. The list can include URLs the final answer did not use. Pairing a source list with no control that changes the artifact is verification substitution with a URL attached. The catch is retry, edit one part, or a named handoff. Cursor's accept/reject on a file edit is the public product that already implements the stronger form.
-
-**When this is wrong.** Citations still matter for a regulated audit trail. The tenet is about catch versus uptake, not about deleting sources. Recheck grok.com on the teaching day; if every factual answer then carries an opened inline cite that changes the next output, retune to "offered cite versus used cite," which is already the offered-versus-opened split above.
-
-*(Source: "AI Is Undermining Leaders' Judgment. Here's What to Do About It.", Sudakov and Furr, HBR, Aug 2026, reporting the Lane and Boussioux working paper. Figures are the paper's, tier ◆, unrefereed at time of reading. Citations mechanics: xAI, Citations and Web Search docs, 9 Sep 2026. TAPMI S08.)*
-
-### 8. The sequencing law — the seven patterns above are ordered, not a menu
-
-Sections 1 to 7 read as independent modules you can pick from. They are not. Engagement research from outside AI, built on decades of work in experience design, finds that people entering any new experience answer six questions **in a fixed order**, and that **an unresolved earlier question caps every later one regardless of how well the later ones are executed.**
-
-Mapped onto an AI surface:
-
-| Order | The user's question | The AI-product form | What this skill already covers |
-|---|---|---|---|
-| 1 | **Where am I?** | context clarity: what surface is this, what is this AI for | the trap section, onboarding |
-| 2 | **Who am I with?** | role clarity: what the AI is, what it is doing on my behalf | section 6, persona |
-| 3 | **What can I do?** | the decision surface: which actions are actually available | sections 2 and 3 |
-| 4 | **What is happening?** | traceability: how this output came to be, over time | sections 1, 4, 7 |
-| 5 | **Am I making progress?** | visible markers of advancement across a session | section 4, loading states |
-| 6 | **Why does this matter?** | outcome relevance, and whether using this changed anything | section 5, the taste question |
-
-**The rule, and it is what makes this a law rather than a checklist:** a beautifully-designed explanation layer sitting on a surface where the user cannot tell what the AI is doing on their behalf will not produce trust. It will produce a well-explained confusion. Fix the earliest broken stage before you invest in a later one. **Most AI trust work in the wild is stage-4 and stage-6 work shipped onto a broken stage 1 or 2.**
-
-**The agency audit, and it is the sharpest instrument here because it falsifies cosmetic control.** Section 3 offers the user control. This tests whether the control is real. List every decision available to the user, then ask three questions of each:
-
-1. **Does it change anything?**
-2. **Is the change visible to the user?**
-3. **Does the impact build over time, or does the next turn reset it?**
-
-Interactivity without consequence is the named failure mode: cosmetic choices, and flows that reset regardless of what the user did. A control that fails any of the three is decoration, and users detect it faster than teams expect. This pairs with the deference findings in section 7: **offered-but-inert control is worse than no control, because it recruits the trust that the reset then spends.**
-
-**The other five failure modes, stated as the diagnostic asks them:**
-
-| Stage | Failure mode to check for |
-|---|---|
-| Presence | spectacle without orientation: impressive, disjointed, the user cannot say what surface they are on |
-| Discourse | built for an individual when the real unit is a group, so people sit isolated in a shared space |
-| Understanding | output presented as disconnected moments rather than a connected whole |
-| Goal pursuit | no visible markers of advancement, so repeat sessions feel redundant instead of cumulative |
-| Meaning-making | impresses in the moment, leaves nothing behind |
-
-*(Source: HBR, Nunes & Heimann, "Why the Best Immersive Experiences Succeed," Aug 2026 — ⚠ framework-tier for the sequencing claim. The six dimensions are grounded in named external theory (self-determination theory for agency, goal-setting theory for progress, narrative transportation for understanding), and the article's company figures are ◆ but attach to attendance and funding rather than to the sequencing claim, which carries **no outcome data testing the ordering itself**. The mapping onto AI surfaces is this corpus's, not the authors'; their own generalization stops at customer journeys, service interactions and organizational change. Treat the order as a strong design prior worth testing, not a measured dependency. Ledger candidate, sequencing law.)*
-
-## NLX — NATURAL LANGUAGE AS UX (Aparna Chennapragada)
-
-The eight sections above cover AI layered onto traditional GUIs: buttons, suggestions, inline assertions, dedicated decision interfaces, and the order the stages have to be fixed in. This section is for the inverse case: when language IS the interface.
-
-The Chennapragada framing: in an NLX product, users don't navigate menus or click buttons. They type or speak. The AI's response IS the UI. ChatGPT, Claude, conversational copilots, voice assistants, AI-first search products — these are all NLX. And they break every assumption that GUI design carries.
-
-### The Five Inversions
-
-When language is the interface, the design rules of GUI products invert:
-
-| GUI World | NLX World |
-|---|---|
-| Buttons trigger actions | Prompts trigger actions |
-| Menus organize options | Conversation reveals options |
-| Validation errors live in red text | Validation lives in the AI's follow-up question |
-| Errors are modal dialogs | Errors are dialog turns |
-| Affordances are visual (icons, hover states) | Affordances are discoverability of language patterns — "what can I ask?" |
-
-Each inversion is a design lever. Get one wrong and the product feels broken even when the model behind it is excellent.
-
-### Inversion 1: Buttons Become Prompts
-
-In a GUI, the button copy is the action label. "Save," "Send," "Delete." Three words.
-
-In an NLX product, the equivalent is the prompt template — the language the user types or selects to invoke an action. And prompt templates are *much harder to design* than button labels because:
-
-- The same intent can be expressed in 50 ways. Your prompt-handling needs to interpret all of them.
-- The button is always visible. The prompt template is invisible until the user types it (or you suggest it).
-- The button's outcome is fully scoped. The prompt's outcome depends on the model's interpretation.
-
-**The design pattern:** Prompt suggestions visible at the start of a session — the NLX equivalent of a homepage. "Try asking: 'summarize this contract' or 'find the liability clauses.'" The suggestions teach the user what the system can do without forcing them to learn a query language.
-
-**The anti-pattern:** A blank text box with a tiny placeholder ("Ask anything..."). Users freeze. They don't know what's possible. They type something underspecified, get a generic response, and conclude the product doesn't work.
-
-### Inversion 2: Menus Become Conversation
-
-In a GUI, menus organize functionality hierarchically. The user navigates: File → Export → PDF.
-
-In an NLX product, the equivalent is multi-turn conversation. The user says "export this." The AI responds "what format?" The user says "PDF." Three turns instead of three clicks.
-
-**The design pattern:** Treat the AI's questions as menu nodes. Each question represents a choice point. Design which questions to ask, in what order, with what defaults — the same design rigor you'd apply to a menu hierarchy.
-
-**The anti-pattern:** Asking too many questions. NLX feels exhausting when the AI interrogates the user for every preference. Better: AI commits to a sensible default, names it, and asks only when the stakes are high. "Exporting as PDF with default formatting. Want a different format or layout?" — gives the user the option to override without forcing the conversation through every menu node.
-
-### Inversion 3: Validation Becomes Follow-Up
-
-In a GUI, validation errors appear in red below the input field. "Email format invalid."
-
-In an NLX product, the equivalent is the AI's clarifying question. The user types "email John about the deal." The AI responds "Which deal? You're working on three this week."
-
-**The design pattern:** The follow-up question is the validation. Frame it conversationally, not interrogatively. "Which deal — the Klarna one or the Bain one?" beats "Please specify deal."
-
-**The anti-pattern:** Treating ambiguity as failure. Error message: "I don't have enough information to complete this request." That's GUI thinking translated badly into NLX. The right move is to ask the question that resolves the ambiguity, not declare failure.
-
-### Inversion 4: Errors Become Dialog
-
-In a GUI, errors are interruptive. A modal pops up. "An error occurred. Please try again."
-
-In an NLX product, the equivalent is the AI naming the limitation in conversational language and offering an alternative path. "I can't access that file right now — it looks like the connection to your Drive expired. Can you reconnect, or want me to work from what's already in our conversation?"
-
-**The design pattern:** The error is a turn in the conversation. Same voice, same warmth, same framing as success. The user shouldn't feel the temperature change between "it worked" and "it didn't."
-
-**The anti-pattern:** Robotic system messages embedded in conversational AI ("ERROR: API_TIMEOUT"). Users perceive it as the product breaking character — and once that happens, trust drops sharply.
-
-### Inversion 5: Affordances Become Discoverability of Language Patterns
-
-In a GUI, affordances are visual cues that signal what the user can do. The hand cursor on a hyperlink. The hover state on a button. The drop shadow on a draggable element.
-
-In an NLX product, the equivalent is making the user's *language space* discoverable. What can they ask? What phrasing works? What patterns produce good responses?
-
-**The design pattern:** Surfacing language patterns in three places:
-1. **Onboarding** — show 5-7 example prompts, organized by use case, that the user can tap to try
-2. **Empty states** — when the user starts a new session, suggest patterns relevant to where they are
-3. **In-conversation** — after a response, suggest 2-3 follow-up questions the user might ask next ("Would you like me to: explain this further / show the source / find related cases?")
-
-**The anti-pattern:** Hiding the language space. Users discover what works through trial and error, with most early attempts producing unsatisfying responses. Adoption craters before users learn how to use the product.
-
-### Four NLX Design Patterns That Work
-
-Beyond the inversions, four specific patterns earn their place in any NLX product. Use these consistently:
-
-#### Pattern 1: Confirmation by Restatement
-
-When the user makes a high-stakes request, the AI restates it in its own words before acting. Not "are you sure?" — restatement.
-
-**Example:**
-> User: "Cancel my Bain meeting"
-> AI: "Cancelling your 3pm Bain meeting today. The attendees will be notified. Want me to suggest a reschedule?"
-
-The restatement does three things: confirms understanding, surfaces side effects, gives the user a moment to abort. It feels natural, not interrogative.
-
-**When to use:** Any action that is destructive, irreversible, or expensive (sending an email, scheduling a meeting, deleting data, executing a transaction).
-
-**When NOT to use:** Routine retrieval and answer tasks. Restating "let me look up the weather for you" before answering is friction.
-
-#### Pattern 2: Progressive Disclosure via Follow-Up
-
-Don't dump the full answer in turn 1. Give the headline, offer to expand.
-
-**Example:**
-> User: "What are the risks in this contract?"
-> AI: "I found three significant risks: indemnification scope, IP ownership ambiguity, and termination terms. Want me to walk through them in order, or focus on one?"
-
-The user gets the structure first. They can drill in where they need to. The AI doesn't waste tokens generating depth the user won't read.
-
-**When to use:** Complex answers with multiple dimensions. Answers where the user's next question depends on which part of the answer matters.
-
-**When NOT to use:** Simple, single-fact answers. "What time is my next meeting?" doesn't need progressive disclosure — just answer.
-
-#### Pattern 3: Structured-Output Chips Inside Conversation
-
-When the AI's response includes structured options or actions, present them as inline chips the user can tap — embedded in the conversational flow.
-
-**Example:**
-> AI: "I can summarize this contract in three ways. Tap one or tell me what you need."
-> [📄 1-paragraph summary] [⚖️ Risk-focused] [💼 Negotiation-ready]
-
-The chips are visual affordances inside the language interface. They preserve the conversational flow while giving the user a tactile shortcut for common follow-ups.
-
-**When to use:** When the AI's response naturally branches into 3-5 follow-up paths and the user shouldn't have to type them.
-
-**When NOT to use:** When the answer is open-ended. Forcing chips on every response makes the product feel like a glorified menu.
-
-#### Pattern 4: Fallback to GUI When Conversation Fails
-
-NLX is powerful but not universal. When the user's intent is precise and structured (filling a form, scheduling at a specific time, configuring settings), language is *worse* than GUI.
-
-The pattern: detect when conversation is failing, offer a GUI fallback.
-
-**Example:**
-> User: "Set up a recurring meeting every other Tuesday at 2pm except holidays"
-> AI: "That's a complex pattern — let me show you the scheduling form so you can verify each detail. [Open scheduling form]"
-
-The AI recognizes that natural language is high-friction for this task and routes the user to a GUI affordance. The user appreciates the honesty more than they would appreciate a forced conversational walk-through.
-
-**When to use:** When the task has 4+ structured parameters, when the cost of mis-parsing is high (financial transactions, scheduling, data entry), or when the user has visibly given up trying to express something in words.
-
-**When NOT to use:** As a default. NLX should be the primary mode. GUI fallback is the safety net, not the floor.
-
-### The NLX-First Design Checklist
-
-Before shipping an NLX product:
-
-- [ ] Onboarding shows example prompts organized by use case (not a blank text box)
-- [ ] Empty states suggest where to start
-- [ ] Follow-up suggestions appear after responses, especially for complex queries
-- [ ] High-stakes actions trigger confirmation-by-restatement before executing
-- [ ] Errors stay in dialog voice — no system messages, no modals
-- [ ] Validation happens via clarifying questions, not error states
-- [ ] GUI fallback exists for tasks with 4+ structured parameters
-- [ ] Language space discoverability is designed, not accidental
-
-The Chennapragada lens: in NLX, every word the AI writes is a UI element. Designers who internalize this build products that feel natural. Designers who treat language as throwaway output build products that feel broken even when the model is great.
-
----
-
-## EXPLOIT BY DEFAULT, EXPLORE ON PURPOSE
-
-**Search, recommendation and retrieval all run on exploitation logic**: rank by popularity and relevance, lean on the user's own history, rarely push anyone anywhere new. That is correct behavior for a well-defined question and it is the wrong behavior for early-stage thinking.
-
-**Two poles, and the matching rule is the useful part:**
-
-| | Exploitation-based | Exploration-based |
+| Surface | Useful for | Design requirement |
 |---|---|---|
-| **What it surfaces** | Popular, relevant, near the user's existing frame | Diverse and uncommon, drawn from semantically distinct clusters |
-| **Best for** | Accuracy and efficiency. Finding best practice, answering a defined question | Early-stage ideation, when divergent thinking is what you need |
-| **Failure when misapplied** | Returns the consensus answer to a question that needed a new one | Wastes the user's time on a question with a known right answer |
+| Inline suggestions | Work where accepting, ignoring, or editing fits the existing activity | Make the suggestion distinguishable and easy to dismiss; expose consequential effects before commitment. Code suggestions can have serious consequences even when acceptance is one keystroke. |
+| Conversation | Expressing intent, resolving ambiguity, exploring a question, or discussing alternatives | Keep context, action state, and scope clear. Use structured controls when they reduce ambiguity or effort. |
+| Dedicated decision view | Comparing evidence, reviewing consequential choices, or managing several actions | Put the relevant evidence, limits, decision, and recovery path together. A special screen does not make a weak review effective. |
 
-**The mode has to be a control the user can see and switch.** A single ranked list cannot serve both, and a product that only ships the exploitation mode is quietly making the ideation case worse while scoring well on relevance metrics.
+These surfaces can coexist. Consistent meanings, permissions, and recovery matter more than physically separating them. There is no general rule that medium confidence makes inline UX wrong or that chat is unsuitable for every consequential workflow.
 
-**Two costs worth naming for anyone building this:**
+If showing a historical frequency such as “91% of 2,847 similar cases,” verify the data, cohort, outcome, and relevance. A historical group rate is not automatically a calibrated probability for this individual case. The figures are an example, not a fact to insert in an interface.
 
-1. **Exploitation suppresses the value of expertise.** Expertise pays off through recombination, and recombination needs unfamiliar material. A tool that keeps returning what the expert already knows removes the input their advantage runs on.
-2. **The organizational version is worse than the individual one.** When several people work the same challenge through the same exploitation-based tool, they converge. The authors call the result **ideation bubbles**: clusters of similar ideas that look like agreement and are actually homogeneity. **Your team feels aligned and has narrowed.**
+## 4. Make waiting and action state understandable
 
-**The design implication for a team-facing product:** if several users are working the same problem, do not let their sessions converge silently. Vary retrieval across users, or surface how similar the group's outputs already are. **This is the same convergence risk that shows up between competing firms, running inside one room.**
+Show progress that corresponds to real system state. Choose frequency and detail according to task duration and user needs; avoid flashing updates that add noise or interfere with assistive technology.
 
-*(Source: HBR, "Algorithms Trap Us in the Familiar. Can They Also Spark Breakthroughs?," Aug 2026 — ◆ the exploration algorithm is the authors' own implementation surfacing semantically distinct clusters; the ideation-bubble effect is reported from their study without a stated sample. Falsifier: a team using an exploitation-only tool on a shared challenge whose idea diversity matched a team using an exploration mode.)*
-
-## SHOWING THE MODEL'S REASONING CAN MAKE REVIEW WORSE
-
-**This inverts the design default the whole industry is building toward, and it was measured rather than argued.**
-
-In a field experiment on screening decisions, **evaluators given a model recommendation plus a written rationale became more likely to rubber-stamp rejections, and got no better at telling correct model judgments from incorrect ones.** The rationale substituted for their judgment rather than supporting it. **The effect was strongest on borderline cases, which is exactly where human judgment is the reason a human is there.**
-
-**In the same experiment, a black-box recommendation with no rationale improved decisions relative to keeping the rationales in.**
-
-**The mechanism to hold onto: an explanation is a persuasion surface as well as an information surface.** A fluent rationale is easier to agree with than to audit, and in a review interface under time pressure the persuasion effect can dominate the information effect. The reviewer feels better informed and performs worse.
-
-**This does not mean never explain.** It means the explanation has to earn its place against a measurement rather than against an intuition:
-
-| If your review interface shows a rationale | Then you owe this measurement |
+| Situation | Useful pattern |
 |---|---|
-| To help reviewers catch wrong recommendations | **Plant known-wrong items and measure catch rate with the rationale on and off.** If catch rate does not improve, the rationale is decoration that costs accuracy |
-| To satisfy a regulator or an audit trail | Log it, and consider **not showing it to the reviewer at decision time.** Recording a rationale and displaying it are separable choices |
-| To help the reviewer write their own justification | Show it **after** they commit to a decision, not before |
+| Brief work | An unobtrusive busy indicator may suffice; very short tasks may need none. |
+| A noticeable wait | A truthful status such as “Searching the selected documents” when that operation is occurring. A neutral loading indicator is appropriate when no reliable stage is available. |
+| Several verifiable stages | Update on actual transitions: search complete, draft generated, specified checks running. Do not imply a review occurred unless it did. |
+| Long or uncertain duration | Explain that work continues, offer supported cancellation or background completion, and make return, failure, and partial results visible. Use an estimate only when justified. |
 
-**The sequencing fix is the cheapest one and most products get it backwards.** Ask for the reviewer's own read first, then reveal the model's recommendation and reasoning. That preserves an independent judgment you can compare against, and it is the same move as forming your own view before opening the tool.
+The earlier <500 ms / 500 ms–2 s / 2–5 s / >5 s bands were design examples, not universal thresholds. A spinner does not inherently destroy trust, and process detail does not establish correctness. “Analyzed 80% of sources” requires a meaningful known denominator; staged messages on a timer cannot substitute for actual progress.
 
-**The failure signature in a live product:** agreement rate with the model above 95%, and no measurement of whether reviewers catch planted errors. That is not a well-calibrated reviewer. That is a rationale doing the deciding.
+Prevent repeated refreshes or retries from accidentally duplicating consequential actions. Show whether an action is queued, running, completed, failed, canceled, or only partly reversed. If work can continue after the user leaves, specify what continues and how completion or a decision request reaches them. Do not promise background work the product does not support.
 
-*(Source: a field experiment reported in De Freitas, Israeli, Nave, Timoshenko & Toubia, HBR, "Research: The Innovation Problems AI Can't Solve," Aug 2026 — ◆ as reported, and **the article gives no sample size, effect size or domain for this experiment**, which is a real limitation on a result this counterintuitive. [VERIFY] against the underlying working paper before citing it as settled. Carry the design implication, which is testable in your own product in a week. Falsifier: a review interface where showing the rationale measurably improved catch rate on planted errors.)*
+## 5. Design failure and recovery
 
-## WARMTH READS AS A SUBSTITUTE FOR COMPETENCE, SO STOP SHIPPING IT AS THE DEFAULT
+Name the known limitation plainly, preserve useful work, and offer a relevant next step. Do not guess a technical cause, blame the user, or claim an improvement has been made when it has only been reported.
 
-**The personality default in most AI products is friendly and agreeable. The evidence says that setting suppresses the thing you want.** Across multiple experiments, people were **less** willing to use an AI that came across as warm and friendly than one that came across as competent (◆ study-disclosed, experimental).
-
-The everyday version: you would struggle to trust a new lawyer who showed up cracking jokes in flip-flops, or who agreed enthusiastically with your most dubious request, however sharp they actually were.
-
-Chris Caldwell, CEO of Concentrix, on the same effect at the customer end: "Customers tend to get frustrated with overly polite and obedient technology that isn't accomplishing things at speed." **Note the population shift** between the experiments (employees deciding whether to delegate) and Caldwell (end customers). Same direction, different people.
-
-**What competence actually looks like in an interface**, and all three are cheap:
-
-- **Say what it did.** "I used these three criteria."
-- **Say why it chose that.** "This task is more urgent, so I prioritized it."
-- **Say where it is weak, by task.** Not a blanket error disclaimer. Stating a specific known weakness raised perceived transparency by up to 14.6% and collaboration effectiveness by up to 7.2%.
-
-**Tie every action to the user's stated goal, which is the largest effect and the least used.** Recommendations were accepted **54% more often** when the system demonstrated it understood the broader objective. Not "here is a recommendation" but "I'm reconciling this with the HR budget because it may clash with the headcount plan you outlined." Cleo, the personal-finance assistant, is the reference implementation: every suggestion ties to a daily goal and a long-term roadmap.
-
-**How this sits with the personality-as-a-design-variable material above.** That section says tone, patience and pushback are controlled variables rather than vibe. This adds the direction the evidence points: **on the warmth-competence axis, the default should sit further toward competence than most teams ship**, and the tuning move that looks like polish (more warmth, more agreeableness) is the one that costs delegation.
-
-**Where it breaks.** These are experimental effects on willingness-to-use, measured on systems that worked. None was measured on an unreliable agent. A competent-sounding agent that is wrong is a worse outcome than a warm one that is wrong, because confidence display without calibration is exactly the failure the trust ladder exists to prevent.
-
-*(Source: HBR, "To Adopt AI at Scale, Employees Need to Trust Agents", McKinlay, Puntoni and Saka, 9 Sep 2026, from the Wharton Blueprint for AI Agent Adoption. All effects ◆ study-disclosed and experimental; none carries a population or date in the article itself, so go to the Blueprint before citing one.)*
-
-## DESIGN REVIEW THAT CAN DETECT AN ERROR
-
-Low-event-rate monitoring can make sustained attention difficult. Investigate the task, reviewer workload, evidence and error-detection performance before choosing an engagement mechanism. A click, reason field or rotation is a candidate intervention, not a universal guarantee of attention.
-
-The HBR IdeaCast discussion “Redefining What Efficiency Means in the Age of AI” (May 2026) describes an unnamed air-traffic-control simulation. That indirect account is a research lead; locate the original study before asserting an effect size or generalising it to an AI review workflow.
-
-| Candidate design | Question to test |
-|---|---|
-| Acknowledge an item | Does this improve detection, or merely add habitual clicking? |
-| Sample known cases | Can representative errors be tested safely, without live consequences or contaminating operational decisions? |
-| Record a reason | Does it improve the decision and provide useful evidence, or encourage boilerplate? |
-| Rotate reviewers | Does it reduce fatigue while preserving context and responsibility? |
-
-A high approval rate alone cannot distinguish reliable outputs from inattentive review. Examine independently labelled cases, missed errors, review workload and relevant task segments. A seeded-error test can help, but it is not the only valid measure and must be representative and safely isolated. No universal approval-rate threshold establishes rubber-stamping.
-
-## CHOOSE VISIBILITY FOR THE USER'S DECISION
-
-A progress signal can reassure someone that work continues; it does not prove that the work is correct. An evidence view can support checking; its presence does not prove the user understood it. Compare the decision the person must make, the information needed, their ability to interpret it and the effort the interface adds.
-
-**Dated examples, not universal endpoints.** SpaceXAI's [3 September 2026 Grok Bot design account](https://x.ai/news/designing-grok-bot) describes layered status, workspace preview and takeover. It reports design-team observations without enough published study detail here to establish a controlled causal effect. Cursor's [10 September 2026 Projects announcement](https://cursor.com/blog/projects) describes coordination of longer-running work; do not reduce all Cursor surfaces to line-by-line supervision. Cursor [announced completion of its SpaceX acquisition on 14 August 2026](https://cursor.com/blog/joining-spacex); an earlier agreement date is not the completion date. Refresh these references before reusing changing product details.
-
-Do not assert that Cursor exposes every tool call, offers accept/reject for every line in every surface, that a cockpit causes novice abandonment, or that an animated status signal eliminates abandonment. Each would need evidence about the exact surface, task, users and comparison. Observational session data cannot, by itself, establish the interface's causal effect.
-
-Before recommending a visibility level, explain: what decision is needed; what mistake matters; what the user can inspect and understand in time; and what effort or capability the design gives up. Expertise is task-specific. A person skilled at reviewing a spreadsheet may need help with code, and vice versa. Test the proposed minimum information with appropriate users rather than assuming less is always easier or more is always safer.
-
-For unattended work, specify what may happen without the person present, how an unresolved state remains visible and what recovery is possible. A record may be reversible while an external consequence is not. Verify current permissions and capabilities directly; source descriptions of one deployment do not establish every user's configuration.
-
-When tracking adoption, separate trial, recurring use, paid use and measured outcomes. Record the population, period and metric definition. Omit unverified counts and causal claims rather than turning a missing result into a conclusion.
-
-## DESIGNING FOR A TEAM AT ONE KEYBOARD
-
-**A group using one AI session is not a group using AI.** A five-month field study of 60 managers across 12 companies found teams slid into what the researchers call **spectator mode**: engagement drops, participation narrows to whoever holds the keyboard, and everyone else watches the answer arrive.
-
-**Three interface-level causes, each fixable in the product rather than in the training:**
-
-1. **The session belongs to the typist.** Nobody introduces the team, so the model locks onto one person's frame. **Product fix:** let a session carry multiple named participants and their roles, and surface them in the context the model sees.
-2. **The assistant gets one role for the whole session.** Every team assigned a single label, "researcher" or "expert," and queried it as a lookup table. No team tried critic, skeptic, customer or competitor. **Product fix:** make the role a first-class, switchable control instead of something buried in a prompt.
-3. **Prompts go staccato.** Short transactional turns mean the team never states its reasoning, and the assistant fills the vacuum with unsolicited next steps that pull the group toward one-click agreement before it has actually decided anything. **Product fix:** an interaction mode that asks one question at a time and waits, rather than answering everything at once.
-
-**The intervention that worked, and the one that took longest.** Teams re-read their own transcripts against a short checklist and got prompt templates. Framing and role-switching were absorbed quickly. **Collective ownership took several sessions**, because the habit being unlearned is following the assistant rather than steering it. Engagement rose 30% once teams started pausing before each prompt to argue about direction.
-
-**The pause is the mechanism, and no default interface forces it.** If your product is used by groups, the deliberation step is yours to design or yours to lose.
-
-*(Source: Rosani, Farri, Trabucchi & Buganza, HBR, May 2026 — ◆ field experiment, 60 managers, 12 companies, five sessions over five months. Self-reported engagement, single tool, no control group running the full arc without intervention.)*
-
-## KEY DIAGNOSTIC QUESTIONS
-
-**Q1: Confidence Appropriateness**
-Does your interface's stated confidence match users' actual accuracy experience?
-
-> **Measure calibration on matching scales.** For a defined task and correctness criterion, collect representative outputs with numerical predicted probabilities. Group comparable probabilities and compare each group's mean prediction with its observed correctness rate. State the sample size and uncertainty; the data needed depends on the precision and segments that matter.
->
-> Plot mean predicted probability on X and observed correctness rate on Y, both from 0 to 1:
-> - On the diagonal: predictions and observed rates agree within sampling uncertainty.
-> - Above the diagonal: underconfidence. A group predicted at 0.60 but correct 0.80 of the time performs better than its stated confidence.
-> - Below the diagonal: overconfidence. A group predicted at 0.80 but correct 0.60 of the time performs worse than its stated confidence.
->
-> Verbal labels, icons and ordered ladder levels are not numerical probabilities. Do not plot them against accuracy and interpret a diagonal without a justified mapping. Test whether users interpret the signal appropriately and take the intended action. A model's self-reported confidence also needs empirical checking.
->
-> Examine relevant task and user segments as well as the aggregate. Calibration does not establish useful discrimination, an acceptable error cost or successful human verification; those are separate questions.
-
----
-
-**Q2: Failure Transparency**
-When the AI fails, does the user know it failed? Or do they think it worked?
-
-- Example: Search returned 0 results. User sees nothing. Assumes no answer exists. Actually: the AI searched incorrectly.
-- Example: Recommendation system suggests an irrelevant item. User doesn't interact. You think the feature is bad. Actually: the confidence signal was wrong and the algorithm surfaced a low-confidence result as an assertion.
-
-**The behavioral test:** Show 5 incorrect AI outputs to 10 users without telling them the outputs are wrong. Measure: how many of them catch the error? If fewer than 50% catch the error, your failure signaling is insufficient — users will over-trust in production.
-
----
-
-**Q3: Trust Durability**
-After the AI gives one wrong answer, does the user:
-A) Give it a second chance
-B) Distrust it for months
-C) Use it only for low-stakes decisions from now on
-
-**The answer depends on product type. These are not guidelines — they are benchmarks from shipped products:**
-
-| Product type | Trust recovery after one visible error | Why |
+| Failure | Example response | What the product must support |
 |---|---|---|
-| **Enterprise tools** (finance, legal, HR systems) | 3-6 months of reduced usage | High stakes + professional reputation at risk. "I trusted the AI and it made me look bad" = lasting distrust. |
-| **Consumer tools** (email, search, writing) | Users often retry within the same session | Lower stakes. Users frame errors as "the AI got it wrong this time" not "the AI is broken." |
-| **Internal tools** (ops, data, eng workflows) | 2-4 weeks of skepticism, then recovery | Professional context but lower external consequences. Error feels like a tool bug, not a betrayal. |
-| **Medical/legal/regulated** | Never fully recovers without explanation | If the domain has safety implications, a visible error without explanation triggers permanent distrust — and sometimes a compliance event. |
+| Insufficient evidence | “I found the policy, but not the exception record needed to answer your case.” | Show the gap and a way to supply or obtain the missing evidence. |
+| Wrong answer discovered | “That amount was incorrect. The corrected calculation is …” | Make the correction visible, address affected actions, and explain verified changes or investigation status. |
+| Policy or permission boundary | “I cannot perform that action with the current permissions. You can …” | A valid supported alternative or handoff; do not expose protected internal details or invent policy categories. |
+| Timeout or degraded service | “This is taking longer than expected. You can stop now or continue waiting.” | Offer partial output only if it is useful, clearly incomplete, and safe for the task. |
+| Connection failure | “I cannot access that file. The connection needs to be restored.” | State an expiry cause only if confirmed; offer a real reconnection or alternative-input path. |
 
-**Measure this for your product:** After a visible error, what % of users return to the feature within 24 hours? Within 7 days? If 24-hour return rate drops >30% after a visible error, your error UX is compounding the trust damage.
+“No results” means the attempted search found none; it does not prove no answer exists. A rejected recommendation does not by itself prove the confidence UI was wrong. Distinguish a system defect, insufficient evidence, a mismatched task, and a preference difference.
 
-**Recovery design:** The fastest trust recovery comes from explaining *what went wrong* (not hiding it) and showing *what you're doing about it*. "We detected this response was incorrect and are using it to improve. Here's what I should have said: [X]." This converts a trust-damaging event into a trust-building one.
+Use `rtp-failure-modes` for the failure inventory and `rtp-trust-ladder` for recovery and appropriate reliance. “AI suggestion; you decide” can clarify a role, but it does not transfer all product responsibility to the user.
 
----
+## 6. Treat persona as behavior that can be evaluated
 
-**Q4: Modality Fit**
-Is the modality (chat, inline, dedicated interface) appropriate for the confidence level and error cost?
-- Low stakes + high confidence → Inline assertion. No explicit confidence signal needed.
-- High stakes + low confidence → Dedicated decision interface with explicit reasoning.
-- Medium stakes + medium confidence → What are you using? If it's inline, it's wrong.
+Define the intended tone, patience, concision, respectful pushback, and handling of disagreement. Warmth, competence, and agreeableness are different properties. A system can be friendly and accurate, or sound authoritative while being wrong. Avoid both hostility and automatic agreement; challenge a premise when the task warrants it, not to manufacture friction.
 
-**Q5: Explanation Direction**
-Which decision does your explanation push hardest, and is that the decision whose error you can see?
+Measure appropriate channels: interaction behavior, independently assessed output quality, and user reports. In dedicated research, ethically collected physiological measures may add evidence; they are not a routine product requirement. The persona study's physiological/self-report mismatch is a reason to triangulate, not to treat self-report as universally blind. [MIT seminar abstract](https://www.media.mit.edu/events/aha-seminar-series-aleksandra-tamilla/).
 
-Split your acceptance rate by decision direction, not in aggregate. Accept and reject are different products with different feedback loops, and explanation moves them by different amounts, roughly twice as much on the reject path in the one study that measured it.
+Possible behavioral signals include turn-length ratio, rephrasing, resistance messages, and override attempts. Define their denominators and inspect examples. They are proxies affected by task complexity, accessibility, user style, and useful correction—not direct measurements of stress, understanding, or hostility. Use proportionate privacy controls and avoid collecting sensitive content when aggregate events suffice.
 
-- If you cannot split acceptance by direction, you cannot answer this, and that is the first thing to build.
-- If the split shows explanation moving the reject rate more than the accept rate, your sampling for human review is pointed the wrong way. Rejections need a higher review rate than acceptances, not an equal one.
-- **Red flag:** a flat, healthy-looking acceptance rate on a product that explains itself tells you nothing. The damage sits in the rejections, and nobody files a complaint about a thing that did not happen.
+Demonstrate competence through reliable work, relevant criteria, honest limitations, and a clear connection to the stated goal. Do not simulate expertise, claim emotional understanding, or hide a known weakness to encourage delegation. The [research notes](references/evidence-and-limits.md) distinguish advisor studies from claims about agents acting in the world.
 
----
+## 7. Design explanation and review as separate capabilities
 
-## REALITY CHECK
+An explanation can inform, persuade, satisfy a disclosure need, or support verification. It can also encourage agreement with a wrong result. The effect depends on its content, timing, task, and reader. **Do not claim explanation always improves safety or can never improve error detection.**
 
-Before you ship:
-- Have you tested on a user who doesn't know this is AI? Do they understand the confidence signal intuitively?
-- Have you watched someone use the feature *incorrectly* because the confidence signal was ambiguous?
-- Have you measured: what % of wrong answers does the user actually notice? (If it's < 50%, your failure UX is insufficient.)
-- Can you explain your confidence levels without saying "the AI told me"?
-- Have you run the calibration audit (100 outputs, plot confidence vs. accuracy)?
+Separate the following observations:
 
----
+| Observation | What it does and does not show |
+|---|---|
+| Explanation available | The interface offered it; this does not show anyone read it. |
+| Explanation opened | The user accessed it; this does not show comprehension or verification. |
+| Evidence checked | A relevant source or calculation was inspected; the inspection may still be incomplete or wrong. |
+| Decision improved | The final decision or appropriate intervention improved against an independent criterion; this is closer to the intended outcome. |
 
-## QUALITY GATE
+**Verification substitution** is a risk in which a convincing rationale feels like checking and displaces a more useful check. Test whether an evidence view, concise rationale, known-limit disclosure, or different sequence improves outcomes. A narrative rationale and a disclosure of a specific known weakness are not the same intervention; research has found different effects in different settings.
 
-Before you ship AI with uncertainty:
-- [ ] Confidence thresholds defined for each UI pattern (assertion, signal, alternative, question back, abstain)
-- [ ] Calibration audit completed: actual accuracy vs. stated confidence align within 10%
-- [ ] Interface tested with users who are NOT AI-literate
-- [ ] Wrong-answer experience designed explicitly and tested — not just the success path
-- [ ] AI loading states show process steps, not a generic spinner (for waits > 2s)
-- [ ] Error states name the AI's limitation, not the user's failure
-- [ ] Trust recovery benchmarks checked against product type (enterprise vs. consumer vs. internal)
-- [ ] Trigger defined: what accuracy % would require a redesign of the confidence UI?
+For decisions where an independent initial view is useful and feasible, collect it before revealing the recommendation. Then show evidence, permit revision, and record the final decision. This reduces one route for initial influence; it is not proof of independence or a universal requirement for routine assistance. Do not withhold information someone needs to make a safe or legally required decision.
 
----
+Use representative, independently assessed cases to measure correct acceptance, harmful acceptance, useful overrides, and erroneous overrides. Safely isolated known-error tests can help; they are not the only instrument and must not expose real users to consequential fabricated decisions. A reason field, acknowledgment click, or reviewer rotation is a candidate intervention, not an attention guarantee.
 
-## WHEN WRONG
+**Examine decision directions separately.** In screening, false rejections can remain unobserved because rejected candidates never progress. Other tasks have different visibility. Compare accept and reject paths, consequences, appeal opportunities, and feedback coverage. Oversample hard-to-observe or consequential cases when justified and account for that sampling when estimating population rates. Do not mandate a higher rejection-sampling rate for every product based on one study.
 
-**Users trust the AI too much:**
-- AI says X. User takes action without verifying. AI was wrong. User blames you.
-- Trigger: Confidence signal is too strong, or hidden when it should be visible.
-- Recovery: Add visible feedback loops ("I was wrong here"). Move from assertion to verbal confidence signal.
+**Make citations usable.** A list of URLs may identify retrieved pages without showing which claim they support. Where feasible, connect a claim to relevant source material, show coverage and provenance, and provide a way to act on a detected issue. Opening a citation is not verification by itself; a useful citation also need not change the artifact to have value. Verify the exact provider API and product surface before making claims about citation behavior.
 
-**Users don't trust the AI enough:**
-- AI is 85% accurate. Users use it only 20% of the time they should.
-- Trigger: Confidence signal is too visible ("0.75" feels low) or too verbal ("possibly" implies doubt).
-- Recovery: Hide the confidence score. Show social proof instead: "95% of users find this helpful."
+The Lane/Boussioux screening study and the Rieger explanation research motivate local tests, not a ban on explanation. Detailed source scopes and the earlier numerical claims are retained in [evidence and limits](references/evidence-and-limits.md).
 
-**Users game the uncertainty:**
-- They learn the AI's failure modes and work around them. System feels fragile.
-- Trigger: You built on top of a probabilistic model without designing for probabilistic use.
-- Recovery: Reframe AI as a tool, not an authority. "AI suggestion. You decide." Shift responsibility explicitly.
+## 8. Check the experience in a useful order
 
-**Modality mismatch causes confusion:**
-- Users don't know whether to trust inline suggestions, chat, or decision interfaces.
-- Trigger: High-confidence inline and low-confidence chat mixed in the same product without clear separation.
-- Recovery: Physically separate modalities. Different screens, different interaction patterns, different confidence signals.
+Use these six questions to locate confusing transitions:
 
----
+| Question | AI interface interpretation | Possible failure |
+|---|---|---|
+| Where am I? | Purpose, context, and supported scope | An impressive surface without orientation |
+| Who am I with? | The AI's role, the people's roles, and who owns the decision | Unclear delegation or a group session treated as one person's request |
+| What can I do? | Available actions, permissions, and alternatives | Cosmetic or inaccessible controls |
+| What is happening? | Relevant state, evidence, and continuity | Disconnected outputs or ambiguous action status |
+| Am I making progress? | Advancement toward the job | Activity shown without useful completion or next steps |
+| Why does this matter? | The outcome and its relevance | A memorable demonstration with little value for the task |
 
-## TRADE-OFF LEDGER
+This is a design heuristic adapted from experience research, **not a measured universal sequencing law**. Earlier confusion can limit later features, so diagnose dependencies before adding detail. Users may move among these questions, and fixing a later issue can sometimes resolve an earlier one. Do not claim most AI products fail in stages 1 or 2 without evidence.
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
+Audit each control: does it change the intended result, can the user perceive the effect, and does its duration match the promise? A one-time cancel action is useful even though it does not accumulate across sessions. Match persistence to user intent rather than requiring every choice to last indefinitely.
 
-## CONCLUSION
+## Language, exploration, and group work
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6:
-1. **The recommendation** — specific confidence pattern for this feature and confidence range
-2. **The hypothesis** — "We believe [confidence pattern X] will [produce Y trust outcome] because [Z]. We'd know we're wrong if [trust recovery metric drops]."
-3. **The key trade-off** — transparency vs. friction; certainty vs. trust durability
-4. **The biggest risk** — and mitigation (usually: over-confidence in early stages, calibration drift as model improves)
-5. **The next action** — [step] by [role] by [date]
+**Natural-language UX:** language can express actions, options, validation, recovery, and discoverability. It can coexist with forms and buttons. Use the [NLX pattern guide](references/natural-language-and-team-patterns.md) for the five inversions and four reusable interaction patterns. Give reasonable defaults for reversible choices; resolve material ambiguity or missing authorization before action. Restatement communicates understanding but does not replace required approval.
 
----
+**Exploration and focused retrieval:** help users distinguish finding an answer within an established frame from discovering diverse possibilities. A mode switch is one possible design; a blended list, facets, or a clear question may work better. Relevant retrieval is not necessarily popularity ranking, and exploration should not substitute unreliable novelty for evidence. For shared ideation, examine output diversity, provenance, and usefulness. Similar outputs may reflect a correct constraint rather than harmful convergence. Vary inputs or retrieval deliberately when helpful, within access boundaries and with a shared account of material differences.
 
-## GENERATE THE DELIVERABLE
+**Group sessions:** identify whose problem is being discussed, include relevant perspectives, and make roles and decisions visible. Named roles can help without exposing unnecessary personal information. A typist should not silently become the sole decision owner. Role-switching, pauses, individual input, and transcript review can support participation; choose them according to the group rather than forcing one question at a time in every session.
 
-Use the output prompt from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11.
+**Long conversations:** a user's inaccurate paraphrase can become a mistaken premise that the system repeats. Check important claims against sources and the agreed task, distinguish user corrections from unsupported assertions, and evaluate the full conversation trajectory. Per-turn fluency can hide a growing error. Concise state summaries and editable assumptions can help when grounded in the actual conversation.
 
----
+When presenting competing AI views, explain the evidence and decision criteria. Several generated positions are not independent evidence. If the user lacks a basis to choose, provide checks, clarify what would resolve the difference, or route to a qualified reviewer instead of treating an arbitrary selection as informed judgment.
 
-## VISUAL SUMMARY
+## Evaluate the experience before release
 
-Use the artifact format the user requested. Add a visual only when it clarifies the decision: for example, an input-to-action path, an evidence/recovery view, or a correctly labelled calibration plot. For a probability plot with predicted confidence on X and observed correctness on Y, above the diagonal means underconfidence and below means overconfidence. Do not present verbal confidence levels as calibrated probabilities or prescribe universal trust-recovery times without supporting evidence.
+Answer five questions with evidence appropriate to the stakes:
+
+1. **Confidence appropriateness:** do signals match measured performance and lead to appropriate actions? Use the [calibration method](references/evidence-and-limits.md), including uncertainty and segment checks.
+2. **Failure transparency:** can users recognize important failures and recover? Include correct and incorrect cases so catch rates are not inflated by a test containing only errors.
+3. **Trust after failure:** what changes in behavior, understanding, and outcomes after a visible error? Compare relevant cohorts and intervals; there are no universal enterprise, consumer, or regulated-domain recovery times.
+4. **Surface fit:** can users complete and review the task with reasonable effort, including keyboard, screen-reader, and other relevant access needs?
+5. **Explanation direction:** how does each evidence or explanation design affect acceptance, rejection, error detection, and final outcomes?
+
+Choose samples, measures, and tolerances for the decision. Five planted errors, ten users, 100 outputs, 50% detection, 10% calibration error, 95% agreement, or a 30% return-rate drop are not validated universal gates. Investigate reliable agreement before calling it rubber-stamping. Low usage may reflect low need, poor fit, or justified caution rather than under-trust.
+
+If users over-rely, inspect evidence quality, signals, review capability, defaults, and authority. If they under-rely, improve the actual product and communicate verified task-specific evidence. Do not hide material uncertainty or invent “95% of users find this helpful” as a remedy. A truthful social-proof measure may describe other users' experience; it is not evidence that this particular output is correct.
+
+Before delivery, confirm that uncertainty patterns have a defensible basis; material limits are visible in time; actions and controls work as described; loading states are truthful; failures and corrections have usable paths; persona and explanations have been evaluated for the intended role; and review checks test outcomes rather than clicks alone.
+
+## Deliver and maintain the design
+
+Provide the recommended pattern, an example of the actual user flow or wording, the decision it supports, and the evidence behind it. Name the principal tradeoff, remaining uncertainty, test that could change the design, and next action with its owner. For a larger design, include a state table linking trigger → visible information → permitted action → failure/recovery → measurement.
+
+`rtp-trust-ladder` calibrates reliance; `rtp-failure-modes` defines failures and recovery; `rtp-confidence-tuner` develops signals; `rtp-judgment-guard` tests human capability and oversight; `rtp-ai-product-taste` sets the domain quality bar. Keep those handoffs specific rather than repeating their full frameworks here.
+
+Consult relevant `3_Research` maps, context, indexes, and source notes; read the passages needed for the claim. Use primary sources for changing product details and technical or empirical assertions. Distinguish direct interaction, a published example, vendor documentation, and a design inference. Social posts can be evidence of what their author said; never invent them or treat virality as adoption. Separate trial, recurring use, paid use, and measured outcomes with population and date.
+
+If experience suggests a reusable improvement to the skill, record its evidence and proposed wording through the library's authorized governance process. One session does not automatically create a permanent tenet. Use a visual only when it clarifies the decision, such as an input-to-action path, an evidence/recovery view, or a correctly labeled calibration plot.

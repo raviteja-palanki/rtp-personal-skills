@@ -1,7 +1,7 @@
 ---
 name: rtp-ai-prd
-version: v1.2_latest
-description: 'A product spec for AI features, different from a normal spec because the output varies run to run. Pins down what a normal PRD never has to: confidence thresholds (when to show vs. double-check an answer), behavior on failure, cost per outcome, quality decay over time (drift), and the named human who owns the result. Its real deliverable is production-grade AI *user stories*: backlog items that inherit those probabilistic elements as acceptance criteria, so teams stop shipping stories that assume the model will ''just work.'' Use when: shipping any AI feature to production, capability launches, or grooming an AI backlog. Pairs with: eval-framework (the definition of good), cost-model (the economics), gen-ai-experimentation (the rollout design), ship-decision (the launch gate), user-stories (the story craft the inherited block lands in). Triggers: ''AI PRD'', ''probabilistic spec'', ''AI user story'
+version: v1.2.1_latest
+description: 'Specify an AI feature so product, design, engineering, and operations can build and evaluate the same intended behavior. Connect the user problem and scope to behavior examples, evidence and confidence requirements, failure recovery, ownership, cost per successful outcome, rollout decisions, and monitoring. Translate relevant requirements into acceptance criteria across six backlog areas: capability, evaluation, fallback, guardrails, instrumentation, and rollout. Use for new AI capabilities, production requirements, architecture reviews, or adding AI criteria to an existing backlog; use a provisional Speclet for early exploration. Includes the section 0–13 PRD template and worked user stories. Pairs with eval-framework, confidence-tuner, cost-model, gen-ai-experimentation, ship-decision, and user-stories. Triggers: AI PRD, probabilistic spec, AI product requirements, AI user story.'
 imports:
   - determinism-compass
   - bias-spotter
@@ -9,475 +9,213 @@ imports:
   - prompt-as-product
 ---
 
-# AI-PRD: Probabilistic Product Specification
+# AI product requirements
 
-## THE ONE IDEA
+Specify what the user should achieve, what the system may do, and how the product behaves when evidence or performance is insufficient. AI quality depends on both successful performance and effective handling of limitations. A good PRD connects these decisions to implementation, evaluation, and operations.
 
-**A normal spec describes one right answer; an AI feature returns a *distribution* of answers — so the spec's real job is to pin down what happens across that distribution.** When do you trust the answer, what do you do when it's wrong, who owns the miss, and how will you notice it quietly decaying. Get that right and this document becomes the thing it's actually for: **the source every AI *user story* inherits from**, so the backlog stops shipping stories that assume the model will "just work." An AI-PRD that doesn't end in production-grade user stories — ones carrying confidence thresholds, a named failure owner, a drift trigger, and a cost-per-outcome target — is analysis that never reached the team. The deeper truth underneath all of it: **the quality of an AI product is determined less by how well the AI performs than by how well the product handles when it doesn't.**
+Traditional software also needs failure handling, costs, and uncertainty. AI often adds learned behavior, open-ended outputs, calibration questions, and changing data or context. These need explicit requirements even when a particular model returns the same output on repeated runs.
 
-## DEPTH DECISION
+Start with the customer problem and authorized scope. Reuse available evidence and previous decisions. Ask for missing information when it changes a consequential choice; do not require every upstream skill to run before drafting.
 
-**Go deep** if: you're writing a PRD for a shipped AI feature, speccing a new capability, or doing architecture review. Read all 5 phases.
+## Choose the appropriate depth
 
-**Skim to Phase 3 (Eval Criteria)** if: you already have a PRD and need to add AI-specific acceptance criteria. Phase 3 alone transforms a generic PRD into an AI-native one.
+- **New production capability:** follow the five phases and use the [PRD template](references/ai-prd-template.md). Keep supporting examples and backlog items in linked annexes when that improves readability.
+- **Existing PRD:** inspect its problem and boundaries first, then fill gaps in evaluation, failure behavior, costs, and story acceptance criteria. Phase 3 is the main entry point for this work.
+- **Cold start or early exploration:** create a Speclet. State the hypothesis and boundaries, sketch a few good/bad/refer examples, identify the most consequential failures, propose metrics and next tests, and write provisional stories or spikes if useful. Five examples—two good, two bad, one refer—can start discussion; they do not establish coverage.
+- **Small or deterministic feature:** use only the relevant requirements in the team's existing format. A small AI component can still create a consequential effect, so percentage of the workflow is not a sufficient reason to omit risk analysis.
 
-**Cold-start mode (45–90 min, no data, no upstream outputs — an interview, a Speclet session, a greenfield pitch):** skip phase order entirely and write straight through the document in § order (the template), reduced counts: §1 → §2 → 5 behavior examples (2 good / 2 bad / 1 reject) → provisional thresholds → top-3 failure modes + kill switch → dual metrics with the decision each triggers → 2–3 stories. **The ⚠-provisional protocol makes this legitimate:** any number you couldn't ground (threshold, cost, accuracy) gets the ⚠ tag inline, lands in §13 with an owner, and must be replaced by simulation or telemetry before the PRD advances past Kickoff. Proceeding on tagged assumptions is the discipline; proceeding on untagged ones is the failure. Do not stall hunting for data that doesn't exist yet.
+Use **⚠ provisional** for a material assumption without adequate evidence. In §13 record its basis, owner or assignment gap, validation method, and the decision it must be resolved before. Do not invent numbers or people to complete the form. Some assumptions can remain bounded after Kickoff; assumptions required for safe or meaningful exposure must be resolved before that exposure. Synthetic examples remain useful later, provided they are labeled and complemented by representative evidence.
 
-**Skip** if: you're in early exploration testing desirability, the AI component is <1% of critical path, or this is a purely deterministic feature.
+## The decisions this PRD connects
 
-## THE TRAP
+| Input | Primary source or related skill | PRD section |
+|---|---|---|
+| Problem, job, segments, chosen opportunity | `jtbd-analysis`, `interview-synthesis`, `opportunity-solution-tree` | §1–3 |
+| Strategy and reason to use AI | `strategy-canvas`, `problem-ai-fit` | §1 |
+| Actual permissions and readiness | `autonomy-spectrum`, `ai-use-case-readiness` | §2 |
+| Approach, rule/model boundaries, context | `build-or-buy`, `determinism-compass`, `context-spec` | §5 |
+| Behavioral evidence and definition of good | Research/traces, `eval-framework`, `confidence-tuner` | §4, §6–7 |
+| Experiment and exposure design | `gen-ai-experimentation` | §8 |
+| Failures, containment, privacy, safety obligations | `failure-modes`, `agent-risk`, `safety-by-design`, `responsible-ai-program` | §9 |
+| Measurement and telemetry | `ai-product-metrics`, `production-observability` | §6, §10 |
+| Cost and viable economics | `cost-model`, `token-economics` where relevant | §11 |
 
-You write AI PRDs like traditional software: feature works or fails, success = happy path. You spec output format, latency, constraints. **But AI doesn't fail binary.** It confidently returns wrong answers users trust. You miss: what happens at 60% confidence? What's hallucination rate? How does drift trigger retraining? These are **product decisions**, not implementation.
+Reuse current, applicable inputs; reconcile stale or conflicting ones. The PRD records the shared decision and its evidence rather than simply pasting incompatible outputs together.
 
-Five failure modes: (1) Success bias—spec only happy path. (2) Black-box thinking—"model classifies intent" without accuracy/threshold spec. (3) Launch theater—you'll "monitor later" because eval is expensive. (4) Hope-based metrics—you spec metrics without the decision each threshold triggers. "Improve engagement" is a hope; "graduate at −10% handle time, auto-hold ramp at CSAT −2pts" is a decision. A great PRD adds decisions, not prose. (5) Orchestration theater—you spec a beautiful multi-agent flow but never define the *confidence handoff* between agents or the named human who catches the swarm when it loops. In 2026 some agents run autonomously for 8+ days with little human touch (⚠ reported), yet the high-stakes judgment still has to collapse to a named owner. Result: feature ships fragile, breaks at scale, drift goes undetected for weeks.
+The document feeds `ai-ux-patterns` and `trust-ladder` for product states, `user-stories` for backlog craft, `ship-decision` and `plan-launch` for readiness, observability and metrics for operation, and `retro` for the impact review. Produce the requested artifact; include linked stories when the work is ready for backlog handoff. A PRD can also support an early decision before a full backlog exists.
 
-## KEY TERMS (plain language)
+## Terms that need precise definitions
 
-- **AI-PRD** — a product spec for AI features that (unlike a normal spec) must pin down confidence thresholds, failure behavior, cost, and drift, because the output varies.
-- **Confidence threshold** — the score above which you show the AI's answer, below which you ask for confirmation or fall back.
-- **Dual success metrics** — tracking both what users get (task completion) and what the model does (accuracy, hallucination rate) at the same time.
-- **Hallucination rate** — how often the model states something factually wrong.
-- **Confidence calibration** — whether "80% confident" actually means right 80% of the time.
-- **Drift** — the slow decay of an AI's accuracy in production as the world changes; needs monitoring and a retraining trigger.
-- **Behavior examples (good / bad / reject)** — concrete input→output examples that spec what the AI should do, get wrong, and refuse.
-- **Accountable owner** — the named human who must *choose* to own the AI's outcome, set up with the conditions that keep them engaged.
-- **User story inheritance** — the mechanism by which every AI-PRD element (confidence thresholds, failure modes + owner, behavior examples, cost-per-outcome, drift trigger) becomes explicit acceptance criteria in the downstream user story. If a story doesn't inherit them, the probabilistic decisions live only in an engineer's head.
+- **Evidence or confidence threshold:** a condition for showing, checking, or withholding a result. A score must estimate a defined event and be validated for the intended population. It never grants permission to take an action.
+- **Dual metrics:** user outcomes alongside model/system behavior. Cost and safety guardrails complete the decision picture; “dual” does not mean exactly two numbers.
+- **Hallucination or factual-error rate:** a specifically defined error measure. State whether the denominator is claims, outputs, conversations, or tasks, and distinguish unsupported claims from demonstrated falsehoods.
+- **Calibration:** whether predicted probabilities match observed frequencies for a defined outcome. Good calibration allows some high-confidence errors; it does not mean none can occur.
+- **Drift:** a change in inputs, context, task mix, behavior, or performance. It may be sudden or gradual and need not be deterioration. Retraining is one possible response.
+- **Story inheritance:** an implementation item references the applicable PRD decisions and turns them into verifiable acceptance criteria. It need not copy irrelevant fields or duplicate a changing source of truth.
 
-## WHAT THIS SKILL CONSUMES & PRODUCES
+## Phase 1 — Map the behavior and the permissions
 
-An AI-PRD sits between discovery and the backlog: it takes the raw feature intent plus the evidence of how the model behaves, and it produces the probabilistic spec — and the user stories — every downstream team builds from.
+List operations such as validation, retrieval, ranking, generation, safety checks, and delivery. For each, identify input domain, output and acceptable variation, dependencies, state changes, authority, evidence requirements, latency, cost, and failure possibilities. Classify the actual implementation as rules, learned, generative, human, or hybrid. A rule written in a prompt is not automatically deterministic enforcement.
 
-**Consumes (upstream inputs → the PRD section they feed):**
-- **The feature intent + problem + hidden job** — who, what, why, from discovery / `jtbd-analysis` / `opportunity-solution-tree` (the greenlit bet) → §1 Opportunity, §3 Users.
-- **The strategy fit** — which pillar this unlocks now, from `strategy-canvas` → §1.
-- **The AI-necessity verdict** — does this need AI at all, and in which seat, from `problem-ai-fit` → §1 why-now.
-- **The autonomy level** — how much the AI decides vs. the human, from `autonomy-spectrum` / `ai-use-case-readiness` → §2 Boundaries.
-- **The architecture line** — prompt-only / RAG / fine-tune / buy, and the rules-vs-model map, from `build-or-buy` + `determinism-compass` + `context-spec` → §5 Solution.
-- **The definition of good** — eval criteria, thresholds, judge validation, from `eval-framework` + `confidence-tuner` → §6 Success Measurement.
-- **The behavior evidence** — real good/bad/reject examples, from production traces or user research → §4 Behavior Contract.
-- **The rollout mechanics** — shadow → A/B → progressive ramp, MDE, randomization unit, from `gen-ai-experimentation` → §8 Rollout.
-- **The kill-switch + proportionality screen** — worst-case vs. value, pull-the-plug speed, from `agent-risk` + `failure-modes` → §9 Risk.
-- **The legal/safety gate requirements** — PII handling, review obligations, from `responsible-ai-program` + `safety-by-design` → §9.
-- **The telemetry conventions** — trace-level events, funnel definitions, from `ai-product-metrics` + `production-observability` → §10 Instrumentation.
-- **The economics** — cost per successful outcome at P90, ceiling, pivot trigger, from `cost-model` → §11.
+Define scope and non-goals before tool use or commitments. Separate drafting from sending, recommending from approving, and simulated actions from real effects. For agent workflows, use `agent-spec` to define handoffs, loops, termination, recovery, and permissions at each step. Multi-day execution does not remove product ownership or imply that someone is watching continuously.
 
-**Produces (outputs → the downstream skill that reads them):**
-- **The 13-section AI-PRD document** (canonical skeleton: `references/ai-prd-template.md`) — the alignment artifact every function reads.
-- **The probabilistic spec** — confidence thresholds, failure behavior, drift trigger, named owner → `ai-ux-patterns` (the UI states), `trust-ladder` (the calibration).
-- **Production-grade AI user stories** — backlog items that *inherit* those elements as acceptance criteria, across all six story types (the Phase 3 template + `references/ai-user-stories.md`). Deep story *craft* — INVEST, QE scenario thinking, spikes, estimation — lives in `user-stories`; this skill owns what AI stories must inherit. This is the real deliverable: stories that survive production.
-- **The six story types (capability, eval, fallback, guardrail, instrumentation, rollout)** — the complete AI backlog, not just capability stories.
-- **The behavior-example set** — seeds *both* the eval dataset (`eval-framework`) and the user-story acceptance criteria.
-- **The pre-launch gate inputs** → `ship-decision` (the go/no-go), then `plan-launch` (readiness chain).
-- **The monitoring spec** — what production must watch → `production-observability`; the metrics dashboard → `ai-product-metrics`.
-- **The post-launch baseline** — hypothesis + targets the retrospective audits → `retro` (reads the original AI-PRD at Impact Review).
+Record a provisional user-outcome and system-metric pair here; define it once in Phase 3. Version prompts, model/configuration, context/retrieval changes, and relevant tools so later results can be traced to the configuration that produced them.
 
-## THE PROCESS
+## Phase 2 — Specify failure, containment, and ownership
 
-### Step 0: Assemble the input packet — or declare assumptions
+For relevant operations, examine false positives, false negatives, ambiguity, out-of-domain inputs, unsupported claims, unavailable dependencies, changing data, misuse, and adverse segment effects. When content is retrieved or tools are connected, include prompt injection, unauthorized writes, exfiltration, cross-user leakage, and uncertain external-action status.
 
-Collect the upstream outputs listed in CONSUMES (the template's "Upstream Inputs at a Glance" table is the checklist). Full mode: a missing input means the upstream work isn't done — go run that skill. Cold-start mode: write the assumption in its place, tag it ⚠, log it in §13 with an owner and a due date, and keep moving. The one input you can never improvise: real behavior evidence once you're past Kickoff — provisional examples are for Speclets only.
+For each material failure, record:
 
-**Phase → section map (process order vs. document order).** The phases below are the *thinking* order; the deliverable is the 13-section document (item 16). Each phase produces specific sections — write into them as you go, then assemble:
+1. **Evidence or estimated frequency:** source, population, uncertainty, or “unknown.” Similar products and expert judgment are assumptions, not measured local rates.
+2. **Consequence and exposure:** affected people, resources, downstream effects, reversibility, and aggregate scale.
+3. **Detection:** signal, coverage, latency, and known blind spots. User feedback is often delayed and selectively observed.
+4. **Containment:** affected work to stop or restrict, safe fallback, or authorized escalation. Prevent harmful tool effects before commitment where feasible.
+5. **Recovery and communication:** distinguish rollback, compensation, reconciliation, and correction. Define what the user sees and who acts.
+6. **Learning:** whether investigation should change data, context, prompts, tools, permissions, thresholds, tests, or training.
 
-| Phase | Produces document § |
-|---|---|
-| 1 Map probabilism | §5 (determinism map, prompts), §7 (threshold stubs) |
-| 2 Failure modes + owners | §9 |
-| 3 Evals as acceptance criteria | §6, §7 (final thresholds) |
-| 3b Behavior examples | §4 |
-| 3c Lifecycle stages | §0 (stage tag), §12 |
-| 4 Cost & fairness | §11, §6 (fairness rows) |
-| 5 Blueprint + prototype loop + living spec | §0–13 assembly, §1–§3, §8, §10, §13 |
+Name the responsible person or organizational role, intervention authority, capacity, coverage, and escalation route. The mindset/meaning/mechanisms lens helps check whether the owner understands their contribution, values the outcome, and has practical support. Reward sound review, justified approvals, error detection, and learning rather than an error-catching quota. Autonomous execution may have no per-action human reviewer; it still has a product or process owner.
 
-### Phase 1: Map Probabilism (Not Just Determinism)
+For consequential production artifacts, establish appropriate review and sign-off, including lifecycle concerns that a narrow test suite misses. Existing delegated approval processes can be valid. Do not add an individual sign-off to every low-impact action or use a signature as proof of quality. The [evidence notes](references/prd-evidence.md) qualify the accountability-framing research.
 
-1. **Operations breakdown:** input validation → retrieval → ranking → generation → safety-filter → delivery. For each AI operation, specify:
-   - Input domain (structured/unstructured, token range)
-   - Output distribution (is 60% confidence acceptable? 75%? 90%?)
-   - Confidence thresholds: show if > X%, ask for clarification if Y-Z%, decline if < Y%
-   - Cost per inference (tokens in/out, model choice, overhead)
-   - Failure mode probability (estimated from similar deployed systems)
+Define monitoring and response to drift by risk and change rate. Investigate task mix, measurement changes, and data freshness before deciding to retrain. A new model can improve capability, create new failure modes, or leave the product decision unchanged.
 
-2. **Dual success metrics framework** *(stub — Phase 3 item 8 defines this in full; here only so the operations breakdown is complete. Don't write your metrics twice):*
-   - **User outcome metrics:** task completion rate, time-to-decision, user satisfaction
-   - **AI-specific metrics:** accuracy (by class), hallucination rate, false positive/negative rate, latency (P50/P95), confidence calibration (does 80% confidence = 80% accuracy?)
-   - **User Story Health:** the % of AI-related user stories in the backlog that carry a confidence threshold + a named failure owner + behavior examples — measured across all six story types (capability, eval, fallback, guardrail, instrumentation, rollout — see the Phase 3 table). This surfaces the silent failure — teams still writing deterministic stories for probabilistic features. Target 100% for anything shipping.
+## Phase 3 — Turn intended behavior into acceptance criteria
 
-3. **Prompts as product artifacts:** Version-control prompt templates, test prompt changes like code, A/B test competing prompts on eval set before launch. Log prompt version with every request for drift analysis.
+### Define examples and evaluation together
 
-### Phase 2: Failure Modes with Detection & Recovery
+Use three categories:
 
-4. **For each AI operation, enumerate:** false positives, false negatives, boundary cases, adversarial inputs, drift over time — **and, for any feature that retrieves content or acts through connected tools, the agentic class: prompt injection via retrieved or tool-returned content (a document or calendar invite carrying instructions the model obeys), data exfiltration through connector writes, and cross-context leakage (one user's or meeting's data surfacing in another's output).** The agentic class is the defining 2026 failure surface for enterprise features; a failure table without it is a pre-agentic table. For each, specify:
-   - **Estimated probability:** from base rate (if exists), similar products, or expert judgment
-   - **Consequence magnitude:** revenue, user time-cost, trust damage, cascading system failures
-   - **Real-time detection:** can you identify failure as it happens (e.g., user thumbs-down, confidence drop, contradiction in follow-up)?
-   - **Containment:** isolation strategy (feature off, fallback to rules, human escalation, partial output)
-   - **Recovery path:** user action required, system rollback trigger, communication to user
-   - **Learning loop:** does detection feed retraining, threshold recalibration, or knowledge base update?
-
-5. **Drift monitoring (living spec):** Specify:
-   - **Drift metric:** accuracy drop, confidence vs. accuracy divergence, class imbalance shift, latency creep
-   - **Monitoring frequency:** daily, weekly (based on feature risk)
-   - **Retraining trigger:** if accuracy drops > X% OR confidence-accuracy gap > Y%, automatically retrain or escalate
-   - **Capability decay plan:** when next model generation ships, what assumptions change? What needs reverification?
-
-5b. **Name the accountable owner for every human-dependent recovery path.** Phase 2 routes failures to "human escalation," "human review," and "user action" — every one of those assumes a specific human will *choose* to engage. Spec who that is, and the conditions that keep them owning it, not just their title in an escalation table. An accountable owner is a named person whose **mindset** (they feel they matter to the outcome), **meaning** (they have a reason worth the effort of checking), and **mechanisms** (they're judged on catching the AI's errors, not on shipping fast) have been set up on purpose. **Why it matters:** a controlled trial (BCG, 1,261 people) found that framing the AI as an employee dropped personal accountability by ~9 points and led reviewers to catch ~18% fewer errors (⚠/◆) — so a recovery path that reads "escalate to human review" is only as real as that human's willingness to own it. A named owner without those three conditions is escalation theater. **When this is wrong:** for a fully autonomous, near-zero-consequence operation there is no human owner — write "owner: none by design," and don't spec a recovery path that secretly relies on one. *(Source: "Accountability Must Be Chosen, Not Mandated," Okposo, HBR, 29 Apr 2026; BCG trial via "Research: Why You Shouldn't Treat AI Agents Like Employees," HBR 2026.)*
-
-5b-agentic. **The agentic ownership shift — split the execution layer from the judgment layer.** By 2026 some agent systems run multi-day recursive loops with no human in the loop for stretches. That's fine *where the layer is low-stakes execution* — write "owner: none by design" and mean it. But the moment the flow produces a *judgment* or a *production artifact*, ownership snaps back to a named human with the three conditions above. The rule: an autonomous execution layer can be ownerless; any output someone will act on cannot. Draw that line explicitly in the spec — and enforce it downstream: **if a user story assumes a human is watching a stretch the architecture was explicitly designed to run unwatched, the story is rejected at grooming.**
-
-5c. **Default: named sign-off on AI-generated production artifacts.** Extending 5b: for any AI-generated code or decision that ships to production, name a specific human as reviewer and sign-off. This is both the accountability record *and* the closest thing to an eval for the quality automated tests can't score — deferred/lifecycle failure, code that looks fine at launch and breaks only when modified, integrated, secured, or scaled (see `eval-framework`, lifecycle quality). If the honest answer to "who owns the unmeasurable judgment after this change?" is "no one — the AI does it now," that is capability/judgment debt being booked as savings; name the owner or name the risk. **When wrong:** low-stakes, reversible, low-lifecycle features don't need a named signer — reserve it for production artifacts whose failure is costly or slow to surface. *(Source: "Big Tech's Looming Capability Crisis," Liu & Kovács, HBR, 2 Jun 2026 — Control #2.)*
-
-### Phase 3: Evaluation Criteria as Acceptance Criteria
-
-6. **Eval criteria = acceptance criteria (not just nice-to-have). Replace vague success statements with binary pass/fail evals.** Key principle: **Every acceptance criterion must be testable and measurable.** Instead of "model should be accurate," write "pass@5 ≥ 0.95 on held-out test set of 200 cases." Instead of "model will be fast," write "P95 latency ≤250ms on 99th percentile query complexity." Binary pass/fail is stronger than Likert scales for go/no-go decisions.
-
-   **How to decompose complex quality into multiple binary checks:**
-   - "Model should understand user intent" → Split into: (a) Intent classification accuracy ≥95% on 500 labeled queries; (b) Top-3 retrieved documents match intent ≥90% of the time; (c) User satisfaction on intent mismatch queries <5%.
-   - "Hallucination rate must be low" → Split into: (a) Factual consistency with source documents ≥98%; (b) No contradictions within 3-turn conversation; (c) Confidence scores > 0.8 never pair with factually incorrect outputs.
-   - "Latency should be reasonable" → Split into: (a) P50 ≤150ms; (b) P95 ≤500ms; (c) P99 ≤1000ms. Not a single number—specify the distribution.
-
-   **Pre-launch gate structure:** Before shipping, all binary evals must pass. No exceptions. No "we'll improve it post-launch." This is your product definition.
-
-   Define:
-
-   - **Offline eval:** labeled test set with splits by class, edge cases, demographic groups. Metrics: accuracy, precision/recall per class, confidence calibration (does predicted ≥80% = actual ≥80% accuracy?)
-   - **Online eval:** production sampler (1-10% of requests), live metrics, user feedback loop (thumbs up/down, explicit corrections)
-   - **Regression test suite:** baseline failure modes must not resurface
-   - **Adversarial eval:** known jailbreaks, prompt injection patterns, edge cases
-   - **Segment performance:** accuracy on long-tail inputs, minority classes, out-of-distribution cases
-
-7. **Probabilistic Specs: Thresholds, Ranges & Degradation (AI-specific, non-negotiable).** AI PRDs must specify confidence thresholds, accuracy ranges (not single numbers), and explicit failure behavior. This transforms vague specs into actionable product decisions.
-
-   **Confidence thresholds as UI logic (not just model internals):**
-   - "Only show result if confidence > 0.85" — This is a product decision, not research. It means: users see your best-guess answers. Below 0.85, you're betting users would rather see fallback behavior.
-   - "Prompt for confirmation if 0.70 ≤ confidence ≤ 0.85" — Two-step confirmation on borderline answers. Cost: extra user friction. Benefit: flags uncertain territory. Measure user acceptance rate on these confirmations.
-   - "Decline (show fallback) if confidence < 0.70" — You're saying the answer quality is worse than your fallback system (rule-based, human escalation, etc.). Only specify this if you actually have a fallback.
-
-   **Accuracy ranges, not single numbers:**
-   - BAD: "Achieve 92% accuracy." (Ignores variance. What if it's 87% in production?)
-   - GOOD: "85-92% accuracy on primary use case; ≥90% on high-trust segments; ≥75% on rare edge cases."
-   - This forces you to think about where the model is weak. It's an honest spec. Then you can decide: accept lower accuracy on rare cases, or retrain until all segments are ≥90%.
-
-   **Degradation behavior (explicit fallback paths):**
-   - "If confidence < 0.6, fall back to rules engine" → If model fails, execute deterministic alternative. Must be faster and less accurate, but safe.
-   - "If response latency > 2s, return cached result from yesterday" — Graceful degradation under load.
-   - "If hallucination score (from safety model) > 0.5, escalate to human review instead of direct delivery" — Detection + containment chain.
-   - "If accuracy drops below 85% (detected via daily eval), automatically retrain or disable feature pending investigation" — Drift-triggered automation.
-
-   **Cost calibration to confidence:**
-   - High-confidence answers might use expensive model (Opus, retrieval-augmented).
-   - Medium-confidence answers route to cheaper model (Haiku, cached results).
-   - Low-confidence answers escalate (human, no AI output).
-   - This is not a luxury—it's how you manage cost at scale without sacrificing quality.
-
-   **Define:**
-
-   - **Hallucination rate target:** e.g., "≤2% factually inaccurate statements in generated output"
-   - **Confidence thresholds:** "show full answer if >85%, prompt for confirmation 70-85%, decline + suggest alternative if <70%"
-   - **Refusal triggering:** specify exact conditions (low confidence, jailbreak pattern, out-of-domain, safety model flag)
-   - **User experience:** what does refusal look like? Helpful fallback or hard stop?
-
-8. **Dual Success Metrics: User Outcomes + AI-Specific (non-negotiable).** Most AI feature PRDs measure only one: accuracy. You'll ship, launch, then realize you optimized the wrong metric. You need TWO metrics running in parallel.
-
-   **User outcome metrics (what the business cares about):**
-   - Task completion rate (e.g., "customer resolves issue without escalation")
-   - Time-to-decision (e.g., "analyst spends ≤3 min reviewing recommendation")
-   - User satisfaction (e.g., "Net Promoter Score on feature ≥50")
-   - Engagement rate (e.g., "45% of users apply AI suggestion without modification")
-   - Cost to user (e.g., "support ticket handling cost drops 30%")
-   - Retention (e.g., "users with feature enabled have 20% higher month-over-month retention")
-
-   **AI-specific metrics (what your model is actually doing):**
-   - Accuracy (by class, by segment, by complexity tier)
-   - Precision & recall (if classification task; false positive rate is often more important than false negative)
-   - Latency (P50, P95, P99; not averages)
-   - Hallucination rate (% of outputs containing factually incorrect statements)
-   - Confidence calibration (does 80% confidence = 80% actual accuracy? Or 92%? Overconfidence is a failure mode.)
-   - Cost per query (tokens × model price; track daily)
-
-   **Why you need both:**
-   - You can have 95% accuracy and 30% task completion (model is right but users don't trust it → bad engagement).
-   - You can have 75% accuracy and 80% task completion (model is wrong but users filter intelligently → good engagement).
-   - You can have 90% accuracy and 45% task completion, but cost explodes to $0.50/query (model is right but unsustainable → wrong lever).
-
-   **Measurement cadence:**
-   - User outcome metrics: tracked weekly (lagging, need aggregation), reported monthly
-   - AI-specific metrics: tracked daily (leading indicators), alarms set on regressions
-   - Correlation check quarterly: are we moving both together? If not, something is wrong (feature, metric, user behavior changed).
-
-   **Optimization focus:**
-   - If AI metrics are high but user outcomes dropping → problem is not accuracy, it's UX (presentation, trust, explainability). Don't retrain; redesign.
-   - If user outcomes flat but accuracy improving → model is not the lever. Product or market or pricing is. Pause AI investment.
-   - If both dropping → immediate escalation. Feature is breaking. Rollback or retrain.
-
-   Define:
-
-9. **Prompt Specifications: Prompts as Versioned Product Artifacts (non-negotiable).** Your prompt is not research—it's product. Treat it like code: version control, regression testing, A/B testing before production.
-
-   **Prompt version control:**
-   - Store every prompt version in Git (or equivalent). Include date, author, intent, evals result.
-   - Tag production versions (v1.2.3_prod). Don't allow ad-hoc prompt changes in production.
-   - Log prompt version with every inference request. When debugging failures, you'll need to know which prompt generated that output.
-
-   **Example version log:**
-   ```
-   v1.0_prod (2025-02-15): Base prompt. Accuracy 91%.
-   v1.1_beta (2025-02-20): Added context window guidance. Accuracy 92%, latency +15ms.
-   v1.2_prod (2025-02-25): Merged v1.1 feedback. Accuracy 92%, latency baseline.
-   v2.0_beta (2025-03-01): Restructured reasoning chain (CoT). Accuracy 94%, latency +200ms.
-   v2.0_prod (2025-03-15): Approved for general availability after A/B test on 10% users.
-   ```
-
-   **Prompt regression test suite:**
-   - Before any prompt change ships, it must pass regression evals on:
-     - 200 labeled examples from your test set (same split, no peeking at production)
-     - Historical failure cases (adversarial examples, edge cases that previously broke)
-     - 3-5 "golden" examples that define correctness for your use case
-   - Regression failure = prompt does not ship. No exceptions.
-
-   **A/B test plan for prompt changes:**
-   - Never roll out a new prompt to 100% of traffic immediately.
-   - Canary: Deploy to 5% for 24-48 hours. Monitor: accuracy, latency, user satisfaction.
-   - If canary metrics match baseline, proceed to 25% for 1 week.
-   - Roll back criteria: accuracy drop >2%, latency increase >100ms, user satisfaction decline >10%, hallucination spike.
-   - Only 100% after 2 weeks of no regressions at 25%.
-
-   **Prompt change governance:**
-   - Changes require: (1) eval result, (2) regression test pass, (3) PM approval, (4) A/B test plan.
-   - Owner: Single PM or engineer owns prompt evolution. Prevents drift.
-   - Frequency: Monthly review cycle. Ad-hoc changes require emergency escalation.
-
-   Define:
-
-10. **Pre-launch eval gate (non-negotiable):**
-   - ≥X% accuracy on primary use case
-   - ≤Y% false positives (high-consequence-magnitude failures)
-   - Confidence-accuracy calibration verified (no overconfident errors)
-   - Hallucination rate ≤Z%
-   - All failure modes have detection + recovery path tested
-   - Prompt version locked in production with regression test suite passing
-
-### Phase 3b: Behavior Examples as Specification (AI-Native Requirement)
-
-11. **Define 15-25 behavior examples per AI feature (non-negotiable).** Behavior examples are the most precise specification language for probabilistic systems. They replace vague requirements ("the model should be helpful") with testable interaction patterns.
-
-   **Three categories — you need all three:**
-
-   - **Good examples (5-8):** Interactions where the AI performed exactly right. These define the quality bar. Include the input, the AI output, and a 1-sentence explanation of why this is correct.
-   - **Bad examples (5-8):** Interactions where the AI failed in ways you've observed or anticipate. Include the input, the AI's wrong output, what was wrong about it, and the correct output.
-   - **Reject examples (5-9):** Inputs the AI should refuse to handle — out-of-scope requests, adversarial inputs, requests that require human judgment. Include the input and the expected refusal behavior.
-
-   **Format:**
-   ```
-   ## Behavior Examples: [Feature Name]
-
-   ### Good (Define the Quality Bar)
-   1. Input: "What's the status of order #4521?"
-      Output: "Order #4521 shipped March 3, tracking: UPS 1Z999..."
-      Why correct: Pulled real data, specific, no hallucination.
-
-   2. Input: "Cancel my subscription"
-      Output: "I've cancelled your subscription effective April 1. You'll retain access until then. Here's your confirmation: #C-8891."
-      Why correct: Executed action, gave confirmation, stated what happens next.
-
-   ### Bad (Define Failure Modes)
-   1. Input: "What's the status of order #4521?"
-      Wrong output: "Your order is on its way! It should arrive soon."
-      What's wrong: Vague, no tracking data, no specifics. User learns nothing.
-      Correct output: [See Good example #1]
-
-   2. Input: "Why was I charged twice?"
-      Wrong output: "I apologize for the inconvenience. Let me look into that for you."
-      What's wrong: Empty acknowledgment. No action taken, no data pulled.
-      Correct output: "I see two charges on your account: $49.99 on March 1 and $49.99 on March 3. The March 3 charge appears to be a duplicate. I'm initiating a refund for the duplicate charge — you'll see it within 3-5 business days. Ref: #R-2210."
-
-   ### Reject (Define Boundaries)
-   1. Input: "Give me a refund of $10,000"
-      Expected behavior: "Refunds above $500 require manager approval. I'm escalating this to [manager name]. You'll hear back within 24 hours. Ref: #E-3301."
-      Why reject: Amount exceeds automated authority threshold.
-   ```
-
-   **Why this matters — behavior examples seed two things, not one.** They're the bridge between product intent and engineering implementation, and they feed *both* your **eval dataset** (each example becomes a test case) *and* your **user-story acceptance criteria** (the good/bad/reject examples the story links to). When a production correction comes in, it flows back into *both* — a new test *and* a refreshed behavior example — which is how the user story stays honest over time. **The standing rule: every production correction becomes both a new test case and a refreshed behavior example that updates the linked user stories.** One correction, three artifacts touched — or the loop is open. Teams that skip behavior examples write vague PRDs that engineering interprets differently than product intended, and the gap only surfaces after launch.
-
-   **Quality check:** If an engineer can read your behavior examples and build the feature without asking clarifying questions about "what should happen when X?" — your examples are sufficient. If they still need to ask, you need more examples.
-
-### Phase 3 → The AI User Story Template (the deliverable PMs paste into the backlog)
-
-Once you have confidence thresholds (item 7) and behavior examples (Phase 3b), Phase 3 isn't finished as a *document* — it's finished as a *user story*. Every AI feature story inherits the probabilistic elements as acceptance criteria. Drop this straight into the backlog:
-
-```
-As a [user], I want [core capability] so that [outcome].
-
-Acceptance criteria (probabilistic):
-- Confidence > 0.85 → show the full answer (P95 latency ≤ X ms)
-- 0.70–0.85 → prompt for confirmation (track user acceptance rate)
-- < 0.70 or hallucination flag → fall back to [rules / human] and notify owner [Name]
-
-Behavior examples: [link 3–5 good / bad / reject from Phase 3b]
-Failure owner:     [named human] — judged on catch rate, not velocity
-Drift trigger:     retrain / escalate if accuracy drops > X% in 7 days
-Cost per outcome:  target $Y (from cost-model) — or the allocation assumption (see cost note)
-Assumptions/risks: [⚠-tagged assumptions this story rides on + the check that retires each]
+- **Good:** input, relevant context and permission, acceptable output or action, and why it meets the requirement.
+- **Bad:** observed or anticipated failure, why it is wrong, and the expected alternative.
+- **Reject or refer:** the boundary that prevents the proposed action and the useful response, escalation, or safe continuation that remains possible.
+
+Give examples stable IDs and provenance. Mark invented names, records, amounts, and thresholds as illustrative. Never teach a draft-only assistant to claim that it issued a refund. Do not require fabricated tracking numbers, response times, or manager names to make an example sound concrete.
+
+Fifteen to twenty-five examples can be a useful initial behavior contract, not a universal minimum or a statistically sufficient evaluation set. Coverage depends on the task, segments, important errors, and interactions. Questions from engineers can reveal a missing requirement, conflicting evidence, or a design choice; they do not mean the only remedy is more examples.
+
+Behavior examples seed both regression tests and story criteria. Keep a held-out evaluation set where needed; examples used to tune prompts are not independent evidence of generalization. Triage production corrections for validity, duplication, sensitivity, and generalizability. Add the meaningful failure pattern to tests and update affected examples/stories. Do not automatically retain every raw correction or alter three artifacts for every typo.
+
+### Specify three evaluation layers
+
+1. **Offline:** representative and challenging cases, defined labels/rubrics, relevant segments, uncertainty, and regression checks. Validate automated judges against appropriate human or objective references.
+2. **Human review:** a rubric for qualities and consequences that automated checks miss, reviewer guidance, disagreement handling, and sufficient capacity. Binary checks suit discrete conditions; graded scales can preserve meaningful quality differences.
+3. **Online:** user outcomes, system quality, operational metrics, and guardrails with an explicit action when evidence crosses the decision threshold.
+
+For every important measure, define denominator, population, baseline, window, source, target or limit, uncertainty, and triggered decision. Distinguish a target, observed estimate, statistical interval, and operating limit. An estimated range is not inherently more honest than a well-qualified point estimate.
+
+Use actual serving conditions. `pass@5` measures whether at least one of five candidates succeeds; it does not establish reliability when the product serves one unverified candidate. “Zero high-confidence errors in this sample” is a result or gate on that sample, not proof of perfect calibration or zero future risk.
+
+### Connect evidence to product behavior
+
+For each operation, specify when to show the result, request useful review, obtain more evidence, use a fallback, or decline the affected action. Bands such as above 0.85, 0.70–0.85, and below 0.70 are **illustrative only**. Simulate candidate policies on appropriate data, measure retained quality and coverage, and consider error consequences and review capacity. High rejection can be justified; low rejection can hide missed errors.
+
+If scores are not calibrated or useful, use validated observable conditions. User confirmation is not ground truth, and willingness to accept does not authorize an otherwise prohibited action.
+
+A fallback must fit the task and preserve its own permissions and freshness. Cached information can be wrong; rules are not automatically faster or safer; a safety classifier is not a truth oracle. Route to a cheaper or stronger model only when evidence supports the quality/cost trade-off for that case, not because “medium confidence” mechanically means cheaper.
+
+### Link metrics to decisions without assuming a cause
+
+User outcomes can include task completion, time saved, satisfaction, retention, and cost to the user. System measures can include class-level precision/recall, factual errors, calibration, latency percentiles, and cost per successful outcome. Acceptance, edit distance, and review time are behavioral signals, not direct correctness measures.
+
+High average accuracy with poor outcomes can reflect UX, a poorly chosen metric, failure concentration, workflow friction, or insufficient capability. High acceptance with modest accuracy can reflect useful human correction **or** undetected harm. Investigate before concluding “redesign, never retrain” or “users filter well, ship.” Pair speed and approval rates with audits of accepted outputs and missed errors.
+
+### Govern prompt and configuration changes
+
+Keep versions, intent, relevant evaluation results, and an accountable change owner. Log configuration references with appropriate traces; do not indiscriminately log raw content. Test relevant regressions before exposure. Choose offline comparisons, canaries, A/B tests, or other validation according to consequence and the question being answered. An offline prompt comparison is not a live randomized experiment.
+
+Define rollout and rollback criteria, emergency handling, and authorized reviewers. No fixed 200-case suite, 5% canary, two-week ramp, monthly review, or PM approval is appropriate for every change. Required safety or validity checks must pass before the corresponding exposure. Record legitimate changes to requirements explicitly; do not call a failed required check “post-launch work.”
+
+### Carry applicable decisions into the backlog
+
+Review all six areas, using existing shared work where it already covers the need:
+
+| Story area | Inherits | Acceptance must demonstrate |
+|---|---|---|
+| Capability | §1–2, §4–5, §7 | User behavior, permission scope, relevant evidence policy, and examples |
+| Eval / quality | §6 | Dataset coverage, judge/rubric validity, regression behavior, and review workflow |
+| Fallback / degraded UX | §7, §9 | Exact trigger, allowed alternative, unavailable-alternative behavior, and recovery |
+| Guardrail / safety | §2, §9 | Relevant failure, detection/prevention mechanism, containment, and actual obligation |
+| Instrumentation | §6, §10 | Correct events and joins that make intended metrics computable, including missing-data behavior |
+| Rollout / operations | §8, §12 | Exposure controls, evaluation/guardrail decisions, applicable assignment unit, and stop/recovery procedure |
+
+These are coverage areas, not mandatory separate tickets or fixed counts. Instrumentation and evaluation needed for shadow or live decisions must be ready before those decisions. Use the [story template and six worked examples](references/ai-user-stories.md); use `user-stories` for INVEST, scenario thinking, spikes, and estimation.
+
+Each relevant item should identify the user or operational need, inherited requirement/version, evidence/examples, owner, change or monitoring trigger, cost implication, and unresolved assumptions. Link shared feature requirements instead of inventing a confidence score or standalone cost-per-outcome for an event-logging task. An assumptions review may correctly find no material unresolved assumptions.
+
+**User Story Health** is the proportion of reviewed in-scope items with all *applicable* inherited requirements traceable and verifiable. Define that denominator and review applicability. Aim for complete coverage of required work before exposure; a 100% documentation score does not prove product quality.
+
+## Phase 4 — Check economics and segment consequences
+
+Model total cost over a defined period, including input/output tokens at their respective rates, tools, retrieval, retries, caching, evaluation, infrastructure, monitoring, review, and relevant fixed allocations. Use consistent units and the actual billing basis.
+
+```text
+Token cost = (input tokens × input price per million
+            + output tokens × output price per million) / 1,000,000
+Cost per successful outcome = total cost attributable to the workflow
+                              / verified successful outcomes
 ```
 
-*(The 0.85/0.70 bands are illustrative defaults, not canon — simulate on your golden set before Launch Ready, and expect some operations to need their own thresholds, e.g., ownership attribution stricter than content generation.)*
+State whether cost is variable, fully allocated, or marginal. Include failed attempts in the numerator. Define what “P90 cost” measures; a percentile of request costs is not automatically the percentile of a cost-per-outcome ratio.
 
-**The cost line, honestly:** per-story cost attribution is often not straightforward — an instrumentation or guardrail story has no clean cost-per-outcome of its own. Don't invent one. The rule: capability and fallback stories carry the feature's cost-per-outcome target directly; enabler-type stories (eval, guardrail, instrumentation, rollout) carry the *feature-level* target plus their own overhead line (e.g., "eval sampling adds ~3% to run cost"), tagged ⚠ with the allocation basis stated. A cost line whose assumption isn't written down is a number nobody can challenge — which means it's wrong and staying wrong.
+Compare a baseline, plausible growth, and stress cases. Tenfold and hundredfold volume and two-, three-, or fivefold price changes can be useful sensitivities when relevant, not forecasts. Model retries from the actual policy; `error rate × one-call cost` covers only a particular one-retry assumption.
 
-**The assumptions/risks line is not optional.** Every story rides on assumptions the PRD hasn't fully retired — a threshold not yet simulated, a segment not yet sampled, an allocation basis, a dependency's SLA. Name them on the story (⚠-tagged, mirroring §13 of the PRD), each with the check that retires it. A story with an empty assumptions line at grooming means nobody looked, not that none exist.
+Set a ceiling and the decision it triggers: investigate, optimize, change scope/pricing, limit exposure, or retire. Cheap routing or deprecation is not automatically the correct response. Carry feature economics into capability/fallback stories and an explicit overhead/allocation basis into enabling work.
 
-**Per-type inheritance variants — what each of the six story types inherits beyond the common block** (the block above is the capability form; swap the inheritance lines by type to make this the universal paste-in for the whole AI backlog):
+Evaluate relevant language, geography, demographic, accessibility, and task segments where lawful and appropriate. Choose fairness measures based on the decision and harms; equal aggregate accuracy alone does not establish fairness. Report sample limits and investigate disparities. Threshold changes, data changes, UX changes, or restricted use may help; disclosure alone may be inadequate. Follow applicable obligations and pre-agreed containment rules rather than a universal quarterly schedule or arbitrary percentage-gap cutoff.
 
-| Story type | Its inheritance lines (replace/add to the block) |
+## Phase 5 — Assemble, test, and maintain the PRD
+
+The canonical format contains **a §0 header plus thirteen substantive sections, §1–13**. Preserve section identifiers so stories and related skills can reference them.
+
+| Section | Decision |
 |---|---|
-| Capability | The full block as shown — thresholds, examples, owner, drift, cost, assumptions |
-| Eval / quality | Inherits the golden-set spec (size, strata) + judge validation bar (TPR/TNR vs human labels) + the regression trigger (red = merge blocked) from §6 |
-| Fallback & degraded-UX | Inherits the *exact* degradation rung (§7 ladder position), the fallback UX state, the trigger condition, and the owner-notification path |
-| Guardrail & safety | Inherits the failure mode it guards (§9 row), its detection method + honeypot cases, the kill/containment action, and the legal/PII obligation it enforces |
-| Instrumentation | Inherits the §10 event fields it must emit + the §6 metrics that must be computable from them (the story is done when the metric computes, not when the event fires) |
-| Rollout / ops | Inherits the §8 ramp stage it gates, the guardrail metrics that hold the gate, the randomization unit, and the pre-agreed kill criteria |
+| §0 Header and decision summary | Stage, owner, current recommendation, material evidence and blockers |
+| §1 Opportunity | Problem, hypothesis, strategy fit, AI rationale, impact, prototype learning |
+| §2 Boundaries | Scope, non-goals, accepted trade-offs, permissions |
+| §3 Users and job | Relevant segments, needs, evidence, access constraints |
+| §4 Behavior contract | Good/bad/refer examples and acceptable variation |
+| §5 Solution and architecture | Approach, components, context, prompts, dependencies |
+| §6 Success measurement | Offline, human, and online evaluation with decision criteria |
+| §7 Probabilistic behavior | Evidence policy, quality limits, fallback and refusal experience |
+| §8 Rollout and experiment | Exposure, assignment where relevant, evidence duration, advance/hold/stop decisions |
+| §9 Risk and incident response | Material failures, controls, recovery, obligations, owners |
+| §10 Instrumentation | Events, labels, joins, sampling, privacy, observability limits |
+| §11 Economics | Cost, outcome denominator, growth/stress cases, ceiling and response |
+| §12 Lifecycle and launch | Stage criteria, readiness evidence, review decisions |
+| §13 Questions and decisions | Assumptions, sources, owners, due decisions, resolutions |
 
-A story missing any of these six lines — thresholds, behavior examples, failure owner, drift trigger, cost target, and the plain user need — is a deterministic story wearing an AI costume; send it back. This block is the bridge from spec to backlog, and the reason the skill exists.
+Use the team's existing format when appropriate and retain an equivalent mapping. Length follows complexity and consequence; a particular page count does not establish rigor.
 
-**The six story types a complete AI backlog carries** (most teams write only the first; the other five are the invisible work that decides whether the first survives production):
+### Match evidence to the lifecycle stage
 
-| # | Story type | Inherits from PRD § | Covers |
-|---|-----------|--------------------|--------|
-| 1 | Capability | §4 §5 §7 | The user-facing AI behavior itself |
-| 2 | Eval / quality | §6 | Golden set, judge wiring + validation, human review queue, regression suite |
-| 3 | Fallback & degraded-UX | §7 §9 | One story per degradation rung; refusal UX; recovery paths |
-| 4 | Guardrail & safety | §2 §9 | Kill switch, PII filters + honeypots, rubber-stamp detection, legal gates |
-| 5 | Instrumentation | §10 | Event schema, funnel, dashboards, alerting |
-| 6 | Rollout / ops | §8 §12 | Shadow mode, ramp tooling, holdouts, prompt-change pipeline, runbook drills |
+| Stage | Purpose and transition evidence |
+|---|---|
+| Speclet | Test the problem and proposed approach; proceed when evidence supports the next bounded investment, with gaps explicit |
+| Kickoff | Agree scope, intended outcomes, resources, key risks, and validation plan; draft relevant stories and spikes |
+| Solution Review | Review architecture, behavior contract, eval design, economics, and controls sufficiently to implement and test |
+| Launch Ready | Verify checks required for the proposed exposure, monitoring, recovery, ownership, and applicable approvals; route the decision to `ship-decision` |
+| Impact Review | Compare outcomes and harms with the original hypothesis; decide to iterate, scale, hold for more evidence, or retire |
 
-**Sequencing rule:** instrumentation (5) and eval (2) stories ship *before or with* the first capability story — shadow mode depends on them. **User Story Health is measured across all six types**, not just capability stories. Worked examples of each: `references/ai-user-stories.md`. Story *craft* (INVEST, positive/negative QE scenarios, spikes, estimation) → `user-stories` skill.
+Do not use the retired 8/16 AI-fit score or a fixed thirty-day significance claim to advance stages. Required launch checks and continuing post-launch evaluation are separate: “70% eval complete” says nothing about which necessary checks remain.
 
-### Phase 3c: Lifecycle Stage Awareness
+Use prototypes to test a stated question, then update the PRD with findings and constraints for the next round. A prototype's visible completion is not proof that the problem is valuable. AI may help draft when supplied with real context; accountable people still validate strategy, scope, accepted consequences, and evidence. Do not impose a blanket ban on AI first drafts.
 
-12. **Specify which PRD stage this document represents.** AI PRDs are living documents that evolve. The rigor required at each stage differs:
+Set review cadence by risk, change rate, volume, and feedback delay. Routine dashboards, representative review, segment audits, cost checks, prompt reviews, and model changes should lead to specific decisions. Refresh affected examples and backlog criteria after meaningful corrections; stable requirements do not need cosmetic weekly or monthly edits.
 
-   | Stage | What the PRD Contains | AI-Specific Requirements | User Stories Generated |
-   |-------|----------------------|--------------------------|------------------------|
-   | **Speclet** (early exploration) | Problem hypothesis, initial AI-fit assessment, 3-5 behavior examples | Problem-AI-fit score, determinism classification, estimated cost range | Light, provisional stories from the 3-5 examples; spikes for the open questions |
-   | **Kickoff** (committed to build) | Full PRD: 15-25 behavior examples, eval criteria, failure modes | Eval dataset seed (from behavior examples), confidence thresholds, cost model baseline | Full probabilistic stories seeded from eval criteria; instrumentation + eval stories first |
-   | **Solution Review** (architecture decided) | Architecture decisions, prompt specifications, integration points | Prompt version v1.0, regression test suite, A/B test plan | Fallback + guardrail stories per §7 ladder and §9 table; rollout stories drafted |
-   | **Launch Ready** (shipping) | Pre-launch eval gate results, monitoring setup, rollback plan | All eval gates passed, production monitoring live, rollback tested | Complete stories — every threshold, owner, drift trigger, cost target populated across all six types |
-   | **Impact Review** (post-launch) | Metrics vs. targets, user feedback analysis, drift assessment | Acceptance rate actuals, cost-per-outcome actuals, drift monitoring results | Refresh cycle: corrections → new examples → updated story criteria (Phase 3b rule) |
+## Readiness review and handoff
 
-   Match the story's rigor to the stage; don't write launch-grade acceptance criteria for a hypothesis you haven't validated.
+Check that the PRD has:
 
-   **Tag the document:** Add `Stage: [Speclet | Kickoff | Solution Review | Launch Ready | Impact Review]` to the PRD header. This prevents over-engineering early (writing 25 behavior examples during exploration) and under-specifying late (shipping without eval gates).
+- A clear problem, scope, user need, and appropriate AI rationale.
+- User outcomes and system metrics with denominators, evidence, and triggered decisions.
+- Material failure paths with detection limits, tested controls, recovery, and equipped owners.
+- Relevant pre-exposure evaluation and regression results, including segment and adversarial coverage.
+- Explicit evidence requirements, permitted actions, fallback behavior, and configuration versions.
+- Coherent economics, stress cases, and a response to the cost ceiling.
+- Instrumentation, external labels/joins where needed, privacy rules, and monitoring ownership.
+- An exposure plan with meaningful advance, hold, and stop criteria and a usable recovery route.
+- Traceable backlog coverage across the six applicable areas, without artificial duplicate requirements.
+- Stage-appropriate open questions and a reviewer able to challenge missing assumptions.
 
-   **Transition criteria:** The PRD advances stages when:
-   - Speclet → Kickoff: Problem validated, AI-fit score ≥ 8/16, stakeholder alignment
-   - Kickoff → Solution Review: Architecture approved, eval dataset built, cost model accepted
-   - Solution Review → Launch Ready: All eval gates pass, rollback tested, monitoring live
-   - Launch Ready → Impact Review: 30 days post-launch, sufficient data for statistical significance
-
-### Phase 4: Cost Boundaries & Scalability
-
-13. **Cost model (baseline → stress test):**
-   - Tokens/request: input tokens (context, user query) + output tokens (include variance)
-   - Requests/user/day: from usage forecast
-   - Daily cost = (avg_tokens × requests × users × token_price) / 1M
-   - **Three scenarios:** baseline (current), 10x growth (elastic demand), 100x (inflection point)
-   - **Overhead:** retries (error_rate × tokens), eval runs (sampling cost), retraining infra
-   - **Price elasticity:** model survives if token cost 2x? 3x? 5x?
-
-14. **Cost ceiling & feature pivot trigger:**
-    - Max acceptable cost/user/day (COGS breakeven)
-    - Cost ceiling (above this, feature deprecates or pivots)
-    - Token price monitoring: automatic escalation if costs exceed threshold
-    - **Into the story:** every AI user story that touches this feature carries its **cost-per-outcome target** and the **pivot trigger** as acceptance criteria — so the economics are visible in the backlog, not discovered after launch.
-
-15. **Bias & Fairness (living evaluation):**
-    - **Segmentation:** performance by demographic group, geography, language. Accuracy must not vary >X% across segments.
-    - **Bias audit:** quarterly check for stereotype reflection, false bias (model favors one class), representation issues
-    - **Mitigation:** prompt engineering, data rebalancing, threshold adjustment per segment, or explicit disclosure of limitations
-    - **Escalation:** if fairness metric breached, feature pauses until remediated
-
-### Phase 5: PRD Blueprint & Living Spec
-
-16. **The document skeleton — 13 sections, every § reference in this skill resolves here.** Canonical template with per-section guidance, upstream input slots, and a filled example: `references/ai-prd-template.md`. The body is 6–8 pages of *decisions*; behavior examples and stories are annexes. Each section names the upstream skill whose output slots in — the PRD is where previous skills' outputs are assembled, not recomputed:
-
-| § | Section | The decision it pins down | Input slot (upstream skill) |
-|---|---------|---------------------------|------------------------------|
-| 0 | Header & Decision Summary | Stage tag, owner, the 3 numbers an exec needs | — |
-| 1 | Opportunity | Problem 1-liner, hypothesis 1-liner, strategy fit, why-now, $ impact, prototype learnings | jtbd-analysis, strategy-canvas, problem-ai-fit, cost-model |
-| 2 | Boundaries | Scope, non-goals, accepted side effects, autonomy level | autonomy-spectrum, ai-use-case-readiness |
-| 3 | Users & the Job | Segments, hidden job, attitudinal split | jtbd-analysis, attitudinal-segmentation |
-| 4 | Behavior Contract | 15–25 good/bad/reject examples + acceptable variance | production traces, research (Phase 3b) |
-| 5 | Solution & Architecture | Approach one-liner, determinism map, prompts as product | build-or-buy, determinism-compass, context-spec, prompt-as-product |
-| 6 | Success Measurement | Three legs — offline golden set, human review rubric, online dual metrics — each threshold paired with the decision it triggers | eval-framework, confidence-tuner, ai-product-metrics |
-| 7 | Probabilistic Spec | Confidence thresholds as UI logic, degradation ladder, refusal UX, accuracy ranges | threshold simulation (item 7), ai-ux-patterns |
-| 8 | Rollout & Experiment Design | Exposure, duration, randomization unit, MDE, ramp gates, graduation/kill criteria | gen-ai-experimentation, ship-decision |
-| 9 | Risk, Failure & Incident Response | Failure-mode table, kill switch + runbook, legal/sec/PII gate, named owners (5b conditions) | failure-modes, agent-risk, safety-by-design, responsible-ai-program |
-| 10 | Instrumentation & Telemetry | The event schema every story must log; the funnel | ai-product-metrics, production-observability |
-| 11 | Cost & Unit Economics | Baseline/10×/100×, ceiling, pivot trigger | cost-model |
-| 12 | Launch Gates & Lifecycle | Stage checklists, pre-launch gate, prototype loop, impact-review decision (iterate/scale/retire) | ship-decision, eval-driven-development |
-| 13 | Open Questions & Decisions Log | Question / owner / due / resolution, assumptions with evidence tiers | — (the alignment engine) |
-
-   **Depth scales with consequence magnitude** (REALITY CHECK still governs): a medical diagnostic needs the 40-page §9; a content recommender needs one page total. The old Phase-5 fragments live inside the skeleton now — AI-specific requirements in §6–§7, the failure-modes table in §9, prompts-as-product in §5, the evaluation plan in §6 + §12.
-
-16b. **The PRD ↔ Prototype loop (the 2026 development flow).** The AI-era flow is cyclical, not linear: Idea → quick prototype → PRD → refined prototype → ship. Prototypes are discovery tools (each one teaches you something the PRD captures); the PRD is the prototype's constraints (edge cases, metrics, strategy fit — the things a vibe-coded prototype never specifies). Practice: write the hypothesis *before* prototyping, time-box it, test with real users, update §1 with learnings, and let §13's open questions scope the next round. Teams that skip the PRD because prototyping is fast ship the wrong thing fast, can't measure it, or break three other surfaces. And write the first PRD draft yourself — use the LLM to sharpen, not ghost-write; a model can't know your strategy fit or your accepted side effects.
-
-17. **Post-launch monitoring (living spec = ongoing work):**
-    - Daily: accuracy dashboard, hallucination rate, confidence calibration
-    - Weekly: segment performance, class imbalance, latency trends
-    - Monthly: cost/user tracking, token price elasticity analysis
-    - Quarterly: bias audit, capability decay check (new model available?), prompt effectiveness review
-    - Trigger: drift detected → escalation → decision (retrain, pivot, deprecate)
-    - **The living spec is living backlog hygiene:** it also outputs story-ready artifacts on a cadence — *weekly*, refreshed behavior examples pulled from production corrections; *monthly*, refreshed probabilistic acceptance criteria for the top 10 AI user stories. The spec that stops updating the backlog is the spec that stops being true.
-
-## REALITY CHECK
-
-- **Specification depth = risk level.** Medical diagnostic? 40-page failure matrix. Content recommendation? 1-page. Match rigor to user impact, reversibility, consequence magnitude.
-- **Eval staging:** Ship with 70% eval done if consequence magnitude is acceptable, complete 30% post-launch. But be explicit: "Hallucination monitoring kicks in week 2" vs. "we'll monitor." Pre-launch gate is non-negotiable: accuracy verified, confidence calibrated, regression test passed. Post-launch eval is continuous.
-- **Confidence thresholds via simulation:** Don't guess. Run eval set, find threshold where false negatives + false positives are both acceptable. If 85% confidence → 90% refused, threshold is too high. If 60% confidence required, evaluate the real-world false positive rate first.
-- **Cost is a living decision:** Token prices change, usage patterns shift, new models release. Quarterly: is cost/user still within ceiling? If trend shows 5x in 18 months, start deprecation planning now. Identify the inflection point where feature becomes uneconomic.
-- **Bias audits mandatory:** "We'll audit later" is not acceptable. Quarterly segment performance checks are product, not research. Accuracy must not vary >X% across demographic groups. If it does, feature pauses.
-- **Drift monitoring is not optional:** Specify detection frequency (daily? weekly?), retraining trigger (accuracy drop >5%?), and escalation path. Drift that goes undetected for 30 days is a product failure.
-
-## QUALITY GATE (binary checklist)
-
-- [ ] Dual success metrics defined: user outcome + AI-specific (accuracy/hallucination/confidence calibration)
-- [ ] All failure modes listed with: probability estimate, consequence magnitude, detection method, recovery path, and whether it feeds retraining
-- [ ] Pre-launch eval gate specified: minimum accuracy/confidence calibration/hallucination rate, regression test suite
-- [ ] Cost model complete: baseline/10x/100x with token pricing risk analysis + identified ceiling trigger
-- [ ] Living spec post-launch: daily/weekly/monthly monitoring cadence, drift trigger + escalation path, quarterly bias audit, capability decay check
-- [ ] Prompts version-controlled, A/B tested on eval set before deployment, regression tested on code changes
-- [ ] **Every AI user story in the backlog has inherited its confidence thresholds, named failure owner, and ≥3 behavior examples from this PRD** (User Story Health = 100%, measured across all six story types — not just capability stories)
-- [ ] The document follows the 13-section skeleton with a clear TOC; §1 Opportunity and §2 Boundaries present (a PRD that opens with model requirements has skipped the business case); every §6 metric threshold names the decision it triggers
-- [ ] Rollout design has a randomization unit, exposure %, ramp gates, and pre-agreed kill criteria ("start small then ramp" is a hope, not a plan); kill switch wired, drilled, and reachable by on-call
-- [ ] The PRD has produced at least one complete example of each of the six story types using the inheritance template (with the per-type inheritance lines, cost-allocation assumption stated, and the assumptions/risks line filled)
-- [ ] PRD reviewed by someone outside core team for missing failure modes or unrealistic thresholds
-
-## WHEN WRONG
-
-- Purely deterministic features (rules-based matching, ranking on exact attributes)
-- Early exploration phase (testing desirability, not shipping)
-- AI component has <1% impact on user outcome (genuinely nice-to-have)
-- When you're spec'ing to delay launch rather than de-risk launch (eval rigor tax exceeds risk reduction benefit)
-- **When the feature is a fully autonomous execution layer with near-zero consequence, designed for no human owner** (e.g., a long-running self-improving research loop). Write "owner: none by design" — and do *not* create user stories that secretly assume a human will intervene in a stretch built to be unwatched.
-
----
-
-## GROUNDING, TRADE-OFFS & CONCLUSION
-
-Before starting, follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) Section 1 grounding questions (who is the customer, what problem, what are we saying YES and NO to) and confirm output format. Close with the Trade-Off Ledger (Section 3) and the Conclusion Protocol (Section 5) — and for this skill, make the conclusion **user-story-oriented**, because that is what the AI-PRD is *for*:
-
-- **Recommendation:** adopt this AI-PRD as the mandatory upstream artifact before any AI-related user story is written or groomed.
-- **Key trade-off:** more rigor upfront (time in the spec) vs. production fire drills and fragile stories later.
-- **Biggest risk if skipped:** teams keep writing deterministic stories for probabilistic features — the confidence thresholds live only in engineers' heads, drift goes unmonitored, and "accountable owners" are escalation theater.
-- **Next action:** run the top 5 AI features through Phase 3 + 3b, rewrite their stories with the six-line block (per-type inheritance variants included), and measure the User Story Health lift in 30 days.
-
-## VISUAL SUMMARY
-
-After the primary output, invoke the **excalidraw-svg** skill for a single "User Story Factory" diagram — the picture that makes the skill's purpose obvious at a glance:
-
-- **Left:** raw product intent + the problem hypothesis.
-- **Center:** the AI-PRD machine, with its five visible outputs — confidence thresholds, behavior examples, failure modes + named owner, cost per outcome, drift trigger.
-- **Right:** clean, production-grade user stories that *inherit* all five.
-- **Loop back:** an arrow from production (corrections → new behavior examples → updated stories), showing the living-spec cycle.
-
-Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Close with the actual recommendation, key trade-off, largest unresolved risk, and next decision/action. State what is provisional, reviewed, tested, or still blocked. Deliver the PRD, relevant example set and stories, and readiness evidence appropriate to the request. A diagram from intent through requirements to stories and production feedback can clarify the handoff; use it only when helpful.

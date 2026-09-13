@@ -1,494 +1,108 @@
 ---
 name: rtp-research-synthesiser
-version: v2.3_latest
-description: 'On-demand intelligence synthesis skill. Reads SuperGrok X signals (daily, from Notion) and Perplexity Deep Research (weekly Saturday, from Notion), processes ONE dimension per invocation, and produces a curated digest with actionable extractions, categorised URLs, cross-temporal pattern connections, and thought leadership insights. Ravi fires this when ready, typically weekly on Sunday, but any time works. Requires ~10 invocations for full coverage across all dimensions. Use the strongest reasoning model available.'
+version: v2.3.1_latest
+description: 'Synthesize Ravi’s research signals into a clear, sourced digest that explains what changed and what it means. Use for a named intelligence dimension, a full sequential synthesis, emerging-pattern review, or cross-topic connections. The configured inputs are SuperGrok and Perplexity collections in Notion; verify actual access, dated entries, and prior coverage before treating them as current. Process one dimension at a time, continuing through all requested dimensions when a full pass is authorized. Check the underlying sources rather than treating agreement between two AI summaries as verification. Compare prior findings, preserve contradictions and source limits, and propose useful course, skill, interview, or knowledge updates. Includes all ten dimensions, saved page IDs, digest and run-log formats, and output routing. Do not manufacture novelty or automatically promote a pattern from its mention count.'
 ---
-# Research Synthesiser v2.2 — On-Demand Intelligence Engine
+# Research synthesiser
 
-## Purpose
+Turn research inputs into an intelligible account of what changed, why it matters, and what Ravi can do with it. Connect findings across time and topics when the evidence supports the connection. A useful synthesis may establish a limitation, contradiction, or absence of meaningful change; it need not manufacture a new theory.
 
-This skill transforms raw research inputs into compounding intelligence. It reads from Notion (the single source of truth for both SuperGrok and Perplexity outputs), processes one dimension at a time, and produces curated digests that map to Ravi's AIPM dimensions, skills, interview prep, and thought leadership.
+The configured collection pipeline is SuperGrok/Perplexity → n8n and source-metadata extraction → Notion → this synthesis → digest, categorized links, and proposed course/skill/knowledge applications. **These are stored design details, not proof that the services, schedules, integrations or archives are currently running.** Notion holds collected inputs; the underlying publication remains the authority for its claim.
 
-The secret weapon: **cross-temporal pattern recognition.** Every synthesis run connects this week's findings to what came before. Patterns that others see as isolated events, Ravi sees as connected trends — because this skill is designed to find those connections by default.
+## Choose the scope and establish access
 
----
+Use Ravi's named dimension when given. For an unspecified synthesis, inspect available coverage and choose the highest-priority unprocessed dimension from current context; ask only if competing priorities would materially change the work. A full synthesis means all ten dimensions **sequentially**, with checkpoints between them. Do not require ten separate user prompts or stop after the first dimension when the full pass is authorized.
 
-## Architecture: The Complete Pipeline
+The [dimension and source registry](references/dimensions-and-sources.md) preserves all ten dimension mappings and twenty-five saved Notion page IDs. Page names and IDs are discovery aids; confirm the returned page identity and content. Use an available authorized connector or a supplied export. If access is unavailable, state the specific gap and continue with accessible material where useful. Do not claim to have read a remote page or that the corpus is complete.
 
-```
-SuperGrok (10 tasks)              Perplexity Max (10 Spaces)
-Daily 7:00-9:15 AM IST           Weekly Saturday 5:00-9:00 AM IST
-        │                                    │
-        ▼                                    ▼
-   Grok outputs                    Perplexity outputs
-        │                                    │
-        ▼                                    ▼
-   n8n workflow                    n8n workflow
-   (+ FireCrawl for               (+ FireCrawl for cited URLs
-    metadata extraction)            + Perplexity model counsel)
-        │                                    │
-        ▼                                    ▼
-┌───────────────────────────────────────────────────────┐
-│                   NOTION (Source of Truth)              │
-│                                                        │
-│  Grok X Signals ──► 10 sub-pages (daily content)      │
-│  Perplexity Deep Research ──► 10 sub-pages (weekly)   │
-│                                                        │
-└──────────────────────┬────────────────────────────────┘
-                       │
-                       ▼ (on-demand, Ravi triggers)
-          ┌────────────────────────┐
-          │  RESEARCH SYNTHESISER  │
-          │  (this skill, v2.2)    │
-          │  One dimension per run │
-          └────────────┬───────────┘
-                       │
-          ┌────────────┼────────────┬──────────────┐
-          │            │            │              │
-     ┌────▼────┐  ┌────▼────┐  ┌───▼─────┐  ┌────▼─────┐
-     │  WEEKLY │  │  URL    │  │ SKILL   │  │ THOUGHT  │
-     │  DIGEST │  │ LIBRARY │  │ & COURSE│  │LEADERSHIP│
-     │         │  │by categ.│  │ UPDATES │  │CONNECTIONS│
-     └─────────┘  └─────────┘  └─────────┘  └──────────┘
-```
+No model switch, new automation, external message, or archive operation is implied by invoking this skill. Use the current capable model and the user's stated working preferences.
 
----
+## Read the run state before repeating work
 
-## The 10 Synthesis Dimensions
+1. Locate the current run log and relevant prior digests. The legacy path is `3_Research/weekly-digests/SYNTHESIS-RUN-LOG.md`; it was absent during the September 13, 2026 wording pass. Check the map and project records before recreating an old structure.
+2. Compare actual dated entries and source identifiers with prior coverage. A page's modification timestamp may reflect formatting rather than new research; an unchanged timestamp alone is not a full content comparison.
+3. Process new or materially revised entries since the last completed boundary. If no prior log exists, establish the accessible date range and work through the requested backlog in manageable batches. Record missing archived periods.
+4. If nothing relevant changed, report that briefly. Reanalysis is still appropriate when Ravi requests it, a new question changes the comparison, or a prior error needs correction.
+5. Write the completed run boundary **after** saving and checking the digest. A partial run records the precise completed range, remaining work and output state; it must not mark the whole dimension covered.
 
-Each invocation processes ONE dimension. A full weekly cycle requires ~10 runs.
+Use page IDs, entry dates/IDs, and content fingerprints where available to avoid duplication. Repeated mentions of the same announcement can be one event with several links. Corrected or updated source versions should retain their relationship to the earlier record.
 
-| Dim | Name | Grok Source(s) | Perplexity Source | AIPM Modules | Extraction Priority |
-|-----|------|---------------|-------------------|--------------|-------------------|
-| 1 | **AI Models & Capabilities** | AI PM Builder Signals | AI Model Intelligence Brief | 01, 04 | Course Content |
-| 2 | **Context Engineering** | Context Engineering Pulse | Context Engineering Deep | 07 (centrepiece) | Course + Skills |
-| 3 | **Claude & Anthropic Intel** | Claude Ecosystem Intel + Cowork Mastery + Anthropic Interview Intel | *(no dedicated Perplexity)* | 09 | Interview Prep + Skills |
-| 4 | **Agentic AI** | Agentic AI Signals | *(covered across Spaces)* | 08 | Course + Skills |
-| 5 | **AI Evals & Observability** | AI Eval & Observability Watch | AI Model Intelligence Brief (eval sections) | 10 | Course + Skills |
-| 6 | **Enterprise AI** | Enterprise AI Adoption Intel | Enterprise AI Casebook | 02, 06 | Course + Interview |
-| 7 | **AI Governance & Ethics** | Thought Leadership (safety sections) | AI Governance Watch | 14, 15 | Course + Thought Leadership |
-| 8 | **Product Strategy & GTM** | AI Pricing GTM & Monetisation | AI Product Strategy + AI PMF Growth | 11, 12, 13 | Course + Thought Leadership |
-| 9 | **AI Teams & Leadership** | *(from Builder Signals + Enterprise)* | AI Team Intelligence + AI Leadership Research | 16, 17 | Course + Thought Leadership |
-| 10 | **Frontier & Horizon** | Thought Leadership & Contrarian Takes | AI Frontier Watch | 17 | Thought Leadership |
+## Load context proportionately
 
----
+Read the relevant current guidance in `CLAUDE.md`, `5_Knowledge/rules.md`, `5_Knowledge/hypotheses.md`, and `2_Skills/SKILL-REGISTRY.md`. Use the latest three or four relevant digests as a starting point, then search older material when a connection requires it. Standing rules can be challenged by better evidence; they are not scientific facts that new research must confirm.
 
-## Notion Page ID Registry
+Use the actual course context—`1_Projects/ai-fluent-course/CONTEXT.md` exists, and a separate `1_Projects/3_AI-Fluent-Course/` project also exists—according to the requested work. The prior `1_Projects/interview-prep/` path is stale; locate current context under `1_Projects/0_interview-prep/`. Do not silently substitute one project's state for another.
 
-### SuperGrok Pages (Grok X Signals)
+For research grounding, follow MAP → relevant folder context → index/graph → source. Read the current Novel Insights guide and relevant original claims, later challenges and scope corrections. Existing summaries help discovery; inspect the underlying evidence for consequential claims.
 
-| Schedule | Page Title | Notion Page ID |
+## Extract and verify the finding
+
+For each relevant input, retain its date, collection page, original source, URL, claim, population/task, metric definition, and evidence status. A high-engagement post is an attention signal; a “production evidence” tag still needs a real deployment and outcome basis.
+
+Compare Grok and Perplexity at the **underlying source level**:
+
+| Collected pattern | What it establishes | Next step |
 |---|---|---|
-| Parent | Grok X Signals | `d4bca926-d63a-4b53-a182-ed83a0502577` |
-| 1 | AI PM Builder Signals | `f7aa08ca-dc88-4754-b6e0-70e578056306` |
-| 2 | Context Engineering Pulse | `03a5a265-d233-4148-9f80-09c7c86f0695` |
-| 3 | Claude & Anthropic Ecosystem Intel | `1d18d12f-0746-46c7-a6d5-8016394881c8` |
-| 4 | Agentic AI Signals | `8fdfb6fc-b119-487c-9712-0a29416017fb` |
-| 5 | AI Eval & Observability Watch | `b2b0bf5a-1ba2-452e-9e73-3d3a88697a21` |
-| 6 | Enterprise AI Adoption Intel | `f72eddb1-f6da-4bd3-9728-57cfdafb4caf` |
-| 7 | Claude Code & Cowork Mastery | `a4767c94-b578-41b5-a66e-9d8fc8638767` |
-| 8 | Thought Leadership & Contrarian Takes | `92fff40c-a2f9-4692-b520-a7f845e6e2af` |
-| 9 | AI Pricing GTM & Monetisation | `dc6c5792-b766-4ee5-a4f1-7ad6328361f5` |
-| 10 | Anthropic Interview Intelligence | `b8598c92-c82b-4735-8ad2-27d360fdcea3` |
+| Both collections mention it | Overlap in collection | Check whether they cite the same source and whether it supports the claim |
+| Grok only | A signal found through that collection | Inspect the actual post, author, date, source and context |
+| Perplexity only | A signal found through that collection | Inspect the cited research; the summary is not verification |
+| Collections disagree | A discrepancy | Check versions, definitions, populations, dates and methods |
+| Repeated across runs | Persistence in the feed | Deduplicate events and identify genuinely independent evidence |
 
-### Perplexity Pages (Perplexity Deep Research Signals)
+Use evidence descriptions such as **primary result checked**, **practitioner report**, **secondary summary only**, **hypothesis**, or **unresolved**. Explain the reason where it changes the decision. Do not rank a source by which AI product collected it or attach a numerical confidence without a defensible basis.
 
-| Schedule | Page Title | Notion Page ID |
-|---|---|---|
-| Parent | Perplexity Deep Research Signals | `5202c20f-1e08-43f0-9093-da68e201bf4c` |
-| 1 | AI Model Intelligence Brief | `af392049-3156-41f5-859b-d6c46279009d` |
-| 2 | Context Engineering Research | `42335202-8f9f-49be-a09d-87b2b9e47700` |
-| 3 | Enterprise AI Case Study Bank | `5913a98c-0a9f-44dc-9087-d5c531c8444d` |
-| 4 | AI Governance & Risk | `438edc4f-da9d-49d3-9f0c-97564ba34211` |
-| 5 | AI Product Strategy | `e05f7386-3c52-4428-9fa9-4409e10ed74e` |
-| 6 | AI Team Building & Skills | `d734f9d8-762d-47fe-8751-58069eb93d06` |
-| 7 | AI Leadership & Transformation | `b73d8995-ef4e-4870-b436-7e573bd6cea7` |
-| 8 | RAG & Data Infrastructure | `c573dea8-6356-4056-b2ec-c18bd560feaa` |
-| 9 | AI PMF & Growth | `fff0f4d7-8dfd-476b-9bf7-4d5cfc985cf9` |
-| 10 | Frontier Research | `ff09a04a-d198-4d3e-8fe6-dbc2e04a3e9b` |
+One suitable primary source can establish a bounded claim. Multiple independent studies can support transfer or generalization, but three articles repeating one study do not provide three confirmations. Distinguish primary from audited, observed from forecast, causation from association, and vendor-wide outcomes from Ravi's own experience.
 
-### Other Key Pages
+## Compare across time and dimensions
 
-| Page | ID |
-|---|---|
-| SuperGrok X Intelligence Hub | `313a76c3-f3f8-4fbe-87bc-52fb0c8c31f1` |
-| Master X Watchlist — 100 Accounts | `4da3dab5-a3c4-46f5-b2e9-e3609c30df19` |
-| Schedule Run Tracker | `556afdcb-0ff4-4e39-bf1f-03540af8ec63` |
+For a consequential finding, ask whether it supports, narrows, contradicts, or adds a different mechanism to an existing rule or hypothesis. Check whether a trend changed direction or whether the population, denominator, measurement, or reporting interval changed instead.
 
----
+A connection record should include:
 
-## Borrow the source's language (added 06 AUG 2026, from Ravi's instruction)
-
-**Every source you read is better written than the digest you are about to write.** Published research and edited journalism go through an editor. Your digest does not. So take the source's phrasing instead of inventing your own.
-
-This rule comes from a real failure. A synthesis session on 06 AUG 2026 produced thirty sections Ravi could not read. None of the words were on a banned list. They were fake-strong verbs and puffery: "bears on", "carries", "arrives", "yields", "worth naming", and a superlative in nearly every section. The agent had invented a register while fifteen professionally edited articles sat open in front of it.
-
-**Per source, log two or three of its plainest sentences.** Not the quotable ones. The ones where the author explains the mechanism in the fewest, shortest words. Then write the digest in that register.
-
-Four tests before a digest ships:
-
-1. **Length.** If your sentence about a thing is longer than the source's sentence about the same thing, use the source's.
-2. **Verb.** Keep the author's verb. "Stop" does not become "terminate". "Is" does not become "serves as" or "carries".
-3. **Direction.** Paraphrase drifts toward the fancier word, never the plainer one. Check which way you moved. Grander means wrong.
-4. **Read aloud.** Read your paragraph against a paragraph of the source. If the source sounds like a person and yours sounds like a report, rewrite yours.
-
-**Borrow the phrasing, never the claim.** A plain sentence is still a claim that needs its tier, its population and its source. And do not let the source's frame replace your own finding: the point of a synthesis is the deduction no single source makes.
-
-## Pre-Synthesis Protocol
-
-Before EVERY synthesis run, execute in order:
-
-### Step 0: Deduplication Check (MANDATORY — run before anything else)
-
-1. **Read the run log:** `3_Research/weekly-digests/SYNTHESIS-RUN-LOG.md`
-   - Note: last run date per dimension, which Notion pages were read, what was covered
-
-2. **Verify new content exists:** Fetch the relevant Notion page(s) for this dimension.
-   - Check the page's last-updated timestamp or the most recent dated entry.
-   - **If Notion page content is unchanged since last synthesis run for this dimension → STOP.**
-     - Report: "No new content on [page name] since [last run date]. Skipping dimension [X]."
-     - Suggest next dimension that DOES have new content.
-   - **If Notion page has new content → proceed to Step 1.**
-
-3. **After confirming new content:** Update `SYNTHESIS-RUN-LOG.md` at the END of the run (not before) with: date, dimension processed, pages read, key output location.
-
----
-
-### Step 1: Context Load
-
-```
-1. CLAUDE.md                                → Folder structure, rules
-2. 5_Knowledge/rules.md                     → Confirmed patterns (never contradict)
-3. 5_Knowledge/hypotheses.md                → Patterns being watched
-4. 2_Skills/SKILL-REGISTRY.md               → Current skill versions
-5. 3_Research/weekly-digests/               → List recent digest files (last 3-4)
+```text
+Current finding and source/date:
+Earlier finding and source/date:
+Relationship: supports / extends / narrows / contradicts / unrelated
+Deduction beyond either source, if supported:
+Scope and alternative explanation:
+Evidence that would change the deduction:
+Practical or editorial use:
 ```
 
-If running Dimension 3 (Claude & Anthropic Intel), also read:
-```
-6. 1_Projects/interview-prep/CONTEXT.md     → Current interview state
-```
+Cross-topic checking is part of the method; an original connection is not a required result. If the evidence does not support one, say so. Do not claim that nobody else has made the connection without checking the relevant literature.
 
-If running any course-heavy dimension (1, 2, 4-10), also read:
-```
-7. 1_Projects/ai-fluent-course/CONTEXT.md   → Current course state
-```
+Apply relevant tools from Ravi's library—CONTEXT, SHARP, 3X, moat analysis, strategy half-life, inner/outer conditions, PM cultures or thinking algorithms—using their **current definitions and source attribution**. Some are Ravi's synthesis and some derive from named practitioners. Do not label every framework proprietary or repeat obsolete algorithm counts or universal numerical half-lives.
 
----
+## Write plainly without copying the source wholesale
 
-## How a Single Synthesis Run Works
+Use `rtp-thinking-writing`. Learn from a source's clear explanation: identify its subject, concrete verb and mechanism, then explain the finding faithfully in your own words. Keep a technical term when it is the clearest term. A direct quotation can be useful when short, exact, attributed and within applicable quotation limits.
 
-### Step 1: Identify the Dimension
+The August 6, 2026 lesson was a digest whose inflated language obscured fifteen edited articles. Its practical correction remains: favor “stop” over unnecessary “terminate,” and “is” over vague “serves as.” But a source is not always better written, a longer sentence is not necessarily worse, and paraphrasing does not always drift toward grandeur.
 
-When Ravi triggers synthesis, determine which dimension to process:
-- If Ravi specifies: "synthesise context engineering" → Dimension 2
-- If Ravi says "run synthesis" without specifying → ask which dimension, or suggest the one with the most unprocessed data
-- If Ravi says "full synthesis" → run all 10 in sequence across multiple invocations
+Check four things: **length serves the meaning; verbs describe actual action; wording preserves scope and causal strength; the paragraph sounds natural when read back.** Keep a useful sentence's mechanism without copying two or three sentences from every source or mechanically adopting an author's interpretation.
 
-### Step 2: Fetch from Notion
+## Produce the digest and route the work
 
-For the selected dimension, fetch the relevant Notion pages using page IDs from the registry above. Each page contains run outputs as content — look for dated entries.
+Use [the digest and reporting formats](references/digest-and-routing.md). Lead with the most consequential finding, then evidence, change from earlier understanding, limits, and a practical implication. A quiet period needs a short report, not empty template sections.
 
-**Time window:** Process all data that exists since the last synthesis run for this dimension. If first run ever, process everything available. The rolling window is approximately 1 month — after that, data will be archived to Google Drive.
+Preserve a categorized URL list with meaningful labels. “Must-read” can contain fewer than three sources; a top-five summary can contain fewer than five meaningful signals. Distinguish sources actually read from links collected for later review.
 
-**What to extract from each page:**
-- All dated run outputs (H3 headings or dated sections)
-- URLs cited in the outputs (these become the URL library)
-- Key findings, frameworks, data points
-- Signals tagged as high-engagement or production-evidence
+A thought-leadership seed is optional and should identify the proposed argument, evidence, competing explanation and best medium. An interview application is a sourced example or analytical perspective unless Ravi's records establish personal involvement.
 
-### Step 3: Cross-Reference Grok × Perplexity
+Route **proposals and completed changes differently**. The digest can propose a course update, skill revision, prompt improvement or hypothesis. A registry version changes only after the skill is actually revised and synchronized. Do not mark a course, Notion page or knowledge rule updated because a proposal was written.
 
-For dimensions that have BOTH a Grok and Perplexity source:
+For authorized skill changes, follow exact-source backup → revision → version increase → validation/synchronization → registry/change log. Preserve the frontmatter structure and each description's 1,000-character limit. For shared rule changes, check current authority and preserve the supporting evidence and counterexamples.
 
-```
-Finding in BOTH Grok + Perplexity    → HIGH CONFIDENCE (verified signal)
-Finding in Grok only                  → PRACTITIONER SIGNAL (real-time, unverified)
-Finding in Perplexity only            → RESEARCH EVIDENCE (verified, may lack recency)
-Finding contradicted between sources  → INVESTIGATE (valuable nuance)
-Finding in 3+ separate run outputs    → PATTERN (candidate for rules.md)
-```
+**Pattern promotion is not automatic at three mentions.** `09_hbr-and-journals/_synthesis-engine/OPEN-ASSUMPTIONS.md`, O25, currently records that the promotion bar needs Ravi's judgment. Keep candidates and recommendations explicit; do not silently resolve that governance question by promoting a research hypothesis. A declared “promoted” state records an actual governance action, not scientific proof.
 
-### Step 4: Cross-Temporal Pattern Recognition
+## Finish the requested scope
 
-**This is the critical differentiator.** For every significant finding:
+For a named dimension, save the digest and update its completed run boundary. For a full cycle, continue through all ten dimensions unless a required input blocks a specific dimension; complete independent ones and report the gap. The older priority order started with dimension 3, then 2, then the rest because interview work was urgent. Use that order only when the current priorities still support it.
 
-1. **Check against `5_Knowledge/rules.md`** — Does this confirm or challenge an existing rule?
-2. **Check against `5_Knowledge/hypotheses.md`** — Does this provide the 2nd or 3rd confirmation needed to promote a hypothesis to a rule?
-3. **Check against previous weekly digests** in `3_Research/weekly-digests/` — Is this a continuation, acceleration, or reversal of a trend identified last week?
-4. **Check across dimensions** — Does this finding in Dimension X connect to something surfaced in Dimension Y during a previous run? These cross-dimensional connections are the novel insights that build thought leadership.
+After the requested dimensions are complete, produce a roll-up with top signals, connections, optional editorial seeds, links, interview/course implications, actual versus proposed skill/knowledge changes, and prompt refinements where useful. Label a partial roll-up with its coverage rather than calling it the completed weekly synthesis.
 
-**Pattern connection format:**
-```
-🔗 CONNECTION: [This week's finding] connects to [previous finding/rule/hypothesis]
-   Source A: [This week — dimension, date, source]
-   Source B: [Previous — dimension, date, source]
-   Implication: [What this connection means that neither finding means alone]
-   Thought leadership angle: [How Ravi can frame this as a unique insight]
-```
+Historical cadence was daily Grok collection, weekly Saturday Perplexity collection and on-demand synthesis, often Sunday. The old footer's “Sunday 9 PM automated” claim conflicted with that design. Check the actual scheduler when asked about automation; this file does not create, enable or prove a scheduled run.
 
-### Step 5: Produce the Dimension Digest
+The earlier lifecycle expected about a month of raw Notion data followed by Ravi's Google Drive archive. Verify the actual retention and archive access before claiming coverage. Saved digests and knowledge files support later retrieval; they do not guarantee automatic host loading, permanent availability, or model memory.
 
-Output structure for each dimension run:
-
----
-
-## Dimension Digest Template
-
-```markdown
-# [Dimension Name] Digest — [Date]
-## Synthesis Period: [Start Date] to [End Date]
-## Sources: [Which Grok + Perplexity pages were read]
-
----
-
-## Executive Signal
-[3-5 sentences. The single most important thing from this dimension
-this period. Written for a busy Senior PM who has 60 seconds.]
-
----
-
-## Top Findings
-
-### Finding 1: [Title]
-**Confidence:** [HIGH / PRACTITIONER SIGNAL / RESEARCH EVIDENCE]
-**Source:** [Grok schedule / Perplexity Space — date]
-**AIPM Module:** [which module(s) this maps to]
-
-[2-3 paragraph description. What was found, why it matters,
-what changed from before.]
-
-**Ravi's Frameworks Applied:**
-[Map to relevant proprietary frameworks — CONTEXT letters, SHARP,
-Explore/Expand/Extract, Moat types, Strategy half-lives,
-Inner/Outer World, PM Cultures, Thinking Algorithms — whichever
-are relevant to THIS finding]
-
-**Cross-Temporal Connection:**
-[Does this connect to any previous finding? If yes, describe the
-connection and what it means. If first occurrence, mark as NEW SIGNAL.]
-
-**Action:**
-- [ ] Course update needed: [specific module and what to change]
-- [ ] Skill update needed: [specific skill and what to change]
-- [ ] Interview prep: [how to use this in an answer]
-- [ ] Thought leadership: [angle for original content]
-
-### Finding 2: [Title]
-[Same structure]
-
-### Finding 3-N: [Continue as needed]
-
----
-
-## URL Library — [Dimension Category]
-
-### Must-Read (Top 3)
-1. [Title](URL) — [1-line why it matters]
-2. [Title](URL) — [1-line why it matters]
-3. [Title](URL) — [1-line why it matters]
-
-### Reference (Worth Bookmarking)
-- [Title](URL) — [category tag]
-- [Title](URL) — [category tag]
-
----
-
-## Pattern Recognition
-
-### Confirmed This Period (promote to rules.md)
-[Patterns that now have 3+ independent confirmations]
-
-### Strengthened (update hypotheses.md)
-[Hypotheses that got additional evidence but not yet 3 confirmations]
-
-### New Hypotheses (add to hypotheses.md)
-[First-time observations worth watching]
-
-### Contradictions (flag for Ravi)
-[Findings that challenge existing rules or widely-held assumptions]
-
----
-
-## Cross-Dimensional Connections
-[Connections between THIS dimension's findings and findings from
-OTHER dimensions in previous synthesis runs. These are the novel
-insights that build thought leadership.]
-
-🔗 CONNECTION 1: [description]
-🔗 CONNECTION 2: [description]
-
----
-
-## Thought Leadership Seeds
-[1-2 original angles that emerge from this dimension's synthesis.
-These are ideas Ravi could develop into posts, course content,
-or interview narratives that nobody else is articulating because
-they aren't cross-referencing these sources systematically.]
-
-### Seed 1: [Working Title]
-**The insight:** [What Ravi uniquely sees]
-**Why it's novel:** [What conventional wisdom misses]
-**Best medium:** [X thread / blog post / course module / interview answer]
-
----
-
-## Skill & Course Impact
-
-### Course Module Updates
-| Module | What to Update | Priority | Type |
-|--------|---------------|----------|------|
-| [##] | [specific change] | [HIGH/MED/LOW] | [ADD/UPDATE/CONTRADICT] |
-
-### Skill Update Proposals
-| Skill | Proposed Change | Evidence Strength | Recommendation |
-|-------|----------------|-------------------|----------------|
-| [name] | [change] | [CONFIRMED/OBSERVED] | [APPLY/HOLD/HYPOTHESISE] |
-
-### Knowledge System Updates
-| Destination | Entry | Action |
-|-------------|-------|--------|
-| rules.md | [pattern] | PROMOTE from hypotheses |
-| hypotheses.md | [pattern] | ADD NEW / UPDATE evidence count |
-
----
-
-*Dimension [X] of 10 complete.*
-*Processed: [N] Grok run outputs + [M] Perplexity outputs*
-*Next suggested dimension: [Y — reason]*
-```
-
----
-
-## Weekly Summary Report
-
-After all 10 dimensions are processed (typically Sunday), produce a summary:
-
-**File:** `3_Research/weekly-digests/YYYY-Wxx-SYNTHESIS.md`
-
-This rolls up all 10 dimension digests into:
-1. **Week's Top 5 Signals** (across all dimensions)
-2. **Cross-Dimensional Connections** (the novel insights)
-3. **Thought Leadership Seeds** (best 3 original angles)
-4. **URL Library Summary** (top links by category)
-5. **Interview Readiness Update** (if Dimension 3 was run)
-6. **Module Currency Heat Map** (17 modules × current/aging/stale)
-7. **Skills Updated / Proposed**
-8. **Knowledge System Changes** (rules promoted, hypotheses added)
-9. **Prompt Refinement Suggestions** (if any schedule underperformed)
-
----
-
-## Knowledge Routing Map
-
-Every synthesis run produces outputs. This table tells you exactly where each type of output belongs.
-
-| Output Type | Destination | When to Write | Format |
-|-------------|------------|---------------|--------|
-| Dimension digest | `3_Research/weekly-digests/YYYY-Wxx-DIM-[N]-[name].md` | After every dimension run | Full template |
-| Weekly summary | `3_Research/weekly-digests/YYYY-Wxx-SYNTHESIS.md` | After all 10 dims complete | Roll-up format |
-| Confirmed pattern (3+ confirmations) | `5_Knowledge/rules.md` | Whenever a pattern qualifies | Same format as existing rules |
-| New hypothesis (1st/2nd sighting) | `5_Knowledge/hypotheses.md` | Whenever a new pattern is observed | Same format as existing hypotheses |
-| Hypothesis with new evidence | `5_Knowledge/hypotheses.md` | Update existing entry, increment evidence count | Add "Second observed:" line |
-| Course module update | `1_Projects/ai-fluent-course/CONTEXT.md` | If finding changes module direction | Note: what changed and why |
-| Skill update proposal | `2_Skills/SKILL-REGISTRY.md` + the skill's CHANGELOG | If skill needs version bump | Follow versioning protocol |
-| Interview prep signal | `1_Projects/interview-prep/CONTEXT.md` | If Dimension 3 surfaces interview-relevant intel | Note: new angle or data point |
-| Thought leadership seed | `3_Research/weekly-digests/YYYY-Wxx-DIM-[N]-[name].md` | Inside the dimension digest | Seed format in template |
-| Run log update | `3_Research/weekly-digests/SYNTHESIS-RUN-LOG.md` | At END of each successful run | See run log format below |
-
-### Run Log Format
-
-`3_Research/weekly-digests/SYNTHESIS-RUN-LOG.md` tracks every synthesis run to enable the deduplication check.
-
-```markdown
-## Run Log
-
-| Date | Dimension | Notion Pages Read | New Content Found | Output File | Key Findings Summary |
-|------|-----------|------------------|-------------------|-------------|---------------------|
-| YYYY-MM-DD | [N] [Name] | [page IDs/names] | YES/NO | [filename] | [1-2 sentences] |
-```
-
-**This file is the memory of the synthesis system.** Without it, every run starts blind.
-
----
-
-## Data Lifecycle
-
-```
-Week 1-4:  Data lives in Notion. Available for synthesis at any time.
-Month-end: Ravi archives processed data to Google Drive.
-           Weekly digest files in 3_Research/weekly-digests/ persist locally.
-           5_Knowledge/ updates persist permanently.
-           Skill and course updates persist permanently.
-           Only the raw Notion page content gets archived.
-```
-
----
-
-## Invocation Examples
-
-**"Synthesise context engineering"**
-→ Run Dimension 2. Fetch Grok Context Engineering Pulse + Perplexity Context-Engineering-Deep from Notion. Process, cross-reference, output digest.
-
-**"Run full synthesis"**
-→ Run all 10 dimensions sequentially. Start with Dimension 3 (Claude/Anthropic — interview-critical), then 2 (Context Eng — centrepiece), then remaining in order.
-
-**"What patterns are emerging?"**
-→ Read `5_Knowledge/hypotheses.md` and the last 2-3 weekly digests. Identify hypotheses gaining evidence. Report without running a full dimension synthesis.
-
-**"Connect the dots on [topic]"**
-→ Search across all available Notion pages and previous digests for findings related to [topic]. Produce a cross-dimensional connection report.
-
----
-
-## Rules
-
-1. **Notion is the single source of truth.** All raw inputs come from Notion pages via MCP.
-
-2. **One dimension per invocation.** Don't try to cover everything in one run. Depth over breadth.
-
-3. **Never fabricate.** If a dimension had a quiet week, say so. Thin intelligence honestly reported is more valuable than padded noise.
-
-4. **Cross-temporal connections are mandatory.** Every synthesis run must check current findings against previous rules, hypotheses, and digest files. This is what makes the system compound.
-
-5. **URLs are currency.** Every dimension digest must include a categorised URL library. These are the primary source links that feed Ravi's learning.
-
-6. **Apply Ravi's proprietary frameworks.** CONTEXT letters, SHARP, Explore/Expand/Extract, Moat types with half-lives, Strategy half-life decay, Inner/Outer World, 3 PM Cultures, 11 Thinking Algorithms. Use whichever are relevant — don't force-fit all of them.
-
-7. **Thought leadership seeds are non-optional.** Every dimension digest must surface at least 1 original angle. The whole point of this system is that Ravi sees connections others miss.
-
-8. **Respect the evidence hierarchy.** HIGH CONFIDENCE (both sources confirm) > PRACTITIONER SIGNAL (Grok only) > RESEARCH EVIDENCE (Perplexity only) > SPECULATIVE (single mention).
-
-9. **Skill updates follow versioning.** Copy-old → update → increment → log. Non-negotiable.
-
-10. **Contradictions are treasures.** When sources disagree, that's where the nuance lives. Flag prominently, never silently resolve.
-
-11. **Never run without the dedup check.** Always read SYNTHESIS-RUN-LOG.md first. Always verify Notion has new content before processing. A synthesis run on unchanged content is wasted context and wasted time.
-
-12. **Always write outputs to their designated destinations.** Use the Knowledge Routing Map. Don't leave insights only in the digest — route patterns to 5_Knowledge/, course signals to CONTEXT.md, skill updates to the registry. The digest is the source; the routing is what makes knowledge compound.
-
----
-
-## File Locations
-
-| What | Where |
-|------|-------|
-| This skill | `2_Skills/research-synthesiser/SKILL.md` |
-| Previous versions | `2_Skills/research-synthesiser/versions/` |
-| Dimension digests | `3_Research/weekly-digests/YYYY-Wxx-DIM-[N]-[name].md` |
-| Weekly summary | `3_Research/weekly-digests/YYYY-Wxx-SYNTHESIS.md` |
-| **Run log (dedup memory)** | `3_Research/weekly-digests/SYNTHESIS-RUN-LOG.md` |
-| SuperGrok prompts | `3_Research/x-research/prompts/` |
-| Perplexity prompts | `3_Research/perplexity-research/prompts/` |
-| Confirmed patterns | `5_Knowledge/rules.md` |
-| Watched patterns | `5_Knowledge/hypotheses.md` |
-| Course signals | `1_Projects/ai-fluent-course/CONTEXT.md` |
-| Interview signals | `1_Projects/interview-prep/CONTEXT.md` |
-
----
-
-*Version 2.2.0 — 06 AUG 2026*
-*Author: Ravi Teja Palanki*
-*Skill Type: On-demand orchestration (reads Notion via MCP, writes curated digests)*
-*Scheduled: Sunday 9 PM IST (automated trigger — manual override always available)*
-*Previous versions: v1.0, v1.1, v2.0, v2.1 archived in `versions/`*
+Editorial revision: September 13, 2026. All ten dimensions, saved page identifiers, output families and temporal-comparison methods remain; evidence rules, scope, routing and historical configuration limits are now explicit.

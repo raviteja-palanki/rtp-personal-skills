@@ -1,275 +1,174 @@
 ---
 name: rtp-purpose-dialogue
-version: v1.3_latest
-description: 'Connect an AI initiative to what people actually believe, because people commit to what they help shape and merely comply with what they''re told. The trap isn''t a weak purpose statement; it''s broadcasting a good one and calling it alignment. Covers the LISTEN → CONNECT → CHALLENGE → CO-CREATE sequence, the designed-vs-effective gap (leaders report dialogue, teams report broadcast), and the failure mode nobody names: running the ritual of dialogue to ratify a decision already made. Use when adoption stalls though the technology works, when the case for AI is all efficiency and no meaning, or when folding AI into core values. Do NOT use for low-stakes internal tools, or when resistance is really a broken psychological need (needs-guard) or a product-quality problem. Pairs with: needs-guard (which need is threatened), adoption-launch (the phased motion), problem-type (is it adaptive), alignment-check (is purpose structurally connected), vision-setting (the destination).'
+version: v1.3.1_latest
+description: 'Help people examine why an AI initiative matters and meaningfully influence the decisions still open to them. Use when the purpose is unclear, leadership and affected teams describe it differently, or a significant change raises questions about values, work, or careers. Follow LISTEN, CONNECT, CHALLENGE, and CO-CREATE at a depth suited to the need. State what is fixed and what can change before inviting input. Produce a purpose statement grounded in what was heard, a values map, unresolved tensions, accountable commitments, and a record of how input was considered. Agreement, disagreement, silence, and plan changes are signals to interpret, not automatic success or failure scores. Route quality, workload, needs, and leadership problems to the relevant owners. Pairs with needs-guard, adoption-launch, problem-type, alignment-check, and vision-setting. Triggers include purpose alignment, meaningful participation, stalled adoption, and values conflicts.'
 imports: [first-principles, alignment-check]
 ---
 
 # Purpose Dialogue
 
-**The objective:** make an AI initiative something people actually believe in rather than comply with — for the leader watching adoption stall while the technology works fine. The work is not writing a better purpose statement. It is finding the belief the team already holds and building the initiative onto it, in conversation, where they can push back and change something.
+**Help people understand, question, and shape a consequential initiative.** The aim is an honest basis for action, which may include agreement, a revised plan, or a clearly recorded disagreement. It is not to manufacture belief in a decision that cannot be influenced.
 
-## DEPTH DECISION
+Use this skill when people need a conversation about the initiative's purpose or consequences. A statement can explain the intended direction; dialogue adds the opportunity to test it against people's experience and values. Both can be useful. Neither guarantees commitment or makes a poor product good.
 
-**Go deep if:** adoption is stuck despite solid tools, you're building cultural support for a significant AI initiative, or leadership and the team give different answers to "why are we doing this?"
+## First, state what is open
 
-**Skim to the diagnostic questions if:** you need a quick read on whether purpose dialogue is even the right instrument.
+Before the first session, name:
 
-**Skip if:** the initiative is low-stakes, adoption is already strong, or the diagnosis points elsewhere — a broken psychological need (`needs-guard`), a technical problem misread as a people problem (`problem-type`), or a product that simply isn't good enough yet (`eval-framework`).
+- **Fixed decisions and why they are fixed:** for example, an approved objective or an applicable requirement.
+- **Open decisions:** scope, sequence, tools, safeguards, who is affected, support, measures, or whether to proceed, as appropriate.
+- **Decision rights:** what the team decides, what it advises on, who resolves disagreements, and when participants will hear back.
+- **Known consequences and uncertainty:** what can be promised, what cannot, and what evidence or decision will resolve the unknowns.
 
-## THE TRAP
+If the overall decision is fixed but implementation can change, discuss implementation openly. If nothing can change, describe the session as an explanation and opportunity for questions; do not advertise co-creation. Learning why people disagree may still be valuable, even when the decision remains with leadership.
 
-You will write a purpose statement and think you're done. The trap is **broadcast without dialogue**: you publish a compelling vision, send it out, and assume alignment follows. It doesn't. A purpose never tested in conversation stays abstract, because people hear it through one filter — *what does this mean for my job?* — and most assume the worst answer before anyone offers a better one. They nod in the meeting and resist in the work.
+**The central failure to avoid is decorative participation:** inviting input as if it can change a decision, then treating it only as support for a conclusion already reached. A plan can remain unchanged after honest consideration. The important questions are whether influence was possible, objections were considered fairly, and participants received a reasoned response.
 
-**The mechanism — purpose isolation.** When a leader articulates purpose unilaterally, three things happen in order: people translate it into personal consequence, they assume the worst case ("they're automating me"), and they stop saying so out loud. Public agreement and private resistance look identical on a slide.
+## Choose the depth and use the existing diagnosis
 
-The trap is most seductive when the initiative is complex (so you over-explain and the conversation dies), when leaders are pressed for time (broadcast feels faster), and when the team seems aligned in meetings (they're being polite).
+For a major change with unclear purpose or contested consequences, use the full sequence. For a small or reversible change, a short conversation or direct explanation may be enough. If the team already understands the purpose and relevant concerns have been addressed, proceed without staging an unnecessary workshop.
 
-### The deeper trap: dialogue as consent-manufacturing
+Use existing findings rather than requiring every upstream skill to run:
 
-There is a worse failure than skipping dialogue, and almost nobody names it: **running the full ritual of dialogue to ratify a decision you have already made.** You hold the listening sessions, you invite the hard questions, you thank people for their candor — and nothing in the plan changes. This is more damaging than broadcast, because broadcast is at least honest about being one-way. Staged dialogue teaches people that their input is decorative, and it burns the instrument for whoever tries it next.
+- `needs-guard` identifies possible autonomy, competence, or belonging concerns. Translate relevant findings into questions and actions without diagnosing individuals from silence or resistance.
+- `adoption-launch` supplies the actual rollout, affected groups, and operating conditions. A surge, dip, and rebound is a possible pattern, not a compulsory sequence.
+- `problem-type` helps separate technical, adaptive, and mixed problems. Dialogue may reveal a product defect; repair belongs with the product owner and `eval-framework`.
+- `alignment-check` tests whether purpose connects to strategy, capability, and systems. `vision-setting` supplies the intended destination and receives unresolved strategic objections.
 
-**The honest test:** name, in advance, what you are genuinely willing to change as a result of these conversations — scope, sequence, tooling, who is affected, whether the initiative proceeds at all. If the answer is "nothing," you are not running purpose dialogue. You are running an announcement with extra steps, and you should say so plainly instead. **When wrong:** some decisions genuinely are fixed (a regulatory mandate, a signed contract). Dialogue still has value there — but its subject is *how we live with this*, not *whether we do it*, and you must say which one you're holding.
+Purpose, quality, workload, incentives, and psychological needs can interact. Address the material causes alongside the conversation. Frontline participants should not be asked to resolve a leadership conflict they lack authority to settle; leadership must own it and hear the affected people's evidence.
 
-## KEY TERMS (plain language)
+## Four moves, with room to return to an earlier one
 
-- **Purpose dialogue** — a two-way conversation that produces a shared reason for doing the work, where the team's input can actually change the plan. Distinct from a purpose *statement*, which is a sentence.
-- **Broadcast** — one-way communication of a conclusion. Useful for logistics, useless for belief.
-- **Authentic exchange** — one round where a person asks a real question, gets an honest answer (including "we don't know"), and sees something change or hears a straight reason why it can't.
-- **Excavated vs imposed purpose** — excavated purpose is a belief the team already holds, made explicit and connected to the work. Imposed purpose is one you author and ask them to adopt. Excavated sticks; imposed needs enforcement.
-- **Co-creation** — inviting the team to shape implementation details, not just react to them.
-- **Designed vs effective dialogue** — what leadership believes it ran, versus what the team experienced. The gap is the thing to measure.
-- **Consent-manufacturing** — the ritual of dialogue performed over a decision that is not actually open.
+### 1. LISTEN — understand before proposing the shared reason
 
-## WHAT THIS SKILL CONSUMES & PRODUCES
+Learn what people value, what the initiative changes, and what they see that the current plan misses. Choose accessible formats: individual conversations, small groups, written input, or a short survey. Five to seven questions can be convenient; use only those needed.
 
-**Consumes:**
-- **Which psychological need the rollout threatens** ← `needs-guard`. That skill owns the diagnosis (autonomy / competence / belonging, via Self-Determination Theory and its AWARE diagnostic). This skill does **not** re-run it — it takes the finding and builds the conversation that addresses it honestly.
-- **The rollout phase and personas** ← `adoption-launch`. That skill owns the phased motion (Surge → Dip → Rebound); this skill supplies the belief content that motion carries.
-- **Whether the problem is adaptive at all** ← `problem-type`. If a better build closes it, this skill is overhead.
-- **Whether the Purpose link is structurally broken** ← `alignment-check`. That skill asks whether purpose is *connected* to strategy, capability, and systems; this one asks whether people actually *believe* it. A purpose can be structurally sound and emotionally dead, or deeply believed and disconnected from how the company is run — different repairs.
-- **The destination** ← `vision-setting`. Vision says where we're going; this asks whether the people doing the work want to go there.
+Useful prompts include:
 
-**Produces:**
-- **An excavated purpose statement + values map + collision register** → feeds `adoption-launch` (what the Champions actually say) and `stakeholder-communications` (the framing that survives contact with the team).
-- **Co-creation commitments with named owners** → the implementation backlog.
-- **Unresolved value conflicts, escalated** → `vision-setting` or leadership. If the team's honest objection is to the initiative rather than the rollout, that is a strategy input, not a communications problem.
+- When has this team done work you were proud of, and what made it worthwhile?
+- What would this initiative improve in your work or for the people you serve?
+- What concerns you, and what would help you assess the change fairly?
+- What would the current plan require you to give up or take on?
 
-## THE SCENE: what this looked like at Best Buy
+Listen without immediately defending the plan. Ask clarifying questions and correct a material factual misunderstanding respectfully when needed. Distinguish a reported experience, a prediction, a value, and an unresolved question. Look for recurring themes and minority views; do not force a single shared belief onto a diverse group.
 
-In 2012 Best Buy was losing money, its brand sliding toward irrelevance, its stores treated as showrooms for cheaper online sellers. The incoming CEO, Hubert Joly, had every reason to open with a strategy pronouncement.
+Offer confidential or anonymous routes where practical, explaining their actual limits. A small-group survey may not be meaningfully anonymous. Participation and disagreement should not be treated as a loyalty test. Keep sensitive personal material out of a broadly shared record unless the person has agreed to its use.
 
-He did something slower. In his first week he put on a blue Best Buy polo with a badge reading "CEO in Training" and worked in the St. Cloud, Minnesota store — listening to frontline employees and customers before saying what the company would become. What he found wasn't a strategy gap. It was that the people on the floor already understood their job as helping someone solve a problem in their life, while the company had been managing them as box-movers.
+**Output:** a values-and-concerns map with the source, affected group, and uncertainty. Recent, credible listening may let you move directly to CONNECT; long tenure alone does not prove you already know what people think.
 
-The purpose that came out of it — enriching customers' lives through technology, with profit treated as an outcome rather than the goal — was not authored in an executive session. It was excavated from what employees already believed and then made load-bearing: it changed training, incentives, and what "good" looked like on a shift. Joly's own term for what it unlocked was *human magic*.
+### 2. CONNECT — test the link between those values and the initiative
 
-**The transferable move is the sequence, not the anecdote:** he listened before he spoke, and the purpose he landed on was one his people recognized as already theirs. (Sources: [HBR, "Former Best Buy CEO Hubert Joly: Empowering Workers to Create 'Magic'"](https://hbr.org/2021/12/former-best-buy-ceo-hubert-joly-empowering-workers-to-create-magic), Dec 2021; [HBR IdeaCast, "Redefining Your Company's Purpose"](https://hbr.org/podcast/2024/02/best-buys-hubert-joly-on-re-defining-your-companys-purpose), Feb 2024; Joly, *The Heart of Business*, 2021. ⚠ **Read this as an illustration of the mechanism, not as evidence of an effect size** — it is one narrated turnaround with many simultaneous causes, and the financial recovery cannot be attributed to the dialogue alone. It is also a retail transformation, not an AI rollout; what transfers is the listen-first sequence.)
+Reflect what you heard in language people recognize. For example: “Several people said that understanding the customer's workflow matters more than giving a quick generic answer. Does that capture it?” Then show what the initiative would do to support that value, with concrete consequences.
 
-## THE PROCESS
+Explain the link as a proposition to examine, not a statement that everyone agrees. An existing value can make the purpose easier to understand; a new priority or a real loss may require a different conversation. If the initiative trades speed against attention, or capacity against familiar work, name that trade directly. Do not relabel a loss as a benefit merely to make the message more appealing.
 
-Four moves, in order. Each carries its mechanism and the condition under which it misfires.
+Distinguish the organization's benefit, the adopter's benefit, and the customer's benefit. They may differ. A credible purpose does not remove the need for capacity, appropriate incentives, training, or a workable product.
 
-### 1. LISTEN — before you say anything
+**Output:** a provisional purpose statement, its grounding, the concrete commitments that make it credible, and any limits or contested claims. “Excavated purpose” means drawing from what was heard; it does not imply that a preexisting shared purpose must always be found.
 
-Understand what the team already values and what they fear, before you articulate purpose.
+### 3. CHALLENGE — make room for substantive objections
 
-- **Anonymous survey (5–7 questions):** "Why would someone in your role care about this?" · "What's your biggest concern?" · "What would make you feel confident about this change?"
-- **Listening sessions (1:1s and small groups):** "Tell me about a time this team stood for something you were proud of." Let it run. Don't correct, don't redirect, don't defend.
-- **Pattern identification:** which values recur across people, which fears repeat, which assumptions are load-bearing.
+Invite several kinds of concern without assuming everyone has one:
 
-**Output:** a values map — what this team believes should guide the work.
-
-**Why it works:** you cannot connect an initiative to a belief you haven't heard yet, and asking first changes the status of everything you say afterward. **When wrong:** if you already know the team's values cold (small team, long tenure, recent honest survey), a full listening round is theater — go straight to CONNECT and spend the time on CHALLENGE instead.
-
-### 2. CONNECT — name what they already see
-
-Say back what you heard, framed as theirs rather than yours.
-
-> *You heard:* "People use our tools when we actually understand their workflow."
-> *You say:* "What I'm hearing is you care about tools that respect how you really work instead of forcing a generic process. Fair?"
-> *They say:* "Yes — don't give me AI that makes my job harder."
-
-**Why it works:** you're not asking anyone to adopt a new value; you're making an existing one explicit and showing the initiative running through it. That's a much shorter distance to travel. **When wrong:** if the initiative genuinely does require a *new* value, or genuinely does cost something people care about, "excavating" becomes a dishonest frame. Say the hard thing directly — the trade is real, here's why we think it's worth it — because a team that catches you dressing a loss as a shared value will not believe the next thing you say.
-
-### 3. CHALLENGE — invite the pushback you don't want
-
-Dialogue is not agreement. Make it safe to raise three distinct kinds of objection, because they need different answers:
-
-| Objection type | Sounds like | What it needs |
+| Concern | Example | Appropriate response |
 |---|---|---|
-| **Technical doubt** | "Will this actually work?" | A direct answer, including "we don't know yet, and here's how we'll find out" |
-| **Personal stake** | "Does this cost me my job?" | Acknowledge the real fear. Do not minimize it. Say what you can and cannot promise |
-| **Value conflict** | "We shouldn't automate this — it's the part that matters" | Genuine debate. Sometimes they're right, and that's the most valuable output of the whole exercise |
+| Technical or operational doubt | Will this work in the cases we actually handle? | Evidence, a clear uncertainty, a test, and an owner for any repair |
+| Personal stake | What happens to my role, workload, pay, or ability to learn? | An honest account of known decisions and limits, with the accountable owner for unresolved commitments |
+| Value conflict | Is this the work we should automate? | Deliberation about the tradeoff and, where warranted, a change or strategic escalation |
 
-**Why it works:** unspoken objections don't dissolve, they go underground and resurface as quiet non-adoption. Surfacing one costs a conversation; leaving it costs a rollout. **When wrong:** if you shut down questions — or answer the value conflict with a technical answer — people stop being honest and you lose the signal permanently. A dialogue where nobody disagrees isn't a success; it's evidence the safety isn't there.
+Do not answer a values question only with accuracy statistics or promise job stability without authority to do so. Acknowledge questions you cannot answer and say how they will be handled.
 
-### 4. CO-CREATE — hand over real decisions
+Give affected people a route to speak before senior opinions dominate. Written input, smaller sessions, a neutral facilitator, or having leaders speak later may help. These are facilitation choices, not proof that a session is safe or that any fixed speaking order guarantees candor.
 
-Move from "why" to "how," and let the team own part of the how.
+Disagreement can improve a decision. Agreement can also be informed and sincere. Silence may reflect fear, fatigue, uncertainty, preference for another format, or actual agreement. Check the explanation rather than diagnosing it from the behavior alone.
 
-- "Where in your workflow would this actually be useful?"
-- "What would have to be true for you to trust its output?"
-- "What should we watch to know whether this is working?"
+**Output:** a collision register for real tensions, with the evidence, decision owner, response, and unresolved question. Do not invent a collision to satisfy a checklist.
 
-**A concrete format for this move: the invitation to play.** ⚠ Source: one HBR piece on continuous-change skills, evidence quality unclear. Treat this as a reusable structure, not a proven-effective one. Open the floor with an unrestricted invitation: any employee can propose an idea, self-selected, no manager gate. Bound it to a fixed window, two to four weeks, so it does not drift into a permanent suggestion box nobody closes. Require every idea to clear two tests before it gets a hearing: it must be sized, a rough cost or effort estimate, and it must be demonstrated, shown working even roughly, rather than just argued for in a meeting. Sizing and demonstrating are what separate this from a brainstorm. They make the proposer spend real effort before asking for yours.
+### 4. CO-CREATE — give participants a real role in open decisions
 
-**Why it works:** ownership is the difference between commitment and compliance: people defend what they helped build. **When wrong:** if the answers can't influence anything, this becomes the consent-manufacturing trap above. Hand over decisions that are genuinely open, and be explicit about which ones aren't. The invitation-to-play format has its own failure mode: a window with no sizing-and-demo requirement collapses back into an idea-collection exercise, which is the CO-CREATE version of consent-manufacturing.
+Move from purpose to choices the participants can influence:
 
-## DESIGNED VS EFFECTIVE DIALOGUE
+- Where would this be useful in the workflow, and where would it create extra work?
+- What conditions, controls, or support would make the proposed use acceptable?
+- What should change first, and what should wait?
+- What outcomes would tell us whether the change is helping?
 
-The gap that fools leaders: **leadership reports that dialogue happened; the team reports being told.** Both are describing the same meetings honestly. The leader remembers asking for input; the team remembers that nothing moved.
+State whether participants are proposing, advising, testing, or deciding. Give the work adequate time and support. Co-creation is not simply additional unpaid effort imposed on the people most affected.
 
-Measure the effective version, not the designed one:
+**Optional format: an invitation to experiment.** A short window, perhaps two to four weeks, can help people propose improvements. Offer access across roles and provide help with rough sizing and demonstrations. A sketch, walkthrough, sample, or small prototype may be enough at an early stage. Serious concerns deserve a hearing even when their author cannot build a demo or estimate engineering cost. Require stronger evidence as investment or consequence increases, and retain the approvals needed for live changes.
 
-- **Ask the team, not the leaders.** "Did anything change because of what people said?" A leadership self-assessment of its own listening is worthless here.
-- **Count decisions altered.** The single hardest number in this skill: how many plan decisions changed as a result of dialogue? **Zero is a failing score** regardless of how many sessions ran.
-- **Watch the question quality curve.** Early rounds produce safe questions. If questions are still safe by round three, safety hasn't been established — people are managing you.
-- **Check who is silent.** Consistent silence from the people most affected is the loudest signal in the room.
+Close the loop for every material proposal: accept, adapt, test, defer, or decline, with a reason and a next step where relevant. Count commitments only when an owner, capacity, authority, and date support them.
 
-**Why this matters:** every failure mode in this skill — fake dialogue, rubber-stamping, consent-manufacturing — is invisible from the leadership seat and obvious from the floor. If you only instrument the designed version, you will conclude the dialogue worked right up until adoption tells you otherwise.
+**Output:** specific implementation commitments and a feedback record participants can inspect.
 
-## WHEN THE LADDER GOES, PURPOSE HAS TO COME FROM SOMEWHERE ELSE
+## Check the dialogue people experienced
 
-**A purpose conversation held while people are watching their career path dissolve is a different conversation, and most facilitators run the old one.**
+Compare the intended process with participants' account of it. Leadership's view is useful context, but it cannot substitute for the affected team's experience.
 
-The usual sources of motivation at work are external and they are all under pressure at once: job security, a visible promotion ladder, the assumption that the skill you built keeps its value. When those are steady, purpose dialogue can lean on them. **When they are eroding, leaning on them reads as either naive or dishonest, and the room can tell which.**
+Ask whether people understood what was open, could raise concerns, received a fair response, and know what happens next. Inspect the decisions changed **and** the reasons for decisions retained. Zero changes is not automatically failure; many changes are not automatically success. A cosmetic edit can conceal no influence, while a considered objection can strengthen a decision that stays the same.
 
-**What replaces them, and it is smaller than you would expect.** Making real progress on something you chose yourself is intrinsically motivating, and it works precisely when the external guarantees are weakest. That is the reasoning behind unstructured self-directed exploration time, the Google and 3M style of arrangement, and the reason it belongs in a purpose conversation rather than in an innovation program.
+Track whether questions become more specific and whether important groups are represented. There is no required disagreement by round three. If affected people remain unheard, improve the route for participation without publicly labeling individuals as resistant.
 
-**The distinction that makes it work: no guaranteed outcome is required.** The moment the exploration time has to justify itself with a deliverable, it becomes another assignment and stops supplying the thing it was for. Leaders reliably break it this way, because unmeasured time is uncomfortable to defend.
+Use behavior alongside reported understanding: useful participation, appropriate tool use, resolved workflow problems, peer support, workarounds, workload, and customer outcomes. Voluntary use can be encouraging, but more usage is not always better. Non-use may reflect product fit, access, task mix, or an unresolved concern. Revisit meaning as conditions change rather than expecting people to repeat the same sentence six months later.
 
-**Three things this changes in how you run the dialogue:**
+## When career paths and learning are changing
 
-1. **Do not promise stability you cannot hold.** If the honest answer about the ladder is "we do not know what these roles look like in two years," say it, and then ask what would make the next two years worth spending here anyway. That question gets real answers. "How do you see your career growing?" does not, in this weather.
-2. **Ask what each person would work on if nobody checked.** It surfaces the intrinsic motivator directly, and it is the input to whether exploration time would land or be ignored.
-3. **Treat boredom as a distinct failure from overload.** As AI absorbs execution, more roles become watching rather than doing. **A person can be under-stimulated and disengaged in a job that looks well-resourced from the outside**, and a purpose conversation that only screens for burnout will code that person as fine.
+Make room for questions about job security, development, competence, and meaningful work. Do not assume every external motivation has disappeared or that self-directed exploration can replace fair employment conditions and credible career support.
 
-**The collision to expect in the register.** Leaders want to talk about the transformation's upside. People want to know whether their expertise still counts. Both are legitimate and they are not the same conversation. Naming that split out loud is usually the moment the dialogue becomes real.
+Three prompts can help:
 
-*(Source: Mithu Storoni on the HBR IdeaCast, "Redefining What Efficiency Means in the Age of AI," May 2026 — ⚠ argument-tier; the Google and 3M programs are referenced by name without percentages or sources. Falsifier: a workforce facing eroding job guarantees where structured career-path conversation raised commitment more than self-directed exploration time did.)*
+1. What can we honestly say about how the work and opportunities may change, and what remains undecided?
+2. What would you like to learn, investigate, or contribute if you had the time and support?
+3. Where is the work overwhelming, and where has it become too passive or unstimulating?
 
-## DIAGNOSTIC QUESTIONS
+Self-directed exploration may support agency and learning. Agree on time, access, boundaries, and appropriate learning checkpoints; a deliverable does not inherently destroy intrinsic motivation. Do not confuse exploration with the separate proposal process above: one may aim to learn without a promised product, while the other seeks evidence for an investment. Explain which activity people are being offered.
 
-1. **"Why do *we* think this matters?"** State the hypothesis (efficiency, capability, risk). Then ask whether the people implementing it care about the same thing.
-   - *Red flag:* you say "efficiency," the team hears "job automation."
-   - *Probe:* "If this didn't improve efficiency at all, would it still be worth doing?"
-2. **"What do the implementers believe we should optimize for?"** Run the survey; listen to the sessions.
-   - *Red flag:* no clear pattern, or values that contradict the stated purpose.
-   - *Probe:* "Are these values already in tension with how we're organized?"
-3. **"What's the fear under the surface?"** Most resistance is about trust, not comprehension.
-   - *Red flag:* people can't name a concern (it's suppressed), or every concern is worst-case.
-   - *Probe:* "What would have to be true for you to believe this won't hurt you?"
-   - *Route:* if the answer lands on autonomy, competence, or belonging, that's `needs-guard`'s diagnosis — take it there and come back with the finding.
-4. **"Can I explain this without saying AI, efficiency, or technology?"** Try it aloud.
-   - *Red flag:* you can't do it in two sentences without jargon.
-   - *Probe:* "Would someone outside this function understand why it matters?"
-5. **"What belief does the team hold that collides with how I want to implement this?"** Name the collision — that's where dialogue is most urgent and most avoided.
-   - *Red flag:* you can't name one. You haven't listened hard enough yet.
-   - *Probe:* "If both things genuinely matter, how would we resolve it?"
+If the concern is that the initiative removes essential practice or leaves people watching outputs they cannot assess, use `judgment-guard` and `needs-guard` to design the repair. A purpose statement cannot substitute for that work. The [research note](references/research-and-facilitation-notes.md) preserves the Best Buy example, the career-and-exploration connection, and their limits.
 
-## REALITY CHECK
+## A short diagnostic when the cause is unclear
 
-**Failure modes**
-- **Fake dialogue.** You ask but don't absorb. People detect it immediately and trust drops below where it started.
-- **The time trap.** Dialogue feels slow, so you cut it short to "move faster." Adoption then needs enforcement, which is slower.
-- **Disagreement read as failure.** Genuine disagreement is the instrument working. Unanimity early is the warning sign.
-- **Dialogue used to fix the wrong problem.** If the product is bad or a need is broken, no amount of shared purpose rescues it — and running dialogue anyway reads as spin.
+Use the questions that remain unanswered:
 
-**Cost:** a real dialogue cycle on a significant initiative runs weeks, not days — listening, sessions, integration, re-testing. Budget it explicitly or it will be silently cut. Skipping it doesn't remove the cost; it moves it into resistance, workarounds, and re-launches, where it's harder to see and harder to bill.
+- Why does leadership think this matters, and do implementers see the same benefit?
+- What do affected people think the work should optimize for, and how does the current system reward it?
+- What consequences concern them, including losses and added effort? Do not presume most resistance is fear or poor understanding.
+- Can we explain the purpose plainly to someone outside the function? Technical terms are acceptable when they clarify the real work.
+- Where, if anywhere, do the plan and people's values conflict? If both priorities matter, who can decide the tradeoff?
 
-**Monitoring:** track commitment signals (voluntary use beyond the minimum, quality of questions, people recruiting peers), resistance signals (quiet non-compliance, workarounds, shadow tools), and belief durability (do people still give the same reason for the initiative six months on, unprompted?).
+If the main uncertainty concerns product quality, fix or test the product. If the disagreement concerns strategy, bring it to the decision owner. If a conversation is working but reveals an objection to proceeding, treat that as potentially valuable information rather than a failed adoption exercise.
 
-## WHY DIALOGUE RAISES COMMITMENT
+## Deliver the record and the next decision
 
-Three mechanisms, worth understanding because they tell you which move to reach for when commitment is flat:
+For a substantive dialogue, produce a record that someone who missed the sessions can understand. For a brief consultation, use a compact version in the requested format.
 
-1. **Ownership** — co-creation converts an imposed change into a shared one; people defend what they shaped.
-2. **Understanding** — hard questions answered honestly signal that the decision was actually thought through, which is what earns the benefit of the doubt later.
-3. **Respect** — concerns heard, even when not accommodated, buy discretionary effort. Concerns dismissed buy the minimum.
+**Initiative, stage, date, owner:** [details]
 
-**On the numbers:** commitment does appear to climb with each authentic exchange and to jump when co-creation becomes visible — but treat that as a *directional model for sequencing your effort*, not a measured curve. This skill's earlier version carried a precise-looking ladder of adoption percentages per exchange; those figures had no traceable source and have been removed rather than restated. If you need real numbers, measure your own baseline and re-measure after the cycle.
+**Decision openness:** [fixed decisions, open decisions, rights, and response date]
 
-## WHERE YOU ARE — OUTPUT
+**Purpose:** [plain-language statement, whose input informed it, and whether it is shared, partly shared, or contested]
 
-Produce this artifact, not a prose summary. It should be readable in one pass by someone who wasn't in the sessions.
-
-```markdown
-# Purpose Dialogue: [Initiative]
-**You are here:** [Not started / Listening / Connecting / Challenging / Co-creating / Complete]
-**Decision openness (stated up front):** [what we are genuinely willing to change]
-
-## Excavated purpose (one sentence, no jargon)
-"[Purpose stated in the team's own language]"
-Source: [which listening input this came from — quote or paraphrase]
-
-## Values map
-| What the team values | Evidence (where we heard it) | How the initiative connects | Strength |
+| What people value or need | Evidence and affected group | Link to the initiative | Status |
 |---|---|---|---|
-| | | | strong / partial / contested |
+| [Theme] | [Source or safe paraphrase] | [Concrete consequence] | Supported / partial / contested / unknown |
 
-## Collision register — where belief and plan disagree
-| The collision | Whose belief | Our position | Status |
+| Tension or objection | Relevant perspectives | Response or option | Decision owner and status |
 |---|---|---|---|
-| | | | resolved / accommodated / OPEN: decision-needed (owner: ) |
+| [Real issue, if any] | [Protect sensitive detail] | [Accept, adapt, test, retain, defer, or decline with reason] | [Owner and date] |
 
-## Dialogue roadmap
-| Round | Audience | Format | What can change as a result | Owner |
-|---|---|---|---|---|
-
-## Co-creation commitments
-| What the team shapes | Decision handed over | Owner | By when |
+| Next dialogue or action | Participants and format | What it can change | Owner, capacity, and date |
 |---|---|---|---|
+| [Action] | [Details] | [Actual influence] | [Commitment] |
 
-## Effective-dialogue check
-- Decisions actually altered by dialogue: [N] — *zero is a failing score*
-- Team-reported (not leader-reported) sense that input mattered: [high / mixed / low]
-- Who is still silent: [names or roles]
+Add the effective-dialogue check, decisions changed or retained with reasons, material groups still unheard, and `OPEN: [decision needed] — [owner] — [date]`. Keep personal disclosures appropriately restricted.
 
-## OPEN: decision-needed
-- [ ] [Unresolved item] — owner: [name] — needed by: [date]
-```
+Pass the purpose and commitments to `adoption-launch` and `stakeholder-communications`; put implementation actions into the backlog; route unresolved strategic conflicts to `vision-setting` or leadership. Do not turn a contested statement into “the team's purpose” in the handoff.
 
-## QUALITY GATE
+## Before finishing
 
-- [ ] Decision openness stated **before** the first session (what can genuinely change)
-- [ ] Team values identified by listening, not assumed
-- [ ] Fears surfaced and named; need-based ones routed to `needs-guard` rather than re-diagnosed here
-- [ ] Purpose stated without jargon — a peer outside the function understands it
-- [ ] At least one real collision named in the register
-- [ ] Co-creation commitments have named owners and dates
-- [ ] Effective-dialogue check run with the team, not the leadership
-- [ ] OPEN items carry an owner
+Confirm that decision openness was honest, the values map reflects actual input, promises have accountable owners, material concerns have responses or next steps, and participants can see how their input was considered. Record no conflict found when that is the evidence.
 
-## WHEN WRONG
+State the recommendation, tradeoff, biggest risk, next action, and review trigger. Budget dialogue and implementation together. A short consultation can take hours; a broad change may take weeks. There is no automatic two-month reversal point or guaranteed adoption lift per conversation.
 
-- **The initiative is genuinely low-stakes** — internal tool, small blast radius, reversible. This is overhead.
-- **The team is already aligned** — verify with the diagnostics rather than assuming, then move on.
-- **The misalignment is at leadership level** — frontline dialogue cannot repair a split among the people setting direction. Fix that first or you're asking the team to resolve a conflict they don't own.
-- **You are not willing to change anything** — fake dialogue is worse than no dialogue. Send the announcement honestly instead.
-- **The real problem is product quality or a broken need** — route to `eval-framework` or `needs-guard`. Purpose talk layered over a bad product reads as manipulation and costs credibility.
+Reassess if concerns remain unanswered, the plan lacks capacity, or the purpose is being used to avoid a substantive product or employment issue. A decline in commitment can signal a valid objection, a broken promise, poor facilitation, or another cause; investigate before choosing the explanation.
 
-## TRADE-OFF LEDGER
-
-**We are betting on:** people commit more deeply to what they help shape than to what they're told, and that the difference shows up in discretionary effort during the hard middle of a rollout.
-
-**We are giving up:** speed in the opening weeks, and the comfort of a settled plan — dialogue can reopen decisions you thought were closed.
-
-**Reversible within:** roughly two months. If commitment signals aren't moving, stop and re-diagnose; the instrument may be wrong for this problem.
-
-**The hidden trade-off:** genuine dialogue surfaces disagreement about the *initiative*, not just the rollout. You may learn the objection is substantive and correct. That's the highest-value output this skill produces and the one most likely to be unwelcome — which is exactly why leaders quietly prefer broadcast.
-
-**Confidence: Moderate.** The mechanism (participation → ownership → commitment) is well supported across organizational research and matches the Best Buy narrative. The *magnitudes* are not established here, and this skill no longer pretends otherwise. **What would change our mind:** running a real cycle and seeing commitment fall — which would suggest the team's objection is to the initiative itself, and the finding would still be worth having.
-
-## CONCLUSION
-
-**The recommendation:** run purpose dialogue before full rollout when adoption is material to the strategy — and state your decision openness first, because that single sentence determines whether any of the rest is real.
-
-**The decision path:** start with listening (survey + sessions). If values align and commitment signals are present, go straight to co-creation. If listening reveals fear or collision, run the full cycle. If it reveals that the team fundamentally disagrees with the initiative rather than its rollout, escalate — that's a strategy problem wearing a communications costume.
-
-**Assumptions to watch:** that values are accessible through listening (test it with a survey); that leadership is genuinely open to being changed (test it by asking what they'd do if the team rejected a core assumption); that the initiative has a human benefit statable without jargon (test it on someone outside the function).
-
-**Monday move:** write down, in one sentence, what you are willing to change based on these conversations. If you can't fill it in, you've found your first problem — and it isn't the team's.
-
-## VISUAL SUMMARY
-
-Invoke `excalidraw-svg` for: (1) the LISTEN → CONNECT → CHALLENGE → CO-CREATE sequence with the failure mode that sits under each step; (2) the designed-vs-effective dialogue gap, leadership view against team view; (3) the collision register as a simple belief-versus-plan map.
+An optional sequence diagram or values-versus-plan map can help when it clarifies the decisions. The record of influence and follow-through matters more than the number of sessions or visuals produced.

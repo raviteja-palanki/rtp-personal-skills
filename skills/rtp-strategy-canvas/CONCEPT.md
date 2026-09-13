@@ -1,43 +1,27 @@
 # Strategy Canvas — Concept Guide
 
-## FIRST PRINCIPLES
+Strategy selects where to compete, which outcomes to pursue, how to create value, and which commitments to make. AI can change the capabilities and costs behind those choices quickly. The canvas makes those dependencies explicit so a team can adapt without treating every new model as a reason to restart.
 
-Traditional product strategy assumes a stable capability frontier. You know what technology can do. You compete on how well you apply it to user problems. The strategic question is "where to play and how to win" within known boundaries.
+In business terms, it connects a customer problem to an advantage, an investment portfolio, and a credible path to results. In technical terms, it identifies capability assumptions, evaluation conditions, operating constraints, and triggers that could change implementation or scope.
 
-AI product strategy operates on a shifting capability frontier. What the technology can do changes quarterly. A feature that required 6 months of custom ML last year is a prompt away today. A competitive moat built on data advantage can be undermined by a new model that needs less data.
+A useful strategy can hold across several possible futures. It can also deliberately exploit a temporary opportunity when expected returns and bounded exposure justify doing so. Independence from every provider or model is not a universal requirement.
 
-The atomic insight: **AI strategy is not about predicting the future of AI. It's about designing a strategy that remains valid across multiple possible futures of AI.**
+## Three traps
 
-## DUAL DEFINITION
+**A roadmap outlives its assumptions.** In an illustrative case, a team plans twelve months of work and a new model changes the economics in month three. Continuing for another nine months solely because work has started would ignore the changed alternatives. The sensible response is to compare remaining costs, benefits, switching costs, and commitments; replacement is not automatically best.
 
-**Business definition:** The AI strategy canvas is a living strategic document that separates stable market realities from volatile technology capabilities, defines strategic bets that adapt to capability changes, and identifies the unique advantages that make the strategy defensible regardless of which models or tools emerge.
+**A model name substitutes for an advantage.** Saying the product uses Claude, GPT, or Gemini does not explain why customers should choose it. A broadly available model may be replicable, while specialized performance, economics, distribution, or difficult integration may still create value. Investigate the actual mechanism with `moat-finder`.
 
-**Technical definition:** A capability-conditional strategic framework that maps product direction to model capability thresholds, defines trigger conditions for strategic pivots, and maintains an inventory of durable technical advantages (proprietary data, workflow integration, domain models) independent of any specific model provider.
+**Data volume substitutes for economic value.** A reduction in examples needed for a task can weaken a volume advantage. It does not make a dataset worth proportionally less: a shift from 10,000 examples to 1,000 needed examples is not proof of a tenfold valuation change. Quality, coverage, rights, rarity, update speed, and the decisions improved matter. Both a fixed dataset and an ongoing feedback stream can be valuable; neither is automatically a moat.
 
-## THE TRAP (Expanded)
+## Two illustrative cases
 
-**The Roadmap Trap.** A PM creates a 12-month AI roadmap. Month 3: a new model launches that can do in zero-shot what the team planned to fine-tune for. The roadmap is obsolete, but sunk cost and organizational momentum keep it alive. The team spends 9 months building something that's now commodity.
+A legal-technology team prepares a more autonomous research path if representative evaluations and operating requirements support it by Q3, and retrieval-assisted human work otherwise. An early capability improvement in Q2 prompts review. It does not waive release conditions or establish that the autonomous path is best. This is a planning example, not a verified company outcome.
 
-**The Model-Dependent Strategy.** "Our advantage is that we use Claude/GPT-4/Gemini." This is a vendor relationship, not a strategy. When the competitor switches to the same model (trivially easy), the advantage evaporates. Strategy must be independent of model choice.
+An enterprise provider has 200 connectors and three years of integration work. Those facts suggest assets to investigate, but they do not prove competitors cannot catch up. Assess the quality and maintenance of integrations, customer-specific configuration, certification scope, distribution, switching costs, and alternatives. The numbers are illustrative.
 
-**The Data Moat Illusion.** "We have more data." Historically true as a moat. But foundation models are increasingly data-efficient. A model that needs 1,000 examples to learn your domain makes your 10,000-example dataset 10x less valuable as a moat. Data is a moat only if it's proprietary, growing, and hard to replicate — not just large.
+## Intellectual lineage
 
-## INTELLECTUAL LINEAGE
+Roger Martin's *Playing to Win* informs strategic choice; Gibson Biddle's DHM lens connects delight, difficulty of imitation, and margin; Hamilton Helmer's *7 Powers* informs defensibility. Shreyas Doshi's strategy and planning discussions and Ben Thompson's *Stratechery* provide further perspectives. These are influences, not evidence that every AI strategy follows a fixed lifetime or must contain a feedback loop.
 
-- **Roger Martin** — *Playing to Win.* "Where to play" and "how to win" adapted for AI's volatile capability frontier.
-- **Gibson Biddle** — DHM (Delight, Hard-to-copy, Margin) model. Applied to AI: hard-to-copy in AI is workflow depth and trust, not model access.
-- **Hamilton Helmer** — *7 Powers.* Which of the 7 powers (scale, network effects, switching costs, etc.) actually apply in AI products?
-- **Shreyas Doshi** — On the distinction between strategy (where to invest) and planning (how to execute). AI collapses the timeline between them.
-
-## REAL-WORLD EXAMPLES
-
-**Capability-conditional bet.** A legal tech company defined two strategic paths: Path A (if model reasoning improves to handle multi-step legal analysis by Q3) = AI-first legal research. Path B (if not) = AI-assisted human research with smart retrieval. When model capability hit the threshold in Q2, they triggered Path A with an already-designed architecture. Competitors who bet on a single path either over-built or under-built.
-
-**Unique context advantage.** An enterprise AI company's moat wasn't the model — it was 200+ pre-built connectors to enterprise systems (SAP, Salesforce, ServiceNow). Any competitor could match their model quality. None could replicate three years of integration engineering, customer-specific configurations, and compliance certifications.
-
-## FURTHER READING
-
-- Roger Martin, *Playing to Win* — Strategic choice-making adapted for volatile environments
-- Hamilton Helmer, *7 Powers* — Durable competitive advantage analysis
-- Gibson Biddle, "DHM Framework" — Delight/Hard-to-copy/Margin for AI products
-- Ben Thompson, *Stratechery* — Platform strategy in AI era
+Use [SKILL.md](SKILL.md) for the seven-step process and decision canvas, with [evidence and planning notes](references/evidence-and-planning-notes.md) for source limitations.

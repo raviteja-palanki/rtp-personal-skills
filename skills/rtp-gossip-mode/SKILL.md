@@ -1,178 +1,152 @@
 ---
 name: gossip-mode
-version: v1.1_latest
-description: 'Turns venting into memory. When you think aloud (a standup gripe, a post-demo debrief, a hallway observation), this catches the structural signal hiding in the informal stream. That might be an eval gap, a prompt regression, a model drifting, a stakeholder''s shifting stance, or a cost spike. Each one gets routed to the exact file a future session will need. One gripe usually holds several routable facts; most PMs hear a vibe and let it die. Always proposes routing and waits for confirmation; never writes sensitive content without asking. Use when the user is venting, debriefing informally, or thinking aloud about AI product work, not when they ask a specific PM question or want a deliverable. Pairs with: feedback-triage (structured customer feedback, the formal sibling), interview-synthesis (structured transcripts), production-observability (when the vented signal is an ops incident), signal-scanner (when it''s competitive intel). Triggers: user venting, debriefing, or thinking aloud about AI product work.'
+version: v1.1.1_latest
+description: 'Help turn an informal AI-product debrief into useful, traceable observations without turning a passing remark into an established fact. Look for evaluation gaps, prompt or model changes, cost and latency concerns, stakeholder preferences, and competitive leads. Separate what was reported from what is inferred, suggest the right existing records, and save only within the user’s authorization. Ask before newly storing sensitive or personal content; respect requests not to record it. Use when the user is thinking aloud or debriefing and would benefit from capture, not when they want only to be heard or have already given a specific task. Pairs with feedback-triage, interview-synthesis, production-observability, and signal-scanner.'
 imports:
   - feedback-flywheel
   - eval-framework
 ---
 
-# Gossip Mode — AIPM Signal Extraction
-**Listen to the unstructured. Extract the structural. Route to the right file.**
+# Gossip Mode — Informal Product Signals
 
-**The objective:** stop valuable signals from dying in conversation — for the PM whose most important product intelligence arrives sideways and evaporates. It catches the informal remark, names the kind of signal buried in it, and files it where the next decision will find it.
+Help useful observations survive a conversation in a form that a later decision can use. Listen first, distinguish evidence from interpretation, and route the material with its source and limits intact.
 
-## The one idea
+A remark may contain several useful leads, one lead, or nothing that needs a durable record. The goal is useful capture, not discovering a hidden pattern in every sentence or creating more files.
 
-Someone says, in standup: *"Vinod was annoyed the AI got Q3 wrong but Q1 and Q2 right — said he'd rather it refuse than guess. Also latency was up, like 4 seconds for what used to be 1.5."*
+## Start with the user's intent and recording boundaries
 
-Most PMs hear a vibe: *Vinod's grumpy today.* Then the moment passes and everything in it is gone.
+Use this mode for an informal debrief or stream of observations when extracting and recording signals would help. If the user wants only to vent, acknowledge them without forcing a diagnostic exercise. If they ask a specific product question, request a deliverable, or already say exactly what to add where, handle that task directly.
 
-Listen structurally and that one gripe is not a vibe — it is **four routable facts:** an eval gap (a Q3-class failure that isn't in the test set), a stakeholder tolerance (refuse > guess, for this user), a latency incident (P95 jumped 1.5s → 4s, possibly a P0), and a candidate decision (if you adjust the confidence threshold, that's worth logging). Four signals, four different files.
+**Separate listening, proposing, and saving.** An informal remark is not automatically a request to create durable memory. Show the proposed content and destination before a new recording action. When the user has already authorized that content and destination—or given applicable standing authorization—carry out the agreed work without asking again. Keep proposed, saved, verified, and unresolved items clearly distinct.
 
-That's the one idea: **the most valuable product intelligence arrives sideways, and it dies unless something catches it.** The 0.1% PM doesn't have a better memory — they have a *routing habit*: pull the durable structural fact out of the informal remark, and write it to the exact place a future session will look. Generic auto-memory captures "model failed" as a journal line. This captures it as an eval-set update, a hypothesis, and a stakeholder note — three files, not one buried sentence.
+For sensitive material such as compensation, named complaints, or personal customer details, default to not creating an additional record. Use the minimum necessary detail and an appropriate audience when the user explicitly authorizes storage. Do not generalize a named person's temporary frustration into a permanent character judgment. Respect “do not record this” and similar limits. This governs the files and records you create; it is not a promise about the chat platform's retention.
 
-The whole test is **traceability:** six months from now, can specific entries in the rules, the hypotheses, and the eval set be traced back to the gossip moment that created them? If yes, the routing worked.
+External messages, tickets, and operational changes are separate actions. Follow the authorization for each action; do not send a complaint or alert to others merely because the conversation contains a concern. If action is needed but not authorized, prepare a concrete proposal or draft.
 
-Two disciplines make it safe, and they never bend: **propose the routing and wait — never write silently**, and **never route sensitive content without asking** (comp, named complaints, PII stay in the conversation by default).
+## The basic method
 
-## How to use this skill
+1. **Acknowledge briefly.** Reflect the situation in one or two sentences without diagnosing motives or turning the response into therapy.
+2. **Extract the supported observations.** Preserve the distinction between a direct statement, a secondhand report, and an inference. Record unknown context rather than supply it.
+3. **Choose the useful destination.** Inspect the relevant project records and use real paths. Prefer updating or linking an existing entry over duplicating the same source into several files.
+4. **Identify any urgent assessment.** Assess potential impact and active exposure before assigning incident severity or interrupting other work.
+5. **Save within authorization and verify.** Write only the agreed content, preserve provenance, and report what was actually saved. If confirmation is needed, offer a short, reviewable routing proposal.
 
-1. **Scan the informal stream for two families of signal** — *the AI system changed* (eval/prompt regressions, model drift, cost/latency spikes) or *the people and market changed* (stakeholder stance, capability shifts, competitive intel, failure-tolerance). THE EXTRACTION SCHEMA below has the eight types.
-2. **Extract the structural fact**, not the emotion — one gripe usually holds several.
-3. **Propose the routing** as a checklist with real file paths, flag low-confidence reads, surface the one immediate action — then **wait for confirmation** before writing anything.
+## What a signal record needs
 
-## KEY TERMS (plain language)
+For each material item, keep enough context to understand and check it later:
 
-- **Signal extraction** — pulling the durable structural fact out of an informal remark ("Vinod was annoyed" contains an eval gap, a latency incident, and a tolerance preference).
-- **Routing** — writing each extracted signal to the specific file a future session will read: eval sets, hypotheses, rules, stakeholder memory, cost logs.
-- **Golden set** — the fixed collection of test cases the AI must keep passing; production failures get added so they can never silently return.
-- **Regression** — something that used to work and now doesn't, usually after a prompt or model change.
-- **Model drift** — a model's behavior changing over time or across versions, without you changing your product.
-- **Hypothesis → rule promotion** — a pattern seen once or twice is a hypothesis; confirmed three times, it becomes a rule applied by default.
+- **Observation:** what the person actually said or what was directly observed.
+- **Source and time:** who reported it, when, and how they know, using only authorized identifying details.
+- **Scope:** product, task, user segment, prompt/model version, or incident period when known.
+- **Interpretation:** the possible implication, clearly labeled as a hypothesis where appropriate.
+- **Evidence gap:** what would establish, bound, or contradict the interpretation.
+- **Route and next action:** destination, owner if known, and status.
 
-## WHEN TO RUN THIS
+A statement can be explicit and accurately captured while its underlying claim remains unverified. “The user reported four-second responses” is stronger than “production P95 is four seconds” when no distribution was measured.
 
-**Run it** when the user is venting, debriefing informally, or thinking aloud about AI product work — the mode where signals leak out uncatalogued. **Skim to the schema** if they're venting briefly and you just need to parse fast. **Skip it** when they ask a specific PM question (run the matching skill), request a deliverable (that's craft mode), or are mid-structured-workflow (capture as side notes, route after). See RED TEAM below for the full when-not list.
+## Eight signal types, in two families
 
-## THE EXTRACTION SCHEMA
+These are routing lenses, not mutually exclusive labels. Record one source observation and link its implications where useful.
 
-Scan for these eight signal types across two families. Each has a routing destination.
+### Family A — The AI system may have changed
 
-### Family A — the AI system changed
-
-**1. Eval-pipeline regression.** *Listen for:* "used to handle X, now gets it wrong"; "added a new model/prompt and a working case broke"; "eval scores dropped after [change]." *Route to:* eval golden set (add the failure case) · `hypotheses.md` (first sighting of a regression pattern) · `rules.md` (if 3+ confirmed).
-
-**2. Prompt-version regression.** *Listen for:* "changed the prompt and X stopped working"; "old prompt was better at [class]." *Route to:* prompt-versioning log (with the version number) · prompt template (flag the change) · decision record if rolled back.
-
-**3. Model-version drift.** *Listen for:* "[new model] is worse/better at [task]"; "output style changed after the vendor's update." *Route to:* capability-tracking log (model + version + change) · cost-model (if pricing shifts) · strategy-review queue (if the drift is structural).
-
-**4. Cost / latency surprise.** *Listen for:* "blew the cost budget"; "latency spiked after [event]"; "per-call cost went up." *Route to:* cost-model (update the real numbers) · production-observability (did the dashboard catch it?) · decision record if a model/routing change is needed.
-
-### Family B — the people and market changed
-
-**5. Stakeholder dynamics.** *Listen for:* "[name] is now annoyed/excited/skeptical about [topic]"; "leadership wants [thing] by [date]"; "[engineer] pushed back on [decision]." *Route to:* stakeholder memory (named person + position) · open questions (if it creates a decision point) · comms plan (if messaging must change).
-
-**6. Capability shift (model landscape).** *Listen for:* "[model] just shipped and can now do [Y]"; "saw a demo where [capability] worked." *Route to:* capability-tracking log (update half-life estimates) · strategy-review queue · `/strategy-review` action items if material to current bets.
-
-**7. Competitive intel (informal source).** *Listen for:* "heard at a meetup that [competitor] is doing X"; "a customer said they're also evaluating [competitor]." *Route to:* competitive map (with a confidence level — low for rumor, higher for a direct customer signal) · signal-scanner · `hypotheses.md` if first sighting.
-
-**8. Acceptable-failure-mode signal.** *Listen for:* "[user] would rather it refuse than guess"; "doesn't mind slow if it's right"; "fine with [tradeoff] but not [other]." *Route to:* AI-PRD failure-mode section (update tolerance assumptions) · eval-framework (adjust the acceptance bar) · JTBD analysis (refine the gain criteria).
-
-## WHY THE ROOM STAYS QUIET WHEN EVERYONE TRUSTS EACH OTHER
-
-This skill exists because things get said outside the room that never get said inside it. Here is the mechanism, and it corrects an assumption most teams hold.
-
-**Trust and psychological safety are different objects, and only one of them predicts group voice.**
-
-- **Trust** is "the willingness to place yourself at risk based on another person's actions," and it **develops one relationship at a time**. It splits two ways: **relational trust** (confidence that others care about and respect you) and **transactional trust** (confidence that others are capable, reliable and aligned in intent).
-- **Psychological safety** is a property of the **group**: a shared belief that people can speak candidly without fear of embarrassment, dismissal or retaliation.
-
-**The finding that matters here, stated flatly by the researchers:** *"Strong one-on-one relationships do not automatically create a psychologically safe team."* Teams whose members trusted one another individually still hesitated to speak candidly in group settings.
-
-**So high-trust teams produce more gossip, not less.** If everyone trusts everyone one-to-one and the group is not safe, the honest content has exactly one available channel, and it is the corridor. That is not a culture failure to be scolded; it is the predictable routing of information that has nowhere else to go. **Read a rich gossip stream from a high-trust team as a group-safety signal rather than a loyalty problem.**
-
-**Two consequences for how you use this skill:**
-
-1. **Do not diagnose the trust level from the gossip.** The gossip tells you the group channel is closed. It tells you nothing about whether people respect each other, and they usually do.
-2. **When you phrase a trust question in a survey, phrase it group-referenced.** A trust item asked about colleagues measures the one-relationship-at-a-time property and will return high trust for a team that cannot speak, which is the exact false negative you are trying to avoid.
-
-*(Source: HBR, "How the Best Leaders Shape Conversations," Aug 2026 — ◆ the authors' own dataset across more than a hundred teams; the relational and transactional definitions are verbatim, and the psychological-safety definition is theirs citing Edmondson. The reading that high individual trust plus low group safety routes content into the corridor is this corpus's inference, not their finding.)*
-
-## ROUTING RULES
-
-The logic is reasoning, not lookup — but this is the default decision tree. **The routing must be visible in the response: propose where each signal goes and wait for confirmation. Never write to files silently.**
-
-| Signal | Confirmation level | Route to |
+| Signal | Listen for | Candidate destination and check |
 |---|---|---|
-| Failure mode named with a concrete example | First time seen | `hypotheses.md` |
-| Failure mode named with a concrete example | Seen 3+ times | `rules.md` |
-| Decision made or reversed | Always | `CHANGE_LOG.md` (with WHY) |
-| Stakeholder preference / sensitivity | Low-stakes | Memory file |
-| Stakeholder preference / sensitivity | Load-bearing | Open questions + memory |
-| Eval test case from production | Always | Eval set + change log |
-| Capability shift | Always | Capability tracking |
-| Cost / latency anomaly | First time | Production-observability check |
-| Cost / latency anomaly | Repeated | Cost-model update + decision record |
-| Competitive intel | Low confidence | Signal-scanner queue |
-| Competitive intel | High confidence (direct source) | Competitive map update |
+| **1. Evaluation gap or regression** | “It used to handle this,” or a case failing after a change. | Evaluation intake and a hypothesis record. First check whether the case exists, whether prior behavior was measured, and what correct behavior should be. |
+| **2. Prompt-version regression** | “We changed the prompt and this stopped working.” | Prompt-version log and relevant regression case; record a rollback decision only if one was made. Establish the versions and other simultaneous changes. |
+| **3. Model-version change or drift** | A task or style changing after a model update. | Capability or model-change log; route material economic or strategic implications separately. Preserve uncertainty about whether the model, inputs, or workflow caused the change. |
+| **4. Cost or latency surprise** | A bill, response time, retry rate, or per-call cost moving unexpectedly. | Observability or cost-investigation record. Verify units, traffic, timing, and relevant measurements before changing baseline assumptions. |
 
-## WORKED EXAMPLE — the Vinod standup gripe
+A **regression** is a deterioration against an established earlier behavior or requirement. A single unexpected result may instead be a new case, ordinary variation, or a measurement difference. **Drift** can involve changing inputs or performance without a model-version change; a reported vendor change is a separate fact to establish.
 
-**User says:** "Vinod was annoyed in standup that the AI answered Q3 wrong but Q1 and Q2 right. Said he'd rather it refuse than guess. Also the latency was up — like 4 seconds for what used to be 1.5."
+### Family B — People or market conditions may have changed
 
-**What I heard:**
+| Signal | Listen for | Candidate destination and check |
+|---|---|---|
+| **5. Stakeholder dynamics** | A new request, objection, deadline, or stated preference. | Appropriate stakeholder notes, open decisions, or communication plan within authorization. Record the position and context, not an inferred enduring attitude. |
+| **6. Capability shift in the model landscape** | A release or demo that appears to enable a task. | Capability-research queue and, if material, strategy review. Verify the release and test relevance before updating capability forecasts or half-life estimates. |
+| **7. Informal competitive intelligence** | A meetup rumor or a customer's account of another product. | Signal-scanner queue or a clearly labeled competitive-map entry. A firsthand purchasing report establishes that report; it does not prove the competitor's performance. |
+| **8. Acceptable-failure preference** | “I would rather it refuse than guess,” or an explicit speed/quality trade-off. | Candidate PRD assumption, evaluation criterion, or JTBD insight. Establish the task, consequence, and relevant population before changing the product's acceptance bar. |
 
-| Signal type | Specific extraction |
+Use `rtp-feedback-flywheel` and `rtp-eval-framework` to turn a validated failure report into useful evaluation coverage. A **golden or regression set** contains curated cases and expected behavior used for comparison. Version changes to it, retain suitable stable coverage, and do not assume adding a case makes recurrence impossible. A reported preference alone is not necessarily the correct test label.
+
+## Route evidence according to its status
+
+| What is established | Appropriate treatment |
 |---|---|
-| Acceptable-failure-mode | Vinod prefers a conservative refusal over a confident wrong answer for Q3-class queries |
-| Stakeholder dynamics | Vinod's tolerance: refusal > hallucination, even at the cost of completion rate |
-| Eval-pipeline gap | The Q3-class failure (while Q1–Q2 pass) isn't in the eval set — or is, and regression detection missed it |
-| Latency anomaly | P95 jumped 1.5s → 4s — material, needs root cause |
+| A first concrete report of a possible failure | Record as an observation or hypothesis, with evidence needed. |
+| Several reports of a pattern | Check independence, scope, and counterexamples; propose a stronger hypothesis or rule review where justified. |
+| A decision made or reversed | Record the decision and rationale in the project's decision record or change log. Do not turn a suggestion into a decision. |
+| A relevant stakeholder preference | Store only within the recording authorization and with its context; link a consequential unresolved question. |
+| A reproducible production failure with an established expected outcome | Add suitable evaluation coverage through the evaluation workflow and record the change. |
+| A claimed new capability | Queue verification; update the assessed capability when evidence supports it. |
+| A cost or latency anomaly | Investigate impact and measurement; update the model when the relevant numbers are established. |
+| Competitive information | Preserve its source and uncertainty in the appropriate research or map entry. |
 
-**Proposed routing (confirm before I write):**
-- [ ] **Eval golden set** — add the Q3 failure with expected output "refuse with structured reason," not "answer confidently"
-- [ ] **`hypotheses.md`** — "confidence calibration may be off when the query subclass shifts" (watch for two more sightings)
-- [ ] **Stakeholder memory** — Vinod: prefers conservative refusal for ambiguous queries; flag in the next AI-PRD failure-mode section
-- [ ] **Production-observability** — did the dashboard catch the latency spike? If not, that's an observability gap; if yes, root-cause within 24h
+The original “three confirmations become a rule” shortcut is not a governance standard. Three people repeating one rumor are not three independent sources. Promotion requires a scoped claim, supporting and contrary evidence, a useful test, and the applicable approval or governance process. Follow the current rules for `hypotheses.md` and `rules.md`; do not promote automatically.
 
-**Immediate action:** the latency spike — it's a P0 ops issue, not a learning artifact. Open an incident ticket now. Everything else can wait for normal channels.
+Use existing destinations such as an evaluation intake, prompt log, `CHANGE_LOG.md`, stakeholder record, or cost model only after locating them. If a suitable file does not exist, propose its location rather than pretend it already does. Cross-link records to a common source when multiple implications matter.
 
-## DELIVERABLE FORMAT
+## Worked example — a standup debrief
 
-1. **Acknowledge (1–2 sentences).** If there's frustration or excitement, name it briefly, then extract — utility, not therapy.
-2. **What I heard** — a two-column table (signal type · specific extraction); note low-confidence reads ("I'm reading this as X — flag if wrong").
-3. **Proposed routing** — a checkbox list, each item `[destination] → [what gets written]`, with the real file path. Checkboxes so the user can accept some and reject others.
-4. **Immediate action (if any)** — one, not a to-do list.
-5. **Confidence** — High (explicit/clean), Medium (some inference — list it), or Low (guessing — ask before routing).
+**User says:** “Vinod was annoyed in standup that the AI answered Q3 wrong but Q1 and Q2 right. Said he'd rather it refuse than guess. Also the latency was up—like four seconds for what used to be one and a half.”
 
-## RED TEAM — when NOT to use gossip-mode
+**A useful response:** “That sounds frustrating. There are two issues worth separating: the wrong answer and the reported slowdown. The refusal preference may help define acceptable behavior once the question and its context are clear.”
 
-- **A specific PM question** — they want an answer, not extraction. Run the matching skill.
-- **A deliverable request** ("write me the PRD") — that's craft mode, not listening mode.
-- **Sensitive content** — comp, named complaints about teammates, churn details with PII. Surface that you heard it, but don't propose a destination unless asked.
-- **An explicit "this stays here" / "don't memo this"** — respect clean-memory hygiene.
-- **Already-structured input** ("add this to the eval set: [X]") — the user did the extraction; just route, don't re-extract.
-- **Mid-structured-workflow** (e.g. `/design-ai-feature`) — pulling gossip-mode mid-flow breaks the discipline; capture as side notes and address after.
+| Signal | Supported extraction | What is not yet established |
+|---|---|---|
+| Reported quality failure | Q3 was reported wrong while Q1 and Q2 were reported right. | The actual questions, correct answers, reproducibility, and whether the case was in the evaluation set. “Q3” may simply mean the third question, not a stable query class. |
+| Failure preference | Vinod reportedly preferred refusal to guessing in this situation. | A general preference for every ambiguous query, or permission to store a named complaint. |
+| Reported slowdown | Responses were described as about four seconds versus an earlier one and a half. | P95, affected volume, time window, cause, SLO impact, and incident severity. |
+| Possible design implication | The case may warrant examining uncertainty handling or evaluation coverage. | A proven confidence-calibration defect or a decision to change a threshold. |
 
-**Conservative defaults:** when in doubt, ask before writing (a wrong route is worse than no route); sensitive content stays in the conversation unless asked otherwise; low-confidence reads get flagged, not silently routed.
+**Proposed routing, if capture is wanted:**
 
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+- [ ] **Located evaluation-intake file** → the reported Q3 failure, with the actual input and expected behavior still to be obtained. A correct answer, clarification, or abstention may be appropriate depending on the task; do not pre-label all Q3-like cases “refuse.”
+- [ ] **Located hypothesis record** → a scoped uncertainty-handling or coverage hypothesis, with the observation linked and the missing evidence explicit.
+- [ ] **Appropriate preference record, if authorized** → the context-specific refusal preference, minimizing personal detail and omitting the emotional complaint unless it serves an authorized purpose.
+- [ ] **Located operations-investigation record** → the reported slowdown, requesting the workload, time window, and observed latency distribution.
 
-Gossip-mode is a router by design — the extraction schema names eight destinations, so this section is necessarily wider than most skills' (a router-shaped skill earns a wider stack section; don't read the count as padding).
+These destination labels illustrate the proposal. In actual use, replace them with verified file paths and concrete proposed text before saving. Do not create four copies of the same conversation merely because four implications are possible.
 
-**Imports:**
-- **`rtp-feedback-flywheel`** — the eval-pipeline routing machinery a caught regression feeds into.
-- **`rtp-eval-framework`** — where a production failure case becomes a golden-set entry.
+**Immediate assessment:** check whether the slowdown is ongoing and materially affects users or a commitment. Four seconds is not automatically a P0 incident. If evidence warrants escalation, follow the authorized incident workflow and its severity definitions. A universal “open a P0 now” or “root-cause within 24 hours” does not follow from this remark.
 
-**Formal siblings — same intake, structured input instead of a hallway remark:**
-- **`rtp-feedback-triage`** — structured customer feedback at volume, scored and ranked. Gossip-mode catches the sideways single signal; feedback-triage processes the batch.
-- **`rtp-interview-synthesis`** — for structured transcripts.
+## Treat informal disclosure as a clue, not a diagnosis of the team
 
-**Receives a routed signal, named in the schema but missing from this list until now:**
-- **`rtp-production-observability`** — signal 4: the vented signal is actually an ops incident (the latency spike); route it as a real alert, not a note.
-- **`rtp-signal-scanner`** — signal 7: competitive intel headed for the next strategy review.
-- **`rtp-competitive-map`** — signal 7, when the rumor is credible enough to update the actual landscape, not just queue it.
-- **`rtp-capability-tracking`** — signals 3 and 6: a model-version drift or a capability shift updates the half-life log this skill owns, not just a mental note.
-- **`rtp-cost-model`** — signals 3 and 4: when "the numbers moved" turns out to mean unit economics broke, not just one input ticking up.
-- **`rtp-prompt-as-product`** — signal 2: a prompt-version regression is exactly the version/regression-test/rollback discipline that skill owns.
-- **`rtp-stakeholder-communications`** — signal 5: when a stakeholder-dynamics read changes what a room needs to hear next, this is where that gets drafted.
-- **`rtp-jtbd-analysis`** and **`rtp-ai-prd`** — signal 8: an acceptable-failure-mode preference (refuse > guess) refines JTBD's gain criteria and the AI-PRD's failure-mode section directly.
+Trust in an individual and psychological safety in a group are related but different concepts. The original source distinguishes relational trust—care and respect—from transactional trust—competence, reliability, and intentions. Team psychological safety concerns whether people expect interpersonal risks such as questions or concerns to be handled safely. [Edmondson's original study](https://doi.org/10.2307/2666999) examined this at team level.
 
-That's every signal type in the schema mapped to a skill except signal 1 (eval regression — `eval-framework` already covers it as an import). Run gossip-mode to catch and route the informal signal; run the skill above that owns wherever it landed.
+The local August 2026 HBR account, **“How the Best Leaders Shape Conversations,”** describes teams in which individual trust did not automatically produce group candor. This motivates checking the setting in which people can speak; it does not establish that high-trust teams always produce more gossip, that gossip proves the group channel is closed, or that only psychological safety predicts voice.
 
-## QUALITY BAR
+If a pattern matters to the user's task, distinguish a concern never raised from one raised and dismissed. Ask about the relevant group setting rather than use a broad colleague-trust question as a substitute. The NOVEL INSIGHTS second-order-candor lens can inform that inquiry, but two survey items do not conclusively diagnose suppression or an override problem. Route deeper assessment to `rtp-judgment-guard` or `rtp-alignment-check` when useful and authorized.
 
-A real gossip-mode extraction: catches at least one signal the user didn't realize was structural; routes to specific file paths, not "I'll remember that"; separates high-confidence extraction from inference; surfaces the one immediate action (if any); asks before writing anything sensitive; and **compounds** — three months later the routed signals are in the right files when the team needs them.
+## Response format
 
-**The test:** six months from now, when a future session reads `rules.md`, `hypotheses.md`, or the eval set, can it trace specific entries back to gossip moments? If yes, the routing worked. If the signals are invisible or duplicated, the schema needs sharpening.
+Keep the response proportional to the debrief:
+
+1. **Acknowledgment:** one or two sentences.
+2. **What I heard:** observations and implications, with uncertainty beside each; use a small table only if it helps.
+3. **Routing:** verified destination → proposed content, or a clear report of an already authorized save. Checkboxes can let the user accept a subset.
+4. **Immediate assessment or action:** the highest-priority justified item, with its authorization and status clear.
+5. **Evidence confidence:** distinguish explicit reporting, supported inference, and unverified claims. Do not assign a false percentage or one confidence label to all layers.
+
+After a save, verify the entry and any links. State what changed and where. Do not claim durable memory merely because a sentence appeared in chat.
+
+## Where this connects to the library
+
+The existing imports remain **`feedback-flywheel`** and **`eval-framework`**. They support evaluation intake and improvement, without authorizing every proposed destination automatically.
+
+- `rtp-feedback-triage` handles structured feedback at volume; `rtp-interview-synthesis` handles structured transcripts.
+- `rtp-production-observability` investigates operational signals and appropriate escalation.
+- `rtp-signal-scanner` and `rtp-competitive-map` handle market leads with provenance and verification status.
+- `rtp-capability-tracking` assesses model changes and capability forecasts; `rtp-cost-model` updates economics from validated inputs.
+- `rtp-prompt-as-product` handles prompt versions, regression evidence, and rollback decisions.
+- `rtp-stakeholder-communications` develops an appropriate message when communication work is requested; it does not imply permission to send it.
+- `rtp-jtbd-analysis` and `rtp-ai-prd` examine failure preferences and user trade-offs before changing requirements.
+
+## Quality and limits
+
+A useful extraction preserves what was said, labels what was inferred, avoids unnecessary personal records, uses real destinations, and makes any immediate action proportionate to the evidence. It can conclude that nothing should be saved.
+
+Skip a separate extraction when the user already supplied structured instructions or when it would interrupt an active workflow without adding value. Keep any needed side notes within the task's authorization and return to them at an appropriate point. Respect requests not to record or route material.
+
+The traceability test is practical: when a future decision uses an entry, can the reader find its source, scope, verification status, and subsequent changes? Review duplicates and stale interpretations. A memorable remark becomes useful evidence through that care, not through the number of files it reaches.

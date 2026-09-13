@@ -1,123 +1,119 @@
 ---
 name: rtp-multi-modal-product-design
-version: v1.0_latest
-description: 'Choose the right modality (text, voice, image, video) for an AI feature by the one variable that actually decides it, which is how expensive it is for the user to VERIFY the output, rather than by what''s technically possible or what looks impressive in a demo. Covers the modality trade-off matrix (latency, cost, input friction, verification cost, failure mode, trust asymmetry), the noisy-input test (the accuracy lift that survives production, not the clean-demo lift), cross-modal friction, latency budgets, and modality-pivot triggers. Use when scoping a multimodal feature, deciding voice vs text, pricing a modality against its cost/latency, designing a modality switch, or pushing back on ''let''s add video''. Pairs with: cost-model (modality unit economics), ai-ux-patterns + confidence-tuner (the over-trust visuals/audio create), autonomy-spectrum (verification cost sets the safe autonomy level). Triggers: ''should this be voice'', ''multimodal'', ''add audio/video'', ''modality choice'', ''voice UI''.'
+version: v1.0.1_latest
+description: 'Choose text, voice/audio, image/vision, video, or a useful combination for an AI interaction. Use when scoping a multimodal feature, comparing input and output channels, designing a switch or fallback, setting latency and cost budgets, or reviewing an underused modality. Start with the task, user abilities and context, access needs, and consequences. Compare task success, input effort, verification effort, latency, cost per useful outcome, failure modes, and observed reliance. Test clean, typical, and degraded inputs against a fair baseline; specify behavior when a channel fails or outputs disagree. Produce a modality decision, review and correction paths, measurable operating limits, and revisit triggers. Verification cost is important but does not override accessibility or task fit. Pairs with cost-model, token-economics, ai-ux-patterns, confidence-tuner, eval-framework, and autonomy-spectrum. Triggers include multimodal, voice UI, add audio/video, and modality choice.'
 imports:
   - cost-model
   - ai-ux-patterns
 ---
 
-# Multi-Modal Product Design — Modality Is a Product Decision
+# Multi-Modal Product Design
 
-**The objective:** pick the modality (and the switches between modalities) that a feature actually needs — decided by user friction, cost, latency, and above all *verification cost* — instead of by novelty or what the model can technically do. The default is text; every step away from it must earn its keep.
+Choose the channels that let the intended users complete their task and assess the result with acceptable effort and consequences. A **modality** is an input or output channel, such as text, audio, image, or video. Input and output choices may differ.
 
-## THE ONE IDEA
+Begin with the task and the user's actual setting: sensory and motor access, language and literacy, device, environment, privacy, bandwidth, and whether their eyes or hands are occupied. Consider accessibility from the beginning. Text is a useful baseline when it fits; it is not a mandatory default every other channel must defeat.
 
-**Modality is not a technology choice; it's a product choice — and the variable that decides it is how expensive it is for the user to *check whether the AI was right*.** Text you scan in seconds and edit in place; video you must watch start-to-finish and can't edit at all. Three consequences:
+Produce a modality decision with the user benefit, evidence, costs, review/correction path, failure behavior, and conditions for revisiting it. If only one channel is suitable and no consequential design choice remains, document the reason briefly and move on.
 
-1. **Verification cost, not impressiveness, sets the modality.** The more expensive an output is to verify, the higher the stakes at which it fails — because a user who can't cheaply check it will either not check it (and act on a wrong output) or abandon it. Text keeps a healthy default skepticism; a video's temporal continuity *feels* like certainty, so users over-trust exactly the modality that's hardest to verify. Match the modality's verification cost to the consequence of being wrong.
-2. **The lift that matters is on *noisy* input, not clean demos.** Every modality shows a big accuracy lift on clean input (high-res images, clear audio, structured docs) and a much smaller one — sometimes *negative* — on the messy input production actually sends. If the modality doesn't beat text-only at *worst-case* input quality, it's a liability, not an asset. Design for the noisy case.
-3. **Start at text; add the minimum modality set, not the maximum impressive one.** Each modality adds cost, latency, and a transition point where users get confused about what to trust. The right question is never "what can we support?" but "what's the smallest set that closes the gap for this user at this task?"
+## 1. Find the input and output bottlenecks
 
-The spine: **default to text, add a modality only when its noisy-input lift justifies its cost *and* its verification cost fits the stakes, and minimize the switches between modalities.**
+**Input effort** is the work needed to express or capture the problem. **Verification effort** is the work needed to establish whether the result meets the user's need, including expertise, evidence, and corrections. Verification matters, but cannot alone decide the channel.
 
-## KEY TERMS (plain language)
-
-- **Modality** — the channel an AI feature uses to take input or give output: text, voice/audio, image/vision, video.
-- **Verification cost** — how much time and attention a user must spend to confirm the output is correct. Text: seconds; audio: a full listen; video: a full watch. The deciding variable.
-- **Trust asymmetry** — users under-trust text (healthy) and over-trust visuals, audio, and video (dangerous), *inversely* to how easy each is to verify.
-- **Noisy-input lift** — the accuracy gain a modality gives on real, messy production input — not the clean-demo number.
-- **Cross-modal friction** — the confusion added each time a flow switches modality (voice-in → text-out, text → image+text).
-- **Modality pivot** — the structured decision to add friction to, gate, or remove a modality that isn't earning its cost.
-
-## THE MODALITY TRADE-OFF MATRIX
-
-For every modality, six dimensions decide the fit. *(All figures below are 2026 order-of-magnitude ⚠ — directional, not quotes; they move with model pricing. The **pattern** is the durable content.)*
-
-| Modality | Latency | Cost/request | Input friction | **Verification cost** | Failure mode | Trust asymmetry |
-|---|---|---|---|---|---|---|
-| **Text** | fastest (~0.5–2s) | cheapest (1×) | must type (medium) | **seconds — scan + edit in place** | hallucination; user catches before acting | under-trusted (healthy) |
-| **Image / vision** | ~2–5s | ~2–4× | take/upload (med-high) | **look — quick, but subtle errors invisible** | visual artifacts, composition | over-trusted ("I can see it") |
-| **Audio / voice** | ~1–3s | ~3–6× | speak (low, if mic) | **a full listen — high; can't edit** | mispronunciation, wrong context | over-trusted (authority) |
-| **Video** | slowest (~5–15s) | most (~8–15×) | record (very high) | **a full watch — highest; no edit path** | temporal-coherence errors, hardest to spot | over-trusted (narrative = certainty) |
-
-**Read the verification column as the spine:** it runs *opposite* to the trust column. The modality users trust most (video) is the one they can least afford to verify — which is exactly why high-stakes outputs belong in the most-verifiable modality (text), and why any less-verifiable modality carrying consequential content needs a **text summary alongside it** so the user has a cheap way to check.
-
-## THE NOISY-INPUT TEST — the one test that kills bad modality bets
-
-Before committing to a modality, run your eval set at **three input-quality levels: clean, typical, worst-case.** The rule: *if accuracy at worst-case input is worse than text-only, the modality is a liability.* Clean input gives the optimistic lift from the matrix; noisy input (blurry photos, accented speech, handwritten forms) drops that lift by roughly half to four-fifths ⚠ — and sometimes turns it negative, because the model over-indexes on a bad signal. Production is mostly noisy. Design for the noisy case, price the modality at its noisy-input accuracy, and if it doesn't clear text-only there, don't ship it.
-
-## CHOOSING THE MODALITY — input vs output bottleneck
-
-Ask what the user is actually trying to do, and where the constraint is:
-
-- **Input is the bottleneck** (they struggle to express the problem): visual problem → image input; spatial/temporal → video input; complex/nuanced → *text* (easiest to edit); real-time/hands-busy → voice.
-- **Output is the bottleneck** (they struggle to understand the result): spatial result → image; procedural/step-by-step → video; anything the user must *verify or act on* → **text** (cheapest to check); real-time interaction → voice.
-- **Neither — speed and cost dominate** → text. Fastest, cheapest, most verifiable.
-
-Then **minimize modality switches.** Each transition (voice-in → text-out, text → image+text) adds latency and a moment where the user doesn't know which output to trust. Voice-in/text-out is fine for transcription but jarring for a conversational assistant — if you add a modality to the input, ask whether users expect the same modality back.
-
-## LATENCY BUDGETS — when "slow" becomes "broken"
-
-User patience is modality-specific, but one line holds across all of them: **for a synchronous interaction, P95 latency past ~8 seconds is perceived as *broken*, not slow.** Text feels instant under ~500ms and needs a progress indicator past ~5s; image is expected to take a couple seconds with a "rendering…" cue; audio/video past their budgets need to go **async with a "ready for you" notification** rather than making the user wait. Load-test at realistic volume — production P95 is often ~2× the dev-environment number — and design the interaction model (streaming, progressive disclosure, async) *before* adding a modality that pushes you past the threshold.
-
-## THE MODALITY PIVOT — when a modality isn't earning its cost
-
-Modality choice isn't one-and-done; check weekly for the first 90 days and pivot on structured triggers, not vibes:
-
-| Signal | Threshold ⚠ | Action |
+| User need or constraint | Candidate input | Candidate output or review path |
 |---|---|---|
-| Activation rate | <10% of sessions after 60 days | Discovery problem (fix onboarding) *or* value problem (remove it) — a user interview tells you which |
-| Verification friction | >30s to verify an output | Add a text summary alongside the modality output |
-| Cost per outcome | >2× the text-only equivalent | Gate behind a premium tier if lift >30%; else remove |
-| Accuracy vs text-only (noisy input) | below text-only baseline | Add input validation, or remove — text-only is better |
-| Regeneration rate | >1.5× the text-only rate | The modality is hurting quality, not helping |
+| Describe a visual condition or spatial layout | Photo, screenshot, diagram, or suitable description. | Annotated source image with a clear explanation and uncertainty where relevant. |
+| Capture motion, timing, or a changing process | Video or a sequence of observations. | Relevant clips, time-linked explanation, or an accessible step sequence. |
+| Express precise, revisable detail | Text or dictated text with correction. | Structured text, a document, or a usable alternative. |
+| Work with eyes or hands occupied | Voice or other accessible controls. | Concise spoken response, confirmation where needed, and an available record. |
+| Understand a spatial or procedural result | The source material needed for the task. | Diagram, demonstration, audio description, text, or a combination tested with users. |
 
-The through-line: a modality that's impressive but under-activated, unverifiable, or negative-margin is a cost you're paying in 100% of sessions for a benefit in a few. Track each modality's activation and cost-per-outcome, and be willing to remove.
+Do not infer that a hands-busy setting permits distraction or action: check the specific context and consequences. A visual task may lose essential information when forced into text; complex reasoning may be easier to inspect in a diagram. Voice input with text output can be an intentional, useful choice rather than a broken conversation.
 
-## WHERE THIS SKILL MEETS YOUR STACK
+## 2. Compare the channels on the same task
 
-- **The unit economics of a modality at your volume → `cost-model` / `token-economics`.** This skill flags that video is ~8–15× text; that skill models whether it survives at scale and what pricing covers it.
-- **The over-trust problem visuals/audio/video create → `confidence-tuner` + `ai-ux-patterns`.** Trust asymmetry is a calibration problem — a less-verifiable modality needs a confidence signal and an uncertainty UI, not just a prettier output.
-- **The noisy-input eval → `eval-framework`** (run the three input-quality levels there); **the modality's verification cost sets the safe autonomy level → `autonomy-spectrum`** (an output no one can cheaply verify can't be trusted at a high leash).
+Use the six dimensions from the original matrix—latency, cost, input friction, verification cost, failure modes, and trust/reliance—without assuming fixed rankings. Separate **understanding existing media** from **generating new media**; their costs and errors differ.
 
-The spine: **this skill picks the channel by verification cost and noisy-input lift; the stack prices it, calibrates the trust it earns, and sets how autonomously it can run.**
+| Channel | Input and latency considerations | Verification and correction | Failures and reliance to test |
+|---|---|---|---|
+| **Text** | Typing, dictation, document preparation, generation or streaming time. | Searchable and editable, but long or specialized text may require substantial expertise. | Unsupported claims, omitted context, misleading certainty, or inappropriate action. Reading does not guarantee detection. |
+| **Image / vision** | Capture/upload quality, image size, analysis or generation time. | Zoom, compare with the original, annotate, inspect a region, or revise/regenerate. | Misread detail, missing objects, spatial errors, misleading generated content, and unsupported conclusions. |
+| **Audio / voice** | Recording conditions, turn-taking, transcription, response onset, playback duration. | Replay, seek, slow down, correct recognized words, or consult an accurate transcript where useful. | Speech recognition errors, wrong speaker or intent, pronunciation, omitted information, and fluent but inaccurate answers. |
+| **Video** | Capture, length, frame/audio processing, generation, buffering, and playback. | Scrub, replay a segment, inspect key frames, compare time-linked evidence, or edit/regenerate supported parts. | Temporal or causal errors, inconsistent frames, unsynchronized audio/text, and important events missed between sampled frames. |
 
-## DIAGNOSTIC QUESTIONS
+Price the real request, including retries, storage, transcoding, playback or delivery, and human effort. Report cost per **useful completed outcome** as well as per request. A faster first response can still mean a slower task if the user must repair it.
 
-1. Why does this modality beat text for *this* user at *this* task — in one sentence, for real user reasons, not "it's impressive"? What % of your segment actually benefits?
-2. What's the accuracy lift on **worst-case** input, not clean input? Is it still above text-only?
-3. What's the cost per request at your volume, and does monetization cover it — or is the loss acceptable and bounded?
-4. What's P95 latency **under load**? Does it stay under the ~8s "broken" line for a synchronous flow, or is it designed async?
-5. How long must the user spend to verify the output — and what do they lose if they *don't* verify (the failure-mode stakes)?
-6. If the flow switches modalities, where are the transition points, and is it clear which output the user should trust?
+The original latency and relative-cost bands are retained as unverified historical planning examples in the [reference notes](references/planning-and-evidence-notes.md). They are not current price quotes or transferable budgets.
 
-## QUALITY GATE
+## 3. Make consequential results inspectable
 
-- [ ] The modality choice is justified by a real user reason (friction/verification/task), not novelty; benefit measured by segment.
-- [ ] The noisy-input test passed: worst-case-input accuracy beats text-only (or the modality is cut).
-- [ ] Cost per request is known and covered by monetization (or the loss is bounded and deliberate).
-- [ ] P95 latency under load meets the modality's budget, or the interaction is async with notification.
-- [ ] For any less-verifiable modality carrying consequential content, a text summary / confidence signal gives a cheap check.
-- [ ] Cross-modal transitions are minimized and the trust mapping (what to trust when) is consistent.
-- [ ] Modality-pivot triggers are instrumented (activation, verification time, cost-per-outcome, regeneration rate).
+Ask what the user needs to check, which evidence supports that check, and how they can correct an error. Text may help, but a text summary generated from the same mistaken interpretation is not independent verification. A confidence label is also not evidence of correctness unless its meaning and calibration are established.
 
-## WHEN WRONG
+Choose a review path suitable for the information and the user's access needs. Examples include a transcript, captions, audio description, original-image overlay, timestamps, a source excerpt, replay controls, a structured confirmation of key fields, or qualified review. Verify that important information survives the alternative representation.
 
-Exit this skill early when only one modality is clearly dominant — a text classifier doesn't have a modality question; this skill is for products where *the modality choice IS the design question*. And two honest caveats: (1) every number here (accuracy lifts, cost multiples, latency bands, the noisy-input drop) is a 2026 directional pattern (⚠), not an audited constant — run your own eval at your own input distribution before quoting any of it. (2) The rule "high-stakes → most-verifiable modality" has real exceptions — accessibility-first and hands-busy contexts (field work, driving, low-vision users) may *require* voice even at high stakes; there, the answer isn't "use text," it's "keep the less-verifiable modality but add a cheap verification path and a confidence signal." Match the modality to the *user's real constraint*, not to a rule applied blindly.
+For an action such as sending a message or making a purchase, distinguish recognizing the input, producing a proposal, and authorizing execution. Let a user correct a misheard recipient or amount before the consequential action where the contract requires it. Follow standing authorization for routine work; do not add repeated confirmations without a reason.
 
----
+**Reliance can be miscalibrated in any modality.** Fluent prose, a confident voice, or a convincing image can mislead; the effect depends on task, presentation, user, and context. Test whether users detect and act on meaningful errors. Do not teach that text is inherently under-trusted or that video is always the most trusted.
 
-## TRADE-OFF LEDGER
+Use `ai-ux-patterns` and `confidence-tuner` for interaction and uncertainty design, and `autonomy-spectrum` for the actual action/oversight contract. High verification effort is one consideration in autonomy; it is not an automatic prohibition or a reason to exclude an accessible channel.
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+## 4. Test representative and degraded inputs
 
-## CONCLUSION
+Keep the three-quality test, with clear definitions:
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5: state the recommendation, name the key trade-off, acknowledge the biggest risk, define the next action.
+1. **Clean:** favorable, supported conditions.
+2. **Typical:** the range users are expected to supply, segmented where necessary.
+3. **Degraded or boundary:** plausible poor conditions, missing channels, unsupported inputs, and failure cases that could matter.
 
----
+Examples include blur, low light, compression, handwriting, background noise, overlapping speakers, interrupted recordings, frame loss, and conflicting audio/image/text. Evaluate supported accents and languages as normal user variation, not as defects in the speaker. Include users whose devices or access needs differ from the development team's.
 
-## VISUAL SUMMARY
+Compare against a **fair alternative**. If the text baseline requires a person to describe an image or transcribe audio, count that labor and information loss. Avoid giving one condition an expert-cleaned input unavailable in the other. Hold the task and outcome criteria sufficiently comparable, and explain unavoidable differences.
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary — ideally the four modalities plotted with *verification cost* rising against *trust* (showing the dangerous inversion: users trust most what they can verify least). Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Measure task completion, relevant error classes and severity, verification effort, accessibility, latency, and cost. For a new modality, its **noisy-input lift** is the measured improvement over the defined baseline under those conditions. Report uncertainty and segment differences; aggregate accuracy can hide a serious gap.
+
+A modality need not beat text on every imaginable worst case to be useful. Specify the supported operating range and what happens outside it: request a clearer capture, use another channel, produce a qualified partial result, route for review, or stop the dependent action. Test that fallback. Neither a large clean-demo gain nor a passing average is enough to justify silent failure on a consequential input.
+
+The historical claim that noise removes half to four-fifths of the gain is not an established general effect. Measure this configuration rather than applying that percentage.
+
+## 5. Design transitions and disagreement between channels
+
+**Cross-modal friction** is extra work or confusion created by a transition between channels. Some transitions add value: speaking can reduce entry effort while a written record supports review. Optimize the complete task, not the number of switches alone.
+
+For each transition, specify:
+
+- What information and state carry forward, including source identity and timing.
+- Whether the output is a transcript, interpretation, generated example, or original evidence.
+- How the user knows capture, processing, playback, and action status.
+- How to edit, interrupt, cancel, retry, or change channel without losing valid work.
+- What happens when two representations conflict or one becomes unavailable.
+
+For example, if speech says one date and an attached document shows another, identify the conflict and use the task's source policy or obtain the needed clarification. Do not let the most fluent channel silently win. Keep corrections synchronized so an updated text value does not leave stale audio or a different execution parameter.
+
+## 6. Set latency budgets from the interaction
+
+Distinguish **response onset**, **time to useful content**, **completion time**, and **playback time**. Voice turn-taking, image generation, document analysis, and a long video render have different expectations. Measure both typical performance and tail latency, including P95 under relevant load and device/network conditions.
+
+Choose budgets from user needs, testing, and consequences. The source's eight-second “broken” line and two-times production-versus-development multiplier are not universal facts. A responsive progress indicator does not make an unsuitable wait acceptable, and an asynchronous flow is not always the right solution for real-time work.
+
+Use streaming, previews, progress, background execution, or a simpler response when they help. Make partial and unverified content recognizable. Preserve interruption and recovery behavior. For asynchronous work, explain how the result becomes available; use a notification only through a supported, authorized channel and the user's preferences.
+
+## 7. Revisit the modality with evidence
+
+Review early enough to catch important failures and later when users, costs, models, or workload change. A weekly review for the first 90 days can be a planning cadence, not a rule for every product.
+
+| Signal | What to investigate | Possible response |
+|---|---|---|
+| **Activation and use** | Exposure, discoverability, eligible users, access barriers, task frequency, and value by segment. | Improve discovery, narrow the audience, change the flow, or retire an unhelpful option. Low overall use may hide essential accessibility value. |
+| **Verification effort** | Time, expertise, error detection, and whether the review path itself is accurate and usable. | Add source-linked review, correction tools, a different representation, or expert review where justified. |
+| **Cost per outcome** | Complete cost, outcome quality, willingness to pay, and any deliberate subsidy. | Optimize, package appropriately, change scope, or retire the option. A premium tier is not the automatic answer. |
+| **Performance under degraded input** | Failure severity, supported range, segment effects, and fallback success. | Improve capture/validation, narrow support, add a fallback, or stop unsafe dependent behavior. |
+| **Regeneration and correction** | Whether users are repairing defects, exploring creatively, or iterating by choice. | Fix the relevant problem; repeated generation does not always mean poor quality. |
+
+Set thresholds with a denominator, timeframe, consequence, and owner. Preserve an exception for useful niche or accessibility needs when justified. Costs can be shared, fixed, or incurred only when the channel is used; a lightly used option does not necessarily charge every session its full per-use cost.
+
+## Deliver the decision
+
+State the chosen input and output channels, the user/task benefit, evidence and uncertainty, and the alternatives considered. Include the supported conditions, review and correction path, consequential-action contract, latency/cost budget, fallback, and revisit trigger.
+
+Check that the recommendation works for the intended users, preserves important source information, and handles failure or disagreement without pretending a summary or confidence display proves correctness. Name the principal trade-off, largest remaining risk, and next useful check. Use the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) proportionately.
+
+Route evaluation to `eval-framework`, economics to `cost-model` / `token-economics`, UX and reliance to `ai-ux-patterns` / `confidence-tuner`, and execution rights to `autonomy-spectrum`. A channel comparison or transition diagram can clarify the decision; use `excalidraw-svg` when useful or requested. Plot measured or explicitly hypothetical values rather than an assumed universal inversion of trust and verifiability.

@@ -1,171 +1,62 @@
 # Token Economics — Concept Guide
 
-## FIRST PRINCIPLES
+Pricing connects customer value and willingness to pay to the costs and risks of delivering the service. AI often adds material usage-dependent costs, but conventional software also has variable support, hosting, storage, payment, and delivery costs. Neither category has one universal marginal-cost curve.
 
-Traditional SaaS pricing is built on an assumption: marginal cost of one more user is zero (or near-zero). Whether Salesforce has 100,000 users or 1,000,000 users, the per-user cost of cloud infrastructure doesn't change proportionally. Their marginal cost is mostly fixed, with a small variable component.
+In business terms, choose an offer customers value and can buy that supports the intended business model. In technical terms, define how activity and outcomes map to metered units, billing, delivery cost, limits, and evidence. Fairness and predictability matter alongside economics because they influence customer choice and trust.
 
-AI products break this assumption. The cost of Claude serving 100,000 tokens is 100x the cost of serving 1,000 tokens. The cost is proportional to work done, not users. This single fact — that marginal cost is per-token, not per-user — shatters every pricing model SaaS invented.
+## Why each model can work or fail
 
-The atomic insight: **Pricing an AI product is not about fairness to users; it's about preventing marginal cost from exceeding margin.** Get this wrong and you'll be profitable at 1,000 users and bankrupt at 10,000.
+Flat-rate and seat pricing make the bill predictable but leave the seller exposed to included usage. A few expensive users can matter; they do not automatically make the portfolio unprofitable or indicate abuse. Stated limits, pooling, and a suitable price can make the model work.
 
-## DUAL DEFINITION
+Usage pricing connects the bill to a meter. Customers may hesitate when they cannot estimate the bill, but transparency does not inevitably reduce adoption or force a price war. Workload estimates, caps, and meaningful units can help.
 
-**Business definition:** The selection of a pricing model that aligns user willingness-to-pay with the AI service's cost structure (per-token or per-outcome), ensuring both user adoption and positive unit economics at scale.
+Outcome pricing can align incentives when the result is observable and valuable. It is not inherently suitable for medicine or law or unsuitable for routine high-volume tasks. An invoiceable output may be easier to count than its correctness. Risk, attribution, verification, and the actual agreement matter.
 
-**Technical definition:** A revenue model that maps the primary cost variable (tokens consumed or outcomes delivered) to a payment structure that captures value while remaining competitive, optimizing across adoption friction, margin sustainability, and quality perception.
+Hybrid pricing combines predictable access with variable entitlements. It can improve fit or create confusion; test whether buyers can explain a normal bill and an unusually heavy one.
 
-## THE TRAP (Expanded)
+## Corrected break-even examples
 
-**"We'll use a flat-rate subscription."** Heard from every first-time AI PM. They've built on SaaS pricing precedent, not AI cost structure. Day one: great for you (clear pricing, easy to forecast). Day 90: a power user (researcher, analyst, automation) uses 100x the tokens you predicted. Day 180: that one user is burning more margin than 100 normal users generate. You're forced to choose: cap the user (destroy UX) or redesign pricing (break customer contracts).
+All numbers below are illustrative, not current provider prices or verified company results. These simplified calculations exclude costs unless expressly listed.
 
-**"We'll use per-token pricing."** The opposite extreme. Transparent, fair, defensible. But every new user asks, "How much will this cost?" That friction kills adoption. Users avoid asking hard questions because each token has a visible cost. You end up competing on cost, not quality.
+### Subscription with fixed and variable costs
 
-**"We'll use per-outcome pricing."** Only works if outcomes are discrete and valuable enough to justify the friction. Medical diagnosis, legal opinion, strategy consulting — great. Customer support classification, spell-check, content moderation — terrible. The cost can't be per-outcome; there are thousands per user per day.
+Fixed monthly cost is $100,000, price is $50 per user, and variable cost is $5 per user. Contribution is $45 per user. Break-even is:
 
-**The meta-trap:** You'll optimize for the wrong dimension. You'll maximize revenue (charge more) and minimize adoption. You'll maximize adoption (charge less) and minimize margin. You'll try to balance both and end up with hybrid pricing so complex that users can't predict cost.
-
-## COST STRUCTURE FUNDAMENTALS
-
-### The Marginal Cost Curve
-
-Traditional SaaS:
-```
-Marginal cost per user
-        |
-        |     _______________  (flat line)
-        |    /
-        |___/
-        +----+----+----+----+ Users
-         0   10k  20k  30k
+```text
+100,000 / (50 - 5) = 2,222.22 users
+At least 2,223 whole paying users are needed under these assumptions.
 ```
 
-AI products:
-```
-Marginal cost per token
-        |
-        |\
-        | \
-        |  \
-        |   \____  (slight curve downward as model cost amortizes)
-        |_________
-        +----+----+----+----+ Tokens
-         0   1M   10M  100M
-```
+The earlier 2,500 result was an arithmetic error. Contribution margin remains 90% if price and variable cost remain constant. Operating margin rises as fixed cost is spread over more customers; it does not stay constant. At 25,000 users, revenue is $1.25 million, variable cost $125,000, and operating result $1.025 million, or 82% of revenue.
 
-The curve is different. For SaaS, cost is mostly fixed overhead. For AI, cost is proportional to usage.
+### Usage grows under a fixed revenue commitment
 
-### Break-Even Analysis
+Assume one blended token rate of $0.000001 and 2,000 tokens per request. Cost is $0.002 per request. One million monthly requests cost $2,000; with $50,000 fixed cost, total modeled cost is $52,000. Ten million requests cost $20,000; total modeled cost is $70,000.
 
-**Traditional SaaS:**
-- Fixed cost: $100k/month (infrastructure, team)
-- Marginal cost per user: $5/month (support, bandwidth)
-- Price: $50/month per user
-- Break-even: 100k/50-5 = 2500 users
-- At 10x: 25,000 users, margin is the same %
+Revenue must be compared with both variable and fixed costs. Exceeding $2,000 alone does not establish profitability. If revenue remains fixed, the result depends on its amount: it is not automatically negative at tenfold usage. If customer count also grows, model the corresponding revenue. In real systems, distinguish input/output, cached/uncached, model, and context rates instead of assuming one blended token price.
 
-**AI Product:**
-- Fixed cost: $50k/month (team, infrastructure)
-- Marginal cost per token: $0.000001 (token price from provider)
-- But: average request = 2000 tokens (input + output) = $0.002/request
-- At 1M requests/month: marginal cost = $2000/month
-- If you charge $X per month flat-rate, you need to generate >$2000 from those users
-- At 10x (10M requests/month): marginal cost = $20,000/month + fixed = $70k. If you're still charging the same $X per month, you're underwater
+### Customer-support routing
 
-This is where AI pricing breaks SaaS thinking.
+Assume 100 agents each handle 200 tickets per day, at 500 tokens per ticket. That is 10 million tokens daily. At $2 per million tokens, model cost is $20 daily, or $600 for a 30-day month. At $150 per agent monthly, revenue is $15,000 and contribution before all other variable costs is $14,400. Fixed and other delivery costs still determine profitability.
 
-## PRICING MODELS IN THE QUALITY-COST-LATENCY SPACE
+The old example mixed agent counts, ticket counts, and tokens and incorrectly reached $12,000 monthly. A 100–400 ticket range is 4× from minimum to maximum, not 3.5×; it does not prove most agents are within 2× of one another. The earlier 50–300 range is 6×. Use an actual distribution rather than declaring either range tight.
 
-Every model makes implicit trade-offs:
+### A high-value decision service
 
-### Flat-Rate Pricing
-- **User experience:** "I have a budget of $X. I can use it however I want."
-- **Quality outcome:** Users feel empowered to ask hard questions (no token guilt).
-- **Business outcome:** Margin is strong at 10x users only if usage distribution is even.
-- **Failure mode:** Power users game the system. One researcher using 100x average explodes your margin.
+Suppose an output is estimated to create $500 of customer value, the seller charges $50, and model cost is $2. Revenue less model cost is $48, or 96% of revenue, before verification, professional work, support, insurance, and other costs. The $498 difference between claimed customer value and model cost is not seller margin. A $50–$200 price range is a hypothetical offer to test, not a recommended diagnosis price.
 
-### Per-Token Pricing
-- **User experience:** "This is going to cost me $0.02. Is it worth it?"
-- **Quality outcome:** Users think twice before asking complex questions. Quality perception drops because users avoid hard problems.
-- **Business outcome:** Margin is predictable. You know exactly what 1M tokens costs.
-- **Failure mode:** Adoption is slow because cost is transparent and scary. Users compare to competitors token-by-token. Price war ensues.
+The former diagnosis example does not establish clinical usefulness, authorized use, willingness to pay, or the measurability of a correct result. Independent calls can still have different costs and outcomes; usage distributions remain relevant.
 
-### Per-Outcome Pricing
-- **User experience:** "This diagnosis costs $50. Is it right?" (Can't predict cost in advance.)
-- **Quality outcome:** Users are willing to invest in better outcomes. Quality perception is high.
-- **Business outcome:** Margin is strong because you capture value. But total addressable market is small (high price = fewer buyers).
-- **Failure mode:** Doesn't work for commodity tasks. You can't charge $50 per customer support classification.
+### Research analysis with an 80× token spread
 
-### Seat-Based Pricing
-- **User experience:** "My team of 5 costs $250/month." (Simple, predictable.)
-- **Quality outcome:** Usage is hidden from users; they might over-use or under-use without realizing cost.
-- **Business outcome:** Revenue is predictable. But margin depends on usage distribution. One power user per seat breaks economics.
-- **Failure mode:** Doesn't scale to high usage. One user can consume as much as a team.
+A light user makes 50 monthly requests at 500 tokens each: 25,000 tokens. A heavy user makes 1,000 requests at 2,000 tokens each: 2 million tokens. The token ratio is 80×. At $0.005 per 1,000 tokens, model costs are $0.125 and $10.
 
-### Hybrid Pricing
-- **User experience:** "Base plan is $X/month for 100k tokens, then $Y per 1M tokens above that."
-- **Quality outcome:** Balanced. Most users stay in base plan (flat-rate benefit). Power users are captured by overage.
-- **Business outcome:** Revenue is predictable (base) + variable (overage). Margin improves as power users adopt.
-- **Failure mode:** Complexity. Users game the threshold. "Should I ask this question now or save it for next month?"
+At a $100 monthly price, both customers have positive revenue less model cost: $99.875 and $90. This directly contradicts the earlier claim that the usage spread necessarily rules out flat pricing. Other costs and heavier tails might change the conclusion. Compare measured total costs and value rather than treating a ratio as a verdict.
 
-## THE REAL VARIABLE: USAGE DISTRIBUTION
+The separate example of 500 tokens daily versus 50,000 quarterly used mismatched periods. Over a 90-day quarter the first is 45,000 tokens, so the totals differ by only about 1.11×, not 100×. Specify active days when relevant.
 
-The true variable that makes pricing work or fail is **how usage is distributed across your customer base.**
+## Reading and evidence
 
-**Tight distribution (90% of users within 2x of mean):**
-- Flat-rate pricing works. Everyone uses roughly the same amount.
-- Example: Customer support routing. Average support agent handles 100-200 tickets/day. Range is 50-300. Tight distribution. Flat-rate works.
+The earlier lineage named Marc Andreessen's software essay, Dan Ariely's pricing-psychology work, and OpenAI and Anthropic commercial models. Use these as perspectives or examples. They do not establish why every provider chose a pricing model or a universal customer response to transparency. Read current official rates for the actual service, and use a spreadsheet or equivalent model to test the chosen workload scenarios.
 
-**Loose distribution (users vary 100x from min to max):**
-- Per-token or hybrid pricing required. Flat-rate will be gamed by power users.
-- Example: Research analysis. One user does daily analysis (500 tokens/day). Another does quarterly deep-dives (50k tokens/quarter). Hundred-fold variation. Per-token required.
-
-**How do you know your distribution?**
-
-1. **Model it.** Ask: what's the 10th percentile user, median, 90th percentile?
-2. **Test it.** Launch with hypothetical pricing; see which customers self-select.
-3. **Measure it.** Track actual usage for six months. Calculate Gini coefficient (measure of inequality).
-
-If Gini > 0.4, your distribution is too loose for flat-rate pricing.
-
-## INTELLECTUAL LINEAGE
-
-- **Marc Andreessen, "Why Software is Eating the World"** — The foundational insight that software marginal cost is near-zero. AI breaks this.
-- **Dan Ariely, "Predictably Irrational"** — Pricing psychology. Transparent pricing (per-token) feels scarier than hidden pricing (flat-rate) even if total cost is the same.
-- **OpenAI's Pricing Model** — The canonical example of per-token pricing in AI. They chose transparency over adoption friction because marginal cost is unavoidable.
-- **Anthropic's Approach** — Hybrid (custom contracts for large customers, per-token for small). Captures value from power users while remaining accessible to new users.
-
-## REAL-WORLD EXAMPLE: Three Products, Three Models
-
-### Customer Support Routing (Tight Distribution)
-- Average support agent: 200 tickets/day
-- Range: 100-400 tickets/day
-- Token per ticket: ~500 tokens
-- Distribution: Tight (3.5x max/min)
-- **Pricing model: Flat-rate** ($X per agent per month)
-- **Why:** Most agents are within 2x of each other. One agent doing 400 tickets/day isn't subsidizing the product; margin stays strong.
-- **Cost check:** At 1M tokens/day, cost is $2/day. If 100 agents, at 200 tokens each = 200 agents × $2/day = $400/day = $12k/month. If you charge $X per agent, 100 agents × $X need to beat $12k/month. At $150/agent, you break even and scale profitably.
-
-### Medical Diagnosis (High-Value, Discrete)
-- One diagnosis call worth: $500 (if correct)
-- Token cost: $2
-- Margin available: $498 per call
-- Distribution: Not applicable (each call is independent)
-- **Pricing model: Per-outcome** ($50-200 per diagnosis, or subscription for hospitals)
-- **Why:** The value of a single diagnosis is high. Users don't care if it costs $2 or $50 in tokens; they care if the diagnosis is right.
-- **Cost check:** Even at $50 per call, you're capturing 10% of value created. Margin is 96%.
-
-### Research Analysis (Loose Distribution, Variable)
-- Light user: 50 requests/month, 500 tokens each = 25k tokens/month
-- Power user: 1000 requests/month, 2000 tokens each = 2M tokens/month
-- Ratio: 80x difference
-- Distribution: Extremely loose
-- **Pricing model: Per-token or hybrid**
-- **Why:** Flat-rate doesn't work. If you charge $X/month for "unlimited analysis," the power user is subsidized 80x over. Hybrid captures value from both: base plan for light users ($100/month), then overage.
-- **Cost check:** At $0.005 per 1k tokens, light user costs $0.125, power user costs $10. If you charge $100 base, light user margin is $99.875, power user margin is $90 + overages. Both are profitable, both feel fair.
-
-## FURTHER READING
-
-- OpenAI, "Pricing and models" documentation
-- Anthropic, "Pricing and models" documentation
-- Marc Andreessen, "Why Software is Eating the World"
-- Your own spreadsheet modeling the 10x and 100x scenarios (most important)
+Return to [SKILL.md](SKILL.md) for the decision process and [case notes](references/cases-and-evidence.md) for current versus historical examples.

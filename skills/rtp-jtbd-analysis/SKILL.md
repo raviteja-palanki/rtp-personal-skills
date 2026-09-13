@@ -1,7 +1,7 @@
 ---
 name: rtp-jtbd-analysis
-version: v1.2_latest
-description: 'Demand-side Jobs-to-be-Done for AI features. The reframe most PMs miss: users don''t hire the AI for the surface task they name, they hire it for the hidden job (offloading cognition, sharing blame, reducing anxiety, looking competent). Design for the surface job and the feature dies in production; design for the hidden job and users defend it even when it''s wrong. Runs the four-forces diagram, the switch-interview script, and the surface-vs-hidden map. Output is a job statement plus a design implication, not a 40-page empathy deck. Use when scoping a new AI feature, or when a working feature has flat adoption. Do NOT use for commodity, mandated, or captive tools with no real switch decision. Pairs with: problem-ai-fit (is AI the right hire), uncertainty-research (scaling the switch interviews), failure-modes (which failures the hidden job makes catastrophic), opportunity-solution-tree (the job as top-of-tree outcome). Triggers: ''what should this AI do'', flat adoption despite working as designed.'
+version: v1.2.1_latest
+description: 'Understand the progress people seek in a particular situation, including functional, emotional, social, and cognitive needs. Use demand-side Jobs-to-be-Done to examine real switching decisions, workarounds, and adoption barriers. Map the stated task and possible less-visible needs, use the four forces, and connect evidence to a testable design implication. Use for a new feature, unclear demand, or flat adoption; adapt for mandated tools by separating buyer choice from user experience. Do not assume an unspoken motive, treat reassurance as a substitute for correctness, or declare a workaround proof of willingness to pay. Pairs with problem-ai-fit, uncertainty-research, interview-synthesis, failure-modes, and opportunity-solution-tree. Triggers: what job is this hired for, why adoption is flat, customer workarounds.'
 imports:
   - problem-ai-fit
   - first-principles
@@ -10,198 +10,163 @@ imports:
 
 # JTBD Analysis
 
-**The objective:** decipher what users are actually hiring an AI feature to do — and design for that, not for the task they name — for the PM scoping a new AI feature or staring at a working one nobody adopts.
+Understand the progress a person wants to make in a particular circumstance, what they do today, and what would make a different approach worthwhile. The stated task matters. Emotional, social, and cognitive needs may also shape the choice; investigate them without treating the person’s account as a cover story.
 
-## Research, adoption, stitch
+The deliverable is a supported job statement, the important forces and trade-offs, and a design implication or next test. A concise analysis is enough when the decision is narrow.
 
-Assigned reading is a start. Deep-read `3_Research` (MAP → CONTEXT → indexes) and the live five-series MD files. Books thoroughly from `_book-text/`. File first, then web/X, then Ravi. X is first-class. Never invent tweets.
+## Establish the decision and the evidence
 
-If adoption looks flat, name the verb before you diagnose the job: tried, weekly, paid seat, or deployed. Those are different numbers. Never blend them. Stitch one narrative (hidden job → evidence series → what would kill it). No interview-quote pile.
+Name the feature, the person doing the job, other people affected, the buyer or sponsor, and the decision in scope. Separate user progress from the organization’s product or revenue goal. Follow the Universal Skill Protocol at the source library root or packaged plugin root, using available context before asking for more.
 
-When this skill should have caught a miss, write the tenet here (Rule 41) before the session ends.
+If adoption is flat, define the measure before diagnosing it: tried once, weekly active use, paid seats, deployed availability, task completion, and realized benefit describe different things. Compare relevant exposure, cohorts, and time periods. Low use can reflect capability, access, workflow, incentives, pricing, or infrequent need as well as a misunderstood job.
 
-## The one idea
+Start with relevant local evidence: use `3_Research` maps, context files, and indexes to find applicable notes, series, and book passages. Read the material needed for the decision in depth; do not make every invocation reread the entire library. Revisit relevant Novel Insights with their evidence limits and later qualifications. Use current primary sources where facts or product details need verification. Posts on X can supply first-hand accounts or research leads; verify them and never invent a post or attribution.
 
-> "People don't want a quarter-inch drill. They want a quarter-inch hole." — Theodore Levitt.
+Scale the approach:
 
-The 0.1% AI-PM correction: people don't want the hole either. They want the picture on the wall, the partner to feel proud, the room to feel *done.*
+- **Unclear demand or a new feature:** investigate the job and alternatives before assuming AI is needed.
+- **A known job with uncertain switching:** focus on the four forces and recent episodes.
+- **A mandated or captive tool:** separate the buyer’s procurement decision from how employees accomplish the task, comply, resist, or work around it. Lack of a vendor choice does not mean users have no needs.
+- **A price-driven or routine purchase:** examine affordability, access, requirements, and switching cost without forcing a concealed emotional explanation.
 
-Here is the whole idea in one example. A developer using GitHub Copilot will tell you the job is "complete my code." That's the cover story. The real job is *feel less alone while coding; stay in flow; avoid the shame of asking a stupid question on Stack Overflow.* The functional task is what they say. The **hidden job** — emotional, social, cognitive — is the actual demand.
+Use `rtp-first-principles` to keep the outcome clear and `rtp-problem-ai-fit` to assess whether AI is an appropriate way to serve it.
 
-This matters more for AI than for any product category before it, and here's the mechanism: every other category competes on *capability*. AI competes on whether the user trusts you with their **cognitive load** — and that load is almost always about emotional regulation, social positioning, or anxiety reduction. AI is the first technology that reaches those layers directly. So the PM who designs for the surface job ships a feature that works on the demo and dies in production. The one who designs for the hidden job builds something users *defend even when it's wrong* — because it's still doing the real job (sharing the blame, preserving the audit trail, keeping them in flow) even on a turn where the output was bad.
+## 1. Map the stated task and possible less-visible needs
 
-Miss the hidden job and you're competing on benchmarks. Hit it and you're competing on relationship. That's the reframe.
+Use “surface” and “hidden” as prompts to broaden attention, not a hierarchy in which the functional job is false and the inferred motive is true.
 
-## How to use this skill
+- **Stated or surface job:** the task and outcome the person describes, such as reviewing a contract or preparing a maintenance decision.
+- **Less-visible or hidden need:** an emotional, social, or cognitive condition that may matter, such as reducing uncertainty, preserving authorship, staying in flow, or explaining a decision to someone else.
 
-1. **Map surface vs. hidden job** — for the feature in scope, name the task the user says and the emotional/social/cognitive job underneath. (THE SURFACE/HIDDEN MAP.)
-2. **Run the four forces** — switching happens only when push + pull beat anxiety + habit; for AI, anxiety is 2–3× what PMs assume, so develop it hardest. (THE FOUR FORCES.)
-3. **Validate with switch interviews** — reconstruct the timeline from "thought of switching" to "first use" with 5–8 users who actually switched. (THE SWITCH INTERVIEW.)
-4. **End on a design implication** — the one Monday-morning change that comes from designing for the hidden job instead of the surface one. Without it, the analysis is decoration.
+These needs can be explicit, overlap, vary by situation, or remain unknown. A functional outcome may be the dominant job. AI is not the first technology to affect confidence, social standing, or cognitive load.
 
-## KEY TERMS (plain language)
-
-- **Surface job** — the functional task the user names ("summarize this doc"). Goes in the PRD.
-- **Hidden job** — the emotional, social, or cognitive shift they're actually hiring the AI for ("have a defensible answer if my boss asks what's in there"). Goes in the design.
-- **The four forces** — Bob Moesta's switch model: push (away from the old way) + pull (toward the new) must beat anxiety (about the new) + habit (of the old) for a switch to happen.
-- **Switch interview** — a JTBD interview that reconstructs the timeline of a real switch, hunting the struggle moment, not a feature review.
-- **The struggle moment** — the specific event that made the old way intolerable ("my boss asked me to summarize 200 pages by Monday"); the trigger a switch traces back to.
-- **Anxiety asymmetry** — when both acting and not-acting can hurt the user (shut down a $2M asset on a false alarm, or miss the real failure); the AI is often hired to share that blame.
-- **Audit-defensibility** — the hidden job of producing a paper trail that survives a deposition, independent of whether the AI was right.
-
-## CUSTOMER WORKAROUNDS ARE A JOB STATEMENT YOU DID NOT HAVE TO ASK FOR
-
-**A workaround is the highest-quality job signal available, because the customer paid to produce it.** Nobody builds a manual substitute for something they do not need. Interviews ask people to predict their behavior; a workaround already is the behavior.
-
-**How the gap opens, in three stages:**
-
-1. **Perceived mismatch.** The customer notices the official model does not fit what they actually need. A tire maker billed on tire performance; fleet operators needed performance connected to fuel, routing and driver behavior.
-2. **Workaround engineering.** Rather than wait, the customer builds an informal substitute at their own cost. Those operators stitched together telematics vendors, manual exports and disconnected dashboards.
-3. **Closure, by someone.** Either you close the gap or a competitor does. The tire maker eventually shipped a connected-fleet product. **Between stage 2 and stage 3, the relationship is available to anyone who closes it first.**
-
-**What to do with one when you find it:**
-
-- **Read the workaround as the spec.** The effort the customer spent is a priced statement of the job. What they stitched together tells you the functional job; what they tolerated tells you the constraint.
-- **Ask what it cost them.** Time, money, risk, or looking foolish internally. The size of that cost is the size of the opportunity, and it is more reliable than any stated willingness to pay.
-- **Notice it names your business model, not just a feature gap.** A workaround that spans several of your products, or reaches outside them entirely, is telling you the unit you sell is wrong. That is a different finding from a missing feature and needs a different response.
-
-**When this is wrong:** a workaround built by one unusually sophisticated customer may be a genuine edge case. **Count how many independently built the same one.** Two or more, arrived at separately, is a job. One is a request.
-
-*(Source: Bohrer, Frankenberger & Wincent, HBR, May 2026 — ⚠ the three-stage sequence is the authors' own diagnostic with a single named worked case, no comparative data.)*
-
-## GROUNDING (Before Starting)
-
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: name the feature and who's hiring it, and what "adoption" would look like. Then route depth and output format:
-
-- **Go deep** when a new AI feature is being scoped, an existing one has flat adoption despite working as designed, or the team is debating "what should this AI do?" before naming what it's hired for.
-- **Skim to the four forces** when you already have a job statement and just need to test whether the switching forces are strong enough.
-- **Skip** for commodity, mandated, or captive tools where the user has no real switch decision (see RED TEAM).
-
-Output format: **Inline** (paste into a PRD, the default), **Word** (spec-review appendix), or **Presentation** (stakeholder kickoff).
-
-## THE SURFACE/HIDDEN MAP
-
-The structural move: the surface job goes in the PRD, the hidden job goes in the design.
-
-| Feature | Surface job (what the user says) | Hidden job (what the AI is hired for) |
+| Example feature | Stated task | Possible additional need to investigate |
 |---|---|---|
-| GitHub Copilot | "Complete my code" | Feel less alone; stay in flow; avoid the shame of a "stupid" Stack Overflow question |
-| ChatGPT for writing | "Draft this email" | Defer the decision about tone; get permission to use these words; lower activation energy |
-| Notion AI summarize | "Summarize this doc" | Avoid reading 40 pages; have a defensible answer when the boss asks "what's in there?" |
-| Predictive maintenance | "Predict when the asset fails" | Have a defensible record; avoid being the operator who "should have caught it" |
-| AI legal review | "Find risky clauses" | Share the blame if something's missed; reduce the load of reading dense contracts |
+| Coding assistant, such as Copilot | Complete or improve code | Maintain flow, find a starting point, or seek help without embarrassment |
+| Writing assistant | Draft an email | Resolve tone uncertainty or reduce the effort of starting |
+| Document summarizer | Understand a long document | Prepare to answer questions with an accurate account of what is known |
+| Predictive maintenance | Anticipate failure and plan maintenance | Make and explain a consequential decision under uncertainty |
+| Legal-review assistant | Identify risky clauses | Manage review burden and make the basis of a decision inspectable |
 
-**The template to fill for your feature:**
+These are hypotheses, not verified motives of those products’ users. Do not present them as explanations for a named product’s success without evidence.
 
+Use this working record:
+
+```text
+PERSON AND SITUATION: [who, circumstance, constraints]
+STATED JOB: When [situation], I want to [task], so I can [outcome].
+ADDITIONAL NEED: [functional, emotional, social, or cognitive need; unknown is valid]
+EVIDENCE: [specific episode, observed behavior, quote or labeled paraphrase]
+ALTERNATIVES: [other ways to make progress, including doing nothing]
+HIRING CRITERIA: [what a useful solution must do]
+FIRING CRITERIA: [what would cause rejection, restriction, or abandonment]
+TRADE-OFF: [what the person would give up, under what conditions]
+DESIGN IMPLICATION: [candidate change and why it might help]
+NEXT TEST: [what would support or challenge that interpretation]
 ```
-FEATURE: [name]
-SURFACE JOB   When [situation], I want to [functional task], so I can [stated outcome].
-HIDDEN JOB    When [situation], I want to [emotional/social/cognitive shift], so I can [actual outcome — feel, be perceived as, defer].
-DESIGN IMPLICATION
-  Design only for surface → [what we'd build]
-  Design for hidden       → [what we'd build]
-  The difference          → [the structural change that decides adoption]
-```
 
-**Worked example — GitHub Copilot.** *Surface:* autocomplete boilerplate to save typing. *Hidden:* when I'm stuck and don't want to admit it, give me a non-judgmental partner who offers a starting point so I stay in flow without asking a colleague. *Design implication:* the hidden-job design never makes the user feel stupid for accepting a suggestion — zero-friction rejection, no suggestions that highlight gaps, no punishment for accepting a wrong one. The real Copilot UI does the second. That's why it works.
+Keep both functional and additional needs in the product requirements and evaluation where they matter. Do not place the functional job in the PRD and hide the consequential needs only in informal design discussion.
 
-**Worked example — AI support-draft response.** *Surface:* draft a reply to save time. *Hidden:* with 40 tickets queued and a manager tracking resolution time, I want plausible assurance I considered each ticket, so I can move fast without feeling like a bad agent. *Design implication:* preserve the agent's authorship — easy edits, show AI-vs-human contribution, give them an audit log to show their manager. Get it wrong and agents reject every draft because they won't attach "an AI response" to their name; get it right and they send 3× more tickets per hour and feel better about it.
+## 2. Investigate workarounds as revealed effort
 
-## THE FOUR FORCES
+A workaround can show that someone has spent time, money, or risk to make progress. It is often a useful starting point because it exists in a real workflow. Its effort is not automatic proof of a market, a profitable opportunity, or willingness to buy your proposed solution.
 
-A switch is rational only when **push + pull > anxiety + habit.** For AI, anxiety is usually the dominant force — and the one PMs underweight.
+Use the three-stage lens:
 
-- **Push** (away from the current way) — the old solution is failing in a specific way; a new event made it intolerable (a cost spike, a new boss, an audit).
-- **Pull** (toward the new) — a specific better outcome; someone they trust already uses it; the story of the new way feels true.
-- **Anxiety** (about the new) — *what if the AI hallucinates? what if my boss audits its recommendation? what if I lose the skill? what if I'm liable?*
-- **Habit** (of the current) — muscle memory, sunk cost, fear of looking stupid while learning, a team that isn't ready.
+1. **Perceived mismatch:** what did the official product or commercial arrangement fail to support?
+2. **Workaround engineering:** what did the person build, combine, share, export, or manually repeat, and why?
+3. **Closure:** what now meets the need—your product, another supplier, the workaround itself, or nothing adequately?
 
-**The trap:** PMs spend 90% of design energy on pull (how good the AI is) and 10% on anxiety (what goes wrong, who's liable, what happens when it's confidently wrong). For enterprise AI, invert it — the pull is real, but anxiety is what blocks adoption. **The working rule:** if you can't name the top three anxieties in one sentence each, you haven't done the job analysis yet.
+Inspect the workaround with permission. Record the task, people involved, actual cost and burden, constraints, outcome, and alternatives considered. Ask which parts they value and which they merely tolerate. Treat it as evidence for a better specification, not a blueprint to copy verbatim.
 
-## THE SWITCH INTERVIEW
+Distinguish two possible findings:
 
-Reconstruct the timeline from "thought of switching" to "first use." You're hunting the moment a user decided to trust an AI with a task they used to do themselves. Run it with 5–8 users who *recently switched* (to you or a competitor) — not users who never adopted; they can't tell you what triggered a switch.
+- **Product or workflow gap:** a missing capability, connection, handoff, or supported way of working.
+- **Commercial-model gap:** access, packaging, billing, or purchasing terms that do not fit the task or buyer.
 
-1. **When did you first realize you needed something different?** → the trigger event (the struggle moment), not "when did you hear about us."
-2. **What had you tried before?** → the real consideration set (usually nothing like your strategy doc's competitive frame).
-3. **What were you anxious about?** → the anxiety forces (hallucination, liability, skill atrophy, audit trail); they rarely volunteer these — ask directly, then "what would have made you walk away?"
-4. **What pushed you to actually try it?** → the activating force (a peer, a deadline, a manager's permission, a low-stakes test).
-5. **When you first used it, what surprised you?** → the gap between expected and actual; did it feel magical, or like managing the AI? The diagnostic for whether the hidden job got served.
-6. **What would have to be true for you to stop?** → the fragility of the switch (AI adoption isn't durable until ~30 days of consistent use).
+Both may coexist. A cross-product workaround suggests examining the unit of value sold; it does not prove the business model is wrong. Effort spent may be sunk, imposed, subsidized, or an attempt to avoid payment. Test budget ownership, willingness to switch, willingness to pay, and the cost of serving the need separately.
 
-**What to listen for:** the *struggle moment*, not a feature review ("walk me through the day you decided to try it"). Emotional language is data, not noise — "I was embarrassed I didn't know that" is a hidden-job signal; write it verbatim. The *thing they didn't say* — if trust, accuracy, and risk never come up, they have a low-stakes job. And the *moment of social proof* — almost every enterprise switch traces to a person, not a product ("my manager mentioned it in a 1:1"); the hidden job often includes "looking competent in front of someone specific."
+Look for independently created workarounds and explain relevant differences. Two similar cases strengthen a pattern but are not a universal validation threshold; one consequential case can reveal a real job. Recurrence, consequence, segment, and evidence quality guide the next research step.
 
-## REAL-WORLD ENTERPRISE EXAMPLE — industrial predictive maintenance
+The local Michelin case describes fleet operators combining telematics and manual data to connect tire performance with broader operations. It illustrates how a workaround may cross a product boundary. Its chronology and outcome claims remain case evidence rather than proof of a general sequence. See [evidence notes](references/evidence-and-boundaries.md).
 
-A predictive-maintenance recommendation system for industrial assets — turbines, compressors, HVAC fleets across plants. Real Fortune-100 territory, and the kind of feature where the surface job is obvious and the hidden job is where the design lives or dies.
+## 3. Examine the four forces of a change
 
-**Surface job (the demo job):** *when a turbine's vibration drifts, predict failure 7 days out so I can schedule maintenance before unplanned downtime.* This is the job in the RFP — and the one that makes the system fail in production.
+Bob Moesta’s demand-side framework organizes influences that make progress attractive or difficult:
 
-**Hidden job — the plant operator: anxiety asymmetry.** *When the system flags a possible failure, give me a defensible record that I acted on it (or didn't, with reason), so I'm not the operator who "should have caught it" — and also not the one who shut down a $2M asset on a false alarm and got blamed for that too.* Both action and inaction can hurt them. They aren't hiring the AI to predict failure; they're hiring it to **share the blame.**
+| Force | What to investigate | AI-related examples, if relevant |
+|---|---|---|
+| **Push** away from the current situation | A struggle, changed circumstance, or cost of staying | Review overload, an error, a deadline, a new responsibility |
+| **Pull** toward an alternative | A specific desired outcome and credible reason to expect it | Better coverage, faster drafting, useful assistance, less rework |
+| **Anxiety** about change | Uncertainty, risk, loss, or effort associated with the new approach | Incorrect output, data exposure, accountability, lost skill, unexpected cost |
+| **Habit** keeping the current approach | Familiar routines, dependencies, accumulated investment, and switching friction | Existing shortcuts, team practices, integrations, procurement constraints |
 
-**Hidden job — plant management: audit-defensibility.** *When an asset fails or is taken down, give me a data-driven audit trail, so I can answer corporate, insurers, and regulators with evidence instead of judgment.* They don't care that the AI is right 92% of the time; they care that it produces a paper trail that survives a deposition.
+“Push + pull versus anxiety + habit” is a qualitative way to examine competing forces, not a numerical law of rational choice. Forces can change over time and differ between buyer, operator, manager, and reviewer. A mandate can trigger a formal switch without creating voluntary reliance.
 
-**The design implication.** Most vendors build the surface job: high-accuracy models, clean dashboards, scheduling integration. The hidden-job design is what wins the renewal — five moves, each serving blame-sharing or audit-defensibility over raw accuracy:
+Give each force the attention the evidence warrants. Anxiety may dominate, but it is not universally two or three times larger than expected. There is no requirement to invert a supposed 90/10 effort split, name exactly three anxieties, or fill every quadrant with two invented entries.
 
-- **Timestamp everything** — every recommendation version-locked and exportable, so it survives a deposition.
-- **Record the operator's disposition** — acted / declined / deferred, each with a one-line reason. That record *is* the audit log.
-- **Show confidence in plain language** — "high confidence," not "0.87"; flag low-confidence cases "review with engineer," not "predicted failure."
-- **Allow refusal** — "not enough data to predict this asset" beats a confident guess that blows up the operator's credibility.
-- **Route a wrong decline to the model team, not to management** — when an operator overrides a recommendation that turns out right, that's retraining data, not a performance flag.
+Consider both action and inaction. A maintenance operator can face harm from an unnecessary shutdown and from a missed failure. Ask how each is detected, decided, explained, and assigned—not merely how the product can make one choice feel safer.
 
-The moat in industrial AI is not better models — it's the operator's hidden job: share the blame, preserve the audit trail, never make them look stupid in front of management. Vendors who ship better accuracy without that insight lose the renewal.
+## 4. Reconstruct real switching episodes
 
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+Recent switchers can describe the path from initial struggle to search, decision, first use, and later assessment. Include people who adopted your product, chose a competitor, abandoned a tool, or returned to a manual approach as appropriate. Non-adopters cannot describe a switch they never made, but they can explain a stalled decision or why the current approach remains preferable.
 
-JTBD produces one thing — a job statement (surface + hidden + design implication). Trace where it travels, not just what sits beside it.
+Five to eight interviews is one starting plan, not a guarantee of adequate evidence. Use `rtp-uncertainty-research` for sample design and `rtp-interview-synthesis` for the analysis. Distinguish a one-off episode from a recurring pattern.
 
-**The forward chain — who acts on the job statement first:**
-- **`rtp-problem-ai-fit`** *(import)* — takes the named job and checks whether AI is even the right hire for it. Run JTBD first when the problem is unclear; run problem-ai-fit when the AI assumption needs testing. Writing two beautiful job layers for a feature AI shouldn't own is a wasted analysis, not a solved one.
-- **`rtp-opportunity-solution-tree`** — the job statement becomes the desired outcome at the top of the tree; the hidden job is the filter that decides which opportunities are worth pursuing.
-- **`rtp-uncertainty-research`** *(import)* — the switch interview is one method; this scales it into a real research design when 5–8 interviews aren't enough to trust the finding.
+Ask about actual events before hypothetical preferences:
 
-**The second-order path — where the hidden job resurfaces once you've built:**
-- **`rtp-failure-modes`** — the hidden job decides which failures are catastrophic: "preserve the audit trail" makes silent degradation fatal and confident-wrong survivable (the log catches it); "save me from feeling stupid" makes a refusal hurt more than an error. The hidden job is the input that turns a generic failure taxonomy into a prioritized one.
-- **`rtp-fit-signal`** — the non-obvious two-hop most teams miss. Weeks after launch, fit-signal measures whether users *depend* on the feature — and what they depend on is the hidden job being served reliably. A feature that passed JTBD but fails fit-signal's trust curve is evidence the hidden job was mis-named or stopped being served, not that the surface feature broke. Feed the hidden job into fit-signal's magic-moment definition so it measures dependence on the real job, not the cover story.
+1. **First struggle:** “When did you first think you needed a different way? What was happening then?”
+2. **Alternatives:** “What had you tried or considered, including keeping the old approach?”
+3. **Reservations:** “What concerned you about changing? What might have made you walk away?”
+4. **Decision:** “What happened that made you try it at that point?”
+5. **First use:** “What was different from what you expected? What helped or made the task harder?”
+6. **Continuation or exit:** “What made you keep using it, limit its use, or stop? What would change that?”
 
-**The upstream informal feeder (reciprocal with gossip-mode):**
-- **`rtp-gossip-mode`** — a hidden job isn't found once and frozen. An operator saying "I'd rather it refuse than guess" in a standup is live anxiety-and-tolerance data (gossip-mode's signal 8) that refreshes this map between formal switch-interview rounds. Gossip-mode catches the sideways signal and routes it here; this skill is where it lands as a revised gain criterion.
+Follow the timeline and concrete trade-offs. Capture emotional and social context when the participant supplies it; label exact quotations and paraphrases correctly. Social proof can matter, but not every enterprise switch traces to a person. Thirty days of use does not establish durable adoption for every task.
 
-## RED TEAM — when this skill gives bad advice
+Do not infer low stakes from absent mentions of risk, or a secret motive from silence. Ask a neutral follow-up where useful and respect an unanswered question. A less-visible need does not have to sound uncomfortable to be real, and an obvious functional need is not automatically superficial.
 
-- **A commodity with no real switch.** Procurement-driven B2B buys (mandated CRM, compliance tools) have no "moment of switch" — the buyer is forced. Use stakeholder-mapping to find who has the political incentive to make it succeed.
-- **A captive user.** Internal tools employees can't opt out of (HR, expense, mandatory safety platforms) don't generate struggle moments; JTBD produces hollow job statements that read well and change nothing.
-- **Competing on price, not job.** When buyers pick the cheapest option that clears a checklist, the job is "satisfy procurement at lowest cost" — run cost-model and competitive-map instead.
-- **The user can't articulate their own job.** Too close to see it, they repeat the surface job. Behavior beats words: instrument the workflow, watch what they do, infer the job from actions; mine the silence as much as the words.
-- **The "AI" framing is a distraction.** If the feature is genuinely deterministic (lookup, rule-based routing), the hidden job still matters but the AI-specific anxieties may not — use straight JTBD without the AI overlay.
+## 5. Turn the job into a useful, testable design choice
 
-## WHEN WRONG
+Connect the proposed change to the observed need, the relevant force, and a way to assess benefit. Accuracy, safety, agency, and a faithful record remain important even when reassurance or social acceptance matters. Users defending a product after an error is not by itself a sign that the job is being served well.
 
-- **You only interviewed users who switched *to* you** — survivorship bias. Add users who switched away from a competitor to nothing; they reveal anxiety and habit most clearly.
-- **The hidden job feels obvious to the whole room in 10 minutes** — it's probably the surface job in disguise. Real hidden jobs feel slightly uncomfortable to say out loud (users hiring the AI to manage perception, defer responsibility, avoid effort). Push past the polite framing.
-- **You skipped the four forces** — a job statement without the force diagram is a poem, not a tool.
+### Example: coding support
 
-## QUALITY GATE
+If a developer describes losing momentum when stuck, test whether a useful starting point and easy rejection improve the task. Avoid humiliating feedback, but keep meaningful error information visible. A supportive interface should help the person recover from a wrong suggestion, not conceal that it was wrong. This is a design hypothesis, not a demonstrated explanation for Copilot’s success.
 
-- [ ] Job statement is two layers (surface + hidden), not one
-- [ ] Four-forces diagram has ≥2 entries per quadrant, and anxiety is at least as developed as pull
-- [ ] Surface-vs-hidden map includes a design implication that would change the product
-- [ ] At least 5 switch interviews informed it (not "we think users want X")
-- [ ] The hidden job names an emotional, social, or cognitive demand — not just a functional one
-- [ ] It ends with a Monday-morning design change, not an empathy slide
+### Example: support drafts
 
-## TRADE-OFF LEDGER
+An agent facing forty queued tickets may value speed, authorship, and evidence that important details were considered. Test editable drafts, source visibility, and relevant disposition records. Measure resolution quality, handling time, rework, and staff experience. The earlier “three times more tickets per hour” claim was illustrative and unverified; do not promise it. Plausible assurance without an actual review is not the desired outcome.
 
-By designing for the hidden job, you bet that adoption is won on trust and emotional fit, not on benchmark capability. You give up the clean, defensible "we shipped the requested feature" story and take on the harder, softer work of naming what users won't say out loud. **Reversible?** Yes — it reshapes design priorities, not architecture. **The hidden trade:** the failure mode is *projection* — the team inventing a flattering hidden job instead of mining a real one, which is why the switch interviews (not the whiteboard) are load-bearing. **Confidence: High** for voluntary-adoption AI; **Low** for commodity/mandated/captive tools (see RED TEAM), where the switch model doesn't apply. What would change it: no real switch decision exists.
+### Example: industrial predictive maintenance
 
-## CONCLUSION
+Suppose an operator must decide whether to inspect or shut down an asset. The functional job is to prevent failures while managing maintenance cost. Additional needs may include explaining an action or a reasoned decision to wait. A hypothetical seven-day prediction horizon, $2 million asset, or 92% accuracy does not establish the requirements for a real plant.
 
-A complete JTBD analysis ends with one sentence:
+Five candidate design moves follow:
 
-> "We're going to redesign [feature] to serve the hidden job of [job], because right now we're designing for the surface job of [task], and that's why adoption is [observed pattern]."
+- **Preserve the decision record:** relevant evidence, timestamps, recommendation and system versions, changes, and authorized access. A log supports reconstruction; it does not guarantee correctness or a particular legal outcome.
+- **Record disposition:** acted, declined, deferred, or escalated, with the reason and context needed for later review. Do not make unnecessary paperwork the price of using the feature.
+- **Communicate uncertainty appropriately:** use language or numbers that users can interpret and that reflect demonstrated reliability. “High confidence” is not inherently safer than 0.87. Test understanding and action.
+- **Support appropriate abstention and escalation:** insufficient information may require a narrower answer, more data, or a qualified person. Refusal can also cause harm or delay, so assess the relevant alternatives.
+- **Review errors fairly:** investigate the model, available evidence, interface, incentives, and operator decision together. An override that later looks wrong is neither automatic retraining truth nor automatic evidence of individual misconduct. Route findings to the accountable owners under the actual policy.
 
-That sentence is the deliverable; everything else is the working. If the team can't write it, restart at the switch interviews — the job analysis isn't done. Then follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): recommendation, key trade-off, biggest risk, next action.
+The goal is better decisions with an honest, usable record. An audit trail does not make confident error harmless, and emotional reassurance does not justify an unsafe answer. The relevant job helps prioritize consequences; it does not replace domain risk assessment.
 
-## VISUAL SUMMARY
+## Hand off and check the result
 
-After the primary output, invoke the **excalidraw-svg** skill for one visual: the surface job and the hidden job stacked (what they say / what they're hiring it for), with the four forces drawn as the switch scale beneath — push + pull on one side, anxiety + habit (anxiety enlarged) on the other — so a viewer sees that adoption turns on serving the hidden job and shrinking the anxiety, not on adding capability. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Lead with the job and evidence, then the proposed change, trade-off, biggest uncertainty, and next action. For example: “Operators need to make and explain a timely maintenance decision. We will test a concise evidence-and-disposition view because six interviews describe reconstructing that record manually; we still need to test whether it improves decisions without adding excessive work.”
+
+Use the sentence shape that fits the evidence. If the job is unresolved, recommend the next discriminating research step rather than asserting a cause for flat adoption. A four-forces diagram and stated/additional-needs map can help a substantial analysis; size the visual elements from evidence rather than always enlarging anxiety.
+
+Check that:
+
+- the person, circumstance, progress, alternatives, and adoption measure are clear;
+- observations and inferred needs are distinct, with contrary evidence retained;
+- relevant switching forces are explored without a quota or fixed weighting;
+- workarounds inform both product and commercial hypotheses where appropriate;
+- the design implication preserves functional quality and accountable action;
+- the next test can challenge the recommendation, not only confirm it.
+
+`rtp-opportunity-solution-tree` uses the job to identify customer opportunities beneath a measurable product outcome; do not paste a job statement into the outcome node without defining what change will be measured. `rtp-failure-modes` uses the job alongside technical and domain evidence to assess consequences. `rtp-fit-signal` examines whether the intended benefit is realized; a weak trust or use curve can have several causes, not just a mislabeled hidden job. `rtp-gossip-mode` supplies informal observations that may refresh the hypothesis after validation.
+
+If this skill missed a recurring issue, record the proposed lesson with its example and scope through the library’s learning and revision governance. Do not turn a single account into a permanent tenet or silently rewrite a shared skill during routine use.

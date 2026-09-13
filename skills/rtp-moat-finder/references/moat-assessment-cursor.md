@@ -1,32 +1,43 @@
-# Moat Assessment: Cursor (Anysphere) — the cold-run exemplar
+# Cursor — A Provisional Assessment Example
 
-*Produced in cold-start mode (~35 min, public knowledge only, no company access) as moat-finder's v2.2 stress test. Every score is ⚠ provisional by construction — the point of this document is to show what an honest cold run looks like: tagged scores, named evidence gaps, OPEN flags, and a verdict that discriminates. Chosen deliberately: Cursor is the live "is it just a wrapper?" debate — a moat framework that can't produce a non-obvious verdict here isn't earning its keep.*
+This is an editorial revision of the earlier public-information example, not a current investment assessment of Cursor or Anysphere. It demonstrates how to make a useful decision while keeping unverified claims visible. Product features, supplier relationships, financial information, and ownership may have changed; verify them before using this example externally.
 
-**Value-line:** growth — developer-productivity spend, seat + usage expansion; multiplied into the valuation.
-**Core value engine:** the AI-native *editing loop* — tab-completion trained on edit-acceptance traces plus an agentic mode, fused into the editor itself. Not "access to models" (everyone has that).
+## Frame the hypothesis
 
-**The two brutal tests, answered first:**
-- *Why can't a same-model competitor beat us next quarter?* The tab model trained on proprietary accept/reject edit traces at enormous scale, plus iteration speed and installed habit. Honest note: the *agent* mode alone would not survive this test — that layer is near-parity across rivals on the same frontier models.
-- *Would anyone actually miss us tomorrow?* Yes — a large cohort of developers whose muscle memory and daily flow live in it. That's real, and it's mostly *habit + speed*, which decays faster than data or contract lock.
+**Customer and value engine:** developers may value an integrated editing and coding-assistance workflow. Candidate benefits include useful completions, reliable edits, codebase context, speed, and less workflow interruption. Test these against the alternatives customers actually use.
 
-**Five-moat scorecard** (band anchors: 1 none · 2 replicable in 1–2 qtrs · 3 ~a year · 4 measured + multi-year · 5 compounding):
+**Economic question:** does that value support retained demand and worthwhile economics after inference, product development, support, and customer acquisition costs? Developer-productivity spend is not automatically a growth multiplier in a valuation.
 
-| Moat | Score | Evidence | Decay clock |
-|---|---|---|---|
-| 1. Proprietary data | **4** ⚠ | Edit-acceptance traces at scale feeding the custom tab model — rare-hard-case coverage across languages/codebases; the loop closes daily (◆ scale claims are company-reported) | 12–24 mo; holds only while the tab model's measured lift over frontier defaults persists |
-| 2. Workflow depth | **3** ⚠ | It *is* the editor (habit, keybindings, rules/memories) — but migration to a rival fork or VS Code + rival plugin is an afternoon, not quarters. Habit ≠ integration | Fast — 6–18 mo if a rival matches tab quality |
-| 3. Harness mastery | **3** ⚠ | Codebase indexing, retrieval, apply-model, background agents — real engineering, but rivals on the same models sit within a quarter or two on most of it; measured-lift evidence not public | 12 mo, under active assault |
-| 4. Trust & reliability | **2** ⚠ | Enterprise motion (privacy mode, SOC 2 ◆) but visible trust dings: the 2025 support-bot hallucination incident and opaque pricing-change backlash (the "trust trap" case in token-economics). Binary moat, currently scratched | Rebuild is slow; one more visible incident is expensive |
-| 5. Network effects | **1–2** | Single-tenant learning; team features are collaboration, not cross-customer compounding. Fails the four-question filter (data accumulation, not network) | — |
+**Why might a similar-model competitor struggle?** Possible barriers include distinctive edit data, specialized models, context and editing systems, installed habits, and execution knowledge. Each needs evidence. A shared base model does not establish parity of the complete agent workflow.
 
-**Total: ~13/25 ⚠ · Moats scoring ≥3: 3 (data, workflow, harness) → defensible-but-thin.** Exactly the discriminating answer the wrapper debate needs: *not* a wrapper (the tab-data loop is a real compounding moat), but carried by one deep moat plus two contested ones.
+**Who would miss the product?** Identify developers or teams who would lose useful performance, context, integrations, or habits. An observed preference helps; it does not quantify migration burden or prove a durable moat.
 
-**Dynamics:** Vertical-Infinite — yes (code, deep) · Living Software — Micro ✅ (accept/reject), Meso partial, **Macro (Workspace/org DNA) emerging only** — the biggest unbuilt moat · cycle-time — fast human cycle; the tab-model retrain loop is the machine-cycle part.
-**Model dependency:** split — tab model proprietary (resilient *and* a treadmill); agent layer model-agnostic but commodity.
-**Distribution (6th force):** strong dev mindshare, **but the defining squeeze applies: its model suppliers ship competing coding agents downstream.** Multi-model neutrality is a hedge, not a moat. Access assumed to get harder, not easier.
-**Fake-moat checks:** anti-moat loop — pass (edit traces are theirs alone) · agent-in-the-middle — N/A today, watch agent-marketplaces · acquisition test — the trace-loop + habit would partially transfer; the iteration culture would not.
-**18-month projection:** frontier-lab agents commoditize the agent layer (near-certain); survival hinges on tab-loop lift staying measurable + Macro Workspace DNA shipping + trust repair in enterprise. Realistic: defends the editor niche, loses the "agent" halo. `OPEN:` does the tab model's lift over frontier defaults still measure ≥ meaningful in 2026? — the one number that settles moat #1's score.
-**Next-quarter move (the weakest moat that matters):** trust & reliability — enterprise-visible reliability + pricing transparency. It gates the enterprise expansion the growth line is priced on, and it's the only moat currently *scratched* rather than merely thin.
+## Keep the five mechanisms open until the evidence supports them
 
----
-*Cold-run friction log (what this run taught the skill — all fixed in v2.2): needed a run-mode router (added), needed scoring band anchors to score alike cold (added), the supplier-competes-downstream squeeze needed naming (added), the two brutal tests belonged in the OUTPUT template, not just the trap (added).*
+| Mechanism | Provisional hypothesis | Evidence needed before assigning a strong score |
+|---|---|---|
+| Useful proprietary data | Edit and interaction signals may improve relevant completion or editing tasks | Actual collection and reuse rights, coverage, held-out comparisons, and improvement attributable to those signals |
+| Workflow integration | Editor habits and team context may increase the value of staying | User research and real migration tests, including export and integration costs; neither an afternoon nor multiple quarters can be assumed |
+| Harness mastery | Indexing, retrieval, editing, and agent operation may improve useful outcomes | A current comparison with credible alternatives under comparable conditions, including error recovery and cost |
+| Trust and reliability | Reliable operation and understandable commercial terms may matter to teams | Current operating evidence and customer choice or retention data; historical incidents alone do not determine today's score |
+| Network effects | Collaboration or permitted shared learning may create value across participants | A demonstrated cross-participant benefit; single-instance personalization and proprietary data alone do not establish it |
+
+The earlier example assigned roughly 13/25 and called the product defensible-but-thin because three moats scored at least 3. Those scores combined unverified scale claims with fixed imitation timelines. Do not inherit them as evidence. **Unknown is the appropriate score when the needed comparison is unavailable.**
+
+## Examine the dynamics and dependencies
+
+Investigate Micro signals from individual edits, Meso patterns across workflows, and Macro organization-specific context. Check where the loop closes and what improvements are actually validated. A fast release cycle or model retraining schedule alone does not establish a compounding advantage.
+
+Separate the specialized-model and general-agent dependencies without declaring one resilient and the other commodity in advance. Check whether model suppliers compete in the same customer workflow, what contractual or technical alternatives exist, and what a migration would cost. Neutrality across models can be a hedge; its value is an empirical question.
+
+The earlier reference discussed a 2025 support-bot error and pricing backlash. Those incidents require dated sources and current customer evidence before informing a present trust judgment. Trust is not binary, and one event does not establish permanent weakness.
+
+## Make the next decision conditional
+
+**Leading open question:** does the distinctive data or editing system still produce a meaningful customer benefit over current alternatives, at acceptable cost?
+
+**Next step:** obtain the comparison and investigate the customer segment whose decision depends on it. If reliability or pricing clarity is the measured barrier to retaining that segment, prioritize it. If a different gap matters more, follow that evidence rather than automatically investing in the lowest historical score.
+
+For an eighteen-month scenario, consider maintained differentiation, partial imitation, and effective substitution. State what would have to happen for each. Do not label frontier-agent commoditization “near-certain” or promise survival from a three-moat count.
+
+The original example's useful contribution remains: answer the customer-value and imitation questions first, name the supplier's possible downstream competition, and keep a small number of unresolved decisions tied to evidence that could settle them.

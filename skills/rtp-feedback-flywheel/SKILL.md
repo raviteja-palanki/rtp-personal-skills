@@ -1,202 +1,160 @@
 ---
 name: feedback-flywheel
-version: v1.4_latest
-description: 'Turn what users do with your AI''s output into the thing that improves the AI, automatically, on a cadence, with owners. Most products collect feedback (thumbs, edits, regenerations) that sits in a database and never reaches the model; this designs the closed loop from signal to labeling to a measured model gain. Collection is easy and feels like progress. Closure is rare and is the actual moat, but ONLY if the loop''s inputs are yours alone. Use when designing feedback capture, auditing why collected feedback changes nothing, or bootstrapping before you have users. Do NOT use for one-shot/batch systems, under ~500 active users, or when annotation velocity is permanently <5% of collection. Pairs with: eval-framework + eval-driven-development (the fix→regression cycle lives there), moat-finder (anti-moat check), ai-product-metrics (signals worth logging), gossip-mode (informal-signal sibling). Triggers: ''feedback loop'', ''why does our feedback change nothing'', ''data flywheel''.'
+version: v1.4.1_latest
+description: 'Turn user feedback into verified product improvements through a clear path from capture to review, evaluation, experiment, and release. Use when designing a feedback loop, finding why collected feedback changes nothing, or preparing a loop before launch. Include corrections, exceptional successes, and unexpected uses. Distinguish behavior from a reliable label, speed from improvement, and useful learning from a defensible moat. Scale the process to volume, consequence, and available data rights; a manual loop can be appropriate. Pairs with eval-framework and eval-driven-development for testing, ai-product-metrics for measurement, moat-finder for defensibility, and gossip-mode for informal signals. Triggers: feedback loop, data flywheel, user corrections, annotation bottleneck.'
 imports: [first-principles, stress-test]
 ---
 
-# Feedback Flywheel — The Diagnostic
+# Feedback Flywheel
 
-**The objective:** close the distance between "we collect feedback" and "the product got better because of it" — for the PM whose feedback database is full and whose model hasn't moved.
+Turn a useful signal into a product change whose effect you can assess. The loop closes when someone can trace what was learned, what changed, and whether the change helped. A growing feedback database alone does not establish progress.
 
-## The one idea
+## Start with the decision and the boundaries
 
-Open your feedback database. It's full — thumbs-downs, user edits, regenerations, escalations, months of it. Now ask the question that matters: how much of it ever reached the model as a measured improvement? For most products the honest answer is *almost none* — a small fraction (10–20%, a practitioner rule of thumb ⚠) becomes training or eval input, and the rest just accumulates, unlabeled.
+Establish the output, the user’s task, the decisions this feedback will inform, existing telemetry, and who can act on the findings. Reuse available context; ask only for missing information that changes the design. Follow the Universal Skill Protocol at the source library root or the packaged plugin root, scaling its depth and format to the request.
 
-That gap is the whole idea. **Collection is easy and feels like progress; closure is rare and is the actual work** — and the actual moat. Logging a thumbs-down costs nothing and produces a satisfying number on a dashboard. Getting that signal *labeled, into an eval set, through an experiment, and out as a measured model gain* is a pipeline with owners and a cadence, and it almost never exists by default. Until it does, your data is **inventory, not leverage** — a warehouse of signal nobody is converting.
+Before designing collection or automatic updates, settle four things:
 
-And here is the sharp edge most teams miss: a mature flywheel is one of the strongest moats in AI, **but only if the loop's inputs are yours alone** — your users' corrections on your traffic. Run the same loop on public signals every rival also ingests and it compounds you toward the industry *average*, not ahead of it. Worse, a flywheel fed only by common, easy cases builds an advantage the next frontier model erases for free; the corrections worth the most are the hard, rare ones only your usage produces. So the diagnostic isn't just "is the loop closed?" — it's "is the loop closed *on signal only you have?*"
+1. **Useful outcome.** Name the user or business result to improve and the harms or regressions to avoid. Acceptance, engagement, and fewer escalations are signals, not automatic proof of quality.
+2. **Permitted use.** Check collection, access, retention, reuse, and vendor-sharing rights for this data and purpose. Permission to process a request does not necessarily permit training on it. Minimize sensitive content; de-identification and a notice alone do not establish adequate protection or authorization. Carry applicable consent and opt-out choices through the pipeline.
+3. **Update authority.** Separate permission to log, label, propose, test, and release. A captured correction must not silently change a production model, shared memory, policy, or retrieval corpus.
+4. **Human usefulness.** If feedback reaches people, provide enough task context and a way to investigate or respond. A score may summarize a problem; pair it with the evidence and an actionable next step when needed. Increasing frequency without increasing usefulness can add burden.
 
-## How to use this skill
+Use this skill for low-volume, batch, and prelaunch products too when there is a meaningful learning opportunity. They may need periodic review rather than continuous telemetry. If reuse is prohibited or no credible improvement path exists, explain that limit and choose an allowed alternative, such as aggregate measurement or a workflow change.
 
-1. **Rank the signal, then capture it** — corrections > explicit feedback > implicit behavior > acceptance; ~80% of signal should be zero-friction implicit. (SIGNAL & CAPTURE.)
-2. **Fix the bottleneck — annotation velocity** — measure the % of feedback reaching the model per week; if labeling can't keep up with collection, that's the broken link, not capture. (ANNOTATION.)
-3. **Close the loop on a cadence with owners, and check the moat condition** — weekly→quarterly pipeline; then place yourself on the 1–5 maturity curve and confirm the inputs are yours alone. (THE CLOSED LOOP + MATURITY + MOAT.)
+## 1. Capture three kinds of learning
 
-## WATCH WHAT USERS DO WITH IT, NOT WHAT THEY ASKED FOR
+Design capture around a question you can act on, with an owner and proportionate retention. Avoid collecting everything merely because it is possible.
 
-This loop captures corrections and complaints. **Devotion mining below adds the extreme-positive channel. This adds a third: repurposing.**
-
-**"The street finds its own uses for things."** The highest-value signal is often a user doing something with your product that you did not design for and would not have asked about.
-
-**The case that makes it concrete.** The Walkman was expected to be a study aid. Users made it a commute, jogging and private-world device, and it sold 200 million units. TikTok was a karaoke app; users invented short-form video and the company rebuilt the algorithm around what people actually did.
-
-**The instrumentation question: can your loop even see a repurposing?** Most cannot. A feedback channel built on ratings and bug reports captures reactions to the intended use. **A user succeeding at something you never designed shows up as an outlier session, not as feedback**, and outliers usually get filtered.
-
-**Two additions to the loop:**
-
-- **Sample your outlier sessions deliberately**, on a cadence, and read them for intent rather than for error. The question is what were they trying to do, not what went wrong.
-- **Separate "the data says no" from "the data cannot say."** Data explains reactions to what exists. **It is silent on what could exist**, and treating silence as a negative signal is how a repurposing gets killed before anyone notices it.
-
-**The honest limit, and it cuts against the cases above.** Every example here is a survivor. **A company that overrode its data and was simply wrong does not get written up**, so the base rate for "trust intuition over the survey" is unknown and probably poor. Use this to widen what the loop can see, not to license ignoring what it says.
-
-*(Source: Schonthal & Alt, HBR, Apr 2026 — ⚠ case-tier, and heavily survivor-selected. The Walkman, Game Boy, Liquid Death, Pokemon, TikTok and Slack cases are all outcomes chosen because they worked. Carry the instrumentation point; treat the "trust intuition" conclusion as unfalsified rather than supported.)*
-
-## DEVOTION MINING: the signal source this loop has no channel for
-
-**Everything in this skill captures what went wrong.** Corrections, explicit complaints, implicit drop-off signals, silence. That is a defect-finding architecture, and it is only half the available signal.
-
-**The gap it leaves:** a team running this loop as built has **no mechanism for learning why something works exceptionally well**, so it systematically under-invests in what its power users already love.
-
-### The method
-
-**Study the devoted, not the dissatisfied.** Interview the top decile by engagement or satisfaction. Ask what specific mechanism produced the feeling. Then **treat the answer as a design input rather than a testimonial**, which is the part teams get wrong.
-
-**One hard rule on who you sample: never average the 5s with the 4s.** The relationship between experience and outcome is not a diagonal line. It is close to flat through mild-and-good, then bends steeply once experience crosses into genuine attachment. **Averaging the top two boxes together destroys exactly the signal you came for**, which is why NPS and "improve average satisfaction" are weak north stars for this purpose.
-
-### The five conditions, and they are sequential
-
-Later ones cannot activate until earlier ones are met. Not every loved experience needs all five; experiences with all five are the ones that change behavior.
-
-| | The question it answers | What it needs |
+| Channel | What to examine | What it does not prove |
 |---|---|---|
-| **1. Control** | what is this, and how should I engage with it? | orientation and clear choice, given before anything else |
-| **2. Harmony** | do you know what I am feeling, and do you care? | meeting people emotionally where they are before asking them to move |
-| **3. Significance** | do you know my story, and do you care? | personalization that signals the person matters |
-| **4. Warmth** | who is with me, and how can they help? | visible, reachable support |
-| **5. Growth** | how will I be more capable tomorrow? | and it collapses entirely if 1 through 4 are unmet |
+| **Corrections and failures** | Edits, rejections, regenerations, abandoned tasks, complaints, and human escalations | Every edit is a factual correction; every abandonment is a product failure; every escalation was unnecessary |
+| **Exceptional success** | Specific moments, workflows, and conditions that devoted users find unusually valuable | High engagement means satisfaction, or a power-user preference should become everyone’s default |
+| **Repurposing** | Users succeeding at an intent or workflow the product did not anticipate | Every outlier is a new market, or intuition should override contrary evidence |
 
-**Run it quarterly, on the top-decile cohort only**, and map the answers against those five for your onboarding and interaction design. Output is a design change, not a quote for the website.
+Capture implicit signals where they are informative and permitted: edit direction and extent, regeneration sequences, time before reuse, and escalation context. Offer lightweight explicit feedback—such as a rating with optional tone, accuracy, completeness, or relevance categories—when it helps interpretation. There is no universal requirement that 80% of signals be implicit.
 
-**Where it plugs in.** This is a parallel track beside the existing correction hierarchy, not a replacement. Both feed the same ingestion-and-closure loop this skill already owns. See `rtp-ai-product-metrics` for why the averaging rule matters to your dashboard, and `rtp-attitudinal-segmentation` for the cohort split.
+An expert-validated correction often conveys more than a bare rating. Its value still depends on competence, task, and context. A full rewrite may change style rather than fix errors; no edit may mean satisfaction, uncritical acceptance, or abandonment elsewhere. A human resolution becomes a reference only after checking its quality. Do not assign fixed reliability percentages to these behaviors.
 
-*(Source: Marcus Buckingham, discussed in HBR, Jun 2026, drawing on his book *Design Love In*. The five conditions are ⚠ framework-tier with one company's worked examples and no outcome data attached. **The curvilinear shape is the better-evidenced part**, sourced there to a Gallup meta-analysis and to Anderson and Mittal's satisfaction-retention work ◆. The article claims the same shape recurs in investor sentiment, developer happiness and patient experience, and gives no citation for any of the three; do not repeat those.)*
+Preserve enough provenance to reconstruct the task and system version, understand the signal, and honor data restrictions. Collect identifying information only when the purpose requires it. Keep the original observation distinct from an inferred explanation and from an approved reference answer.
 
-## DELIVERY FORMAT GATE: CHECK IT BEFORE YOU SPIN THE LOOP FASTER
+### Find unexpected uses
 
-**A flywheel turning faster with the wrong delivery format accelerates disengagement, not improvement.** This skill optimizes loop velocity and signal quality. Neither one checks whether the human receiving the signal will act on it.
+Deliberately sample permitted outlier sessions for intent, alongside routine cases. Ask what the person was trying to accomplish, what helped, and whether the pattern recurs. Do not discard an unfamiliar success as noise just because it falls outside the intended workflow.
 
-**The split that matters is verdict against conversation:**
+Distinguish evidence against a proposal from an instrument that never tested it. Existing telemetry may say little about an unavailable experience; prototypes, interviews, and experiments can generate evidence about it. A weak instrument is a reason to improve the test, not to ignore an inconvenient result. Historical success stories suggest possibilities, not the base rate of successful pivots. See [research boundaries](references/evidence-and-examples.md) for the corrected Walkman example.
 
-- **Verdict-framed feedback** is a rating, a pass or fail, a score presented without context. Kluger and DeNisi's meta-analysis found feedback of this kind **makes performance worse in roughly one case in three.** Not neutral. Worse.
-- **Conversation-framed feedback** is the same information delivered as a two-way exchange about what happened and what to try. It does not carry the same backfire rate. Adobe's move from annual performance ratings to a recurring check-in conversation is the best-documented company case.
+### Learn why something is loved
 
-**The mechanism is threat response.** A verdict is an evaluation of the person, and a brain in defense mode is not in learning mode. The same content framed as data about the work, delivered by someone visibly invested in the person getting better, lands as support.
+Interview a purposive sample of exceptionally satisfied or engaged users and identify the mechanism behind their experience. Keep satisfaction and engagement as separate selection criteria. Compare with ordinary, dissatisfied, and absent users where the decision requires it. The output is a design hypothesis, not just a testimonial.
 
-**So the gate, run before any change to loop speed or granularity:**
+Preserve the rating distribution so unusually positive responses remain visible. Inspect top-box and adjacent ratings separately when testing whether their outcomes differ. Do not assume a universal cliff between 4 and 5, ban all aggregation, or substitute a five-point satisfaction scale for NPS.
 
-1. **What format does the signal arrive in?** If it is a number with no context attached, you have a verdict.
-2. **Would increasing frequency make it more useful or more relentless?** A weekly verdict is not a better annual verdict. It is worse.
-3. **Is there a return path?** A loop the recipient cannot answer back into is a broadcast, and broadcasts get tuned out.
+Buckingham’s five conditions provide optional interview prompts:
 
-**Two habits that raise the odds the signal gets used:**
+| Condition | Question to investigate | Possible design response |
+|---|---|---|
+| **Control** | Do people understand what this is and how to engage? | Orientation and meaningful choices |
+| **Harmony** | Does the experience fit their emotional situation? | Appropriate pacing, tone, and demands |
+| **Significance** | Does the experience recognize their particular context? | Relevant personalization without intrusive assumptions |
+| **Warmth** | Is useful support visible and reachable? | A credible route to help |
+| **Growth** | Does the experience leave them more capable? | Learning, practice, or greater ability to act |
 
-- **Frame mistakes as data, not indictments.** This is a wording choice with a measurable effect, not a softness.
-- **Replace the status-only update with one question: what are you stuck on?** It normalizes surfacing a blocker early, which is when the loop can still act on it.
+Treat these as a framework to test, not a validated prerequisite sequence. Growth does not universally require all four other conditions. A quarterly interview cycle is one option; choose timing around the decision. Feed promising findings into the same review and testing process as corrections.
 
-**Where this connects to the machine side.** The same rule holds for automated quality signals delivered to engineers. **An eval dashboard that reports a failing score with no trace and no path to respond is a verdict**, and it will be routed around exactly as a performance rating is.
+## 2. Make signals usable
 
-*(Sources: Ron Friedman's superteam work, reported via HBR, Jul 2026 — ◆ proprietary survey plus company cases; the Kluger & DeNisi meta-analysis is ✅ published and long-established, and it is the load-bearing evidence here rather than the survey. Adobe's check-in case is ◆ company-disclosed. Falsifier: a team where increasing the frequency of verdict-framed feedback improved performance as much as switching to conversation framing did.)*
+**Annotation** means adding the interpretation needed for a particular decision. It need not produce training data. Label an issue’s type, severity, context, and supporting evidence; preserve disagreement and uncertainty when a single answer would conceal them.
 
-## KEY TERMS (plain language)
+Use tiers to describe how a label was produced:
 
-- **Flywheel** — a loop that feeds itself: usage produces signals, signals improve the product, the better product attracts more usage.
-- **Signal-to-noise (SNR)** — how informative a feedback type is; a full rewrite says more than a thumbs-down.
-- **Implicit vs. explicit feedback** — what users *do* (edit, regenerate, abandon) vs. what they *say* (thumbs, ratings); behavior is more abundant and often more honest.
-- **Gold / silver / bronze labels** — expert-verified corrections (gold), AI-graded judgments checked against gold (silver), simple heuristics ("deleted everything = fail") (bronze).
-- **Annotation velocity** — how fast collected feedback gets labeled into usable signal; the usual bottleneck.
-- **Cold start** — bootstrapping the loop before real users exist, with synthetic corrections and simulated behavior.
-- **Held-out test set** — cases kept outside the loop, so you can tell real improvement from overfitting to your own feedback.
-- **Anti-moat loop** — a flywheel run on signals every competitor also has; it compounds you toward the average, not ahead.
-- **Evidence tiers below** — the 10–20% reaching-the-model figure, the 15–20%/quarter improvement, the maturity-level percentages, and the loop-latency benchmarks are all ⚠ practitioner estimates; measure your own.
+- **Gold:** checked by qualified reviewers against a stated standard. Audit disagreement and reference quality; the name does not guarantee correctness.
+- **Silver:** an automated or model-based judgment validated against suitable human references. Check performance by relevant category and after material changes.
+- **Bronze:** a behavioral or rule-based proxy. Use it for triage or sampling until its relationship to the intended outcome is established.
 
-## GROUNDING (Before Starting)
+A model’s stated confidence, a high edit distance, or “deleted everything” is not sufficient approval for unattended learning. Decide which labels require review from their demonstrated reliability and the consequence of misuse.
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: what's the AI output, what do users *do* with it (edit? accept? escalate?), and do you have telemetry on that already. Then route depth and output format.
+Find the actual bottleneck: access, deduplication, interpretation, expert availability, evaluation, engineering, release, or outcome measurement. Track eligible demand, useful throughput, unresolved high-priority items, and age at each stage. A growing queue does not by itself prove annotation is the problem. Nor should every collected event be labeled: duplicates, irrelevant events, and intentionally sampled traffic can make a low processing percentage sensible.
 
-**Delivery-format gate (run this before optimizing loop speed or signal quality):** check whether feedback in this loop reaches a person as data (what happened, observable, specific) or as a verdict (good/bad, a judgment, a label). A meta-analysis of 600+ feedback studies (◆ peer-reviewed, not credited by name in the citing source) found feedback delivered as a verdict, rather than as data, produces worse subsequent performance than no feedback at all in over a third of studied cases. The mechanism: the same information delivered as judgment triggers a threat response that closes a person off; delivered as observation, it triggers curiosity that keeps them open. Adobe's Check-In system is a verified case of the fix (✅ independently verified): replacing ranked ratings with ongoing, data-style check-ins saved 80,000+ hours organization-wide, cut voluntary turnover by roughly 30-34%, and lifted "feedback helps me perform" by 8 points in employee surveys. A fast, clean loop delivered as verdict can still fail, because the person receiving it disengages before the data ever gets used. **Limit:** this applies to human-facing feedback loops specifically. A loop whose recipient is a system or model, not a person, may not carry this vulnerability, since a model has no threat response to trigger.
+### Before real users exist
 
-## SIGNAL & CAPTURE
+Start with representative tasks, domain examples, and reviewed synthetic cases. Have qualified people assess or correct outputs using explicit criteria. Keep synthetic provenance visible and test later against actual usage. Simulated accept/reject events can exercise instrumentation; they cannot establish what users value or supply ground truth merely because the simulation labels them “pass” and “fail.”
 
-**Rank by quality** (only signal above ~70% confidence should reach the model without human review): **gold** — user provides the right answer, expert-validated (95%+); **silver** — user edits with high edit distance (70–85%); **implicit** — regenerate / abandon / accept (30–60%); **absence** — no edits (~50%, ambiguous). Design for signal *purity*, not volume: a 1-word edit and an 80% rewrite tell completely different stories.
+Choose sample sizes for the decisions and uncertainty involved. A small product can learn from a few consequential failures; a precise rate estimate or experiment may require many more observations. There is no 500-user eligibility threshold for this skill.
 
-**Capture ~80% of signal implicitly** (explicit feedback asks cognitive load most users won't pay): edit distance and direction; regeneration attempts; copy-paste time lag (used immediately or hours later?); escalation to human (use the human resolution as a gold label). **Explicit, one-click, structured:** thumbs + optional error category (tone / accuracy / completeness / irrelevance), consent-gated in PII contexts.
+## 3. Close the loop with owners
 
-## ANNOTATION — the usual bottleneck
+Document a path for each priority finding:
 
-Who labels what, how fast? **Gold** (humans) — corrections from experts or escalations, ~2–3% of volume; **silver** (LLM-as-judge) — judge flagged outputs weekly against a saved reference set of gold corrections; **bronze** (heuristics) — high-confidence patterns ("deleted all output = fail," "no edits = pass"). **The critical metric: % of feedback reaching the model per week.** If <5% of captured feedback becomes signal, your flywheel is static, not dynamic — and if the labeling backlog grows monotonically, the bottleneck is annotation, not collection. **Cold start** (pre-users): generate outputs and have annotators edit them to ground truth; simulate implicit signal ("regenerate" = fail, "accept" = pass) to train the LLM-as-judge; collect aggressively, label conservatively, ramp velocity as signal quality improves.
-
-## THE CLOSED LOOP — a pipeline, not a wish
-
-```
-Weekly:     top user corrections → pattern analysis → "what failed?"
-Monthly:    accumulated corrections → add to eval set → run evals on the current model
-Quarterly:  new eval set → prompt experiment → A/B test → measure the delta
-Continuous: LLM-as-judge on flagged production outputs, using corrections as the reference
+```text
+Permitted observation → interpretation and validation → prioritized finding
+→ reproducible evaluation case → candidate change → regression and impact checks
+→ authorized release or rejection → outcome review → next learning
 ```
 
-**Most teams break here** — the cadence has no owner. Name them: who runs the weekly review, who owns the eval set, who commits to the experiments. If "nobody," the flywheel is broken. **Guard the pipeline** at each step — de-duplicate (20–30% of corrections are redundant), validate (an incorrect "correction" poisons the eval set), regression-test (a new signal can break edge cases), measure impact (A/B the change or you're optimizing blind). **PII is non-negotiable:** users must know their corrections improve the system (ToS/UI), opt-out available and logged separately, anonymize sensitive data before training, define a retention policy. Regulated domains compensate for consent friction with higher signal purity (corrections only, not implicit).
+Changes may improve prompts, retrieval, tools, rules, interface, documentation, or the model itself. Do not count only model training as closure. Record a reasoned decision not to change the product separately from a verified improvement.
 
-*(The eval side of this — writing the failing test before the fix, and the permanent fix→eval→regression cycle that keeps a fixed failure from silently returning — is `eval-driven-development`'s core discipline. This skill feeds corrections *into* that cycle; it doesn't re-teach it. Run them together.)*
+| Stage | Responsibility | Completion evidence |
+|---|---|---|
+| Review | Feedback owner | Validated pattern, severity, affected users, and uncertainty |
+| Evaluate | Evaluation owner | Reproducible case, intended outcome, and suitable comparison |
+| Experiment | Product and engineering owners | Candidate change and a credible measurement plan |
+| Release | Authorized release owner | Required checks pass; monitoring and recovery are ready |
+| Follow through | Outcome owner | Effect assessed, limits recorded, and next action chosen |
 
-## MATURITY & THE MOAT CONDITION
+One person can own several stages. Assign actual people or roles; avoid a nominal owner without time or authority. Weekly pattern review, monthly evaluation maintenance, quarterly experiments, and continuous automated triage form one possible cadence. An urgent safety failure should not wait for the next quarter; a slow-moving, sparse domain need not manufacture weekly changes.
 
-Place yourself on the curve (⚠ percentages illustrative): **L1** collecting, not using (signals sit in a DB); **L2** manual quarterly review (>2-month latency, weak moat — a competitor catches up in one cycle); **L3** semi-automated, monthly cycles (LLM-as-judge on flagged outputs, 2–4 wk latency, moderate moat); **L4** automated weekly loop (30–50% of feedback reaching the model, 1–2 wk latency, strong moat); **L5** self-improving daily with human guardrails (60–80% feeding the model, <1 wk latency, formidable). **Moving up:** 1→2 is one owner, 5 hrs/week; 2→3 is a basic LLM-as-judge + a 100–200 gold reference set; 3→4 is real infra (automated eval updates, CI/CD for model changes, A/B framework); 4→5 is online learning + strict quality gates (noisy annotations at L5 *degrade* the model — the risk rises with the autonomy).
+Protect each transition:
 
-**Loop latency is the multiplier:** best-in-class 1–2 weeks (Google Maps / Waze territory ⚠), average 2–3 months, worst never. A cycle that loops in 2 weeks produces ~26 compounding improvements a year vs. ~4 at quarterly — a 6.5× difference from speed alone. But improve *speed only after quality is real*: a fast loop without validation just ships silent regressions faster.
+- **Deduplicate and validate.** Separate repeated symptoms from independent corroboration. Check malicious or mistaken corrections, conflicting preferences, and changed context before promoting an example into shared knowledge.
+- **Learn from the boundary.** An expert’s explanation of an unusual case can reveal a useful rule. Record its scope and provenance, then test it on other cases. One explanation may be incomplete or a post-hoc rationalization. Sample ordinary and apparently successful cases too; an escalation queue misses failures the system never detected.
+- **Prevent evaluation leakage.** Use reviewed production failures for development and regression tests while preserving independent, representative evaluation. A case used to design or tune a change is no longer an untouched test of generalization. Add appropriate adversarial and shifted-distribution cases.
+- **Test before claiming gain.** Reproduce the failure before the fix, apply the change, then retain a regression test. Verify the main outcome and relevant quality, safety, cost, and latency effects.
+- **Measure impact credibly.** Use a randomized experiment when feasible and suitable. Otherwise state the comparison design, confounders, sample limits, and what causal claim it supports. An offline score increase is not automatically a user benefit.
 
-**The moat condition (don't skip):** a flywheel is a moat only if its inputs are yours alone, and only if it's fed the *hard, rare* cases (common-case corrections build an edge the next model erases). Run the full anti-moat check in `moat-finder`.
+## 4. Measure closure and choose useful automation
 
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+Keep a small set of measures tied to the decision:
 
-- **`rtp-eval-framework` / `rtp-eval-driven-development`** — corrections become eval cases here; the *fix → failing-test → regression-test* cycle that makes improvements permanent lives in eval-driven-development. This skill produces the signal; that discipline compounds it. Run together, don't merge.
-- **`rtp-moat-finder`** — the anti-moat check: is the loop fed by signals only you have, and by the rare/hard cases? A flywheel on public signals is not a moat.
-- **`rtp-ai-product-metrics`** — which signals are even worth logging (acceptance / correction / regeneration rates are the flywheel's raw material).
-- **`rtp-gossip-mode`** *(sibling)* — catches the *informal* single signal sideways; this is the *structured, automated* loop at volume.
-- **`rtp-fit-signal`** — the loop's health is visible two hops downstream in the trust curve: a genuinely *closing* loop (corrections compounding into model gains) shows up as a trust curve that keeps rising over quarters; a *collecting-only* loop shows a flat curve despite busy "engagement." fit-signal points back here when it needs to know whether corrections are actually closing or just accumulating — this skill is that diagnosis.
-- **`rtp-stress-test`, `rtp-first-principles`** *(imports)* — stress the loop's cost/throughput at scale; strip "we collect feedback" to the one atomic question ("did signal reach the model as a measured gain?").
+- Time from an actionable signal to triage, a tested change, and observed outcome; report the distribution and severe cases, not only an average.
+- Validated findings used in evaluation or experiments, with denominators defined. Distinguish raw events, unique issues, eligible examples, and released changes.
+- Backlog age and throughput at the limiting stage, including reviewer effort and cost.
+- The change in the intended outcome, relevant regressions, affected segments, and uncertainty.
+- Coverage gaps: non-users, silent failures, positive experiences, unusual uses, and effects that appear later.
 
-## DIAGNOSTIC QUESTIONS (weekly)
+Visible short-term events can dominate the loop. For example, a caveat may reduce immediate completion while preventing a later misunderstanding that is never logged. Treat this asymmetry as a hypothesis to investigate; measure both relevant costs and benefits instead of treating an unobserved benefit as zero.
 
-- **How long from user signal to model improvement?** >3 months = too slow; maturity-5 products iterate weekly.
-- **What % of feedback reaches the model?** (corrections used ÷ collected). Target >15% at steady state; <5% = broken.
-- **Is annotation velocity keeping up with volume?** A monotonically growing backlog = labeling is the bottleneck.
-- **Can you show the causal chain?** corrections → eval-set expansion → model change → A/B delta. If not, you're guessing.
-- **What signals are you throwing away, and why?** "Hard to interpret" is a labeling problem, not a collection problem.
+Use the five maturity labels descriptively:
 
-## REALITY CHECK
+| Level | What exists | Useful next improvement |
+|---|---|---|
+| **L1 — Collection** | Signals are retained but rarely lead to a decision | Give a valuable class of signals an owner and review path |
+| **L2 — Manual learning** | People review, test, and act periodically | Make the process repeatable and track outcomes |
+| **L3 — Assisted learning** | Automated triage or judging supports reviewed changes | Validate assistance and remove the actual bottleneck |
+| **L4 — Integrated learning** | Evaluation, experiments, and releases connect reliably | Improve coverage, speed, and recovery where worthwhile |
+| **L5 — Bounded automatic adaptation** | Some updates run within explicit authority and verified controls | Monitor degradation, containment, and whether automation still earns its cost |
 
-- **Echo chambers are real** — optimizing only on what current users correct misses what non-users need; supplement with explicit research.
-- **Implicit signals are noisy** — a user editing output might be personalizing, not correcting; classify before feeding the model.
-- **Feedback loops can poison evals** — test only on user corrections and you'll miss adversarial inputs and distribution shift; keep a held-out set.
-- **Privacy isn't optional** — in regulated domains, collection → annotation → training needs documented flow-through.
+L2 or L3 can be the right end state. L5 does not require unrestricted online learning, and a level does not establish safety or defensibility. Reference-set sizes, staffing, processing percentages, and cycle times depend on the workload. See [examples and calculations](references/evidence-and-examples.md) for the original illustrative values and their limits.
 
-## QUALITY GATE
+## 5. Test the advantage separately
 
-- [ ] Signal hierarchy defined (corrections ranked above implicit signals)
-- [ ] Annotation bottleneck identified (labeling velocity ≥ collection rate)
-- [ ] Closed loop documented (weekly/monthly/quarterly cadence with named owners)
-- [ ] Cold-start plan exists (how to bootstrap before users)
-- [ ] % of feedback reaching the model measured weekly (target >15% steady state)
-- [ ] Moat condition checked (inputs yours alone; fed by hard/rare cases)
-- [ ] Delivery-format gate checked (feedback reaching people in this loop lands as data, not verdict)
+A useful learning loop may improve the product without creating a moat. Ask what rivals could reproduce and what remains distinctive: data access and reuse rights, hard-won domain knowledge, coverage, validated execution, workflow integration, or the speed and economics of learning.
 
-## WHEN WRONG
+Exclusive inputs can help but are neither sufficient nor the only possible source of advantage. Public signals can produce useful gains; common-case fixes can matter greatly. Rare cases deserve attention when their consequence or information value warrants it. Test whether a new model, substitute workflow, or competitor can erase the advantage rather than assuming it will—or cannot.
 
-- Batch/one-shot systems with no interactive output (no loop possible).
-- Under ~500 active users, or feedback too sparse for significance.
-- Privacy prohibits training on corrections without consent you can't get.
-- Annotation velocity permanently <5% of collection (you don't have a flywheel; don't pretend).
-- Early-stage before PMF — a fast loop optimizing the wrong product is expensive thrash; get signal quality and a stable eval set first. (And in low-volume/high-privacy domains, a deliberately manual L2–3 loop can be the correct end state, not a failure.)
+Balance loop investment against buying better baseline capability. Include collection, labeling, evaluation, infrastructure, user burden, and ongoing maintenance. Infrastructure may be reversible; retained data, learned dependencies, and released changes can carry lasting costs. Use `rtp-moat-finder` for the fuller defensibility decision.
 
-## TRADE-OFF LEDGER
+## Deliver and check the result
 
-By building the closed loop, you bet that compounding improvement from signal only you have beats the one-time model quality anyone can buy. You take on real cost — labeling capacity, eval infra, named owners — and the discipline of measuring the delta. **Reversible?** The infra is; the *compounding advantage* it builds is not easily copied (that's the point). **The hidden trade:** the failure mode is a *fast loop on public or common-case signal* — it feels like a moat and is actually the anti-moat, compounding you toward the average; the moat condition is the guard. **Confidence: High** that closure beats collection; **conditional** on the inputs being yours alone. What would change it: a domain where you can't ethically or legally close the loop, or a product too early for its own signal to be worth compounding.
+Lead with the current state, the limiting link, and the next useful action. Include the owner, permitted signal sources, interpretation standard, testing path, cadence, success measure, and main trade-off. A diagram is helpful when several teams need to see the path; use the available visual skill and highlight the actual bottleneck. A short diagnostic answer need not produce a separate artifact.
 
-## CONCLUSION
+Before finishing, check that the proposal:
 
-Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): the recommendation (current maturity level + the one limiting factor to the next), the key trade-off (loop investment vs. one-time model quality), the biggest risk (an anti-moat loop, or annotation velocity that never catches collection), and the next action (owner + cadence for the weekly review, with the %-reaching-the-model metric as the scoreboard).
+- separates observations, labels, experiments, and demonstrated improvements;
+- includes failure, success, and unexpected-use channels where relevant;
+- respects data rights and update authority at every stage;
+- has realistic capacity and human feedback people can use;
+- preserves independent evaluation and checks relevant regressions;
+- avoids treating fixed percentages, rapid cycles, rising trust, or exclusive data as proof of success.
 
-## VISUAL SUMMARY
-
-After the primary output, invoke the **excalidraw-svg** skill for one visual: the flywheel loop (usage → signals → labeling → eval → model change → better product → more usage) with the **broken link highlighted** where most teams stall (the annotation/closure gap), and a side note marking the moat condition (inputs yours alone · fed by rare cases). So a viewer sees both the loop and exactly where it's usually broken. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Connect to `rtp-eval-framework` and `rtp-eval-driven-development` for testing; `rtp-ai-product-metrics` for measures; `rtp-attitudinal-segmentation` for cohort interpretation; and `rtp-fit-signal` for downstream product-fit evidence. A rising or flat trust curve has several possible causes: trace the loop rather than diagnosing it from that curve alone. `rtp-gossip-mode` handles informal signals; `rtp-first-principles` clarifies what improvement means; `rtp-stress-test` checks capacity, cost, failure, and recovery.

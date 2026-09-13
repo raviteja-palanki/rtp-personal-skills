@@ -1,428 +1,176 @@
 ---
 name: ai-portfolio-management
-version: v1.6_latest
-description: "Manage AI initiatives as an interconnected investment portfolio with stage gates, dual-lens oversight, a five-types investment classification, and Buy/Sell/Hold scoring. Prevents the 'too many pilots, no strategic coherence' failure mode. Grounded in the real ROI base rate (most AI initiatives don't hit their target; a small share of companies capture most of the value) so gates and exits are calibrated to reality, not optimism. Use when running 3+ concurrent AI initiatives, setting up an AI Centre of Excellence or governance board, or when leadership can't say which pilots are worth continued funding. Pairs with: strategy-canvas (the strategy each initiative should serve), moat-finder (which bets build durable advantage), build-or-buy (the Stage 2 partnership decision), cost-model (unit economics behind each initiative's ROI case). Triggers: 'AI portfolio', 'AI initiatives prioritisation', 'stage gate AI', 'AI investment review', 'AI project governance', 'OPEN framework', 'five types of AI investment'."
+version: v1.6.1_latest
+description: "Choose, sequence, fund, review, and stop AI initiatives as an interconnected portfolio. Use when initiatives compete for resources, share dependencies, lack clear funding decisions, or need governance across discovery and production. Combine project stage gates with a portfolio view of value, risk, time, capacity, and shared foundations. Classify five value mechanisms, use transparent scoring where helpful, and record Buy/Hold/Sell allocation decisions alongside Ravi’s Explore/Exploit/Exit hypothesis decisions. Match evidence and controls to the next commitment; protect bounded learning without allowing perpetual pilots. Pairs with strategy-canvas, moat-finder, build-or-buy, cost-model, gen-ai-experimentation, adoption-launch, and responsible-ai-program. Triggers: AI portfolio, initiative prioritization, investment review, stage gates, OPEN framework, AI Centre of Excellence."
 imports: [strategy-canvas, moat-finder, build-or-buy]
 ---
 
 # AI Portfolio Management
 
-## DEPTH DECISION
+Make explicit choices about which AI work deserves the next commitment of money, people, data, and attention. Evaluate each initiative on its evidence and evaluate the portfolio on its combined value, dependencies, risk, and capacity.
 
-**Go deep if:** You have 3+ active or planned AI initiatives and no systematic way to prioritise, sequence, or review them. Or you're setting up an AI Centre of Excellence, governance board, or executive review process.
+**A high score cannot compensate for a critical control gap or unavailable capacity.** Early exploration should earn funding through a useful learning question and a bounded plan; scaling needs evidence appropriate to the actual scope. An initiative does not need to demonstrate production ROI before it can investigate whether the idea works.
 
-**Skim to the stage gate checklist if:** You have a single AI project and need to know what gates it should pass through before scaling.
+## Establish scope and decision rights
 
-**Skip if:** You're pre-product and exploring your first AI use case — portfolio management at that stage is premature overhead.
+Reuse context and follow the Universal Skill Protocol at the source library root or packaged plugin root. Identify strategic priorities, current and proposed initiatives, budget and people constraints, existing commitments, material risks, and who can allocate resources or authorize a stage transition.
 
-## GROUNDING (Before Starting)
+Use a light version for a small team or a single initiative with competing alternatives. Three concurrent initiatives is a useful trigger, not an eligibility threshold. A pre-product team can use an opportunity list, experiment budget, and stop criteria without creating a governance board.
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
+Keep two views connected:
 
----
+- **Project pipeline:** where each initiative is, what it has learned, and what evidence or control is required for its next commitment.
+- **Portfolio dashboard:** whether the mix makes sense across value mechanisms, time horizons, risks, capabilities, shared dependencies, and available resources.
 
-## THE TRAP
+The pipeline-and-dashboard approach draws on Hoque, Nelson, Davenport, and Scade’s portfolio framework. OPEN—Outline, Partner, Experiment, Navigate—is one way to name the stages; existing organizational terminology can serve the same purpose. The [evidence reference](references/evidence-and-calculations.md) records attribution and case limits.
 
-Here is what AI chaos looks like from the inside: five departments running pilots simultaneously, each sponsored by a different VP, none of them talking to each other. Engineering is stretched across all five. None is resourced well enough to reach production. Leadership gets quarterly updates that all say "promising." Nobody asks "should we stop this one?"
+## 1. Inventory initiatives and classify how they create value
 
-Two years later, the company has learned a lot and shipped nothing.
+For each initiative, record the problem and intended users, sponsor and operating owner, stage, next decision, expected benefit, primary outcome, costs, dependencies, risks, evidence, and current commitment. Include shared data, evaluation, governance, and workforce capabilities when other initiatives depend on them.
 
-The problem is not the technology. It is the management system. AI requires exactly the same discipline as any other investment portfolio — clear criteria for what gets in, explicit gates for what advances, and a regular process that forces hard choices about what to stop. The difference is that most organisations apply rigorous investment thinking to their financial portfolios and almost none to their AI portfolios.
+Use the five-type classification before choosing measures. Assign a primary type and secondary types where useful; revisit them as the initiative changes. The types describe value mechanisms, not a maturity ladder or an automatic sourcing decision.
 
-The fix: treat AI initiatives as an interconnected investment portfolio, not a collection of independent experiments.
-
----
-
-## THE ROI REALITY — WHY GATES AND EXITS ARE NOT OPTIONAL
-
-This isn't a hypothetical failure mode. Three independent 2025-2026 studies converge on the same base rate, and it's worse than most leadership teams assume:
-
-- **◆ ISG, "State of Enterprise AI Adoption Report 2025"** (1,200 gen-AI, agentic, and traditional AI use cases studied): only **1 in 4** AI initiatives achieves its expected ROI on growth; roughly half hit their expected efficiency target. 31% of studied use cases reached full production in 2025 — double the 2024 rate — meaning more initiatives are scaling, but the ROI they deliver still falls short of the business case most of the time. [ISG](https://isg-one.com/state-of-enterprise-ai-adoption-report-2025)
-- **⚠ MIT NANDA, "The GenAI Divide: State of AI in Business 2025"** (150 leader interviews, 350-employee survey, 300 public AI deployments analyzed, reported by Fortune Aug 2025): roughly 95% of enterprise GenAI pilots show no measurable P&L impact; only about 5% achieve rapid revenue acceleration. The same study found internal builds succeed at about a third the rate of buying from a vendor or building a partnership (~33% vs. ~67%) — a direct data point for the Stage 2 partnership question below, and for `build-or-buy`. [Fortune](https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/)
-- **✅ PwC, "2026 AI Performance Study"** (1,217 senior executives, 25 sectors, verified directly against pwc.com, 13 Apr 2026): **74% of AI's economic value is captured by just 20% of organisations.** The leaders aren't running more pilots — they're 2.6x more likely to use AI to reinvent the business model rather than just cut costs, and 2.8x more likely to increase autonomous decision-making *while* investing more in governance (a Responsible AI framework, 1.7x; a cross-functional AI governance board, 1.5x). [PwC](https://www.pwc.com/gx/en/news-room/press-releases/2026/pwc-2026-ai-performance-study.html)
-
-**The read, not the panic:** these numbers aren't a reason to fund less AI — PwC's own leaders are the counter-example, and they're not the companies running the fewest pilots. They're the reason gates, exits, and the Responsible AI checks below aren't bureaucratic overhead. The gap between the 20% and everyone else is a management-practice gap, not a technology gap: growth-orientation over cost-cutting-only, workflow redesign over tool bolt-on, and governance that scales *with* autonomy rather than trailing behind it. A portfolio without real exits is how an organisation ends up in the 80%.
-
-**When this over-warns:** don't use these numbers to justify killing every initiative that hasn't shown ROI in one quarter — Gate 1 and Gate 2 are explicitly about learning, not yet about return (see Stage 1-2 below). The base rate is a reason to gate honestly at Gate 3 (Ready to Scale) and to hold exit conversations without flinching — not a reason to starve Stage 1-2 exploration, which is where the eventual 20% get discovered.
-
----
-
-## The Dual Lens: Why Both Views Are Necessary
-
-> **Attribution:** The dual-lens framework is from Hoque, Nelson, Davenport & Scade, "Manage Your AI Investments Like a Portfolio," Harvard Business Review, January 2026. The authors implemented this approach across Northrop Grumman, PepsiCo, and units within the U.S. Army.
-
-Every AI portfolio must be viewed through two lenses simultaneously:
-
-**Lens 1 — The Pipeline (Project Level)**
-Each initiative progresses through defined stages with explicit go/no-go gates. This ensures rigour at the individual project level. No project advances without meeting the gate criteria.
-
-**Lens 2 — The Dashboard (Portfolio Level)**
-All initiatives are visible on a single dashboard showing: risk/return balance, time horizon mix, capability dependencies, and strategic alignment. This enables portfolio-level optimisation — ensuring the mix of projects makes sense as a whole, not just individually.
-
-```
-LENS 1 — PIPELINE (Project Level)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Opportunity → [Gate 1] → Design & Partner → [Gate 2] → Experiment → [Gate 3] → Scale & Operate
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-LENS 2 — DASHBOARD (Portfolio Level)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Near-term    Medium-term    Long-term
-  ████           ███            █          → Time horizon balance
-High risk    Medium risk    Low risk
-  ██             ████           ████       → Risk/return balance
-Foundation   Transformation  Moonshot
-  ██████         ███            █          → Portfolio composition
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
----
-
-## The Four Stages: The OPEN Framework
-
-> The OPEN framework (Outline, Partner, Experiment, Navigate) was introduced in an earlier HBR article and maps to the four portfolio stages below. The portfolio management approach described here is framework-agnostic — it works with OPEN or other methodologies.
-
-### Stage 1: Opportunity Portfolio (Outline)
-**What happens here:** Ideas are collected, framed, and ranked. Problem framing, initial value and risk hypotheses, dependency mapping.
-
-**Output:** A scored, ranked backlog of opportunity ideas — not a list of projects you've already committed to.
-
-**Gate 1 — Strategic Fit and Technical Feasibility:**
-- Does this address a real business need (not a technology looking for a problem)?
-- Is there reason to believe the technical approach is feasible?
-- Does it connect to a strategic priority?
-
----
-
-### Stage 2: Design & Partnership Portfolio (Partner)
-**What happens here:** Outlined projects enter detailed shaping. Teams build extensive business cases, map dependencies, identify technical skills and data requirements, and establish preliminary governance.
-
-**The partnership question:** Even organisations with strong internal capabilities typically need external partnerships — with technology vendors, academic researchers, ethics advisors, or industry peers — to realise AI ambitions. This is also the stage to map the human-AI relationship the project will create: How does it change staffing, work patterns, reporting structures, and individual roles?
-
-**Output:** Business case with expected benefits, required investments, success metrics, capability plan, and preliminary governance model.
-
-**Gate 2 — Readiness to Experiment:**
-- Is required data available, of sufficient quality, and properly governed?
-- Are necessary skills in place or clearly sourced?
-- Have ethical guidelines and security controls been defined? *(Responsible AI check — mandatory)*
-- Does the business case still hold at this level of detail?
-
----
-
-### Stage 3: Experimental/Prototyping Portfolio (Experiment)
-**What happens here:** Structured experiments — not generic pilots. Each experiment tests not just technical feasibility, but enterprise viability (can we integrate at reasonable cost?) and human desirability (will users adopt and find value?).
-
-Rapid, bounded trials enable multidimensional learning: paper models, minimum viable products, limited pilots. Multiple parallel experiments can explore different technical approaches.
-
-**The key distinction:** Structure experiments as **learning journeys**, not validation exercises. The goal is to discover what's true, not to prove the business case you wrote in Stage 2.
-
-*(See `gen-ai-experimentation` skill for how to design these experiments properly.)*
-
-**Output:** Validated learning: does this work, for whom, under what conditions, at what cost?
-
-**Gate 3 — Ready to Scale:**
-- Rigorous system testing passed?
-- Red-team scrutiny (deliberate attempts to break or misuse the system) completed?
-- Integration costs and process redesign requirements confirmed?
-- User adoption validated?
-
----
-
-### Stage 4: Scale & Operate Portfolio (Navigate)
-**What happens here:** Production deployment. Scaling for multiple users, upskilling employees, redesigning processes, integrating with existing technical environment.
-
-**The mindset shift:** Scale & Operate is fundamentally different from Experiment. The focus shifts from discovery to reliability, cost management, and continuous monitoring.
-
-**Key practices:**
-- Establish guardrails that prevent system misuse
-- Implement cost-tracking to understand total cost of ownership
-- Measure actual mission impact (not assumed benefits)
-- Maintain service management and knowledge capture
-
----
-
-## TWO GATE CRITERIA MOST STAGE-GATES ARE MISSING
-
-Both are one line on the gate form and both catch failures the standard criteria pass straight through.
-
-**1. Participation rate, at every gate on anything that depends on volunteered effort.** A program losing the domain experts it runs on **passes every other gate on the way down**, because nobody objects. In a two-year field study of one failing site, more than **80% of domain experts gradually dropped out** while nothing was escalated and no gate was failed; the initiative ran out of participants. Business case intact, technical feasibility intact, risk register clean, nobody left to do the work.
-
-The gate question: **has participation by the named experts risen, held, or fallen since the last gate, and who checked?** A falling line is a stop condition even when every other criterion is green. See `rtp-gen-ai-experimentation` for the four scaffolds that prevent it, and `rtp-adoption-launch` Gate Zero question 4.
-
-**2. Which initiative was postponed so this one could proceed?** A gate that passes an initiative with nothing in that field has funded an **addition**, not made a decision, and the organization's capacity to execute is now oversubscribed by exactly one initiative more than anyone recorded.
-
-This matters because **capacity is created by removing work, not by adding people.** Of the four standard moves for creating it (postpone a competing initiative, clarify who owns decisions, shift resources toward what matters most, protect uninterrupted thinking time), three take work away. A portfolio that only ever adds is not a portfolio; it is a list.
-
-The gate question: **name the initiative that was postponed, deprioritized or killed to make room for this one.** "None, we're absorbing it" is an answer, and it should be written down as one so that the next gate can read it.
-
-*(Sources: the withdrawal finding, HBR, "AI Experiments Need Domain Experts," Aug 2026 — ◆ two-year qualitative field study, two pseudonymized sites; the 80% figure has no stated denominator, so carry the mechanism rather than the rate. The capacity-by-subtraction point, HBR, Morris, "Before Rolling Out a New Strategy, Assess Your Team's Readiness," 12 Aug 2026 — ⚠ consultant-authored, unnamed composite clients, no outcome data; the underlying distinction holds up independently.)*
-
-## The Five Mechanisms
-
-### Mechanism 1: The Five Types of AI Investment — Classify Before You Score
-
-Run this classification on every initiative before the Buy/Sell/Hold score in Mechanism 2 and before sorting it into a Confidence Builder, Capability Builder, or Transformation Bet under Portfolio Composition below. Those two exist already and sort by a different axis: how much risk and how long the payoff takes. Neither one asks what kind of financial return the initiative is actually built to produce, which is why a portfolio can pass every gate and still fund the wrong mix.
-
-> **Source:** HBR, "The Five Types of AI Investment," Jun 2026.
-
-**The rule:** classify the initiative into one of five types before picking its metric. **The mechanism:** each type creates value through a different channel, whether that is avoided cost, faster future adoption, a redesigned process, a compounding data advantage, or a more adaptable workforce. Collapsing all five into one blended ROI percentage averages away the exact signal a portfolio review needs. A tactical initiative and a strategic one can show the identical ROI% on a dashboard while one of them is actually failing on its own terms. **Where this breaks:** see the falsifier below. Real initiatives often straddle two types at once, and the framework gives no formula for splitting the metric when they do.
-
-| Type | Category | Example | Native metric |
-|---|---|---|---|
-| 1. Competitive parity | Tactical | Bank of America's Erica chatbot, 3 billion cumulative interactions (✅ audited/verified) | Cost of not doing it |
-| 2. Option value | Tactical | Moderna's mChat, 750+ custom GPTs built internally (◆ company-disclosed) | Absorptive-capacity indicators: how fast the org can adopt the next capability |
-| 3. Unique integration | Strategic | Amazon's forecasting-to-robotics integration | Process-level deltas (cycle time, error rate, throughput at the affected step) |
-| 4. Data flywheels and lock-in | Strategic | John Deere's See & Spray | Flywheel velocity and switching cost |
-| 5. Organizational capability building | Strategic | Walmart's Element platform, reskilling roughly 50,000 employees (✅ verified) | Time to adapt to the next change |
-
-**Why tactical crowds out strategic:** the source author reports, as his own field observation rather than an audited statistic (⚠ practitioner estimate, unstated sample), that more than 70% of the Fortune 500 AI spend he has observed clusters in types 1 and 2. The three strategic types are underfunded and, at the same time, measured with the wrong metric. It is usually the same blended ROI% used for the tactical spend, which understates them because their payoff shows up as a process delta or an adoption curve, not a line item.
-
-**How this feeds the rest of the skill:** the five-types classification and the risk/time-horizon scoring in Portfolio Composition are two different axes, not competing frameworks. Score every initiative on both. Use the native metric from this table in place of a single blended ROI% when presenting Mechanism 2's Risk/reward dimension for that initiative.
-
-**Falsifier and limit, stated plainly:** real initiatives are often not cleanly one type. The source's own Amazon example is simultaneously type 3 (unique integration) and type 4 (data flywheel), and the framework has no rule for splitting or weighting the metric when an initiative straddles two boxes. It also has no mechanism for an initiative migrating between types over time. A competitive-parity chatbot can become a data flywheel once its logs start training the next model, and this table would not catch that shift. And it offers no sequencing guidance on whether a low-maturity organization should build tactical capability (types 1 and 2) before attempting the strategic types (3 through 5). Treat it as a classification lens applied at each gate, not a maturity ladder to climb in order.
-
-**On the sequencing gap above, one graded roadmap and what it is worth.** In February 2024, Microsoft's CVP for Modern Work laid out a three-stage enterprise-AI sequence (assistants for individuals, then function-level process automation, then firm-level semi-autonomous agents) with an explicit instruction not to skip stages, offered against his own commercial interest: "be careful not to try and jump the generations... that might sound a little strange coming from a technology vendor." His stated reason was that the binding constraint is human learning rather than model capability. Twenty-one months later that half held up, including in independent accounts that reached the same conclusion by a different route (real deployments need "relatively clean data, process mapping, and deep experimentation, and even then often require a human in the loop"). **What did not hold was the destination.** He named customer-facing agents as the frontier; HBR's own later reporting found customer-facing work is the surface agents are least ready for, because it is "unforgiving of errors," while back-office operations of identical organizational scope paid off. The transferable lesson for sequencing a portfolio: **order by what a wrong answer costs, not by how much of the organization the initiative touches.** A roadmap ordered by scope carries a hidden assumption that readiness and breadth move together, and they do not; a customer-facing initiative and a back-office one can be identical in scope and opposite in error tolerance. The forecastable part of a roadmap is its pace, which is governed by organizational learning rates that change slowly. The unforecastable part is which surface goes first, which is governed by error tolerance, a property of the deployment context rather than of the technology. **When wrong:** scope is observable before you start and error tolerance often is not knowable until you deploy, which may be the real reason scope-ordering persists. If you cannot estimate error cost in advance, ordering by scope is a defensible fallback, but say that is what you are doing. *(Sources: HBR Cold Call, "Managing the Future of Work: Microsoft's AI Perspective," published Jan 2025, recorded Feb 2024. Grade evidence: Furr, Gaarlandt, Mohan and Shipilov, "AI Agents Aren't Ready for Consumer-Facing Work, But They Can Excel at Internal Processes," HBR, 25 Nov 2025, ⚠ single account of the authors' own project portfolio.)*
-
----
-
-### Mechanism 2: Buy/Sell/Hold Scoring
-
-Every initiative in the portfolio is scored against objective criteria. This transforms subjective debates ("I think this is more important") into structured conversations about trade-offs.
-
-**Scoring dimensions:**
-| Dimension | What it assesses |
-|-----------|-----------------|
-| Strategic alignment | How well does this serve core business objectives? |
-| Feasibility | What is our technical capability and organisational readiness? |
-| Risk/reward | What is the potential upside vs. implementation challenges? |
-| Resource requirements | What does this need across financial, human, and technical dimensions? |
-
-**How scoring drives decisions:** When capacity opens (a project advances to production, a new team is formed), leaders select the next item from the highest-scoring backlog entries that have passed the relevant gate. No pet projects. No squeaky-wheel prioritisation.
-
-**Putting a number on "Risk/reward" — four standard ROI calculations, know when to lead with each:**
-| Metric | Formula | When to lead with it |
+| Type | Value mechanism | Useful measures and questions |
 |---|---|---|
-| ROI % (simple) | (Net Benefit ÷ Investment) × 100 | Quick snapshot for a Gate 1 screen — cheap to compute, easy to compare across a long backlog |
-| Payback Period | Investment ÷ Annual Benefit | Shows speed of return — pair with ROI% when the board asks "how long until this pays for itself" |
-| NPV (Net Present Value) | Σ(Cash inflows ÷ (1+r)^t) − Investment | The clearest measure of value created after the cost of capital — the number CFOs actually greenlight on. Lead with this at Gate 3. |
-| IRR (Internal Rate of Return) | The discount rate at which NPV = 0 | Compares the initiative's yield against your hurdle rate — use when ranking initiatives against each other, not just against "yes/no" |
+| **1. Competitive parity** | Maintains a needed capability or avoids losing customers, efficiency, or position | Cost and consequence of inaction, service outcomes, retention, cost to provide the capability |
+| **2. Option value** | Creates a credible ability to pursue future opportunities | Named opportunities enabled, evidence gained, cost and time to exercise the option, conditions for doing so |
+| **3. Unique integration** | Improves a process through a useful combination of data, workflow, and technology | End-to-end cycle time, errors, throughput, service or business outcomes, and integration/operating cost |
+| **4. Data flywheels and lock-in ecosystems** | Repeated use may improve the product or strengthen a valued ecosystem | Verified learning-loop improvement, data rights and quality, customer value, retention and switching considerations |
+| **5. Organizational capability building** | Develops skills and operating capability that support later change | Demonstrated capability, time and cost to adopt a relevant change, reuse and sustained operating outcomes |
 
-Model conservative, base, and optimistic cases for each — actual ROI depends on adoption, training time, and data quality, and a range is more credible to finance than a single confident number. Translate the underlying KPI movement into dollars before presenting ("saved 1,875 analyst-hours at $125/hour" reads as $234,375/year — the dollar figure is what travels to a budget conversation; the hours figure gets debated).
+Parity can produce a financial return without a durable competitive advantage. Strategic categories can produce near-term value, and their labels do not prove defensibility. A data flywheel needs an actual, permitted learning mechanism; collecting logs alone does not establish one. Option and capability investments need bounded commitments and evidence of useful progress, not an indefinite exemption from review.
 
-These four calculations answer "is this initiative worth funding," a question every type in Mechanism 1 shares. They do not replace the native metric that mechanism assigns each type. Report both: the ROI/NPV/IRR figure for the funding decision, and the native metric (cost of not doing it, absorptive capacity, process-level delta, flywheel velocity, time to adapt) for whether the initiative is actually working on its own terms.
+Use both a measure specific to the value mechanism and an appropriate economic case. Where an initiative spans types, separate benefits and assumptions without double-counting the same outcome. It is acceptable to report a benefit qualitatively when monetizing it would create false precision.
 
-**The Buy/Sell/Hold distinction:**
-- **Buy (add to portfolio):** Score meets threshold + gate criteria met + capacity available
-- **Hold (continue as-is):** Good progress, appropriate pace, no reallocation needed
-- **Sell (exit or archive):** Strategic misalignment, performance shortfall, or better alternatives available
+## 2. Map dependencies and capacity before ranking
 
-### Mechanism 3: Stage Gates
+Identify the data, systems, models, suppliers, domain experts, decision-makers, and operating teams each initiative requires. Show shared bottlenecks and correlated risks. A shared dependency does not make all projects identical; assess each project and the combined exposure.
 
-Gates are not bureaucratic hurdles. They protect the organisation from the two failure modes that kill AI programs: advancing projects that shouldn't advance, and failing to kill projects that should be stopped.
+For every proposed commitment, answer:
 
-**Universal gate question (applies at every stage):**
-"Is the business case still valid at this level of investment?"
+1. **Who will do the work, and is the required participation available?** Check named expert involvement, time allocated, continuity, and reasons for changes in participation. Falling attendance may reflect a planned phase change, overload, or withdrawal. An unavailable critical capability blocks work that depends on it; a falling percentage alone is not an automatic stop rule.
+2. **Where will the capacity come from?** Record what is postponed, stopped, simplified, reassigned, hired, sourced, or drawn from genuinely available capacity. If nothing is displaced, show why the work still fits. “We will absorb it” is not a capacity calculation.
 
-**Responsible AI gate (mandatory at Gate 2 and Gate 3):**
-- Has the AI use case risk assessment been completed? (See `responsible-ai-program`)
-- Are ethical guidelines and security controls defined?
-- Who is accountable at the project level if this AI causes harm?
+Use `rtp-adoption-launch` for participation and manager-workload design, and `rtp-gen-ai-experimentation` for the support an experiment requires. Resources becoming available are a reason to reconsider the queue, not a reason to fund the highest score automatically. Moving a project into production may consume more operating capacity rather than release it.
 
-### Mechanism 4: The 3E Hypothesis Gate — Explore, Exploit, or Exit?
+### Treat foundations as investments with beneficiaries
 
-> **Framework:** Ravi Teja Palanki's original framework for hypothesis-driven portfolio decisions (5 APR 2026). Designed to prevent the "perpetual pilot" failure mode — initiatives that never reach a clear decision.
+Shared foundations may reduce duplication and risk. Define the users, required domains, ownership, service levels, rights, interoperability, and incremental delivery plan before funding a broad platform. Sequence the minimum useful foundation with dependent work. Neither a multi-year cleanup of all enterprise data nor a separate silo for every pilot is a universal starting point.
 
-Every AI initiative is a hypothesis. At every stage gate, the portfolio review must declare one of three decisions. There is no default "keep going."
+Five useful design checks, adapted from the Caterpillar case, are:
 
-| Decision | When it applies | What it means | Next step |
-|----------|----------------|---------------|-----------|
-| **Explore** | Evidence is promising but incomplete. Unknowns are significant but manageable. | More signal is needed before committing to scale. | Define the specific experiment or data point that would move this to Exploit. Set a hard time bound: "We decide by [date]." |
-| **Exploit** | Evidence is clear. The use case works, for these users, at this cost, under these conditions. | Stop discovering. Start executing. | Move to Scale & Operate with full resource commitment. |
-| **Exit** | Unknowns are numerous. Effort is high. Multiple signals point against viability at this time. | Do not proceed — but do not simply stop. | **Pivot check first:** What asset, model, data, or learning from this initiative could redirect toward an adjacent problem that IS viable? Exit is a redirection question, not just a stop. |
+- Set an outcome target that identifies which data domains matter; revenue is one option alongside cost, quality, service, and risk.
+- Give named business and technical owners clear responsibilities and decision rights.
+- Fund the necessary lifecycle with milestones and reviewable commitments, including maintenance.
+- Include relevant internal and external stakeholders in the design.
+- Connect dependent AI initiatives to the capability where it is appropriate, with explicit exceptions and interfaces.
 
-**How the 3E gate maps to portfolio stages:**
+Measure three tiers: **enablement** through fitness of the asset for its intended use; **use and delivery** through meaningful adoption and process results; and **realized value** through attributable business or mission outcomes. Counts of accurate records and usage frequency can help, but neither alone establishes value. A named executive does not prevent duplication without workable governance.
 
-```
-Stage 1 (Opportunity)       → 3E Gate: Explore or Exit
-Stage 2 (Design & Partner)  → 3E Gate: Explore further, or Exit with pivot check
-Stage 3 (Experiment)        → 3E Gate: Exploit (scale) or Exit
-Stage 4 (Scale & Operate)   → 3E Gate: Exploit (sustain) or Exit (sunset)
-```
+AI-assisted data cleanup can itself be a bounded use case. Compare it with simpler methods, evaluate false corrections and missed anomalies, preserve provenance, and obtain domain review where needed. Do not assume it is cheaper or safe simply because it builds a foundation for other AI.
 
-**The pivot check on exit:** Before any initiative is archived, the portfolio team must answer one question: *"Is there an adjacent use case where the work done so far — the data pipeline, the model, the process redesign, the user understanding — has transferable value?"* If yes, that adjacent pivot becomes a new Stage 1 Opportunity entry with an accelerated gate (it inherits validated learnings).
+## 3. Use four stages with evidence for the next commitment
 
-**Why this matters:** Most AI portfolios fail not because of bad technology but because of bad decision hygiene. Teams run pilots indefinitely because nobody has the authority or the framework to call Explore, Exploit, or Exit. The 3E gate makes the decision explicit at every review cycle and ensures no work dies without first checking whether it has transferable value.
+Define gate criteria before the relevant work where feasible. Make each criterion testable, give it an owner, and record met, unmet, unknown, or justified not-applicable status. Required controls must be in place for the approved exposure. A narrow experiment can need different evidence from broad production.
 
----
+| Stage | Work and output | Decision criteria |
+|---|---|---|
+| **1. Opportunity — Outline** | Frame the need, alternatives, strategic connection, initial value/risk hypothesis, and dependencies. Produce an opportunity entry, not a disguised project commitment. | **Gate 1:** a worthwhile question, plausible approach, strategic or necessary operating rationale, initial impact/risk classification, and a bounded next step |
+| **2. Design and Partnership — Partner** | Develop a proportionate business case, data and capability plan, experiment design, and governance. Consider internal, vendor, partner, and hybrid approaches through `rtp-build-or-buy`. Map changes to roles and work. | **Gate 2:** suitable and permitted data for the experiment; required skills and participation; scope-appropriate risk assessment, ethics and security controls; named accountable owner; credible budget and experiment plan |
+| **3. Experiment — Experiment** | Test technical performance, integration viability, human usefulness, and cost through appropriate prototypes or trials. Seek findings that can change the decision. | **Gate 3:** evidence for the proposed scale, representative testing and relevant adversarial scrutiny, verified oversight/recovery, operating and integration costs, useful adoption evidence, and readiness for the actual deployment scope |
+| **4. Scale and Operate — Navigate** | Deploy within the authorized scope; manage reliability, misuse controls, cost, service, workforce changes, knowledge, and actual outcomes. | **Operating review:** performance and controls remain adequate, value still justifies continued commitment, capacity exists, and material changes trigger renewed assessment |
 
-### Mechanism 5: Regular Portfolio Reviews
+Responsible AI belongs throughout this sequence. Use `rtp-responsible-ai-program` for the assessment and controls, including bias, misuse, unintended consequences, and accountable ownership. Record the result at every gate rather than attaching a generic policy. Red-team work and review depth should fit the threat and consequence; a completed exercise alone is not evidence that all risks are controlled.
 
-Portfolio reviews rebalance the whole portfolio, not just individual projects. They are distinct from project status updates — which only look at individual initiatives.
+Run experiments against meaningful alternatives and preserve contrary evidence. Multiple experiments can be useful when the team has capacity, but this skill does not require parallel agents. Production also involves learning; the shift to operating discipline does not mean discovery ends.
 
-**Portfolio health questions (ask at every review):**
-- Are we maintaining appropriate balance across time horizons? (near / medium / long-term)
-- Do we have sufficient investment in foundational capabilities — the data infrastructure, governance structures, and internal skills that every other initiative depends on?
-- Do early-warning signals (schedule slippage, cost overruns, performance shortfalls, declining user adoption) suggest intervention before a gate?
-- Are there initiatives we should exit now to free up resources for higher-priority work?
-- Has the **3E decision** been declared for every initiative that has completed a stage? No initiative should sit in limbo between gates.
+## 4. Compare initiatives with transparent judgment and economics
 
-**Review cadence:** Monthly lightweight dashboard review + Quarterly deep rebalancing session with 3E decisions logged for every initiative reviewed.
+Assess four dimensions: **strategic alignment**, **technical and organizational feasibility**, **risk and reward**, and **resource requirements**. State the evidence and uncertainty behind each. Scoring makes judgments visible; it does not turn them into objective facts.
 
----
+If the organization has a useful rubric, reuse it. Otherwise compare the dimensions descriptively first. For an optional numerical view, define 0–4 anchors for each dimension and weights that sum to one. Make higher always mean more favorable, including **resource fit** rather than raw resource quantity. Calculate `score /100 = 25 × Σ(weight × rating)`. Label it a decision aid, record unknowns separately, and withhold an aggregate when critical inputs are missing. Explain sensitivity to weights and close rankings.
 
-## Case Study: Lloyds Banking Group's GenAI Control Tower
+Compare eligible choices with capacity, dependencies, mandatory obligations, and the value of additional learning in view. Avoid gaming through unexplained optimistic ratings. Review the rubric when evidence shows it is misleading; preserve comparable historical scores or mark changes rather than silently rewriting the criteria every quarter.
 
-> *Source: HBR, Hoque et al., January 2026*
+### Economic measures answer different questions
 
-Lloyds Banking Group's "GenAI Control Tower" demonstrates portfolio management at enterprise scale:
-- A **cross-functional forum** that prioritises use cases across the organisation, allocates resources, and ensures alignment with strategic priorities
-- Explicitly balances **long-term transformation with short-term value delivery**
-- Recognises that **rapid technology changes can warrant abandoning ongoing projects** and switching rapidly to new use cases
-- Each initiative passes through rigorous reviews — risk assessment, legal review, ethics, bias, and security — **before** advancing to production
-- A **centralised playbook** for AI development alongside **clear decision rights** (build or buy) ensures structured yet adaptive advancement
+Use conservative, base, and optimistic cases with stated assumptions for adoption, quality, demand, implementation, ongoing operations, training, verification, support, and timing. Separate incremental cash flows, released capacity, and nonfinancial outcomes. Use `rtp-cost-model` for the detailed model and reconcile with the finance owner’s conventions.
 
-**The lesson:** Portfolio management works at enterprise scale when it has real authority, cross-functional representation, and genuine willingness to kill projects.
+| Measure | Defined calculation | Appropriate interpretation |
+|---|---|---|
+| **Simple ROI** | One explicit convention is `(cumulative incremental benefits − all incremental costs) / all incremental costs × 100` over a stated period | A compact undiscounted comparison; disclose the period and included costs. Different ROI conventions are not directly comparable |
+| **Payback** | Time until cumulative net cash flows recover the initial outlay; `initial outlay / constant annual net cash inflow` is a shortcut only for that simple pattern | Indicates recovery time; ordinary payback omits discounting and benefits after recovery |
+| **NPV** | `Σ from t=0 to T of incremental net cash flow_t / (1+r)^t` | Estimates value at the chosen discount rate and horizon; includes initial and later costs, not gross benefits alone |
+| **IRR** | A rate at which the project’s NPV equals zero | A supplementary yield measure; it can be absent, multiple, or misleading for rankings across different cash-flow patterns and scales |
 
----
+For mutually exclusive alternatives, assess incremental value and constraints rather than selecting the highest IRR. These distinctions follow standard [investment-appraisal guidance](https://www.accaglobal.com/hk/en/student/exam-support-resources/prodipsust-study-resources/technical-articles/investment-appraisal.html) and [ACCA’s discussion of NPV/IRR comparisons](https://www.accaglobal.com/content/dam/acca/global/PDF-students/acca/f9/exampapers/fm-2018-sepdec-sample-a.pdf).
 
-## FIVE TYPES OF AI INVESTMENT, AND WHY ONE ROI TEST BREAKS FOUR OF THEM
+For example, 1,875 released analyst-hours at $125/hour represents $234,375 of valued capacity under that rate assumption. It is not automatically an annual cash saving: specify the measurement period, whether time is actually released, its alternative use, and any costs required to realize the benefit. Shared platform benefits should be allocated or reported at portfolio level without being claimed in full by every dependent project.
 
-**The aggregate "AI ROI is disappointing" finding is largely a measurement artifact.** It comes from scoring every AI investment against one standard return test, when the five kinds of investment have different financial logic and only one of them is a return-generating bet in the ordinary sense.
+## 5. Record an allocation decision and a hypothesis decision
 
-**Two tactical types. These sustain your position and do not build advantage:**
+The two labels answer different questions. Keep them consistent and state the actual budget, scope, and action so the labels do not obscure the decision.
 
-| Type | What it is | The right question | The wrong question |
-|---|---|---|---|
-| **1. Competitive parity** | Matching what rivals already field, so you do not fall behind | **What is the cost of not doing this?** | What is the return? There is none; nobody gains an edge from having the table-stakes thing |
-| **2. Option value** | Spending that builds institutional fluency and opens future moves | Does this buy us access to a class of opportunity we otherwise could not reach? | Did it pay back this year? |
+### Buy, Hold, or Sell: what happens to the commitment?
 
-**Three strategic types. These are where durable advantage comes from, and all three are chronically under-funded and mis-measured:**
+- **Buy:** add an initiative or increase its commitment when the next scope is justified and capacity is available. This portfolio label does not mean buying software from a vendor.
+- **Hold:** maintain a defined commitment for a stated reason and review point. It can support bounded exploration or continued operation; it is not an automatic extension.
+- **Sell:** stop, reduce, or sunset a commitment and handle its dependencies, people, data, contractual obligations, and transition responsibly. It does not imply a literal asset sale.
 
-- **3. Unique integration.** AI embedded in your specific workflows, inseparable from how you actually operate. Not portable, which is exactly why it is defensible.
-- **4. Data flywheels and lock-in ecosystems.** Use generating data generating better product generating more use.
-- **5. Organizational capability building.** The ability to absorb the next thing, which is the input every later bet consumes.
+### Explore, Exploit, or Exit: what does the evidence support?
 
-**The pattern to look for in your own portfolio: over-investment in types 1 and 2, under-investment in 3 through 5.** It happens because the tactical two are legible to a standard business case and the strategic three are not. **A portfolio review that applies one ROI hurdle will systematically starve the half that produces advantage**, and then the aggregate numbers will confirm the pessimism the process created.
+**3E is Ravi Teja Palanki’s hypothesis-decision framework, introduced April 5, 2026.** Record one current decision at each material review:
 
-**What to do in practice:** tag every bet with its type before it is scored, and give each type its own test. Parity gets a cost-of-inaction number. Option value gets a named future opportunity it unlocks. The strategic three get a multi-year measure and an explicit statement that they will look bad on a one-year return test.
+| Decision | Meaning | Required next commitment |
+|---|---|---|
+| **Explore** | A useful uncertainty remains, and more learning is worth its cost | Name the hypothesis, experiment or evidence needed, budget, owner, decision date, and stop conditions |
+| **Exploit** | Evidence supports delivery or operation within a defined scope | Specify that scope, resources, outcome and control measures, and conditions for review or expansion |
+| **Exit** | Continuing this scope is no longer justified | State why, what stops, how obligations are handled, and whether any reusable asset or learning merits a separate opportunity |
 
-*(Source: Baba Prasad, HBR, "The 5 Types of AI Investment-and How to Capture Their Value," Jun 2026 — ⚠ taxonomy-tier. The five types are the author's own sorting, illustrated with named company cases and no comparative outcome data across the types. The opening failure statistics are secondhand consultancy figures. Falsifier: a portfolio scored on one ROI hurdle whose strategic investments were funded at the same rate as its tactical ones.)*
+Explore can be appropriate after an inconclusive Stage 3 experiment or for a new question discovered in production. It must earn another bounded commitment. Exploit does not require full-scale rollout or end all learning. Exit can be justified by one decisive constraint; it need not wait for many negative signals.
 
-## THE DATA FOUNDATION IS A PORTFOLIO DECISION, AND IT IS SEQUENCED FIRST
+On exit, perform a proportionate **pivot check**: could a data asset, model, process, capability, or learning help a distinct adjacent problem? Reuse only what is transferable and permitted. Create a new opportunity with its own customer problem and assumptions; earlier evidence can reduce repeated work where it still applies, not waive the new gate. A valid answer is no. Avoid manufacturing a pivot merely to keep sunk work alive.
 
-**A portfolio of AI bets sitting on a fragmented data layer is a portfolio of bets on the same unpriced risk.** The usual failure is that the data work gets delegated to IT, scored on cost and tool adoption, and never appears in the portfolio at all.
+## 6. Rebalance and sequence the portfolio
 
-**The five drivers, and each is a forcing function rather than a value statement.** That distinction is the whole point: a value statement can be agreed to and ignored, a forcing function changes what people can do next.
+Review the whole portfolio, not just status reports from its projects. A useful starting cadence is a monthly dashboard review and quarterly deeper rebalancing, adjusted for pace and stakes. Incidents, critical dependency failures, pricing changes, new evidence, or major strategy changes may require an earlier decision. Set responsible-AI and ethics review timing through the applicable program and record the next date.
 
-| Driver | What it forces |
-|---|---|
-| 1. Set and monitor an aggressive revenue target for the use of data | Prioritization. A number narrows the effort onto the few data domains that serve it, which tells the platform team exactly what to clean first. |
-| 2. Give senior business executives ownership of data | Peer accountability. Once a named peer owns customer data, no other executive funds a competing customer database. |
-| 3. Commit multi-year resources to an enterprise platform | Architecture over expedience. Short funding cycles reliably produce one more application-specific silo. |
-| 4. Give internal and external stakeholders a formal voice | Adoption fit before rollout instead of resistance after it. |
-| 5. Layer AI investments on top of the new data capability | Sequencing. AI built beside the platform rather than on it inherits the fragmentation. |
+Use a separate horizon/capability lens alongside the five value mechanisms:
 
-**Monitor the value in three tiers, because a multi-year build needs a visible chain to the income statement or patience runs out:**
+- **Confidence builders:** relatively bounded initiatives intended to demonstrate useful results and build experience.
+- **Capability builders:** work that develops reusable operating, technical, or human capability.
+- **Transformation bets:** uncertain initiatives with potential to change a business or mission substantially.
 
-- **Value enablement.** The count of accurate records in the domains you named. Asset quality.
-- **Value created.** Users, usage frequency, growth rate of usage. Whether anyone touches it.
-- **Value realized.** Revenue attributable to the new solutions. Income-statement impact.
+The original three-to-six, six-to-eighteen, and eighteen-plus-month horizons are examples; estimate the real horizon and risk independently. A short project can be high risk. A “capability builder” in this lens is not identical to value type 5. There is no universal 50/30/20 allocation: specify whether a mix is measured by spend, people, or initiative count and why it fits the strategy.
 
-**The move worth stealing: make the data layer itself your first AI use case.** In the worked case, machine-learning models built with domain experts corrected anomalies in incoming data, bad serial numbers and inconsistent customer records. Two things happened at once. Quality standards kept pace with data volume, and business leaders learned what AI could actually do before anyone asked them to sponsor an AI product. **AI automated the creation of the foundation AI would later need**, which is a cheaper way to build sponsor literacy than a pilot that has to succeed on its own terms.
+At review, ask:
 
-**How to run this against your portfolio:** for each bet, ask which data domain it depends on and who owns that domain by name. Bets that depend on an unowned domain are not independent bets. They share one failure, and they should be scored as one.
+1. Does the mix support current obligations, near-term outcomes, and worthwhile future options?
+2. Are shared foundations, operating support, and critical experts funded and available?
+3. Are costs, schedule, quality, participation, adoption, or controls signaling a need to change scope?
+4. Which addition, reduction, continuation, or exit would improve the combined portfolio under its constraints?
+5. Has every reviewed initiative received a clear 3E decision, commitment, owner, and next review point?
 
-*(Source: Wixom, Redzic, Hootman, Rodriguez, Piccoli & Beath, MIT Sloan Management Review, "Data Transformation Is the CEO's Business," May 2026, from MIT CISR case research at Caterpillar — ◆ single deep case, self-reported. The services-revenue growth cited alongside it is company-disclosed and not attributable to the data program alone. Falsifier: a multi-year enterprise data platform that delivered on all five drivers and produced no measurable revenue line.)*
+Sequence by dependencies, learning value, readiness, consequences, reversibility, and capacity. Organizational scope alone is not a readiness ladder: a customer-facing draft and an internal autonomous payment action can have very different consequences. Estimate error costs before deployment where possible and use bounded experiments for unresolved questions. Neither the pace of organizational learning nor the best deployment surface is universally predictable.
 
-## Portfolio Composition: Balancing the Mix
+## Deliver a review people can act on
 
-A healthy AI portfolio is not all moonshots and not all incremental. It requires deliberate balance across three types. This is the risk/time-horizon axis: classify each initiative under Mechanism 1's five types first, then place it here. The two views answer different questions, and an initiative needs a value on both:
+Lead with the funding and sequencing decisions, then show their evidence and trade-offs. Keep the dashboard concise and link detailed cases where needed.
 
-| Type | Characteristics | Horizon | Risk | What it does for you |
-|------|----------------|---------|------|---------------------|
-| **Confidence builders** | Near-term, clear ROI, builds internal capability | 3-6 months | Low | Generates buy-in, proves AI can work, builds skills |
-| **Capability builders** | Medium-term, deeper integration, meaningful transformation | 6-18 months | Medium | Creates operational AI capability that becomes foundation |
-| **Transformation bets** | Long-term, transformative potential, higher uncertainty | 18+ months | High | Potential for step-change advantage |
-
-**The imbalance traps:**
-- Too many moonshots: No short-term wins to sustain executive support; team burns out chasing breakthroughs
-- Too many confidence builders: Never develops the deep capability needed for transformation; competitors with more ambition pull ahead
-- No foundational investment: Later, more sophisticated initiatives fail because the prerequisite capabilities were never built
-
----
-
-## Responsible AI Integration
-
-> AI portfolio management is not complete without responsible AI being embedded as a structural requirement — not an afterthought.
-
-**At every stage gate, the following Responsible AI checks are mandatory:**
-
-| Gate | Responsible AI Requirement |
-|------|---------------------------|
-| Gate 1 (Opportunity) | Initial AI risk classification: Low / Medium / High impact |
-| Gate 2 (Design & Partner) | Full AI Use Case Risk Assessment completed; ethics + security controls defined; project-level RAI owner named |
-| Gate 3 (Experiment) | Red-team scrutiny includes responsible AI dimensions (bias, misuse, unintended consequences); human oversight verified |
-| Scale & Operate | Ongoing monitoring includes responsible AI metrics; quarterly ethics review scheduled |
-
-*These checkpoints are derived from the `responsible-ai-program` skill (MIT Sloan SHARP framework). The portfolio management system is the structural mechanism that ensures responsible AI checks happen at every project — not just high-profile ones.*
-
----
-
-## OUTPUT FORMAT
-
-```
-## AI Portfolio Assessment: [Organisation/Team]
-
-### Portfolio Snapshot
-| Initiative | Stage | Score (/100) | Buy/Sell/Hold | 3E Decision | RAI Check | Notes |
-|-----------|-------|-------------|---------------|-------------|-----------|-------|
-
-### Portfolio Balance
-Time horizon mix: [Near / Medium / Long breakdown — target: 50% / 30% / 20%]
-Risk/return balance: [Low / Medium / High breakdown]
-Foundational vs. transformational: [% in confidence builders / capability builders / transformation bets]
-
-### Gate Review (Current Cycle)
-| Initiative | Gate | 3E Decision | Criteria Met? | Next Step | Owner |
-|-----------|------|-------------|--------------|-----------|-------|
-
-### 3E Decisions Log
-| Initiative | Decision | Rationale | Time Bound / Pivot Check |
-|-----------|----------|-----------|--------------------------|
-
-### Portfolio Rebalancing Recommendations
-[What to add (Buy), advance (Hold + Exploit), or exit (Sell + pivot check) and why]
-
-### Next Review Date: [date]
+```text
+Portfolio purpose, period, and resource constraints:
+Snapshot: initiative | value type(s) | stage | horizon | evidence/rating |
+          Buy/Hold/Sell | 3E | next commitment | owner
+Shared dependencies, bottlenecks, operating obligations, and capacity:
+Gate review: criteria met/unmet/unknown | controls | decision | action/date
+Economic case and value-specific measures, with uncertainty:
+Rebalancing: what changes, what it displaces, and why:
+3E log: hypothesis | decision | rationale | budget/time bound | pivot check
+Portfolio measures, trigger conditions, and next review date:
 ```
 
----
+Check that decision labels agree, assumptions and denominators are clear, no score overrides a required control, shared value is not counted twice, and exits include real transitions. Explain the trade-off between governance effort and the cost of weak decisions. For a small decision, a short record may be enough; a substantial commitment warrants deeper evidence.
 
-## WHEN WRONG
+Use a pipeline, dependency map, or balance chart if it clarifies a decision. Label scenarios and uncertain estimates. Connect strategy to `rtp-strategy-canvas`, defensibility to `rtp-moat-finder`, sourcing to `rtp-build-or-buy`, and operating adoption to `rtp-adoption-launch` through focused handoffs.
 
-- **Governance becomes bureaucracy:** Stage gates that take longer than the work they govern. Calibrate gate rigor to project risk — lighter for low-risk, heavier for high-risk.
-- **Scoring is gamed:** Teams learn what scores well and optimise for the criteria, not for genuine strategic value. Refresh criteria quarterly.
-- **Portfolio grows without exits:** Adding projects without a disciplined exit process means the portfolio expands until nothing is properly resourced. "Selling" projects is as important as buying.
-- **Pre-PMF stage:** Building a portfolio governance structure before you have any validated AI use cases is premature. Find your first successful AI application, then build the portfolio discipline around it.
-
----
-
-## TRADE-OFF LEDGER
-
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5.
-
-## CONCLUSION
-
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 6.
-
----
-
-## VISUAL SUMMARY
-
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. The most useful visuals for this skill: the OPEN pipeline with gates, and the portfolio balance dashboard. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
-
----
-
-*Version 1.3 — 29 AUG 2026*
-*Framework Source: Harvard Business Review, Hoque, Nelson, Davenport & Scade, "Manage Your AI Investments Like a Portfolio", January 2026; Harvard Business Review, "The Five Types of AI Investment", June 2026. ROI-reality grounding: ISG State of Enterprise AI Adoption Report 2025; MIT NANDA "The GenAI Divide" 2025; PwC 2026 AI Performance Study.*
-*Part of: AI PM Skills / ai-strategy layer*
+Historical ROI studies and the Lloyds control-tower case are retained in the [reference](references/evidence-and-calculations.md). Use them to frame questions, not to assign an initiative a universal failure probability or claim governance alone causes success. Consult relevant Novel Insights entries with their later qualifications when updating a portfolio thesis.

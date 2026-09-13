@@ -1,86 +1,75 @@
 # AI Use Case Readiness — Concept Guide
 
-## FIRST PRINCIPLES
+The useful question is how much independent operation this job needs and can support. Maximum autonomy is not a product objective by itself. A more independent system may create value by reducing coordination and delay, but it may also require more evaluation, access control, monitoring, recovery, and operational skill. Compare the complete designs.
 
-The default move in a hype cycle is to ask "where can we deploy an agent?" The better question is "what is the lowest-autonomy design that captures the value?"
+## Business and technical meaning
 
-In AI, maximum autonomy is not the goal. Right-sized autonomy is. Most organizations default to building agents when the answer is often rules, workflow automation, or a copilot. This happens because teams conflate "interesting to build" with "necessary to build." The atomic insight: **the highest-value use of AI is often the lowest autonomy level that captures the value.**
+**For the business:** choose a way of working that improves the user's outcome and uses scarce resources well. State the benefits, risks, human responsibilities, and conditions under which the design can operate.
 
-This matters because autonomy has a cost. Agents require strong controls, heavy monitoring, rollback design, governance frameworks, and teams to maintain them. Build too much autonomy too early and you've increased engineering burden by 10x while solving a problem that rules or a workflow could have handled. Decompose first. Then let the problem dictate the autonomy level, not the technology.
+**For engineering:** decompose the workflow and specify inputs, knowledge demands, state changes, permissions, verification, failure handling, and supervision. Choose components and an operating model that satisfy those requirements with evidence.
 
-## DUAL DEFINITION
+Capability and authority are distinct. A model may generate a plausible plan without reliably executing it; it may execute a tool call correctly without being authorized to take the action. Correct code can also implement an inappropriate decision. Human review must itself be designed and tested.
 
-**Business definition:** AI use case readiness is the discipline of matching business problems to the minimum viable autonomy level—determining whether a workflow needs no AI, deterministic automation, assistive AI, human-in-the-loop execution, or autonomous agents. It prevents the most expensive AI product mistake: building sophisticated autonomy for problems that don't need it.
+## Why over-automation is tempting
 
-**Technical definition:** A structured assessment of a workflow's knowledge tacitness, error cost, verifiability, environment stability, and execution rights, producing a defensible recommendation for the safest autonomy level now and the conditions required for higher autonomy later.
+**Novelty:** an agent may be more interesting to demonstrate than a rules-based solution. Compare it to a credible simpler baseline before accepting the additional burden. Novelty is a possible source of bias, not proof that an agent proposal is wrong.
 
-## THE TRAP (Expanded)
+**An undecomposed workflow:** “automate customer support” hides intake, extraction, classification, drafting, policy decisions, action execution, and escalation. Those parts need not use the same technology or share the same authority.
 
-Three incentive misalignments push teams toward over-automation:
+**Hidden control work:** a prototype can omit the integrations, review staffing, recovery, and incident response needed in operation. Estimate those needs early. The older tenfold-cost and six-month-control-build figures were illustrative, not universal ratios or lead times.
 
-**The novelty bias.** Agents are newer, more interesting to build, and more impressive in demos. A team that could solve a problem with rules + extraction feels like they're "leaving value on the table" if they don't attempt an agent. But leaving value on the table is often cheaper than deploying the wrong automation at the wrong autonomy level.
+The same diagnostic also catches under-automation: unnecessary approvals, repetitive manual checking, or delayed decisions may remove the intended value. Assess alternatives while preserving the protections justified by actual consequences.
 
-**The autonomy mirage.** A problem looks harder than it is because the team hasn't decomposed it. They see "customer support workflow" as one blob. Decompose it: routing (rules), extraction (AI component), sentiment detection (classifier), response drafting (LLM), escalation (hybrid). Suddenly the blob becomes seven distinct problems, and only two might need agents.
+## Five worked scenarios
 
-**The control cost invisibility.** Deterministic automation and assistive AI are cheap to pilot. Agents that require approvals, rollback, monitoring, policy, and audit trails are not. A team that pilots an agent at a hackathon later discovers production requires 6 months of control design. By then, stakeholder expectations are set and the conversation becomes "how do we make it work?" instead of "should we make it work this way?"
+These are **illustrative designs**, not documented deployments or financial results. Numbers inherited from the previous guide are identified as teaching assumptions.
 
-The common pattern: a team proposes "an AI agent that does X." Nobody asks whether X needs agency, whether the operating environment is stable enough for autonomous execution, or whether a human-in-the-loop design with stronger oversight would be safer and less expensive.
+### 1. Invoice matching
 
-## INTELLECTUAL LINEAGE
+A team proposes an agent that reads invoices, matches purchase orders, approves them, and routes payment. Decompose the work: extract fields, validate the vendor and purchase order, apply matching rules, investigate discrepancies, and authorize payment.
 
-- **Anthropic's "Building Effective Agents"** — Start simple. Add complexity only when justified. The clarity on when to use simple chains vs. multi-step agents directly informs autonomy decisions.
-- **OpenAI's Agents SDK** — Handoffs and guardrails as first-class primitives. The insight: autonomy without guardrails is recklessness. Build controls first.
-- **Google DeepMind Frontier Safety Framework** — Scaled safeguards with capability. More capable systems require proportionally stronger safety controls, not weaker ones.
-- **Shreyas Doshi** — Product sense as the #1 AI PM skill. The distinction between the problem (what users need) and the solution (which technology). Respect that distinction ruthlessly.
-- **Clayton Christensen** — Frames of reference for learners. Different problems demand different knowledge levels. Don't apply high-autonomy designs to low-frame-of-reference problems.
-- **Kapil Gupta** — Diagnosis before prescription. Diagnose what the work actually needs before prescribing a technology level. Most teams skip this.
-- **Charlie Munger** — Inversion thinking. Instead of asking "where should we add autonomy?", ask "where would high autonomy make this worse?"
-- **BCG ASPIRE framework** — Organizational readiness dimensions. Autonomy requires not just technology but governance, skills, data, and processes.
-- **Factory AI's 5 levels of agent readiness** — A rigorous taxonomy of what each autonomy level demands operationally.
-- **Knight First Amendment Institute** — Levels of autonomy for AI agents in high-stakes domains. The baseline: autonomy in high-stakes work requires iron-clad reverification and rollback paths.
+An AI extractor plus deterministic checks may be enough for the first steps. Exceptions can go to an appropriate reviewer; payment authority must be assessed separately. A difficult extraction task does not imply a need for autonomous payment decisions.
 
-## REAL-WORLD EXAMPLES
+The previous 85% extraction / 15% matching breakdown and 40%-of-original-cost outcome were hypothetical. Re-estimate using observed task volumes, exception rates, full review costs, and the permitted payment process. A suggestion reviewed by a person is different from a system that submits a payment instruction itself.
 
-**Example 1: Invoice matching.** A team proposed an agent that would match incoming invoices to purchase orders, approve them, and route them for payment. Deep dive revealed the work was 85% extraction (structured data from unstructured invoice PDFs) and 15% matching logic (lookups on PO number, amount, vendor, date). The extraction needed AI. The matching did not. Solution: AI component for extraction + simple rules for matching + human review on exceptions. Autonomy level: copilot with human-in-the-loop approval, not an agent. Cost: 40% of the original estimate.
+### 2. Support triage
 
-**Example 2: Customer support triage.** A support team asked for an agent to route incoming tickets. Decomposition revealed: intake (extraction), routing (rules + classifier), escalation paths (rule-based), and human handoff. The team built a copilot instead. It shows the customer what category the ticket belongs in, suggests a routing destination, and flags urgency signals. The agent would have meant building action rights (touching production ticket systems), monitoring, and rollback. The copilot gave 80% of the value with 20% of the control burden.
+Separate intake, classification, routing, urgency detection, and human handoff. Compare showing a routing suggestion with automatically routing a ticket. The latter may still be a deterministic workflow with an AI classifier; it need not require model-directed planning.
 
-**Example 3: Security incident triage.** A security team needed to ingest alerts from multiple sources, correlate events, prioritize, and recommend response actions. This case genuinely needed some agency: environment was dynamic (new threat types), knowledge was tacit (expert judgment on priority and response), and multi-step planning mattered. Recommendation: bounded agent with tool limits (can read alerts and suggest, cannot execute remediation), checkpoints (human approves response), strong telemetry, and kill switch. Autonomy level: 5/7 (bounded agent). Why not 7? Because error cost and consequence magnitude were both high.
+Assess the consequence of a wrong queue or missed urgent case, the opportunity to correct it, and how workload changes for the receiving team. The old “80% of the value for 20% of the burden” was an illustrative framing, not an observed result. Measure resolution and rework, not just successful ticket transfers.
 
-**Example 4: Cross-system scheduling.** A company needed to schedule meetings across four calendar systems with different APIs, timezone handling, and delegate rules. The knowledge was explicit (API specs, business rules), error cost was moderate (wrong room, wrong time), environment was stable (people don't change as the agent runs). This was a solid agent candidate. Autonomy level: 6/7 (semi-autonomous with strong monitoring).
+### 3. Security incident triage
 
-**Example 5: Commercial negotiation.** A vendor asked for an agent to conduct price negotiations on their behalf. Deep analysis showed the work was tacit (reading counterparty signals, building trust, managing ego), high-error-cost (bad deals compound), and involved relationship management (accountability matters). Recommendation: human-led with AI-assistive copilot. The AI suggests talking points, flags market-rate comparisons, drafts language. Humans execute and approve. Why no autonomy? Because negotiation hides relationship and accountability that should remain visible.
+Correlating evidence from several sources may justify model-directed investigation. Use scoped read access, appropriate evidence handling, logs, and limits. Keep proposing remediation distinct from executing it. A person may need to authorize an action that isolates a system or disrupts service.
 
-## THE ANSWER NUDGES INNOVATION
+The previous guide called this a level-5 bounded agent while also saying it could only read and recommend. That is compatible with agentic investigation but does **not** grant remediation authority. The revised action contract makes both facts visible. Evaluate the quality of investigation and the effectiveness of the reviewer; neither “read-only” nor “human-approved” makes an incident workflow consequence-free.
 
-This repository teaches something unprecedented: not just how to ask diagnostic questions about autonomy, but how to think through the answers. Other AI PM frameworks ask "Is this a good agent candidate?" This one teaches you to diagnose the answer yourself using matrices, dimension scoring, and clear tradeoff reasoning.
+### 4. Cross-system scheduling
 
-That matters because it flips the dependency. Instead of relying on a consultant, a framework, or a senior person's gut call, a product manager can now walk through a structured diagnosis and defend their recommendation. The framework doesn't make the decision for you. It makes your thinking transparent—which means it can be challenged, refined, and taught to others.
+Four calendar APIs and timezone rules create integration work, but multiple systems alone do not establish the need for an agent. A deterministic workflow may suffice when the choices and rules are known.
 
-Most existing agent frameworks assume the answer is "build an agent." This one assumes the answer is "find the minimum viable autonomy level." That's a different philosophy, and it shows up in every step.
+If preferences and constraints require dynamic negotiation, consider bounded planning. Check permissions, tentative holds, duplicate actions, changing availability, and what happens when only some calendars are updated. People and calendar state can change while a run is in progress. A meeting invitation may be cancelable, but disclosure of its contents or disruption to attendees may not be fully reversible. The old automatic level-6 recommendation was therefore unsupported without these checks.
 
-## PRODUCTION DISCIPLINE
+### 5. Commercial negotiation
 
-In high-stakes AI product decisions, use case readiness assessment becomes the governance gate that prevents expensive mistakes:
+Market research, comparisons, drafts, and talking points can support a human negotiator. Evaluate evidence quality and confidentiality. Keep contractual commitments, concessions, and relationship decisions within explicit authority.
 
-**The decomposition discipline.** Before estimating effort or assigning resources, decompose the workflow into sub-tasks. Most good solutions are hybrids: rules for the stable parts, AI for ambiguous reasoning, humans for high-risk approvals. If you skip decomposition, you'll spend 8 weeks building a monolithic agent when you could have spent 4 weeks building a hybrid system that works better.
+Where a bounded negotiation is supported by clear objectives, constraints, and reliable controls, assess that specific delegation on its merits. High tacitness and consequence often favor human-led work, but the existence of negotiation does not logically forbid all automation. Accountability remains with the defined decision owner, including for actions delegated to software.
 
-**The autonomy floor vs. ceiling distinction.** State both explicitly. If the floor is above the ceiling, you have three options: human-in-the-loop design, narrower task boundaries, or stronger controls. This gap is often the most important insight a readiness assessment produces.
+## Floor, ceiling, and learning
 
-**The economic filter.** More autonomy is more work. Heavyweight control (approvals, audit, recovery) is more work. If the use case is low-frequency, small-scale, or low-leverage, higher autonomy will never make economic sense. Do the math before designing controls.
+The **floor** describes how independently work must proceed to meet the intended value and service needs. The **ceiling** describes the action scope currently supported by capability, authority, controls, and operating capacity. Their gap reveals a requirement to change scope, strengthen controls, retain a workable human step, or defer the use.
 
-**Red flags that readiness assessment is being skipped:**
-- "The demo works, so let's ship it" (demos are best-case scenarios)
-- "We have an agent framework, so let's use it" (frameworks are tools, not goals)
-- "Competitors are using agents for this" (different problem, different readiness, different controls)
-- "More autonomy is always better" (it's not; right-sized autonomy is better)
+Use the same library labels as the main skill and preserve the operational description. Older numbering is translated in the [crosswalk](references/level-crosswalk.md). A larger number is not a maturity target, and adding agents changes coordination more directly than it changes authority.
 
-## FURTHER READING
+Make each pilot a testable proposition. Specify who will run it, the allocated time, representative cases, allowed exposure, observations, and the next decision. Retained human review needs realistic capacity; apparent efficiency that merely moves work elsewhere is not a complete benefit.
 
-- Anthropic, "Building Effective Agents" — On simplicity as a virtue in agent design
-- Shreyas Doshi, "Product Sense" essays — On problem obsession vs. solution obsession
-- Clayton Christensen, "Competing Against Luck" — On understanding what jobs customers need done
-- Kapil Gupta, *A Master's Secret Whispers* — On diagnosis before prescription
-- Charlie Munger, *Poor Charlie's Almanack* — On inversion thinking and avoiding mistakes
-- Knight First Amendment Institute, "AI Autonomy Levels" — On governance frameworks for high-stakes AI
-- BCG, ASPIRE framework — On organizational readiness for AI transformation
+## Influences and limits
+
+The earlier guide drew on Anthropic's advice to start with simple systems, agent-tooling discussions of handoffs and guardrails, safety frameworks, product thinking about opportunity cost, jobs-to-be-done, diagnosis before prescription, and inversion. These inform the questions; they do not validate this library's exact levels or guarantee a result. [Anthropic's primary engineering guidance](https://www.anthropic.com/engineering/building-effective-agents).
+
+Shreyas Doshi's opportunity-cost framing asks whether this is the best use of finite resources, not merely whether a feature has some benefit. Christensen's jobs-to-be-done work helps identify the user's task; Munger's inversion encourages examining where more autonomy would make the situation worse. The earlier Kapil Gupta attribution is a philosophical influence, not empirical evidence.
+
+BCG ASPIRE, Factory AI readiness material, the Knight First Amendment Institute, agent SDKs, and frontier safety frameworks were also named previously. Their taxonomies address different questions. Verify the exact current primary document before citing any as an authority for a numbered level, a mandatory rollback rule, or this skill's decision matrix. A tool supporting a guardrail does not establish the sufficiency of a deployed safety control.
+
+The diagnostic makes reasoning inspectable so it can be challenged and improved. It does not establish that other frameworks all assume an agent, that the method is unprecedented, or that a completed checklist makes a use case safe.

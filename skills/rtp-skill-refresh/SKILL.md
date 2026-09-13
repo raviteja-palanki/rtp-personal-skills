@@ -1,119 +1,117 @@
 ---
 name: rtp-skill-refresh
-version: v1.0.1_latest
-description: 'The monthly (and on-touch) refresh discipline for Ravi''s skill library: one executable ritual instead of governance rules scattered across five files. Owns the full loop: evidence-gated selection (no evidence, no edit), Rule-41 archiving before any edit, and the four revision passes (content-as-node, structure, voice, verify-against-exemplar). Then the cold-run stress test for signature skills, because content review is not runnability review. Then CONCEPT.md absorb-and-archive, and the governance close through mirror sync and /plugin update, since git push is not the finish line. Use when: the monthly refresh fires, a skill produced a defective output, Ravi''s review lands on a skill, or the HBR research loop demands updates. Pairs with: rtp-claude-admin (folder governance), skill-creator (new skills; this refreshes existing ones), rtp-hbr-research (the research input). Triggers: ''skill refresh'', ''monthly skill pass'', ''revise this skill'
+version: v1.0.2_latest
+description: 'Refresh existing skills without losing their purpose, evidence, or connections. Use for a requested library revision, a periodic review, a defective output, Ravi’s feedback, or research that changes guidance. Read each skill and relevant companions fully, understand its inputs and handoffs, then review content, structure, voice, and integrity as distinct passes. Preserve exact recovery copies before editing, keep Claude frontmatter structure intact, increase the version, and keep each description within 1,000 characters. Exercise consequential workflows with realistic cases and distinguish desk review from actual tool execution. Retain useful linked references while removing conflicting duplicate instructions. Finish with synchronized local copies, accurate change records, governance checks, and the requested plugin refresh. Remote publication is a separate action when authorized. Pair with rtp-claude-admin for governance and the relevant research and skill-creation guidance.'
 imports:
   - claude-admin
 ---
+# Skill refresh
 
-# Skill Refresh: The Library's Maintenance Ritual
+Keep the skill library clear, current, and usable as a connected system. A refresh should improve the decisions or actions a skill supports while preserving its useful mechanisms, evidence, and handoffs. Finish through the requested local synchronization and plugin update, with an accurate record of what changed and what was checked.
 
-## THE ONE IDEA
+## Choose the right depth
 
-**A skill library rots by default — model eras shift, skills get renamed, sources go stale, and every ungoverned edit adds drift. The refresh is the counter-ritual: evidence-gated, archived-before-edited, four-pass reviewed, cold-run tested, and closed all the way through sync.** The reason this is a skill and not a checklist in five governance files: a ritual scattered across five files gets partially executed every time (that's how MASTER_INDEX drifted 60 days and how the orchestrator's rosters carried 9 dead skill names for 3 months). One skill, one read, the whole loop.
+A requested full-library revision, signature-skill review, or substantive research update deserves a complete pass. A specific defect deserves a focused fix plus the checks affected by it. A typo needs proportionate review; follow the user's versioning instruction and current governance rather than silently treating it as exempt. Creating a new skill belongs with `skill-creator`; an urgent defective output should be repaired before a lengthy maintenance exercise.
 
-## DEPTH DECISION
+Use a concrete reason for an edit: Ravi's request, a failure trace, unclear wording, contradictory instructions, a research correction, a renamed dependency, a missing handoff, or an observed usability problem. **An explicit clarity review is sufficient reason to inspect and improve a skill**; it does not require manufacturing a prior incident. Periodic review can find a defect, but age alone does not prove the content is wrong. A reviewed skill may need no change.
 
-**Go deep** if: running the monthly refresh, revising a flagship/signature skill, or applying a research cycle's update-map.
+Honor the requested scope and working mode. If Ravi asks for all ninety skills sequentially, maintain a sequential ledger and complete that scope; do not reduce it to a small batch or delegate for convenience. For an open-ended maintenance cycle, choose a manageable slate that can reach a verified close. A “monthly” convention does not create a schedule by itself.
 
-**Skim to Step 3 (the four passes)** if: touching a single skill for a specific defect.
+## Understand the skill before changing it
 
-**Skip** if: creating a brand-new skill (`skill-creator`), or fixing a typo (no bump, no archive, no ritual).
+Read the complete current `SKILL.md`, relevant companion instructions, examples, schemas, and scripts. An index or heading scan is navigation, not a full reading. Use progressive reading only for resources that are optional and outside the change; record what was actually inspected.
 
-## THE TRAP
+Identify:
 
-Five ways refreshes go wrong, all observed in this library's own history:
+- the user's decision or task, and when the skill applies;
+- what it consumes, including named upstream skills and required context;
+- its distinctive computation, framework, examples and constraints;
+- what it produces and which downstream work relies on it;
+- source claims, assumptions, thresholds, syntax and factual limits that must survive;
+- current aliases, canonical location, mirror and any deployed copies.
 
-1. **Whiteboard refreshing.** Editing a skill because "this would be nice," not because evidence demands it. Every edit risks drift; an edit without a triggering trace is negative-expected-value. *No evidence, no edit.*
-2. **Content review theater.** Reading the skill and pronouncing it good. The ai-prd v1.0 lesson: five structural review passes missed all seven runnability defects; only *running the skill cold* against a real case found them. Reviewing a skill is not the same as executing it.
-3. **The unfinished close.** Editing the source and stopping. The source, the deployed copy, the repo mirror, and the installed plugin are four locations; git push isn't the finish line (the plugin caches until `/plugin update`). A refresh that skips the close creates the drift the next session inherits.
-4. **Templatization creep.** Making every skill look like the best skill. Rule 42: copy ai-prd's *thinking moves*, never its shape — a quick-reference skill padded to 13 sections is accretion wearing a quality costume.
-5. **Parallel-artifact drift.** Maintaining CONCEPT.md, README fragments, or duplicated protocol text "in sync" with SKILL.md. Dual maintenance is drift by design — absorb into the one loaded artifact and archive the rest.
+Consult `2_Skills/SKILL-REGISTRY.md`, `2_Skills/STRUCTURE.md`, and the relevant tracker. Current maintenance records include `2_Skills/ai-pm-skills/REFINEMENT-TRACKER.md`, `SKILL-REVISION-PLAN.md`, and `SKILL-LEARNING-LOG.md`. Read relevant evidence in `5_Knowledge/session-anti-patterns.md`, user reviews, research update maps and synthesis digests. Do not treat an old “next action” or historical migration queue as the current assignment.
 
-## KEY TERMS (plain language)
+For **each skill revision**, re-read the current Novel Insights guide and the relevant pattern entries, including later challenges. Ask what useful instruction the evidence supports for this skill. Record the pattern considered and whether it changed the wording. Do not add a pattern merely to demonstrate that the ledger was consulted.
 
-- **Evidence gate** — a refresh candidate must cite its trigger: a session anti-pattern, a defective output, a Ravi review, a research update-map, a rename/boundary change, or a failed spot-check. "It's been a while" is not evidence; the *monthly cycle* selects candidates, evidence admits them.
-- **Rule 39 (node)** — the skill is reasoned from first principles as a node: what it consumes from named neighbors, what it produces downstream. Sources set direction; they are never pasted.
-- **Rule 40 (structure)** — the skill file AND the deliverable it prescribes must be legible at a glance.
-- **Rule 41 (versioning)** — SKILL.md carries `version: vX.Y_latest`; superseded versions go to the skill-local `archive/` (max 10), copied *before* editing.
-- **Rule 42 (exemplar)** — ai-prd v1.2 is the reference for depth of thinking and connections; emulate the process, derive each skill's own structure.
-- **Cold run** — executing the skill against a realistic case with an adversarial reviewer (Test Manager seat) logging every stall, loop, and ambiguity. The only known detector of runnability defects.
-- **Routing debt (H16)** — content routed out of skill A to sibling B that B doesn't yet hold. Logged as `⚑ [dest] must absorb [content]` and verified on B's refresh.
+## Preserve a recovery copy first
 
-## WHAT THIS SKILL CONSUMES & PRODUCES
+Before changing a canonical skill or companion, capture its exact current bytes and record the source path and version. Recheck the source hash before installation to detect concurrent edits. Reconcile a mismatch rather than overwriting someone else's work.
 
-**Consumes:**
-- **The evidence stream** — `5_Knowledge/session-anti-patterns.md`, `rules.md` promotions, defective outputs, Ravi's reviews, the REFINEMENT-TRACKER queue + boundary ledger + routing-debt flags.
-- **The research input** — update-maps from `rtp-hbr-research` (monthly) and digest signals from `rtp-research-synthesiser`.
-- **The current state** — SKILL-REGISTRY.md, `2_Skills/STRUCTURE.md`, the skill's own `archive/` history.
+Use the skill-local `archive/SKILL-vX.Y[.Z].md` and the established central dated backup when appropriate. **Keep the recovery copy exact**, including its original frontmatter; its archive path identifies it as historical. Do not strip `_latest` from the only recovery copy and then describe it as byte-identical. Archive files must be excluded from active-skill discovery.
 
-**Produces:**
-- **Refreshed skills** at `vX.Y_latest` with archived predecessors → the mirror + plugin after the close.
-- **Updated governance** — registry, CHANGE_LOG entries (with the WHY), tracker status, STRUCTURE.md if locations changed.
-- **New evidence** — anti-patterns, hypotheses, rule candidates captured from the refresh itself (the loop that improves the loop) → `5_Knowledge/`.
+Never overwrite an existing different archive or prune old versions automatically as a side effect of editing. Retention cleanup is separate from this task and requires the applicable authorization. Include changed references and scripts in recovery records, not just the main file.
 
-## THE PROCESS
+Preserve the existing Claude frontmatter keys, order, names, import values and structure unless the user specifically authorizes a structural change. In this library wording pass, change only the version and description. Keep each description at **1,000 characters or fewer** after parsing, and preserve the `_latest` version convention. A compatible wording/fix revision can use a patch increase; a broader compatible addition may use minor, and a changed core contract may use major. A version bump describes a real revised file, not a proposal.
 
-### Step 1: Select — the evidence gate
+## Four distinct review passes
 
-Build the refresh slate from the tracker queue + evidence stream. For each candidate write one line: *skill → trigger evidence → expected change*. A candidate without a trigger is cut. Cap the slate at what one session finishes *through the close* — three skills fully closed beat ten skills edited and unsynced (depth over breadth; the unfinished close is the #3 trap).
+### 1. Content and connections
 
-### Step 2: Archive first (Rule 41)
+Reason from the skill's purpose and evidence. Preserve every useful mechanism, example, question family, schema, formula, limitation, and source relationship. Label illustrative numbers and verify consequential claims that may be wrong or stale. Prefer the relevant primary record; a prestige label or repeated citation does not establish the claim.
 
-Before touching the file: `cp SKILL.md archive/SKILL-vX.Y.md`, strip `_latest` from the archived copy's tag, prune the archive past 10. Bump minor for refinements, major for a reframe of the ONE IDEA or node boundary. No snapshot, no edit.
+Use named neighboring skills for their deeper methods without making the current skill unusable in isolation. Short orientation and fallback context can be helpful; needless duplication of a whole framework creates drift. A handoff needs enough substance for its receiver to act.
 
-### Step 3: The four revision passes (every touched skill)
+If content moves to another skill, confirm that the destination actually contains it and update callers in the same authorized change. Otherwise record **routing debt**: source, destination, exact content owed, owner and verification condition. Do not delete the only usable explanation because the destination name sounds appropriate.
 
-| Pass | What it checks | The tests |
-|---|---|---|
-| **1 · Content as node (Rule 39)** | Sources synthesized against first principles; the skill owns its computation and consumes neighbors' | CONSUMES/PRODUCES names real skills; no re-taught neighbor content; routed-out content logged as routing debt; every number carries an evidence tier |
-| **2 · Structure (Rule 40)** | File and deliverable legible at a glance | 30-second scan test; parallel structure in tables; label-led bullets; OUTPUT section prescribes a structured artifact; numbering monotonic |
-| **3 · Voice** | Ravi's voice, zero AI-writing patterns | Slop scan (the 24 anti-patterns: no "Additionally/delve/foster/robust/seamless...", no hype, plain verbs); strong openers; every rule carries its Why and its when-wrong |
-| **4 · Verify against exemplar** | Mechanical integrity | desc ≤1024 chars (scripted — eye-certified descs drifted over the cap on later touches); frontmatter version tag present; imports exist (phantom-import check — `prompt-as-spec` and `product-pricing` both shipped as phantoms before this check existed); internal § / item references resolve; **internal-rename consistency** — grep the file for its own superseded terms; a rename must propagate to every table, template, and the description in the same pass (the moat-finder "Brand & trust"→"Trust & reliability" catch: renamed in the table, stale in the OUTPUT template and desc); **calibration stamps** — market-dependent claims carry their as-of date ("mid-2026") so future readers know when the weighting was set; required sections present; no stray `---` |
+### 2. Structure and workflow
 
-Run the passes as separate reads, not one blended skim — each pass catches what the others' mindset misses.
+Place purpose, consequential prerequisites, decision points and safety/authority limits before the details that depend on them. Give the reader an actionable sequence and a clear stopping or completion condition. Use tables for true comparisons, lists for parallel or sequential material, and prose for reasoning that needs a connected explanation.
 
-### Step 4: The cold run (signature skills — mandatory; others — on judgment)
+Design each skill's shape around its job: a diagnostic may need a symptom-to-action guide; a generator may need a template; a reference may need one compact table. A quick answer does not need a document, scorecard, universal questionnaire or every downstream artifact. Review both the instruction file and the output it asks the agent to produce.
 
-For flagship/always-used skills (ai-prd, orchestrator, eval-framework, strategy-canvas, the agent-design core): **execute the skill against a realistic case** — an interview prompt, a real feature from Ravi's work, a case from the research corpus — under a constraint (time-boxed, no upstream data). An adversarial Test Manager seat logs every point where the skill stalls, loops, contradicts itself, or under-serves. Findings become the next version's edits, each traceable to a finding ID. **Why mandatory:** the ai-prd precedent — structural review scored it world-class; the cold run found 7 defects including 2 HIGH. Content review is not runnability review.
+Long examples, detailed catalogs and source notes can live in linked references. Keep essential operating rules in the main skill, provide clear “read when” links, and avoid circular or missing references. Do not impose a fixed section count, eight-line paragraph limit or mandatory bold label on every list.
 
-### Step 5: CONCEPT.md absorb-and-archive (on touch)
+### 3. Voice and clarity
 
-If the skill folder holds a CONCEPT.md: mine it for content still worth keeping (atomic insights, worked examples, intellectual lineage), fold the keepers into SKILL.md or `references/`, then move CONCEPT.md into `archive/`. Never update it in parallel; never mass-delete unmined. All 35 CONCEPTs froze at 12 APR 2026 while SKILL.md files kept moving — that's the parallel-artifact trap, closed one skill at a time.
+Apply `rtp-thinking-writing`, with `rtp-humanizer` for a specific unresolved pattern when helpful. Use plain verbs, explain unfamiliar terms, and state the intended action directly. Replace scolding, inflated claims and ambiguous absolutes with clear instructions whose strength fits their purpose.
 
-### Step 6: The governance close (a refresh isn't done until all boxes tick)
+Keep a firm requirement when it matters. Explain its reason or boundary where that prevents misuse; not every sentence needs a separate “why” and “when wrong” section. Avoid claiming that perfect wording guarantees nobody will ever make a mistake. Read the revised text naturally and resolve sentences that require guessing the intended behavior.
 
-- [ ] SKILL-REGISTRY.md — version, status (and count, if skills were added)
-- [ ] CHANGE_LOG.md — what changed AND why, plain language
-- [ ] REFINEMENT-TRACKER — status, routing-debt flags opened/closed, boundary-ledger entries
-- [ ] STRUCTURE.md — only if locations changed
-- [ ] Mirror sync — `./scripts/skill-sync.sh` (confirmation-gated), rtp- prefix preserved in repo frontmatter
-- [ ] Git commit + push, then **`/plugin update`** — the installed plugin lags the repo until this runs
-- [ ] Learnings captured — anti-patterns from real waste, hypotheses, rule promotions (the refresh feeds its own evidence stream)
+### 4. Integrity and preservation
 
-## QUALITY GATE (binary checklist)
+Check the final version after the last edit:
 
-- [ ] Every refreshed skill cites its trigger evidence (no whiteboard edits)
-- [ ] Every touched skill was archived *before* editing, tag stripped on the copy, archive ≤10
-- [ ] All four passes ran as separate reads; pass-4 mechanical checks scripted where possible, not eyeballed
-- [ ] Signature skills got a cold run with logged findings; each edit traces to a finding
-- [ ] No skill was reshaped toward another skill's structure (Rule 42 check: "did I derive this skill's form from its own job?")
-- [ ] CONCEPT.md absorbed-and-archived for every touched skill that had one
-- [ ] The close completed through `/plugin update` — or the pending steps are logged in ACTION-PLAN with owner
-- [ ] The session's own learnings landed in `5_Knowledge/`
+- YAML parses; protected fields and imports are unchanged; description is within 1,000 characters; version increased as intended.
+- Skill names and aliases resolve; main and companion links, headings, section numbers, formulas and schemas remain consistent.
+- Renamed terms propagate through descriptions, tables, templates and examples. Search for the superseded term rather than relying on memory.
+- Current claims carry relevant dates and scope. Historical quotations and archived versions remain historical.
+- Code fences close, examples identify required variables/assets, and executable snippets are checked appropriately. Valid parsing does not establish runtime correctness.
+- The preservation record accounts for what remained, moved, changed or was deliberately retired and why.
 
-## WHEN WRONG
+Use automation for mechanical checks and reasoning for meaning. Keep the four passes distinct in attention; do not call one quick skim four reviews. Use `rtp-ai-prd` as an example of sound reasoning and handoffs, reading its current version rather than copying a historic v1.2 outline.
 
-- **Creating a new skill** — that's `skill-creator` + Rule 39 node design; this skill governs existing ones.
-- **A production emergency in a skill's output** — fix the output first, log the evidence, refresh on the next cycle; don't run a full ritual mid-incident.
-- **Typo-level edits** — no bump, no archive, no ritual (Rule 41's own exception).
-- **When the evidence says split or merge, not refresh** — boundary changes go through the tracker's boundary ledger and an explicit Ravi decision, not a solo refresh session.
+## Exercise consequential behavior
 
----
+For signature or complex workflows, apply the revised instructions to a realistic case and a meaningful constraint: missing optional input, contradictory evidence, a failed tool, a narrow deadline, or a consequential action requiring authorization. Check whether the skill can reach a useful result without loops, invented facts or unnecessary questions. Record the case, expected behavior, observed friction and changes made.
 
-## GROUNDING, TRADE-OFFS & CONCLUSION
+Where the revision affects execution, perform the relevant tool/run/render checks when available. A desk walkthrough can find ambiguity but does not establish browser behavior, a successful deployment, a readable printed artifact or an independent review. Use an independent reviewer when the task permits and it adds value; a “Test Manager” persona in the same agent is still self-review. Respect Ravi's request for main-agent sequential work.
 
-- **Recommendation:** run this monthly (paired with the `rtp-hbr-research` cycle) plus on-touch for any skill that produced a defect. Slate small, close fully.
-- **Key trade-off:** the ritual costs ~30–45 min per skill beyond the edit itself. The alternative was measured, not hypothetical: 60-day governance drift, 9 dead names in the always-on orchestrator, 35 frozen CONCEPTs.
-- **Biggest risk if skipped:** the library becomes a museum of April 2026 — polished, internally referenced, and quietly wrong about its own contents.
-- **Next action (first run):** slate = the six top-level rtp-* skills awaiting category migration + any skill flagged in the tracker's routing-debt list. Archive, four passes, close. Measure: % of library carrying `_latest` tags after 3 cycles.
+The earlier AI-PRD cold-run record reportedly found seven defects after structural reviews missed them. Preserve the lesson—exercise the workflow—without claiming this is the only method that can find execution defects or that every skill needs an elaborate simulation. If a required execution check cannot run, record the specific gap and its implication instead of inventing a pass.
+
+## Keep companions coherent
+
+Read an existing `CONCEPT.md` before deciding its future. Preserve useful atomic insights, worked examples and intellectual lineage. If it duplicates or contradicts the main instructions, consolidate those instructions into the main file or a clearly linked reference and update all affected links.
+
+A distinct, maintained concept guide or reference is legitimate. Do not archive it merely because a historical audit found other concept files stale. If retiring a companion is appropriate and authorized, retain a recovery copy and verify that every useful part is preserved elsewhere. Do not mass-delete unreviewed material or keep two competing operational authorities.
+
+## Close the actual requested work
+
+1. Install the validated canonical revision and its intended companions. Preserve destination-specific name mappings.
+2. Synchronize the repository mirror and any existing deployed subset; do not assume every skill is deployed in every host.
+3. Update the registry, change log, relevant tracker and learning record with the version, specific change, reason, checks and file paths. Update `STRUCTURE.md` only if structure changed.
+4. Review cross-skill imports, routing debt, shared protocols, examples and generated counts affected by the revision.
+5. Run the applicable governance checks after the final edits. Fix actionable failures and distinguish passed, failed and skipped checks.
+6. Refresh the **local plugin** when requested, checking its actual manifest/cache/content and installed version. A source mirror, bundle, marketplace copy and active installed cache may be different artifacts. Confirm which ones were updated; a copied file does not prove a running session reloaded it.
+7. Commit or publish remotely only within the user's authorized scope. Local plugin refresh does not inherently require a GitHub push. Inspect sync/release tools before invoking them; avoid unrelated staging, destructive resets, credential exposure or automatic archive deletion.
+8. Capture supported lessons, not a quota of new hypotheses. Rule promotion follows the current governance decision and evidence review; three repeated mentions do not settle O25 automatically.
+
+If a plugin update or required check remains incomplete, identify the exact step and owner in the action plan and report the limitation. Do not mark the whole request complete just because the skill files were written. Conversely, do not rerun passed checks without a new change or unresolved concern.
+
+## Completion record
+
+For each skill, record the starting/revised version, complete-read scope, preserved content, specific clarifications, Novel Insights consideration, scenario or execution checks, changed files, backup and synchronization result. Maintain one authoritative progress ledger for a multi-skill pass and give Ravi frequent concise updates.
+
+Useful completion measures are verified skill coverage, unresolved references, source/mirror/cache consistency, and demonstrated behavior on relevant cases. `_latest` tag coverage alone does not establish quality. The historic 60-day index drift, nine dead names and thirty-five stale concept guides are examples of prior failures, not current library counts or a measured 30–45-minute cost for every refresh.
+
+Editorial revision: September 13, 2026. The evidence-informed selection, four reviews, realistic exercise, companion review and governance close remain; version recovery, description cap, full-scope persistence and local-versus-remote release semantics are explicit.

@@ -1,5 +1,7 @@
 # Behaviour checks for writing skill v3
 
+Companion review revision 1.0.1, 13 Sep 2026. The v3 title identifies the original authoring run. These records remain historical desk checks; the added integration cases below are expected behaviors, not new independent evaluations.
+
 These are reusable test inputs with observed desk-review responses from the S01 v03 authoring run. They were not run as independent model evaluations, human reader tests or an A/B study. Re-run on future artifacts and record regressions.
 
 | Test input | Expected behaviour | Response produced in this desk check |
@@ -24,3 +26,16 @@ These are reusable test inputs with observed desk-review responses from the S01 
 **Why this meets the revised rule:** The example comes from a different domain, connects the model to operating action, gives two consequential measures and identifies a condition that can block the benefit. It makes no invented company or measured-impact claim. It does not reuse a support story mechanically.
 
 **Remaining test:** A future reader or independent model run should check whether the core skill reliably produces this behaviour without the answer key present. Structural validation alone cannot answer that question.
+
+## Integration cases for the revised writing family
+
+| Input | Expected behavior |
+|---|---|
+| "Improve this article about an agent harness." | Keep the technical term, explain it where needed, and avoid applying a generic word ban to its legitimate meaning. |
+| "Thank a learner for registering." | Use the known registration without inventing a late-night scene, private emotion, or a promise to read every reply. |
+| "Rewrite this personal showcase README." | Explain what the project does and how to explore it while preserving its actual reuse terms and avoiding an invented installation promise. |
+| "The ledger says this always works." | Inspect the relevant source, conditions, later challenges, and the distinction between finding and synthesis before repeating the claim. |
+| "Put all assumptions at the end." | Keep any qualification essential to interpreting a claim beside that claim; use a final assumptions register for additional tracking without delaying necessary context. |
+| "Check whether AI wrote this." | Identify observable writing habits and their effect on clarity without inferring authorship from prose style. |
+
+The integration review checked that the main instructions support these responses. It did not run blinded reader studies or independent model trials.

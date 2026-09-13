@@ -1,5 +1,7 @@
 # Editorial practice from original readings
 
+Companion review revision 1.0.1, 13 Sep 2026. The source-reading statements below record the earlier S01 teaching-material revision; they are not claims that those source files were reread in this integration review. S01, v02, v03, and Team E identify that local course project and its drafts or exercise groups. Treat its examples as editorial case notes rather than universal templates.
+
 Use this companion for major researched writing and teaching packages. The lessons below come from reading the actual local articles and comparing their argumentative work with the S01 v02 defects. They are editorial interpretations, not experimental evidence that a particular prose style improves learning.
 
 ## 1. Start with a useful distinction, then show its consequences
@@ -38,7 +40,7 @@ The article connects company-level value with common capabilities and operating 
 
 The article ties adoption, workflow fit, engineering ownership, domain knowledge and reusable assets together. Its useful insight is that these dependencies reinforce one another. A list of seven lessons would preserve the headings while losing the mechanism.
 
-**Apply it:** Explain how one decision changes the next person's work. A faster draft creates value only if it reduces the work needed to reach the decision; a shared capability creates value only if another team can use it. Follow the handoff, not merely the output.
+**Apply it:** Explain how one decision changes the next person's work. A faster draft may reduce effort, improve the decision, or enable work that was previously impractical; check the benefit against the thinking and review still required. A shared capability needs a credible path to useful adoption. Follow the handoff and completed outcome rather than assuming speed alone establishes value.
 
 **Counterexample:** Some projects are held back by model performance. “The model is never the bottleneck” would overstate the source and give bad advice. Diagnose the actual constraint.
 

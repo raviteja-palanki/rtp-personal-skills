@@ -1,43 +1,30 @@
 # Invisible Stack — Concept Guide
 
-## FIRST PRINCIPLES
+The user sees an interface and an outcome. Behind them, a system supplies context, selects models and tools, manages state, enforces boundaries, and handles failures. Production quality depends on how those parts work together. The model can be a decisive constraint; so can the infrastructure and workflow around it.
 
-When users interact with an AI product, they see an interface and receive an output. Between those two points sits an entire system they never see. This invisible system determines whether the AI product is reliable, accurate, safe, and fast. Yet most product discussions focus on the visible 10% — the model, the interface, the prompt.
+## Two definitions
 
-The atomic insight: **production AI quality is not a model problem. It's an infrastructure problem.** The model is a commodity (increasingly). The invisible stack around the model is the differentiator.
+**Business:** the operational capabilities that help an AI feature deliver a useful, dependable outcome under actual use. They include data quality, access, coordination, response, and maintenance as well as model performance.
 
-## DUAL DEFINITION
+**Technical:** the context and execution architecture around inference: instructions, retrieval, context assembly, state, tools, routing, validation, output contracts, caching, and observability. The seven CONTEXT categories organize responsibilities rather than prescribe seven services.
 
-**Business definition:** The invisible stack is the engineering infrastructure between user input and AI output that determines product quality — including how the AI retrieves information, follows rules, uses tools, and formats responses. Investing in this infrastructure is what separates AI demos from AI products.
+## Three traps
 
-**Technical definition:** The complete context engineering architecture surrounding model inference — encompassing system prompts, retrieval pipelines, context assembly, tool integration, orchestration logic, safety guardrails, output formatting, caching layers, and observability instrumentation.
+**Model fixation:** choosing a new model without checking whether the current system supplied the evidence or tools the task required. The opposite error is assuming the model is adequate without testing it.
 
-## THE TRAP (Expanded)
+**A hand-built demo mistaken for a production system:** a researcher supplies the right documents, remembers state, chooses tools, and cleans up the result. Automating those responsibilities changes the system being evaluated even if the model stays the same.
 
-**The Model Fixation.** "We need a better model" is the default response to AI product quality issues. Sometimes it's true. More often, the model is fine but the context it's receiving is bad. Garbage in, garbage out — but the garbage is invisible, so teams blame the model.
+**A platform chosen by its model catalog alone:** missing retrieval, evaluation, access, or operations capabilities later become unplanned work. Compare the platform with the complete task and the team’s ability to operate it.
 
-**The Demo-Production Gap (Invisible Version).** The demo works because the demo's context is hand-crafted. The production system has dynamic context assembly — and the assembly logic has bugs, edge cases, and latency issues that never surfaced in the demo. The model is identical. The invisible stack is completely different.
+## Illustrative examples
 
-**The Platform Trap.** Teams choose an AI platform based on the model it offers, not the infrastructure it provides. Six months later, they're building retrieval pipelines, context assembly logic, and monitoring systems from scratch — the work the invisible stack was supposed to handle.
+- Two support products use the same model but report 70% and 30% resolution. Their context, tools, users, task mix, and measurement may differ. The figures prompt investigation; they do not isolate context as the cause. This is not a verified pair of companies.
+- A knowledge assistant grows from 500 to 5,000 documents while satisfaction falls from 78% to 34%. Investigate retrieval, conflicting content, freshness, access, user mix, and load. More documents need not degrade search, and tuning a similarity threshold is not automatically the remedy.
+- A manually assembled demo scores 95% while production scores 65%. Reproduce matched tasks and inspect each responsibility transferred from a person to software. Manual work is not automatically perfect, and keyword retrieval or deterministic routing is not inherently inferior.
+- A document product’s retrieval precision rises from 50% to 81% while satisfaction rises from 65% to 82% after chunking and embedding changes. These hypothetical numbers illustrate a possible upstream improvement, not proof that retrieval was the only problem or a formula relating precision to satisfaction.
 
-## INTELLECTUAL LINEAGE
+## Intellectual connections
 
-- **Ravi's CONTEXT Framework** — Seven-layer production AI architecture that operationalizes the invisible stack. Architecture: Constitution (system prompts), Observations (real-time user/session context), kNowledge (retrieval/RAG), Tracks (conversation/state), Equipment (tools/APIs), eXecution (routing/orchestration), Template (output formatting). This structure reveals why demos fail in production: demos hand-craft each layer; production layers are partially or poorly implemented.
-- **Andrej Karpathy** — "The hottest programming language is English." True for the visible 10% (prompt). The invisible 90% is still Python, infrastructure, and systems engineering.
-- **Google's Hidden Technical Debt** — "Hidden Technical Debt in ML Systems" (Sculley et al.) formally documented that ML systems fail not because of model quality but because of infrastructure debt. Applied to LLMs: infrastructure debt + poor context engineering = expensive failures.
-- **Chip Huyen** — Production ML systems thinking applied to foundation models. The CONTEXT framework is Huyen's production ML systems mindset adapted for the LLM era.
+Ravi’s CONTEXT framework provides the organizing vocabulary. Sculley and colleagues’ technical-debt work examines system dependencies, feedback, entanglement, and maintenance costs; it does not show that ML failures are exclusively infrastructure problems. Chip Huyen’s production-systems work and Simon Willison’s context-engineering writing are related perspectives, not external validation of a fixed 10/90 allocation. Karpathy’s observation about English as a programming language likewise does not quantify the work split.
 
-## REAL-WORLD EXAMPLES
-
-**Two support chatbots, identical model, 70% vs 30% resolution rate.** Company A and Company B both use Claude for customer support. Identical model. Company A's invisible stack: retrieval against company knowledge base (knowledge layer), conversation history tracking (tracks), internal tool integrations (equipment), structured output templates (template). Resolution rate: 70%. Company B's invisible stack: good system prompts (constitution). Resolution rate: 30%. Root cause: Company A engineered context quality. Company B hoped the model would infer context. The model couldn't. Lesson: model is the accelerant; context is the fuel.
-
-**The retrieval quality cliff.** An internal knowledge assistant performed well (78% satisfaction) for 3 months. Knowledge base was 500 documents. Then it grew to 5,000. Suddenly satisfaction dropped to 34%. Same model. Same prompts. Different knowledge layer. Vector search quality degraded — the retrieval system returned tangentially related documents (one vector embedding away, wrong semantic cluster). The model faithfully summarized the wrong documents. Users blamed "the AI hallucinating." Root cause: vector search (invisible knowledge layer) broke under scale; thresholds needed tuning. Lesson: the invisible layers are where scale breaks first.
-
-**The demo-production gap (invisible stack version).** Demo: researcher hand-crafts context for each query. Constituion: clean system prompt. Observations: researcher provides relevant user context manually. Knowledge: researcher selects exactly the right documents. Tracks: researcher remembers conversation state. Equipment: researcher decides which tool to use. Execution: researcher orchestrates perfectly. Template: researcher formats output nicely. Result: 95% quality. Production: context assembly is automated. Retrieval is keyword-first (not human-curated). Conversation state is parsed automatically (and misses context). Tools are triggered by model heuristics (not human judgment). Execution is rigid routing logic. Result: 65% quality. Same model. Invisible stack is completely different.
-
-## FURTHER READING
-
-- Ravi Teja Palanki, "The CONTEXT Framework" — Seven-layer production AI architecture
-- Sculley et al., "Hidden Technical Debt in Machine Learning Systems" (Google)
-- Simon Willison, "Context Engineering" — On building the context that makes models useful
-- Chip Huyen, *Designing Machine Learning Systems* — Production ML infrastructure
+The useful diagnostic question is: what evidence would distinguish a model limit, a missing dependency, and a failure of interaction between adequate components? Use the [skill](SKILL.md) for the audit and the [measurement reference](references/measurement-and-evidence.md) for assumptions and source limits.

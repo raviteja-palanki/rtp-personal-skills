@@ -1,7 +1,7 @@
 ---
 name: interview-synthesis
-version: v1.0_latest
-description: 'Open → axial → selective coding for customer-interview transcripts. The same discipline serious AI eval teams run on traces, applied to human conversations. Most PMs synthesize by skimming for quotes that confirm what they already believed; code every observation first and patterns emerge from the data instead of getting cherry-picked. The payoff most PMs miss: the codes that emerge from interviews become eval failure-mode candidates when the AI ships, so this is the bridge between qualitative discovery and AI evaluation. Use when a stack of 5–15 transcripts needs to become themes, persona signals, opportunity hypotheses, and eval-test candidates. Do NOT use under 3 interviews, for sales calls in disguise, or for summary (non-verbatim) transcripts. Pairs with: uncertainty-research (how to collect them), jtbd-analysis (switch interviews → four forces), eval-framework (codes → eval failure modes), failure-modes (anxiety codes → what to design for). Triggers: ''synthesize these interviews'', ''what did we hear''.'
+version: v1.0.1_latest
+description: 'Turn customer interviews into traceable themes, persona signals, opportunity hypotheses, and evaluation candidates. Use three practical passes: describe meaningful observations, connect them into themes, and identify what matters for the decision. Preserve contradictions, source context, and the difference between reported behavior and interpretation. Use for transcript sets or clearly labeled interview notes; scale claims to the quality and breadth of the material. Do not infer motives from silence or manufacture a surprising finding. Pairs with uncertainty-research for study design, jtbd-analysis for switching forces, eval-framework for test design, and failure-modes for consequences. Triggers: synthesize these interviews, what did we hear, customer research themes.'
 imports:
   - jtbd-analysis
   - uncertainty-research
@@ -10,121 +10,131 @@ imports:
 
 # Interview Synthesis
 
-**The objective:** turn a stack of interview transcripts into structured, auditable insight — themes, persona signals, opportunity hypotheses, and eval-test candidates — for the PM shaping a problem space where different people keep pointing to different quotes.
+Make the path from a participant’s account to a product decision visible. Read the material systematically, preserve disagreements, and show which interpretations the evidence supports. Coding helps make judgment inspectable; it does not remove the researcher’s influence or guarantee that the interpretation is correct.
 
-## The one idea
+The distinctive handoff is from discovery to evaluation: a theme can suggest a required system behavior or a user-outcome question worth testing. An interview supplies a reason to investigate that behavior, not automatically a correct answer, quantitative threshold, or proven failure mode.
 
-Here is how most interview synthesis actually happens: the PM reads the transcripts, highlights the "good quotes," and writes a three-bullet summary. It's fast, and it's useless — because the quotes that get highlighted are the ones that confirm what the PM already believed walking in. The patterns nobody noticed never surface. The quiet contradictions get smoothed over.
+## Establish the research question and evidence limits
 
-The 0.1% move is one sentence: **run the same coding discipline on humans that eval teams run on machines.** Open coding → axial coding → selective coding — label every observation with a fresh code, cluster the codes into themes, then pick the themes that drive behavior — is the core technique serious AI eval teams (Hamel Husain, Shreya Shankar ◆) run on production traces, and the same workflow grounded-theory researchers have used on qualitative data for fifty years. When you label *every* observation before deciding what matters, the pattern surfaces *from* the data instead of being imposed on it, and your conclusions become auditable — every quote got a code, so stakeholders can check your work instead of trusting your judgment.
+Identify the decision, participants, recruitment, interview purpose, available materials, and important missing perspectives. Reuse context already provided. Follow the Universal Skill Protocol at the source library root or packaged plugin root, adapting depth and output to the task.
 
-And there's a second payoff most PMs miss entirely, which is what makes this an *AI-PM* skill and not just a research one: **the codes that emerge from interviews become eval failure-mode candidates when the AI ships.** "User distrusts the prioritization" becomes an eval test ("ranking matches expert order ≥X% of the time"); "anxiety about audit-defensibility" becomes a system-property test. This skill is the **bridge between qualitative discovery and AI evaluation** — most teams treat interviews and evals as separate workstreams; the codes are the connection, and the audit trail runs from a specific interview to a specific eval.
+Prefer recordings or faithful transcripts when available and permitted. Check transcription errors in consequential passages against the source. If only notes or summaries exist, work with them as filtered accounts: label their provenance, avoid presenting paraphrases as quotations, and explain the resulting uncertainty. Do not discard useful evidence solely because it is not verbatim.
 
-## How to use this skill
+Protect participants’ information and observe permitted uses of recordings, transcripts, and excerpts. Material supplied for analysis does not automatically authorize public quotation or model training. Use participant IDs and the minimum identifying context needed for interpretation.
 
-1. **Run the three coding passes** — open (label everything, stay close to the data), axial (cluster into 8–15 themes), selective (pick the 3–5 that drive design). Don't skip passes; the rigor compounds. (THE METHOD.)
-2. **Interview AI features differently** — users can't articulate what they want from probabilistic systems; probe workflow not magic, surface the failure cost they underweight, read trust as behavior not words. (AI-PRODUCT NUANCE.)
-3. **Carry the codes downstream** — selective codes → opportunity hypotheses → eval test candidates handed to `eval-framework`. (THE EVAL BRIDGE.)
+Choose the scope of claims from the study’s purpose, sample specificity, dialogue quality, and analytic depth. Five to fifteen interviews is a common planning illustration here, not a guarantee of sufficiency. Fewer than three can reveal a consequential case or a useful hypothesis; they usually support limited cross-participant claims. Do not infer population prevalence from a purposive interview sample or declare saturation from a fixed count. See [method and evidence notes](references/method-and-evidence.md).
 
-## KEY TERMS (plain language)
+Before coding, record the team’s main assumptions and what the study can actually challenge. Commercial incentives, interviewer relationships, leading questions, and omitted topics affect interpretation. Sales calls can contain valuable observations, but they are not interchangeable with neutral discovery interviews. Seek another perspective or follow-up where the distinction matters.
 
-- **Open coding** — labeling every meaningful observation with a short, literal code (3–7 words) that describes what the user *said or did*, not what you think it means.
-- **Axial coding** — clustering the open codes into 8–15 themes (categories that connect multiple codes).
-- **Selective coding** — picking the 3–5 themes that drive the most behavior or design implication; the spine everything else hangs off.
-- **The spine** — the selective codes; the test is "if I removed this category, would the design implications change?"
-- **Eval failure-mode candidate** — a required system behavior derived from a code, ready to become an eval test when the AI ships (the discovery→evaluation bridge).
-- **Coding close to the data** — staying descriptive in pass 1 ("user keeps a personal Excel"), saving interpretation ("user distrusts the tool") for pass 2. Abstraction earns its place later, not first.
+## Pass 1: Describe meaningful observations
 
-## GROUNDING (Before Starting)
+Read each included transcript in full. If any material is unavailable or only partially reviewed, state the coverage. Code meaningful passages relevant to the research question, keeping enough surrounding context to interpret them.
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: how many transcripts, are they verbatim (not summaries), and will this inform a roadmap or PRD. **Go deep** for 5–15 transcripts shaping a problem space. **Skip** under 3 interviews (no reliable pattern), or when the "interviews" are sales calls in disguise (see RED TEAM). Then route output format (synthesis doc, tagged transcripts + doc, or inline).
+Use short, concrete labels, often three to seven words. Reuse a label for the same phenomenon; do not invent a new code for every line merely to increase the count. More than one code can apply to a passage. Keep an evolving codebook with definitions and examples so later changes can be applied consistently.
 
-## THE METHOD — three coding passes
+Capture:
 
-**Pass 1 — Open coding (line by line).** Read every transcript and label each meaningful observation with a short code. Don't organize, don't interpret — just label, staying close to the data. Code what the user *said* (literal), what they *did or stopped doing* (behavioral), emotional language, workarounds (what they built around the official workflow), contradictions, and **silences** (questions they deflected or pivoted away from — as much data as anything spoken). A 30-minute interview yields 50–150 open codes; overlap is fine, clustering comes next. *Discipline:* "user mentioned a spreadsheet workflow" is open coding; "user feels constrained by tools" is interpretation — save it for pass 2.
+- what participants say they need, value, fear, or expect;
+- reported actions, stopped actions, workarounds, and specific episodes;
+- directly observed actions, distinguished from self-report;
+- contradictions within an account and differences across accounts;
+- emotional wording, hesitations, deflections, or missing answers **when the source actually records them**.
 
-**Pass 2 — Axial coding (clustering).** You now have hundreds of open codes across all interviews. Sort them (sticky notes or spreadsheet rows), group by similarity, name each group, iterate as codes move between groups. A healthy synthesis has **8–15 axial codes** — fewer than 8 means you're under-clustering ("users want a better experience"); more than 15 means you didn't push past surface differences. *Frequency matters but isn't sufficient:* a code in 8 of 10 interviews is signal, but a code in 2 of 10 that's emotionally loaded ("I cried when I saw this") may be a deeper signal your sample under-showed.
+Keep observation and interpretation in separate fields. “Keeps a personal spreadsheet” is an observation if reported or seen. “Distrusts the official tool” is one possible explanation, alongside missing functionality, habit, access, or a different task. A pause before a trust answer does not establish hidden distrust. Silence may reflect uncertainty, privacy, language, interruption, or a question that was never asked.
 
-**Pass 3 — Selective coding (the spine).** Pick the **3–5 codes** that drive the most behavior or design implication. *The test:* if you removed this category, would the design implications change? Yes → selective; no → it's an axial code supporting a selective one. The selective codes drive the design implications, persona signals, and eval candidates; everything else is supporting evidence. *If your synthesis ends at "users want a better product," the selective coding wasn't done — push past the obvious.*
+A useful evidence row contains a source ID and location, exact excerpt or labeled paraphrase, descriptive code, task/context, and a separate interpretation or follow-up note. Never reconstruct an unrecorded pause, feeling, or action to make the account richer.
 
-## AI-PRODUCT INTERVIEW NUANCE
+## Pass 2: Connect codes into themes
 
-Interviewing about AI is harder than about traditional software, because users can't articulate what they want from probabilistic systems — their expectations come from movies, marketing, and a couple of viral demos, not experience. Three patterns:
+Group related observations and examine how they connect: circumstances, actions, consequences, workarounds, tensions, and differences between people or tasks. This skill calls that practical pass **axial coding**. It involves more than sorting similar words.
 
-- **Users describe magic, not workflow** ("I want it to just do my job"). Probe the actual flow: "walk me through the last time you did this without AI — where does AI fit, what does it replace vs. augment?" The gap between the magic and the workflow is where the design lives.
-- **Users underweight failure cost.** "What if it's wrong?" → "I'd just correct it" (rarely true). Watch for a described workflow with no review step (they assume it's right), high-frequency use (they'll stop noticing errors), or high-stakes context (confident-wrong costs far more than they'll admit).
-- **Users state trust as a feeling, not a behavior.** "Do you trust it?" → "I guess?" Useless. Reformulate to behavior: "when it gives you an answer, what do you *do* with it — do you check it, how?" "Has it been wrong — what changed after that?"
+Name each theme precisely enough to explain something. “Morning review is crowded with low-priority alerts” is more useful than “users experience friction.” Keep alternative explanations and disconfirming cases attached. Move, split, or merge groups as the evidence warrants; retain the trail from the theme back to source passages.
 
-**The 5 hardest questions** (most PMs skip them; skip them and your synthesis is polite and wrong): (1) "Tell me about a time the AI was wrong — what did you do?" (2) "What would have to be true for you to stop using this entirely?" (fragility of adoption). (3) "If your manager asked why you trust its recommendation, what would you say?" (social/audit dimension — no answer means they tolerate it, don't trust it). (4) "What does this AI prevent you from getting better at?" (skill-atrophy anxiety, rarely volunteered). (5) "If we removed it tomorrow, what would change?" (is it load-bearing?).
+Report how many distinct participants discussed a theme, how many were asked a relevant question, and how it varies by context. Mention counts are different from participant counts: forty excerpts from one talkative person do not equal forty independent accounts. Absence from an interview is not necessarily absence from the person’s experience.
 
-**Listen in the silence** and code it in pass 1: a pause before "yes, I trust it" (trust is social, not actual); a topic-pivot on errors (they got burned — make it safe); deflection to "the team uses it differently" (telling you what you want to hear — return to their workflow); a nervous laugh about audit-defensibility (real concern, not a joke).
+Consider recurrence, consequence, specificity, intensity, and relevance to the decision. A rare but consequential account can justify follow-up. Emotion can indicate importance to that participant; it does not establish prevalence or objective severity.
 
-## THE EVAL BRIDGE — codes become failure-mode tests
+Eight to fifteen themes may be a workable output for a particular study. It is not a quality requirement: a narrow study may need fewer, and a complex one more. Do not force unlike cases together to hit a target. A sample from one persona can answer a focused question; qualify its breadth and compare other groups when the decision requires it.
 
-The integration most PMs miss: the axial codes from synthesis become eval failure-mode candidates when the AI ships. Same machinery, different input.
+## Pass 3: Identify the decision-relevant themes
 
-| Axial code from interviews | Eval failure-mode candidate |
-|---|---|
-| Distrust of system prioritization | "Prioritization order matches expert ranking ≥X% of the time" |
-| Anxiety about audit-defensibility | "Every recommendation has a timestamped, exportable audit log" |
-| Confident-wrong fear | "When the system says 'high confidence,' actual accuracy ≥95%" (calibration) |
-| Cognitive load during morning review | "Top-5 alerts include ≥90% of true high-priority issues" |
-| Skill-atrophy concern | "User can disable AI suggestions and the feature still functions" (graceful degradation) |
+Choose the themes that most affect the product or research decision. This skill calls that prioritization pass **selective coding**, or the synthesis’s **spine**. It is a practical adaptation, not a claim to have completed a full grounded-theory study.
 
-**The chain:** open codes → axial codes → selective codes → user-need hypotheses → design implications → required system behaviors → **eval test candidates → `eval-framework`.** When the eval team asks "where did this failure mode come from?", the answer is "axial code 4 from the synthesis dated [X]" — the audit trail that makes evals defensible to leadership, grounded in real user expectation rather than internal speculation.
+Ask: if this theme were absent or explained differently, would the recommendation change? Explain why each selected theme matters and what uncertainty remains. Three to five often makes a readable narrative; use the number the evidence and decision require. Preserve supporting and unresolved themes in the evidence record.
 
-## WORKED EXAMPLE — 8 plant-operator interviews on a predictive-maintenance UI
+For each selected theme, state:
 
-6 operators across 3 plants + 2 reliability engineers, 30–45 min each, audio-transcribed. **Pass 1:** ~1,247 open codes ("morning review takes 20–40 min," "dashboard order seems random," "I keep a personal Excel," "real failure last quarter wasn't at the top"). **Pass 2:** 11 axial codes (distrust of prioritization — 47 codes / 7 interviews; workarounds — 38 / 8; audit-defensibility anxiety — 29 / 6; morning cognitive load — 52 / 8; false-alarm fatigue — 44 / 8; …). **Pass 3 — three selective codes:** (1) *operators re-prioritize from their own mental model, ignoring the system's ranking* — the binding constraint (until the ranking matches their mental model, accuracy doesn't matter); (2) *audit-defensibility is the unspoken use case* — the paper logs and notebooks are invisible to product; (3) *attention concentrates in the morning but failures don't* — the system optimizes the wrong window.
+1. **Finding:** what the material supports, with source references and scope.
+2. **Interpretation:** the proposed explanation and credible alternatives.
+3. **Implication:** the user need, opportunity, or risk to investigate.
+4. **Next test:** what would help choose among explanations or assess a candidate change.
 
-From those: a **persona signal** ("the mental-model-first operator," in 5 of 8 — acts only when system and mental ranking align); **opportunity hypotheses** ("if the system explained *why* it ranked an alert high, adoption rises" — codes 1,5; 7 of 8); **eval candidates** ("top-5 ranked alerts include ≥90% of operator-confirmed high-priority issues" — from selective code 1; "exportable audit log per recommendation with operator disposition" — from selective code 2); and **design moves** (a "why this rank?" tooltip; structured disposition logging that doubles as audit trail and training data; severity differentiated by attention window). Every finding is evidence-grounded, hypothesis-shaped, and flows downstream — that's what synthesis output should look like.
+Look deliberately for findings that challenge the team’s assumptions. Record whether you found any; agreement is a possible result. Do not manufacture a contradiction, surprise, persona, or design recommendation to make the synthesis appear rigorous.
 
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+## AI-product questions: examine actual use
 
-The signature is a two-hop: codes made here become eval failure-modes when the AI ships. Trace the whole path, upstream and down.
+People vary in their understanding of AI and the task. Do not assume they expect magic, understate harm, or lack insight. Translate broad requests into concrete episodes and compare stated expectations with available behavioral evidence.
 
-**Feeds this skill (where the transcripts come from):**
-- **`rtp-uncertainty-research`** *(import)* — describes *how* to collect interviews (sampling, study design); this describes how to *synthesize* them.
-- **`rtp-jtbd-analysis`** *(import)* — switch interviews get coded here, then mapped to the four forces there; synthesis is one of JTBD's input methods.
-- **`rtp-feedback-triage`** — when triage flags a theme that "needs depth," a sample of the users who reported it becomes an interview set to synthesize. Triage tells you *which* theme is worth the transcripts; this is where the transcripts turn into codes.
+- **Workflow:** “Walk me through the last time you did this. Where did AI help, and what happened before and after?” Include alternatives and occasions when AI was not used.
+- **Failure cost:** ask what happened in a specific error, how it was detected, who corrected it, and the downstream consequence. A missing review step is a question to investigate, not proof of carelessness.
+- **Reliance:** ask what people checked, accepted, rejected, or delegated and why. Trust as a feeling is useful testimony, but it is different from calibrated reliance and actual accuracy.
 
-**Where the codes travel next (the signature bridge):**
-- **`rtp-eval-framework`** *(import, the signature bridge)* — selective codes become eval test candidates; this synthesizes *human conversations*, eval-framework synthesizes *AI traces* — same coding machinery, different input. The codes are the connection between discovery and evaluation, and the audit trail runs from a dated interview to a specific eval.
-- **`rtp-failure-modes`** — the anxiety codes name what scares users most; design and eval for exactly those. An anxiety code is a failure-mode the design must defend against, not just a quote.
+Five prompts for deeper follow-up, when relevant:
 
-## RED TEAM — when this produces noise
+1. “Tell me about a time the AI was wrong. What did you do next?”
+2. “What would make you stop using it, or use it only for certain tasks?”
+3. “If someone asked how you decided to rely on that recommendation, what would you show or explain?”
+4. “Has using it changed what you practise or learn, positively or negatively?”
+5. “If it were unavailable tomorrow, what would change?”
 
-- **Under 3 interviews** — anything that looks like a pattern is anecdote dressed up; run more, or use a diary study / behavioral analytics.
-- **Sales calls in disguise** — if the interviewer is the salesperson or the user has a commercial stake, the codes are polite and useless; re-interview with someone unaffiliated, or discard.
-- **All one persona** — deep but narrow; run separate synthesis cycles per persona, don't mush them.
-- **Confirming a pre-decided direction** — "research to support the launch" bends coding toward confirmation; have someone who didn't make the decision code it, or admit it's rationalization, not discovery.
-- **Summary (non-verbatim) transcripts** — already filtered through someone's interpretation; the codes describe the summarizer's mind, not the user's. Use verbatim.
+These are optional probes, not a mandatory interrogation. An inability to answer the third does not prove the person merely tolerates the system. A skill-loss concern is evidence of a concern; a claim of atrophy needs evidence about capability over time. Make it easy to discuss errors without implying the expected answer, and respect a participant’s choice not to elaborate.
 
-## WHEN WRONG
+## Build the bridge to evaluation
 
-- **The PM codes alone** — single-coder synthesis has known reliability problems; for roadmap-shaping work, have a second person independently code ~30% and compare (disagreement is informative; never disagreeing means one coder dominates).
-- **Codes too abstract from the start** — "user experiences friction" is interpretation, not an open code; stay literal in pass 1.
-- **Selective codes that don't change the design** — if it ends at "users want a better product," push past the obvious.
+Translate a theme into a hypothesis about needed behavior before designing a test:
 
-## QUALITY GATE
+```text
+Source passage → descriptive code → theme → decision-relevant finding
+→ need or risk hypothesis → candidate design/system behavior
+→ evaluation question, comparison, and evidence → eval-framework
+```
 
-- [ ] Every transcript read and coded (not skimmed)
-- [ ] Open codes descriptive, not interpretive
-- [ ] Axial codes number 8–15
-- [ ] 3–5 selective codes named and rationalized
-- [ ] Frequency counts present (how many interviews surface each theme)
-- [ ] Quotes verbatim, not paraphrased
-- [ ] At least one finding contradicts the team's prior beliefs (else it's confirmation)
-- [ ] Flows downstream — opportunity hypotheses explicit, eval candidates listed
+Keep the source IDs, dates, and assumptions with the candidate. Validate the required behavior with domain knowledge and relevant constraints. Some questions need usability research or a longitudinal study rather than a model-output test.
 
-## TRADE-OFF LEDGER
+| Interview theme | Useful evaluation direction | Limit to preserve |
+|---|---|---|
+| Distrust of prioritization | Compare rankings with suitable expert judgments and actual task outcomes; examine disagreements | Expert order is not automatically ground truth, and greater agreement is not always better |
+| Concern about audit defensibility | Test whether authorized users can reconstruct the recommendation, evidence, timing, and disposition | A timestamped export alone does not establish adequacy, truth, or compliance |
+| Fear of confident errors | Measure reliability within defined confidence groups and the consequence of errors | A proposed 95% target is illustrative; calibration and acceptable risk require task-specific definitions |
+| Overload during morning review | Test whether a usable alert set helps people find and act on important issues without excessive burden | “Top five include 90%” may be impossible if more than five important issues exist; define relevance and denominator |
+| Concern about losing skill | Test independent performance, practice opportunities, and transfer over a suitable period | An AI-off control establishes an option, not proof that skill is retained |
 
-By coding every observation instead of skimming for quotes, you bet that patterns hidden in the data are worth more than the fast three-bullet summary — and that the audit trail (codes → evals) is worth the hours. You give up speed (line-by-line coding of 8 transcripts is real work). **Reversible?** Yes — it's analysis, not a build. **The hidden trade:** the failure mode is *confirmation dressed as rigor* — a PM who already decided will code toward the decision, so the "one finding that contradicts our prior" gate and the second-coder check are load-bearing. **Confidence: High** — the discovery→eval bridge is unique to this skill and is what makes evals defensible. What would change it: too few interviews (under 3) for any pattern to be real.
+Treat explanation features as hypotheses. They may help understanding, persuade users to accept errors, or have little effect. Measure decision quality and appropriate reliance as well as uptake. Likewise, an anxiety code identifies a concern to investigate; do not restrict failure analysis to problems participants anticipate.
 
-## CONCLUSION
+## Worked example: eight predictive-maintenance interviews
 
-Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5). A complete synthesis ends with one paragraph: *"The pattern that surprised us is [selective code]. The most consequential for design is [selective code]. The next research move is [step]. The eval implications for the AI feature are [list]. We're refining our persona to add [signal]."* If you can write that confidently, it's done; if not, go back to selective coding — that's where the work usually skipped.
+Imagine six operators from three plants and two reliability engineers interviewed for 30–45 minutes each. This is an illustration, not a documented research result.
 
-## VISUAL SUMMARY
+Descriptive observations include spending 20–40 minutes on morning review, keeping a personal spreadsheet, questioning alert order, and recalling an important failure missing from the top of the list. The prior example’s 1,247 open-code applications and eleven themes show possible analysis volume; neither is a productivity or quality target.
 
-After the primary output, invoke the **excalidraw-svg** skill for one visual: the coding funnel — hundreds of open codes narrowing to 8–15 axial codes narrowing to 3–5 selective codes — with an arrow continuing from the selective codes into an "eval test candidates" box, so a viewer sees both the synthesis narrowing *and* the bridge from interviews to evals. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Suppose themes include prioritization concerns in seven interviews, workarounds in eight, audit-related concerns in six, and morning overload and false-alarm fatigue in eight. Keep the original example’s code-application counts—47, 38, 29, 52, and 44 respectively—distinct from those participant counts. Check which questions were asked and how the accounts differ.
+
+Three provisional findings might guide the next decision:
+
+- Some operators re-rank alerts using their own model of the plant. Investigate whether the system lacks relevant context, the operators are mistaken, or the ranking is hard to interpret. Do not sacrifice accuracy simply to match a familiar mental model.
+- Records of why an action was taken may serve an audit or coordination need beyond the visible prediction task. Confirm that need with concrete examples and the people who use those records.
+- Attention is concentrated in the morning, while failures can develop throughout the day. Test the handoff and alerting workflow across time windows.
+
+A provisional persona signal could describe operators who act only when system and personal rankings align; five of eight in this hypothetical sample would not establish a market segment’s size. A “why this rank?” explanation, disposition logging, and attention-aware alerts are candidate changes. Evaluate them against outcomes and alternatives. Logged dispositions require validation and appropriate reuse rights before becoming training labels.
+
+## Review and deliver
+
+For consequential work, have someone challenge the interpretation or review a suitable sample when available and authorized. Independent coding of a subset can help a shared-codebook project expose ambiguous definitions; 30% is an example, not a universal requirement. In other qualitative approaches, reflexive discussion serves a different purpose. Agreement does not prove correctness, and disagreement does not prove incompetence. A second pass by the same agent is not an independent second coder.
+
+If a reviewer is unavailable, document that limitation and strengthen traceability, alternative explanations, and source checks. Do not halt a useful synthesis or create parallel agents against the user’s preferred workflow.
+
+Deliver the decision-relevant findings first, then their evidence, implications, evaluation candidates, and next research step. Include the sample and material limitations, unresolved contradictions, and what the study did not establish. Use a synthesis document, evidence table, tagged transcripts, or concise inline response as appropriate. A coding-to-evaluation diagram can help explain a substantial handoff; its numbers should reflect this study.
+
+Check that all included material has been reviewed, meaningful observations are traceable, interpretations are labeled, counts use correct units, and quoted text is exact. Confirm that selected themes earn their relevance and that no arbitrary theme count or surprise requirement shaped the conclusions.
+
+`rtp-uncertainty-research` owns sampling and collection design. `rtp-jtbd-analysis` maps switching accounts to the four forces. `rtp-feedback-triage` identifies themes needing depth. `rtp-eval-framework` turns appropriate candidates into tests, and `rtp-failure-modes` examines consequences and responses. Preserve the chain between these skills without assuming customer interviews and production traces require identical methods.

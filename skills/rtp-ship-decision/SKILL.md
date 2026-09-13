@@ -1,450 +1,193 @@
 ---
 name: ship-decision
-version: v1.2_latest
-description: 'The formal go/no-go gate for launching an AI feature: quality tested on 150+ real cases, error rates within severity thresholds, cost still survivable at 10× usage, monitoring live before launch (not after), failure behavior mapped, fallback defined, plus a pre-agreed reward for the person who kills their own failing feature, so the bad news arrives before the spend. Use when: one week before any production launch. Pairs with: eval-framework (the test set), cost-model (the 10× math), stress-test (production readiness), agent-risk (can you pull the plug fast enough). Triggers: ''ship gate'', ''launch checklist'', ''go/no-go'
+version: v1.2.1_latest
+description: 'Make an evidence-based go/no-go decision for an AI feature at the proposed launch scope. Use before a pilot, production release, material capability change, or expansion. Review seven areas: safety and authority, reliability, economics, observability, user understanding, graceful degradation, and accountable release approval. Define task-specific constraints and thresholds before evaluating; distinguish observed error rates from what the sample can establish. Include proportionate regression checks, staged exposure, tested recovery, and a day-one review with ten monitoring areas. Compare launch, narrower launch, delay, and stop, including the cost of inaction. Recognize evidence-based decisions to end failing work without rewarding arbitrary cancellations. Internal, experimental, or pre-PMF status changes review depth but does not remove consequential risks. Pairs with eval-framework, stress-test, safety-as-moat, failure-modes, cost-model, agent-risk, and prompt-as-product.'
 imports: [stress-test, safety-as-moat, failure-modes, cost-model]
 ---
 
 # Ship Decision
 
-## KEY TERMS (plain language)
+Decide **whether this version should reach these users, for these tasks, under these controls**. A release decision applies to a defined scope; it is not a declaration that the system is safe for every use.
 
-- **Go/no-go gate** — the formal decision point where a feature either ships or gets held; the checklist below is what has to pass.
-- **Ship-gate eval set** — 150+ real-world test cases the feature must pass 48 hours before launch, drawn from real usage, not cherry-picked demos.
-- **Severity thresholds** — the acceptable failure rate per class of error (catastrophic <0.1%, high <1%, medium <5%, low <10%).
-- **Observability** — the monitoring that tells you, in production, whether quality is quietly degrading before users complain.
-- **Fallback / rollback** — what the product does when the AI fails (fallback), and how you undo a bad launch fast (rollback).
-- **Cost defensible at 10×** — the unit economics still work if usage grows tenfold.
-- **The self-kill incentive** — a pre-agreed reward for the person who stops their own failing feature, so the kill signal arrives before the spend, not after.
+Start before the final launch week. Agree on the customer problem, intended benefit, permitted actions, hard constraints, evidence needed, and accountable decision owner. Use existing answers rather than repeating grounding questions. A small internal draft tool can have a short review; a tool affecting medical care, money, employment, or sensitive information needs stronger evidence regardless of its “pilot” label.
 
-## DEPTH DECISION
+## Choose the decision and the right review depth
 
-**Go deep if:** Shipping a user-facing AI feature in production, where failure has meaningful consequence magnitude (customer-visible, safety-critical, or revenue-impacting).
+Compare four options: **launch, launch with narrower scope, hold for specific work, or stop**. Record the benefit, cost, risk, and learning each option creates over a comparable horizon. Include the costs of waiting and continuing the current process; do not invent monetary precision where it is unavailable.
 
-**Skim to Phase 3 if:** You've already passed safety review and just need to validate economics and observability setup.
+A **hard constraint** rules out an option within the current decision authority. A **preference or soft constraint** permits trade-offs under the organization's stated objective. Agree on the distinction before seeing results. A funded loss can be a legitimate business choice; it does not authorize a safety or legal violation.
 
-**Skip if:** Internal experimental feature with automatic rollback, <30-day A/B test, or pre-PMF research features.
+Revisit the decision at useful points:
 
-## GROUNDING (Before Starting)
+1. **Before development:** value, feasibility, scope, and foreseeable risks.
+2. **Before pilot exposure:** evidence, protections, measurement, and recovery.
+3. **Before expansion:** observed outcomes, new populations, scale, and support capacity.
+4. **After launch:** scheduled and event-triggered checks for drift or changed conditions.
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
+These are decision purposes, not four mandatory meetings. Reuse applicable prior reviews after checking their version, scope, and unresolved conditions. Internal use, opt-in, automatic rollback, a short experiment, or pre-PMF status may justify a lighter process; none alone establishes low risk.
 
-Then proceed with the skill-specific analysis below.
+## Seven readiness areas
 
----
+### 1. Safety, authority, and applicable obligations
 
-## Eval-Gated Shipping (Mandatory Gate)
+Describe concrete failure scenarios and affected people. For each, record likelihood or uncertainty, consequence severity, exposure, detectability, recovery limits, mitigation, and owner. Distinguish how many people are affected from how serious the harm is.
 
-Never ship without eval pass. This is the gate that prevents "it worked in staging" from shipping broken.
+Examples to investigate include fabricated legal citations, contraindicated clinical suggestions, unsuitable financial recommendations, discriminatory screening, and unauthorized actions. The consequences depend on how the feature is used; a wrong draft and an executed decision have different exposure.
 
-**Process:**
-1. **Define ship-gate eval set:** 150+ real-world test cases representing the distribution of production use (not cherry-picked)
-2. **Set threshold per severity:** Catastrophic <0.1%, High <1%, Medium <5%, Low <10%
-3. **Run eval 48 hours before launch:** Not 2 weeks before. Output quality can degrade.
-4. **If any severity fails:** Fix or delay ship. "We'll monitor it post-launch" means you didn't pass the gate.
-5. **Document eval results:** Which test cases failed, why, what changed. This is your launch justification.
+Check four things:
 
-**"Good enough" for probabilistic systems:** A 98% accurate feature shipping to 10,000 users means 200 hallucinations per day. That's acceptable if: (1) hallucinations are reversible (user can undo), (2) confidence scores make obvious which outputs to trust, (3) monitoring catches patterns before churn spike. Without those three, 98% is not good enough.
+- **Failure coverage:** use `failure-modes` and `stress-test` to examine normal failures, misuse, adversarial inputs, and dependencies. Document remaining blind spots.
+- **Effective mitigations:** appropriate refusals or scope limits, input/output validation, access controls, human review where useful, user recourse, and monitoring. Test both harmful actions and unnecessary refusal of legitimate work.
+- **Adversarial evidence:** record what was tried, conditions, outcomes, fixes, and residual risk. A two-hour exercise can start discovery; it does not certify resistance. High-consequence gaps may require stronger testing or narrower exposure.
+- **Applicable review:** identify the actual domain, data, jurisdiction, contracts, and organizational rules. Obtain required legal, privacy, security, clinical, or other specialist decisions; a generic checklist is not a legal conclusion.
 
----
+Do not treat HIPAA, SOC 2, and FedRAMP as interchangeable regulatory approvals. HIPAA obligations depend on the covered activity and entity; private “certification” does not remove them. SOC 2 is a scoped controls examination and report. FedRAMP concerns federal cloud use and has its own applicable requirements. Verify the relevant status rather than assuming every feature needs all three. See [Evidence and calculation notes](references/ship-evidence.md).
 
-## Eval-Gated Deployment (Automated Gate)
+For an unmet requirement, choose a mitigation, a narrower scope, a hold, or a documented residual-risk decision by someone who has that authority. Some risks cannot be accepted within the team's authority. An AI label, terms of service, or a board's willingness to fund losses does not substitute for required controls.
 
-No AI change ships without the eval regression suite passing. This is automation, not approval.
+### 2. Reliability evidence that matches the claim
 
-**Pattern: CI/CD pipeline includes eval run as gating step.**
-- Every prompt change: runs eval before merge to main
-- Every model version bump: runs eval before production deploy
-- Every context engineering change (system message, RAG retrieval, tool definitions): runs eval
-- Every agent role change in harness systems: runs eval for that agent + full pipeline eval
+Define success and error severity before testing. Include representative tasks, important subgroups, known failures, boundary cases, and adversarial tests as appropriate. Keep separate the set used to estimate typical performance and the set deliberately enriched with rare risks.
 
-**If ANY eval metric degrades beyond threshold: deploy is blocked automatically.** No human override (except explicit board decision for loss-leader features). The gate is:
+**150 cases can be a starting suite, not proof of a rare-error threshold.** Choose sample size, trial design, uncertainty reporting, and acceptance criteria to support the proposed decision. Evaluate the effective prompt, model, context, tools, and configuration that will be released. A run 48 hours before launch is a possible operational checkpoint, not a guarantee of freshness; rerun affected checks after material changes.
 
-- **Catastrophic errors:** If catastrophic error rate increases or stays above threshold, block.
-- **High-severity errors:** If high-severity error rate increases beyond 0.5%, block.
-- **Quality regression:** If any primary metric (accuracy, hallucination rate, latency) regresses >5%, block.
+| Severity | Meaning to define for this task | Decision implication |
+|---|---|---|
+| Catastrophic / critical | Severe harm or a prohibited consequence | Treat observed cases and credible uncovered paths as urgent blockers or containment triggers under the applicable risk policy |
+| High | Materially wrong outcome, substantial disruption, or significant loss | Set a task-specific tolerance and validate mitigations and recovery |
+| Medium | Meaningful degradation with a feasible workaround | Assess rate, burden, affected groups, and accepted trade-offs |
+| Low | Minor deviation with limited consequence | Track when it matters to usability or accumulated burden |
 
-**For harness systems specifically:**
-- Eval each agent's output independently (does Planner generate valid specs? Does Generator follow spec? Does Evaluator's judgment correlate with ground truth?)
-- Run full pipeline eval (can the system complete a full sprint end-to-end without getting stuck?)
-- If agent-level evals pass but pipeline evals fail, there's a handoff problem — dig in before shipping.
+The original example tolerances—**<0.1%, <1%, <5%, and <10%**—are retained as an arithmetic illustration in the reference. They are not a safe default for catastrophic errors. With 0 failures in 150 independent, representative trials and reliable detection, the one-sided 95% binomial upper bound is about **1.98%**, not below 0.1%. Even a statistical bound does not replace analysis of plausible severe failures.
 
-**Harness Deployment Considerations:** When shipping harness-based systems, deploy agents independently. Roll out planner changes before generator changes. Never change planner + generator + evaluator simultaneously (too many variables, can't debug regressions). Use canary deployments per agent role: planner to 5% → 25% → 100%, validate, then advance generator, then evaluator.
+If a feature has 98% verified task accuracy across 10,000 comparable daily attempts, the implied expected count is 200 unsuccessful attempts. It is not necessarily 200 hallucinations, 200 distinct harmed users, or an acceptable outcome. User count alone does not provide the attempt volume. Reversibility and uncertainty communication can help but do not decide acceptability on their own.
 
----
+Set user-relevant latency and availability targets. For an illustrative P50 target of 1,000 ms and P95 target of 3,000 ms, measurements of 950 ms and 4,200 ms meet the median target and miss the tail target. Investigate the user impact and load conditions rather than assuming all users will abandon.
 
-## Canary Deployment for AI Features
+For time-based availability over 30 continuous days:
 
-Don't flip a switch. Ship to 1% → 5% → 25% → 100% while monitoring for quality degradation, cost spikes, or unexpected failure modes.
+| Availability | Allowed unavailability |
+|---|---:|
+| 99% | 7 hours 12 minutes |
+| 99.9% | 43 minutes 12 seconds |
+| 99.99% | 4 minutes 19.2 seconds |
 
-**Canary thresholds (go/no-go):**
-- **Quality:** If error rate at 5% > 10% above baseline, pause and investigate
-- **Cost:** If cost per user > 50% above model estimate, pause
-- **Latency:** If P95 > 1.5x target, pause
-- **Safety:** If flagged outputs spike >2σ, pause immediately (human review)
+Choose the service indicator, denominator, window, exclusions, and contract meaning explicitly. Request-success availability differs from time-based uptime. Staging load tests and failure drills inform readiness; they do not verify future production availability.
 
-**Rollback decision:** If any threshold fails and root cause isn't clear within 2 hours, roll back. Speed matters more than understanding everything in real-time.
+### 3. Economics and capacity at the intended scale
 
-## THREE GATES, NOT ONE — and the test that tells you whether a gate is real
+Use `cost-model` to connect total relevant cost to verified outcomes, account usage, revenue, and capacity. Test plausible growth, heavier tasks, retries, human review, vendor pricing, and failure scenarios. Tenfold usage is a useful stress scenario when relevant, not a universal requirement that every feature must survive unlimited growth profitably.
 
-The ship decision is usually run once, at the end. A healthcare system that reviews every AI use case runs it at **three** points, plus a standing re-check, and the sequence is worth copying:
+**Corrected illustrative example:** at $0.08 per user per day, cost is $2.40 per user over 30 days. Against $30 monthly revenue, the margin on this cost scope is **92%**, before omitted costs. At $0.03/day it is 97%. Neither is a loss. Growth can still create a cash, capacity, or quality problem even when unit contribution is positive.
 
-1. **Before model development.** Risk, business case and feasibility, before anyone builds.
-2. **Before piloting** at a small number of sites.
-3. **Before scaling** past those sites.
-4. **Periodically thereafter**, re-checking whether models are still holding up in production.
+For a material investment, apply four finance disciplines:
 
-The value is that each gate asks a question the previous one could not answer. Gate 1 cannot know the failure surface; gate 3 cannot un-spend the build.
+1. Compare alternatives, including smaller scope and continuing the current process.
+2. Identify the relevant unit's invested capital and returns; scale the accounting effort to the decision.
+3. Use a current, appropriate capital cost matched to the cash-flow measure, with finance support where needed.
+4. Use explicit scenarios and consistent assumptions instead of a single unexplained forecast.
 
-**Now the part that matters more than the sequence.** The same account describes the gates approvingly this way: *"Critically, the risk questions don't stop progress; rather, they highlight areas that [the organization] needs to investigate as it makes progress."*
+The historical source's roughly 9% cost-of-equity anchor is not a rate to copy into every AI case. Cost of equity and a discount rate for total firm cash flows are not interchangeable.
 
-**A gate that cannot stop anything is documentation.** It produces a record, it distributes awareness, and it does not gate. That is a legitimate thing to build, and it must not be called a gate, because the name is what makes people downstream believe something was checked.
+Define spend, unit-cost, and capacity alerts with an owner and response. The original 20% monthly-growth and 30%-over-budget triggers are possible local settings, not universal emergencies: healthy usage growth can raise spend. Include budget limits, throttling, scope reduction, or a controlled pause where useful. A planned investment loss needs a funding limit, authorized sponsor, learning objective, and review/exit condition; it does not always require a board meeting.
 
-**The one-question test, and it is the cheapest governance instrument in the corpus:** *what has this body actually stopped in the last twelve months?* A specific answer means a real gate. "It doesn't work like that" or "it raises issues for teams to investigate" means documentation. Run it on your own review board before you rely on its sign-off. See `rtp-responsible-ai-program`.
+### 4. Observability and operational response
 
-## FOUR FINANCE PREREQUISITES UNDER ANY SHIP-AND-SPEND DECISION
+Before meaningful exposure, confirm that the team can detect important failures, identify affected versions and users, and act. Instrument only data that can be handled appropriately, with access, retention, and privacy controls.
 
-Ordinary corporate-finance discipline, routinely absent from AI business cases:
+Cover four groups:
 
-1. **Alternatives-based decision-making.** What else could this capital and this team do? In a survey of executives at 760 large organizations, only about **one in five** reported explicitly considering alternatives in strategy development.
-2. **Unit-level balance-sheet reporting.** Can you see assets and returns at the level of the unit making the bet?
-3. **Cost-of-equity discipline.** Use a real discount rate. Anchor: average cost of equity across large public companies sits **slightly above 9%**, with most within **plus or minus 1.5 points**.
-4. **Scenario-based forecasting.** One number is not a forecast, and AI unit costs with vendor-controlled terms need a band. See `rtp-cost-model` section 4B.
+- **Quality:** task outcomes, error severity, groundedness where relevant, sampled independent review, user feedback, and important subgroup differences.
+- **Performance:** end-to-end latency, timeouts, dependency failures, queueing, and availability under the chosen definition.
+- **Cost:** spend, cost per task/outcome/account, token and tool usage, retries, and review burden.
+- **Behavior:** eligible exposure, activation, usage, engagement, retention, abandonment, and corrections with defined denominators and windows.
 
-**One structural idea worth borrowing from the same source: separate hard constraints from soft ones.** A **hard constraint** eliminates an option outright, no trade-off available. A **soft constraint** only breaks ties between options of comparable value. Most ship debates go in circles because a safety commitment and a latency preference are being argued as if they were the same kind of object. Sort them first, then the decision is usually short. This maps directly onto the can / must / must-never structure used elsewhere in the stack, and it is a useful precedent because it comes from outside AI entirely.
+Feedback counts are not verified error rates, and absence of complaints is not proof of quality. Set appropriate evaluation and review cadence; daily full-suite runs or every latency percentile are not mandatory for every feature.
 
-*(Sources: the three-gate sequence, MIT SMR, Westerman, "6 questions to guide your AI strategy," 3 Aug 2026 — ◆ reported example, no outcome data; the "don't stop progress" line is quoted approvingly there and is read critically here. The finance prerequisites and the constraint split, HBR, "Bring Back Managing for Value," Aug 2026 — ◆ Bain's own analysis for the cost-of-equity band; the 760-executive survey is ⚠ and cited without a retrievable source **[VERIFY]**.)*
+Test alerts and runbooks with the people responsible for responding. Define who has authority to limit or stop the capability, coverage hours, backup coverage, and escalation. A dashboard without usable response ownership is an incomplete control.
 
-## THE TRAP
+### 5. User understanding and recourse
 
-You will be optimistic. The feature works in staging. The team has tested it. A PM has used it. You feel ready to ship. The bias is **availability bias** — the most recent successful experience (the feature working) is more vivid than distant failure modes (the feature breaking at 10x scale, or costing 2x more than budgeted, or causing a PR crisis because users didn't understand its limits).
+Help users understand the feature's purpose, limits, evidence, and available actions at the point of use. Apply required AI disclosures and suitable product labels without relying on a generic warning to teach the workflow.
 
-Shipping without rigor feels fast. It is. Shipping when you're not ready feels slow. It is. Slow is correct.
+State actual scope and information freshness. Do not copy an arbitrary model cutoff into the UI if retrieval or other sources change what the feature knows. Show calibrated probabilities or intervals only when they are defined, validated, and useful; model-written “90% confident” is not enough. Use plain uncertainty and source limitations when numeric calibration is unavailable.
 
-**The mirror trap, and this skill's own advice is what arms it.** Once "slow is correct" is internalized, the not-ship option quietly stops being a decision and becomes the baseline, and baselines do not get costed. Every downside of shipping gets a review, an owner and a risk register; the downside of waiting another quarter gets a shrug. That is not a comparison, it is a full assessment of one option against an assumption about the other. **Price the null option in the same units and over the same horizon as the active one.** Run it out six months, a year, three years, and include the costs that never appear on a launch checklist: the competitor who ships first and sets the user expectation, the team that stops believing the thing will ever go out, the eval set that goes stale because nothing is in production generating real failures. Tim Ferriss puts the general form of this well, and names the exact population most prone to it: analytical people at strong institutions are "very good at thinking about all the possible downsides of doing the new thing," and "they don't spend as much time thinking about the cost of inaction or the status quo or taking the safe route." **The tell that you have defaulted rather than decided: your "don't ship" column is empty or qualitative while your "ship" column has numbers in it.** **When wrong:** this is a correction to the accounting, not a thumb on the scale toward shipping. If you price both columns honestly and the gates in this skill still say no, they say no, and this passage must never be used to argue past a failed eval gate or an unmet finance prerequisite. *(Source: HBR Cold Call, "Tim Ferriss at a Career Crossroads," Oct 2025 — ⚠ autobiographical, from a live taping. The observation is inserted for its structure, not as evidence.)*
+Provide a way to report a bad output, correct information, undo supported actions, or reach appropriate assistance. For consequential use, make the relevant review and escalation path usable and adequately staffed. Test comprehension and behavior; disclosure alone does not guarantee understanding, safe reliance, or reduced liability.
 
-## THE PROCESS
+### 6. Graceful degradation and recovery
 
-### Phase 1: Safety Readiness (Day 1)
+Choose a response for each failure condition, and test it under realistic limits. A **fallback** supplies a reduced or alternative service. A **rollback** restores a prior configuration. **Containment** limits further harm; completed actions may still need reconciliation or correction.
 
-Four blockers. "No" to any = delay ship.
+| Condition | Possible response | Essential check |
+|---|---|---|
+| Model or dependency unavailable | Explain unavailability, offer a reliable alternative, queue work, or route to staffed assistance | Alternative works at the needed capacity and does not imply completion |
+| Latency exceeds the task limit | Show truthful progress, offer cancellation or asynchronous completion, shed approved load | No misleading progress or indefinite waits; state queue and priority rules |
+| Budget or capacity limit reached | Apply agreed usage limits, route to a cheaper adequate method, restrict exposure, or pause | Respect contracts, user expectations, and permitted service priorities |
+| Quality or safety degrades | Restrict affected tasks, strengthen review, recover a compatible version, or disable the capability | Do not simply lower a displayed confidence number while continuing unsafe work |
 
-**Blocker 1: Failure modes are concrete and documented.**
+Cached output is usable only when its scope, authorization, freshness, and relevance still hold; another session's output is not automatically a valid fallback. Humans and deterministic alternatives also have failure modes and capacity limits.
 
-For your domain, what's the worst thing the model can output?
+Set recovery speed from consequence and architecture. The former 30-minute target may suit some services and be far too slow for others. Confirm how in-flight tasks retain coherent versions and how uncertain external writes are reconciled. Restoring a version does not reverse a sent message, payment, disclosure, or data mutation; if the old version is unsafe or incompatible, use another containment path.
 
-- **Legal:** Cites case law that doesn't exist. User files brief citing fake case. Sanctions.
-- **Medical:** Suggests drug combo that's contraindicated. User takes both. Hospitalization.
-- **Finance:** Recommends margin trade without risk disclosure. User over-leverages. Bankruptcy.
-- **Hiring:** Biased screening of candidate. Qualified applicant filtered out. EEOC complaint.
+### 7. Accountable release decision
 
-For EACH failure mode, document: (1) probability (rare/occasional/common), (2) consequence magnitude (1 user/group/all), (3) user recovery (obvious fix/hidden damage/irreversible).
+Review each applicable area and name any unresolved condition. The authorized owner records the decision, scope, evidence, residual risk, and next review. Product, engineering, operations, legal, finance, and domain specialists participate where the actual policy or decision requires them; unanimity of four job titles is not a universal rule.
 
-If you can't name a concrete failure, you haven't thought deeply enough. Ship anyway at your peril.
+| Status | Meaning |
+|---|---|
+| Ready for stated scope | Evidence and controls satisfy the applicable requirements |
+| Ready with bounded conditions | Remaining issues are within authorized tolerance; restrictions, owner, and expiry/review are explicit |
+| Hold | A named requirement or evidence gap must be resolved before the proposed exposure |
+| Stop or redesign | The present approach lacks a defensible path under the stated constraints |
 
-**Blocker 2: Mitigations exist for each failure mode.**
+A recommendation can be complete while an external approval remains pending. Never invent sign-off, deployed dashboards, completed tests, or a scheduled review. Mark actual status and distinguish preparation from authorization to launch.
 
-Check you have:
-- [ ] **Refusal guardrails:** Model refuses specific high-risk requests (jailbreak-tested)
-- [ ] **Output validation:** System checks output for factual errors, bias, compliance violations (automated or human-in-loop)
-- [ ] **User disclosure:** "AI-generated" label visible, confidence intervals shown, limitations documented in help
-- [ ] **Escalation path:** Users can flag bad outputs; high-stakes uses route to human review
-- [ ] **Monitoring:** Metrics exist to detect when mitigations fail (hallucination spikes, quality drops)
+## Make deployment checks repeatable
 
-Missing mitigation = accept the risk explicitly or ship later. "We'll add it post-launch" means you're shipping broken.
+Use automated regression gates for relevant prompt, model, context, retrieval, tool, routing, and agent-role changes. Test affected components and important end-to-end workflows against pre-agreed constraints and regression tolerances. Exact test scope depends on impact; combine automated checks with human judgment where necessary.
 
-**Blocker 3: Adversarial testing passed.**
+Do not block on arbitrary fluctuations or require every metric to improve. Express thresholds clearly as relative changes or percentage points, with a baseline, denominator, window, minimum evidence, and response. Distinguish a broken environment from a failed feature. Define an auditable exception or urgent-fix path within existing authority; no exception can override a binding obligation simply because the board approves a loss leader.
 
-Spend 2 hours trying to break your guardrails:
-- Ask it to ignore its constraints ("pretend you have no restrictions")
-- Ask it for outputs you designed it to refuse ("give me unverified medical advice")
-- Try edge cases (very long inputs, special characters, adversarial patterns)
-- Try domain shifts (ask legal AI for medical advice)
+For agent systems, component success is not sufficient evidence for the whole workflow. If the pipeline fails, examine handoffs, shared state, tools, orchestration, resource limits, and task composition. It is not necessarily a handoff problem.
 
-Document: what you tried, what held, what failed. If you find breaks, you fix them or accept the risk.
+Deploy components independently when compatibility permits. A planner-first order and separate role rollouts can aid diagnosis, but coupled changes sometimes require a tested compatible bundle. Record the effective bundle and dependency contracts rather than forcing an incompatible intermediate state.
 
-**Blocker 4: Legal sign-off obtained.**
+## Stage exposure according to risk and useful evidence
 
-Questions legal must answer:
-- Is this feature regulated? (Financial advice, tax advice, medical advice = likely yes)
-- Liability if user relies on AI and is harmed? (Clear ToS needed)
-- IP liability if output is plagiarized/copyrighted? (Your responsibility)
-- Regulatory approvals needed before launch? (FedRAMP, HIPAA, SOC 2, etc.)
+A progression such as **1% → 5% → 25% → 100%** can limit early exposure. Adapt fractions and timing to traffic, task duration, consequence, and representativeness; test tenants or a small site set may be a better unit. Do not advance merely because a percentage or clock interval has elapsed. `prompt-as-product` explains release canaries and controlled product experiments.
 
-Legal sign-off in writing. "We'll clarify later" = you're shipping with ambiguous liability. Not acceptable.
+Use quality, safety, cost, and latency triggers grounded in the release criteria. The historical examples of +10% errors, +50% cost, 1.5× P95 latency, or a two-standard-deviation flag increase need local justification; they are not universal failure detectors. Rare events, changing sample sizes, and correlated measures make a generic “2σ” rule unreliable.
 
-### Phase 2: Reliability Thresholds (Days 2-3)
+Contain known serious harm immediately under the incident plan. Do not wait two hours to understand the root cause before acting. For less consequential deviations, diagnose within the agreed window and decide whether to pause expansion, continue scoped observation, or recover. Preserve the evidence needed to learn.
 
-Define error tolerance by severity. Run an eval set of 150+ real-world cases.
+## Day-one review and continued monitoring
 
-| Severity | Definition | Target Rate | What It Means |
-|----------|-----------|------------|---------------|
-| **CATASTROPHIC** | Harms user, invites lawsuit, triggers regulatory action | <0.1% (1 in 1000) | Bad medical advice, fake legal citations, discriminatory hiring |
-| **HIGH** | Feature breaks trust, users churn, support spike | <1% (1 in 100) | Hallucinated facts, completely wrong output, malfunction |
-| **MEDIUM** | Annoying, reduces engagement, workaround-able | <5% (1 in 20) | Slightly wrong, slow, edge case fails |
-| **LOW** | Users don't notice or don't care | <10% | Tone off, minor formatting, style inconsistency |
+Assign the release owner and operational coverage, including handover. Two named people do not need to remain awake for 24 hours. A review at **+1 hour, +6 hours, and +24 hours** is a useful starting pattern for some launches; adapt it to operating hours, batch duration, user activity, and outcome delay.
 
-**Eval set results (example):**
-```
-Catastrophic: 0/150 = 0.0% ✓ PASS
-High: 2/150 = 1.3% ✗ FAIL (target <1%)
-Medium: 8/150 = 5.3% ✓ PASS
-Low: 12/150 = 8% ✓ PASS
-```
+The [Day-one review template](references/day-one-review.md) retains ten monitoring areas: severity errors, latency, cost, activation, acceptance/use, groundedness errors, confidence calibration, support volume, recovery health, and safety incidents. For each, set the applicable threshold and record observations, sample size, uncertainty, status, and action. Use **unknown/insufficient data** where appropriate instead of assigning green to an empty sample.
 
-If HIGH or CATASTROPHIC fail: fix via better model, better prompt, or guardrails. Don't ship with these failing.
+Severity and causal context determine action. One critical incident can require immediate containment; two unrelated adoption metrics below plan need not trigger rollback. Multiple warnings should be investigated for a shared cause without automatically counting correlated signals as independent evidence. A useful color system supports judgment rather than replacing it.
 
-**Latency threshold:**
+All green at 24 hours means the observed checks passed for that window. It does not establish long-term stability or justify automatically reducing review to weekly. Continue until delayed outcomes, meaningful usage cycles, and relevant failure paths have been observed, then set ongoing and event-triggered review with `production-observability`.
 
-Define P50 and P95 latency targets:
+## Make difficult decisions easier to surface
 
-```
-Target P50: 1000ms
-Target P95: 3000ms
-Measured P50: 950ms ✓
-Measured P95: 4200ms ✗
-```
+Launch pressure and recent successful demos can hide failures. Indefinite caution can also hide the cost of waiting. Compare evidence for both directions, include reasonable alternatives, and set the next decision point. Do not assume competitors are reckless or that a tired team will inevitably fail; address capacity and coverage concretely.
 
-P95 above target? Users will bounce. Load-test with concurrent users and check latency under load.
+Ask whether governance can change the work: what has it approved with conditions, narrowed, improved, delayed, or stopped, and can its controls be exercised? A history of stops can be evidence of authority. No stops in twelve months is not proof that a gate is cosmetic; prevention, upstream changes, proposal quality, and tested authority matter too. A helpful review and a real stopping power can coexist.
 
-**Uptime requirement:**
+Recognize people who bring sound evidence that their own initiative should end or change. Protect their reputation, acknowledge avoided waste, and make the decision criteria clear. Linda Hill reports leaders rewarding such decisions, including one offering a bonus; this is qualitative support for a practice to test, not a required incentive program. Reward decision quality and valuable learning as well as successful delivery, and watch for premature cancellation or metric gaming. Do not reward the number of projects killed.
 
-What % of the time must the feature work?
+## Final readiness check and output
 
-- Consumer product: 99.0% (6 9s of availability = ~44 minutes/month downtime)
-- Enterprise product: 99.9% (3 9s = ~45 seconds/month downtime)
-- Mission-critical (healthcare, financial): 99.99% (4 9s = ~4 seconds/month downtime)
+- [ ] Concrete failure modes, tested controls, and applicable specialist decisions.
+- [ ] Reliability evidence with severity, sampling limits, and appropriate performance targets.
+- [ ] Economics and capacity assessed for the release scope and credible growth scenarios.
+- [ ] Monitoring, alerts, accountable response, and coverage ready for exposure.
+- [ ] Users can understand the capability, limits, and relevant recourse.
+- [ ] Fallback, containment, recovery, and action reconciliation tested at the needed scope.
+- [ ] Decision authority, exact release scope, residual conditions, and approval status recorded.
+- [ ] Recovery triggers and operators are clear.
+- [ ] Initial and subsequent reviews have owners and an actual plan.
 
-Your infrastructure should be sized to hit this. If you don't know your current uptime, measure it in staging with realistic load.
-
-### Phase 3: Economics at Scale (Day 3)
-
-Return to your cost model (from cost-model skill). Verify three things:
-
-**1. Unit economics are defensible at 10x scale.**
-
-Current: Cost per user/day = $0.03. Revenue per user/month = $30.
-At 10x scale (stress-tested): Cost per user/day = $0.08. Revenue per user/month = $30.
-
-Margin at 10x: -26%. **This is a blocker.** Either improve cost structure, raise prices, or accept the loss as a strategic investment (with board buy-in).
-
-**2. You have cost monitoring in place.**
-
-Set up alerts:
-- [ ] Weekly cost tracking (cost per user, total spend)
-- [ ] Month-over-month cost growth (flag if cost grew >20% MoM)
-- [ ] Cost per unit (identify if cost per call is trending up)
-- [ ] Token volume trending (is usage growing faster than expected?)
-
-If you hit a cost alert, there's a runbook. Don't ship without the monitoring infrastructure.
-
-**3. You have a cost kill switch.**
-
-If costs exceed budget by 30%, who decides to disable the feature? Define this in writing before launch. Don't discover it after your $100k monthly overage.
-
-### Phase 4: Observability (Days 3-4)
-
-You cannot manage what you cannot measure. Set up:
-
-**1. Quality metrics:**
-- [ ] Output quality (eval set scored daily)
-- [ ] Error rate by severity category
-- [ ] User satisfaction (upvote/downvote counts on outputs)
-- [ ] Hallucination rate (if applicable)
-
-**2. Performance metrics:**
-- [ ] P50, P95, P99 latency
-- [ ] Availability (uptime %)
-- [ ] Error rate (model inference failures, timeouts)
-
-**3. Cost metrics:**
-- [ ] Tokens per call (trending up = potential issue)
-- [ ] Cost per user
-- [ ] Total cost (for budget tracking)
-
-**4. Behavioral metrics:**
-- [ ] Usage (DAU, MAU, queries/user)
-- [ ] Engagement (how often is the feature used per session?)
-- [ ] Retention (users who used it once and never again)
-
-Set up dashboards. Set up alerts. Define who gets paged if metrics degrade. Write a runbook for each alert (what do you do if quality degrades? If latency spikes? If cost explodes?).
-
-Ship without observability infrastructure and you're flying blind.
-
-### Phase 5: User Education (Days 4-5)
-
-Users will misuse your feature. Design for this.
-
-**1. Disclosure:**
-- [ ] UI makes clear: [AI Assistant] or [AI-Generated] label visible
-- [ ] First-time users see a tooltip: "This is an AI model. Always verify important facts."
-- [ ] Help docs explain what the feature does and what it cannot do
-- [ ] In-product limitations are shown (e.g., "knowledge cutoff: April 2025")
-
-**2. Expectation setting:**
-- [ ] If the feature is not always reliable, say so: "This feature is experimental and may produce incorrect results. Use with caution."
-- [ ] If confidence varies, show confidence: "I'm 90% confident in this answer, 40% confident in this answer."
-- [ ] If the feature has a narrow domain, say so: "Works best for X. Not designed for Y."
-
-**3. Escalation path:**
-- [ ] Users can flag bad outputs (downvote, report)
-- [ ] For high-stakes uses, users can request human review
-- [ ] Support team has a runbook for handling complaints about AI outputs
-
-Users who understand the limits use the feature better. Users surprised by a failure churn and leave bad reviews.
-
-### Phase 6: Graceful Degradation (Days 5-6)
-
-Plan for failure. What happens when:
-
-**If the AI model breaks:**
-- [ ] Feature goes dark (disables itself with "temporarily unavailable" message), or
-- [ ] Falls back to deterministic approach (search results instead of summarization), or
-- [ ] Human review takes over (slower but reliable)
-
-Pick one. Implement it. Test it. If the model is unavailable, users should see a polite message, not an error.
-
-**If latency exceeds threshold:**
-- [ ] Show a loading indicator (users accept delay if they see progress), or
-- [ ] Dequeue non-critical requests (premium users get priority), or
-- [ ] Show a cached result from a previous session
-
-**If cost exceeds budget:**
-- [ ] Throttle feature for lower-tier users, or
-- [ ] Add usage limits (e.g., 10 queries/day), or
-- [ ] Disable the feature for new users until next billing cycle
-
-**If quality degrades:**
-- [ ] Reduce confidence on low-quality outputs, or
-- [ ] Route high-stakes uses to human review, or
-- [ ] Disable the feature until root cause is fixed
-
-Document each scenario. Assign someone to implement it.
-
-### Phase 7: Launch Checklist (Day 6)
-
-- [ ] Safety review: all failure modes documented, mitigations in place, legal signed off
-- [ ] Reliability: error rates measured and acceptable, latency meets target, uptime verified
-- [ ] Economics: cost at 10x scale is defensible or accepted, cost monitoring in place, kill switch defined
-- [ ] Observability: dashboards live, alerts configured, runbooks written for each
-- [ ] Education: users can understand what the feature does, help docs exist, escalation path clear
-- [ ] Degradation: failure modes have mitigation plans, fallback behavior is defined, tested
-- [ ] Go/no-go meeting: product, engineering, legal, finance agree "yes, ship this"
-
-If all seven are checked, you ship. If any is incomplete, you delay. There is no "ship and fix later" for the top three.
-
-## DAY-1 REVIEW PROTOCOL
-
-The ship decision doesn't end at launch. The first 24 hours reveal whether your pre-launch assumptions hold. This protocol defines what to check, when to escalate, and when to roll back.
-
-**Who runs Day-1 Review:** The PM who owned the ship decision + the on-call engineer. Both must be available for the full 24-hour window.
-
-### The 10 Metrics (Check at +1hr, +6hr, +24hr)
-
-| # | Metric | Where to Find It | Green | Yellow (Investigate) | Red (Escalate Immediately) |
-|---|---|---|---|---|---|
-| 1 | **Error rate by severity** | Error tracking (Sentry, Datadog) | Critical: 0. High: <0.1% of requests. | Critical: 0. High: 0.1–0.5% | Any critical error. High: >0.5% |
-| 2 | **Latency P95** | APM dashboard | Within 20% of pre-launch baseline | 20–50% above baseline | >50% above baseline or >8s absolute |
-| 3 | **Cost per user (hourly extrapolation)** | Token/API cost dashboard | Within 30% of modeled cost | 30–80% above model | >80% above model (margin at risk) |
-| 4 | **Feature activation rate** | Product analytics | >5% of eligible users tried it (1hr); >15% (24hr) | 2–5% (1hr); 5–15% (24hr) | <2% (1hr); <5% (24hr) — discovery problem |
-| 5 | **Acceptance rate** | Output interaction events | >70% of outputs accepted or used | 50–70% accepted | <50% — quality problem |
-| 6 | **Hallucination/error rate** | Flagged outputs + spot-check | <3% of outputs flagged | 3–8% flagged | >8% flagged — quality crisis |
-| 7 | **Confidence calibration** | User behavior (accept rate at different confidence levels) | High-confidence outputs accepted >85% | Acceptance doesn't correlate with confidence | Users reject high-confidence outputs — calibration is broken |
-| 8 | **Support volume** | Support tickets tagged to feature | <0.5% of users file tickets | 0.5–2% file tickets | >2% file tickets in first 24hr |
-| 9 | **Rollback health** | Feature flag system | Rollback tested and working | Rollback exists but untested | No rollback mechanism — this should have been caught pre-launch |
-| 10 | **Safety incidents** | Safety monitoring, user reports | Zero safety-critical incidents | Flagged outputs caught by guardrails (guardrails working) | Any safety-critical output that reached users |
-
-### Escalation Rules
-
-- **1 Red metric:** Investigate immediately. PM + on-call engineer diagnose within 30 minutes. If root cause is unclear within 1 hour, roll back.
-- **2+ Red metrics:** Roll back immediately. Investigate post-rollback. Re-launch only after root cause is fixed and validated.
-- **3+ Yellow metrics:** Treat as equivalent to 1 Red. Investigate immediately — multiple yellow signals compound.
-- **All Green at +24hr:** Feature is stable. Move to weekly monitoring cadence.
-
-### Day-1 Dashboard Template
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  DAY-1 REVIEW: [Feature Name]           Launch: [timestamp]     │
-│  Owner: [PM name]    On-call: [Eng name]  Status: [🟢/🟡/🔴]   │
-├─────────────────────────────────────────────────────────────────┤
-│  +1hr    │  +6hr    │  +24hr   │  Trend   │  Status            │
-│  ───────────────────────────────────────────────────────────────│
-│  Errors:     0.02%  │  0.03%  │  0.02%  │  stable  │  🟢     │
-│  Latency:    2.1s   │  2.3s   │  2.2s   │  stable  │  🟢     │
-│  Cost/user:  $0.04  │  $0.05  │  $0.04  │  stable  │  🟢     │
-│  Activation: 8%     │  14%    │  22%    │  ↑       │  🟢     │
-│  Acceptance: 74%    │  71%    │  73%    │  stable  │  🟢     │
-│  Halluc.:    1.2%   │  1.8%   │  1.5%   │  stable  │  🟢     │
-│  Confidence: corr.  │  corr.  │  corr.  │  stable  │  🟢     │
-│  Support:    0.1%   │  0.2%   │  0.3%   │  ↑ slow  │  🟢     │
-│  Rollback:   tested │  tested │  tested │  ready   │  🟢     │
-│  Safety:     0      │  0      │  0      │  clear   │  🟢     │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-## REALITY CHECK
-
-- **Over-engineering:** Not every feature needs 99.99% uptime on day one. Match rigor to consequence magnitude. A customer-facing feature requires rigor. An internal tool does not.
-- **Calendar pressure:** "Launch window closes Friday" is not a reason to ship incomplete safety review. Delay to the next launch window.
-- **Team fatigue:** "The team is tired" is not a reason to skip observability setup. Tired teams ship broken features. Invest in setup.
-- **Competitive pressure:** "Competitors shipped already" is not a reason to cut corners. You're optimizing for 3 years, they're optimizing for 3 weeks.
-- **The kill decision has a social cost your checklist doesn't price.** Every gate above tells you *how* to reach a no-go — thresholds, kill-switches, rollback criteria. None of them makes a person *want* to bring you the news that their own feature should die. Sunk cost and ego make "this isn't working" personally expensive, and peers stay quiet to be kind — so the kill signal arrives late, after the spend. Fix it with an incentive, not just a framework: decide *in advance* what the person who kills their own initiative gets — explicit credit for the catch, protected reputation, or a direct reward (one leader in Linda Hill's research literally pays a bonus for killing your own idea). *When wrong:* if you don't *also* reward genuinely good ideas at comparable stakes, the self-kill reward gets gamed — people kill early just to collect it, skewing toward excessive caution. Single-source qualitative (Hill, HBR IdeaCast, 24 Jun 2026) — a WATCH-status addition, not a load-bearing rule.
-
-## QUALITY GATE
-
-Before launch meeting:
-
-- [ ] **Phase 1:** Failure modes documented + legal sign-off obtained
-- [ ] **Phase 2:** Error rates measured + high/catastrophic <target
-- [ ] **Phase 3:** Cost model defensible at 10x scale OR board-approved loss-leader
-- [ ] **Phase 4:** Dashboards live, alerts configured, runbooks written
-- [ ] **Phase 5:** Users understand AI label, limitations, escalation path
-- [ ] **Phase 6:** Failure modes have mitigation plans (dark / fallback / degrade)
-- [ ] **Go/No-Go:** Product + engineering + legal + finance agree "ship"
-- [ ] **Rollback:** Plan exists to disable feature in <30 minutes
-- [ ] **Day-1 Review:** Scheduled; someone owns monitoring
-
-## WHEN WRONG
-
-This skill gives bad advice if:
-
-- You're shipping an internal experimental feature with explicit opt-in and automatic rollback. (Lighter process is fine; this process is for user-facing launches.)
-- The feature is a short-lived A/B test (30 days max), explicitly marked as experimental, with clear opt-out. (Simpler process is appropriate.)
-- You're operating in a startup pre-PMF mode where speed to learn is more important than safety. (Speed wins. But document that you're accepting the risk.)
-- Regulatory bodies have explicitly preempted your safety review with their own standards. (Follow regulatory standard, not this one.)
-
----
-
-## TRADE-OFF LEDGER
-
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
-
-## CONCLUSION
-
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
-
----
-
-## GENERATE THE DELIVERABLE
-
-Follow the Deliverable Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 11:
-
-1. **Output format matching:** If the grounding questions called for an executive summary, a slide deck, or a specific document type, structure your deliverable accordingly.
-2. **Checklist completion:** Ensure all checkboxes from the QUALITY GATE section are addressed in the output. Make it scannable — use the checklist format directly if presenting to a go/no-go committee.
-3. **Day-1 Review assignment:** The deliverable should name who owns Day-1 Review monitoring and confirm the dashboard template is deployed.
-4. **Rollback clarity:** If shipping with any Yellow flags, the deliverable must make explicit: what will trigger a rollback and who decides.
-5. **Sign-off:** The deliverable should have explicit written approval from product, engineering, legal, and finance before it's considered final.
-
----
-
-## VISUAL SUMMARY
-
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Deliver the **decision, scope, evidence, unmet conditions, principal trade-off, and next action with owner/date**. Link supporting evals and runbooks when available. Match the requested format; use a short memo or inline answer unless a fuller artifact is useful. A diagram is optional if it clarifies exposure stages or recovery ownership. The [concept guide](CONCEPT.md) gives worked scenarios, and the shared Universal Skill Protocol provides cross-skill handoff conventions.

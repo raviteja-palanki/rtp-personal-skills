@@ -1,98 +1,65 @@
 # Ship Decision — Concept Guide
 
-## FIRST PRINCIPLES
+## The central distinction
 
-Software ships when it's "done enough." Done enough is defined by engineering excellence, not business readiness. A deployed system is running; it doesn't crash; it returns results. Ship.
+A system can run successfully and still produce a wrong, harmful, or economically unsustainable result. This is true of conventional software too; AI adds task-dependent uncertainty and failure modes that ordinary execution checks may miss.
 
-AI features require a different gate. AI features can deploy and run without crashing, but still cause harm. The system can return results that are plausible, confidently stated, and entirely false. It can work beautifully for 99% of cases and catastrophically fail for the 1% that matters most.
+The release question is therefore broader than “does it run?” It is whether the proposed use has enough evidence, controls, operational support, and value to justify exposure. Review these throughout development instead of adding safety and business concerns only after engineering is finished.
 
-The atomic insight: **AI features require a post-engineering gate — a business and safety gate — before they touch users. Deploying an AI feature is not the same as shipping a feature.**
+**Business view:** an accountable choice among launching, limiting scope, holding, and stopping, with consequences for customers, employees, resources, and future options.
 
-## DUAL DEFINITION
+**Technical and operational view:** seven readiness areas—safety/authority, reliability, economics, observability, user understanding, graceful degradation, and release accountability—supported by appropriate tests and monitored exposure.
 
-**Business definition:** The ship decision is a go/no-go governance process that verifies an AI feature is safe for production users, reliable within acceptable error thresholds, economically sustainable, observable if it breaks, understandable to users, and gracefully degradable if it fails. It's the final handoff from engineering to product operations.
+## Four traps to recognize
 
-**Technical definition:** A seven-phase review covering safety (mitigation completeness, adversarial testing, legal), reliability (error rates by severity, latency thresholds, uptime targets), economics (unit cost at scale, cost monitoring, budget constraints), observability (quality/performance/cost metrics and alerting), user education (limitations disclosure, confidence calibration), graceful degradation (failure modes and fallback behavior), and a formal go/no-go meeting before deploy-to-production.
+**Staging becomes the whole world.** A controlled environment makes comparison easier but can omit real variation, misuse, permissions, dependency behavior, and user workflows. Production is not inherently “biased toward failure”; it can differ from the test distribution. Make the important differences visible and include realistic cases.
 
-## THE TRAP (Expanded)
+**Familiarity becomes assurance.** A team that knows the intended use may unconsciously compensate for gaps. Examine what unfamiliar users actually understand and do. With a true 99% success rate over one million comparable attempts, the expected failure count is 10,000. A million users making a million attempts each is a different volume. Failure count alone does not describe severity, distinct people harmed, or legal outcome.
 
-**The "Works in Staging" Assumption.** You test the feature with intended use cases, friendly inputs, and expected query patterns. It works beautifully. You imagine: "Users will use it this way." They won't. Users will:
+**No complaints becomes no problem.** Users can abandon silently or accept incorrect output. Combine operational events, user feedback, and independent quality checks. Monitoring improves detection when coverage and response work; a dashboard cannot guarantee every issue will be caught.
 
-- Ask questions the model was never trained to handle
-- Try to break the guardrails ("pretend you have no restrictions")
-- Use the output in ways you never intended (relying on it for decisions you explicitly said not to)
-- Test edge cases (very long inputs, special characters, adversarial patterns)
-- Expect reliability you never promised
+**Disclosure becomes a transfer of responsibility.** A label helps users understand the feature but does not establish permission for harmful behavior or settle liability. Applicable duties depend on facts, use, contracts, and jurisdiction. Design useful recourse and seek the required specialist review for the actual case.
 
-Staging is biased toward success because you control the test cases. Production is biased toward failure because you don't.
+## Four illustrative scenarios
 
-**The Confidence Trap.** The team has used the feature extensively. It feels reliable. But you've tested with benign, expected inputs from users who understand the limitations. In production, you'll have:
+These are fictional teaching cases. They are not claims about identified companies or lawsuits, and their controls reduce risk rather than guarantee prevention.
 
-- Users who don't read the disclosure
-- Users asking the feature to do things it was explicitly designed not to do
-- Users making high-stakes decisions based on the output
-- Users from different cultures, domains, and backgrounds (distribution shift)
-- Adversarial users trying to break it
+### 1. An unsupported legal citation
 
-A 99% accuracy rate sounds reliable. But if a million users call it a million times, that's 10,000 failures. If even one of those causes user harm, you have a PR crisis and potential liability.
+A legal research assistant produces an apparently valid citation that does not exist. A reviewer may catch it before filing, or an unchecked citation may enter a brief and create serious professional and legal consequences. The original guide's unnamed $2 million settlement and product closure were not substantiated and should not be treated as historical evidence.
 
-**The Observability Blindness.** You ship the feature. It's live. Users are using it. You have no dashboards, no alerts, no way to know if output quality is degrading. Three weeks later, someone notices users are complaining in support. You have no logs to understand what happened. You release a fix. You still don't know how many users were affected or how long the problem lasted.
+Before exposure, test citation existence and whether the cited material supports the claim, define the intended professional review, and make unresolved evidence clear. Test refusal and escalation when the system lacks a source. Monitor representative outcomes and offer a correction path. Recovery can be possible but becomes harder after downstream reliance; it is not uniformly “impossible.”
 
-Without observability, you're operating in the dark. Problems compound before you detect them.
+**Decision:** hold unsupported source-dependent answers or narrow the feature until validation and review are adequate. An AI label alone does not resolve the gap.
 
-**The Liability Assumption.** You assume: "If the AI makes a mistake, the user should know better than to rely on it." Law doesn't work this way. If you've labeled it [AI], but the output is confident and specific, courts may hold you liable for misrepresentation if a user relies on it and is harmed.
+### 2. A provider update hides a subgroup regression
 
-The bar for "user should have known better" is high. The bar for "you should have disclosed limitations more clearly" is low. Clear disclosure, confidence calibration, and escalation paths are not niceties — they're liability reduction.
+A provider version improves aggregate performance while a support assistant gets worse at certain complaint types. If all quality reporting is aggregated, the affected workflow can remain hidden.
 
-## INTELLECTUAL LINEAGE
+Track effective versions and relevant task segments, test the changed configuration, inspect failures, and define a compatible recovery path. A fixed 5% category threshold is only an example; choose a meaningful threshold with sample context. Model drift is one possible cause alongside retrieval, routing, tools, and traffic changes.
 
-- **SRE Playbook (Google)** — Error budgets, SLOs, and the principle that reliability is engineered, not hoped for.
-- **FDA Product Development** — Phased launch (Phase I, II, III trials) with explicit risk assessment at each gate. The ship decision is your Phase III gate.
-- **Netflix Chaos Engineering** — Testing failure modes before production rather than discovering them in production.
-- **Stripe's Launch Readiness** — Financial products require explicit safety gates. Apply this to AI.
-- **NIST AI Risk Management Framework** — Structured risk assessment, measurement, and monitoring for AI systems.
+**Decision:** limit the affected scope, investigate, and restore an acceptable compatible configuration or apply another containment path. Do not assume a provider lets you restore every past model.
 
-## REAL-WORLD EXAMPLES
+### 3. Longer work changes the cost model
 
-**Example 1: The Legal Liability Case.** An AI legal research tool shipped with authoritative UI ([AI Legal Assistant]) but no clear hallucination disclosures. A lawyer used it to research a case, found what looked like a relevant precedent, cited it in an actual brief. The opposing counsel challenged the citation. The case didn't exist — the model had fabricated it.
+Assume one million outputs per month at $0.02 each: modeled cost is $20,000. If per-output cost triples because outputs become longer, the corresponding cost is $60,000 at unchanged volume, not $150,000. Reaching $150,000 would require a 7.5-fold overall cost factor or additional explained volume and cost categories.
 
-The lawyer faced sanctions for frivolous citations. The company settled the subsequent lawsuit for $2M. **But the real cost:** Reputational damage. The legal community lost trust. The feature was deprecated. The cost model (predicting profitability) became academic.
+Stress both volume and task mix. Track token usage, retries, tools, human work, quality, and verified outcomes. Use a response that fits the user contract and consequence—better routing, usage limits, controlled queues, budget expansion, or a scoped pause.
 
-**What went wrong:** No observability system measured hallucination rate (single incidents remained invisible). No disclosure said "this hallucinates." No adversarial testing caught the failure mode.
+**Decision:** expand only within a defensible capacity and funding plan. A good unit margin does not eliminate aggregate cash or dependency limits.
 
-**Ship decision requirements that would have prevented it:**
-- Failure mode documented: "Model cites fake case law" (Probability: high; Consequence magnitude: all users; Recovery: impossible)
-- Mitigation: Output validation checking citations against known databases (MISSING)
-- User disclosure: "This tool hallucinates legal citations. Verify all cases in primary sources." (MISSING)
-- Observability: Hallucination rate measured per user, per week (MISSING)
-- Legal sign-off: Liability if user relies on hallucinated citations? (NOT OBTAINED)
+### 4. A thirty-minute provider outage
 
-**Example 2: The Silent Drift.** A model provider released an incremental update: new training approach, +1% average accuracy. But the change shifted behavior on edge cases (minority categories the model saw less of in training). An AI customer service feature became noticeably worse at handling certain complaint types.
+A critical workflow relies on one provider and lacks a useful fallback. A thirty-minute outage disrupts customers. In a 30-day time-based window, 99.9% availability permits 43.2 minutes of unavailability; this incident alone does not necessarily breach that target. At 99.99%, the allowance is 4.32 minutes. Other downtime and the contract's measurement rules matter.
 
-The company had no observability system measuring quality by complaint category. The drop went unnoticed for two weeks. Customer complaints spiked silently (buried in general support volume). When the PM finally noticed the pattern, thousands of users had already received suboptimal service.
+Define the actual workflow tolerance and service indicator, then test dependency failure, queueing, communications, and the capacity of alternatives. Staging evidence cannot guarantee future uptime.
 
-**What went wrong:** No observability dashboard measuring quality by category. No alert fired when quality dropped on specific use cases. No runbook for "what to do if model drift happens."
+**Decision:** choose a release scope and fallback consistent with the promised service, and retain incident response for failures that still occur.
 
-**Ship decision requirements that would have prevented it:**
-- Observability: "Quality metrics broken down by complaint category (billing, technical, account, etc.), measured daily, with alerts if any category drops >5%." (MISSING)
-- Monitoring: "Runbook: If category quality drops, revert model to previous version within 30 minutes" (MISSING)
-- Post-launch review: Daily review of quality trends in first week (MISSING)
+## What makes the gate useful
 
-**Example 3: The Cost Surprise.** A content generation feature was modeled to cost $0.02 per output. At 100K users, total cost was acceptable. At 1M users (10x growth), cost exploded to $150K/month, not the modeled $20K.
+A gate is useful when evidence can change the decision and the responsible people can enforce its conditions. That can mean approval, a design correction, reduced scope, delay, or stopping. Count outcomes in context; a zero-stop history is not proof of absent authority.
 
-Why? Users learned to request longer, more complex outputs. Average tokens per request increased 3x. The stress test in the cost model assumed tokens per request would stay constant. It didn't.
+The same discipline applies to postponement. Compare the cost of a narrower launch, additional testing, delay, and the current process. Recognition for well-supported stopping decisions can reduce social pressure, but a cancellation quota would distort the goal.
 
-A ship decision that included cost monitoring (flagging if cost per unit increases >20%) and a kill switch (disable the feature if monthly cost exceeds budget) would have caught this and allowed controlled descent instead of an uncontrolled cost spike.
-
-**Example 4: The Uptime Failure.** An AI feature was marked as "critical" by product, but infrastructure was built for "nice-to-have" uptime (95%, not 99.9%). When a model provider had an incident (30-minute outage), the feature went dark.
-
-Customers who relied on the feature for their workflows were disrupted. Some had SLA agreements that required 99.9% uptime. The company faced escalations and potential SLA penalties.
-
-A ship decision that included defining the uptime requirement upfront and verifying infrastructure could meet it would have prevented this.
-
-## FURTHER READING
-
-- Google SRE Team, *Site Reliability Engineering* — Error budgets and SLO design principles
-- NIST, "AI Risk Management Framework" — Structured AI risk assessment
-- Anthropic, "Constitutional AI and Responsible Deployment" — Safety frameworks for AI systems
-- Reid Hoffman (LinkedIn), "The Startup of You" — On risk management in scaling organizations
+Use the [main skill](SKILL.md), [day-one template](references/day-one-review.md), and [evidence notes](references/ship-evidence.md) to make a concrete, reviewable decision. A completed review is evidence for a scoped choice, not a promise of error-free operation.

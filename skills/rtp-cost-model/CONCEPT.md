@@ -1,89 +1,80 @@
 # Cost Model — Concept Guide
 
-## FIRST PRINCIPLES
+An AI cost model connects work performed, resources consumed, and useful outcomes delivered. It is a decision model, not just a token calculator. Its value comes from making assumptions visible enough to change before the organization commits to them.
 
-Traditional software scales linearly. A database query that costs 10ms at 1,000 QPS costs 10ms at 10,000 QPS (horizontal scaling is transparent). The economics are predictable: add compute, add cost proportionally.
+## What can change with scale
 
-AI products scale differently. They degrade. Context windows grow as the corpus expands. Token usage per query increases as users learn to ask more sophisticated questions. Retry rates increase under load because inference latency goes up. Caching hit rates drop because the query distribution becomes more uniform. The marginal cost of serving the 10,000th user is 3-5x the marginal cost of serving the 1,000th.
+Traditional software and AI systems can both have fixed costs, capacity steps, economies of scale, and congestion. Neither must scale linearly. An AI workflow adds important sources of variation: input/output length, model selection, tool loops, retries, verification, and the cost of unresolved tasks.
 
-The atomic insight: **AI unit economics are non-linear. The cost model you build at pilot stage is obsolete by the time you've shipped.**
+More users do not necessarily mean a larger context per request. A larger corpus may require a different index without increasing the number of retrieved tokens. More traffic can improve prompt-cache reuse, while a more diverse task mix can reduce response-cache hits. Forecast these drivers separately and check them against actual traffic.
 
-## DUAL DEFINITION
+A scenario in which a $2,000 pilot grows from 500 to 15,000 users gives $60,000 by simple proportional scaling. A $150,000 downside case is 2.5 times that estimate, but it needs explicit changes in usage, rates, quality, and operations. Calling it “what AI does at scale” would turn a scenario into an unsupported law.
 
-**Business definition:** A cost model for an AI feature is a detailed unit economics calculation that predicts the cost to serve one user action (or session, or day) across the full range of anticipated scale, from launch to 10x growth. It's used to determine feature sustainability, pricing, and resource allocation. An AI feature without a unit cost model is a liability masquerading as a feature.
+## Three common blind spots
 
-**Technical definition:** A structured calculation of token volume per user action (including overhead, retries, context, and evaluation infrastructure), multiplied by token prices (adjusted for scale discounts and inflation), stress-tested against user behavior models at 10x scale, with sensitivity analysis on key variables and identification of cost levers for optimization.
+**The pilot omits recurring work.** A few hand-selected requests may hide preparation, failed attempts, support, and review. Include those costs, but do not apply an automatic 3–5× overhead multiplier. Some products are dominated by inference; others by people, storage, or distribution.
 
-## THE TRAP (Expanded)
+**Average usage hides important segments.** A minority may generate much of the cost, but the distribution need not follow a power law. Examine task and account distributions, usage commitments, and revenue together. A heavy user can be profitable; a low-usage account can still be expensive to acquire and support.
 
-**The Pilot Mirage.** You ship to 500 pilot users. Token cost is $2,000/month. You extrapolate: at 15,000 users, cost will be $60,000/month. But the 15,000-user reality hits you at $150,000/month — 2.5x your estimate — because:
+**The team confuses contribution with profit.** A product sold for $10 with $5 of variable serving cost earns $5 contribution per unit before other expenses. Ten times the volume does not turn that arithmetic into a loss. Fixed costs, discounts, acquisition costs, and capacity constraints may change the total result; model them. Compare lifetime value with acquisition cost in consistent monetary units, and track payback as a time measure.
 
-1. Users learn to ask more sophisticated questions as they become comfortable. Average tokens per query increase 30%.
-2. The corpus grows to support more use cases. Context windows expand 2x.
-3. Caching becomes less effective as queries diversify. Hit rate drops from 40% to 20%.
-4. Retry rates increase under load. What was 5% becomes 15%.
-5. Your eval infrastructure, which was negligible at pilot, is now substantial.
+## Example 1: Transcription and summarization
 
-You've committed engineering resources, made pricing commitments to customers, promised board members unit economics that don't exist. Too late to redesign.
+This is a fictional planning example, not a reported company outcome.
 
-**The Overhead Blindness.** Engineers estimate token cost as: (tokens per call) × (cost per token). This is the direct cost, roughly 30% of total cost. They miss:
+At **$0.08 per audio minute**, ten minutes each day costs **$0.80 per day**, or **$24 over 30 days**. A $10 monthly subscription would already fail to cover that serving cost at the assumed usage. The original example’s $0.80 monthly cost mixed daily and monthly units.
 
-- Vector DB queries and re-ranking (adds 20-40% to inference cost)
-- Error handling and retries (adds 5-15%)
-- Context padding and safety margins (adds 10-20%)
-- Logging, monitoring, evaluation infrastructure (adds 15-25%)
-- Provider price increases and volume unpredictability (adds 20-30%)
+If full cost rises to **$0.15 per minute**, ten daily minutes cost **$45 over 30 days**. A customer using 60–120 minutes every day would cost **$270–$540** over the same period. Actual plans may impose usage limits or have different economics; these figures only follow the stated assumptions.
 
-Direct cost: $0.01. Total cost: $0.03-0.05. Build a product that assumes $0.01 and you're underfunded by 3-5x.
+Model the distribution of audio minutes, task retries, inference and storage cost, included usage, and the price paid. Test provider-price changes independently from usage growth. Then compare pricing, limits, routing, product scope, and subsidized access. Do not invent a churn rate or claim that the upper 10% of users drive half the bill without data.
 
-**The Leverage Blindness.** Teams accept negative unit economics under the assumption "we'll optimize later." This is mathematically wrong. If your feature costs $5 per user per month and you sell it for $10/month, adding 10x users adds $50M/month in losses. You don't optimize your way out of that. You change the model or kill the feature.
+## Example 2: Review capacity constrains an analysis service
 
-The only exception: strategic loss leaders where the cost is known, bounded, and subsidized by the business (e.g., free tier with CAC payback in a freemium model). Even then, the unit economics must be explicit.
+A fictional service estimates these costs per analysis:
 
-## INTELLECTUAL LINEAGE
+| Item | Cost |
+|---|---:|
+| Model processing | $0.12 |
+| Human review | $5.00 |
+| Logging and audit support | $0.08 |
+| Evaluation allocation | $0.15 |
+| Test-suite allocation | $0.10 |
+| **Total on this scope** | **$5.45** |
 
-- **Will Larson (Sequoia)** — "Sizing AI Features" and unit economics in AI product decisions.
-- **Eugene Yan** — Production ML systems and the cost of infrastructure debt.
-- **OpenAI's Pricing Evolution** — How model prices actually decrease, slowly, but never as fast as consumption increases.
-- **SaaS Unit Economics** — The paradigm that no SaaS product survives if CAC payback > LTV. Apply this to AI: if token cost per user per year > revenue per user per year, the feature is DoA.
-- **Amazon's 10x Cost Structure** — The insight that scaling reveals second-order effects. Build for 1x volume. Deploy at 10x and discover your assumptions were wrong.
+At a $10 price, contribution before costs outside this scope is $4.55. The review is part of this product’s chosen or applicable control design; the example does not assert a universal regulation requiring a lawyer to review every AI output.
 
-## REAL-WORLD EXAMPLES
+If five reviewers can each complete 200 reviews monthly, capacity is **1,000 analyses per month**. Buying inference capacity for 10,000 analyses does not remove that constraint. Check arrival variability, review complexity, staffing cost, and queues before treating the nominal capacity as a service guarantee.
 
-**Example 1: The Startup That Didn't Model.** An AI note-taking company launched with free transcription (speech-to-text + summarization). Unit cost estimated: $0.08/minute. Average user: 10 minutes/day = $0.80/month. They charged $10/month subscription.
+Consider improvements in context quality, case routing, preparation, tooling, and review design. Verify that any reduced review effort preserves the required detection and decision quality. A lower escalation rate by itself cannot tell whether the system improved or stopped detecting its mistakes.
 
-At pilot (100 users): profitable. They scaled to 10,000 users and discovered:
-- Users shared heavy files; top 10% uploaded 1-2 hours/day (10x average).
-- Model provider raised prices 15%.
-- Actual retry rate: 12% (modeled as 5%).
-- Unaccounted infrastructure overhead: $0.03/minute.
+## Example 3: A response-cache assumption
 
-Effective cost at scale: $0.15/minute. Top 10% of users alone cost $12+/month in tokens. **Result:** Feature was profitable for 70% of users, loss-making for 30%. They couldn't segment (free tier). They raised prices; half the user base left. **Lesson:** The cost model at 100 users was fiction. Stress testing at 10x would have shown the 10% of power users driving 50% of cost.
+Suppose an uncached request costs $0.003 and, for a simplified illustration, a valid response-cache hit has negligible variable compute cost. At a 60% hit rate, expected compute cost is:
 
-**Example 2: The Enterprise That Over-Engineered.** A financial services firm built an AI risk analyst feature. The core token cost was $0.12 per analysis. But they added:
-- Human review layer (lawyer review on all outputs): +$5 labor cost
-- Regulatory logging and audit trail: +$0.08
-- Evaluation infrastructure to track model drift: +$0.15
-- Compliance test suite (run nightly): +$0.10
+`$0.003 × (1 − 0.60) = $0.0012 per request`.
 
-Total cost per analysis: $5.45. They charged enterprise customers $10/analysis, assuming high volume. But regulators required manual review, so the human was the bottleneck. They could scale AI cost-free; the feature was gated by human capacity (200 reviews/month per lawyer, 5 lawyers = 1,000/month max throughput).
+At an 8% hit rate it becomes:
 
-They built AI infrastructure for 10,000 analyses/month but could only serve 1,000. They over-allocated engineering budget to the AI side, under-allocated to building the human-in-the-loop workflow. A cost model that separated AI cost from operational cost would have surfaced this.
+`$0.003 × (1 − 0.08) = $0.00276 per request`.
 
-**Example 3: The Cache Assumption.** An AI search startup modeled cache savings: at 500 users, cache hit rate was 60%, reducing cost from $0.003/query to $0.001/query.
+That is **2.3×**, not 7×. Add cache lookup, storage, invalidation, and maintenance costs to both cases. The old calculation discounted an already discounted baseline a second time.
 
-At 50,000 users (100x), cache hit rate collapsed to 8% because:
-- **Long-tail queries:** Each user asks unique questions; limited repetition across 50K users.
-- **Diverse use cases:** Different industries, different query patterns, zero overlap.
-- **Variation in phrasing:** "How do I fix a bug?" vs. "How to debug?" vs. "What's causing this error?" — all miss cache despite semantic similarity.
+Response caching also requires a validity rule: identity and permissions, source freshness, policy version, and whether the answer applies to the request. Semantic similarity is not enough when an account, date, or amount changes the answer.
 
-Cost per query jumped: $0.001 × (1 - 0.60 cache benefit) = $0.0004 at pilot → $0.003 × (1 - 0.08 cache benefit) = $0.00276 at scale. **Effective cost 7x higher.**
+Prompt caching is different: it reuses computation for a matching prefix but still generates an output. It can work even when each user asks a different question. See the main skill’s write-versus-read example before applying a headline cache discount to the entire bill.
 
-They'd sized infrastructure for the cached scenario. By the time they discovered the problem, they were over-provisioned and losing millions. **Lesson:** Cache hit rate is not a scaling assumption. It's a scaling risk. Stress-test it with diversified user distributions.
+## Relate cost to benefit without double counting
 
-## FURTHER READING
+For a workflow, compare the complete baseline with the complete AI-assisted process. If a baseline takes 60 minutes and the revised process takes 40 minutes including preparation and review, the measured saving is 20 minutes. Do not subtract those same review minutes again as a separate productivity adjustment.
 
-- Will Larson, "Sizing AI Features" — Sequoia playbook for unit economics
-- Eugene Yan, "Real-World ML: Lessons from Anthropic" — Production cost structure reality
-- Byrne Hobart, "The Economic Structure of AI" — Long-form analysis of model pricing evolution
-- Stripe's "Pricing as a Moat" — Tiering strategies to manage cost-sensitive features
+Released time is capacity. It becomes cash savings only through an actual change in paid resources or spending, and it becomes added output only when work, demand, and downstream capacity permit. Keep customer benefits separate from seller margin.
+
+A modeled counterfactual can be useful when direct observation is impractical. State how it was constructed, test its assumptions, and distinguish it from a measured control. Several estimates from the same data are not independent experiments. A survey ratio is not a universal correction factor.
+
+## Use the model to make a decision
+
+Show costs and outcomes over the intended horizon; report current evidence, a growth case, and downside sensitivities. Revisit the model when usage, architecture, quality, vendor terms, or capacity changes—not because a fixed calendar interval is inherently correct.
+
+An intentionally subsidized feature should have a purpose, funding, loss boundary, and review conditions. A one-off task should justify its full cost. A mandatory control can constrain the options even when its cost is high. A cheaper model, routing policy, or hosting arrangement earns its place by meeting the requirements at a better total cost.
+
+Use the [main skill](SKILL.md) for the process and the [evidence notes](references/cost-evidence.md) for source boundaries and corrected calculations. The underlying disciplines are unit economics, reliability engineering, activity-based costing, and explicit decision-making under uncertainty; do not rely on unverified titles or attribution to establish them.

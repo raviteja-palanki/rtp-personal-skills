@@ -1,7 +1,7 @@
 ---
 name: feedback-triage
-version: v1.0_latest
-description: 'Score user feedback by frequency × severity × strategic fit, plus the AI-failure axis that frequency-only triage misses. AI-feature feedback is bimodal (users love it, or the AI hallucinated at them), and averaging it into ''mostly positive'' hides the structural problem. The fix: flag AI failures separately, because they route to a different team entirely: a hallucination goes to the eval/ML team, not design (design can''t fix hallucinations). Classifies every item into 6 categories, sub-types each AI failure to its fix team, and ranks by a 4-axis score. Use when triaging support tickets, NPS comments, in-product feedback, or complaints at volume. Do NOT use for non-AI products, under ~20 items, or a clear single bug. Pairs with: failure-modes (the deep taxonomy), eval-framework (failures become regression tests), ai-product-metrics (AI-failure rate is a metric), interview-synthesis, opportunity-solution-tree. Triggers: ''triage feedback'', ''rank these tickets'', ''what should we fix first''.'
+version: v1.0.1_latest
+description: 'Turn tickets, comments, and complaints into a prioritized report with evidence, accountable owners, and next actions. Classify themes across six categories, assess frequency, severity, and strategic fit, and identify possible AI failures without confusing a report with a confirmed cause. Surface rare serious harm before scoring routine work. Use for support feedback, NPS comments, in-product responses, or sprint triage; simplify for a small batch or a single issue. Keep feedback share separate from production failure rate. Pairs with failure-modes for diagnosis, eval-framework for regression coverage, ai-product-metrics for denominators, interview-synthesis for depth, and opportunity-solution-tree for unmet needs. Triggers: triage feedback, rank these tickets, what should we fix first.'
 imports:
   - failure-modes
   - ai-product-metrics
@@ -10,152 +10,132 @@ imports:
 
 # Feedback Triage
 
-**The objective:** turn an unstructured pile of user feedback into a ranked, *routed* report — with the AI-failure axis that frequency-only triage misses — for the PM setting the next sprint's priorities from a mix of tickets, NPS comments, and complaints.
+Produce a ranked, routed account of what users experienced and what should happen next. Keep serious failures visible even when most feedback is positive. Average sentiment can hide a harmful minority; AI feedback need not be bimodal for this to matter.
 
-## The one idea
+## Establish scope and handle urgent issues first
 
-Your dashboard says "mostly positive, some complaints." That sentence is a lie the math told you, and here is how.
+Identify the product and version, feedback period, channels, affected populations, and decision the report supports. Reuse known context. Follow the Universal Skill Protocol at the source library root or packaged plugin root, with depth and format appropriate to the request.
 
-Standard triage ranks by frequency × severity × strategic fit — clean, and correct for a decade of traditional features. But **AI-feature feedback is bimodal:** users either love it ("magic, saved me hours") or hate it ("it hallucinated a number and I repeated it to my client"). The middle is thin. Average across that distribution and you get "mostly positive" — which quietly buries the slice of users watching the AI fail at them.
+Before routine ranking, surface credible reports of consequential harm: unsafe action, material financial or factual error, privacy or security exposure, discrimination, or loss of a critical workflow. One report may justify immediate investigation or containment. Record what is known, who owns the response, and which decision remains open. A low frequency score or poor roadmap fit must not bury a serious issue.
 
-And the complaints in that slice aren't UX issues. This is the core: **an AI failure and a UX issue land on the same screen but route to completely different fix teams.** A confusing button routes to design. A hallucinated output routes to the AI eval team — and maybe to model retraining, prompt engineering, or the grounding pipeline. *Design cannot fix a hallucination; the eval team cannot fix button placement.* So triage that doesn't separate "AI failure" from "generic UX issue" hands the fix to the wrong team, and the roadmap waits a quarter while the design team's UX research fails to move the AI complaint count.
+Use the full method when clustering and routing will change priorities. For a clear single bug, document the evidence and route it directly. A small batch can reveal an important problem; it does not need an elaborate score. For non-AI feedback, omit the AI-specific dimension. An internal report can still describe a real user failure: distinguish first-hand observation from stakeholder preference instead of excluding it by job title.
 
-The structural addition is one axis: a yes/no **AI-failure flag**. Add it and the routing becomes obvious. Skip it and the bimodal feedback averages into a number that tells you nothing and sends the work to the wrong place.
+## 1. Make the evidence traceable
 
-## How to use this skill
+Give each item an ID and retain its source, date, relevant context, and observed consequence. Use the minimum personal data needed for the task. Distinguish:
 
-1. **Classify first** — every item into one of 6 categories; the category decides the fix team. (CLASSIFICATION.)
-2. **Score on 4 axes** — frequency × severity × strategic fit + the AI-failure flag; the flag isn't a tiebreaker, it changes the routing path. (THE 4-AXIS SCORE.)
-3. **Sub-type every AI failure and route it** — hallucination, over/under-confidence, wrong refusal, wrong routing, latency — each to a different team with a different cycle time. (THE AI-FAILURE BREAKDOWN.)
+- **Observation:** what the person reported or what a trace shows.
+- **Interpretation:** what that might mean.
+- **Verification:** what has been reproduced or independently checked.
 
-## KEY TERMS (plain language)
+Quote exactly when presenting a quote; otherwise label the text as a paraphrase. Redact sensitive details transparently. Do not invent quotations, user intent, recurrence, or a root cause to make a theme complete.
 
-- **Bimodal feedback** — AI feedback clusters at "love it" and "hate it" with a thin middle; averaging it hides the failing slice.
-- **AI-failure flag** — the yes/no 4th axis: did the *AI* produce a wrong/refused/failed output (1), or is this a generic UX/perf/scope issue (0)? A "1" routes to a different team entirely.
-- **The 6 categories** — every item is one of: UX issue · performance · AI failure · edge case · out-of-scope request · future-capability signal.
-- **AI-failure sub-type** — within an AI failure: hallucination, over-confidence, under-confidence, wrong refusal, wrong tool/routing, latency — each with its own fix team and cycle time.
-- **Future-capability signal** — feedback that isn't a bug but an unmet need ("I use a different tool for that"); the most valuable and easiest-to-miss category — it feeds discovery, not a fix team.
-- **Evidence tiers used below** — the frequency % bands and the ">25% AI-failure rate = structural" cutoff are ⚠ practitioner heuristics; calibrate to your product.
+Deduplicate repeated tickets about the same event while preserving evidence of reach. Count distinct items, incidents, users, and organizations separately when relevant. Repeated forwarding of one complaint is not independent corroboration. Explain missing channels and selection effects: people who complain are not a random sample of all users.
 
-## GROUNDING (Before Starting)
+Cluster by the underlying task and reported problem, not just matching words. Keep contradictory or unmatched items visible. Use provisional themes where evidence is thin, and inspect examples before accepting automated clusters.
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: where did this feedback come from, and does routing actually trigger work (if the backlog is unread, triage is theater — fix that first). **Go deep** for 50+ items, or when the product has both AI and non-AI features and routing sets the sprint. **Skip** for non-AI features with simple bugs (frequency-only is fine), under ~20 items (read each and respond individually), or a clear single bug. Then route output format.
+## 2. Classify for investigation
 
-## THE 4-AXIS SCORE
+Assign a primary category for summary counts and optional secondary tags for overlap. Categories guide initial investigation; they do not prove which team caused or can solve the problem.
 
-Each theme (after clustering) gets four scores; total is an 11-point scale.
+| Category | What it captures | Starting owner or collaboration |
+|---|---|---|
+| **UX issue** | Difficulty understanding, finding, controlling, or completing an interaction | Product/design with relevant engineering |
+| **Performance** | Slow, failed, frozen, or unreliable operation | Engineering, then the component owner identified by diagnosis |
+| **AI failure** | A reported or verified problem in an AI-supported output, decision, refusal, or action | Evaluation or AI-system owner with domain, product, and other specialists as needed |
+| **Edge case** | A failure associated with a particular input, language, environment, or user group | Relevant component owner; assess reach and consequence before calling it minor |
+| **Out-of-scope request** | A requested capability outside the current commitment | Product for an explicit scope decision |
+| **Future-capability signal** | Evidence of an unmet job, repeated workaround, or alternative tool | Discovery or strategy for investigation |
 
-- **Frequency (0–5)** — share of the corpus: 5 = >20% · 4 = 10–20% · 3 = 5–10% · 2 = 2–5% · 1 = <2% but recurring (3+) · 0 = one-off. *(Under 50 items, use counts: 5 = 10+, 4 = 5–9, 3 = 3–4, 2 = 2, 1 = 1.)*
-- **Severity (0–3)** — 3 = blocking (can't complete the core task) · 2 = major friction (completes it, but must manually correct a wrong answer) · 1 = minor annoyance · 0 = cosmetic. *Score by what happens to the user, not by who's complaining.*
-- **Strategic fit (0–2)** — 2 = serves a current OKR/roadmap bet · 1 = adjacent · 0 = about something being deprioritized. *Judged by what's planned, not what's exciting.*
-- **AI-failure flag (0–1)** — 1 = the AI produced the wrong/refused/failed output · 0 = UX, perf, scope, content. Carries disproportionate routing weight.
+An item may contain both a defect and an unmet need. Record both. “I dislike the new workflow” may reveal lost control or a broken user outcome; it is not automatically an out-of-scope request. Nor does mentioning AI make a complaint an AI failure.
 
-**Thresholds:** 8–11 critical (this sprint) · 5–7 high (next sprint or experiment first) · 3–4 medium (backlog, watch the trend) · 0–2 low.
+Keep an **AI-failure indicator** separate from the primary category:
 
-## CLASSIFICATION — the first cut decides the fix team
+- **Yes:** evidence supports an AI-system failure; name the observed failure and verification state.
+- **Possible:** the report suggests one, but expected behavior or cause is unresolved.
+- **No:** current evidence points elsewhere, or the behavior is valid for the stated task.
 
-| Category | Signals | Routes to | AI-flag |
-|---|---|---|---|
-| **UX issue** | "couldn't find it," "the flow was confusing," "expected X got Y" | Design + UX research | 0 |
-| **Performance** | "took 30s," "timed out," "froze" | Engineering (infra/perf) | 0 (1 if it's *AI inference* latency) |
-| **AI failure** | "it made up a fact," "confidently told me the wrong number," "refused for no reason" | AI eval team + ML eng | 1 |
-| **Edge case** | "works in English not French," "fails on special characters" | Engineering (fast fix once scoped) | 0 (1 if the AI fails on a specific input class) |
-| **Out-of-scope request** | "could you add X?," "would be nice if…" | Product (acknowledge, decline/defer) | 0 |
-| **Future-capability signal** | repeated unmet need, "I work around it by…," "I use a different tool for that" | Discovery / strategy | 0 |
+Design, data, prompts, retrieval, model behavior, tools, and infrastructure can jointly contribute to a failure. A safer interaction can reduce harm while a model or grounding fix is developed. Conversely, changing a confidence label does not make an incorrect output correct. Assign one accountable investigation owner with named collaborators rather than forcing a false choice between design and AI teams.
 
-Apply scores *within* each category — don't compare an AI-failure score directly to a UX-issue score; they're different axes of fix.
+## 3. Rank themes without hiding consequences
 
-## THE AI-FAILURE BREAKDOWN — sub-type routes to the fix team
+First apply the urgent-issue judgment above. For the remaining work, a transparent score can help compare themes. The following is an **illustrative additive rubric**, not a validated universal model:
 
-When the flag is 1, assign a sub-type — each has a different owner and a different cycle time (lumping them all as "AI complaints" delays everything):
+| Dimension | Example scale |
+|---|---|
+| **Frequency, 0–5** | In a defined corpus: 0 = none observed; 1 = below 2%; 2 = 2% to below 5%; 3 = 5% to below 10%; 4 = 10% through 20%; 5 = above 20% |
+| **Severity, 0–3** | 0 = cosmetic; 1 = minor disruption; 2 = material friction or rework; 3 = blocked critical task or potentially serious harm |
+| **Strategic fit, 0–2** | 0 = outside current priorities; 1 = adjacent; 2 = directly supports the current commitment |
+| **Confirmed AI-failure flag, 0–1** | 1 when the indicator is Yes; otherwise 0, with Possible explicitly retained |
 
-| Sub-type | What it is | Routes to | Fix protocol (and typical cycle) |
-|---|---|---|---|
-| **Hallucination** | fabricated fact, invented citation | AI eval team + grounding-pipeline owner | add to eval set; audit RAG retrieval; tighten grounding (~weeks) |
-| **Over-confidence** | wrong output stated with certainty | AI eval + UX (confidence display) | calibrate confidence; surface uncertainty below threshold (~1 week) |
-| **Under-confidence** | hedged/refused when it shouldn't | AI eval + prompt eng | audit over-tuned refusal triggers; allow confident answers on well-supported cases |
-| **Wrong refusal** | declined a legitimate request on compliance grounds that don't apply | Safety + prompt eng | audit refusal taxonomy; separate "must refuse" from "answer carefully" |
-| **Wrong tool / routing** | multi-agent picked the wrong tool/agent/source | Agent design / orchestration | fix routing logic; improve tool descriptions; add ambiguous-query evals |
-| **Latency failure** | so slow the user gave up (cause is the *inference* path) | AI infra + model selection | profile inference; smaller/distilled model; streaming UX |
+Total = frequency + severity + fit + confirmed AI-failure flag, from 0 to 11. The AI flag’s main job is routing; one extra point does not make an AI issue inherently more important than an equally harmful non-AI issue. If the flag adds no useful prioritization value, show it separately and use the first three dimensions for ranking.
 
-The deep taxonomy of *how* each of these breaks lives in `failure-modes` — this skill routes them; that skill designs the fix.
+For small corpora, report counts instead of unstable percentages. One possible frequency scale is 0 for none, 1 for one, 2 for two, 3 for three or four, 4 for five through nine, and 5 for ten or more. Choose and record a scale before comparing themes. Do not mix counts and percentage bands in one ranking or imply scores are comparable across differently sized corpora.
 
-## WORKED EXAMPLE — 200 feedback items on a predictive-maintenance feature
+Example action bands are 8–11 for near-term investigation or action, 5–7 for planned work or an experiment, 3–4 for a monitored backlog, and 0–2 for deferral. These do not override serious consequences, commitments, dependencies, effort, or available capacity. Set the actual urgency and due date explicitly rather than promising every high score a fix this sprint.
 
-Collected over 6 weeks across in-app feedback, support tickets, and CS notes.
+Rank within an owner’s queue to support execution and across categories to resolve shared resource choices. Show why a lower-scoring theme was elevated or a high-scoring one deferred. A score is a decision aid, not a substitute for judgment. Record customer reach or commercial commitments separately from how loudly someone complains.
 
-**Step 1 — classify:** UX 64 (32%) · Performance 18 (9%) · **AI failure 71 (36%)** · Edge case 22 (11%) · Out-of-scope 14 (7%) · Future-capability 11 (6%). *The 36% AI-failure rate is the diagnostic — above ~25% (⚠) in a mature feature means structural issues UX iteration won't solve.*
+## 4. Subtype possible AI failures and choose the next check
 
-**Step 2 — score the AI-failure bucket (all axis-4 = 1), top themes:**
+Use the following initial routes. They are not exhaustive, mutually exclusive, or promises about repair time. `rtp-failure-modes` owns the deeper diagnosis and response design.
 
-| Theme | F | S | Fit | Total | Sub-type |
-|---|---|---|---|---|---|
-| Alert ranking confusing vs operator judgment | 5 | 2 | 2 | 10 | over-confidence (false ranking, stated confidently) |
-| Flagged a failure 4 hrs after the operator saw it on the floor | 4 | 3 | 2 | 10 | latency / under-detection — investigate |
-| "High confidence: failure imminent" on a healthy asset | 4 | 3 | 2 | 10 | over-confidence |
-| Refused to predict a Tier-2 asset ("insufficient data") | 3 | 2 | 2 | 8 | wrong refusal |
-| Recommended replacing a part swapped 2 weeks ago | 3 | 2 | 2 | 8 | hallucination (context-blind) |
+| Subtype | Observed concern | Initial investigation |
+|---|---|---|
+| **Hallucination or unsupported output** | An invented fact, citation, or claim without adequate support | Check the expected answer, source, retrieval, prompt, and model output with the evaluation and grounding owners |
+| **Over-confidence** | Certainty or a confidence display exceeds demonstrated reliability | Evaluation and product/UX examine calibration, presentation, and the underlying error |
+| **Under-confidence** | Excessive hedging or avoidance despite adequate support | Check actual evidence and task policy before changing prompts or confidence behavior |
+| **Wrong refusal** | An apparently legitimate request was declined | Safety/policy and system owners determine whether refusal, a careful answer, or escalation was appropriate |
+| **Wrong tool or routing** | The wrong source, tool, agent, or action path was selected | Orchestration owner inspects the trajectory, permissions, tool descriptions, and ambiguous inputs |
+| **Latency failure** | A response arrived too late for the task | Trace collection, queueing, retrieval, inference, tools, and delivery before choosing an infrastructure or model change |
 
-**Step 3 — route:** confident-wrong predictions → AI eval (calibration audit, lower Tier-1 thresholds); context-blind recommendation → grounding pipeline (add maintenance history to retrieval); wrong refusal → prompt + safety (audit refusal triggers by asset tier); latency → AI infra.
+Keep additional tags for missed detection, stale state, integration failure, or other causes instead of forcing every complaint into the six examples. “The alert arrived four hours late” does not establish slow inference. “Insufficient data” can be a correct refusal. A recommendation inconsistent with maintenance history may reflect missing or stale context rather than an invented fact.
 
-**Step 4 — score the UX bucket separately** (64 items → design/eng): can't filter alerts by plant (9), mobile truncation (7), no snooze (6).
+Specify a next check, expected behavior, and completion evidence. A model change, streaming interface, smaller model, retrieval update, or threshold adjustment is a candidate remedy to test, not the automatic result of assigning a subtype.
 
-**Step 5 — future-capability signals** (11 items → discovery, not a fix team): "share alerts with reliability engineers" (7 mentions, adjacent collaboration product); "tell me what *you* would do alongside the prediction" (4 — taps JTBD's audit-defensibility hidden job). These feed the next OST cycle.
+## 5. Report the right denominator
 
-**What the synthesis says:** the 36% AI-failure rate is structural — fix the failure modes *before* adding new AI capability, or adoption collapses; over-confidence is the most dangerous sub-type (it drives operator action on wrong data — calibrate first); the two future-capability signals point at adjacent products. The real question the triage answers isn't just "this sprint" — it's whether the AI feature stays in market or gets walked back to draft mode until the failure modes are fixed.
+Separate three quantities:
 
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+1. **Feedback share:** AI-failure reports divided by feedback items in the defined corpus.
+2. **Incident or exposure rate:** verified failures divided by relevant tasks, outputs, users, or action opportunities, with the unit stated.
+3. **Harm and burden:** consequence, affected groups, correction effort, and necessary versus missed escalation.
 
-Feedback-triage produces two different outputs that travel to two different places: individual items route to fix teams; the AI-failure *rate* routes to a feature-viability decision. Trace both.
+If production exposure is unavailable, report that limitation. A complaint share cannot establish the product’s failure rate. Show Yes and Possible separately, keep unknowns visible, and avoid double-counting overlapping categories. Compare periods only after checking product mix, channels, sampling, definitions, and exposure.
 
-**Where the fix gets designed and held (boundary):**
-- **`rtp-failure-modes`** *(import, boundary)* — this skill *routes* incoming feedback by sub-type; failure-modes carries the *deep taxonomy* of how AI breaks and designs the fix. Route here, design there — don't re-teach the taxonomy.
-- **`rtp-eval-framework`** *(import)* — every recurring AI failure becomes a regression test; the triage report is the input to eval expansion. When the fix is a prompt change, that regression test is what `prompt-as-product` runs before the change ships — so a routed failure becomes a permanent guardrail, not a one-time patch.
-- **`rtp-ai-product-metrics`** *(import)* — the AI-failure rate is itself a metric; track it over time, set a threshold.
+There is no general rule that more than 25% AI-related complaints makes a feature structurally unsafe, or that a lower share makes it acceptable. Escalate to `rtp-ship-decision` when severity, recurrence, failed controls, or uncertainty warrants reopening availability or autonomy. Triage supplies evidence; the accountable decision owner chooses continuation, containment, restricted use, or withdrawal.
 
-**Where a theme goes for depth or discovery:**
-- **`rtp-interview-synthesis`** — when a theme needs depth, run synthesis on a sample of users who reported it.
-- **`rtp-opportunity-solution-tree`** — future-capability signals become opportunities in the next OST cycle.
+## Worked example: predictive maintenance
 
-**Where the AI-failure RATE escalates (the two-hop most triage misses):**
-- **`rtp-ship-decision`** — the worked example asks the real question — "does the feature stay in market, or get walked back to draft mode?" A structural AI-failure rate (>~25%) isn't a sprint of fixes, it's a re-opened go/no-go. Triage produces the rate as evidence; ship-decision is where the walk-back call actually gets made and owned. Routing individual items without escalating a structural rate is the trap — you fix ten tickets while the feature quietly loses the market.
+Suppose 200 feedback items collected over six weeks have these primary categories: UX 64 (32%), performance 18 (9%), AI failure 71 (35.5%), edge case 22 (11%), out-of-scope 14 (7%), and future capability 11 (5.5%). This is a hypothetical complaint mix, not a measured 35.5% production failure rate.
 
-**Siblings and segment-aware operation:**
-- **`rtp-gossip-mode`** / **`rtp-attitudinal-segmentation`** *(siblings)* — gossip catches the *informal single* signal; this processes the *structured batch*; and run this **segment-aware** (Skeptics weight a confidently-wrong answer far more than Embracers) rather than aggregated.
+| Theme | What to verify before assigning a remedy |
+|---|---|
+| Alert ranking conflicts with operator judgment | Whether the ranking, operator assumption, available context, or presentation is wrong |
+| Alert arrives four hours after the operator noticed a problem | Event timestamps, sensor availability, detection logic, scheduling, and delivery |
+| A healthy asset receives “high confidence: failure imminent” | Actual condition, prediction horizon, calibration, action taken, and harm |
+| A Tier-2 asset is declined for insufficient data | Whether required data exists and whether the refusal policy is appropriate |
+| A recently replaced part is recommended for replacement | Maintenance-history freshness, asset identity, retrieval, and legitimate repeat-failure possibilities |
 
-## RED TEAM — when this is overhead, not insight
+If a validated serious false alert has example scores F=4, S=3, Fit=2, AI=1, its total is 10. A rare hazardous recommendation still receives urgent attention even with F=1 and Fit=0. Do not lower alert thresholds automatically: the direction and trade-off depend on which error the threshold controls.
 
-- **No AI features** — frequency × severity × strategic fit is enough; the AI axis adds nothing.
-- **Under ~20 items** — noise dominates; read each and respond individually.
-- **A clear single bug** — "login broken" doesn't need a 4-axis score; fix it.
-- **Internal stakeholder complaints, not user feedback** — execs/sales follow a different routing protocol; use stakeholder-mapping.
-- **A backlog nobody reads** — if routing doesn't trigger work, the triage is theater; fix the upstream authority gap or stop.
+UX themes such as plant filtering, mobile truncation, and snoozing enter the same consequence-based resource discussion. The 11 future-capability items might include seven requests to share alerts with reliability engineers and four requests for an action recommendation. These suggest collaboration and decision-support opportunities; “audit defensibility” remains a hypothesis to investigate with users.
 
-## WHEN WRONG
+The report should recommend the next verified actions and state whether evidence warrants a feature-availability review. It should not declare inevitable adoption collapse or assume a reassuring “draft” label contains the relevant risk.
 
-- **The AI-failure flag applied too loosely** — "I don't like that the AI replaces my workflow" is out-of-scope or a future-capability signal, not a failure; the flag is for outputs the AI got *wrong*, not design choices users dislike.
-- **Severity conflated with stakeholder volume** — a loud customer doesn't raise severity; score by user impact (note "vocal customer" separately for political routing).
-- **Strategic fit judged by what's exciting** — a fascinating off-strategy theme is correctly a 0; triage routes to strategy, it doesn't set it.
-- **The roadmap doesn't update from the triage** — then it produced a document, not a decision.
+## Deliver a report that can trigger work
 
-## QUALITY GATE
+Lead with the important findings and decisions. Include:
 
-- [ ] Every item classified into one of the 6 categories
-- [ ] Every AI-failure item has a sub-type assigned
-- [ ] Each high-priority theme has a fix team and fix protocol (unambiguous — no "team X or Y")
-- [ ] Future-capability signals tagged for discovery
-- [ ] The AI-failure rate calculated and reported (tracked over time)
-- [ ] Themes sourced — quotes verbatim, not paraphrased
-- [ ] The "what to ignore" list is explicit
+- scope, counts, denominators, and source limitations;
+- prioritized themes with traceable examples, severity, uncertainty, and affected segments;
+- one accountable owner, collaborators, next check or action, due date, and completion evidence for each priority;
+- discovery opportunities, explicit deferrals with reasons and review triggers, and any availability decision to escalate.
 
-## TRADE-OFF LEDGER
+Use attitudinal and task segments to investigate different experiences without presuming Skeptics always experience more harm or Embracers need fewer protections. An anonymous report can be useful; qualify what can be verified and protect the reporter as appropriate.
 
-By adding the AI-failure axis and sub-type routing, you bet that *where the fix goes* matters as much as *how often it's reported* — that a correctly-routed rare hallucination beats a mis-routed frequent one. You take on the classification overhead and the discipline of verbatim sourcing. **Reversible?** Fully — it's a scoring method, not a build. **The hidden trade:** the failure mode is over-flagging (calling every AI-mentioning complaint a failure), which floods the eval team with design gripes; the WHEN-WRONG guard exists to hold that line. **Confidence: High** for products with real AI surface area; the AI axis is dead weight without it (RED TEAM). What would change it: a product where AI is invisible to the user.
+Before finishing, check that every item is accounted for, unresolved classifications remain visible, scores reproduce their stated formula, and quotes or paraphrases are labeled correctly. Confirm who can accept the work. If no owner has capacity or authority, surface that gap and propose a concrete resolution instead of merely producing another backlog.
 
-## CONCLUSION
+Feed relevant failures into `rtp-eval-framework` and `rtp-eval-driven-development`: reproduce the failure before changing the system and retain regression coverage. Use `rtp-ai-product-metrics` for outcome and exposure measures, `rtp-interview-synthesis` for deeper understanding, and `rtp-opportunity-solution-tree` for unmet needs. `rtp-gossip-mode` covers informal single signals; `rtp-feedback-flywheel` follows the broader path from feedback to assessed improvement.
 
-Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5). A complete report ends with one paragraph: *"Of the [N] items this period, [%] were AI failures, [%] UX issues, [%] future-capability signals. The top three themes drive [Y%] of complaints. We're routing [A] to AI eval, [B] to design, [C] to discovery. The AI-failure rate is [trending up/stable/down] vs. last period — [implication for the AI roadmap]."* If it instead ends with "lots of feedback, mixed sentiment, will keep monitoring," the triage isn't done.
-
-## VISUAL SUMMARY
-
-After the primary output, invoke the **excalidraw-svg** skill for one visual: the bimodal feedback curve (a "loved" peak and a "hated" peak with a thin middle) above a router that splits the hated slice into two paths — UX issues → design, AI failures → eval/ML (with the sub-types fanning out to their fix teams) — so a viewer sees why averaging hides the problem and why the AI-failure axis is what routes the fix. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+A compact routing diagram may help a complex report. Show observed categories, uncertainty, and shared ownership; draw a bimodal distribution only if the actual data supports it. Choose the output format for the user’s decision, not to satisfy an unnecessary artifact checklist.

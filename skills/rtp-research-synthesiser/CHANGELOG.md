@@ -1,5 +1,11 @@
 # Research Synthesiser — Changelog
 
+## v2.3.1 — 13 SEP 2026
+
+Reorganized the workflow around scope, access, coverage and primary evidence. Preserved all ten dimensions and twenty-five saved Notion IDs. Replaced source-product confidence labels and automatic mention-count promotion with evidence-based review; reconciled full sequential runs, optional novelty, historical schedules, absent legacy paths and actual-versus-proposed updates. Added linked source and reporting references. Earlier entries below describe historical behavior, including rules superseded by this revision.
+
+The starting frontmatter was v2.3 while the body/footer still said v2.2; this revision aligns the current metadata without inventing an undocumented v2.3 history.
+
 ## v2.0.0 — 4 APR 2026
 
 ### Redesigned — On-Demand Dimension-Based Architecture

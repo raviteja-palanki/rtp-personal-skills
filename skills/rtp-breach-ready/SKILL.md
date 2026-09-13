@@ -1,278 +1,165 @@
 ---
 name: rtp-breach-ready
-version: v1.0_latest
-description: 'Design systems that SURVIVE being hacked, because "if," not "when." Prevention-only security fails. Resilience means: can you operate 48 hours without digital systems? Can you isolate damage? Can you restore from manual backup? FedEx survived NotPetya because of resilience planning. Use when designing systems that handle sensitive data, post-incident reviews, business continuity planning, or any system where downtime has non-trivial cost. Skip if the system has trivial impact if breached (internal tool with no sensitive data).'
+version: v1.0.1_latest
+description: 'Prepare a system and its people to contain a security incident, maintain essential service where safe, and recover from trusted resources. Review five resilience dimensions: isolation, graceful degradation, manual or independent fallback, communication, and recovery. Use a realistic outage scenario, including a 48-hour exercise when relevant, to test dependencies, staffing, data integrity, backup restoration, and recovery objectives. Pair resilience with prevention; neither guarantees that every incident is avoided or quickly resolved. Use for sensitive-data systems, services with material downtime consequences, continuity planning, and post-incident reviews. Scale the effort for low-impact experiments while checking their access and dependencies. Triggers include "breach readiness", "ransomware recovery", "business continuity", "manual fallback", "backup restore", and "what if our systems go down".'
 imports: [stress-test, failure-modes]
 ---
 
 # Breach Ready
 
-## DEPTH DECISION
+Design for containment, safe continuity, and trusted recovery alongside prevention. The practical question is: **if an important system or dependency becomes unavailable or untrustworthy, what essential work can continue, for how long, and how will we restore it?**
 
-**Go deep if:** You're designing AI systems that handle sensitive data, building infrastructure for any mission-critical service, or recovering from a breach. **Skim to questions if:** Quick audit of whether your system has basic resilience (not just prevention). **Skip if:** The system is low-impact if breached (internal experiment, no sensitive data, brief downtime acceptable).
+Do not promise that every organization will be breached or that resilience guarantees a rapid recovery. Prevention can reduce incident likelihood and impact; preparation addresses the failures that remain. Both are part of security risk management.
 
-## GROUNDING (Before Starting)
+## Start with the service and failure scenario
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: What data does this system handle? What's the cost of 1 hour of downtime? What's your regulatory exposure?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, or both?
+Identify the data, essential service, affected people, dependencies, cost and harm of interruption, and applicable obligations. Reuse known context. A brief audit can follow the six diagnostic questions; a full review runs the six process steps and produces a continuity/recovery plan.
 
-Then proceed with the skill-specific analysis below.
+Scale effort to consequences, not whether a system is called “internal.” An experiment with privileged credentials or sensitive data can create a wider incident. Conversely, a disposable isolated system may reasonably have a minimal recovery plan.
 
-## THE TRAP
+For an active incident, work within the established incident command and authorized scope. Prioritize containment, evidence preservation, and safety. A planning task does not authorize shutting down live systems, sending customer messages, or running disruptive exercises. The shared Universal Skill Protocol is at the AI-PM library root or packaged plugin root; adapt format and depth to the requested decision.
 
-You will invest everything in prevention and nothing in survival. The bias is **prevention illusion** — the assumption that if you just secure everything tightly enough, breaches won't happen. They will. Every major company gets breached. The question is not "if" but "when" and "how fast do we recover?"
+## Five resilience dimensions
 
-Prevention buys you time. It doesn't guarantee safety.
+| Dimension | What the design should establish | Typical gap |
+|---|---|---|
+| Isolation | A compromise has enforceable limits across systems, identities, data, and suppliers. | Separate servers share credentials or an administration path that defeats the boundary. |
+| Degradation | A defined minimum service can continue safely, or the system can stop safely. | One optional dependency disables the essential service. |
+| Manual/independent fallback | People or an independent service can perform the necessary work with available resources. | The fallback depends on the same unavailable database, identity service, or network. |
+| Communication | Staff, customers, and partners can receive accurate, authorized updates. | The only contact channel is compromised or requires the failed login system. |
+| Recovery | Trusted systems and data can be restored, validated, and reconciled in the required order. | A backup exists but cannot restore a usable, clean service. |
 
-**The mechanism:** Prevention = building a stronger castle wall. Resilience = planning what happens when the wall falls anyway.
+## What the FedEx/TNT case actually supports
 
-The trap is most seductive when:
-- You've just deployed a security update and feel safe (temporary)
-- Your threat model focuses on "likely" attacks (the worst attack is always the unlikely one)
-- You have an incident response plan but haven't tested it
-- The cost of downtime seems theoretical (until it happens)
+The original skill described a complete 48-hour FedEx recovery from the 2017 NotPetya incident, attributed to an isolated mainframe and a rehearsed paper process. That account is not supported by the company's disclosures.
 
-### The FedEx NotPetya Case (2017)
+FedEx's **17 July 2017** update said TNT continued to face widespread service and invoicing delays, with manual processes supporting substantial operations and no estimate for full restoration. Other FedEx companies were reported unaffected, and contingency plans used both networks. This supports examining boundaries and continuity arrangements; it does not establish the claimed mainframe architecture or a two-day recovery. The [source note](references/continuity-cases-and-calculations.md) preserves the correction and dated financial context.
 
-In June 2017, the NotPetya ransomware hit FedEx and thousands of other companies. Ransomware encrypted critical systems. FedEx's response is a masterclass in resilience.
+## The six-step process
 
-Most companies got hit hard because they had no fallback: systems encrypted → no shipping → no tracking → no revenue. Recovery took weeks for some. FedEx's recovery: 48 hours.
+### 1. Test an interruption that matters
 
-Why? Because FedEx had planned for exactly this scenario:
-1. **Isolated systems**: Shipping (old mainframe-based system) was physically isolated from operational tech. Ransomware spread, but the mainframe stayed up.
-2. **Manual fallback**: When digital systems went down, staff reverted to paper-based tracking (slower, but functional). Customers could still ship packages.
-3. **Backup power and communication**: 48-hour manual operation didn't require digital infrastructure — just radio, phones, and paper.
-4. **Tiered recovery**: Critical revenue functions came back first (shipping, tracking), non-critical later (reporting, dashboards).
+Use the **48-hour test** as a scenario prompt, not a universal survival requirement: “If these specified systems became unavailable or unsafe to trust, could we sustain essential work for 48 hours?” Choose a different duration when the service's consequences require it.
 
-Result: FedEx lost a few hundred million to the breach and recovery cost. Competitors who had no resilience plan lost billions — in downtime, lost contracts, and customer defection.
+State exactly what fails: the AI provider, application, identity service, payment processor, communications, cloud region, power, or several connected dependencies. Distinguish an outage from compromise or corrupted data. If the exercise removes all digital systems, email, phones, SMS, and cloud backups may not be available either; do not quietly depend on them.
 
-The difference? FedEx had tested "what happens if our digital systems are completely unavailable for 72 hours?" They had answers. Most companies didn't.
+Check whether the organization can:
 
-## THE PROCESS
+- Receive and prioritize orders, requests, or urgent cases.
+- Fulfill essential commitments with a safe minimum service.
+- Identify current customers, entitlements, work in progress, and affected obligations.
+- Communicate, staff operations, and meet time-sensitive payroll or other commitments.
 
-### 1. THE 48-HOUR TEST
+For a SaaS service, delayed signup or a temporary pause may be better than improvising payment collection. Use only approved payment procedures; do not write down card details as a generic workaround. If the API is unavailable, define which service can continue and which cannot. A current, securely accessible customer list may help but must have a purpose and appropriate handling.
 
-Ask: **"If all digital systems disappeared tomorrow, could we operate for 48 hours manually?"**
+For a healthcare service, ask whether authorized staff can use current downtime records, receive results, and coordinate medication processes under established clinical procedures. Do not invent a fax, PDF, or telephone workflow without confirming its safety, acceptance, and dependencies.
 
-Not "do we want to," but "can we actually?"
+Record the first failure, time until impact becomes unacceptable, fallback capacity, and what must be restored. Acknowledging that some work must pause is a useful result, not an automatic failure of the exercise.
 
-**Operational integrity:**
-- Can we take orders without the system?
-- Can we fulfill them without the system?
-- Can we communicate with customers without the system?
-- Can we pay employees without the system?
+### 2. Map and verify isolation
 
-**Example (SaaS company):**
-- Can we take new customer signups without Stripe integration? (No — write down credit card manually? Accept COD?)
-- Can we serve existing customers without the API? (No — tell them "feature unavailable for 48 hours"? Accept that?)
-- Can we know which customers are active? (Do we have a backup list? Is it current?)
+Draw actual trust boundaries, access, data flows, administrative paths, and dependencies. A firewall or separate database label is not evidence of an effective boundary.
 
-**Example (healthcare system):**
-- Can doctors access patient records without the EHR? (Paper charts — but are they current? Are they stored where staff can access them?)
-- Can we process prescriptions without the pharmacy system? (Manual PDFs to pharmacies? Do they accept that?)
-- Can lab results reach doctors? (Phone calls to staff? Fax? And then what?)
+| Boundary | Questions to test |
+|---|---|
+| Network | Can a compromised endpoint reach critical services or their control plane? Are permitted paths necessary and enforced? |
+| Data | Are sensitive stores separately authorized, and can shared backups, credentials, or integrations bypass that separation? |
+| Human/identity | Do roles, delegated agents, and administrators have task-appropriate privileges? Can compromised credentials cross boundaries? |
+| Infrastructure | Are batch and interactive services, cloud/on-premises environments, and recovery resources sufficiently separated for the scenario? |
+| Supplier | What can a compromised model provider, library, integration, or support account reach? Are incoming results treated as untrusted data? |
 
-Be honest. Most organizations fail this test.
+For an ML service, examine whether the endpoint can modify databases, whether model/API access exposes training or customer data, and what privileges a compromised dependency could obtain. Test through an authorized security process. Separate agent instructions from externally retrieved content, and constrain tool effects through enforceable controls.
 
-### 2. THE ISOLATION DIMENSION
+Keep a protected copy of the dependency and recovery map accessible during the assumed outage. Check shared identity, DNS, keys, storage, observability, and backup administration; these can connect apparently isolated components.
 
-Ask: **"Where do breaches spread unchecked? Where are our firewalls?"**
+### 3. Define safe degradation
 
-Design systems so damage is bounded.
+For each critical service, specify full function, minimum acceptable function, temporary restrictions, stop conditions, and the return-to-normal criteria. Degraded operation can mean lower capacity, read-only access, selected features disabled, or a controlled pause.
 
-**Isolation taxonomy:**
-- **Network**: Revenue systems isolated from non-critical systems. Ransomware can encrypt Marketing but not Billing.
-- **Data**: Customer data in separate databases from operational data. Breach of one doesn't compromise the other.
-- **Human**: Different teams have different access. Marketing person can't access customer payment data.
-- **Infrastructure**: Batch processing isolated from real-time systems. Cloud environment separated from on-prem.
-- **Supplier**: AI vendor integrations sandboxed. If vendor gets compromised, damage doesn't cascade into your core systems.
+**Support example:** if AI normally handles 90% of tickets and people handle 10%, sending all tickets to the same human team creates roughly ten times its prior ticket volume, before differences in case complexity. “Humans handle everything” is not a capacity plan. Define priority routing, queue limits, expected wait, staffing, alternatives, and customer commitments.
 
-**Example (ML team hosting AI models):**
-- Can a compromised model endpoint inject malicious data into your database? → Isolation needed
-- Can an attacker using the model API access your training data? → Isolation needed
-- Can a supply-chain attack on the ML library compromise your infrastructure? → Isolation needed
+Static recommendations or previously approved content may substitute for a model. Confirm freshness, permissions, accessibility, and suitability. A compromised retrieval store may make cached or default output unsafe too. Prefer an honest unavailable state when no acceptable fallback exists.
 
-### 3. THE DEGRADATION DIMENSION
+### 4. Make fallback executable and sustainable
 
-Ask: **"What happens if we lose non-critical capabilities? Can the core function still work?"**
+Describe who performs each essential step, with which information, tools, authorization, and staffing. Measure throughput, error checks, backlog growth, shift coverage, fatigue, and the maximum sustainable duration. “Manual” describes who performs work; it does not necessarily mean no digital dependency.
 
-Design graceful degradation:
-- System operates at 50% capacity but stays up
-- Features turn off individually instead of cascading failure
-- Users see "this feature unavailable" instead of whole system down
+Examples include approved invoice deferral or alternate payment handling, bounded manual stock checks and order intake, or rules-based recommendations. Each depends on the scenario. Email invoicing is an alternative only if email, customer identity, records, and fraud controls remain trustworthy. Inventory workarounds need a method to prevent duplicate sales and commitments.
 
-**Example (AI-powered customer support):**
-- Full function: AI handles 90% of tickets, humans handle complex ones
-- Degraded state: AI unavailable, humans handle all tickets (slower, more expensive, but functional)
-- Design: Graceful fallback from AI to human routing (not: AI down = support down)
+Keep forms, instructions, contact information, necessary records, and emergency access appropriately protected and reachable. Record work done during the outage with unique references so it can later be reconciled without duplicate charges, shipments, or messages. A slower process can be successful if it meets the defined minimum service safely.
 
-### 4. THE MANUAL FALLBACK DIMENSION
+### 5. Establish dependable communication
 
-Ask: **"What's the non-digital version of this process? Can humans execute it?"**
+Identify the incident lead, authorized spokesperson, internal response channel, customer channel, and relevant partner contacts. Prepare concise templates that distinguish confirmed facts, unknowns, affected services, protective actions, and the next update time.
 
-Not "how would we do this in 1995?" but "if systems fail, can people continue the essential work?"
+Possible alternatives include published phone numbers, a separately operated status page, an approved SMS channel, and established social accounts. Test their real independence: a different domain may share the same identity provider, hosting, DNS account, or administrator. A phone channel also needs staffing and sufficient capacity.
 
-**Examples:**
-- **SaaS billing**: If payment processing goes down, can we manually invoice customers and track payment via email? (Yes, it's slow, but it works)
-- **E-commerce**: If inventory system fails, can we manually check stock, email customers, and process orders? (Yes)
-- **AI recommendations**: If the model service dies, can we show default recommendations (bestsellers, trending)? (Yes)
+Keep contact lists current and protected. Authenticate urgent instructions so an attacker cannot easily impersonate the response team. Do not claim that data leaked—or that it did not—before the evidence supports that statement. Use current legal, contractual, and organizational requirements to determine notifications and timing with the responsible owner.
 
-**Trap:** You design a fallback, but it requires systems or data that don't exist. A manual payroll process that requires access to "the payroll database" isn't a fallback — it's still digital-dependent.
+During a planning exercise, draft messages and test delivery through an agreed test group or environment. Send actual customer or public communications only within explicit authorization. Do not assume every incident requires an SMS to every customer.
 
-### 5. THE COMMUNICATION DIMENSION
+### 6. Restore a trusted service and reconcile the work
 
-Ask: **"If customers can't reach us digitally, can we reach them?"**
+Define three linked properties:
 
-During a breach:
-- Website might be down
-- Email might be compromised
-- Customers panic ("Did my data leak?")
+- **Backup integrity:** the required data, configuration, software, keys, and dependencies can be accessed and restored from a trusted point.
+- **Recovery time objective (RTO):** the target time to restore a defined service level. Distinguish this target from measured recovery time and complete business normalization.
+- **Recovery point objective (RPO):** the tolerated loss of recent data, expressed as a time or other agreed measure. Backup frequency alone does not prove the RPO is met.
 
-**Fallback communications:**
-- Pre-established phone numbers customers can call (must be publicized in advance, not during crisis)
-- SMS alerts (separate from compromised email)
-- Social media backup (Twitter, LinkedIn — use accounts separate from your main ones)
-- Public status page on a different domain (not your main site)
+Hourly backups may support an approximately one-hour recovery point only when the relevant backups succeed, remain intact, are accessible, and are sufficiently clean. Late discovery of corruption, failed jobs, replication of bad data, or missing dependencies can require an older point or cause greater loss. A live replica is not automatically an independent clean backup.
 
-**Example (AI SaaS company):**
-- Your website gets encrypted. Customers can't log in.
-- But your status page (hosted on a separate domain) is up: "We're experiencing a security incident. Customers should not enter new data. Follow @yourcompanyStatus for updates."
-- You SMS all customers: "Incident reported. Check our status page for details."
-- Result: Panic is lower, customers aren't trying to guess what happened.
+Use protected recovery resources—such as offline or suitably isolated/immutable backups—appropriate to the threat and obligations. Verify encryption and key recovery, identity separation, retention, and restoration. Rebuild or restore into a trusted environment, address the compromise path and affected credentials as needed, and validate service/data integrity before reconnecting. Coordinate these actions with the incident team; preserve necessary evidence.
 
-### 6. THE RECOVERY DIMENSION
+Prioritize **safety and essential service**, then dependencies and other business functions. Revenue is one input, not always the first priority. The historical two/eight/twenty-four-hour recovery tiers are examples, not universal targets. A two-hour RTO does not inherently require hot replication, and hourly backups alone do not establish an eight-hour restore time.
 
-Ask: **"How fast can we restore from backups? Have we tested it?"**
+After systems return, reconcile offline work, queues, payments, inventory, customer records, and agent actions. Restore the relevant model/prompt/tool configuration and check for poisoned context or persisted memory where applicable. Track residual backlog and customer impact. Availability recovery does not reverse data disclosure or complete incident remediation.
 
-**Recovery has three components:**
-1. **Backup integrity**: Can we actually restore? (Test monthly. Most companies discover their backups are corrupted only during recovery.)
-2. **Recovery time**: How long does restoration take? (If it takes 72 hours to restore, you can't recover in 48 hours manually.)
-3. **Data loss**: How much data do we lose in the gap between backup and breach? (Hourly backups = max 1 hour loss. Daily backups = max 24 hours loss.)
+## Exercise the plan and record evidence
 
-**Realistic recovery tiers:**
-- **Tier 1 (revenue systems)**: Recover within 2 hours. Requires hot backups or real-time replication.
-- **Tier 2 (operational)**: Recover within 8 hours. Can use hourly backups.
-- **Tier 3 (non-critical)**: Recover within 24 hours. Daily backups acceptable.
+Start with a tabletop discussion where appropriate, then test the important assumptions through bounded restores, failovers, access checks, and operational rehearsals. A tabletop can reveal missing decisions; it cannot demonstrate restoration speed. Choose safe production-representative conditions and authorized scope for disruptive tests.
 
-## DIAGNOSTIC QUESTIONS
+Record scenario, date, participants, expected service, actual result, restoration point, duration, data loss, staffing, failures, owner, and corrective action. Test on a cadence justified by risk and change frequency, and after changes that could invalidate the plan. Monthly backup tests, quarterly drills, and annual recovery reviews are possible schedules, not mutually compatible proof requirements or universal minimums.
 
-Answer these honestly to assess your breach readiness:
+Keep the plan usable if normal systems fail. Review vendor changes, emergency contacts, access, dependencies, and employee familiarity. One successful rehearsal does not prove all incident scenarios are covered.
 
-1. **"Can we operate for 48 hours without our digital infrastructure?"** Test it. Actually try. Have teams work through a scenario.
-   - **Red flag:** "We don't know." "It depends." "Probably not."
-   - **Sharpening probe:** "What's the first thing that breaks if the system goes down?"
+## Six diagnostic questions
 
-2. **"Where would ransomware spread unchecked in our infrastructure?"** Draw the network map. Trace how a compromised endpoint can move.
-   - **Red flag:** Everything is networked. No firewalls. No segmentation.
-   - **Sharpening probe:** "If the payment system gets breached, can the attacker reach customer data?"
+1. Under the defined outage or compromise, what essential work can continue, for how long, and what fails first?
+2. Which identities or connections could carry compromise across a boundary we rely on?
+3. What did the latest restore test recover, from which point, in how much time, and with what gaps?
+4. Can the fallback meet minimum service with available people and trustworthy information through the required duration?
+5. How will staff and customers receive authenticated updates if the primary channel is unavailable?
+6. What are the direct and indirect consequences of interruption, corruption, or disclosure, and which investment reduces them most?
 
-3. **"Have we tested our backups in the last 6 months?"** Not "do we have backups" — have we actually restored from them?
-   - **Red flag:** "We have backups but haven't tested." "Testing is on the roadmap." "We trust they work."
-   - **Sharpening probe:** "If we needed to restore right now, how confident are you we'd succeed?"
+“It depends” is a cue to name the dependency. Low publicity or absence of a specific regulation does not make operational or personal harm immaterial.
 
-4. **"What's the manual version of our core business process?"** Describe it without using any digital systems.
-   - **Red flag:** You can't describe it. "We'd just wait for systems to come back up."
-   - **Sharpening probe:** "How many people and how much time would it take?"
+## Cost the trade-off and decide
 
-5. **"If customers couldn't reach us digitally for 24 hours, how would they know what happened?"** Do you have out-of-band communication?
-   - **Red flag:** "They'd figure it out." "They'd call." (From a working phone number that isn't in your website?)
-   - **Sharpening probe:** "Where are the phone numbers and backup contact methods publicized?"
+Estimate prevention, isolation, backup, alternate-service, exercise, staffing, and recovery costs against credible loss scenarios and alternatives. Separate revenue delayed from revenue lost, include customer and safety consequences, and avoid counting the same loss twice.
 
-6. **"What's the cost of 1 hour of downtime for our core function?"** Revenue loss, regulatory fines, customer defection.
-   - **Red flag:** "We don't know." "It's minimal." (If it's truly minimal, skip resilience planning for that system. If it's significant, do it.)
-   - **Sharpening probe:** "Would this event make the news? Would customers switch to competitors?"
+There is no general 2–3× infrastructure multiplier or 10–100× return. In the original example, $10 million potentially avoided against $1 million one-time cost is a 10:1 gross benefit/cost ratio; if the entire loss is actually avoided, net ROI is 900% before other costs. A recurring $1 million annual cost over ten years is a different comparison. Neither establishes expected ROI without incident likelihood, control effectiveness, timing, and residual loss.
 
-## REALITY CHECK
+Where the risk is low, a simple documented restore or safe shutdown can be proportionate. Accept remaining risk explicitly through the accountable owner within applicable obligations. Comparing backup cost only with the purchase price of a system misses the value and harm of its data and service.
 
-**Failure modes:**
-- **Backup-only resilience**: You have backups but no redundancy. Ransomware hits, you restore, but it takes 72 hours. Damage is done.
-- **Recovery plan without testing**: Plan looks good on paper. When crisis hits, people don't remember it, or it's outdated, or it doesn't actually work.
-- **Isolated but fragile manual process**: You can operate manually, but the process is so labor-intensive that 48 hours exhausts the team. Day 3, everyone breaks.
+## Readiness and output
 
-**Cost traps:**
-- Resilient infrastructure costs 2-3x more than basic setup (redundancy, backup systems, isolation).
-- But the cost of a week of downtime can be 10-100x the annual cost of resilience infrastructure.
-- Do the math: 1 week downtime = $10M loss. Resilience infrastructure = $1M. ROI over 10 years: 10x payback on your first incident.
+Confirm the relevant seven areas: a realistic continuity scenario, verified boundaries, a demonstrated restore, an executable fallback or safe pause, dependable communication, prioritized recovery objectives, and a current exercised response plan. State what was designed, tested, or merely assumed. If evidence is incomplete, recommend a bounded next test or restriction rather than reporting readiness as proven.
 
-**Monitoring:**
-- Track "backup test frequency" (monthly minimum)
-- Track "manual process proficiency" (practice it quarterly, time it)
-- Track "recovery time objectives by tier" (publish them, test them yearly)
-- Track "incident response plan date" (update quarterly, every quarter)
+```markdown
+# Breach Readiness: [Service]
+Decision: [ready within bounds / improve / test / accept specified risk]
+Scenario and consequences: [failed/untrusted systems, duration, affected work]
+Essential service: [minimum capacity, safety limits, maximum interruption]
+Isolation: [boundaries, shared dependencies, verification]
+Degradation/fallback: [steps, staffing, capacity, stop conditions]
+Communication: [owners, independent channels, authorized draft/process]
+Recovery: [priority, RTO, RPO, trusted source, keys/dependencies]
+Reconciliation: [offline work, external effects, backlog, residual harm]
+Exercise evidence: [date, scope, measured results, limitations]
+Cost and accepted risk: [alternatives, accountable owner]
+Next action: [owner, bounded test/fix, success condition, review trigger]
+```
 
-## THE FIVE RESILIENCE DIMENSIONS (Detailed)
+Use `stress-test` and `failure-modes` to challenge dependencies and scenarios; connect agent containment to `agent-risk` and detection to `production-observability`. Hand off the plan when part of a wider continuity or response workflow. Explore unresolved recovery assumptions, invest where protection matters, and reduce or accept residual exposure when justified. The sequence has no mandatory one-quarter schedule.
 
-| Dimension | What It Is | Why It Matters | Example Failure |
-|-----------|-----------|----------------|-----------------|
-| **Isolation** | Breach damage is bounded to one system | Ransomware doesn't cascade to all systems | Attacker compromises one server, then sideways-moves to 50 more. Hours to days. |
-| **Degradation** | Core function works at lower capacity | Business continues, not halted | Payment system down = all revenue functions halt. Revenue stops immediately. |
-| **Manual fallback** | Process can execute without digital systems | Humans can keep the business running | All processes require the system. System down = everything stops. |
-| **Communication** | Customers know what's happening | Panic and speculation are reduced | Website down, no status updates. Rumors spread, trust erodes. |
-| **Recovery** | Systems come back online in hours, not days | Downtime cost is capped | Backups corrupted. Recovery takes 2 weeks. Revenue lost forever. |
-
-## QUALITY GATE
-
-- [ ] 48-hour manual operation scenario tested (not theoretical)
-- [ ] Network isolation map created (firewalls, segmentation shown)
-- [ ] Backup restoration tested in last 6 months (not just verified)
-- [ ] Manual process documented and timed (and feasible with your team size)
-- [ ] Out-of-band communication channels established (phone, SMS, separate domain)
-- [ ] Recovery tiers defined (what comes back when, in what order)
-- [ ] Incident response plan has date (last reviewed/tested)
-
-## WHEN WRONG
-
-This skill gives bad advice when:
-- **The system truly has trivial impact if breached** (low value data, fast recovery doesn't matter) — resilience investment is unnecessary overhead
-- **Your environment has zero regulatory requirements** (rare in practice, but possible for internal tools)
-- **Cost of resilience infrastructure exceeds cost of breach** (e.g., backup of a $10k system costs $50k annually) — accept the risk instead
-
-## TRADE-OFF LEDGER
-
-BY CHOOSING **resilience over prevention-only**:
-  We are betting on: Breaches will happen, and recovery speed matters more than preventing them entirely.
-  We are giving up: Simplicity. Resilient systems are more complex (redundancy, isolation, backups cost money and operational overhead).
-  This is reversible within: Not really. Once you've built resilience, unwinding it is expensive. But you can invest in tiers (core systems first, nice-to-haves later).
-
-THE HIDDEN TRADE-OFF:
-  Building resilience requires admitting that prevention is insufficient. This changes how you think about security. Shift from "we'll never get breached" to "we will get breached, let's survive it." This is psychologically uncomfortable. Leadership may resist ("Are you saying security isn't good enough?"). Reframe: "Security is our first line. Resilience is our second line."
-
-CONFIDENCE: **High**
-  What would change our mind: If we saw compelling evidence that prevention actually stops breaches (we haven't). Every incident response post-mortem shows: even excellent prevention failed; what mattered was recovery planning.
-
-## CONCLUSION
-
-**The recommendation:** For any system handling sensitive data or mission-critical functions, design for resilience ALONGSIDE prevention. Do not choose between them.
-
-**The hypothesis:** We believe that **systems designed for resilience will recover from breaches in hours to days** instead of weeks, because damage is isolated, manual operations are planned, and backups are tested.
-
-**The 3E decision:**
-- **Explore:** Run the 48-hour test scenario (2-3 weeks). Do we stay functional manually? If not, this is urgent.
-- **Exploit:** If test fails, build resilience layer by layer (isolation, fallback, communication, recovery testing) over next quarter.
-- **Exit:** If cost of resilience exceeds cost of breach (rare), accept the risk and document why. Make it an explicit business decision.
-
-**The key trade-off:** We're choosing tested recovery over theoretical prevention. Resilience takes work upfront; it pays back in hours of downtime prevented.
-
-**The biggest risk:** That you build resilience planning but never test it. Untested plans fail in real crises. Test quarterly, every quarter.
-
-**Assumptions to watch:**
-1. Manual processes are actually faster than digital processes during crisis (test this — sometimes they're slower and that's okay)
-2. Team can execute manual process under stress (simulate actual incident — chaos affects performance)
-3. Backup data is accurate and current (check before crises, not during)
-
-**The next action:** Conduct a 48-hour resilience scenario test (1 day of planning, 1 day of execution, 1 day of debrief). Document what breaks. Prioritize fixes.
-
-## GENERATE THE DELIVERABLE
-
-Use the output prompt from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
-If this skill connects to downstream skills, also generate the markdown handoff file (if relevant to business continuity strategy or incident response planning).
-
-## VISUAL SUMMARY
-
-After completing the primary output, invoke the excalidraw-svg skill to create a single Excalidraw SVG visual summary showing:
-- The five resilience dimensions (Isolation, Degradation, Manual fallback, Communication, Recovery) with examples
-- System isolation map (network boundaries, data segregation, team access tiers)
-- Recovery timeline (Tier 1 systems back online in 2 hours, Tier 2 in 8 hours, Tier 3 in 24 hours)
-- Manual operation process flow (without digital systems — sequence of steps)
+Close with the recommendation, trade-off, main untested assumption, and next action. A diagram can clarify dependencies, fallback steps, or the measured recovery sequence; it should show actual targets rather than importing the example times.

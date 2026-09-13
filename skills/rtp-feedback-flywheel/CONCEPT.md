@@ -1,40 +1,29 @@
 # Feedback Flywheel — Concept Guide
 
-## FIRST PRINCIPLES
+A feedback flywheel connects experience to an assessed improvement. Real usage reveals situations that internal or synthetic tests may miss. The interface influences which signals become visible, but it is only one part of the evaluation system. Independent tests, research, operational outcomes, and qualified review remain necessary.
 
-The best evaluation data for an AI product comes from the people using it. Not from synthetic benchmarks, not from internal testing, not from offline eval sets — from real users correcting real mistakes on real tasks. Every edit a user makes to AI output is a labeled training example. Every abandonment is a signal. Every escalation to a human produces a gold-standard reference.
+## Two definitions
 
-The atomic insight: **the product interface is the evaluation system.** They're not separate concerns. The way you design the interaction determines the quality and volume of feedback you can capture, which determines how fast the AI improves, which determines the product's competitive trajectory.
+**Business:** a repeatable way to learn from use and improve customer outcomes. Better results may attract or retain users and produce further learning, but compounding growth and a competitive moat are possibilities to demonstrate.
 
-## DUAL DEFINITION
+**Technical:** an instrumented and governed path from permitted observations through interpretation, evaluation, experiments, release, and outcome measurement. It can improve prompts, retrieval, tools, rules, interaction design, or models. It does not require model retraining or automatic production updates.
 
-**Business definition:** The feedback flywheel turns every user interaction with AI output into data that makes the AI better — creating a compounding improvement cycle where the product gets smarter the more people use it. This is the mechanism behind data-driven competitive moats in AI products.
+## Three common traps
 
-**Technical definition:** An instrumented interaction layer that captures implicit and explicit user feedback signals (acceptances, edits, rejections, escalations) and routes them into evaluation pipelines, prompt optimization workflows, and retrieval quality assessments through defined cadences.
+**Evaluation in a vacuum.** An offline test can omit important production situations. A hypothetical gap between 92% offline accuracy and 75% in use prompts an investigation of population, rubric, task, and system differences. The two numbers are not a documented benchmark or proof of a single cause.
 
-## THE TRAP (Expanded)
+**The feedback graveyard.** Ratings accumulate without an owner or a decision path. Collection is useful only insofar as it serves an allowed purpose. Assign ownership to important findings and follow them through to an outcome; do not maximize raw labeling for its own sake.
 
-**The Eval-in-a-Vacuum Problem.** Teams build evaluation sets from synthetic data or internal examples. These evals pass. The product launches. Users encounter queries and contexts the eval never anticipated. The offline eval says 92% accuracy. Users experience 75%. The gap exists because the eval doesn't reflect real distribution.
+**The unexamined correction.** Before-and-after edits can reveal terminology, missing facts, style, or user preferences. They do not always show a uniquely correct answer. Human escalations likewise need validation before becoming reference labels.
 
-**The Feedback Graveyard.** Many products collect thumbs-up/thumbs-down signals but never process them. The data sits in a logging table that nobody queries. The PM says "we collect feedback." The ML engineer says "I've never seen the feedback data." This is cargo-cult feedback collection.
+## Two illustrative cases
 
-**The Edit Goldmine.** When a user edits AI-generated text, the before/after pair is an incredibly rich signal. It tells you not just that the AI was wrong, but exactly how it was wrong and what the correct output should have been. Most products don't capture edits as structured data.
+**Document editing.** Suppose a drafting tool collects 50,000 permitted edit pairs over three months. Review finds excessive jargon, dense paragraphs, and missing company terminology. The team tests prompt and retrieval changes and observes acceptance rise from 40% to 68% over six months. That is a 28-percentage-point association; attribution requires a suitable comparison and checks for changing users or tasks. The next question is whether reduced editing reflects better work or less scrutiny. This is an illustration, not a verified Amazon case.
 
-## INTELLECTUAL LINEAGE
+**Support escalation.** Suppose three categories dominate a sample of 10,000 escalations. The team investigates missing knowledge, failed tools, policies, and cases that properly require a person before choosing a retrieval change. An overall escalation rate falling from 10% to 5.5% is a 45% relative decline. A category rate falling from 35% to 8% has a different denominator. Neither establishes improvement without checking successful resolution and missed necessary escalations. These are illustrative figures, not a measured customer case.
 
-- **Eugene Yan** — On LLM-as-judge evaluation and using user corrections as reference labels for automated eval.
-- **Aman Khan** — On production ML observability and the difference between offline and online metrics.
-- **RLHF as product design** — Reinforcement Learning from Human Feedback isn't just a training technique. It's a product design philosophy: the interface generates the feedback that improves the model.
-- **Amazon's flywheel** — Bezos's virtuous cycle applied to AI: more users → more feedback → better AI → more users.
+## Intellectual connections
 
-## REAL-WORLD EXAMPLES
+Eugene Yan’s evaluation work and Aman Khan’s observability practice motivate links between production signals and evaluation. Human-feedback training shows one way feedback can influence a model; it does not make every product feedback loop RLHF. The general business flywheel metaphor describes a reinforcing cycle, not a guarantee that more usage yields better data or profitable growth. Interpretability research addresses different questions and should not be presented as direct evidence of loop effectiveness.
 
-**The editing flywheel (Amazon-scale loop).** A document AI tool captured every user edit to AI-generated drafts as structured data (before/after pairs + user ID + timestamp + document type). After 3 months: 50,000 before/after pairs. Quality analysis revealed three dominant patterns: (1) model over-used jargon (technical language in executive summaries), (2) paragraphs were too dense (model generated 400-word blocks where users preferred 100-150 words), (3) missed company-specific terminology (proprietary product names, internal nomenclature). Monthly: prompt improvements targeting these patterns. Quarterly: fine-tuned retrieval for terminology. Result: user acceptance rate 40% → 68% over 6 months. Competitive advantage: every day more users edit → more signal → better model → fewer edits → less user work. This is compounding advantage.
-
-**The escalation signal (customer support).** A support AI tracked escalations to human agents as an implicit negative signal. Data: when users requested human handoff, what was the query? Analysis of 10,000 escalations revealed 60% came from three query categories: billing edge cases, feature request routing, and technical troubleshooting for specific products. Root cause: retrieval system lacked specialized knowledge for these categories (general knowledge base wasn't fine-grained enough). Intervention: built three specialized retrieval clusters for these query types. Result: escalation rate dropped 45% (10% → 5.5% overall, but 35% → 8% for those three categories). Measurement: tracked escalation rate weekly; escalation curve was smooth, predicting business impact in real time.
-
-## FURTHER READING
-
-- Eugene Yan, "LLM-as-Judge: Evaluating LLM Outputs" — Automated eval using human references
-- Chris Olah & Anthropic, interpretability research — Understanding what models learn from feedback
-- Jeff Bezos, "The Flywheel" — Compounding improvement cycles as competitive strategy
+Use the [skill](SKILL.md) for the workflow and the [research reference](references/evidence-and-examples.md) for evidence limits. The practical question is: which observed experience changed a decision, what was tested, and what happened afterward?

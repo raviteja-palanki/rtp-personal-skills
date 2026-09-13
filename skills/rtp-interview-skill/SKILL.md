@@ -1,170 +1,131 @@
 ---
 name: rtp-interview-skill
-version: v1.0_latest
-description: 'Ravi''s interview operating system for senior and Director-level AI PM loops. Covers the whole loop, not one round: technical depth, AI system design, product sense, behavioral, strategy case, and the hiring-manager conversation, plus the half nobody preps, evaluating them. Routes every technical question to the AI-PM skill that already holds the answer, so depth comes from the library rather than from memorised talking points. Grades against the 5 Laws with an honest-uncertainty protocol, runs a pre-mortem on the loop, and grounds every answer in Ravi''s real Honeywell and Perplexity work. Use for mock interviews, grading an answer, prepping a named company, or diagnosing why a loop failed. Pairs with rtp-aipm-orchestrator (routes the depth), rtp-falsification (pre-mortem the loop), rtp-stakeholder-communications (the exec round), rtp-ravis-resume-builder (the artifact).'
+version: v1.0.1_latest
+description: 'Prepare Ravi for senior and Director-level AI PM interviews across technical depth, AI system design, product sense, leadership, strategy, and hiring-manager rounds. Run a mock, review an answer, explain a concept, prepare for a company, diagnose a previous loop, or help Ravi evaluate the employer. Use the connected AI-PM library for depth and verified personal records for experience. Keep real work, authored analysis, and hypothetical approaches distinct. Review answers for a clear direction, technical understanding, relevant evidence, useful nuance, concise delivery, and honest uncertainty. Includes concept explanations, practice questions, illustrative answers, a shared rubric, and targeted coaching drills. Pairs with the orchestrator for routing, falsification for a loop pre-mortem, stakeholder communications for executive discussions, and the resume builder for application materials.'
 ---
-# rtp-interview-skill
+# AI PM interview preparation
 
-**The objective:** walk into any round able to answer from a system you actually built, not from a script you memorised. The library is the depth. This skill is the retrieval and the delivery.
+Help Ravi explain sound product judgment clearly and defend it under follow-up questions. Use the library to recover the reasoning; use verified experience to establish what he personally did. Preparation should uncover knowledge gaps as well as improve retrieval and delivery.
 
-## The one idea
+## Start with the task and the evidence
 
-Most interview prep teaches you answers. That fails at senior level, because a good interviewer's second question always goes past where the script ends.
+Identify the requested mode, role, round, and available time from the conversation. Ask only for missing details that change the preparation. A general mock can begin without a company name. This skill specializes in AI PM interviews; adapt its general communication principles for other roles without assuming the same technical emphasis.
 
-Ravi already holds the answers: 68 AI-PM skills, each one a decision framework with its own failure conditions, plus twelve years of Fortune 100 shipping. **The interview problem is not knowledge, it is retrieval under time pressure and compression into 90 seconds.** So this skill does two things the generic prep does not: it routes each question to the skill that owns it, and it forces the answer through a real deployment he ran.
+Keep three kinds of answer distinct:
 
-Adapted from Aakash Gupta's `ai-pm-technical-interview` (the 5 Laws, the two archetypes, the follow-up ladder), extended to the full loop and wired into the library.
+- **Experience:** what Ravi actually built, led, decided, or observed. Verify his role, dates, scope, collaborators, outcomes, and numbers from his records or his account.
+- **Proposed approach:** what he would do in a case or design exercise. Say “I would”; explain assumptions and how he would test them. A hypothetical question does not require a past deployment.
+- **Knowledge:** an explanation supported by technical sources or his analysis. Writing a playbook demonstrates analysis; it does not establish that he deployed the system it describes.
 
----
+Never invent projects, failures, metrics, ownership, or first-person anecdotes. Keep confidential examples at an appropriate level of detail. Do not introduce personal health, family, age, financial, immigration, or relationship details into interview answers. If Ravi explicitly requests help discussing a career gap or another sensitive topic, help him choose the minimum disclosure he wants to make.
 
-## The full loop (the source skill covers only round 1)
+For current prices, capabilities, company policies, and interview arrangements, verify the relevant primary source. Historical interview reports are practice leads, not promises about a current loop. Unsupported statistics need verification or removal; making them vague does not make them true.
 
-| Round | What they are testing | The skills that hold the answer |
+## Choose the round and retrieve the right depth
+
+| Round | Preparation focus | Connected skills |
 |---|---|---|
-| **1. Technical depth** | Do you understand the systems you build on, or only use them? | `rtp-agent-harness` · `rtp-invisible-stack` · `rtp-context-spec` · `rtp-eval-framework` · `rtp-prompt-craft` |
-| **2. AI system design** | Can you architect a probabilistic system and name where it breaks? | `rtp-ai-prd` · `rtp-autonomy-spectrum` · `rtp-agent-spec` · `rtp-failure-modes` · `rtp-tool-architecture` · `rtp-determinism-compass` |
-| **3. Product sense** | Do you pick the right problem, and can you say no? | `rtp-problem-ai-fit` · `rtp-jtbd-analysis` · `rtp-opportunity-solution-tree` · `rtp-first-principles` · `rtp-ai-product-taste` |
-| **4. Behavioral / leadership** | Have you actually shipped, and what did it cost you? | The experience library below · `rtp-adoption-launch` · `rtp-needs-guard` · `rtp-problem-type` |
-| **5. Strategy / case** | Can you defend a bet with numbers and a kill condition? | `rtp-strategy-canvas` · `rtp-moat-finder` · `rtp-cost-model` · `rtp-token-economics` · `rtp-build-or-buy` · `rtp-falsification` |
-| **6. Hiring manager / exec** | Would I put you in front of my board? | `rtp-stakeholder-communications` · `rtp-trust-under-fog` · `rtp-dual-lens` |
-| **7. Your evaluation of them** | Nobody preps this. It is half the signal. | See "Interviewing them" below |
+| Technical depth | Explain the mechanism and its limits | `rtp-agent-harness`, `rtp-invisible-stack`, `rtp-context-spec`, `rtp-eval-framework`, `rtp-prompt-craft` |
+| AI system design | Define the task, system, permissions, failure paths, and evaluation | `rtp-ai-prd`, `rtp-autonomy-spectrum`, `rtp-agent-spec`, `rtp-failure-modes`, `rtp-tool-architecture`, `rtp-determinism-compass` |
+| Product sense | Choose a valuable problem and reject weak solutions | `rtp-problem-ai-fit`, `rtp-jtbd-analysis`, `rtp-opportunity-solution-tree`, `rtp-first-principles`, `rtp-ai-product-taste` |
+| Behavioral and leadership | Explain personal decisions, collaboration, consequences, and learning | Verified experience; `rtp-adoption-launch`, `rtp-needs-guard`, `rtp-problem-type` |
+| Strategy and case | Defend a bet, its economics, and conditions for changing course | `rtp-strategy-canvas`, `rtp-moat-finder`, `rtp-cost-model`, `rtp-token-economics`, `rtp-build-or-buy`, `rtp-falsification` |
+| Hiring manager and executive | Connect judgment, execution, and accountable ownership | `rtp-stakeholder-communications`, `rtp-trust-under-fog`, `rtp-dual-lens` |
+| Evaluating the employer | Assess the role, operating conditions, and mutual fit | Questions below; `rtp-responsible-ai-program`, `rtp-cost-model` |
 
-**Routing rule:** when a question lands, name the skill that owns it *internally*, pull its spine, then answer in plain language. **Never name the skill out loud.** "I have a framework for this" is a tell. The framework should be invisible and the judgment visible.
+Retrieve only the relevant skill and depth. Answer in ordinary language rather than reciting internal skill names. Naming a useful framework is fine when it helps the interviewer; name-dropping does not replace reasoning.
 
----
+Two practice lenses help tune depth: an **engineering interviewer** probes how the system works; a **product interviewer** probes what that mechanism changes about a decision. Real interviewers blend both. Infer the emphasis from the role, recruiter guidance, and follow-up questions rather than the company logo alone.
 
-## The 5 Laws (carried from the source, with one correction)
+## Use one shared set of six criteria
 
-1. **Commit.** Start with the answer direction, then explain. Fence-sitting reads as not knowing.
-2. **Depth, jargon used correctly.** Correct vocabulary deployed to make a structural point. Wrong jargon is worse than none.
-3. **Real experience.** "I'd put gradient-boosted trees on it" and "the first question after I ship is why didn't this account get flagged" show you have done it, without a speech about having done it.
-4. **Nuance.** Commit first, then layer the second consideration. This is what moves B+ to A+.
-5. **Succinct.** Under 120 seconds. Word salad is the tell of feigned expertise.
+The original five principles plus honest uncertainty form the rubric used throughout this skill:
 
-**The correction the source gets wrong: Law 6, honest uncertainty.**
+1. **Clear direction.** Answer the question early. If a missing constraint changes the answer, clarify it or give a conditional recommendation with the deciding condition.
+2. **Technical depth.** Use accurate terms and explain the mechanism as far as the question requires. Plain language is welcome; jargon is not a scoring requirement.
+3. **Relevant evidence.** For an experience question, distinguish Ravi’s contribution from the team’s and connect it to an observed result. For a hypothetical or definition, use sound reasoning; mark personal experience not applicable when appropriate.
+4. **Useful nuance.** Name the trade-off, boundary, or failure condition that matters to this decision. Do not append a generic caveat to every simple answer.
+5. **Concise delivery.** Give enough detail to answer, then leave room for follow-up. Length depends on the question and the agreed format.
+6. **Honest uncertainty.** Separate what is known, inferred, proposed, and unknown. Explain how a material uncertainty would be resolved. Correct a mistake directly.
 
-The source treats not-knowing as a failure mode. At senior and Director level that is backwards. "I don't know" followed by a real method is often the strongest available answer, and interviewers at Anthropic and OpenAI specifically probe for it, because a PM who bluffs to a researcher burns the relationship in week one.
+“I have not implemented that component; my understanding is…” is stronger evidence of calibration than pretending. It still identifies a preparation gap if that component is central to the role or to a claimed responsibility. An incorrect answer alone does not prove deliberate bluffing, and this practice rubric cannot predict an employer’s hiring decision.
 
-The shape that works: **name the boundary, give the method, name what would change your answer.** "I don't know the attention-head count on that model and I would not guess. What I would do is check the model card, then run our eval set against it before anyone commits a roadmap date. If the latency profile came back above 400ms p90, the whole design changes." That answer scores higher than a confident wrong number, every time.
+Use [the grading rubric](references/grading-rubric.md) for consistent feedback and [the concept guide](references/concepts.md) to repair understanding.
 
-**The distinction that matters:** not-knowing a *fact* is fine. Not-knowing a *mechanism* you claimed to have shipped is fatal.
+## Ground personal answers in the right records
 
----
+Paths below are relative to the Claude workspace. Locate their current equivalents if this skill is used elsewhere; do not pretend unavailable files were read.
 
-## The six auto-fails (carried, all real)
+**Experience records:** start with relevant material in `5_My Resume/`, project records, and Ravi’s account. Confirm any Honeywell tenure and scope, Perplexity AI Fellow title and year, and other career details before using them. Do not translate total career experience into years of AI deployment or a fellowship into employment.
 
-1. **Bluffing a detail.** Named immediately by a good interviewer, and unrecoverable.
-2. **Calling a wrapper a platform.** Claiming architecture you did not build.
-3. **Reporting input metrics as success.** Seats sold, tickets closed, prompts run. This is Ravi's own Rule 33: a deployment headline is a purchase, not a verdict. If you cannot draw the line from spend to useful work shipped, do not quote the number.
-4. **The perfect record.** No failed project, no dead feature, no wrong call. Reads as either junior or dishonest.
-5. **The deterministic PRD.** Speccing an AI feature with fixed acceptance criteria and no confidence threshold, no drift trigger, no named failure owner. `rtp-ai-prd` exists precisely because this is the most common senior-PM failure.
-6. **Going too deep.** Deriving backpropagation at a product-layer interviewer. Read the archetype in the first two minutes.
+**Argument and spoken delivery:** use the current approved playbooks under:
 
-**Add: auto-fail 7, the unsourced statistic.** Quoting "95% of AI pilots fail" or any viral number without its population and tier. Ravi's Rules 31 and 34 apply in a room exactly as they apply in a document: name the source and the population, or soften the claim. An interviewer who knows the study will ask, and being wrong about the number you volunteered is worse than never raising it.
+`1_Projects/1_my-personal-website/1_My Series-MD-FILES/Important playbooks/`
 
----
+- `playbook-harness. engg/final playbook/How-I-Explain-Harness-Engineering-Interview-Definitive-Draft-6.md` provides the 30-second, 90-second, and five-minute answer shapes and the outcome, owner, or test discipline.
+- `playbook-harness. engg/final playbook/The-Harness-Engineering-Playbook-Definitive-Draft-6.md` supplies the contracts, ownership verbs, failure shapes, decisions, and economics behind harness answers.
+- `Frontier playbook/The-Frontier-Companies-Playbook-Draft-6-Combined.md` supports company-strategy preparation. Locate the current `AI_Playbook.md` for breadth when needed.
 
-## Grounding: answer from what he actually built
+Prefer the approved `final playbook/` material over superseded `Version_1/` drafts. These named Draft 6 files are the checked starting points for this revision; verify a later approved successor before switching.
 
-An answer without a real deployment behind it is a book report. Before any mock or grading session, pull the real material rather than inventing placeholder experience.
+**Drills and research:** `1_Projects/0_interview-prep/` holds question banks and company preparation; `3_Research/08_career/` holds collected guides. Relevant `Ravi_` analyses in `3_Research/01_agentic-stack/`, `02_harness-engineering/`, and `03_ai-evals/` supply intellectual depth. Their authorship does not prove operational ownership. Count the live skill inventory if its size matters; do not repeat a frozen library count.
 
-**Source zero, read it before anything else: the playbooks shelf.**
+For leadership stories, consider the **Bridger** pattern where the experience supports it: understand partners’ constraints, translate across engineering, design, and finance, challenge assumptions, and integrate a workable decision. Use the pattern to reveal real collaboration, not to force every story into one template.
 
-```
-1_Projects/1_my-personal-website/1_My Series-MD-FILES/Important playbooks/
-```
+## Run the requested mode
 
-That folder is the canonical home for every finished playbook and every personal interview-prep playbook. Two files on it do this skill's job better than any prep note:
+### Mock
 
-- **`playbook-harness. engg/final playbook/How-I-Explain-Harness-Engineering-Interview-Definitive-Draft-6.md`** (4,937 words). The spoken register, already worked out. Three answer lengths (30 seconds, 90 seconds, 5 minutes), four moves per answer, and the rule that a strong answer carries an outcome, an owner, or a test. **This is the shape this skill teaches, written out in Ravi's own voice.** Use it as the template for any new domain, not only for harness questions.
-- **`playbook-harness. engg/final playbook/The-Harness-Engineering-Playbook-Definitive-Draft-6.md`** (9,620 words). The depth behind it: nine contracts, four ownership verbs, seven failure shapes, five decisions, the economics. When round 1 or round 2 goes past where a skill's spine ends, this is where the next level of detail already exists.
+Use [the question bank](references/question-bank.md). State the round and practice emphasis, then ask one question at a time. Follow the answer one level deeper at its most consequential gap before giving feedback. Ask for application after a definition, a limitation after a tool choice, mechanism after vague architecture, or a product consequence after technical detail.
 
-`Frontier playbook/The-Frontier-Companies-Playbook-Draft-6-Combined.md` does the same job for a company-strategy round. `AI_Playbook.md` is the breadth source.
+Five questions is a useful default, adjustable to the time available. At the end, review the six criteria, identify the most important improvement, and revise the weakest answer using verified experience or an explicitly hypothetical approach. Do not let an average conceal a material error; do not fail a session merely because one optional dimension was unused.
 
-**Cite `final playbook/` only. `Version_1/` is superseded**, and rehearsing from a draft that Draft 6 already corrected is how a candidate walks in with a stale number.
+### Grade an answer
 
-**Then, in order:** `1_Projects/0_interview-prep/` for the question banks and company research, `5_My Resume/` for the shipped record, `3_Research/08_career/` for the collected guides, and the harness, evals and context-engineering deep dives in `3_Research/01_agentic-stack/`, `02_harness-engineering/` and `03_ai-evals/` prefixed `Ravi_`, which are his own authored analysis and the strongest evidence of depth he has.
+Check the mechanism and evidence first. Give a short, specific assessment under the applicable criteria, explain the largest gap, and offer a corrected version. Preserve Ravi’s meaning and ownership. If an experience detail is missing, flag it rather than inventing it to make the rewrite sound stronger. Use practice labels, not claims of a guaranteed “A+” interview result.
 
-**The division of labor:** the playbook shelf holds the argument, `0_interview-prep/` holds the drilling. Reaching for the second without the first produces answers that are well-rehearsed and shallow.
+### Coach or explain an answer
 
-**The three anchors every answer should be able to reach for:**
-- **Honeywell, twelve years, Fortune 100 scale.** Enterprise constraint is his edge over candidates whose only context is a startup. Regulated, safety-critical, slow-moving stakeholders, real procurement.
-- **Perplexity AI Fellow 2025.** Frontier-adjacent credibility.
-- **The library itself.** 68 skills built from production failures, an HBR and MIT Sloan corpus with evidence tiers. When an interviewer asks how he keeps current, this is the answer, and almost no candidate has one.
+Use [the coaching playbook](references/coaching-playbook.md) to match a gap to one drill. When Ravi asks for a model answer directly, answer directly and use [illustrative answers](references/model-answers.md) as reasoning examples. Do not turn every explanation into a mock or quiz.
 
-**The Bridger frame** is the through-line for the behavioral round: he curates partners, translates across how each works, and integrates. When engineering wants a validation layer, design wants users to feel in control, and finance asks about ROI at 10x, he makes each feel understood *and* challenged, then finds the path serving all three. Every behavioral answer should show that motion, not narrate it.
+### Prepare for a company
 
----
+Read the role and available recruiter guidance, then consult current company sources. Map confirmed rounds separately from likely preparation topics. Select relevant skills, real stories, and the question most likely to reveal a substantive gap. Treat the historical company bank as a starting point, not inside knowledge of current hiring criteria.
 
-## Mode 1: Mock
+### Run a loop pre-mortem or retrospective
 
-Run one question at a time. **Push exactly one level deeper on the weakest part of each answer before grading anything.** That single move is what real technical rounds do and what most prep skips.
+For a pre-mortem, imagine a disappointing result and identify a plausible, actionable reason: unclear ownership, an unsupported number, weak technical depth, no relevant learning story, or a mismatch in answer depth. Look for evidence before choosing the drill. No need to manufacture discomfort or a flaw if preparation is sound.
 
-Announce the archetype first:
-- **Engineer in the room** wants the mechanism. Every answer earns a follow-up one layer down. Default for frontier labs and infra roles.
-- **Product-layer PM** asks a mechanism question but listens for what you *do* with it. Mark down over-derivation. Default for applied-AI roles.
+After a real loop, separate remembered questions, actual feedback, and hypotheses about the decision. Interview outcomes have multiple causes; do not present an inferred rejection reason as fact.
 
-Follow-up patterns: a definition gets "now apply it"; a named tool gets "when would you not reach for it"; product-layer talk to an engineer archetype gets "under the hood, what does the model actually emit"; deep mechanism to a product archetype gets "as the PM, what do you do with that on day two"; a bluff gets named immediately.
+### Help Ravi evaluate the employer
 
-**After five questions, score on the 6 Laws, weakest link not average**, name the single highest-leverage fix, and rewrite the weakest answer using real experience.
+Choose questions that reveal the conditions of this role:
 
-## Mode 2: Grade
+- Who can stop a harmful model or deployment, how is that authority exercised, and how are conflicts with delivery goals resolved?
+- What did you ship recently that did not work, and how was the concern raised and handled?
+- How do you detect that an AI feature is getting worse, and who responds?
+- How do the economics change at ten times current usage, and which assumptions remain untested?
+- Which decisions would this role own, influence, or escalate?
 
-Take a written or spoken answer. Fact-check the mechanism first, then score each Law, then rewrite to A+ grounded in his actual work. Name any auto-fail triggered. End on one fix, not a list.
+Ask natural follow-ups and record evidence. An unclear answer is a reason to investigate, not proof of ineffective governance or poor culture. Reporting lines alone do not establish stop authority. Choose a few useful questions; there is no quota of uncomfortable questions or basis for inferring character from a candidate’s question count.
 
-## Mode 3: Company prep
+## Improve delivery without scripting a persona
 
-Read the role, then map: which of the seven rounds will they run, which archetype per round, which skills hold the answers, and **what is the one question most likely to expose a gap.** Then pre-mortem it (see below).
+Practice aloud when useful, with Ravi’s preferred recording or dictation method. Prepare a 30-second direction, a 90-second explanation, and a five-minute deeper version of important stories. These are practice lengths, not universal interview limits; time actual speech rather than converting a fixed word count into seconds.
 
-## Mode 4: Loop pre-mortem (this skill's own contribution)
+Lead with the answer, explain the decisive mechanism, add relevant evidence, and state the important trade-off. Vary that shape when the question calls for a definition, story, or design. Check whether the interviewer wants more depth. Do not rehearse away the specific details and uncertainty that make a real story credible.
 
-Before the loop, not after. Borrowed from `rtp-falsification` and the pre-mortem thinking algorithm.
+Watch seven recurring problems: invented detail; overstated platform ownership; activity presented as a proven outcome; claims of an unblemished record; AI designs without meaningful failure handling; depth mismatched to the question; and unsupported statistics. These are diagnostic prompts, not automatic rejection rules. Verified ticket resolution can be an outcome. Fixed acceptance criteria are useful; pair them with appropriate evaluation, permissions, fallback, drift monitoring, and ownership. A numerical confidence threshold is not mandatory for every product, and human review alone does not establish safety or an audit trail.
 
-**Assume the loop failed. Write the rejection reason.** Then work backwards. The honest answers are usually one of: too abstract with no shipped detail, no failure story, could not defend a number, over-indexed on frameworks and under-indexed on judgment, or read the archetype wrong and went deep at a product-layer interviewer.
+## Finish the session
 
-Whichever you wrote, that is the drill for this week. **A pre-mortem that produces no uncomfortable answer was not run honestly.**
+Check that the answer addresses the question, its mechanism is defensible, its ownership and numbers are supported, and uncertainty is clear. For leadership preparation, include a relevant setback or changed decision when the record supports one. For a full loop, prepare useful questions for the employer.
 
-## Mode 5: Interviewing them
+Return the requested answer or practice assessment, the single next improvement, and any unresolved fact that matters. Store only useful practice notes in the authorized workspace. Preserve the distinction between rehearsed, fact-checked, and independently evaluated; this skill’s examples and rubric are coaching aids.
 
-Half the signal, and almost nobody preps it. At Director level, asking nothing reads as either desperate or incurious.
+## Attribution and maintenance
 
-Questions that actually reveal something, because they cannot be answered with a slogan:
+The five original principles, interviewer lenses, and follow-up practice draw on Aakash Gupta and Prasad Reddy’s [AI PM technical interview guide](https://www.news.aakashg.com/p/ai-pm-technical-interview), published July 22, 2026. The full-loop map, local skill routing, explicit uncertainty criterion, source discipline, pre-mortem, and employer evaluation extend that approach. Do not infer that the source opposes acknowledging uncertainty.
 
-- **"Who has the authority to stop a model that is causing harm, and do they report to the person shipping it?"** Straight from `rtp-responsible-ai-program`. The answer tells you whether governance is real or theatre, and most companies cannot answer it.
-- **"What did you ship in the last year that did not work, and what happened to the person who called it?"** Tests whether failure is survivable.
-- **"How do you know your AI feature is getting worse?"** If there is no eval story, you would own that problem in month two.
-- **"What is the unit economics of your flagship AI feature at 10x current usage?"** From `rtp-cost-model`. If nobody has run it, you would inherit that.
-- **"Where does this role's judgment actually sit?"** Are you owning the decision or writing tickets for someone else's?
-
-Take notes. This is a two-way evaluation and behaving like it changes how they read you.
-
----
-
-## Delivery mechanics (the part prep skips)
-
-- **Answer out loud, with dictation, in practice.** This round punishes rambling and you cannot hear rambling by typing.
-- **Under 120 seconds**, then check in: "does that answer it, or do you want the layer below?" That question is itself a senior signal.
-- **Lead with the decision, then the reasoning.** CPO in front, executioner behind. The interviewer can always ask for depth; they cannot un-hear a five-minute preamble.
-- **Vary structure.** Answering three questions with the same "it depends, here are three considerations" shape reads as a template.
-- **Name the trade-off you are accepting.** "I would ship at 85% accuracy with a human reviewer, and I am accepting slower throughput to get an audit trail." Naming the cost is what separates a decision from an opinion.
-
-## Quality gate
-
-- [ ] Every answer commits to a direction in the first sentence.
-- [ ] Every technical claim is one you could defend one layer deeper.
-- [ ] At least one answer per session names a real failure and what it cost.
-- [ ] No statistic without its population and evidence tier.
-- [ ] No skill named out loud.
-- [ ] Nothing claimed as built that was not built.
-- [ ] Prepared at least three questions *for them*, at least one of which is uncomfortable.
-
-## When wrong
-
-- **Do not run this for a non-AI PM role.** The 6 Laws and the round map are calibrated to AI product interviews. A classic PM loop weights differently.
-- **Do not let framework recall replace judgment.** If an answer sounds like a skill being recited, it has failed. The library informs; it does not speak.
-- **Do not over-prepare the behavioral round.** Over-rehearsed stories lose the texture that makes them credible. Know the anchors; do not script the sentences.
-- **Privacy guardrail, carried from the source and binding:** career gaps, health, family, financial constraints, immigration details, age, relationship status. These may inform internal analysis and must never appear in generated answers or coaching output.
-
-## Attribution
-
-The 5 Laws, the two archetypes, the follow-up ladder and the six auto-fails are adapted from `ai-pm-technical-interview` by Aakash Gupta (product-growth.com), built from research into real AI PM technical rounds at OpenAI, Anthropic, DeepMind, Nvidia, Perplexity, Glean, Microsoft, Amazon and Meta. The full-loop map, the skill routing, the honest-uncertainty law, the unsourced-statistic auto-fail, the loop pre-mortem, and the interviewing-them mode are additions.
+Editorial revision: September 13, 2026. All five companions use the same six criteria. Research qualifications and technical corrections are collected in the concept guide; company reports remain historical practice context.

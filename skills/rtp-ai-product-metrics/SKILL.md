@@ -1,832 +1,239 @@
 ---
 name: ai-product-metrics
-version: v1.10_latest
-description: 'Pick the leading indicators that actually predict AI product health: acceptance, correction, regeneration, conversational burden, cost-per-successful-outcome, and the 5-stage AI funnel (Surfaced -> Invoked -> Completed -> Accepted -> Retained). DAU and retention are lagging indicators that miss model regressions. Also carries the two moves most metrics decks skip: reading the dashboard as a demand-signal aggregator (evals as discovery), and the executive-translation layer that turns an eval-score move into the business number a CFO/GC/COO/CHRO acts on. Use when designing an AI metrics dashboard, debugging why DAU is stable but users complain, mapping North Star + AARRR for AI, or translating eval scores for a board. Pairs with: eval-framework, feedback-flywheel, confidence-tuner (is the judge trusted), cost-model/token-economics, stakeholder-communications, fit-signal. Triggers: "AI metrics", "North Star metric", "acceptance rate", "AI funnel", "cost per successful outcome".'
+version: v1.10.1_latest
+description: 'Choose and define metrics that show whether an AI product delivers useful work, at what cost, and with which risks. Use for dashboards, North Star and AARRR design, the Surfaced/Invoked/Completed/Accepted/Retained funnel, release monitoring, or executive reporting. Covers acceptance, corrections, regeneration, conversational burden, task success, calibration, pass@k/pass^k, cost per successful outcome, cohorts, and companion measures for misleading improvements. Distinguish usage, quality, oversight, and realized value; acceptance and fewer escalations are signals, not proof. Connect each important measure to a decision, owner, denominator, time window, evidence limits, and response. Use correction clusters for discovery after checking their causes, and translate findings into business implications without inventing causal effects. Pairs with eval-framework, feedback-flywheel, confidence-tuner, cost-model, token-economics, stakeholder-communications, and fit-signal.'
 imports:
   - eval-framework
   - feedback-flywheel
   - confidence-tuner
 ---
 
-## GROUNDING (Before Starting)
+# AI Product Metrics
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
+Build a measurement system that helps the team understand user outcomes, quality, effort, risk, and economics—and make a useful decision when they change. Start with the customer, problem, workflow, and decision owner. Use context already available; ask only for missing information that materially affects the work.
 
-Then proceed with the skill-specific analysis below.
+The central distinction is **activity versus outcome**. A generated answer is not necessarily useful; an accepted answer is not necessarily correct; a correctly completed task is not necessarily valuable enough to sustain the product. Keep all three visible where they matter.
 
----
+Produce a proportionate metric dictionary and dashboard, with baselines, relevant segments, thresholds or review conditions, owners, and the next decisions. Use the [dashboard template](references/dashboard-template.md) and [evidence and interpretation notes](references/evidence-and-interpretation-notes.md) for detail.
 
-## THE ONE IDEA
+## 1. Start from the decisions and the value chain
 
-**A metric earns its place on an AI dashboard only if it moves when the product genuinely succeeds or fails for a real user. Everything else is a lagging proxy (DAU, retention) or a gameable one (accuracy %, session count).** That single test reorganizes the whole dashboard, and three consequences fall out of it:
+Name what the measurement informs: improve a workflow, assess a release, allocate review capacity, understand adoption, investigate unmet demand, or evaluate an investment. Business and product owners define the intended outcome with users; analytics and domain experts help establish a credible measurement. These responsibilities can overlap.
 
-1. **Measure cost per *successful outcome*, not per token or per call.** The denominator is "a user actually got a useful result," never "the model emitted something." This is now where the market is heading — 2026 pricing repriced from seats to outcomes (see the cost section).
-2. **Read the dashboard as a demand-signal aggregator, not just a health monitor.** Correction clusters and the review queue are a live stream of unmet needs — offense, not just defense. Most decks use metrics only to catch regressions; the sharp move is using them to find the roadmap.
-3. **Ship the executive-translation layer, or the evidence stays invisible.** An eval-score move ("context recall −4%") means nothing to a CFO until it's translated to the number they act on ("support tickets +12%, ~$X margin"). The metric and its translation are one artifact, not two.
+Self-service questions can support exploration. Decision-oriented analytics clarifies which comparison and evidence matter. Neither access nor a new dashboard alone guarantees a better decision.
 
-**Where are you on the maturity ladder?** (the series' *Three Eras of Evaluation*, applied to metrics)
+Use three reporting lenses when helpful:
 
-- **Era 1 — Benchmark metrics.** MMLU, leaderboard scores. Say nothing about *your* product. If your dashboard is model benchmarks, you're not measuring your product yet.
-- **Era 2 — Product metrics.** Acceptance rate, cost-per-successful-outcome, the AI funnel, pass^k. Where most "advanced" teams live. Most of this skill lives here.
-- **Era 3 — Trajectory metrics.** For agents: was the 10-step *path* safe, efficient, faithful — not just the final answer. Conversational burden and per-step pass^k are the entry points.
+- **Enablement:** data freshness, relevant coverage, usable integrations, and evaluated capability.
+- **Value creation:** useful work completed and the user experience of doing it. Usage is supporting evidence, not the whole outcome.
+- **Value realization:** benefits the organization or customer actually obtains—revenue, realized savings, reduced loss, improved service, or another justified outcome.
 
-Each era layers on; it doesn't replace the prior one. Name where your dashboard actually is before adding metrics.
+This ordering suggests hypotheses about how value is produced. It does not prove a causal chain from a higher eval score to revenue. Keep unknown links explicit, especially for long investments. An improving asset-quality measure can explain progress while the outcome remains uncertain; it is not a permanent exemption from assessing value.
 
-**Red flag**: "Our DAU is up, retention is up." But users are regenerating outputs constantly, correcting AI mistakes, or doing manual work despite having AI.
+Benchmark, product, and trajectory metrics answer different questions. Benchmarks inform capability on the tested tasks; product measures reflect the deployed experience; trajectory measures inspect how the result was reached. Use the relevant layers together. They are not rigid maturity eras, and not every simple feature needs extensive trajectory instrumentation.
 
-**Green flag**: You track acceptance rate, correction patterns, conversational burden, and cost-per-successful-outcome — and every top-line number has a translated business equivalent next to it. You catch degradation before DAU drops, and you mine corrections for the next feature.
+## 2. Define the metric before interpreting it
 
----
+For each important measure, record:
 
-## KEY TERMS (plain language)
+1. **Decision and owner:** what could change, and who acts.
+2. **Unit and population:** user, session, task, output, claim, action, or account; who is eligible.
+3. **Definition:** numerator, denominator, event rules, observation window, exclusions, and treatment of partial or unknown outcomes.
+4. **Evidence:** logs, user actions, surveys, adjudicated samples, or a validated judge; source and version.
+5. **Comparison:** baseline, cohort, task mix, deployment configuration, and uncertainty.
+6. **Companions and response:** alternative explanations, relevant guardrails, threshold meaning, and next investigation.
 
-- **Leading vs. lagging indicator** — a signal that moves early (acceptance rate, correction rate) versus one that moves late (DAU, retention, revenue).
-- **Acceptance / correction / regeneration rate** — how often users accept, fix, or re-run AI output; the core leading signals of AI quality.
-- **Cost per successful outcome** — the cost of a user actually getting a useful result, not the cost per API call.
-- **Conversational burden** — how much effort the user spends getting the AI to do its job (turns-to-success, rephrases, corrections). 15 turns of re-prompting can "succeed" while the product fails; a trajectory-era metric that bridges evals and UX.
-- **Evals as discovery** — using the metrics dashboard and correction/review queue as a demand-signal aggregator: a cluster of failures on one intent is a roadmap blind spot, not just a bug.
-- **Executive translation** — the layer that maps an eval-score or leading-indicator move into the number each stakeholder acts on (CFO margin, GC compliance posture, COO escalation, CHRO skill-mix).
-- **North Star + AARRR** — the one company-level metric, plus the Acquisition / Activation / Retention / Revenue / Referral funnel.
-- **The AI funnel** — Surfaced → Invoked → Completed → Accepted → Retained; where AI-quality drop-offs happen.
-- **Value chain (enablement → creation → realization)** — asset quality (before use) → usage → revenue; the causal spine a dashboard should be ordered on.
-- **Goodhart's law / anti-metric** — when a measure becomes a target it stops being a good measure; build metrics that resist being gamed.
-- **Instrument blindness** — when the measure you already collect (e.g. satisfaction) is the one least able to detect the problem you care about.
-- **Deflation-blind ratio** — an efficiency metric (revenue-per-employee, ARR-per-FTE, tokens-per-task) with no price term, so it rises whenever a rented AI capability's gains get passed through to customers as lower prices instead of captured as margin.
-- **Modeled counterfactual denominator** — a "time saved" or "cost saved" baseline estimated from the AI's own action steps rather than measured from an actual human doing the task; treat it as unverified no matter how precise the resulting percentage looks.
-- **Rational disengagement** — a reviewer who, once AI reliably clears the acceptance bar, optimally reduces review effort toward zero; this looks identical to genuine improvement without a seeded check.
+Label **percentage points** and **relative change** correctly. A rate moving from 20% to 23% rises 3 percentage points and 15% relative. An alert saying “up 3%” is incomplete until it specifies which.
 
-## REVENUE PER PERSON IS BECOMING THE JUDGING METRIC, AND IT HAS ONE HONEST USE
+Distinguish missing data, unavailable measurement, zero events, and an undefined ratio. Protect sensitive content and avoid collecting employee or customer behavior beyond a justified purpose. A dashboard for product improvement should not silently become an unvalidated individual-performance score.
 
-**Capital raised and headcount are losing their status as the measures of a young company, and annual recurring revenue per full-time employee is replacing them.** The argument behind it: a company that deploys AI across every function from the start reaches meaningful scale with far fewer people and far less capital, so the old metrics measure inputs that no longer track the thing they used to proxy.
+## 3. Select useful indicators and their companions
 
-**The honest use of ARR per FTE: as a comparison within a cohort, over time.** Your own figure this quarter against your own figure last quarter, or against companies at the same stage in the same category. **It reads as an efficiency signal and it is a real one.**
+Leading and lagging describe a relationship over a chosen timeframe. Acceptance may lead retention in one product and fail to predict it in another. DAU, retention, revenue, accuracy, and satisfaction remain useful when their limits and purpose are understood.
 
-**Three ways it goes wrong, and all three show up in practice:**
-
-1. **It punishes the investment years.** A team building the data asset that will carry the moat looks inefficient the whole time it is building. The metric cannot distinguish that from waste.
-2. **It rewards contracting out.** Move the work to an agency or a vendor and the numerator holds while the denominator drops. **The ratio improves and nothing about the company did.** Any serious use has to state whether contractors count.
-3. **A low figure is not a cause of death.** It is correlated with fragile companies and it is not the mechanism, and treating it as one produces confident wrong post-mortems.
-
-**The version to actually put on a dashboard:** ARR per FTE, with contractors counted and stated, tracked as a trend against your own history, alongside a second line for what the company is building that the ratio cannot see. **One number and one caveat, or the number will be used as a verdict.**
-
-*(Source: MIT Sloan, "Why AI-driven enterprises are the future of entrepreneurship," Jul 2026 — ⚠ single-source argument-tier, no measured population. **The two headline figures in that article are both broken and are carried as a teaching case in `rtp-trendslop-check` rather than as evidence here.** The metric idea stands on its own reasoning. Falsifier: a cohort where ARR per FTE at an early stage predicted survival no better than capital efficiency did.)*
-
-## START FROM THE DECISION, NOT FROM THE QUESTION
-
-**Most AI analytics work is scoped as an access problem: how do we let more people ask more questions of more data. That is the wrong starting point, and it is why the dashboards get built and the decisions do not change.**
-
-The distinction, in one line each:
-
-- **Self-service analytics starts with the user's question.** "What do you want to know?"
-- **Decision-service analytics starts one step earlier.** "What decision are you trying to improve?"
-
-**Everything downstream follows from that one step:** which comparison is the right one, what standard of evidence the answer has to clear, and how the measurement should be designed. Skip it and you get a fast, well-governed answer to a question nobody needed settled.
-
-**A three-tier read on where a company actually is:**
-
-| Tier | What it invests in | What it gets |
+| Measure | Operational definition to specify | What it cannot establish alone |
 |---|---|---|
-| **Efficiency** | Automated queries, faster turnaround, fewer bottlenecks | More answers, sooner |
-| **Reliability** | Semantic layers, documentation, provenance, validation, expert review | Answers you can trust |
-| **Decision quality** | Redesigning analytics around the decisions that matter most | Different decisions |
+| **Acceptance rate** | Accepted outputs divided by eligible outputs shown; distinguish as-is, edited, and inferred acceptance. | Correctness, useful review, or durable user value. Copying or saving may be provisional. |
+| **Correction rate and edit burden** | Eligible outputs changed before or after use; classify factual repair, preference, formatting, and collaboration. | All edits are errors or all unedited work is correct. Edit distance misses meaning. |
+| **Regeneration rate** | Outputs/tasks rerun under a defined rule and window; separate retries from intentional variants. | All regeneration is dissatisfaction or all repeated calls are waste. |
+| **Conversational burden** | User effort to reach a useful outcome: turns, time, rephrases, corrections, and avoidable clarification. | More turns are always worse. Exploration, learning, and complex work may benefit from dialogue. |
+| **Abandonment** | Eligible started tasks not completed through the product within the defined window. | The user failed; work may continue elsewhere, finish asynchronously, or no longer be needed. |
+| **Task success** | Completion against explicit user-relevant criteria, with partial, pending, failed, and unknown states. | Every successful task has the same value or consequence. |
+| **Cost per successful outcome** | Total in-scope cost over the period divided by successful outcomes in the matched population and period. | Profitability without revenue, fixed costs, risk, and accounting context. |
+| **Escalation and intervention** | Cases routed to a person, cases with intervention, or total interventions—each separately defined. | Fewer escalations mean better handling or effective oversight. |
+| **Latency** | Response onset, time to useful result, and completion; relevant p50/p95/p99 under realistic conditions. | User effort or complete workflow speed. |
 
-**Most organizations stop at tier one and call it a platform.** Tier two is where the good ones get to. **Tier three is a different exercise entirely, because it starts by naming decisions rather than by naming data.**
+No universal 70% acceptance, <10% regeneration, <5% abandonment, or fifteen-turn failure threshold applies. Choose measures the workflow can meaningfully observe; a non-interactive agent may need outcome and incident evidence rather than user acceptance events.
 
-**The ownership split that makes tier three work, and it is unusual enough to state plainly:** leaders own the decisions. Analytics teams own the measurement discipline. Senior executives own the incentives. **If the analytics team owns the decision list, you are back at tier one with better vocabulary**, because the team will pick the decisions their data can already answer.
+### Measure errors and uncertainty precisely
 
-**The metric consequence for this skill.** Before you add a metric, name the decision it is supposed to change and who makes it. A metric with no decision attached is instrumentation, not measurement, and it will survive every review because nobody can say what it was for.
+Define unsupported claims, factual errors, omitted information, policy violations, and unsafe actions separately where they have different implications. A **false-positive rate** is `FP / (FP + TN)` for a defined binary classification task. It is not a synonym for hallucination rate or “confidently wrong.” Define the positive class before reporting precision, recall, sensitivity, or specificity.
 
-*(Source: HBR, "Don't Let AI Make Bad Analytics Worse," Jul 2026 — ⚠ framework-tier. The two-position typology and the six-part operating model are the authors' own, with the three maturity tiers attributed loosely as "many companies," "better companies," "the best companies" and no measured population behind any of them. Falsifier: an organization that reached tier three by scaling self-service access without ever naming a decision list.)*
+Calibration asks whether probability estimates match observed frequencies under the evaluation conditions. Correlation between confidence and accuracy is insufficient. Evaluate the score or judge on representative and important difficult cases, including subgroup performance and severe errors. Overall agreement can hide failure on a rare class. Route this work to `confidence-tuner` and `eval-framework`.
 
-## THE TRAP
+For acceptance quality, preserve three separate criteria: **minimally sufficient**, **comparable to typical human work**, and **better than typical human work**. State whether editing is allowed and how the reference standard was established. None alone proves that an entire job can be replaced; integration, input preparation, supervision, coverage, and consequences remain relevant.
 
-**The "Vanity Metrics" Trap**
+## 4. Use North Star, AARRR, and the AI funnel together when useful
 
-DAU goes up. Retention looks good. But your AI is producing garbage that users fix manually. You don't notice because:
+Choose a North Star that represents a meaningful user outcome, can be measured and influenced, and is understandable. Test its relationship to the organization's longer-term goal; not every organization optimizes revenue, and not every product benefits from one composite metric.
 
-- DAU measures usage, not value
-- Retention measures habit, not satisfaction
-- Time spent could mean "struggling" not "succeeding"
-- Revenue could be from frustration (users buying more credits to re-run failed outputs)
+For a contract-review product, “useful reviews completed with the required error checks” may be more informative than raw queries. “Weekly users accepting three reviews without edits” is one possible proxy, not a best or ungameable metric. It can reward unnecessary reviews, weak checking, or simple tasks.
 
-Traditional metrics lag. By the time DAU drops, you've already lost users' trust.
+### The five-stage AI funnel
 
-**The "Accuracy Theater" Trap**
-
-You measure eval accuracy at 94%. Users say the product is broken. Why?
-- Accuracy is unweighted (wrong answer to important question == wrong answer to trivial question)
-- Doesn't measure "trust calibration" (does the model know when it's wrong?)
-- Ignores the distribution of errors (10 errors on 1000 simple questions, or 1 error on 10 hard questions?)
-
-**The "Satisfaction Blindness" Trap**
-
-A satisfaction/CSAT score cannot detect persona-driven harm — and for an AI-as-teammate surface (a writing critic, a code-review bot, an automated feedback tool) it is, in a controlled study, the *least sensitive* channel to that harm. High adoption and high friction routinely coexist: people keep using a tool they *have* to use while quietly working around it, and report neutral satisfaction the whole time. So pair any satisfaction number with a **friction proxy** as a required check, not a nice-to-have: turn-length ratio, rephrase rate, and override/argue-attempt rate. If friction rises while satisfaction stays flat, believe the friction. *(When wrong: these log proxies are once-removed from the underlying evidence and aren't validated to correlate at equal strength — a directional check, not proof. Source: "Does Your AI Have a Personality Problem?", HBR, 24 Jun 2026; self-report null + friction signals ◆.)*
-
-**The "Premature Fluency" Trap**
-
-A causal chain can sound complete and still be entirely unmeasured. "Cognitive load slows focus, focus loss slows decisions, slow decisions raise errors, errors cost revenue" is four links long, and any one of them might have no number behind it. Fluent prose and measured evidence use the same sentence shape, so a reader, including the person writing it, cannot tell them apart by feel alone; stating the chain well suppresses the instinct to ask what was actually checked. Before citing a multi-step causal claim on a dashboard or in a deck, name which link, if any, has a real measurement attached. *(When wrong: an unmeasured chain can still be the right call to act on if it's the best available reasoning and is labeled as a belief, not a finding. The failure is presenting it as measured when it isn't.)*
-
-A related instrument gap: self-report measures of cognitive load or burnout tend to underreport exactly where the problem is worst, because the people most affected are often the least able to step back and describe it. Where you can, pair self-report with a behavioral substitute: after-hours message volume, calendar fragmentation, or the number of open work surfaces at once. None of these prove causation alone, but they move independently of how someone feels that day, which self-report does not.
-
-*(Source: HBR, "The Invisible Work Draining Your Best Employees," Jul 2026 — the article makes no quantitative claims of its own; the mechanism is cited here, not any figure.)*
-
-## PICKING THE METRIC THAT MAKES ADOPTION PULL INSTEAD OF PUSH
-
-**The single highest-leverage choice in an internal AI rollout is which metric you prove value in.** Prove it in a metric nobody is rewarded on and adoption stays a push forever.
-
-**Two axes, and you need one from each:**
-
-| | **Lead** (short-term validation) | **Lag** (long-horizon projection) |
+| Stage | Definition | Interpretation to check |
 |---|---|---|
-| **Creating upside** | win rate, asset utilization | incremental revenue from repeat customers |
-| **Preventing downside** | reduction in customer complaints | cost leakage, service disruptions avoided |
+| **Surfaced** | An eligible user encountered the feature or entry point. | A provisioned seat does not prove exposure; exposure does not prove relevance. |
+| **Invoked** | The feature received an eligible request or started an authorized run. | Invocation can be exploratory, required, accidental, or useful. |
+| **Completed** | Processing reached a defined terminal state. Report successful delivery, appropriate refusal, error, and cancellation separately. | Finishing generation is not completing the user's job; an appropriate refusal can be correct behavior. |
+| **Accepted** | The user used or kept the result under a stated event rule. | Acceptance is an observed behavior, not a truth label. |
+| **Retained** | The relevant user or account returns to useful use within a task-appropriate interval. | Repeat use can reflect value, habit, obligation, or unresolved work. |
 
-**Pick a combination, never lag alone.** A lag metric cannot validate anything inside the window where people decide whether to keep using the tool.
+A seven-day retention window is an example. Infrequent tasks may need a longer or opportunity-based window; recurring autonomous jobs may need a different event model. Use per-stage conversion with matching eligible populations and observation periods. Do not force every interaction into a linear path when users skip, repeat, or branch stages.
 
-**The ordering that turns push into pull, and the source states it only at the end:**
+Track **provisioned but unused** separately when licenses matter: eligible provisioned users, time to first use, and the share not yet invoking by a defined horizon. Handle censoring, revocation, departure, and access changes. Removing a license need not erase historical measurement. Investigate workload, incentives, benefit destination, access, understanding, and UX rather than assuming one cause.
 
-> **Demystify, then embed, then prove value in the metrics already used to reward or penalize people.** Adoption becomes pull at that third step, not before.
+### AARRR adaptations
 
-**The third step is the one teams skip.** Proving value in a metric invented for the AI program is proving it to nobody. **The metric has to already sit on someone's review.**
+- **Acquisition:** qualified discovery and trial by channel. Demonstrations, transparency, and credible references can help; no general 3–5× channel conversion multiplier applies.
+- **Activation:** the first meaningful value event, which may require more than one prompt and may include edits. Help users get there without manipulating the metric.
+- **Retention:** useful repeat engagement at the product's natural cadence. Four weeks is not a universal trust-stabilization period, and week-2/3 failures are not always the main cause of churn.
+- **Revenue:** recognized or recurring revenue, pricing, expansion, and the associated cost/margin view. Revenue minus AI cost is not automatically “net revenue”; name it as a contribution measure with the included costs.
+- **Referral:** intentional referrals or sharing with appropriate consent and data handling. Sharing a result is not necessarily endorsement or acquisition. Do not add branding or observe external sharing contrary to user expectations.
 
-**Three blockers this sequence is answering**, worth naming because each needs a different move: the tool feels inaccessible and scary; it looks like a lot of avoidable work; and the benefit does not seem worth the pain. The third is the only one a metric fixes. The first two are handled by everyday analogies and by embedding into systems people already use.
+AARRR and the AI funnel overlap but are not identical: activation requires useful experience beyond mere generation, revenue is a separate event, and referral can occur at different stages. Use both only where they clarify the decision.
 
-*(Source: MIT Sloan Management Review, "The Human Side of AI Adoption: Lessons From the Field," Apr 2026 — ⚠ practitioner-tier, no measured data. **The metric-selection two-by-two is the most reusable thing in it**, and the demystify-embed-prove ordering is stated only in the closing section, never in the body.)*
+## 5. Calculate reliability and economics without overstating them
 
-**The "Averaged Top Two Boxes" Trap**
+### pass@k and pass^k
 
-**Satisfaction and outcome are not linearly related, so an average hides the only part that predicts anything.**
+**pass@k** asks whether at least one of `k` attempts succeeds. **pass^k** asks whether all `k` trials succeed. Report the task set, attempt policy, configuration, number of trials, uncertainty, and costs. At `k=1`, both represent the single-trial success rate.
 
-The curve runs close to flat through mild-and-good, then bends steeply once experience crosses into genuine attachment. **Averaging the 4s with the 5s therefore destroys the signal you were measuring for.** A rising average can simply mean more 4s, and more 4s predicts very little about retention or advocacy.
+For a homogeneous, independent repeated-trial example with success probability `p`:
 
-**Three consequences for your dashboard:**
-
-- **Report the 5s as their own line.** Not top-two-box, not an average. The extreme-positive count is the predictive one.
-- **NPS inherits this defect.** It buckets promoters at 9 and 10 together and reports a net, which is an average of an average.
-- **"Improve average satisfaction" is a weak north star** for an AI product, because the cheapest way to move it is converting 3s to 4s, which is the flat part of the curve.
-
-**When this is wrong:** in an early product with too few 5s to be a population, the average is the only thing you can read. Say so, and stop using it the moment the top box is large enough to count on its own.
-
-*(Source: HBR, Jun 2026, on studying the most-satisfied cohort — ◆, sourced there to a Gallup meta-analysis and Anderson and Mittal's satisfaction-retention research. The same article claims the shape recurs in investor sentiment, developer happiness and patient outcomes, and cites nothing for any of the three; do not repeat those.)*
-
-**The "Two Opposite Causes" Trap**
-
-A number moved in the direction you wanted. Before you report it, ask what else produces that same movement.
-
-The worked example is an accounts-payable deployment. Median approval time fell from **17.4 days to 3.1 days** and the **exception rate fell from 22% to 9%**, and the write-up reads both as the system working. The time figure probably is. The exception rate has two causes that point in opposite directions:
-
-1. The system genuinely handles more cases correctly, so fewer become exceptions. Good.
-2. The system stopped **recognising** that a case was exceptional, and resolved it silently. Bad, and it produces exactly the same number.
-
-**These are indistinguishable on the rate alone.** What separates them is whether the system can still detect its own boundary, which is a different measurement: sample the resolved cases that would previously have escalated, and have a human grade them. If the boundary detection has degraded, a falling exception rate is the sound of errors being absorbed rather than caught, and every downstream provenance record now makes the wrong answer permanent.
-
-**The general form, and it applies well beyond exceptions.** Any metric where "the system handled it" and "the system failed to notice it needed a human" produce the same reading needs a second instrument before it can be reported. Approval rate has the same defect: **a falling approval time with a flat approval rate is process improvement; a falling approval time with a rising approval rate is the gate dissolving**, and the time figure alone cannot tell you which happened. Publish both fields or neither.
-
-*(Source: HBR, "4 Steps to Transform the 'Middle Office' with AI," Aug 2026 — ⚠ the AP figures are an industry survey cited without population or method, and the article draws the favorable reading without naming the alternative. The two-cause reading is this corpus's, and it is checkable against any exception log.)*
-
-**The "Metric Ran Out of Range" Trap**
-
-This one is not noise and it is not drift. The metric has stopped having anywhere to point.
-
-When the model alone performs near your acceptance standard, differences between people collapse into the ceiling. Everyone ships acceptable work, so an output-measured metric can no longer tell a strong operator from a weak one. **The tell is that acceptance rate went up and quality conversations got harder at the same time.**
-
-**The antecedent is the task, not the domain, and this is the part that makes it usable.** In one field experiment, between-person spread on conceptualisation collapsed from 0.80 unassisted to **0.13** assisted, while spread on writing stayed at **0.58** assisted. Same people, same firm, same tool, same raters, same week. Tier ⚠, unrefereed working paper, n=78, no variance reported, and a ceiling effect is a live alternative explanation because the assisted scores cluster between 4.05 and 4.18 on a 5-point scale.
-
-**The mechanism survives the weak study, because it is a logical point.** The acceptance standard is cleared first where the correct answer is **invariant**, and last where it is **state-dependent**. An answer that does not change with who is asking ceilings early. An answer that depends on a client's current position, tax situation or time horizon ceilings late, or not at all.
-
-So do not ask whether a role has ceilinged. **Ask which of its tasks have**, and never publish a composite score across tasks with different ceiling dates: it averages a superhuman result and a subhuman one into a number describing neither, and it moves whenever the task mix moves. In one measured case the same model sat roughly **twice as inert at rebalancing as the published benchmark for human inertia** while beating humans on an adjacent task in the same session ◆.
-
-**A social driver compounds the same collapse.** A separate, more speculative argument holds that once peer AI use becomes genuinely undetectable, an output-only metric loses its power to discriminate real human contribution from AI-assisted output for a second reason that has nothing to do with capability: nobody wants to be the one measurably slower for doing it the hard way. This is a demand-side amplifier of the ceiling effect above, not a new failure mode, and it does not require the model to be anywhere near its own capability ceiling, only for peers to believe skipping it carries no detectable cost. The fix is the same one given below: move upstream to the interaction or sideways to a seeded case, not a new instrument. *(When wrong: this is argued reasoning about a mechanism, not a measured rate. Treat it as a hypothesis to test against your own review logs, not a finding to cite as fact. Source: an argued piece on "AI gravity" and cognitive offloading, 2026, ⚠, mostly argued reasoning rather than evidenced.)*
-
-**Three exits, and only three.**
-
-1. **Move upstream and measure the interaction** — what was asked, what was rejected, how many turns, what got corrected.
-2. **Move sideways and seed known-bad cases**, measuring who catches them.
-3. **Change the task you assess on**, choosing one whose acceptance standard still requires production rather than recognition. Cheapest of the three: no new instrumentation, no seeded corpus.
-
-**Exit one is corrupted in three directions at once, so treat it as an incentive problem rather than an instrumentation problem.** The interaction log is not a neutral record of what happened:
-
-- **Use is subtracted.** Around a third of employees conceal their AI use ⚠ (vendor survey, no published method), and they are exactly the rows missing from the log.
-- **Failure is subtracted.** At one firm, employees "had been discreetly absorbing the cost of broken AI workflows for months because they worried that sharing their concerns ... made them look like they weren't fully on board."
-- **Use is manufactured.** An engineer "started asking AI questions he could have answered faster himself just to inflate his usage numbers," and one company reported token consumption to its board as proof of progress while privately calling the usage frivolous.
-
-**No amount of instrument quality fixes a log whose entries are produced by what the log is used for.** Exit two is administered to the person rather than harvested from their behaviour, which is why **seeded cases dominate exactly where the culture is worst**, and that is the opposite of the usual build order.
-
-**The one intervention reported as changing what leaders could see was an incentive change, not a measurement change.** A firm "added a no-blame review of AI-driven rework to team meetings and began recognizing employees who could show, with evidence, that a task should not be automated." Only then did the cleanup become visible. **Paying for evidence that a task should not be automated is a counter-incentive nothing else in this library records.** One unnamed company, unmeasured, so a candidate rather than a finding, and the candidate most worth testing.
-
-*(Sources: HBR, Hinds & Leonardi, "How Much Time Do Your Employees Spend Botsitting?", Aug 2026, and the vendor survey it reports; MIT SMR, Aug 2026, on the invariant-versus-state-dependent split. Ledger pattern M.)*
-
-**The "Rises For The Wrong Reason" Trap**
-
-A metric can climb for reasons that have nothing to do with your product capturing value. Three findings converge on this warning at different scales, and the fix is the same each time: check what sits underneath the ratio before you report that it moved.
-
-**Deflation-blind ratios.** Revenue-per-employee, ARR-per-FTE, and tokens-per-task share one defect: none carries a price term. When an AI capability is rented rather than owned, and every competitor rents the same one, the productivity gain gets competed away into lower prices instead of kept as margin. All three ratios rise under exactly that condition, because the numerator holds while the denominator, headcount, shrinks. The ratio only sees output over headcount; it has no way to see whether price per unit fell by more than the ratio rose. So never read a rising per-employee or per-unit efficiency ratio as evidence you captured value without checking the margin or price line beside it. *(When wrong: if you're the price-setter in your category and the moat is real rather than rented, the same rising ratio can mean you kept the gain. The check is whether your price held, not whether the ratio moved.)*
-
-A reporting habit compounds the risk. The MIT Sloan CISR "digital colleagues" survey of 132 enterprises (◆ company-disclosed) found respondents predicting a mean 25% revenue-per-employee increase over three years. The median prediction was only 15%, and the article led with the mean. For any efficiency claim built on a spread of company predictions or results, ask for the median next to the mean; a wide gap between them means a few outliers are carrying the headline. *(When wrong: a mean is the right statistic for a roughly symmetric distribution. The flag is a right-skewed spread specifically, not means in general.)*
-
-**Stock over flow: ARR-per-FTE as a headline.** The same missing-price problem shows up sharper when ARR-per-FTE ranks companies by "AI maturity." One MIT Sloan article's flagship case was Bolt.new's claimed $1.3M ARR per FTE, "five months after founding." Bolt.new is a product of StackBlitz, a seven-year-old company built on a runtime (WebContainers) developed over those seven years, after StackBlitz had raised roughly $105.5M. The comparison case in the same article, Bench at $23K ARR per FTE before its bankruptcy, is a human-delivered bookkeeping business, not a company that tried AI and failed. ARR per FTE divides an accumulated stock, years of engineering, brand, and codebase already built, by a current flow, headcount today. It rewards any company that isn't hiring regardless of why, so it reads a capital-intensive software business as "AI-mature" and a labor-delivered service as "AI-immature," whether or not AI is the actual reason. *(When wrong: a genuinely young, AI-native company with no inherited codebase or legacy stock, whose high ARR-per-FTE is built entirely on the current team, is a legitimate AI-maturity signal. The trap applies only when a young headline number is quietly sitting on an old accumulated base.)*
-
-**The ceiling version of the same failure.** The "Metric Ran Out of Range" trap above describes a ceiling effect on output-graded tasks as the model itself gets stronger. A second study extends the same warning to human contribution specifically. A KPMG/UT Austin study of 523 professionals (◆ study-disclosed, single-site, unpublished) found that as a model's own output quality rises toward the acceptance bar, a metric graded only on the final output increasingly cannot tell a skilled human's real contribution from a low-skill "delegator" who simply accepted AI output that happened to clear the bar. The fix is the same three exits already listed above: move upstream to the interaction, move sideways to a seeded case, or change the task you assess on. *(When wrong: an output-only score still works fine for a task whose ceiling hasn't been reached yet. The failure only starts once the model's baseline output is already near the acceptance standard.)*
-
-*(Sources: BCG on AI and margin economics, Jul 2026 — mechanism only, ⚠ industry analysis, no company-specific figures. MIT Sloan CISR "digital colleagues" survey, n=132 enterprises, Jul 2026 — ◆ company-disclosed. MIT Sloan on AI-driven entrepreneurship, Jul 2026 — the $1.3M and $23K ARR-per-FTE figures as reported in the article, ⚠; StackBlitz's age and the $105.5M raised checked against public record. KPMG/UT Austin study, n=523, Jul 2026 — ◆ study-disclosed, single-site and unpublished. Ledger pattern M.)*
-
-**The "Nothing Underneath It" Trap**
-
-Some denominators aren't merely unscoped. They were never measured at all, and the percentage built on top inherits that gap no matter how precise the result looks.
-
-**The modeled-counterfactual denominator.** A Perplexity-employee study of Perplexity's own agent products (◆ throughout, no sample size disclosed, a vendor measuring its own product) reports agents cutting task time 87% and cost 94% against an assistant baseline. That baseline, 269 minutes, was never measured: the authors converted the agent's own action steps into an estimated human-equivalent time, priced by domain wages. No human was actually timed doing the task. A modeled baseline is a chain of assumptions, which steps count, how long each takes a person, whose wage applies, with no real observation behind any of it, so every stage compounds the error while the final percentage looks like one clean number. Treat a vendor-modeled counterfactual denominator as unverified regardless of how precise the resulting percentage looks, and never cite the percentage without naming that the baseline was estimated, not measured. The same paper's own users, self-reporting, estimated a 25x time saving, more than three times the modeled 7.5x figure, and the paper never reconciles the two. *(When wrong: a modeled baseline is a legitimate starting estimate if it's labeled as one and later paired with a real validation study. The failure here is specifically presenting the modeled number as measured.)*
-
-**Scope expansion is a demand-side metric, not a quality metric.** A rising share of tasks that cross occupational boundaries, or that were never attempted with a weaker tool at all, tells you what people asked for. It doesn't tell you whether what they got back was any good. Demand and quality are independent axes, and scope expansion rises fastest exactly when unverifiable work is proliferating, since the newly-attempted tasks are disproportionately the ones nobody was checking before. Never report scope expansion as a pure success signal; pair it with a quality check on the expanded-scope tasks specifically, not just the tasks the tool already handled well. *(When wrong: scope expansion paired with a real quality check on the new-scope tasks is a legitimate growth signal. The trap is reporting the expansion alone.)*
-
-**Override rate and stop rate are ambiguous without a companion instrument.** An unrefereed SSRN theory paper (Gu, Li, and Zhu) proves that once an AI clears a required performance standard, a rational reviewer optimally reduces review effort toward zero. This is rational behavior given the reviewer's incentives, not a training failure. A falling override rate, or a low agent-stop-rate, cannot on its own distinguish genuine improvement from reviewer disengagement, because both produce an identical output stream: caught errors don't appear in the log either way. The only companion instrument that separates the two is a seeded known-bad case injected at a known rate, with catch rate tracked over time. See `production-observability` for the full instrument; this skill's job is to flag the ambiguity, not build the seeding pipeline. *(When wrong: never seed known-bad cases where they would compete for attention against a real clinical, legal, or safety case. The cost of the check would exceed its value there, and an independent spot audit is the safer substitute.)*
-
-*(Sources: Perplexity-employee study of Perplexity's agent products, Jul 2026 — ◆ vendor-published, no sample size disclosed; the 269-minute baseline is modeled, not measured. Gu, Li, and Zhu, SSRN working paper, Jul 2026 — ⚠ unrefereed theory paper, no field data. Ledger pattern M.)*
-
----
-
-## THE PROCESS
-
-**1. Define Your Leading Indicators**
-
-These predict product health before revenue metrics move:
-
-- **Acceptance Rate**: What % of AI outputs do users accept as-is? (Target: 70%+)
-- **Regeneration Rate**: How often do users re-run the same prompt? (Target: < 10%)
-- **Correction Rate**: What % of outputs do users edit before using? (Target varies by domain)
-- **Conversational Burden**: Turns-to-success — how many exchanges (re-prompts, corrections, clarifications) before the user gets a usable result? (Target: as few as the task honestly needs; watch the *trend*, not an absolute.) A task that "succeeds" in 15 turns is a failure the acceptance rate alone will miss. This is the trajectory-era metric — it measures the *path*, not just the endpoint.
-- **Abandonment Rate**: Tasks users start but never complete with the AI
-- **Cost-per-Successful-Outcome**: Actual money spent per task the user marks "done"
-
-**2. Measure Hallucination + Trust Calibration**
-
-- Track: False positive rate (AI says X with high confidence, but X is wrong)
-- Track: Confidence gap (does AI confidence correlate with accuracy?)
-- Monitor: User corrections to AI claims (high correction rate = low trust)
-
-**3. Layer in Efficiency Metrics**
-
-- Latency (p50, p95, p99 — tail matters)
-- Token efficiency (are prompts getting bloated?)
-- Cost per output (includes model cost + infrastructure)
-- Cost per successful outcome (adjusted for acceptance rate)
-
-**The market is repricing around this exact denominator.** Cost-per-successful-outcome stopped being a purely internal metric in 2026 — it became the *price*. Hybrid/outcome-based pricing rose from 27% to 41% of AI vendors between 2025 and 2026 ⚠, with published per-outcome prices: HubSpot's Customer Agent at $0.50 per resolved conversation (halved from $1.00), Intercom at $0.99 per resolution, Help Scout at $0.75 ◆. The implication for your dashboard: if a competitor can name their price per successful outcome and you can't name your *cost* per successful outcome, you can't defend your margin or your pricing. This metric is now a strategic instrument, not just an ops number. *(When wrong: outcome pricing is the hardest model to operationalize — you have to define "success" unambiguously and handle partial success/disputes; if "success" is fuzzy, the metric is fuzzy too. Tier: vendor-published prices ◆, market-share shift ⚠.)*
-*(Sources: [Bessemer — AI Pricing & Monetization Playbook](https://www.bvp.com/atlas/the-ai-pricing-and-monetization-playbook); [Flexprice — 7 Pricing Metrics That Capture AI Value, 2026](https://flexprice.io/blog/7-pricing-metrics-capture-ai-product-value).)*
-
-**3A. Three metrics most AI dashboards are missing**
-
-**Escalation rate, and read it as the handoff count.** For any system that resolves cases, the question that matters on Monday is: *"when my AI meets an exception governed by an unwritten rule, does it resolve the case, or does it escalate to a person?"* Escalation rate is the operational form of the AI-mediated handoff count. Automation rate tells you how much the system took. Escalation rate plus the resolution quality on escalated cases tells you whether it should have. **You cannot know if you have succeeded by measuring the raw automation rate**, and pairing it with escalation is the cheapest fix. Read this beside the Two Opposite Causes trap above: escalation rate falling is ambiguous on its own.
-
-**The acceptance ladder: report which rung, not just "it worked."** Acceptance is not one threshold, and collapsing it into one is how capability claims get inflated. Use three rungs, each measured **without edits**:
-
-| Rung | The question | Why it matters |
-|---|---|---|
-| **Minimally sufficient** | would a worker accept this as good enough to use at all? | the floor, and the one usually reported |
-| **Average** | is this as good as a typical human effort? | the substitution threshold |
-| **Better than average** | does this beat a typical human effort? | the only rung that supports a replacement claim |
-
-The largest study of this to date evaluated AI output on more than **6,000 text-based workplace tasks** drawn from the US Department of Labor's O\*NET database, using more than **60,000 worker evaluations**. It put current capability at roughly **50% to 75% of text-based tasks at the minimally sufficient rung, without edits**, and found the failure rate **halves every 2.2 to 2.8 years**. **The warning matters more than the number: that study's own summary box reports the floor rung as "completes the task," which overstates its body.** Whenever you read or write an acceptance figure, name the rung. And note the scope condition: those evaluations were done with the information already assembled, which is the part that costs real time in a real job.
-
-**The same failure happens in speech, one sentence after the correct version, and that is the more instructive case.** Microsoft's most-cited Copilot figure came out of a genuine randomized trial: organizations set aside at least 50 licenses randomly assigned among 100 or more users, and the treated group was **29% faster on three scripted tasks**, searching across multiple sources, summarizing a meeting recording, and writing a blog post. The executive who commissioned it stated that correctly, then restated it in the next breath as "30 percent of your time back... across this broad swath of information-worker tasks." Nothing was fabricated and no source degraded. The scope simply did not survive the restatement, because a three-task figure is unusable in a sentence about strategy and he needed a usable one. **The practical rule: apply the haircut at the point of *use*, not at the point of *sourcing*.** The question is not "is this number well-evidenced" but "has this number been asked to cover a population larger than the one it was measured on," and a well-evidenced number is *more* exposed to that stretch, because its credibility is what invites it. **When wrong:** this does not license discounting a figure that is being used correctly on its own population; the haircut is for the over-extension, not for the study. *(Source: HBR Cold Call ep. 248, published Jan 2025, recorded Feb 2024; underlying figure from Microsoft's Work Trend Index Special Report, Nov 2023 — ◆ vendor measuring its own product. Note that whether the trial measured output **quality** could not be established, so the accompanying "no real degradation in quality" claim should not be cited.)*
-
-**Share of algorithmic choice, if anything machine-shaped buys from you.** When an agent does the shopping and the human only decides what they need, brand awareness stops predicting selection. The metric is the share of algorithmically-mediated purchase decisions in which your product is chosen. **A brand's rank in awareness and its rank in algorithmic selection are measurements of two different corpora and have no obligation to agree**, which is exactly why the second one needs its own line. Keep its companions honest: API latency, data completeness and feed verification status are *inputs* to it, not outcomes, and reporting them as if they were the result is the same error as reporting seat activation as adoption.
-
-*(Sources: escalation rate and the automation-rate line, HBR, "4 Steps to Transform the 'Middle Office' with AI," Aug 2026 — ⚠. The acceptance ladder and halving rate, MIT FutureTech via MIT Sloan, Aug 2026 — ◆ study-disclosed, >60,000 worker evaluations across >6,000 O\*NET text tasks; no human comparison arm, so the figures cannot support a substitution claim on their own. Share of algorithmic choice, HBR, "Algorithmic Shopping Is Here," Aug 2026 — ⚠ framework-tier, no company has published this metric yet, so treat the definition as usable and the benchmark as nonexistent. Ledger patterns M and X.)*
-
-**4. Build Cohort Dashboards**
-
-Slice by:
-- User segment (power users vs. casual)
-- Task complexity (simple vs. reasoning-heavy)
-- Model version
-- Prompt version
-
-Catch degradation in specific segments before it hits company metrics.
-
-**5. Set Regression Thresholds**
-
-- Acceptance rate drops > 3%? Investigate.
-- Regeneration rate jumps > 20%? Alert.
-- Cost per output increases > 10%? Check prompt version.
-- Hallucination rate spikes > 2%? Pause releases.
-
-**6. Track pass@k and pass^k Metrics (Anthropic Framework)**
-
-These consistency metrics measure whether your system is capability-limited or consistency-limited:
-
-- **pass@k**: Probability of at least one correct solution in k attempts. Answers: "Can the system succeed if given multiple tries?" Use for: development, capability benchmarking, research, understanding raw capability.
-- **pass^k**: Probability that ALL k trials succeed consistently. Answers: "Will every interaction work reliably?" Use for: production readiness, SLA commitments, customer-facing agents where every interaction must work.
-
-**Decision table:**
-| Scenario | pass@k | pass^k | Diagnosis | Action |
-|----------|--------|--------|-----------|--------|
-| High pass@k, low pass^k | 0.80+ | 0.33- | Capable but inconsistent | Improve determinism: few-shot examples, temperature tuning, structured outputs |
-| Both low | 0.50- | 0.20- | Capability problem | Retrain, change model, redesign prompts |
-| Both high | 0.90+ | 0.85+ | Production ready | Scale confidently, monitor drift |
-
-**Real example**: A coding agent with pass@1 = 0.8 (80% success rate) has pass^5 = 0.33 (33% chance all 5 solutions work). That's a 67% failure rate for multi-step tasks. Customers see failure, even though the system is 80% capable.
-
-For customer-facing agents, track pass^k not pass@k. A single failure in a sequence damages trust more than raw capability metrics suggest.
-
-**7. Define Anti-Metrics (What Going UP Would Be Bad)**
-
-Most metric frameworks define what success looks like. Anti-metrics define what a dangerous signal looks like — a metric that's increasing but shouldn't be.
-
-**The pattern:** For every primary metric, ask: "What metric going UP would actually signal a problem?"
-
-| Primary Metric | Anti-Metric | Why It's Dangerous |
-|----------------|-------------|-------------------|
-| DAU (Daily Active Users) | Session count with no task completion | Users are coming back because the AI keeps failing — they're retrying, not succeeding |
-| Acceptance rate | Acceptance rate + zero edits on complex tasks | Users may be blindly accepting AI output without reviewing. Over-trust is a failure mode, not a success signal |
-| Feature adoption | Adoption + increased support tickets | Users are adopting but can't figure it out — adoption without competence |
-| Time in product | Time in product + low task completion | User is stuck, not engaged. High time-on-task in a productivity tool means friction, not value |
-| Cost reduction | Cost reduction + declining quality scores | You cut cost by degrading quality. The savings are temporary — churn follows |
-
-**Process:**
-1. For each primary metric and guardrail metric, define its anti-metric
-2. Monitor anti-metrics alongside primaries on the same dashboard — never in isolation
-3. If a primary metric is trending up AND its anti-metric is also trending up, investigate before celebrating. The growth may be masking a deeper problem.
-
-**The check that catches perverse incentives:** Anti-metrics are the systematic defense against Goodhart's Law — "when a measure becomes a target, it ceases to be a good measure." By defining what going UP would mean going WRONG, you force the team to think about gaming, over-optimization, and unintended consequences.
-
-**8. Detect Eval Saturation**
-
-When your eval suite stops moving despite meaningful improvements in production, your metrics have plateaued. Signs include:
-
-- All metrics are green, but users still complain or support tickets spike
-- Scores haven't moved in 3+ months despite launches and iterations
-- New model versions show no improvement on evals, but users perceive them as better (or vice versa)
-
-**Root cause**: Your eval set is stale. It measures what you've already solved, not what breaks in production.
-
-**Fix**: Refresh eval sets monthly. Replace 20-30% of eval dataset with real production traces — actual user inputs that failed, edge cases you didn't anticipate, novel task types. Track eval "difficulty score" — if average difficulty drops over time, your suite is getting too easy.
-
-**Process:**
-1. Monthly: Pull top 20-30 errors from production logs
-2. Add to eval set, removing lowest-signal existing examples
-3. Measure: Does this new eval version show measurable gaps in your system?
-4. Iterate: If new evals don't expose problems, you're not testing hard enough
-
----
-
-## NORTH STAR + AARRR FOR AI PRODUCTS
-
-The metrics above (acceptance rate, regeneration rate, hallucination rate, pass^k) are AI-specific leading indicators. They tell you whether the model is doing its job. They do not tell you whether the *product* is doing its job.
-
-For that, you need the foundational metric framework — North Star + AARRR — adapted for AI features. Lenny Rachitsky's North Star guide is the canonical reference. AARRR (Acquisition / Activation / Retention / Revenue / Referral) is the canonical funnel. Both are PM table stakes. The AI twist is what they look like when the product is non-deterministic.
-
-### The North Star for AI Products
-
-**The Lenny criteria for a North Star metric:**
-1. Represents value delivered to users (not value extracted from them)
-2. Predicts long-term revenue
-3. Measurable
-4. Actionable (the team can move it)
-5. Understandable (everyone in the company can explain it)
-
-**The AI-specific failure mode:** Most AI products pick a North Star that ignores AI quality. "Daily active users." "Queries per day." "Sessions per week." These are activity metrics — they go up when users come back, regardless of whether the AI did its job.
-
-**The 0.1% angle: AI features need a "successful AI interaction rate" North Star that pure DAU/retention misses.**
-
-The pattern: pick the North Star metric AT the moment of AI-driven value delivery. Not "users who logged in" — "users who completed a successful AI-assisted task." Not "queries per session" — "queries that produced a user-accepted output."
-
-**The canonical AI-feature funnel (the five-stage model):**
-
-| Stage | Definition | What "Good" Looks Like |
-|---|---|---|
-| **Surfaced** | The AI feature was visible to the user (in their UI, in their workflow) | High — the feature is discoverable |
-| **Invoked** | The user actually used the feature (typed a prompt, clicked the button) | Conversion from surface depends on UX clarity |
-| **Completed** | The AI finished generating an output (no timeout, no refusal, no error) | High — model and infra reliability |
-| **Accepted** | The user kept the output (used it, copied it, sent it, saved it) | The acceptance rate metric — the truth about quality |
-| **Retained** | The user came back and used the feature again within 7 days | The trust metric — did the experience earn repeat use? |
-
-Each stage has a drop-off. Each drop-off has a different optimization. **The North Star sits at "Accepted" or "Retained" — never at "Invoked."** Invocation is activity. Acceptance is value.
-
-**Name the drop-off between Surfaced and Invoked, because it is the one people mistake for slow adoption.** The failure is **provisioned and unused**: the person has the license, the seat, the access, and never opens it. Mass General Brigham gave clinicians a free ambient scribe aimed at their own burnout, and among primary care clinicians, the group with most to gain, a significant number took the license and never used it. "So they had the license, they just didn't do it."
-
-Three things make this worth its own row:
-
-- **A per-seat license makes it measurable to the day.** Provisioned date and first-invocation date are both in the system already. Days-to-first-invocation, and the share that never reaches one, are recoverable retrospectively at no cost. Almost nobody pulls them.
-- **A revocation policy destroys the measurement.** MGB's rule was that three months of non-use triggered a conversation and possible removal of the license. That is defensible on cost and it deletes the population you most need to study, because the people who never invoked are the finding.
-- **The cause is usually upstream of the product.** Read Gate Zero questions 3 and 4 in `rtp-adoption-launch` before you redesign the entry point. At MGB the stated reason was not discoverability or UX; it was that nobody had said who keeps the time the tool saves.
-
-*(Source: HBR Cold Call, Gallani, Aug 2026 — ⚠ interview, no rate given. The abandonment rate is the most valuable number in that episode and it is not in it. Treat provisioned-and-unused as a named stage to instrument, not as a measured rate.)*
-
-**Worked example:**
-
-For an AI contract review tool, candidate North Stars:
-
-- **Bad:** "Daily active users" — measures coming back, not value
-- **Bad:** "Queries per day" — measures activity, not success
-- **Bad:** "Reviews completed" — measures throughput, not whether the review was useful
-- **Better:** "Reviews accepted by user without edit" — measures whether the AI's output was good enough as-is
-- **Best:** "Weekly active users who accept at least 3 reviews per week" — combines retention, activity, and quality into one metric
-
-The "best" version satisfies all five Lenny criteria. It moves only when the product is genuinely working. It can't be gamed by adding more users or running more queries.
-
-### AARRR Adapted for AI Features
-
-The AARRR funnel applies to AI products, but each stage gets an AI-specific layer.
-
-#### Acquisition
-
-The user discovers the feature exists. Same as any product — marketing, search, word of mouth, in-product placement.
-
-**The AI-specific twist:** Unlike traditional features, AI features benefit from social proof signals that signal "this AI doesn't suck." Demo videos showing real outputs. Customer logos. Eval transparency. Hallucination rates published openly. Trust signals at acquisition time reduce the "is this just AI hype?" friction.
-
-**Metric:** Trial conversion rate from acquisition channel. Watch for big variation by channel — power-user channels (developer communities, expert forums) often convert at 3-5x the rate of generic channels because the audience already trusts AI and knows how to use it.
-
-#### Activation
-
-The user experiences first value. For AI features, this is the first successful interaction.
-
-**The AI-specific twist:** Activation is about whether the user's *first prompt produces a useful output*. If the first prompt fails or feels wrong, churn risk in the first week is 3-5x higher than for users whose first prompt succeeded. The first impression is load-bearing.
-
-**Metric:** First-prompt acceptance rate. Measures: of users who tried the feature once, what % accepted the AI's output without editing or regenerating?
-
-**Optimization:** First-time user experience matters more in AI products than traditional ones. Show example prompts. Suggest queries. Pre-populate the input with a high-confidence template. Get the user to a "yes, this worked" moment in their first 60 seconds.
-
-#### Retention
-
-The user comes back and uses the feature again.
-
-**The AI-specific twist:** Trust takes 4 weeks to stabilize (per the `uncertainty-research` skill). A user who uses the feature 3 times in week 1 and never returns has been quietly disappointed. A user who uses it 1 time per week for 8 weeks has built durable trust. Track retention curves by week, not just by month.
-
-**Metric:** Weekly active acceptance rate — % of weekly actives who accepted at least one AI output that week. Catches users who keep coming back but stop accepting outputs (a sign of declining trust before churn).
-
-**Optimization:** The biggest retention lever in AI products is fixing the failure modes that surface in week 2-3. Users tolerate week-1 errors as "I'm still learning." They don't tolerate week-3 errors. The eval-and-quality work compounds at retention.
-
-#### Revenue
-
-The user pays. For AI products, this often shows up as: free tier users converting to paid, paid users upgrading to higher tiers, expanding seat count.
-
-**The AI-specific twist:** AI features have unit cost. Revenue without unit economics modeling produces "we have $1M ARR and burn $1.2M on inference" surprises. Track revenue PER unit of AI capacity consumed. Track revenue versus cost-per-successful-outcome (the metric from the Process section above).
-
-**Metric:** Net revenue per user, after AI cost. Not gross. The AI cost is the real margin compression.
-
-**Optimization:** The pricing model should align with the cost structure. Per-seat pricing (flat fee per user) is a margin trap if power users consume 10x the AI capacity of casual users. Usage-based pricing aligns better but requires the user to understand and accept variable bills. The right answer depends on segment — enterprise often prefers flat, prosumer often prefers usage-based.
-
-#### Referral
-
-The user invites others.
-
-**The AI-specific twist:** AI products have a unique referral mechanism — *output sharing*. When a user copies an AI output and pastes it into Slack, email, or a doc, the recipient sees the output AND the implicit endorsement. Track output-shared rate as a leading indicator of organic growth.
-
-**Metric:** % of accepted outputs that were shared externally. Higher = organic referral surface area.
-
-**Optimization:** Make sharing easy. Watermark outputs subtly with the product name (without compromising the user's intent). Offer "share this answer" affordances. Track which outputs get shared most — they reveal which use cases produce shareable artifacts and which produce private ones.
-
-### Mapping the AI Funnel to AARRR
-
-The five-stage AI funnel (Surfaced → Invoked → Completed → Accepted → Retained) maps onto AARRR but isn't identical. Use both:
-
-| AARRR | Maps to AI Funnel | Why Both Matter |
-|---|---|---|
-| Acquisition | Pre-Surfaced | User has to find the product before the AI funnel begins |
-| Activation | Surfaced + Invoked + Completed (first time) | Activation in AI = first successful interaction |
-| Retention | Repeated Acceptance + Retention | Coming back AND accepting outputs |
-| Revenue | (Conversion event, separate) | Often gated by retention |
-| Referral | Output Sharing | Distinct from formal referral programs |
-
-**The discipline:** Build dashboards that show both. AARRR for the business view (where executives think). The five-stage AI funnel for the product view (where PMs and engineers diagnose). They tell the same story at different altitudes.
-
-### The Combined Dashboard Structure
-
-Add this to the dashboard template in the section above. The North Star + AARRR sit *above* the AI-specific metrics — they're the company-level view that the AI quality metrics support.
-
-```
-NORTH STAR METRIC: [e.g., Weekly active users who accept ≥3 AI outputs per week]
-Current: [Value]    Target: [Value]    Trend (4w): [↑/↓]
-
-AARRR FUNNEL
-| Stage | Metric | Current | Target | Trend |
-|---|---|---|---|---|
-| Acquisition | Trial conversion rate | — | — | — |
-| Activation | First-prompt acceptance rate | — | — | — |
-| Retention | WAU with ≥1 acceptance | — | — | — |
-| Revenue | Net revenue per user (post-AI cost) | — | — | — |
-| Referral | % outputs shared externally | — | — | — |
-
-AI FUNNEL (per primary feature)
-| Stage | Conversion | Drop-off Reason | Action |
-|---|---|---|---|
-| Surfaced → Invoked | — | — | — |
-| Invoked → Completed | — | — | — |
-| Completed → Accepted | — | — | — |
-| Accepted → Retained (7d) | — | — | — |
+```text
+pass@k = 1 − (1 − p)^k
+pass^k = p^k
+p = 0.8, k = 5:
+pass@5 = 0.99968
+pass^5 = 0.32768
 ```
 
-The discipline: every drop-off in the AI funnel ladders up to a drop-off in AARRR. If first-prompt acceptance is low, AARRR Activation is low. If accepted-to-retained conversion is low, AARRR Retention is low. The funnels aren't separate diagnoses — they're the same diagnosis at different altitudes.
+These are assumptions, not formulas to apply blindly to a heterogeneous task set or dependent retries. Repeated trials of a task are not automatically the steps in one workflow. The example does **not** establish a 67% multi-step-task failure rate. Measure the actual trajectory, recovery, and joint outcome.
 
-### The Value Chain Your Dashboard Should Be Ordered On: Enablement → Creation → Realization
+A high pass@k with a lower pass^k can reveal inconsistency under the tested policy; it does not identify the cause. Low scores may reflect model limits, task design, context, tools, environment, or the grader. High scores alone do not establish production readiness or an SLA. Use pass@1, repeated reliability, useful retry behavior, and operational outcomes as the task requires.
 
-The funnels above measure *creation* (usage) and *realization* (revenue) well, but they don't name the tier *underneath* both: the quality of the AI asset itself, before anyone uses it. A board-legible AI dashboard has three tiers in causal order:
+### Cost per outcome and human review
 
-- **Value enablement** — the quality of the asset *before* anyone uses it: eval pass rates, golden-dataset coverage, data freshness. (Caterpillar's version: the count of accurate "trifecta" records on the platform.)
-- **Value created** — usage and its trajectory: acceptance rate, invocations, how fast usage is growing (the AARRR + AI-funnel view above).
-- **Value realization** — revenue attributable to the AI solution (the income-statement line).
+Include costs of failed attempts, retries, partial work, and relevant overhead in the numerator. Match the denominator to the same workload; account for delayed outcomes. Zero successful outcomes makes cost per success undefined or unbounded for interpretation—report the cost and zero count explicitly rather than displaying zero cost.
 
-The point is the *causal chain*: realization is downstream of creation, which is downstream of enablement. Reporting all three together is what lets leadership trace a multi-year platform investment to the P&L — and it's exactly the report that sustained a six-year program at Caterpillar when revenue alone would have looked flat for years. Enablement is the tier that survives long timelines because it moves first; most AI dashboards jump from leading indicators straight to business outcomes with no named asset-quality tier.
+Human review cost needs time:
 
-**Why it matters:** without the enablement tier, a slow-to-realize platform investment looks like failure on the dashboard for years and gets killed before the revenue line turns. **When this is wrong:** this is one access-privileged case (the authors ran the program; internal figures are self-calculated). Cite the *triad structure* at full confidence as a reporting lens; treat Caterpillar's outcome numbers as directional. For a fast product cycle the tiers still apply, but the multi-year patience they enabled does not transfer.
-*(Source: "Data Transformation Is the CEO's Business," MIT Sloan Management Review, 21 May 2026 — CISR value-monitoring triad; anchor: Caterpillar services revenue $14B (2016) → $24B (2024) ◆, [Caterpillar 2024 Annual Report](https://www.caterpillar.com/en/investors/reports/annual-report/ceo-message.html).)*
+```text
+review cost per period
+= Σ(reviewed cases × average review minutes per case / 60 × loaded hourly rate)
++ other in-scope review costs
+```
 
----
+Use actual summed time when available and separate reviewer groups. Multiplying an hourly rate by traces and frequency without a time-per-trace term has incorrect units. Flat or rising total review cost during growth does not prove an untrustworthy judge; compare workload, complexity, coverage, cost per outcome, and errors. Automated evaluation can add value through broader or faster checks even if it does not cut total human hours.
 
-## THE DASHBOARD IS A DEMAND-SIGNAL AGGREGATOR (Evals as Discovery)
+Outcome-based billing is a commercial definition; billed resolution is not independently verified correctness. Seats, usage, hybrids, and outcome pricing can each work. Use `token-economics` for contract definitions, contribution margins, paired customer revenue/cost, and deliberate subsidy. Do not label cost per outcome a universal minimum selling price.
 
-Every section above uses metrics *defensively* — to catch regressions before DAU drops. That's half the value. The sharper, more contrarian half: **a metrics dashboard is a live map of unmet needs. Read it offensively and it becomes your roadmap.**
+### ARR per FTE and other ratios
 
-The mechanism is simple. When users correct, regenerate, or abandon, they are telling you exactly where the product fails to do the job. Aggregate those failures and they *cluster* — and a cluster is not a bug, it's a demand signal.
+ARR per FTE can inform a scoped efficiency comparison. State ARR definition, period, average or point-in-time staffing, contractor treatment, vendor costs, inherited assets, investment phase, and business model. If adding contractor equivalents, label the adjusted measure so it remains comparable.
 
-- **The correction stream is user research that already happened.** Every edit is a user showing you the gap between what the AI produced and what they needed. You don't have to schedule interviews; the edit distance already logged it.
-- **The review queue is a stream of unmet needs.** The traces a human had to step in on are the exact tasks the product can't yet do alone. That queue *is* the "what should we build next" list.
-- **A cluster is a roadmap item, not a defect.** When ~15% of failures pile onto one intent or task type, that's not a QA ticket — it's a product blind spot big enough to be a feature. The team that treats it as "fix the bug" patches a symptom; the team that treats it as "we've discovered an unmet need" ships the thing users were straining to get.
+Revenue already contains a price term: broadly, `revenue = price × volume`. ARR per FTE is not literally price-blind, though it cannot by itself explain price, volume, staffing, outsourcing, or margin changes. Tokens per task has a different denominator and does not necessarily rise with reduced headcount. Pair ratios with their components and realized value; do not treat high ARR/FTE as proof of AI maturity or low ARR/FTE as a cause of failure.
 
-**The move:** add a *failure-clustering* view to the dashboard — group corrections/regenerations/abandonments by intent, task type, and persona, ranked by volume × severity. Review it in the same cadence as the health metrics, but ask a different question: not "what regressed?" but "what are users repeatedly failing to get, and is that a feature?" This is where the metrics work feeds `feedback-flywheel`, `jtbd-analysis`, and `opportunity-solution-tree` — the dashboard stops being a rear-view mirror and becomes a discovery instrument.
+Means and medians answer different questions. A gap can signal skew or heterogeneity, but does not prove a few outliers explain everything. Use the distribution and the actual prediction/result population. A forecast is not realized productivity.
 
-*(When wrong: a cluster can be a genuine defect, not a demand signal — a retrieval bug that mangles one intent looks identical to unmet demand for that intent until you read the traces. Cluster detection routes you to the traces; it doesn't diagnose for you. See `production-observability` for trace-level root-causing before you promote a cluster to the roadmap.)*
+## 6. Check apparent improvements for alternative causes
 
----
+Use companion measures, sometimes called **anti-metrics**, to catch gaming and misleading movement. Goodhart-style effects are a risk to manage, not a claim that every targeted metric becomes useless.
 
-## THE EXECUTIVE-TRANSLATION LAYER (the metrics execs actually read)
-
-Here is the failure that kills objectively-successful AI initiatives: the metrics are healthy, the eval scores climb, cost-per-outcome drops 65% — and the initiative still loses executive support, because none of that was ever translated into the language the executive makes decisions in. **An eval-score move is invisible until it becomes a business number.** The metric and its translation are one artifact, not two.
-
-### Eval score → business outcome
-
-The first translation is the most-skipped: connect a leading indicator to the lagging business outcome it predicts, with the mechanism named.
-
-- "Context recall −4% this week" → "support tickets +12% next week, ≈ $X in deflection lost." *(This is "evals are the new PRD" applied to the dashboard: the score is only worth reporting if you can state what business number it moves.)*
-- "Acceptance rate −3% on complex tasks" → "power-user churn risk up; those cohorts drive Y% of expansion revenue."
-- "Cost-per-successful-outcome +15%" → "gross margin −Z points at current volume."
-
-Build this mapping once, keep it on the dashboard, and every metric review becomes a business review.
-
-### The four stakeholder translations
-
-Each executive speaks a different language and holds a different decision framework. The PM is the only role holding all of them at once — the Bridger archetype, operationalized on the dashboard. Pair every technical metric with its translated equivalent:
-
-| Stakeholder | They care about | Translate your metric into |
+| Apparent improvement | Plausible alternative | Useful companion evidence |
 |---|---|---|
-| **CFO** | gross margin, unit economics | cost-per-successful-outcome trend → "margin protection: −65% cost/outcome = $X/mo recovery, $Y NPV over 24mo" |
-| **GC** | regulatory exposure, evidence | eval pass rates on safety/HHH-Harmless → "compliance posture: 99.2% with audit trail, the evidence base if a regulator asks" |
-| **COO** | cycle time, escalation, capacity | intervention/acceptance rate → "escalation pattern: 18%→9% intervention = 50% fewer human escalations = N hours/week freed" |
-| **CHRO** | skill-mix, role transitions | automation-by-tier → "workforce shift: tier-1 73% AI-resolved, high-judgment work stays human, ramp time −60%" |
+| More sessions or longer engagement. | Repeated failure, unnecessary work, or changing task complexity. | Completed useful tasks, burden, repeat intent, and user explanation. |
+| More acceptance with few edits. | Better work **or** weak review. | Sampled correctness, error detection, evidence inspected, and review authority. |
+| More adoption with more support. | Confusion, growth in exposure, a broader audience, or normal onboarding. | Tickets per relevant workload, severity, cohort, and root cause. |
+| Lower costs. | Efficiency improvement or loss of quality/coverage. | Matched outcomes, severe errors, workload mix, and user impact. |
+| Fewer escalations or faster approvals. | Better handling, missed exceptions, staffing changes, or weaker checks. | Review of automatically resolved cases and consequential decisions, including false negatives. |
+| Stable satisfaction. | Good experience or an instrument insensitive to a specific problem. | Direct user inquiry and task-relevant behavioral evidence. |
 
-**Translation is bidirectional.** The round-trip is the discipline: the CFO's margin concern becomes a cost-model workstream; the GC's compliance concern becomes an eval-coverage workstream. Stakeholder concerns become technical roadmap items, not just questions to survive.
+An escalation rate is cases escalated divided by eligible cases; **handoff count** is the number of transfers and may include several per case. Keep them separate. Lower approval time with a higher approval rate does not by itself prove that a gate dissolved.
 
-**Translation is honest, not spin.** The cautionary case: Klarna's 2024 "AI replaced 700+ agents" headline was a CHRO-pleasing translation that didn't survive contact with reality — by 2025 they were re-hiring for nuance. Spin works once; translation compounds trust. If a translation only lands because it's flattering, it's spin. *(Source: [Klarna rehiring humans, CNBC, Mar 2025](https://www.cnbc.com/2025/03/14/klarna-rehiring-humans-cs.html).)*
+Satisfaction distributions may have nonlinear relationships with retention or advocacy. Inspect the full distribution, top-box share, response bias, and predictive relationship where relevant. Top-box reporting is not always superior to an average, and NPS is **percentage promoters minus percentage detractors**, not an “average of averages.”
 
-**The translation runs outward too, and most teams only build it inward.** Everything above assumes the audience is your own CFO, GC, COO, or CHRO. In B2B, your product's economic buyer sits inside your *customer's* company, and you never get a seat at their budget review. Splunk's near-miss in 2013 is the case for why this matters: its users loved the product and kept finding new use cases, but nobody in the customer's buying organization could translate that daily benefit into the CIO's and CFO's own currency — cost predictability, defensible ROI, budget risk — so nobody could justify the spend at scale. Renewals stalled and pricing pressure built for years before anyone named the problem. The fix is not a better internal dashboard; it is building the customer-facing counterpart to the stakeholder-translation table above, a pre-built translation of your usage data into the customer's own CFO or CTO currency, and building it *with* the customer champion rather than handing it to them. Co-creation is not a nicety here; a business case the champion did not help build lacks the internal credibility to survive contact with their own leadership. **When this is wrong:** the evidence is a single, insider-narrated case (both authors either advised or worked at Splunk during the events described, and both now sell this exact capability commercially). Treat the mechanism as plausible and well-illustrated, not as independently proven causation. *(Source: HBR, "Do Your B2B Customers See the Value You Deliver?," Wendy Wise and Doug May, Aug 25 2026 — Splunk FY2013 revenue $198.944M and FY2020 revenue $2.359B are ✅ SEC-disclosed; the causal link to value-quantification is the authors' own account, unverified independently.)*
+Behavioral proxies such as rephrases, time spent, or after-hours activity can help but do not automatically outrank self-report or establish burnout, harm, or poor judgment. Consider context, privacy, and measurement validity. Do not infer an individual's condition from telemetry alone.
 
-### Make the dashboard bilingual
+## 7. Detect measurement limits and improve the instrument
 
-The practical artifact: every metric tile carries two labels — the technical name and its translated meaning. "Intervention Rate: 9% — *escalation pattern; predicts human-capacity load*." "Cost/successful outcome: $0.42 — *unit-economics floor; the number your price must clear*." A bilingual dashboard trains the whole team in translation by surface design, and it means any executive who glances at it reads it in their own language. This is the layer `stakeholder-communications` picks up for board-grade narrative.
+An unchanged score may mean stability, insufficient power, the wrong task mix, a weak grader, a ceiling, or stale coverage. Complaints may indicate a missing outcome or a distinct segment. Diagnose before replacing the dataset.
 
-### Human-review cost is a line item — model it
+Keep a stable regression set for comparability and add versioned capability or production-derived cases where needed. Preserve held-out checks, rights and privacy, historical comparability, and representative task coverage. Do not replace 20–30% monthly by rule or make a test harder solely to force a red score. A reliable regression suite should often stay green.
 
-The executive question that catches teams flat-footed: "what does quality *cost* us to maintain?" Model it explicitly — **expert hourly rate × traces reviewed × review frequency.** That number is the denominator the eval flywheel is paid to shrink: the ROI of an automated LLM judge is real only when it cuts human-review volume substantially *at equal quality* (which is a `confidence-tuner` question — the judge's TPR/TNR has to be proven before you trust it to replace a reviewer). Report human-review cost and its trend next to cost-per-outcome; a flat or rising review cost while volume grows is the signal your judges aren't yet trustworthy enough to lean on.
+### When human contribution becomes hard to distinguish
 
----
+If a system already clears a coarse quality bar, final-output scores may not distinguish human contributions. That can be task-specific and is not proof that expertise disappeared. Also inspect scale limits, task mix, scorer resolution, and selection.
 
-## KEY DIAGNOSTIC QUESTIONS
+Possible responses include:
 
-**On Leading Indicators:**
-- Can you tell me the acceptance rate for your product right now? (Be honest: can you?)
-- How do you know if a prompt change made things better or worse?
-- What's your cost per successful user outcome, not per API call?
+- Examine relevant interaction and process evidence, while recognizing missing or incentive-shaped logs.
+- Use clearly controlled known-error cases or independent audits to assess detection. Seeded cases are not the only instrument and must not expose real users to harm or covertly determine employment decisions.
+- Assess a different task, retention, or transfer outcome that matches the capability of interest.
+- Examine whether the tool or retrieval configuration masks or changes the capability being assessed, then validate any revised assessment against an independent outcome.
 
-**On Hallucination Awareness:**
-- Do you track false positives separately from false negatives?
-- Can you measure how often users correct AI outputs after using them?
-- Do you know which domains/tasks have highest hallucination risk?
+There are more than three possible exits. Changing the rubric or tool can also change what “good” means; do not use success on the new instrument as its own validation. Recognize evidence that a task should remain manual or that a deployment creates rework. A no-blame discussion may reveal hidden costs, but needs usable incentives and follow-through.
 
-**On Segment Visibility:**
-- Are your metrics the same for all users, or split by segment?
-- Do power users have different acceptance rates than casual users?
-- Where is degradation happening first? (Usually in the edge cases.)
+Formal models of reduced review effort under strong AI performance identify a possible mechanism under assumptions. They do not prove every reviewer rationally disengages, nor make unknown oversight quality measurable from stop rate alone.
 
-**On Causality:**
-- If acceptance rate drops, can you trace it to a specific change? (Prompt, model, feature)
-- Do you monitor metrics BEFORE and AFTER every release?
-- Can you explain why a metric changed, or are you just reacting?
+## 8. Use cohorts, alerts, and release checks proportionately
 
-**On Translation & Discovery:**
-- For each top-line metric, can you state the business number it moves? (If not, execs can't act on it.)
-- When users correct or abandon, do those failures cluster — and do you review the clusters as roadmap candidates, not just bugs?
-- What does maintaining quality cost you? (Expert rate × traces reviewed × frequency — the number your judges are paid to shrink.)
+Slice by relevant user segment, task type/complexity, model, prompt, harness, retrieval, locale, and release version. Check sample sizes, selection, and privacy before interpreting small groups. Preserve a standard workload view alongside current-mix results so composition changes do not masquerade as improvements.
 
----
+Define alerts using consequence, baseline variation, exposure, change size, and response capacity. Record whether the threshold is absolute, relative, or in percentage points, and whether it signals investigation, restricted rollout, or a release block. The original 3% acceptance, 20% regeneration, 10% cost, 2% hallucination, and 20% latency thresholds are examples only.
 
-## REALITY CHECK
+No release must preserve every metric without trade-off. Protect non-negotiable requirements and evaluate deliberate changes with evidence. A cost increase may buy worthwhile quality or coverage; an appropriate refusal may reduce raw completion while improving the product.
 
-**What mature AI product telemetry looks like:**
-- Real-time dashboard: acceptance rate, regeneration rate, cost per output, latency
-- Per-cohort breakdowns: power users vs. casual, by task type
-- Automated alerts: acceptance rate down > 3%, cost per output up > 10%
-- Regression testing: new prompt version must not degrade any metric
-- User feedback loop: corrections flagged, investigated, fed back to evals
+Start with the smallest credible measurement for the action's consequences. Do not wait until month four for essential regression tests or alerts. Real-time monitoring is useful where response time matters; periodic review may be sufficient elsewhere.
 
-**What it doesn't look like:**
-- "Our DAU is up" (but users are frustrated)
-- Accuracy metrics only (ignoring cost, latency, hallucination rate)
-- No visibility into cost per successful outcome
-- Monthly reviews of metrics (by then, damage is done)
-- Metrics that only go up (if you never see degradation alerts, you're not measuring hard things)
+When a signal changes, verify the measurement, scope the affected work, inspect traces, compare changes, test plausible causes, act, and check recovery. A temporal association with a release is a lead, not causal proof. Route by evidence rather than assuming most problems are context or model failures.
 
----
+## 9. Use failure clusters for discovery
 
-## QUALITY GATE
+Group corrections, regeneration, abandonment, and review cases by intent, task, and relevant user segment. Consider severity, frequency, affected population, confidence, and the cost of doing nothing.
 
-**Metrics infrastructure must include:**
-1. ✓ Acceptance rate tracking (per user, per task type, per model version)
-2. ✓ Correction/edit distance tracking (how much do users change AI output?)
-3. ✓ Cost-per-successful-outcome (not just API cost)
-4. ✓ Hallucination/false positive monitoring (calibrated by domain)
-5. ✓ Latency tracking (p50, p95, p99)
-6. ✓ Cohort analysis (power users vs. casual, task type, geography)
-7. ✓ Automated regression testing (new releases checked against baseline)
-8. ✓ Regression thresholds (with automated alerts)
+A cluster is a **candidate problem**, not automatically a feature or merely a defect. Read representative traces and speak to users where needed. Edits can express taste, collaboration, or an error; a review queue can reflect a deliberate policy rather than missing capability. A 15% share of failures is not a roadmap promotion rule.
 
-**Blocks shipping if:**
-- No acceptance rate baseline to compare against
-- Cost-per-outcome increases without explanation
-- Hallucination rate increases > 2%
-- Latency degradation > 20% (p95)
+Once the cause is clearer, route bug repair to the relevant owner or unmet needs to `feedback-flywheel`, `jtbd-analysis`, and `opportunity-solution-tree`. Preserve the path from signal to interpretation to decision so the discovery can be revisited.
 
----
+Track **new task scope** separately from success: more cross-domain or previously unattempted work signals demand, not demonstrated value. Evaluate the quality and consequence of the new tasks too. For agent-mediated buying, **share of algorithmic choice** can be useful if the eligible decision set and observation method are credible. API latency, feed completeness, awareness, and brand preference are inputs or related measures, not the selection outcome itself.
 
-## WHEN WRONG
+## 10. Translate findings into decisions without inventing causal links
 
-**You'll see:**
-- DAU up, but support tickets spike (users struggling silently at first, then complaining)
-- Acceptance rate drops without explanation (didn't correlate with any release)
-- Cost per output climbs (prompts got verbose, model overthinking)
-- Certain segments have degraded acceptance (you missed it because you only looked at aggregate)
-- Users switch to competitors but you don't know why (you never asked about correction rate)
+Pair a technical metric with its plain-language implication, including the strength of evidence. An executive may act on a serious capability or risk gap without a fabricated dollar translation. Separate a measured relationship, a forecast, and a plausible mechanism.
 
-**Recovery:**
-- Pull the metrics for the past 30 days, split by segment
-- Correlate drops with releases/changes
-- Investigate: was it a prompt change, model change, or user behavior shift?
-- Measure the actual impact: how many users affected, what's the revenue impact?
-- Fix the root cause, then re-verify with your metrics
-- Adjust your alert thresholds based on what you learned
+| Audience | Decision-relevant translation |
+|---|---|
+| **CFO / budget owner** | Matched cost, revenue, margin or savings scenarios, investment needs, and uncertainty. |
+| **GC / control owner** | Relevant requirement coverage, failures, evidence limits, and unresolved obligations. A 99.2% eval score is not 99.2% legal compliance. |
+| **COO / operational owner** | Case volume, cycle time, review workload, quality, backlog, and response capacity. |
+| **CHRO / people leader** | Task and role changes, workload, learning, support, and evidence about human capability. Automation share does not prove a staffing reduction. |
 
----
+For example, a 4-point context-recall drop may warrant investigating support effects; it does not establish a 12% ticket increase without a measured or explicitly modeled mapping. A decline from 18% to 9% intervention is half the **rate**; case counts and hours depend on volume, review duration, and case mix.
 
-## AI PRODUCT METRICS DASHBOARD TEMPLATE
+Translate questions back into work too: margin concerns may require a cost study; control concerns may require different evaluation coverage. Build a customer-facing value view with the customer's champion where that improves a B2B buyer's decision. Co-creation can help relevance and credibility, but does not substitute for evidence.
 
-Use this structure to build your product metrics dashboard. Adapt the metric names to your domain, but keep the structure: leading indicators first, then consistency, then cost, then cohort breakdowns.
+## Deliver and check the dashboard
 
-### Dashboard: [Product Name]
+Use the [template](references/dashboard-template.md) as a menu, not a requirement to instrument every cell. Make the following legible:
 
-**Last Updated:** [Date]
-**Report Period:** [Week/Month]
+- The intended value and decision, with the relevant outcome and business view.
+- Defined events, populations, denominators, windows, and current measurement limits.
+- Quality, effort, risk, cost, and useful behavioral companions.
+- Cohort and release comparisons that remain meaningful across changes.
+- Owners and response rules, open questions, and the next action.
 
-#### Leading Indicators
+Conclude with the recommendation, main trade-off, largest uncertainty or risk, and next step. Use the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) proportionately. A funnel, trend, or comparison can help; use `excalidraw-svg` when useful, without promising a visual makes the deliverable ten times better.
 
-| Metric | Current | Target | Trend (7d) | Alert Threshold |
-|--------|---------|--------|------------|-----------------|
-| Acceptance Rate | — | 70%+ | — | Drop > 3% |
-| Regeneration Rate | — | < 10% | — | Rise > 20% |
-| Correction Rate | — | [Domain-specific] | — | TBD |
-| Conversational Burden (turns-to-success) | — | [Task-specific] | — | Rise > 15% |
-| Abandonment Rate | — | < 5% | — | Rise > 2% |
-| Cost per Output | — | [Budget] | — | Rise > 10% |
-| Cost per Successful Outcome | — | [Budget] | — | Rise > 15% |
-
-Each leading-indicator row should carry a **translated label** (the bilingual-dashboard discipline) — e.g. "Cost per Successful Outcome — *unit-economics floor; the number your price must clear*." And pair the health view with a **failure-clustering view** (corrections/regens/abandonments grouped by intent × persona, ranked by volume × severity) so the same dashboard does discovery, not just monitoring.
-
-#### Consistency Metrics
-
-| Metric | pass@1 | pass@3 | pass@5 | pass^5 | Target (pass^5) |
-|--------|--------|--------|--------|--------|-----------------|
-| Overall | — | — | — | — | 0.85+ |
-| Simple Tasks | — | — | — | — | 0.90+ |
-| Complex Tasks | — | — | — | — | 0.75+ |
-| [Segment] | — | — | — | — | TBD |
-
-**Interpretation**: If pass^5 is low while pass@5 is high, your system is capable but inconsistent. Focus on determinism improvements.
-
-#### Cost Metrics
-
-| Metric | Per-Query | Per-Success | Monthly Spend | vs Budget | vs Prior Month |
-|--------|-----------|-------------|---------------|-----------|----------------|
-| Compute Cost | $— | $— | $— | — | — |
-| Token Efficiency | — tokens | — | — | — | — |
-| Model Cost | $— | $— | $— | — | — |
-| Infrastructure | $— | $— | $— | — | — |
-| Total Cost | $— | $— | $— | — | — |
-
-**Cost-per-Success calculation**: Total monthly spend ÷ (successful outcomes / month)
-
-#### Quality Metrics
-
-| Metric | Current | Target | Status | Notes |
-|--------|---------|--------|--------|-------|
-| Hallucination Rate | —% | < 2% | — | False positive rate |
-| False Negative Rate | —% | < 3% | — | Missed cases |
-| Confidence Calibration | — | High | — | Does AI know when it's wrong? |
-| User Correction Rate | —% | TBD | — | % outputs edited before use |
-
-#### Latency Metrics
-
-| Percentile | Current | Target | vs Prior Week | Status |
-|------------|---------|--------|----------------|--------|
-| p50 | — ms | — ms | — | Median |
-| p95 | — ms | — ms | — | Tail matters for UX |
-| p99 | — ms | — ms | — | Outliers |
-
-#### Cohort Breakdowns
-
-| Segment | Acceptance Rate | Correction Rate | Cost/Success | pass^5 | Trend |
-|---------|-----------------|-----------------|--------------|--------|-------|
-| Power Users | —% | —% | $— | — | — |
-| Casual Users | —% | —% | $— | — | — |
-| [Task Type A] | —% | —% | $— | — | — |
-| [Task Type B] | —% | —% | $— | — | — |
-| [Geography/Region] | —% | —% | $— | — | — |
-| [Model Version A] | —% | —% | $— | — | — |
-| [Model Version B] | —% | —% | $— | — | — |
-
-**Why slice by segment**: Degradation usually hits edge cases first. Aggregate metrics hide problems.
-
-#### Health Status Summary
-
-| Category | Status | Notes |
-|----------|--------|-------|
-| Leading Indicators | 🟢 | Acceptance rate stable, regen rate low |
-| Consistency | 🟢 | pass^5 = 0.82, above target |
-| Cost Efficiency | 🟡 | Cost/success up 8%, investigate |
-| Quality | 🟢 | Hallucination rate within bounds |
-| Latency | 🟢 | p95 within SLA |
-
-**Alerts Triggered:**
-- [List any metrics that crossed thresholds]
-
-**Actions for Next Period:**
-- [List decisions: prompt changes, model updates, eval refreshes, etc.]
-
----
-
-## BUILDING YOUR DASHBOARD
-
-**Start here (Month 1):**
-- Acceptance rate + regeneration rate (easiest to instrument)
-- Cost per output (from your inference platform logs)
-- Basic cohort: power users vs. casual
-
-**Expand (Month 2-3):**
-- Correction rate (track edit distance on outputs)
-- Hallucination monitoring (user feedback loop)
-- Latency tracking (p50, p95, p99)
-
-**Mature (Month 4+):**
-- pass@k and pass^k metrics
-- Eval saturation detection
-- Automated regression testing
-- Real-time alerts on all thresholds
-- Monthly eval refresh with production traces
-
-**Common pitfall**: Building a dashboard is not enough. You need to *act* on it. Set specific owners for each alert threshold. Weekly metric reviews. Monthly asks: "What changed this week? Why? What do we do about it?"
-
----
-
-## WHERE THIS MEETS YOUR STACK
-
-Metrics are a diagnosis layer, not a fix layer. A number tells you *something is wrong*; where you go next is what separates a dashboard-watcher from a PM. The two-hop routing:
-
-- **A leading indicator drops and won't recover with a model swap → it's usually a context failure, not a model failure.** The series' hardest-won lesson: most eval/metric regressions trace to the *context* (retrieval, instructions, prompt), not the model's raw capability. Falling acceptance rate → route to `invisible-stack` / `context-spec` to audit the kNowledge and Constitution layers *before* anyone proposes a bigger model. First hop: the metric. Second hop: the context stack that actually produces it.
-- **A metric won't move because the score behind it isn't trustworthy → `confidence-tuner`.** If acceptance is measured by an LLM judge, "90% agreement" can be a vanity number when failures are rare. Validate the judge's TPR/TNR separately before you believe *any* trend built on it. A metric is only as honest as the judge underneath.
-- **Cost-per-successful-outcome is the denominator two other skills own the numerator of.** Route the cost side to `cost-model` (unit economics at 10×) and `token-economics` (how the pricing model has to align with the cost structure). This skill defines the metric; those two make it defensible at scale.
-- **Conversational burden rising → `ai-ux-patterns`.** High turns-to-success is a UX-and-trust problem (uncertainty communication, progressive disclosure), not just a model-quality problem. The metric surfaces it; the UX patterns fix it.
-- **A failure cluster on the dashboard → `feedback-flywheel`, `jtbd-analysis`, `opportunity-solution-tree`.** Once "evals as discovery" flags a cluster, these are where a demand signal becomes a roadmap item.
-- **Translating scores for a board → `stakeholder-communications`.** This skill builds the bilingual dashboard and the four translations; that skill turns them into the narrative arc a board review needs.
-- **Metric passes but production still degrades silently → `production-observability`.** Dashboards aggregate; traces diagnose. Root-cause a cluster at the trace level there before promoting it to the roadmap (or blaming the model when the *harness* failed it).
-
-The spine: **this skill decides *what* to measure; the stack decides *what to do* when a measurement moves.** Never let a red number end at "investigate" — route it.
-
----
-
-## TRADE-OFF LEDGER
-
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
-
-## CONCLUSION
-
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
-
----
-
-## VISUAL SUMMARY
-
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+`eval-framework` defines and validates evaluations; `confidence-tuner` assesses scores and judges; `production-observability` supports trace diagnosis; `ai-ux-patterns` supports burden and interaction design; `invisible-stack` / `context-spec` address evidenced context failures; `cost-model` / `token-economics` support economics; and `stakeholder-communications` supports the final narrative.

@@ -1,478 +1,233 @@
 ---
 name: agent-spec
-version: v1.1_latest
-description: "The design document for an AI agent: what it does at each step, how much it may act alone (levels 0–4), when it must hand back to a human, how it recovers from failure, and who owns the outcome. Includes the chain-reliability math every stakeholder underestimates: 90% reliable per step × 5 steps ≈ 59% reliable end-to-end. Use when: building multi-step agents, setting autonomy levels, placing checkpoints. Pairs with: autonomy-spectrum (choosing the level), agent-risk (worst-case screening), ai-prd (the product spec around it). Triggers: 'agent autonomy', 'agent spec'"
+version: v1.1.1_latest
+description: "Design an agent's operating contract: the decisions and actions at each step, its permissions, evidence needed to proceed, human handoffs, failure recovery, and accountable owner. Use when building or reviewing an agent, expanding its tools or scope, placing checkpoints, or diagnosing failures across steps. Covers tool contracts, error boundaries, state snapshots, a boundary matrix, sprint acceptance criteria, durable file handoffs, verified feature tracking, and session recovery. Explain reliability assumptions before multiplying step accuracies; confidence never grants permission. Scale the document to the task, including prototypes or single actions with consequential effects. Pairs with autonomy-spectrum for operating mode, agent-risk for consequence screening, tool-architecture for tool boundaries, and ai-prd for the surrounding product requirements. Triggers: 'agent spec', 'agent autonomy', 'agent handoff', 'agent recovery', 'sprint contract'."
 imports: [trust-ladder, failure-modes, determinism-compass]
 ---
 
 # Agent Specification
 
-## DEPTH DECISION
+Make the agent's permitted behavior, stopping conditions, and recovery understandable before implementation. The output is a working contract that another person can use to build, review, operate, and resume the agent.
 
-**Go deep if:** Designing a multi-step agent with human checkpoints, assigning autonomy levels per step, or scaling an agent to new domains.
+Start with the user, problem, intended outcome, and authorized scope. Use information already provided. Clarify missing details when they affect a consequential decision; label unresolved assumptions instead of inventing an owner, confidence score, deadline, or permission.
 
-**Skim to Process if:** Reviewing an existing agent spec or debugging agent failures — you need the boundary matrix, not the full design.
+For a new agent, follow the eight design steps below. For a review or incident, start with the affected rows of the boundary matrix and trace their dependencies. A small prototype may need only a short contract. Single actions, deterministic workflows, and high-consequence systems can still need explicit permissions and recovery; they do not automatically need this entire document.
 
-**Skip if:** Single-turn Q&A, fully deterministic workflows, prototype experiments, or when consequence magnitude is so high autonomy 3-4 are impossible.
+## First define the decision and who may make it
 
-## GROUNDING (Before Starting)
+Autonomy is difficult to specify when “handle the request” hides several different decisions. Establish four things before granting a step authority:
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
+1. **A specific call.** State the decision or action in one sentence, including its outcome and limits. Separate “find available meeting times” from “send invitations.”
+2. **Shared understanding of rights.** Involve the people who will operate or be affected by the workflow where their participation is needed. Resolve competing expectations about what the agent may do. Existing valid authorization remains valid; a workshop or unanimous agreement is not required for every action.
+3. **Observable roles.** Identify who supplies input, evaluates the options, makes the final call, carries it out, and communicates the outcome. “Owner” alone is insufficient.
+4. **Expertise and legitimate authority.** Put decisions close to relevant information while respecting actual organizational, user, and legal authority. Better context does not itself authorize an agent or a person to act.
 
-Then proceed with the skill-specific analysis below.
+These practices adapt Greer, Jordan, and Sytch's decision-rights guidance. Goals and roles may need to be refined together. Unclear goals are one source of ownership disputes, not the only one; hierarchy is sometimes the appropriate source of authority. See [evidence and interpretation](references/spec-evidence.md).
 
----
+For a trivial, reversible action with one clear owner, a sentence may establish all four. For a contested decision, test whether people can describe how they would behave in a concrete disagreement. A signed or edited document is evidence of participation, not proof that the rights work in practice.
 
-## Living Document Concept
+## Working vocabulary
 
-Agent specs are **living documents**, not one-time designs. Agent capabilities evolve (model upgrades, new tools, better retrieval), and the spec must evolve with them.
+- **Agent spec:** the operating contract for decisions, actions, state, permissions, and recovery.
+- **Permission mode:** what the agent may actually do at a step. Use the explicit modes below; keep any library autonomy label separate.
+- **Evidence threshold:** the validated condition needed to proceed, such as a required source, passing check, or calibrated score for a defined event. It can restrict existing permissions; it cannot create new ones.
+- **Handoff:** the information and status another step or person needs to continue safely.
+- **Error boundary:** a mechanism that contains a failure and determines which dependent work must stop or change.
+- **Boundary matrix:** a compact record of each step's authority, evidence, failure behavior, exposure, and recovery.
+- **Sprint contract:** a bounded deliverable, acceptance criteria, iteration budget, and stopping conditions.
+- **Accountable owner:** the person or organizational role responsible for the outcome, equipped with the authority, information, capacity, and incentives to act.
 
-**Revision triggers (update the spec):**
-- Major model upgrade: Re-test all autonomy levels and confidence thresholds. Higher capability = potential jailbreaks. Recalibrate.
-- New tool added: Rerun failure analysis. Does this tool unlock new failure modes?
-- Correction pattern changes: If correction rate stops decaying, step quality has regressed. Investigate and update recovery paths.
-- Consequence magnitude increases: Feature goes from 10 users to 1,000. Autonomy levels may need downgrade (Level 3→2).
+An agent may take one action or many. A long workflow is not necessarily an agent. Errors can propagate across steps, but additional retrieval or verification can also improve a result. Evaluate the full workflow rather than assuming that every step reduces certainty. The [concept guide](CONCEPT.md) explains the reliability math and failure patterns.
 
-**Never "set and forget."** Schedule quarterly spec reviews. Compare actual outcomes (correction rate, error rate, churn) against spec assumptions. Update if misaligned.
+## Eight design steps
 
----
+### 1. Map operations and dependencies
 
-## Tool Specification (MCP Format)
+For each operation, name its input, decision or action, state read or changed, output, and next destination. Include retries, loops, parallel branches where applicable, termination conditions, and external effects. The graph need not be acyclic.
 
-For each tool the agent accesses, specify in MCP format:
+Mark where the agent reads untrusted material, crosses a permission boundary, or commits an effect that cannot reliably be undone. These are candidates for checks before the effect occurs.
 
+### 2. Specify the permission mode at each step
+
+| Mode | What it permits | What the spec must establish |
+|---|---|---|
+| Suggest | Produce a recommendation for a person to decide on | Whether any preparatory reads are authorized; no implied authority to execute the recommendation |
+| Prepare for approval | Create a draft or proposed action and wait at the defined commitment boundary | Who approves, exactly what approval covers, and what material changes invalidate it |
+| Execute within bounds | Act under existing authorization and report or monitor as specified | Allowed actions, resources, recipients, duration, aggregate limits, evidence requirements, and intervention route |
+| Pause or refer | Stop affected work or transfer it to an authorized person/process | Trigger, preserved state, recipient, response expectations, and safe behavior while waiting |
+
+Use `rtp-autonomy-spectrum` for the library's broader operating labels and `rtp-ai-use-case-readiness` for use-case suitability. Do not reuse the old 0–4 numbering from this skill: it conflicted with the shared library scale. Permission mode and topology are different choices; several cooperating agents do not inherently receive more authority.
+
+Honor permissions already granted within their scope. Reversible work does not always require another approval; irreversible work requires an appropriate authorization boundary, not a promise of an imaginary undo button.
+
+### 3. Define evidence required to proceed
+
+Name the event a score estimates, the population on which it was checked, the acceptable error types, and the consequence of being wrong. Use `rtp-confidence-tuner` when scores need calibration.
+
+For each step specify:
+
+- Required facts, checks, and freshness; a numerical threshold only where it has a defensible basis.
+- Behavior when evidence is missing, contradictory, stale, or outside the evaluated domain.
+- The fallback on refusal or tool failure, including when to pause.
+- What detects calibration failure and who can restrict the operating mode.
+
+A high self-reported confidence score is not a substitute for evidence. If no useful calibrated score exists, use observable requirements and label uncertainty. Do not force a percentage to fill the matrix.
+
+### 4. Design the handoff
+
+Pass the current request and relevant user updates, constraints, decision summary, supporting evidence, source provenance, unresolved issues, permission scope, step status, and references to necessary artifacts. Specify what is omitted and why.
+
+Preserve critical constraints even when compressing the context. A concise rationale and evidence are sufficient; do not require private internal reasoning traces. Distinguish instructions from quoted source material or tool output. A state file records a decision; it does not outrank the user's instructions or establish that its contents are true.
+
+For refusal, partial completion, conflict, and failure, say what the receiver may use and which work is blocked. A downstream step must not silently convert an unverified result into a verified fact.
+
+### 5. Specify recovery and error boundaries
+
+For each failure, define the affected dependencies, containment action, recovery method, expected effort, notification, and user experience. A noncritical branch may continue if it is independent and its reduced result remains useful and authorized. “Medium severity” alone does not justify proceeding with unreliable context.
+
+Separate these outcomes:
+
+- **Rollback:** restore a state that the system can actually restore.
+- **Compensation:** take a new action to address an effect that already occurred.
+- **Quarantine or marking:** prevent further use or label a result as unverified; this does not undo earlier effects.
+- **Reconciliation:** determine whether an external action succeeded before retrying after a timeout or uncertain response.
+
+Bound retries by time, cost, scope, and evidence of progress. Use idempotency or duplicate detection where supported. A stopped agent may still have an in-flight external action; document cancellation limits. Sending an apology is compensation, not recall of an email.
+
+### 6. Define useful, proportionate state snapshots
+
+Record the step/version, timestamp, relevant actor or request identifier, input reference, decision summary, evidence and uncertainty, output or external effect, authorization used, and intervention or feedback. Specify sampling, access, redaction, retention, and deletion requirements.
+
+Keep enough information to reconstruct relevant events without indiscriminately storing raw sensitive inputs. A snapshot supports investigation; it does not reveal an exact internal cause merely because it contains an explanation generated by the model.
+
+### 7. Complete the boundary matrix
+
+| Step and operation | Permission and limits | Required evidence | Handoff/state | Failure and affected scope | Containment/recovery | Cost and owner |
+|---|---|---|---|---|---|---|
+| [specific operation] | [mode; resources/actions] | [checks; justified threshold if any] | [artifact/status/constraints] | [failure; downstream and external exposure] | [stop/degrade/rollback/compensate/reconcile] | [time, effort, user friction; responsible role] |
+
+Describe consequence magnitude separately from the number of downstream steps. A single payment can matter more than many internal transformations. More users increase exposure and potential aggregate harm; they do not necessarily change the severity of each incident.
+
+### 8. Equip the accountable owner
+
+Name the existing responsible person or role, their decision and intervention rights, backup coverage, and how unresolved issues reach them. If assignment is pending, record that gap and the affected launch or operating restriction. Do not invent a person to complete the template.
+
+Use the three-M lens to make ownership workable:
+
+- **Mindset:** the owner understands where their judgment and intervention matter.
+- **Meaning:** they understand the customer or business outcome that makes the work worth checking.
+- **Mechanisms:** they have time, access, training, escalation routes, and incentives for sound decisions, justified approvals, error detection, and learning.
+
+Rewarding only errors caught can encourage excessive rejection. Compliance and formal controls can support ownership; they are not automatically empty ceremony. Even a low-consequence autonomous step has an appropriate product or process owner, although no person may need to review each action.
+
+A framing experiment with 1,261 managers found meaningful oversight effects concentrated among respondents whose organizations already placed AI agents on organizational charts. It does not establish that all “AI colleague” language removes accountability or that an owner field is worthless. See the source limits in [spec evidence](references/spec-evidence.md).
+
+## Tool contracts and component boundaries
+
+For each tool, document its input and output schema, side effects, caller identity and permissions, resources, freshness, latency and availability expectations, cost model, and error states. Include partial or empty results, pagination where relevant, timeout/cancellation behavior, and retry or reconciliation rules.
+
+This is a human-readable operating contract. It is **not an MCP wire-format example**. When using MCP, validate the actual tool schema against the deployed protocol version. Latency, cost, and recovery policies need explicit operating documentation even when they are not protocol fields. Use `rtp-tool-architecture` for the full interface and enforcement design.
+
+```text
+Tool: search [illustrative operating contract]
+Inputs: query, bounded result count, permitted filters
+Outputs: results with source, retrieval time, and available publication dates
+Authority: read only within permitted collections; no external writes
+Freshness: define by the question being answered
+Latency/availability/cost: measured baseline, target, and billing unit
+Empty results: report the search limit and choose an authorized next step
+Timeout: bounded retry or report unavailable; no fabricated result
+Cached fallback: use only if age and coverage fit the task; label it
+Current facts unavailable: pause the dependent claim or disclose the gap
+Result score: define what it measures; do not equate relevance with truth
 ```
-Tool: search
-  Input schema: { query: string, max_results: int, filters?: [string] }
-  Output schema: [{ title: string, body: string, confidence: 0-1 }]
-  Latency: <500ms p95
-  Availability: 99.9% uptime (if fails, agent uses fallback knowledge)
-  Cost: 2 tokens per search
-  Failure modes:
-    - Timeout (>1s): Return cached results or "unable to search"
-    - Empty results: Agent should suggest alternatives, not hallucinate
-    - Stale index: Knowledge cutoff April 2025; searches for recent events fail
-  Trust signal: Confidence score 0-1 (0.9+ is trusted, <0.6 suggest human review)
+
+A retrieval failure must not become an authoritative plan based on stale or generic knowledge when current facts are required. Place the boundary before the dependent commitment, and test it with representative failures.
+
+## Sprint contract: agree on completion before iterating
+
+Use this pattern when an agent builds or executes a bounded deliverable. The generator produces the work; the evaluator may be a person, test suite, or suitable review process. These are roles, not a requirement to create multiple agents.
+
+1. **Implementation:** specify the deliverable and constraints. For a scheduling tool, define attendees, timezone, working hours, slot length, result count, and whether sending invitations is authorized.
+2. **Acceptance:** describe observable success and required evidence. Automated tests help where appropriate; human judgment can use an explicit rubric. “All tests pass” is insufficient if the tests omit the intended behavior.
+3. **Iteration limit:** set a task-appropriate budget if needed. A small fixed number can bound an experiment, but three to five attempts is not a universal limit. Honor the user's existing scope and budget.
+4. **Stop or change conditions:** identify harm, authorization failure, lack of progress, missing resources, or infeasible requirements. State the escalation or alternative action.
+
+```text
+Sprint contract: [task]
+Generator / evaluator: [roles]
+Deliverable and constraints: [...]
+Acceptance criteria and evidence: [...]
+Iteration or resource budget: [agreed limit, if applicable]
+Stop/change conditions and next action: [...]
+Deadline or review point: [agreed value, if applicable]
+Scope changes: [how user updates and accepted revisions are recorded]
 ```
 
-**Why MCP format:** Explicit contracts prevent "the tool is down, what happens?" surprises. Document it upfront.
+Once the agreed work passes appropriate checks, finish. If criteria change for a valid reason, record the change and its authority instead of silently moving the target. Do not reinterpret an unmet requirement as optional merely to declare completion.
 
----
+## Durable state for long tasks
 
-## Error Boundaries Between Components
+Files can help work survive handoffs and context resets. Use them when their persistence and audit value justify the overhead. Reading a file still consumes context; files save repeated work only when readers select useful summaries and references. They do not guarantee correct state or lower cost.
 
-Agents are networks of tools and steps. When one component fails, what's the consequence magnitude?
-
-Define error boundaries:
-
-```
-Step 1 (Retrieve context) ──[boundary]──> Step 2 (Generate plan)
-  If Step 1 fails:
-    - Does Step 2 have fallback context? (Generic knowledge, cached data)
-    - Can Step 2 proceed with uncertainty? (Lower autonomy, require human review)
-    - Does Step 1 failure cascade to Step 3+? (No, boundary blocks it)
-```
-
-**Boundary rules:**
-- If error severity ≤ Medium: Proceed with degraded context, lower autonomy
-- If error severity = High+: Stop, route to human, don't cascade
-
-## THE TRAP
-
-You will conflate "the AI does multiple steps" with "an agent." The bias is **autonomy creep** — you'll design a feature where the AI takes one action, then reframe it as "step 1 of a 3-step agent" to justify shipping without human checkpoints.
-
-Real agents have a critical property: they make autonomous decisions that cascade downstream. Each step reduces certainty. The trap is designing as if each step operates in isolation, then watching the system fail when early mistakes compound.
-
-The dangerous variant: designing agents that have no recovery path. The AI commits to a direction at step 1, and step 5 is locked. A single hallucination at step 2 corrupts the entire output.
-
-## KEY TERMS (plain language)
-
-- **Agent spec** — the design document that pins down what an agent does at each step, how much it can act alone, and how it recovers when it fails.
-- **Autonomy level (0–4)** — per step, from "AI suggests, human decides" (0) up to "fully autonomous" (4).
-- **Trust threshold** — the confidence score at which a step's autonomy level goes up or down.
-- **Handoff protocol** — what information passes from one step to the next (and what's deliberately dropped).
-- **Sprint contract** — an upfront agreement on exactly what the agent must build, the pass/fail tests, and when to stop iterating.
-- **Boundary matrix** — the table mapping each step to its autonomy level, failure mode, recovery cost, and blast radius.
-- **Accountable owner** — a named person set up (mindset / meaning / mechanisms) to actually *choose* to own the agent's output, not just a name in the audit log.
-
-## THE DECISION-DEFINITION GATE (run before you assign any autonomy level)
-
-**The most common agent-deployment failure is not miscalibrated autonomy. It is that the decision was never defined, so a human and an agent both believe they own the same underspecified step.**
-
-That failure looks like an autonomy problem and is not one. No autonomy level fixes it, because the ambiguity happened upstream of the question "how much should this agent decide."
-
-**The sequence, and the order is the whole point:**
-
-1. **Define the decision before assigning roles.** Break the broad goal into specific decisions and subgoals. **Ownership disputes come from vague goals, not from unclear people.**
-2. **Build the decision rights together.** Co-create them with the people affected rather than issuing them top-down. The conversation itself surfaces disagreement early, which is the point of having it.
-3. **Make roles behaviorally specific.** A title is not a role. Name who gives input, who debates, who makes the final call, and who communicates the outcome.
-4. **Match roles to the decision, not the hierarchy.** Assign by relevant expertise. A leader stepping back from a decision someone else is better positioned to make increases the team's speed rather than reducing control.
-
-**The one-question version, for a design review:** *was the decision defined before the role was assigned, or after?* After is the failure.
-
-**Applied to an agent, each step has a direct translation:**
-
-| Step | The agent question |
+| File, under a task folder such as `work/agent-state/` | Purpose |
 |---|---|
-| Define the decision | which specific call is this, stated in one sentence? |
-| Build rights together | do the humans who will live with this agree the agent should own it? |
-| Behavioral specificity | does the agent decide, or recommend? Who is told, and when? |
-| Match to expertise | does the agent actually have better context here than the person? |
+| `problem.md` | Original request plus separately recorded subsequent user steering and scope decisions |
+| `analysis.md` | Findings, evidence, assumptions, corrections, and open questions |
+| `state.json` | Canonical operational state, version, completion status, and references |
+| `plan.md` | Current plan and material decision rationale |
+| `execution-log.md` | Actions, results, errors, and external-effect status |
+| `handoff.md` | Entry point: what is complete, what remains, constraints, and next action |
 
-**Only after all four does the autonomy-level question become answerable.** Route there via `rtp-autonomy-spectrum` for the level itself, and `rtp-ai-use-case-readiness` for whether the use case should be autonomous at all.
+For example, analysis reads the problem and records findings; planning reads relevant findings and updates the plan/state; execution reads the current plan and logs results. One agent can perform all these roles sequentially.
 
-**When this is wrong:** for a genuinely trivial, reversible, single-owner step, running a four-part decision-rights exercise is ceremony. The gate earns its cost where two parties could each plausibly believe they own the call.
+Keep provenance for corrections and scope changes; do not make stale conclusions immutable. Retain history according to sensitivity and retention needs. Treat `state.json` as the source of record for operational state, not unquestionable truth. Resolve conflicts against authoritative evidence and current instructions, then update it explicitly. Use atomic writes and suitable version/concurrency controls where multiple writers exist.
 
-*(Source: Greer, Jordan & Sytch, "What Companies Get Wrong About Decision Rights," HBR Jul-Aug 2026, reached through an HBR management digest, Jun 2026 — ⚠ practitioner-tier. **The digest carries no statistics at all.** The four practices are the authors'; the agent translation is this corpus's.)*
+## Feature tracking: evidence before “done”
 
-## THE PROCESS
-
-1. **Map the step graph.** List every discrete operation the agent will perform:
-   - What goes in (input)
-   - What decision or action happens
-   - What state is created or modified
-   - What goes to the next step
-
-2. **For each step, answer the autonomy question:** "At this step, can the agent act alone, or does a human need to review before the next step commits?"
-   - **Level 0 (Suggest):** AI proposes, human decides. Agent cannot proceed without explicit approval.
-   - **Level 1 (Suggest + Explain):** AI proposes with reasoning. Human can approve, reject, or modify with visible cost.
-   - **Level 2 (Act + Report):** AI acts and reports. Human can undo within a time window. Undo is simple (rollback).
-   - **Level 3 (Act + Monitor):** AI acts. Human monitors for anomalies. Intervention is possible but requires investigation.
-   - **Level 4 (Autonomous):** AI acts with no human involvement. Use only when consequence magnitude is near-zero.
-
-3. **Define the trust threshold for each step.** At what confidence level does the autonomy level change?
-   - If confidence > X%, the agent operates at level N
-   - If confidence < X%, escalate to level N-1 (require more human involvement)
-   - If the agent refuses (high uncertainty), what's the fallback?
-   - What happens if the confidence calibration is wrong?
-
-4. **Design the handoff protocol.** Between each step:
-   - What state is passed forward? (previous inputs, intermediate outputs, reasoning, confidence scores)
-   - What state is NOT passed forward? (why did you decide to drop it?)
-   - If step N fails, what context does step N+1 have to recover?
-   - What happens if step N refuses to proceed?
-
-5. **Specify failure recovery at each step.** For each step:
-   - If the AI fails at this step, what's the rollback? (delete the output? flag for review? keep it but mark as unverified?)
-   - How far back does recovery go? (just this step, or do earlier steps cascade?)
-   - Who gets notified? (user, operations, customer success?)
-   - What's the user experience during recovery?
-
-6. **Define state snapshots.** For each step, log:
-   - Input to this step (for debugging)
-   - Decision made (what did the AI choose and why)
-   - Output of this step (what changed)
-   - Confidence or uncertainty signals
-   - User feedback or intervention (if any)
-   - Timestamp and user ID (for audit trail)
-
-7. **Write the boundary matrix.** A table with:
-   - Step number
-   - Operation (what the AI does)
-   - Autonomy level (0-4)
-   - Trust threshold (confidence score boundary)
-   - Failure mode (what breaks)
-   - Recovery cost (time, manual effort, user friction)
-   - Consequence magnitude (how many downstream steps are affected)
-
-8. **Define the accountable owner — not just a name in the audit log.** Your state snapshots (step 6) already log a user ID for the audit trail. A name in a log is not ownership. An *accountable owner* is a named person whose **mindset, meaning, and mechanisms** have been set up on purpose so they still *choose* to own the agent's output:
-   - **Mindset** — they feel they matter to the outcome (framing the agent as a colleague quietly tells them they don't).
-   - **Meaning** — they have a reason worth the effort of checking the agent's work.
-   - **Mechanisms** — they're judged on catching the agent's errors, not just on shipping its output fast.
-
-   A name plus decision rights without these three produces compliance, not ownership — the same *autonomy-creep* move THE TRAP warns about, one level up: relabeling "a user in the audit trail" as "an accountable human" to skip the work of making accountability real. **Why it matters:** a controlled trial (BCG, 1,261 people) found that framing the AI as an employee dropped personal accountability by ~9 points and led reviewers to catch ~18% fewer errors (⚠/◆) — so the "human owner" field in your spec is worthless unless these conditions are specified alongside it. **When this is wrong:** for a Level 4 (fully autonomous, near-zero consequence) step there is no human owner to protect — mark the owner field "none by design," don't pretend one exists.
-   *(Source: "Accountability Must Be Chosen, Not Mandated," Okposo, HBR, 29 Apr 2026; BCG trial via "Research: Why You Shouldn't Treat AI Agents Like Employees," HBR 2026.)*
-
-## SPRINT CONTRACT PATTERN
-
-Before the Generator (AI agent) begins building or executing steps, the Generator and Evaluator negotiate an explicit sprint contract. This contract prevents divergence, scope creep, and burned tokens on style preferences.
-
-**What goes in a sprint contract:**
-
-1. **Implementation details:** Precise description of what the agent must do. Not "build a scheduling system" but "create a Google Calendar API wrapper that checks availability for a given attendee list and returns first 5 free slots (30min each) between 9am-5pm."
-
-2. **Testable pass/fail criteria:** Each criterion must be demonstrable in 2-3 minutes without human judgment. Good: "All 50 test cases pass" or "Latency <200ms p95." Bad: "Works well" or "Feels responsive."
-
-3. **Maximum iterations:** Typically 3-5 attempts. If the agent hasn't nailed it by iteration 5, escalate rather than burn more tokens. Lock this in: "Max 4 iterations; if not done, stop and report blockers."
-
-4. **Kill conditions:** When to stop iterating and escalate. Examples: "If latency exceeds 500ms, stop and escalate" or "If accuracy drops below 85%, request additional training data instead of iterating."
-
-**Why contracts matter:**
-
-Without them, feedback loops diverge. The Evaluator asks for "better formatting," the Generator ships v2, Evaluator says "actually, cleaner look," Generator ships v3, and so on. Contract prevents this: Evaluator and Generator agree upfront on exact criteria. Once those pass, Generator stops.
-
-**Contract template:**
-
-```
-Sprint Contract: [Task Name]
-Generator: [AI model]
-Evaluator: [Human/Process]
-
-IMPLEMENTATION SPEC:
-[Precise description of deliverable]
-
-PASS/FAIL CRITERIA:
-- Criterion 1: [testable]
-- Criterion 2: [testable]
-- Criterion 3: [testable]
-
-MAX ITERATIONS: 4
-KILL CONDITIONS:
-- If [condition], stop and escalate
-- If [condition], request [resource] instead
-
-DEADLINE: [date/time]
-```
-
-Enforce this discipline. Contracts cost 10 minutes to write upfront and save 2-3 hours of misaligned iteration.
-
----
-
-## FILE-BASED AGENT COMMUNICATION
-
-Multi-step agents degrade when they pass state through context windows. Each handoff pollutes the context, earlier steps' reasoning gets buried, and the final step makes decisions on corrupted or incomplete state.
-
-**The problem:**
-
-```
-Step 1: Agent sees full problem context (4000 tokens).
-        Generates 500 tokens of analysis + 1500 tokens of plan.
-        Passes 5500 tokens to Step 2.
-
-Step 2: Receives 5500 tokens + original 4000 tokens = 9500 tokens in context.
-        Generates 600 tokens of output + passes 10100 tokens to Step 3.
-
-Step 3: Now operating in 10100 token context. Original nuance from Step 1 is buried.
-        Decision quality degrades. Step 1 reasoning is now noise.
-```
-
-**The solution: File-based state.**
-
-Agents write state to files (progress.md, state.json) instead of keeping it in context. Next agent reads fresh.
-
-**Pattern:**
-
-```
-Step 1 (Analysis Agent):
-  - Reads: /problem.md
-  - Writes: /analysis.md (findings, key insights, open questions)
-  - Writes: /state.json (structured decision points, confidence scores)
-
-Step 2 (Planning Agent):
-  - Reads: /problem.md, /analysis.md
-  - Writes: /plan.md (detailed plan with reasoning)
-  - Updates: /state.json (plan version, revised confidence)
-
-Step 3 (Execution Agent):
-  - Reads: /plan.md, /state.json
-  - Executes plan
-  - Writes: /execution-log.md (what ran, results)
-```
-
-**Benefits:**
-
-- **Auditable:** Full history of reasoning is in files, not lost in context.
-- **Survives context resets:** If an agent crashes or session resets, next agent can resume from file state.
-- **Clear handoff boundaries:** Each agent knows exactly what to read and what to write. No ambiguity about "what state should I pass?"
-- **Cost reduction:** Step 2 doesn't re-read Step 1's full analysis if it's in a file; it reads summary only.
-- **Debugging:** When something breaks at Step 5, review /state.json to see exactly what Step 4 decided.
-
-**File structure discipline:**
-
-- /problem.md: Original user request, immutable.
-- /analysis.md: Step 1 findings (append-only; never delete).
-- /state.json: Single source of truth for decision state (version-controlled).
-- /plan.md: Detailed execution plan from Step 2.
-- /execution-log.md: What ran, results, errors.
-- /handoff.md: Next agent's entry point (summary of what to do).
-
-Enforce single source of truth: state.json is the canonical version. If an agent disagrees with state.json, it must update it explicitly, not override it in context.
-
----
-
-## FEATURE LIST AS GUARDRAIL
-
-A common failure mode: agents declare "done" before actually completing the work. They generate a surface-level output, confidence goes up, and you ship incomplete work.
-
-**Prevention: Feature list.**
-
-Before the agent starts, define all features/behaviors as a JSON list:
+For a multi-part deliverable, track each required behavior and its verification. Keep the list proportional to the task.
 
 ```json
 {
   "features": [
-    {
-      "id": "auth-login",
-      "description": "Users can log in with email + password",
-      "passes": false,
-      "verified_by": null,
-      "test_result": null
-    },
-    {
-      "id": "session-refresh",
-      "description": "Sessions automatically refresh every 15 minutes",
-      "passes": false,
-      "verified_by": null,
-      "test_result": null
-    },
-    {
-      "id": "logout",
-      "description": "Users can log out and session is cleared",
-      "passes": false,
-      "verified_by": null,
-      "test_result": null
-    }
+    {"id": "auth-login", "description": "Authorized users can sign in", "passes": false, "verified_by": null, "test_result": null},
+    {"id": "session-refresh", "description": "Refresh follows the agreed session policy", "passes": false, "verified_by": null, "test_result": null},
+    {"id": "logout", "description": "Logout invalidates the intended session", "passes": false, "verified_by": null, "test_result": null}
   ]
 }
 ```
 
-**Explicit instruction to agent:**
+Set `passes` to true only with relevant evidence. Preserve required features unless an authorized scope change replaces or removes them; record that change rather than hiding unfinished work. Add explicit blocked, superseded, or waived status when useful. A waiver is not a passing test. Report partial work accurately and continue authorized work that remains feasible.
 
-"Do NOT remove, edit, or skip any features in this list. Mark each feature as passes: true only after you have demonstrated it works. You cannot declare the task done until all features have passes: true."
+## Resume a session from verified state
 
-**Why it works:**
+At startup or after a context reset, check what matters for this task:
 
-- Prevents premature completion declarations. Agent can't claim "done" if 2 out of 5 features are still failing.
-- Auditable. At any point, you can see which features pass and which don't.
-- Eliminates ambiguity. Agent can't argue about scope; the list is the scope.
+1. **Location:** confirm the project/task directory and expected files.
+2. **Progress:** read the handoff, current request updates, completed work, and blockers.
+3. **Repository state, if applicable:** inspect relevant recent changes and uncommitted work; preserve concurrent user changes.
+4. **Feature status:** identify unverified or failing requirements and avoid redoing completed work without reason.
+5. **Runtime, if needed:** check the required service; start one only when needed and authorized. Do not disrupt an existing service merely to satisfy this checklist.
+6. **Health check, if meaningful:** run a small representative check to establish the baseline; record failures before attributing them to new work.
 
-**Enforcement:**
+Summarize the current state and next action in the handoff or, when useful, a `session-init.md` in the task folder. A report can contain timestamp, location, last completed item, blockers, repository changes, feature status, runtime status, health-check result, and next steps. Noncoding tasks need no development server, build artifacts, or ritual ten-minute initialization.
 
-- Before agent starts: "Here is the feature list. Every feature must be implemented and tested."
-- During work: "Which features still have passes: false? Iterate on those."
-- Before acceptance: "Verify all features have passes: true and test_result is not null."
+## Keep the contract current
 
----
+Review after a material model/configuration change, a new or changed tool, a meaningful shift in corrections or failure patterns, or an expansion in users, domain, permissions, or consequence. Changes can improve or worsen performance; a flat correction rate alone does not prove regression. Check task mix, labels, and user expectations.
 
-## SESSION INITIALIZATION RITUAL
+Set periodic review cadence by risk and change rate. Compare observed outcomes with the assumptions behind permissions, thresholds, recovery capacity, and ownership. Retest affected paths and relevant regressions; do not blindly retain or downgrade every permission after each update.
 
-Agents suffer from "cold start amnesia" — they begin working without understanding what was already done, what the current state is, or whether there are blockers from previous sessions.
+## Review and handoff
 
-**Mandatory initialization sequence (first 10 minutes of every agent session):**
+Before treating the spec as ready, check:
 
-1. **Directory verification:** Agent confirms the working directory is correct and contains expected files.
-   ```
-   - Project root: [path]
-   - Config exists: [file]
-   - Build artifacts present: [yes/no]
-   - Git repo initialized: [yes/no]
-   ```
+- Operations and dependencies are concrete, including external effects and termination.
+- Each step's actual permission and rationale are clear and enforceable.
+- Evidence requirements have a basis; missing evidence and miscalibration have defined behavior.
+- Handoffs preserve constraints, provenance, permission scope, and incomplete status.
+- Recovery distinguishes rollback, compensation, quarantine, and reconciliation, with owners and user experience.
+- Snapshots support investigation with appropriate access, sampling, and retention.
+- The boundary matrix has been exercised against realistic failure scenarios and reviewed by someone able to challenge its assumptions; independent review is especially useful for consequential systems.
 
-2. **Progress file review:** Agent reads progress.md to understand what was completed in previous sessions.
-   ```
-   - Last completed step: [step number]
-   - Last completion date: [date]
-   - Known blockers: [list]
-   - Context from previous agent: [summary]
-   ```
-
-3. **Git log check:** Agent reviews last 5-10 commits to understand the code trajectory.
-   ```
-   - Last commit: [hash, message, date]
-   - Feature branches active: [list]
-   - Merge conflicts unresolved: [yes/no]
-   ```
-
-4. **Feature list examination:** Agent reviews the feature list and identifies which features are failing.
-   ```
-   - Total features: [N]
-   - Passing: [N]
-   - Failing: [N]
-   - Untested: [N]
-   ```
-
-5. **Dev server startup:** Agent starts the local development server and verifies it's responsive.
-   ```
-   - Server port: [port]
-   - Health check: [pass/fail]
-   - Recent errors in logs: [summary or none]
-   ```
-
-6. **Basic end-to-end test:** Agent runs a minimal happy-path test to confirm the system is functional.
-   ```
-   - Test: [description]
-   - Result: [pass/fail]
-   - If failed, blocking issue: [description]
-   ```
-
-**Output of initialization:**
-
-Agent produces a /session-init.md file documenting the initialization results:
-
-```markdown
-# Session Initialization Report
-
-**Time:** [timestamp]
-**Agent:** [model]
-
-## Directory State
-- [checklist results]
-
-## Progress Context
-- Last completed: Feature X
-- Blockers: [list]
-
-## Git Status
-- Last commit: [info]
-
-## Feature Status
-- Passing: 3/8
-- Failing: 5/8 (detail which ones)
-
-## Dev Server
-- Status: [running/failed]
-- Port: [port]
-
-## Health Check
-- E2E test: [pass/fail]
-- Critical issues: [list or none]
-
-## Recommended Next Steps
-1. [step 1]
-2. [step 2]
-```
-
-This ritual prevents "I didn't know X was already done" and "I didn't know Y was broken" surprises. It also creates a paper trail: future agents can see exactly what the current state is.
-
----
-
-## QUALITY GATE
-
-- [ ] Step graph drawn with discrete operations (not abstract "the agent does X")
-- [ ] Autonomy level assigned to each step with explicit reasoning
-- [ ] Trust threshold defined for each step (confidence score boundary, not vague)
-- [ ] Handoff protocol documented (state passed forward, state dropped, reason)
-- [ ] Failure recovery specified for each step (rollback, notification, user experience)
-- [ ] State snapshot requirements defined (what to log, what to skip, sampling rate)
-- [ ] Boundary matrix complete and reviewed by someone who isn't on the team
-
-## WHEN WRONG
-
-- Single-turn interactions (a user asks the AI one question, gets one answer)
-- Fully deterministic workflows with no AI autonomy
-- When the consequence magnitude of agent failure is so high that autonomy levels 3-4 are impossible
-- When you're still exploring what the agent should do (use runbooks, not agent specs)
-- When the agent is an experiment with a kill condition (spec this in the experiment doc instead)
-
----
-
-## TRADE-OFF LEDGER
-
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
-
-## CONCLUSION
-
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
-
----
-
-## VISUAL SUMMARY
-
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Deliver the spec and matrix, the recommendation, key trade-off, largest unresolved risk, owner, and next action. State what was reviewed versus tested. Link the surrounding `rtp-ai-prd`, `rtp-agent-risk`, `rtp-failure-modes`, and `rtp-production-observability` work where relevant. A small step graph can help when it clarifies boundaries; it is optional, and no particular drawing tool is required.

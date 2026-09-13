@@ -1,7 +1,7 @@
 ---
 name: ai-product-taste
-version: v1.3_latest
-description: 'Calibrate the quality bar for an AI feature against your specific domain, users and price point, not against benchmark scores. Exceptional AI products are domain-calibrated, not generically excellent: ''good'' is a domain word, not a benchmark number. The trap is technically-correct-but-feels-wrong: factually accurate, grammar-perfect, zero hallucinations, and users still say ''this sucks'', because you optimized for metrics instead of taste (accuracy ≠ usefulness; fluency ≠ trustworthiness). Design the magic moment and put taste examples in your evals. Use when output looks impressive but feels mediocre, when the team can''t say what ''good enough'' means, or when judging ship-now vs. raise-the-bar. Pairs with: eval-framework (taste sets the bar, evals measure it), jtbd-analysis (the job vs. the quality bar), ai-product-metrics (acceptance/correction as taste signals), confidence-tuner (honest-about-uncertainty). Triggers: ''is this good enough'', ''the output is impressive'', ''quality bar'', ''ship or polish''.'
+version: v1.3.1_latest
+description: 'Define what excellent AI output means for a specific user, task, domain, and price point. Use when strong benchmark scores do not translate into useful work, when a team cannot explain its quality bar, or when deciding whether to ship or improve a feature. Establish essential requirements, meaningful user outcomes, tolerable imperfections, and examples that evaluators can judge consistently. Examine acceptance by segment, the first useful experience, prompt framing, and whether users select among many outputs or depend on one finished artifact. Turn the result into a taste spec for eval-framework and eval-driven-development. Pairs with jtbd-analysis, confidence-tuner, prompt-craft, ai-product-metrics, and fit-signal.'
 imports:
   - first-principles
   - dual-lens
@@ -9,201 +9,162 @@ imports:
 
 # AI Product Taste
 
-**The objective:** calibrate the quality bar for an AI feature to *your* domain, users, and price point — not to benchmark scores — for the team whose output looks impressive and still feels mediocre. Taste is the difference between a product users tolerate and one they love.
+Use this skill to define the quality a particular AI feature must deliver and decide whether the current experience meets it. The result is a **taste spec**: observable standards, examples, failure boundaries, and evidence for a ship, improve, narrow, or test decision.
 
-## The one idea
+Product taste is informed judgment about what works for these users in this situation. A technically correct answer can still be unhelpful, poorly timed, hard to act on, or wrong for the audience. Those shortcomings can be investigated and measured; they do not require choosing between taste and evidence.
 
-Your model output is factually accurate. Grammar perfect. No hallucinations. The eval scores are strong. And users say "this sucks."
+## Establish the task and essential requirements first
 
-That sentence is the whole problem, and here is why it happens: **you optimized for metrics, and metrics are not taste.** Accuracy is not usefulness (factually correct but verbose, over-qualified, unhelpful). Fluency is not trustworthiness (polished prose hides uncertainty). Comprehensiveness is not signal (a wall of detail when the user wanted one clear answer). You hit every number and missed the thing the number was supposed to stand for.
+Name the user, job, domain, decision the output supports, current alternative, and price or service tier. Use existing context. Ask only for missing information that would materially change the quality bar. If the job itself is unclear, use `rtp-jtbd-analysis` before polishing an answer to it.
 
-The core idea is that **"good" is a domain word, not a benchmark number.** Exceptional AI products are *domain-calibrated*, not *generically excellent*. What "excellent" means for a legal-research tool (precise citations, conservative, flags its own uncertainty) is not what it means for a creative-writing tool (voice-matched, surprising, emotionally resonant) — and neither is captured by "92% accuracy." The PM with taste builds the bar around what experts *in the domain* call excellent, what corner cases would destroy trust even if rare, and what the price point allows — then optimizes for *that*, not for the leaderboard.
+Separate three parts of the bar:
 
-And bad taste is invisible in your dashboard, which is what makes it dangerous: you can't measure it directly. Users just… leave. NPS stays mediocre. You ship features and nothing moves the needle. Bad taste isn't a bug — it's the compounding result of prioritizing the wrong metrics, and it only shows up as absence.
+1. **Essential requirements:** correctness where required, safety, privacy, accessibility, valid permissions, and any obligations for the intended use. A lower price does not waive these requirements.
+2. **Useful performance:** whether the output helps the user complete the job, with acceptable effort, timeliness, and recovery when it fails.
+3. **Distinction:** the voice, insight, precision, or experience that makes this product preferable to a credible alternative.
 
-## How to use this skill
+Keep severity separate from frequency. A rare failure may still block release. Identify both false positives and false negatives in the actual task; neither is automatically the more costly error.
 
-1. **Calibrate to the domain** — research what "excellent" means to experts *in the domain* (not to AI people), the cost of failure, and the error asymmetry. (Step 1.)
-2. **Design the magic moment** — the one experience that converts a skeptic to a believer, and calibrate the bar to the price point. (Steps 2–3.)
-3. **Sense, then institutionalize** — use the product yourself, watch what users edit vs. accept, then write the taste spec and put taste examples *in the eval rubric* so the bar is testable, not aspirational. (Steps 4–5, and the handoff to `eval-framework`.)
+Apply the shared `UNIVERSAL-SKILL-PROTOCOL.md` where available: it lives at the AI-PM collection root in the source library and at the repository root in the plugin. Scale its grounding and handoff to the task. This skill does not require a separate workshop, document, or diagram for a simple quality judgment.
 
-## KEY TERMS (plain language)
+## Four distinctions that keep the bar honest
 
-- **Product taste** — a calibrated sense of what "good" means for *this* product, in *this* domain, at *this* price — the thing that decides whether users love it or merely tolerate it.
-- **Domain calibration** — building the quality bar from what domain experts call excellent, not from generic AI metrics.
-- **The magic moment** — the single experience that converts a skeptic into a believer ("I didn't think of this pattern, but I trust it works"); not comprehensiveness, speed, or polish.
-- **Error asymmetry** — in a given domain, a false positive and a false negative cost differently; the bar must reflect which one destroys trust.
-- **Price-point calibration** — matching the quality bar to what users pay (a free tier tolerates more error than a $500/month tier); over-building wastes compute, under-building destroys trust.
-- **Framing (museum-quality)** — the quality bar you *communicate to the model* in the prompt; "this will be exhibited as the best of its kind" activates different output than "be helpful."
-- **Evidence tiers used below** — ◆ vendor-disclosed · ⚠ practitioner estimate. The acceptance-lift and price/accuracy numbers below are ⚠ illustrative — teaching devices to test in your context, not measured constants.
+| Distinction | What to check |
+|---|---|
+| Accuracy and usefulness | A correct answer may omit the next step, bury the answer, or address the wrong question. Evaluate factual accuracy and task usefulness separately. |
+| Fluency and trustworthiness | Smooth prose can conceal weak evidence. Check sources, uncertainty, and what the user can safely infer. |
+| Speed and value | Speed matters when it improves the task. Measure useful completion, including verification and rework, rather than generation speed alone. |
+| Comprehensiveness and signal | Include what changes the user's understanding or action. Offer depth when the task needs it; do not treat either brevity or length as inherently better. |
 
-## GROUNDING (Before Starting)
+Benchmark scores can inform the assessment. They become misleading when their tasks, users, or failure costs differ from the product's own. A domain-specific rubric should complement relevant technical measures.
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: name the domain and the user, and answer the diagnostic — *can you articulate what "good enough" means in domain terms, or are you launching whatever the model produces?* If the honest answer is the latter, that gap is the work. Then route depth and output format.
+## Build the bar in five steps
 
-## THE TRAP — technically correct but feels wrong
+### 1. Calibrate to the domain
 
-You will optimize for the metrics you can see and miss the taste you can't. The four confusions that produce impressive-but-mediocre output:
+Study how users accomplish the job today: specialist software, a human expert, a manual process, or another AI product. Observe real work and ask domain practitioners to compare concrete outputs. Their expertise matters, but investigate disagreements instead of treating one expert's preference as universal.
 
-- **Accuracy ≠ usefulness** — factually correct but verbose, over-qualified, unhelpful.
-- **Fluency ≠ trustworthiness** — polished output can hide the uncertainty the user needed to see.
-- **Speed ≠ value** — a fast wrong answer rarely beats a slow right one.
-- **Comprehensiveness ≠ signal** — overwhelming detail when the user wanted simplicity.
+Describe excellence in terms someone can judge. “Accurate and helpful” is too broad. “Quotes the correct policy version, identifies the applicable exception, and gives the next action without inventing approval authority” is testable.
 
-Domain-specific taste means understanding what *this* user cares about (not what the model does well), which corner cases destroy trust (even if rare), what the price point allows, and what the competitive bar is *in this domain*.
+List the errors that matter, their consequences, who can detect them, and whether recovery is possible before harm occurs. Distinguish a preference from a requirement and record whose needs each represents.
 
-## THE PROCESS
+### 2. Identify the first meaningful value
 
-**1. Calibrate to the domain.** Research it deeply: where do users get this done today (manually, other AI, consultants)? What do they consider excellent *in the domain*, not in AI? What's the cost of failure (wrong legal advice is catastrophic; a wrong restaurant pick is annoying)? What's the error asymmetry? Build the bar around domain expectations, not AI capabilities.
+The **magic moment** is an experience that makes the product's value clear. It may be a useful surprise, a previously missed pattern, a completed task, or an ordinary step removed reliably. It need not produce a “wow.” Speed can be the value when timeliness is part of the job.
 
-**2. Design the magic moment.** The one experience that makes users go "wow" — and it's rarely comprehensiveness, speed, or fluency. It's usually: *exactly right, no padding · honest about uncertainty ("60% confident, here's why") · immediately actionable · a surprising, correct insight.* For coding: "I didn't think of this pattern, but I trust it works." For analysis: "Oh — that's the real problem, not what I thought."
+Examples: a coding assistant proposes a better pattern and demonstrates that it works; an analysis tool reveals a relevant driver with traceable evidence; a support tool resolves the issue without making the user repeat their story.
 
-**3. Calibrate to the price point** (⚠ illustrative thresholds — set your own): a free tier can tolerate more error; a $20/month tier must be insightful and reliably accurate; a $500/month tier must be domain-expert-level or irreplaceable. Over-building wastes compute; under-building destroys trust.
+Specify what happened, what changed for the user, and how you would recognize it. Treat the proposed moment as a hypothesis until users experience that value. Express uncertainty honestly; do not invent a “60% confidence” label to make an answer sound calibrated. Use `rtp-confidence-tuner` for signals with a defensible interpretation.
 
-**4. Build taste through iterative sensing.** Use the product yourself for a real task in the domain. Talk to power users in the domain (not tech people talking about AI). Watch which corners they still do manually — that's where your AI fails taste. A/B test output styles, lengths, and confidence markers, and track which variants users *trust*, not which are most accurate.
+### 3. Match the offer to the price
 
-**5. Institutionalize it.** Write down what "good taste" means for this product (domain-specific, with good/bad examples), the failure modes that destroy trust, and the magic moment — then **put taste examples in the eval rubric** ("did this output feel like it came from someone who understands this domain?"). This is the handoff to `eval-framework`: taste defines the bar; evals hold the line on it.
+Determine what each tier promises and what it costs to deliver that promise. A free tier may offer fewer tasks, lower volume, slower service, or less customization. A premium tier may justify deeper analysis, specialist review, integrations, or stronger service commitments. The same consequential use still needs its essential requirements met at every tier.
 
-**Domain taste decision table** — calibrate against domain reality, not generic metrics:
+The earlier free / $20 / $500 examples are illustrative positions, not universal quality thresholds. A $500 product is not automatically expert-equivalent, and a free product is not entitled to be misleading. If the required quality is unaffordable, narrow the supported job, change the service design, or reconsider the offer.
 
-| Domain | What "good" means | Fatal failure | Acceptable imperfection | Quality bar |
-|---|---|---|---|---|
-| Legal | Precise citations, conservative, flags uncertainty | Hallucinated case law | Verbose explanations | Expert-level or don't ship |
-| Healthcare | Evidence-based, hedged, recommends a professional | Confident wrong diagnosis | Missing a rare condition | Clinical-grade |
-| Creative writing | Voice-matched, surprising, resonant | Generic/template feel | Occasional awkward phrasing | "Better than I'd write" |
-| Code assistance | Correct, idiomatic, explains tradeoffs | Compiles but has a security bug | Slightly non-idiomatic style | "I trust this to run" |
-| Customer support | Empathetic, action-oriented, escalates well | Dismissive or wrong resolution | Slightly formal tone | "Resolved my issue" |
-| Data analysis | Accurate, caveated, actionable | Wrong numbers, stated confidently | Missing one data source | "I'd show this to leadership" |
+Include inference, retrieval, verification, human review, support, and rework in the relevant cost boundary. Avoid optimizing compute while shifting larger costs onto users.
 
-**The framing lever (museum quality).** Anthropic's harness work found that setting the bar to "museum quality" vs. "good enough" changed agent output dramatically (◆ Anthropic engineering write-up). The quality bar you *communicate to the model is itself product taste*: "be helpful" activates one output distribution; "this will be exhibited as the best example of its kind" activates another. Test framing words and measure the acceptance difference (⚠ illustrative lifts — "produce expert-level output" ~+8%, "this will be shown to your CEO" ~+15%; measure your own). *The craft of writing those prompts lives in `prompt-craft`; the decision about what bar to express is taste.*
+### 4. Develop judgment through observation and comparison
 
-## THE ONE-WEEK RECALL PROBE — a cheap instrument for the thing this skill argues about
+Use the product for a real task. Watch new and experienced users, including people whose needs differ from those of the builders. Examine accepted, edited, regenerated, abandoned, and manually completed work. Ask why the user made that choice.
 
-This skill argues that technically-correct output can still feel wrong, and that argument is easy to make and hard to instrument. Here is an instrument, borrowed from experience design, that costs one message and settles a lot of debate.
+Test concrete alternatives in style, length, structure, uncertainty signals, and interaction. Preserve correctness and other essential requirements in every variant. Where practical, use comparable tasks, blinded assessment, and an appropriate sample. Report uncertainty and differences by segment rather than announcing a winner from a few preferences.
 
-**The probe.** A week after someone used the feature, ask them to describe it. Then ask one question of their answer:
+Acceptance is evidence of a choice, not proof of quality: people may accept a wrong answer, edit a good answer to fit house style, or reject it because integration is awkward. Pair behavior with outcome quality and the user's explanation.
 
-**Did their recall center on the spectacle, or on the significance?**
+### 5. Make the judgment reusable
 
-- **Spectacle recall** sounds like: it was fast, it was impressive, it wrote the whole thing, the animation was nice. The person is describing the *machine*.
-- **Significance recall** sounds like: it caught something I would have missed, it saved me the argument with legal, I sent it as-is. The person is describing *what changed for them*.
+Write the taste spec with examples of excellent, acceptable, and unacceptable output. Annotate why each example belongs in that category. Include common work, difficult cases, and severe failures even when rare. Five to ten corner cases can start a discussion; coverage depends on the task, not that count.
 
-**Spectacle-only recall a week later is a design failure, not a marketing gap**, and it is the specific failure this skill exists to catch. It reliably shows up in products with excellent demo metrics.
+Turn the spec into an evaluation rubric with `rtp-eval-framework` and into release checks with `rtp-eval-driven-development`. Clarify how disagreement between evaluators is resolved. Keep some cases separate for checking whether an improvement generalizes. Update the bar when evidence warrants it, with a recorded reason and version, so learning is distinguishable from moving a target after seeing results.
 
-**Why a week, and why not a survey.** Immediately after use, everyone reports the spectacle, because that is what is salient. At a week, only the things that changed something survive. And an open recall question beats a rating scale here for a structural reason: a scale supplies the dimension, so it tells you how they felt about the thing you already thought mattered. Recall tells you which thing mattered.
+## Domain examples: choose the specific use before choosing the bar
 
-**One honest limit.** Some genuinely good products are legitimately invisible in recall, because they removed a step rather than adding a result. If the feature's job is to make something stop happening, ask about the absence directly, and do not read a blank as a failure.
+These examples illustrate judgment, not clinical, legal, or release standards.
 
-**Where it fits the audience question.** People accept AI most readily where it produced something with **no non-AI version**, and resist it where it displaced a human-made thing they can compare against. Significance recall is what you get in the first case. If the recall keeps landing on spectacle, check whether you have built the second case: a thing whose non-AI version the user still remembers and preferred.
+| Domain | Useful qualities | Failure to investigate or block | Potentially tolerable imperfection |
+|---|---|---|---|
+| Legal research | Verifiable citations, correct jurisdiction and date, clear distinction between evidence and interpretation | Fabricated authority, omitted material limitations, or unsupported advice | An explanation longer than preferred, if it remains usable; the bar depends on research assistance versus a consequential legal decision |
+| Healthcare | Evidence appropriate to the supported task, clear limits, and a suitable qualified review path | An error or omission that could materially affect care; rarity alone does not make a missed condition acceptable | Nonmaterial wording or administrative formatting, after confirming it does not alter clinical meaning |
+| Creative writing | Suitable voice, originality, emotional effect, and fit to the brief | A generic result may miss the creative goal; deceptive, infringing, or harmful content raises different concerns | An awkward phrase that can be edited without undermining the work |
+| Code assistance | Correct behavior, maintainable implementation, clear tradeoffs, and relevant security checks | A security flaw or incorrect behavior despite successful compilation | A minor style difference consistent with the project's constraints |
+| Customer support | Correct resolution, empathy, appropriate escalation, and low user effort | Wrong policy, an unauthorized promise, or failure to escalate when needed | Slightly formal wording when it does not obstruct the interaction |
+| Data analysis | Correct calculations, suitable data, traceable assumptions, and decision relevance | Confidently wrong numbers or a missing source that changes the conclusion | Omission of an immaterial source, with coverage and limits made clear |
 
-**One case sharpens which "human alternative" actually matters.** Duolingo's Lily, an AI conversation partner, has an obvious human alternative in the world, a native speaker, yet draws stated preference rather than resistance: "I am more willing to practice with Lily on my phone than I am with a Spanish-speaking person because I don't want to mess up. But I'm okay messing up in front of Lily. It's a chatbot" (◆, HBR Cold Call, "How Duolingo Aims to Diversify Beyond Language Learning," Apr 2025, the case's own co-author describing her own use of the product). The variable is narrower than "a human alternative exists somewhere." It is whether the AI displaced *this provider's own prior human-staffed offering*. Duolingo never sold a book-a-tutor product for Lily to replace, so there is nothing of its own for Lily to have taken away. Before reading spectacle-only recall as a design failure, check which kind of "no non-AI version" you actually have: never offered by you, or offered by you and now missing.
+“Fatal failure” in a taste spec means a failure that blocks this use or breaks a stated essential requirement. Do not use the term interchangeably for a security defect, a disappointing writing style, and a clinical hazard.
 
-*(Source: the recall probe is HBR, Nunes & Heimann, "Why the Best Immersive Experiences Succeed," Aug 2026 — ⚠ framework-tier, prescriptive, no validation data for the probe itself. Adapted here from museum and live-experience design to AI surfaces, which is this corpus's move. Pairs with `rtp-ai-ux-patterns` section 8, the sequencing law, where meaning-making is the sixth and last stage and therefore the one most often capped by an unfixed earlier failure. Ledger pattern X.)*
+## Three additional lenses
 
-## THE PROVEN-BETTER-NEW DISCIPLINE — pick your one bet, copy the rest
+### Prompt framing: express the desired quality, then test it
 
-Teams with real innovation budget still spend it badly: they spread it thin across every surface instead of concentrating it where it counts. Zynga co-founder Mark Pincus describes a working discipline for this on HBR IdeaCast. For any feature, name the single dimension you are actually trying something new on, and for everything else, copy the best existing implementation you can find. Don't reinvent onboarding, checkout, or navigation because the product you're building has a different, specific idea at its core.
+The language used to describe quality can influence the result. Anthropic's harness report describes particular visual convergence from a “museum quality” framing; it does not establish a universal quality improvement. Specific domain criteria and examples give evaluators more to work with than status words such as “expert-level.” [Anthropic's report](https://www.anthropic.com/engineering/harness-design-long-running-apps).
 
-**The rule.** Name your one innovation dimension before you start building. Everything that isn't that dimension gets the best-known pattern in the category, not a fresh design.
+Use `rtp-prompt-craft` to develop prompt variants. Compare their outputs against the same bar, including factual and other essential requirements. An impressive-sounding instruction can change style without improving the job. The earlier +8% and +15% acceptance lifts were hypothetical examples; they are not expected effects or planning assumptions.
 
-**The mechanism.** Innovation budget, meaning design and engineering time, is finite. Spread it across several "let's rethink this too" surfaces and each one gets a fraction of the attention a proven pattern already had behind it. The surfaces that carry no novelty end up shipping worse than the boring, copied version would have. Pincus's worked example: two competing social games died on unbuilt onboarding, not on the genuinely novel features they were racing to ship. Onboarding wasn't the bet. It ate the budget anyway.
+### Recall: investigate what users remember as valuable
 
-**Where it breaks.** This is a heuristic from one founder's retrospective account on a podcast, not a controlled comparison. A case where broad, unfocused innovation beat a single-bet-plus-copy-the-rest approach on a comparable product, with an outcome measure attached, would break this claim. No such case appears in this source. Treat "pick one bet" as a discipline to test in your own context, not a validated finding.
+After an interval suitable for the product, ask a user to describe the experience in their own words. A week is one possible interval. First collect unaided recall, then ask what changed in their work. Follow-ups require the normal authorization and scheduling mechanism; this instruction does not itself send a message or schedule one.
 
-**The user-stupidity asset warning.** A related trap from the same discipline: your own fluency with the product decays your read on what users need. Whoever builds the product gets faster at using it than any first-time user ever will, and that gap compounds within roughly a quarter, until the builders can no longer predict where a naive user actually gets stuck. This deepens the "invisible until it's absence" problem this skill already names: for AI products specifically, the failure hides inside a metric that looks fine. A user who typed a bad prompt and got a weak answer still generated a "completed" interaction. Nothing in your completion rate flags it. Budget for watching someone genuinely new to the product, on a cadence, because your own sense of what's obvious keeps drifting away from theirs.
+Separate descriptions of the presentation—speed, animation, volume of output—from descriptions of an outcome: a mistake caught, a task completed, an argument resolved. Both may be valuable. Entertainment can legitimately deliver spectacle, and routine automation may succeed by becoming unremarkable. If the job removes a step, ask about that absence without treating a blank memory as failure.
 
-*(Source: HBR IdeaCast, Mark Pincus interview, Jul 2026. Tier: ⚠ unverified anecdote, entirely survivorship-selected. Pincus's claims about which decisions caused which outcomes at Zynga are not audited data and should not be cited as such. The discipline and the user-stupidity-asset mechanism are worth testing on their logic even though the source that names them is not evidence.)*
+Treat recall as a diagnostic alongside actual outcomes, usage, and interviews. It does not establish that every user initially remembers spectacle, that only meaningful benefits survive a week, or that spectacle-only recall proves bad design. This is the library's unvalidated adaptation of an experience-design framework; see [research boundaries](references/research-boundaries.md).
 
-## PORTFOLIO VS. DEPTH — is this judged as best-of-many or the one that matters?
+The Novel Insights ledger's pattern X adds a useful question: **what does this AI experience replace, and for whom?** Compare an additional option with the removal of a valued existing service. The Duolingo Lily discussion records one co-author's preference for practicing with a chatbot because mistakes felt less embarrassing. It challenges the claim that an available human alternative necessarily reduces acceptance. It does not isolate provider displacement as the cause. Test availability, price, privacy, confidence, perceived loss, and outcome quality as competing explanations.
 
-Not every output category responds to AI assistance the same way, and the reason isn't the model, it's the structure of what "good" means for that category. HBR's Cold Call podcast, discussing the Atlantic's licensing deal with OpenAI, surfaces a distinction worth building into your taste diagnostic directly.
+### Concentrate innovation while retaining a beginner's view
 
-**The rule.** Ask whether the thing you're building is portfolio-structured or depth-structured. Portfolio-structured output has its value in the best of many draws: generate many variants and ship whichever tests best, and nobody cares that the rest were mediocre. Depth-structured output has its value in one artifact's singular quality, a single investigative feature or a single legal brief that has to be right and distinctive on its own, with no second draw to hide behind.
+The **Proven–Better–New** heuristic asks you to name the dimension where novelty matters most and use suitable established patterns elsewhere. For example, a new analysis method may benefit from familiar navigation and onboarding. Adopt interaction principles responsibly and adapt them to the actual users; “use a proven pattern” does not mean copying proprietary assets or ignoring accessibility.
 
-**The mechanism.** The same generation technology helps the first category and flattens the second. More draws genuinely raise the best-of-many ceiling, so portfolio-structured work gets a real lift from AI assistance. Depth-structured work doesn't get more draws. It gets one shot, and a model-assisted shot tends toward the model's central tendency: competent, on-genre, and indistinguishable from what anyone else generating from the same model would produce. The same technology is a gift or a threat, decided entirely by which structure you're building for, not by how capable the model is.
+One focused bet can protect scarce design and engineering time. Some products require several connected innovations, so make those dependencies explicit instead of imposing a one-bet rule. Mark Pincus's account of social games harmed by neglected onboarding is an illustrative retrospective, not a controlled causal finding.
 
-**Where it breaks.** A depth-structured category, a single essay, a single piece of reporting, a single legal argument, where AI assistance measurably improved that one artifact's distinctiveness instead of flattening it toward the mean, would break the homogenization half of this claim for that category. This source names the pattern without offering that counter-case.
+Keep a **first-time-user perspective**. Builders' familiarity can hide confusing prompts, labels, and steps. Observe newcomers at an appropriate cadence; there is no established one-quarter deadline for losing this perspective. A completed interaction can still produce an unusable answer. Investigate what the interface failed to elicit or explain rather than labeling the user or their prompt as the problem.
 
-*(Source: HBR Cold Call podcast, Caroline Elkins interview on the Atlantic/OpenAI licensing arrangement, Jul 2026. Tier: ⚠ podcast transcript, no disclosed deal terms; the licensing specifics are not independently verifiable from this source. The portfolio-vs-depth distinction is the reusable part; the deal commentary around it is not.)*
+## Portfolio selection and depth of a finished artifact
 
-**Add to your taste spec:** before you set the quality bar, name which structure you're building. A portfolio-structured feature can lean on AI's breadth. A depth-structured one needs the taste spec to actively defend against the model's default output, because "on-genre and safe" is exactly what depth-structured taste has to beat.
+Ask how the work is judged:
 
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+- **Portfolio selection:** users generate several candidates and select or test the best. Assess candidate diversity, useful yield, selection accuracy, and total cost. More draws can help, but correlated outputs and a weak judge can leave quality unchanged or select an appealing error.
+- **Depth of the finished artifact:** a particular report, essay, investigation, or argument must stand on its own. Assess coherence, distinctive insight, evidence, and accountability for the complete artifact. It can still benefit from multiple drafts, research assistance, or critique.
 
-Taste decides *what good means*. Trace where that bar travels: it becomes eval cases, and those eval cases are what a trust curve later proves right or wrong.
+Many workflows combine both. Do not infer that AI necessarily improves portfolios or inevitably homogenizes a single artifact. Test whether it improves the required quality in this workflow. The distinction from the Atlantic/OpenAI podcast discussion is a useful design lens; undisclosed deal terms and broad causal claims are outside what that source establishes.
 
-**Where the bar gets set and held:**
-- **`rtp-eval-framework` / `rtp-eval-driven-development`** — taste sets the bar; evals *measure against it and hold the line*. The taste spec's magic-moment and fatal-failure definitions become eval cases. Without this handoff, taste stays aspirational.
-- **`rtp-confidence-tuner`** — "honest about uncertainty" is a core taste element; this designs the trust signals that express it without over- or under-warning.
-- **`rtp-prompt-craft`** *(boundary)* — owns the craft of *writing* prompts; taste owns the *decision* of what quality bar to express in them (the framing lever above).
+## Diagnose a gap before prescribing polish
 
-**The distinct-but-adjacent question:**
-- **`rtp-jtbd-analysis`** *(distinct objective)* — JTBD names *what job* the user hires the AI for; taste calibrates *how good the output must feel* to do that job. Different questions; run JTBD first.
+| Signal | Questions to investigate |
+|---|---|
+| “Good, but I would not pay” | Is the job important enough? Is value clear? Are alternatives, budget, purchasing friction, or the offer responsible? |
+| High accuracy, low acceptance | Is the output relevant, usable, well integrated, and trusted for good reasons? Does the accuracy measure represent the user's task? |
+| A specialist competitor wins | Which user need or quality dimension does it satisfy better? Compare actual work rather than reputation alone. |
+| Flat NPS or churn | Which cohorts and alternatives changed? Is this a quality gap, acquisition mismatch, pricing issue, or something else? |
+| The lowest-acceptance segment struggles | Inspect its tasks, constraints, and outcomes. Low acceptance identifies a question, not proof that the product's taste is worst there. |
 
-**Where a taste gap becomes visible, two hops downstream:**
-- **`rtp-ai-product-metrics`** — acceptance, correction, and regeneration rates are the *measurable shadow* of taste; low acceptance despite high accuracy is the immediate signature of a taste gap.
-- **`rtp-fit-signal`** — taste's own open loop, closed. This skill warns that a taste gap is *invisible until it's absence* (churn, flat NPS) — fit-signal's trust curve is the instrument that catches that absence weeks later. A strong eval score with a trust curve that never inflects is a taste gap the dashboard hid. Feed the magic moment into fit-signal's magic-moment cohort measurement so it tests the right thing.
+Mature practice means the team can explain the bar, demonstrate outcomes, interpret disagreement, and maintain representative evaluation examples. There is no universal 80% acceptance threshold, required trust-curve shape, or NPS level that proves good taste.
 
-**Imports (run before setting a bar):**
-- **`rtp-first-principles`, `rtp-dual-lens`** *(imports)* — strip the feature to its atomic job before setting a bar; translate the bar so business and engineering mean the same "good."
+When evidence supports a quality gap, inspect rejected and manual work, revise the relevant part of the bar, improve the output or experience, and retest. Style may be the problem; accuracy, missing functionality, or task selection may be the problem instead.
 
-## DIAGNOSTIC QUESTIONS
+## Deliver the taste spec and hand it forward
 
-- **Can you describe what "excellent" means in your domain — specifically, not "accurate and helpful"?**
-- **What's the error asymmetry — is a false positive worse than a false negative here?**
-- **What would make a user say "wow, that's useful" (not "wow, that's technically impressive")?**
-- **Have you used your own product for a real task in the domain?**
-- **Do you know which outputs users edit vs. accept as-is — and which segment has the lowest acceptance?** That segment is where your taste is worst.
-- **Is the thing you're building judged as "best of many" or "the one that matters"?** Portfolio-structured output gets a real lift from AI assistance; depth-structured output tends to flatten toward the model's default unless the taste spec actively defends against it.
+Use a compact answer for a single judgment or this structure for a reusable spec:
 
-## REALITY CHECK
-
-- **Mature taste** looks like: you can state the bar in domain terms; you know the magic moment; users accept 80%+ of outputs because they *feel right*, not because accuracy is high; power users build workflows around your AI; you optimize for domain corner cases, not benchmarks.
-- **It is NOT**: "our accuracy is 92%" (good for *this* domain?); high variance in acceptance across segments; users comparing you to generic AI instead of domain alternatives; an eval rubric that's generic; a team that hasn't used its own product.
-- **Bad taste is invisible until it's absence** — you won't see it in a metric, you'll see it in churn and a flat NPS. Instrument acceptance by segment so it stops being invisible.
-
-## QUALITY GATE
-
-- [ ] Domain calibration — you understand "good" in this domain, not generically
-- [ ] Magic moment identified — the one experience that converts skeptics
-- [ ] Price-point appropriateness — the bar matches what users pay
-- [ ] Error asymmetry understood — which failure destroys trust most here
-- [ ] Corner-case inventory — the 5–10 failures that would destroy trust
-- [ ] Taste examples in the eval rubric (not just accuracy metrics) — the eval-framework handoff is made
-- [ ] User acceptance tracked by segment, with low-acceptance cases investigated
-
-## WHEN WRONG
-
-- Users say "the AI is good, but I wouldn't pay for this" — the bar isn't calibrated to the price point.
-- High accuracy but low acceptance — technically correct, feels off (the core signature).
-- Power users leave for a smaller competitor with better taste for their niche.
-- NPS plateaus — you've taken the low-hanging fruit and can't reach mainstream.
-- Users compare you to humans in the domain, not to other AI — and you lose.
-
-**Recovery:** research where top users do this manually and what they'd pay for; analyze the pattern in rejections; inventory your worst corner cases; rebuild the bar domain-first, not metric-first; iterate output *style* (feel, not accuracy); re-test with power users; align pricing to the bar you've established.
-
-## OUTPUT FORMAT
-
-```
-## Taste Spec: [Product / Domain]
-
-Domain calibration:  "good" means [domain-specific] · fatal failure [the one trust-destroyer] · acceptable imperfection [what users forgive] · quality bar [in the user's words, not metrics]
-Magic moment:        [the experience that converts skeptics]
-Error asymmetry:     [false positive vs. false negative — which costs more here]
-Price–quality:       | tier | price | quality bar | compute budget |
-Corner-case inventory: [the 5–10 failures that would destroy trust]
-Framing test:        A [text] → [acceptance %] · B [text] → [acceptance %] · winner
-Acceptance by segment: | segment | acceptance | pain point | taste gap |
+```text
+Taste Spec: [product / feature / version]
+User, domain, job, and current alternative:
+Decision: ship / improve / narrow scope / test further; evidence and limits
+Essential requirements and release-blocking failures:
+Useful outcome and proposed magic moment:
+Quality dimensions, annotated examples, and acceptable imperfections:
+Error asymmetry: false positives, false negatives, severity, and recovery
+Work structure: candidate selection, finished-artifact depth, or both
+Offer: tier | price | promised scope/service | cost boundary
+Corner cases: case | required behavior | evidence | unresolved gap
+Framing test: variants | sample | quality/outcome measures | uncertainty
+Segment evidence: acceptance/editing | outcomes | reasons | remaining gaps
+Evaluation handoff: rubric, cases, evaluator, version, next check
+Next action, owner, and decision that the next evidence will change:
 ```
 
-## TRADE-OFF LEDGER
+`rtp-first-principles` clarifies the job and assumptions; `rtp-dual-lens` translates the quality bar between business and engineering. Reuse that grounding when it already exists. `rtp-confidence-tuner` designs uncertainty signals, and `rtp-prompt-craft` implements the quality instruction. `rtp-ai-product-metrics` examines behavioral and outcome measures; `rtp-fit-signal` follows appropriate cohorts over time. Those measurements test the taste hypothesis rather than automatically confirming it.
 
-By calibrating to the domain instead of the benchmark, you bet that users judge you against domain alternatives (a human expert, a specialist tool), not against generic AI — and that "feels right here" beats "scores high everywhere." You give up the clean, defensible benchmark number and the comfort of a generic bar. **Reversible?** Yes — it reshapes what you optimize, not your architecture. **The hidden trade:** taste is invisible in dashboards, so the failure mode is *complacency* — a strong eval score masking a churning user base; the fix is instrumenting acceptance by segment so the gap becomes visible. **Confidence: High** — domain calibration is what separates loved AI products from tolerated ones. What would change it: a genuinely generic, low-stakes utility where users really do compare you to other AI on a benchmark.
+Before handing off, check that the bar is domain-specific, essential requirements are explicit, failures reflect their consequences, pricing supports the promise, and examples can be judged consistently. Name the main tradeoff and what evidence would change the recommendation. A richer rubric costs more to maintain than one generic score, so use the detail the decision warrants.
 
-## CONCLUSION
-
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5: state the recommendation (the domain-calibrated quality bar and whether to ship or raise it), name the key trade-off (domain fit vs. benchmark defensibility), acknowledge the biggest risk (a strong eval score hiding a taste gap), and define the next action (write the taste spec, put its cases in the eval rubric, instrument acceptance by segment).
-
-## VISUAL SUMMARY
-
-After the primary output, invoke the **excalidraw-svg** skill for one visual: two axes — technical quality (accuracy/fluency) rising on one, perceived value (does it feel right in the domain?) on the other — with the "impressive but mediocre" gap shown where technical quality is high and perceived value is low, and the magic moment marked as the point that closes it. So a viewer sees that taste, not accuracy, is the axis that decides love. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+If a visual would clarify a disputed gap, plot technical quality against user value and annotate the evidence. Both axes matter. Use an available visual skill when helpful; a diagram is not a required extra deliverable.

@@ -1,248 +1,210 @@
 ---
 name: agent-harness
-version: v1.5_latest
-description: 'The machine that turns a model''s reasoning into work that ships, and how to diagnose it when it breaks. Covers the MHTE frame (Model/Harness/Tools/Environment), the five harness clusters (Identity, Memory Policy, Orchestration, Interception, Observability & Evals) + Governance, Session/Harness/Sandbox, the six failure signatures, the Anatomy Atlas (symptom→cluster→fix), phase-relative perception, the four shippable patterns + feedback flywheel, and the six paradoxes. Use when diagnosing why an agent fails, designing or reviewing a harness, deciding what to change this sprint, or evaluating a vendor''s harness. Sibling: harness-operating-model (the economics/org/longevity of the program). Pairs with: agent-ecosystem, tool-architecture, invisible-stack/context-spec, production-observability, eval-framework, safety-by-design. Triggers: ''agent harness'', ''why did the agent fail'', ''MHTE'', ''harness anatomy'', ''planner generator evaluator''.'
+version: v1.5.1_latest
+description: 'Design and diagnose the system that turns model output into completed work. Use when an agent stops early, loses context, loops, chooses the wrong tool, exceeds its permissions, or fails after a configuration change; also use for harness and vendor reviews. Locate the evidence across Model, Harness, Tools, and Environment, then inspect Identity, Memory Policy, Orchestration, Interception, Observability and Evals, and Governance. Covers runtime objects, six failure signatures, four implementation patterns, handoff contracts, and six design tensions. Produce a supported diagnosis, a proportionate fix, and a way to check it. Keep model limitations and interactions in the investigation. Route program economics and ownership to harness-operating-model; use agent-ecosystem for coordination, tool-architecture for action contracts, and context-spec, safety-by-design, and eval-framework for depth. Triggers include agent harness, MHTE, harness anatomy, and planner/generator/evaluator.'
 imports: [agent-ecosystem, tool-architecture, eval-framework, production-observability]
 ---
 
-# Harness Architecture, Diagnosis & Patterns
+# Agent Harness: Architecture and Diagnosis
 
-**The objective:** name the machine around the model precisely enough that, when an agent fails at 2 AM, you can point at the layer and the phase that broke *before* anyone proposes a model swap — and know the small, deterministic change that fixes it. This skill is the *machine*. Its sibling, `harness-operating-model`, is the *program* (what it costs, who owns it, what survives model generations). Build the machine here; fund and staff it there.
+Use this skill to explain how an agent turns a request into work, find where that process failed, and choose a testable improvement. A harness manages context, execution, permissions, state, verification, and recovery around a model. Its design can improve or reduce the capability available to the user.
 
-## THE ONE IDEA
+Start with the required outcome, the evidence of failure, and the action's consequences. Contain an active incident before experimenting. Respect the user's existing authorization: a runtime permission check is not a request to ask the user again on every step.
 
-**The model sets the ceiling of what your agent can do; the harness sets the floor of what it reliably does. Your users live on the floor.** You rent the ceiling from a vendor — it's the same one your competitor rents. You build the floor yourself. That single reframe reorganizes every agent post-mortem, and three consequences fall out of it:
+Produce a diagnosis or design with five things: the observed gap, the likely causes and remaining uncertainty, the proposed change, its owner, and a check that would show whether it worked. Keep small cases small. A single call may need only a clear contract and validation; an early product still needs safeguards proportionate to its actions.
 
-1. **The user is the only fixed point; everything else is a nameable moving part.** When a demo passes and production fails on the same prompt, the request didn't change and the user didn't change. What changed sits *underneath* the agent — the harness, the tools, the environment. Diagnose the moving part, not the model.
-2. **"The model failed" is almost always false.** Across 2026's production surveys, most "model failures" are harness failures — lost state, premature stopping, unverified completion, stale context, a missing guardrail. A smarter model in a naive harness is *confident failure at higher speed*. Treat the 90/10 (harness/model) split as a strategic heuristic, not a measured law — but if your eval spend runs model benchmarks while your failures live in the harness, you're shining a flashlight on the one layer that already works.
-3. **A change you can't locate on the map is a change you can't make twice.** Every fix must land on a named layer and a named cluster. That's what turns an incident review from theology ("probably the model") into engineering ("Cluster 2 wrote a stale checkpoint at the context-assembly phase").
+## 1. Locate the system and its responsibilities
 
-The proof this is real, not rhetoric: [Harness-Bench (July 2026)](https://arxiv.org/html/2605.27922v1) ran 106 tasks across six harness configs and eight model backends and found the *same model* performs materially differently under different harnesses, same tasks, same budget. The vendor question stops being "which model did you use?" and becomes "which model, under which harness, with which tools, budget, sandbox, memory, evals, and stop policy?"
+**MHTE** separates four responsibilities. It is a diagnostic map, not a requirement for four services or four teams.
 
-## KEY TERMS (plain language)
-
-- **Harness** — everything wrapped around the model that turns its reasoning into work that ships: identity, memory, the loop, guardrails, the feedback that catches mistakes. The model is the engine; the harness is the car.
-- **MHTE** — Model / Harness / Tools / Environment. Four peer layers, a chain of responsibility: *the model proposes, the harness decides, the tool acts, the environment constrains.*
-- **The five clusters** — the working parts inside the harness: Identity, Memory Policy, Orchestration, Interception, Observability & Evals. (Governance is the sixth, elevated in 2026.)
-- **Session / Harness / Sandbox** — the three runtime objects you inspect when paged: *Session is memory* (the append-only event log, outside the model), *Harness is decision* (the loop), *Sandbox is blast radius* (the bounded room the agent acts in).
-- **Three memories** — history (the full event log), working context (the slice placed in front of the model this turn), durable artifacts (files/checkpoints a future session recovers). An agent has no single "memory."
-- **Context durability / context rot** — how reliably an agent performs across many tool calls and resets (durability); the quality decay as the working context fills, *even with relevant material* (rot). Quality falls long before the window is full.
-- **Guides (feedforward) vs sensors (feedback)** — guides shape what the model sees *before* it acts (fail silently); sensors check the world *after* it acts and block the next step (fail loudly). Reliability lives in the sensors.
-- **Hook vs guardrail** — a hook is any lifecycle checkpoint (observe, log, enrich, route); a guardrail is the subset that enforces a policy (block, rewrite, require approval). Every guardrail is a hook; not every hook is a guardrail.
-- **Harness vs runtime** — the harness is what you *design* (prompts, skills, loop, hooks, evals); the runtime is the plumbing that runs it in production (durable execution, checkpoints, multi-tenancy). You build the harness; you usually buy the runtime.
-
-## THE FOUR-LAYER MODEL (MHTE) — Where the Harness Lives
-
-Anthropic's March 2026 [NIST RFI response](https://www.anthropic.com/news/anthropic-nist-rfi-response) set the shared vocabulary: **Agent = Model + Harness + Tools + Environment.** The model reasons, the harness orchestrates, the tools act, the environment contains. The harness is "the natural home for observability and verification."
-
-**A lay analogy for a stakeholder who has never heard the word "harness":** Atlassian separates "where work happens" from "how work happens." Employees get total freedom on the first axis, work from anywhere, and zero freedom on the second, every meeting produces a two-page document and a recorded decision, no exceptions. The freedom on one axis is what makes the constraint on the other tolerable, and the constraint is what makes the freedom survivable. That is the model-proposes/harness-decides split in a form nobody needs prior AI vocabulary to follow. The analogy breaks down past the surface: Atlassian's structure is a human habit with no technical enforcement, while MHTE's harness layer is a technical control layer with actual guardrails. Use it only as a first-contact bridge, not as a substitute for the four-layer model above. *(Source: HBR Cold Call, "Atlassian Anchors Remote Flexibility in Structured Daily Practices," Aug 2025, case HBS 925-029.)*
-
-| Layer | Role | Owns |
+| Layer | Responsibility | Evidence to inspect |
 |---|---|---|
-| **M — Model** | The brain. Reasoning, planning, generation. Stateless, context-window-bound. | Vendor product. |
-| **H — Harness** | The control plane. Session continuity, guardrails, evaluation, recovery, the loop. | **You** — the one layer without a default owner. |
-| **T — Tools** | The hands. API calls, file edits, queries. Scoped by least privilege. | Platform engineering. |
-| **E — Environment** | The room. Filesystem, sandbox, shell, network, credentials, anything that survives a restart. | Security / infrastructure. |
+| **Model** | Interprets the supplied context and generates decisions or content. | Exact input, model/version/settings, output, capability tests. |
+| **Harness** | Assembles context; selects and checks the next step; manages continuity and recovery. | Policies, routing, loop decisions, checkpoints, validators. |
+| **Tools** | Expose and perform actions under a defined contract. | Arguments, identity, permissions, result, side effects, error handling. |
+| **Environment** | Provides execution resources and boundaries. | Files, network, credentials, isolation, capacity, interruptions. |
 
-Two disciplines make MHTE pay off:
+Name the owner of each relevant responsibility. A component may implement several responsibilities: a tool gateway can validate policy and execute calls. Describe those boundaries rather than forcing the whole artifact into exactly one box. The same incident can involve several layers.
 
-- **The strict-edge rule.** Every artifact belongs to *exactly one* layer. If you can honestly place something in two, one placement is wrong — and that ambiguity is a bug in your mental model before it's a bug in the code. Blur a tool into the harness and a permission bug shows up as "the harness did something weird"; blur a memory file into the model and a stale file on disk shows up as "the model forgot."
-- **Each outer layer is a safety net for the one it wraps.** Model hallucinates → the harness evaluator catches it. Harness misconfigures a call → the tool's permission scope limits it. Tool misbehaves → the environment sandbox contains the blast radius.
+The model may propose and the harness may authorize, but that separation must be implemented. A model's refusal is one defense; permissions and isolation limit what happens if it fails. Those limits need testing too. A tool can cause harm within its permitted scope, and a sandbox does not independently establish privacy, correctness, or legal compliance.
 
-**The nested disciplines** (name where the field is, and where you are): Prompt engineering (2023, single-turn) → Context engineering (2024–25, multi-turn, single agent) → **Harness engineering (2025–26, multi-agent, multi-session — you are here)** → Environment engineering (2026+, runtime boundaries). Each contains the previous. Owning only the innermost circle while your failures live in the outer two is the 1990s developer who wrote beautiful functions and had no answer for how the system failed.
+The useful intuition behind “model ceiling, harness floor” is that strong reasoning alone does not ensure reliable execution. It is **not** a literal ceiling/floor theorem or a measured 90/10 allocation of fault. Model capability, context, tools, and environment interact. The same prompt can produce a different result because of model variation, changing state, changed dependencies, or harness behavior. Investigate each plausible cause.
 
-## THE FIVE CLUSTERS INSIDE THE HARNESS (+ Governance)
+Prompt, context, harness, and environment engineering are related design concerns. They are not a universal historical ladder in which every team must build multi-agent infrastructure next.
 
-The harness is not one box. It's a control plane with five clusters, each owning a class of decision and each the origin (or catch point) of a class of failure.
+## 2. Inspect five harness clusters and governance
 
-1. **Identity** — the operating contract established on boot: who the agent is, its task, which tools it may use, what's forbidden. *Identity declares the contract; Interception enforces it.* A system prompt can *say* "no refunds over ₹5,000"; only a hook makes a ₹50,000 refund architecturally impossible. The shortest cluster to describe, the most underestimated for leverage — every session inherits its answers.
-2. **Memory Policy** — what the model sees this turn: context assembly, compaction cadence, boot-time injection (AGENTS.md style), retrieval policy. This is where context rot lives or dies. It is a *database-architecture* problem that happens to live in the harness, not a prompt problem. The sharp design idea: **the session is not the context window** — keep the durable log outside the model, keep window-assembly logic inside the harness, and never let a summarization step be the only copy of anything.
-3. **Orchestration.** What happens next after a response, a tool result, or a failed check: continue, retry, delegate, escalate, resume tomorrow, or stop.
+The clusters below organize decisions. Governance applies from the beginning; it is not a claim that the field formally added a sixth cluster in 2026.
 
-   **Two patterns live here.**
-   - **The Ralph Loop.** Intercept the exit signal, check completion *independently* rather than by asking the model, then reopen with clean context and a progress pointer.
-   - **Planner / Generator / Evaluator.** One plans, one executes, and a *separate* evaluator gates each output. A model grading its own work is the same reasoning running twice.
+### Identity: establish the operating contract
 
-   **The evaluator does not have to be another agent.** A schema validator, a test suite or a policy engine is often the cheapest independent verification you can buy.
+State the objective, role, authorized actions, prohibited actions, relevant definitions, and escalation owner. Keep instructions consistent with actual permissions. For example, a ₹5,000 refund limit needs enforcement at the action boundary; a sentence in a prompt alone does not enforce the limit.
 
-   **Model routing belongs here too.** Most teams already run multiple models, so routing is the *first* thing Orchestration owns, not a later optimization.
+### Memory Policy: decide what is available now and recoverable later
 
-   **Sub-rule: role separation and vendor separation are two different decisions, and choosing a triad only settles the first.**
-   - **The functional axis** gives Planner, Generator and Evaluator distinct jobs.
-   - **The vendor axis** runs them on different labs' models.
+Distinguish three stores:
 
-   Same-model role separation still shares training data and alignment approach across all three roles, **so the Evaluator misses exactly what the Generator was trained to miss.** Functional separation buys organizational clarity. It does not buy error independence. Only cross-lab vendor separation decorrelates the roles' errors.
+- **History:** recorded events, subject to retention, access, and integrity controls.
+- **Working context:** the selected material supplied for the current model call.
+- **Durable artifacts:** files, records, and checkpoints used to continue or verify work.
 
-   **The move:** name the model and the vendor behind each role as a design decision at build time, not an implementation detail left for later.
+The session is not the context window. Preserve the authoritative facts needed for recovery before compaction; do not make a lossy summary their only copy. Do not retain all sensitive material forever just to avoid forgetting. Record provenance, version, freshness, and access policy.
 
-   **Two audited papers back this.** A DEI framework study measured a **34.3% against 27.3%** issue-resolve rate on SWE-Bench Lite tasks, comparing cross-model teams against same-model teams (✅ audited, arXiv:2408.07060). A scaling study found a fully diverse **2-agent team outscored a homogeneous 16-agent team** across its benchmark set (✅ audited, arXiv:2602.03794).
+Context durability means completing and recovering across extended work. Context rot describes degraded performance as context becomes harder to use; its severity depends on the model, task, content, and retrieval policy. Test realistic trajectories, not window size alone. A database design, retrieval change, clearer instruction, or model change may each help.
 
-   **Exception:** a firm with one dominant, well-characterized failure mode that a homogeneous, well-evaluated pipeline already catches reliably gains little from vendor diversification and pays real integration and handoff cost for it. Do not apply this reflexively when the pipeline's actual failure mode is already covered.
-4. **Interception (Hooks)** — the checkpoints between loop steps that ask *should this be allowed?* LangChain's six primitives name the surface: `before_agent`, `before_model`, `wrap_model_call`, `wrap_tool_call`, `after_model`, `after_agent`. **This is where product policy becomes enforceable system behavior.** Compliance lives here, not in a longer system prompt — "you can't prompt your way to HIPAA compliance." The 2026 attack surface makes the placement critical: injection now arrives through five doors (user input, browsed web content, code output, other agents' messages, tool results), and the simplest tool-description injection succeeded ~93% of the time across frontier models — a prompt-layer refusal does not survive that; a runtime hook does.
-5. **Observability & Evals** — the part of the harness that watches the harness, and turns yesterday's failure into tomorrow's test. Observability is the raw trace layer; evals are the judgment on top. **This cluster improves all the others** — it's the engine of the feedback flywheel. An observable harness without evals is one you can watch but not improve; an eval suite without observability is a judgment you can't explain.
+### Orchestration: select the next step and the stopping condition
 
-**Governance (elevated 2026)** — the sixth row the field added after shipping the other five and realizing the on-call rotation was the missing organ: a named owner per cluster, an audit chain that survives the rotation, escalation tied to reversibility class. Treated as a peer, not an afterthought. (The org design of this ownership is the sibling skill's territory.)
+Define continue, retry, delegate, wait/resume, escalate, and stop states, with time, cost, and iteration limits. A scheduled continuation needs an actual supported scheduler and authorization; storing “resume tomorrow” is not scheduling it.
 
-### The Anatomy Atlas — Symptom → Missing Cluster → Fix
+Two useful patterns are:
 
-The one table an incident review starts from. Bring the diagnosis to a *layer*, not a prompt.
+- **Completion-controlled loop, sometimes called the Ralph Loop:** inspect completion evidence when the agent proposes stopping; resume from a progress pointer when work remains and the budget permits. Stop or escalate on a persistent blocker instead of reopening indefinitely.
+- **Planner / Generator / Evaluator:** separate planning, execution, and assessment where the benefit justifies the overhead. The evaluator can be a schema validator, test suite, policy engine, human, or model. Assess the evaluator's own coverage and errors.
 
-| Cluster | What you hear in the war-room | Root gap | The engineered fix |
-|---|---|---|---|
-| **Identity + Memory** | "It forgot what we agreed 15 min ago." "Every session starts from zero." | Silent instruction drop; window overflow on the highest-value tasks. | Dynamic compaction with importance scoring; session persistence across restart; content-addressed boot files. |
-| **Tools** | "It made up a customer ID." "Wrong API, wrong shape." | No schema validation at the boundary; over-broad tool surface. | Permissioned registry; JSON-schema validation on args/returns; reversibility class (read/write/irreversible). |
-| **Orchestration** | "Declared done while step 3 failed." "Looped 40 times, burned $80." | No explicit stop rule; success declared by the agent that did the work. | Structured loop with rubric-gated completion; hard step/cost budgets; handoff contracts. |
-| **Interception** | "Confident garbage shipped." "Refund fired before approval." | Safety in the prompt, not the runtime; no sensor after the model spoke. | Guides feed forward (context, allowlists); sensors feed back (schema check, test runner, LLM-judge, human-in-loop). |
-| **Observability** | "Can't tell which turn regressed." "Trace log has three fields." | Undebuggable runs; regressions caught in prod, not on the PR. | Structured trace per decision + tool call + retry; per-tenant cost meters; yesterday's incident → today's regression eval. |
-| **Governance** | "Who owns this at 2 AM?" "Compliance found it after the customer did." | No first-class authority layer; ownership diffuses to whoever answered the page. | Named owner per cluster; audit chain that survives the rotation; escalation tied to reversibility. |
+Separate roles do not automatically create independent errors. A second pass with the same model can still help; different prompts, tools, retrieval, implementations, and models can contribute useful diversity. Cross-vendor models also can share blind spots. Choose and evaluate the combination on the failures that matter. Record model and vendor where relevant; routing across models is optional, not a prerequisite for a harness.
 
-*(The field's survey taxonomy calls the same map **ETCLOVG** — Execution env, Tool interface, Context, Lifecycle/orchestration, Observability, Verification, Governance. Same map, different labels; use whichever vocabulary the room already speaks.)*
+### Interception: enforce the checks at the relevant boundary
 
-## SESSION / HARNESS / SANDBOX — The Runtime Objects You Inspect
+A **hook** is a lifecycle extension point. A **guardrail** is a control intended to constrain behavior; it can live in a hook, an authorization service, a tool, a database, or infrastructure. Neither term implies effectiveness.
 
-MHTE tells you *which layer owns the failure*; Session/Harness/Sandbox tells you *which concrete object to inspect*. **Session is memory** (the append-only log, outside the model, outliving every call). **Harness is decision** (the loop). **Sandbox is blast radius** (the scoped room). The five clusters live inside Harness; they are *how* it decides.
+Check identity, scope, arguments, risk, budget, and any required approval before the corresponding side effect. Validate outcomes afterward where necessary. Instructions can guide behavior, but enforce consequential permission boundaries outside the model's discretion.
 
-The seven-step production loop every real agent runs (print it above the monitor): load objective/policy/memory/workspace → route to a model → call the model with bounded context → gate every tool request (permission, identity, risk, budget) → execute the tool/sandbox action → record the event in the durable log → decide (continue / retry / branch / escalate / stop). Earlier agents ran three steps (think, act, observe); the extra four — ask permission, record, verify, decide — are where reliability lives.
+**Feedforward guides** shape behavior before an action; **feedback sensors** inspect results. Either can be weak or strong, silent or visible. A post-action sensor cannot undo an irreversible action. Use prevention and detection together.
 
-## DIAGNOSE BY PHASE, NOT BY GUT
+Treat retrieved pages, files, tool descriptions/results, and other agents' messages as potentially untrusted content. A hook alone does not solve injection or establish compliance. Preserve the distinction between task data and authority, restrict access, and test the entire path. See `safety-by-design`.
 
-### The six failure signatures
+### Observability and Evals: make behavior inspectable and assessable
 
-Each is an *observable symptom* first, then the diagnostic question it forces:
+Record relevant decisions, context versions, tool calls, results, retries, costs, and stop reasons with access and retention controls. Separate an agent's claim from trusted execution evidence. Agent-written notes can be useful, but do not treat them as tamper-resistant audit records.
 
-1. **Premature stop** — declares done before the work is done. *Session-continuity failure.* → *What evidence allowed the system to declare completion?*
-2. **Infinite loop** — retries the same (or subtly varied) failed action until budget runs out. *Retry-architecture failure; no circuit breaker.* → *What changes between retries, and what ends the loop?*
-3. **Silent drift** — does the wrong work correctly (last quarter's rules, a stale spec). *Context-refresh failure.* → *Which source of truth defined the current objective?*
-4. **Shared-vocabulary failure** — answers correctly against its prompt, incorrectly against what the org means ("active users" differs in product vs marketing). *A boundary failure between the agent and the org's language.* The fix is a glossary, and the harness is where it lives. → *Whose definition did the agent use?*
-5. **Unauthorized action** — reaches a plausible decision, then does something it shouldn't (sends instead of drafts, refunds beyond threshold). *Permission-design failure — instructions where enforcement was needed.* → *Which control permitted the action?*
-6. **Sub-agent divergence** (new, 2026) — an orchestrator fans out to a fleet of parallel workers (Claude Code caps ~1,000); each worker is fine, but their copies of the situation quietly stop matching, and the merge drops correct work or hits an unresolvable conflict. *Coordination failure.* → *Which shared state and merge rule coordinated the parallel work?*
+Observability supports diagnosis; evals assess selected outcomes and behaviors. Neither is useless without the other, but together they make regressions easier to explain. Turn representative incidents into tests without copying sensitive production data indiscriminately.
 
-**The debug order (start from evidence, not the model):** outcome (expected vs actual) → session (what state/evidence existed) → harness (which policy selected the next action or allowed the stop) → tool (did it execute and return the expected shape) → environment (was execution constrained/interrupted) → model (given the exact context, was the reasoning itself wrong). Skipping steps means days on the wrong layer; a boring checklist beats a smart guess.
+### Governance: make accountability operational
 
-### Phase-relative perception — one file, four lenses
+Name the decision owner, operational responder, escalation route, and authority for changing each important control. One person can own multiple clusters. Preserve an audit trail across personnel changes. Match escalation to consequence, uncertainty, and reversibility, including harmful read access and disclosure.
 
-The idea that makes attribution honest: artifacts are *segregated by responsibility* (each belongs to one layer) but *perceived through all four* depending on the run's phase. An `AGENTS.md`: at **boot** the Harness reads it (it's Environment); at **context assembly** its contents become prompt text (Memory Policy decides how much); at **inference** the Model sees only tokens; at the **tool phase** an `fs-read` treats it as bytes. Same file, four perceptions — which is why "the model hallucinated" often traces to the Memory Policy cluster (wrong content injected), the Environment (stale file), or Tools (schema mismatch). On every post-mortem, name the **phase** first (*in what phase did this become visible? in what phase did it become inevitable?* — often different phases, different owners), then the layer.
+## 3. Diagnose by evidence, layer, and phase
 
-## THE FOUR SHIPPABLE PATTERNS (+ the flywheel that makes them compound)
+Begin with expected versus actual outcome. Reconstruct the session, context assembly, model response, harness decision, tool action, and environment state. Follow the strongest evidence rather than always leaving the model until last. Compare alternative explanations and avoid treating a symptom as its proven cause.
 
-Small, deterministic changes that beat model upgrades — each implementable in a sprint, each pinned to a cluster. Guides feed forward; sensors feed back.
+### Anatomy Atlas
 
-1. **Structured retry > naive retry** (Interception + Orchestration). Naive retry resends the identical prompt and hopes — a coin flip, because the model's prior for that input hasn't moved. Structured retry parses the error, extracts the violation, and feeds it back as *new* information ("`amount` was a string '$42.50'; return an integer in cents"). Teams that ship it see drift drop ~60% on the same model. *The specificity of your error signal IS the specificity of your feedback loop* — a generic "error 500" is back to the coin flip.
-2. **Strict structured output** (Interception). Not a formatting convenience — a reliability pattern. Strict-mode schema enforcement shrinks the set of things the model is *allowed* to say; invalid paths are pruned at generation, not caught at parse. Three specifics separate a reliability schema from a formatting one: `additionalProperties: false`, regex-bounded strings (a bare `date: string` is a hand grenade; a pattern is a contract), and enums everywhere the value set is finite. Complementary with structured retry: strict mode kills *format* failures at the token level; structured retry handles *semantic* ones (valid integer, but negative). Version the schema like a public API.
-**Pairing familiarity is a harness variable, and almost nobody tracks it.** Component quality is not the only input to pipeline performance. **How often this exact combination has run together is another**, and it is designable.
-
-The clearest evidence is from outside software. In one hospital, the **same surgical case took 20 to 40 minutes longer** depending on which team ran it. A pilot that staffed deliberately for pairing familiarity, changing no technology, moved on-time starts from **85% to 96%**.
-
-**The harness translation:** score how many times a specific combination of prompt version, model, tool chain and human reviewer has executed together. **Treat a low-familiarity combination as elevated risk**, and route it to a conservative fallback or closer monitoring. A configuration where every component is individually proven and the combination is new is still a new configuration.
-
-**Where to apply it first:** immediately after any component swap. A model upgrade resets familiarity across every pipeline that model touches, which is exactly when teams assume nothing changed because each part is known good. *(Source: HBR, "What Operating Rooms Can Teach Leaders About Team Design," May 2026 — ◆ single hospital, one pilot, no control arm; the pipeline translation is this corpus's.)*
-
-3. **The narrow gate** (Memory Policy / Tools).
-
-   Every tool is a decision the model makes every turn. You are not restricting the agent, you are freeing it from choices it was getting wrong.
-
-   **The evidence.** Vercel cut roughly 80% of its tools and got fewer steps, fewer tokens and faster responses. Shopify's heuristic: past 20 to 50 tools, the boundaries blur.
-
-   **Three moves that work:**
-   - Reveal tools *as needed* (skills are progressive disclosure).
-   - Name each tool for its exact verb.
-   - Add *negative examples*: "do NOT use this when...". A tool that says what it is **not** for is a decision the model no longer gets wrong.
-
-   **The part teams skip.** Tool sprawl is an org problem, because each team ships its own tool. So the cut is a negotiation, not a cleanup. Run it as a product decision with the registry as a single owned surface, or the next sprint reverses it.
-4. **Emit artifacts, not answers** (Orchestration + Interception). For any output consumed by another system or verified against criteria, prefer an *executable* artifact (a function, query, diff, test) over prose or even JSON. It buys three properties nothing else does: **stateful checkpointing** (progress survives a crash), **formal verification** (the output can be tested, not just read), **deterministic replay** (the exact failure path reconstructs). When the artifact *is* the migration script, the sandbox catches the constraint violation before approval. The artifact is the eval.
-
-**The meta-move — the feedback flywheel** (Observability & Evals). The three patterns land on a dashboard by Friday; they *compound* only when wired into a loop: every failing trace (early exit, retry-exhausted, wrong tool, failed validation) is mined into a concrete eval, tagged by cluster, added to the suite — so the next occurrence is caught on a PR, not in production. Start with the twenty cases that cover real user failures, not a thousand noisy ones. Without the flywheel, findings scatter across Slack; with it, each becomes a permanent regression test. *A small set of well-tagged evals beats thousands of noisy ones.* (Depth: `eval-driven-development`, `production-observability`.)
-
-**Every pattern is a calibration, not a law.** Each harness edit ships with three tags: the model it was built for, the date it was validated, and the trigger that retires it. Anthropic's own context-reset for Sonnet 4.5's "context anxiety" became dead weight one generation later on Opus 4.5. A workaround with no expiry is technical debt. (The strategy of *which* to build vs. let dissolve is the sibling skill.)
-
-## THE THREE-FIELD HANDOFF MINIMUM
-
-**Context loss at a handoff is one of the most common multi-agent failures, and the cheapest fix is a required message shape rather than a bigger context window.**
-
-**Three fields, borrowed from a structure that has survived decades of daily use in software teams:**
-
-1. **What was completed.** Not what was attempted. The state that now holds.
-2. **What is next.** The intended next action, stated before it is taken.
-3. **What is blocking.** The thing that will stop this if nobody resolves it.
-
-**Field three is the one systems omit and the one that carries the value.** An agent that reports completion and next step with no slot for a blocker will either invent a path around the blocker or fail silently. **Giving the blocker a required field turns a silent failure into a routed one.**
-
-**Make it a protocol requirement, not a convention.** Any agent-to-agent or agent-to-human handoff must carry all three, and a message missing one is rejected at the seam rather than accepted and interpreted. **A convention that is usually followed produces a system that fails in exactly the cases where it was not followed.**
-
-**Why it sits here rather than in the ecosystem skill:** this is a protocol-level requirement about a message's fields, not an architecture decision about topology. It belongs with the sprint contract and the other communication protocols.
-
-**The human twin, for the same reason.** A standing update that reports only status trains people to withhold the blocker until it is too late to act on. **Replacing "what did you do" with "what are you stuck on" is field three applied to a person.**
-
-*(Source: Ron Friedman's superteam research, reported via HBR, Jul 2026, for the three-question structure and its team-performance case — ◆ proprietary survey, and the structure long predates the article. The handoff-protocol translation and the reject-at-the-seam rule are this corpus's. Falsifier: a multi-agent system where enforcing all three fields produced no reduction in context-loss failures at handoffs.)*
-
-## THE SIX PARADOXES (the judgment that governs harness decisions)
-
-Every consequential harness decision is a *tension to hold*, not a choice to resolve. Name the paradox and a design fight becomes a trade-off decision. The program breaks the moment any one is resolved prematurely.
-
-| # | Paradox | The move |
+| Symptom | Candidate gap | First useful check or change |
 |---|---|---|
-| I | **Intelligence vs. Reliability** — a smarter model isn't a steadier one; a stronger prior confabulates more fluently. | Cap the smartest model with the sharpest verifier. Separate *capability* metrics (best day) from *reliability* metrics (worst day); compare models on the *distance* between them. |
-| II | **Constraints vs. Autonomy** — an unbounded agent is a liability nobody trusts with real work; bounds *expand* the surface you can ship. | Permission by reversibility class: broad autonomy on read-only verbs, signature on irreversible ones. Ask "what *can't* this do, and who decided?" |
-| III | **Scaffolding vs. Permanence** — every component has a timer; some the model will absorb, some are forever yours. | Keep a two-column list; retire scaffolding aggressively, invest in permanence relentlessly. *(Developed in depth in `harness-operating-model` → the dissolving ladder.)* |
-| IV | **Specificity vs. Generality** — no general-purpose *differentiating* harness works; the winners are per-workflow. | Ship a narrow harness per high-value workflow; graduate shared primitives only after two workflows prove them. *(Buy the governance layer, build the differentiating one — sibling skill.)* |
-| V | **Demo vs. Production** — what impresses in a Loom is unrelated to what survives five weeks; the gap is failure-mode coverage. | Gate launches on the failure-mode inventory, not demo polish. Ask a vendor: what happens on timeout mid-tool-call, on concurrent users, on a downstream 500, on adversarial input? |
-| VI | **Segregation vs. Lifecycle** — the four layers are strictly separated *and* inseparable during a run. | Own each cluster with a named engineer; walk the phase-relative diagram on every post-mortem. This is the paradox that makes the other five legible. |
+| Forgot an agreement or restarted from zero. | Identity, memory, retrieval, persistence, or interpretation. | Inspect the actual context and checkpoint; restore the authoritative state. |
+| Invented a customer ID or used the wrong API. | Missing context, selection error, weak tool contract, or model error. | Validate identifier existence, scope, arguments, and returned result. A valid string is not a valid customer. |
+| Declared completion after a failed step, or looped until expensive. | Stop criteria, recovery, evaluator coverage, or reasoning. | Inspect completion evidence; bound retries and route blockers. |
+| Sent an unauthorized refund or shipped an invalid result. | Permission enforcement, validation, or policy interpretation. | Check the action boundary and the evidence accepted there. |
+| Cannot locate a regression. | Missing versions, traces, tests, or reproducibility. | Capture relevant configuration and events; add a targeted regression case. |
+| Nobody can decide or respond. | Governance and ownership gap. | Assign the responsible owner and escalation authority. |
 
-Multi-agent has its own graduation rule: stay narrow until you know the surface; graduate to multi-agent only when *each sub-agent has a narrow job, each has an explicit eval, and the harness can attribute a failure to the correct agent.* Premature multi-agent multiplies failure modes before you understand any one of them. (Coordination depth: `agent-ecosystem`.)
+The alternative **ETCLOVG** map names Execution environment, Tool interface, Context, Lifecycle/orchestration, Observability, Verification, and Governance. Use it if useful to the team; it overlaps MHTE and the clusters rather than mapping one-to-one.
 
-## HARNESS vs RUNTIME (know what you bought)
+### Six failure signatures
 
-The harness is what you design; the **runtime** is the plumbing that runs it — durable execution that survives a crash, checkpoints that resume a long job, multi-tenancy, time-travel replay. You build the harness; you usually *buy* the runtime (LangSmith Deployment, AWS Bedrock AgentCore, Google Vertex Agent Engine) — and most enterprises never name what they bought, thinking they bought a harness. A **meta-harness** (Anthropic's Managed Agents) is a third shape: it rents the hard infrastructure (durable sessions, sandboxes, the loop) through stable interfaces while leaving the judgment — your evals, policies, workflows — in your hands. When an agent fails in production, the failure now lives in one of *five* places: Model, Harness, Tools, Environment, or the runtime that holds them. (The build/buy economics and lock-in wedge are the sibling skill's job.)
+1. **Premature stop:** what evidence was accepted as completion?
+2. **Infinite or unproductive loop:** what changes between retries, and what ends the loop?
+3. **Silent drift:** which objective, policy, and source version governed the work?
+4. **Shared-vocabulary failure:** whose definition of a term such as “active user” was used? A maintained glossary may help, but resolve the actual disagreement too.
+5. **Unauthorized action:** which control allowed it, under whose authority?
+6. **Sub-agent divergence:** which state, partition, handoff, and merge rules coordinated the work? Distinguish conflicting updates from incorrect individual results.
 
-## WHERE THIS SKILL ENDS — the boundary, and the siblings it routes to
+Do not attach a universal fleet-size limit or date to the sixth signature. It can occur with two workers.
 
-This skill is the **machine**: the anatomy, the diagnosis, the patterns, the design judgment. It deliberately stops at four edges, each owned by another skill — route there rather than duplicating:
+### Phase-relative perception
 
-- **The economics, org, and longevity of a harness *program* → `harness-operating-model`** (the sibling): cost shape, reliability dividend, the maturity ladder + Monday kit, the four org models, the Harness PM role, permanent-residents vs the dissolving ladder, the moat. *This skill decides what to build; that one decides how to fund, staff, and future-proof it.*
-- **The tool contract and the sandbox depth → `tool-architecture`**: schema, permission scope, reversibility class, MCP/A2A, the registry pattern, environment boundaries. (This is where the "Tools-the-Contract" bonus material lives.)
-- **Multi-agent orchestration depth → `agent-ecosystem`**; **autonomy levels & confidence thresholds → `agent-spec` / `trust-ladder`**.
-- **The Memory Policy / context layer depth → `invisible-stack` / `context-spec`**; **guardrail enforcement & safety architecture → `safety-by-design`**; **the Observability & Evals cluster → `production-observability` + `eval-framework` / `eval-driven-development`**.
+One `AGENTS.md` file can be stored in the environment, read through a tool, selected by the harness at boot or context assembly, and interpreted as tokens by the model. A stale file, omitted passage, misread instruction, and unauthorized edit are different failures. Record where the defect became visible and where it originated; those phases and owners may differ.
 
-The spine: **this skill names and diagnoses the machine and prescribes the sprint-level fix; every cluster's *depth* and the *program* around it live one hop away.** Never let a diagnosis end at "the harness broke" — name the cluster, name the phase, and route to the owner.
+## 4. Inspect the runtime objects
 
-## DIAGNOSTIC QUESTIONS
+**Session** is the continuity record; **harness** is the decision logic; **sandbox** is an execution boundary. Verify the implementation: sessions are not necessarily durable or append-only, and sandboxes do not necessarily contain every external side effect.
 
-1. When your agent last failed, can you name the *layer* (MHTE) and the *phase* (boot / context-assembly / inference / tool / observability) it broke in — or did the review end at "probably the model"?
-2. Draw your harness as five clusters. Which has no named file, service, or owner? (Most teams are strong on Identity + Orchestration, weak on Memory Policy + Evals.)
-3. For your highest-volume call: is there a structured retry (not a naive one), strict-mode output, and a narrow tool gate? If not, that's this sprint.
-4. Does completion get checked by the *system* (rubric, test, independent evaluator) or by the agent grading its own work?
-5. Is every guardrail a *runtime hook*, or does a refusal you actually need live in the system prompt?
-6. Does a failing production trace become a tagged regression eval within a sprint — or does it scatter across Slack?
-7. Can you swap the model without rewriting the product? (If not, you've coupled to a vendor; a model recall is now a product outage.)
-8. What's your context durability rate (% completing after 50+ tool calls without human restart)? Target >85%. No standard benchmark measures it — you have to test it yourself.
+A useful reference loop is:
 
-## QUALITY GATE
+1. Load the objective, applicable policy, authorized memory, and workspace state.
+2. Select the model and other execution resources.
+3. Call the model with the intended bounded context.
+4. Check proposed actions against permissions, contracts, risk, and budget.
+5. Execute allowed actions and capture results, including uncertain outcomes.
+6. Record durable progress and the evidence needed for recovery.
+7. Verify and choose continue, retry, branch, wait, escalate, or stop.
 
-- [ ] Failure attribution is done by layer + phase, using the debug order, not by gut.
-- [ ] The harness is mapped to five clusters + Governance, each with a named owner/file/service.
-- [ ] Highest-volume call has structured retry + strict output + a narrow, negatively-scoped tool gate.
-- [ ] Completion is gated by independent verification (rubric / test / separate evaluator), with a max-iteration + cost budget + escalation path.
-- [ ] Guardrails are runtime hooks (or IAM), never prompt-only; PII/injection defended at Interception, not in the prompt.
-- [ ] A trace→eval flywheel exists: failing traces become tagged regression evals; the suite is small and high-signal.
-- [ ] Every model-specific workaround carries its three tags (model, validated-date, retire-trigger).
-- [ ] The design names which paradox(es) it is deliberately trading, and the harness is model-agnostic enough to survive a model swap.
+Implementations can combine or repeat steps. For consequential effects, also record intent and operation identity **before** execution so a crash does not erase the information needed to reconcile a potentially completed action.
 
-## WHEN WRONG
+The **runtime** supplies execution services such as persistence, scheduling, isolation, and tenancy. A managed or “meta-harness” offering may supply portions of both runtime and harness. Inspect the actual contract and shared responsibilities; buying infrastructure does not transfer every policy or evaluation duty. Build/buy choices belong in `harness-operating-model` and `build-or-buy`.
 
-This skill over-applies when: you're pre-PMF (validate desirability before building a harness); the task is single-turn Q&A or simple retrieval (assertions, not a harness); latency budget can't absorb the loop; or "we need to design the architecture" has become a delay tactic for not shipping. And a real caveat to consequence #2: model capability is a genuine contributor — a weaker base model can be the true ceiling. The 90/10 split is a heuristic for *where to look first*, not a claim that the model never matters. If a capable model succeeds in a short demo and fails in sustained operation with lost state, premature stopping, or unverifiable completion, investigate the harness first; if it fails the same *reasoning* task on its best single-shot try, the model may actually be the ceiling.
+## 5. Choose an implementation pattern for the diagnosed gap
 
----
+### Pattern 1: structured retry
 
-## TRADE-OFF LEDGER
+Classify the failure. For a repairable validation error, supply specific new information: “`amount` must be an integer in cents; the prior value was a currency string.” For transient service failures, bounded retries with backoff can be appropriate even with unchanged input. A permanent permission denial needs resolution, not repeated attempts.
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+A timeout does not prove that a payment, write, or message failed. Check status or reconcile, and use operation IDs and idempotency where supported. Apply cost and retry limits. Measure improvement; the historical “60% less drift” claim is not an established general effect.
 
-## CONCLUSION
+### Pattern 2: structured output and semantic validation
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5: state the recommendation, name the key trade-off, acknowledge the biggest risk, define the next action.
+Use a schema when a consumer needs structured data. Define required fields, finite enums, extra-field policy such as `additionalProperties: false`, and constraints supported by the actual provider and schema version. Check calendar dates and business rules as well as string patterns.
 
----
+Constrained generation can improve syntactic validity; it does not prove truth, authorization, or successful execution. Handle refusals, interrupted outputs, unsupported schema features, and validation failures. Version the contract. For free-form writing, a forced schema may add little value.
 
-## VISUAL SUMMARY
+### Pattern 3: a focused tool surface
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary — ideally the MHTE frame with the five clusters inside the Harness and the Anatomy Atlas (symptom → cluster → fix). Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Expose relevant tools, describe exact actions and boundaries, and show disambiguating examples when tools overlap. Progressive disclosure can reduce confusion, but hiding a needed tool can also cause failure. Test discoverability and successful task completion alongside tool count, latency, and cost.
+
+Give the registry an owner so separate teams do not create conflicting contracts. There is no universal 20–50-tool limit or requirement to remove 80% of tools.
+
+### Pattern 4: verifiable artifacts
+
+Produce the artifact the task needs: a document, structured record, query, patch, function, or other deliverable. Make it durable and inspectable where continuity matters. Executable code can support testing, but is not automatically better than prose or JSON, formally verified, or safe to replay. A migration script needs a suitable test environment and checks before authorized execution.
+
+Testing an artifact is not the same as proving it satisfies every user requirement. Recovery requires durable storage; replay requires captured dependencies, state, and control of side effects.
+
+### Connect the patterns through feedback
+
+Select representative failing traces, determine the relevant outcome, create a regression case, and track it to a control owner. Start with a manageable useful suite; “twenty cases” is a planning example, not a required count. Review false alarms, coverage, and outdated cases.
+
+Record each model-specific workaround's **model/configuration, validation date, and retirement trigger**. Remove it when evidence supports removal, with a safe rollback path. A new configuration needs integration checks, but a low run count alone does not prove high risk. Familiar components can interact unexpectedly.
+
+## 6. Make handoffs unambiguous
+
+Use three plain-language fields for a work handoff:
+
+- **Completed:** what now holds, with evidence or an artifact pointer.
+- **Next:** the intended next action and responsible recipient.
+- **Blocked:** unresolved dependencies or uncertainty; use “none known” when appropriate.
+
+These fields reduce omission; they do not guarantee truthful or complete reporting. For operational delegation, add the `agent-ecosystem` contract: task/operation identity, authorization, input and output schema, provenance and state version, deadline/budget, status, duplicate handling, and escalation owner.
+
+Validate required fields for the agreed interface. Route malformed or partial handoffs for repair without discarding valid completed work or repeatedly executing it. Do not reject unrelated human conversation for lacking this format. In team updates, inviting people to explain blockers is useful; it does not replace completed-work evidence or a next owner.
+
+## 7. Resolve six design tensions in context
+
+| Tension | Decision to make |
+|---|---|
+| **Intelligence and reliability** | Compare successful outcomes and failure distributions on representative work. Stronger models can improve both; use validators with relevant coverage. |
+| **Constraints and autonomy** | Set rights and oversight by action, consequence, uncertainty, and reversibility. Read-only actions can still expose sensitive information. |
+| **Scaffolding and permanence** | Separate temporary capability workarounds from continuing product obligations; periodically test whether either should change. |
+| **Specificity and generality** | Decide what is workflow-specific and what can be shared. Two workflows are a useful reuse signal, not a mandatory threshold. |
+| **Demo and production** | Retain demo evidence but extend it to realistic state, concurrency, duration, failures, and adversarial conditions. |
+| **Separation and lifecycle** | Assign clear responsibilities while tracing interactions through the run. Boundaries need not mean separate infrastructure. |
+
+A multi-agent design should justify its benefit and evaluate both components and joint outcomes. Attribution may be to an interaction rather than one agent. Use `agent-ecosystem` for topology and coordination; do not add agents just to fill the planner/generator/evaluator labels.
+
+## Deliver and check the recommendation
+
+Before closing, confirm that the design or diagnosis:
+
+- Distinguishes observations, hypotheses, and verified causes; identifies relevant phases and owners.
+- Defines completion, failure, partial/uncertain outcomes, recovery, and budgets.
+- Enforces consequential action boundaries and checks their effectiveness.
+- Preserves enough authorized state to inspect and resume work.
+- Tests the proposed fix, its regressions, and relevant interactions.
+- Names the main trade-off, remaining risk, next action, and review or retirement trigger.
+
+For long tasks, define a context-durability measure with the task set, call count, completion criteria, restart policy, and denominator. The previous “50+ calls and >85%” is an illustrative test design, not an industry standard or universal target.
+
+Use the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) for a proportionate trade-off and handoff record. A visual MHTE map can help explain a complex design; create one with `excalidraw-svg` when useful or requested, rather than requiring a second artifact for every diagnosis.
+
+Route program economics, staffing, and longevity to `harness-operating-model`; tool and sandbox contracts to `tool-architecture`; memory to `invisible-stack` / `context-spec`; authority to `agent-spec` / `trust-ladder`; security to `safety-by-design`; and measurement to `production-observability`, `eval-framework`, or `eval-driven-development`.
+
+See [research and analogy notes](references/research-and-analogy-notes.md) for source limits and preserved examples.

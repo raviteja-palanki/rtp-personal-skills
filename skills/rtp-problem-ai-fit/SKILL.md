@@ -1,603 +1,178 @@
 ---
 name: problem-ai-fit
-version: v1.3_latest
-description: 'Determines whether a problem genuinely needs AI or if rules, search, and simple logic deliver better outcomes. Then, for problems that do need AI, it decides which seat it takes: the engine that produces the recommendation, or the helper that widens the evidence while humans keep the judgment. Use when teams propose AI features, stakeholders say "use AI," or during discovery. Runs hypothesis-driven AI-necessity analysis. Pairs with: first-principles (find the real operation first), ai-use-case-readiness (score the autonomy), build-or-buy (how to source it), determinism-compass (rules vs. patterns).'
+version: v1.3.1_latest
+description: 'Decide whether AI offers enough value over rules, search, ordinary software, or a human workflow for a specific problem. Decompose the task, compare credible baselines, examine evidence and error consequences, and assess total cost and opportunity cost. If AI helps, distinguish producing a bounded recommendation from assisting a wider decision; neither grants automatic action authority. Use during discovery, when someone proposes an AI feature, or when new evidence challenges an existing approach. Produce a clear recommendation, testable hypothesis, critical assumptions, and next action. Treat fit scores as optional discussion aids, never safety or build approvals. Pairs with first-principles, determinism-compass, ai-use-case-readiness, invisible-stack, build-or-buy, and cost-model.'
 imports: [first-principles]
 ---
 
-# Problem-AI Fit
+# Problem–AI Fit
 
-Determine if the problem needs AI, or if you're adding complexity without value.
+Choose the approach that best serves the task at an acceptable cost and consequence. Compare AI with credible alternatives rather than treating either AI or rules as the predetermined answer. A technically suitable approach still has to earn its place among competing uses of time and resources.
 
-> "Almost any feature has some positive return. The only question that matters is: Is this the *absolute best* use of our finite resources?" — Shreyas Doshi
+The recommendation may be **AI**, **rules or ordinary software**, **hybrid**, **human-led work**, **do not build**, or **gather specific evidence first**. State the reason and the condition that would change it.
 
----
+## Start with the real decision
 
-## Quick Reference: The Lookup Table Test
+Use this skill when proposing a feature, testing an AI assumption, or reconsidering an approach after material evidence changes. For a settled implementation detail, a focused check may be enough. For an unresolved model, retrieval, or orchestration choice, use `rtp-invisible-stack` alongside the fit decision.
 
-Before any AI, ask: "Could a lookup table, decision tree, or regex solve 80% of this?" If yes, build that first. AI is for the remaining 20% where pattern matching across unstructured data creates genuine value.
+Reuse the context already available. Follow the Universal Skill Protocol at the source library root or packaged plugin root, choosing depth and format for the request. A concise assessment can be inline; a substantial shared decision may merit a document or presentation. Do not require a format-selection conversation or multiple visuals before answering a narrow question.
 
-**The diagnostic:** Describe your input-output mapping in a spreadsheet. If you can do it, you don't need AI. Examples:
+### Ground the customer and the opportunity
 
-```
-Input: Support ticket → Output: Route to tier (L1, L2, L3)
-Test: Can 3 people write routing rules in an afternoon? If yes, use rules.
+Establish six things, distinguishing facts from assumptions:
 
-Input: Product review text → Output: Sentiment (positive, negative, neutral)
-Test: Can you enumerate patterns for each sentiment? If yes, regex + heuristics wins.
+1. **Who has the problem?** Name the task and relevant circumstances, user, buyer, and affected people without narrowing the segment arbitrarily.
+2. **What outcome matters?** Use the customer’s language where available. A technology preference is not the outcome.
+3. **What happens today?** Include manual work, existing software, workarounds, and doing nothing.
+4. **How important is the problem?** Examine frequency, consequence, competing priorities, and the cost of action and inaction. A fourth-ranked problem can still matter; a top-three rank is not a universal adoption gate.
+5. **What evidence supports demand or value?** Purchases, workarounds, observed use, and interviews inform different claims. Spent effort does not automatically prove willingness to buy the proposed product.
+6. **What does this investment displace?** Name the alternative use of capacity and the opportunity cost.
 
-Input: Customer purchase history → Output: Next product to recommend
-Test: Can you write: IF (customer bought X) THEN recommend Y? If yes, decision tree.
-```
+Ask only for missing information that changes the next decision. Where evidence is incomplete, proceed with a clearly scoped hypothesis or research plan instead of inventing a customer or blocking all useful analysis.
 
-**Cost of being wrong:** The lookup table costs $0 in inference and is 100% debuggable. The AI solution costs $X per query and is non-deterministic. Only choose AI if the 20% unlocked by AI is worth 10x the cost.
+## 1. Find the actual bottleneck and decompose the task
 
----
+Ask whether the delay or failure primarily involves information, capability or judgment, organizational incentives, workflow, or a combination. The remedy should address that mechanism.
 
-## DEPTH DECISION
-
-**Go deep if:** A team is proposing an AI feature, stakeholders say "we should use AI," or you're choosing between AI and deterministic approaches during discovery.
-
-**Skim to the AI-Necessity Test if:** You've already decomposed the atomic operation and just need the four-question test.
-
-**Skip if:** Architecture decisions are already final, you're deciding between different AI approaches (use invisible-stack instead), or the problem is clearly deterministic (LOOKUP/TRANSFORM on clean data).
-
----
-
-## DELIVERABLE FORMAT
-
-Before starting, ask:
-
-> **What format would you like this assessment in?**
-> 1. **Word Document** — Formatted report with embedded visuals. Best for sharing with stakeholders.
-> 2. **Presentation** — Slide deck with key findings. Best for meetings and reviews.
-> 3. **Both** — Full report + summary deck.
->
-> *Default if no preference: Word Document.*
-
-Follow the [Universal Deliverable Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md).
-
----
-
-## KEY TERMS (plain language)
-
-- **AI-Necessity Test** — the four-question check for *whether* a problem needs AI (judgment · learnable · cost-of-error · volume).
-- **The lookup-table test** — asking whether a table, decision tree, or rules engine could solve 80% of this before reaching for AI.
-- **Narrow vs. wide decision** — narrow = crisp goal, usable data, fast feedback; wide = competing priorities, ambiguous info, needs alignment.
-- **Decision engine vs. helper** — AI that *produces* the recommendation (engine, for narrow decisions) versus AI that *broadens the evidence* while humans keep judgment (helper, for wide ones).
-- **Analytical vs. generative AI** — analytical predicts/optimizes from structured data; generative writes/synthesizes from language.
-- **AI-washing** — dressing up a rules or lookup problem as "AI" for hype.
-
-## INFORMATION, JUDGMENT, OR INCENTIVES? THE QUESTION THAT DECIDES WHETHER AI HELPS
-
-**Ask this before adopting any tool or workflow: what specifically is slowing this down: a problem of information, a problem of human judgment, or a problem of organizational incentives?**
-
-**The governing principle: the mechanism behind a bottleneck decides whether AI helps or hurts it, not the sophistication of the AI.**
-
-| Bottleneck type | Looks like | What AI does |
+| Bottleneck | What AI might contribute | What still needs attention |
 |---|---|---|
-| **Informational, high-volume, procedural** | Too many submissions to review, too much text to read, a rigid format that hides quality | **Genuinely dissolves it**, provided you design the system deliberately |
-| **Human judgment rooted in lived experience** | Customers cannot articulate a preference for a category they have never seen | **No amount of model scaling touches it** |
-| **Organizational incentives** | A manager with two years of political capital in a failing project reads the data charitably | **No amount of model scaling touches it**, and a fluent summary makes it easier to defend the prior belief |
+| Information volume or format | Search, extraction, classification, synthesis, or comparison | Source quality, coverage, prioritization, and whether the result supports action |
+| Judgment under uncertainty | Evidence, scenarios, predictions, alternatives, or decision support | Relevant expertise, valid objectives, uncertainty, and accountable choice |
+| Incentives or organizational conflict | Make evidence, consequences, and alternatives easier to inspect | Authority, rewards, resources, and a real resolution of the conflict |
 
-**The uncomfortable finding underneath: at three of four stages of an innovation pipeline, AI's default effect used naively is to deepen the bottleneck rather than shrink it.** A model trained on the aggregate of existing human output reproduces the tendencies that caused the bottleneck, faster and at scale.
+A model upgrade alone does not settle competing interests. A tool can still contribute to an intervention that changes information or incentives. Avoid the opposite absolutes that AI always dissolves information problems or can never help a judgment or incentive problem.
 
-**Four worked examples, because the abstraction alone will not survive a real meeting:**
+Use `rtp-first-principles` to decompose the feature into its important operations: lookup, transform, classify, generate, and any decision or action they support. A feature can contain several operations. Classifying the whole feature by one verb can conceal the part where AI is useful or risky.
 
-1. **Ideation narrows twice.** The model gravitates to the statistically typical answer, then the person who reads it becomes fixated on it and stops producing the unusual ideas they would have had unprompted. **The fix targets the model's prompting, not the person's mindset**: ask it to draft and then revise toward bolder, more distinct territory. Telling a fixated person to think more broadly does not work and can deepen the fixation.
-2. **Screening rewards polish.** Evaluators were already biased against novel ideas. AI pitches are fluent by design, and fluency gets mistaken for quality. **The fix is structural: strip submissions to a common format before scoring, and hide whether an idea came from a person or a model.**
-3. **Simulated customers answer the wrong question.** Covered below in the consumer-research section of this skill.
-4. **Post-launch synthesis is the one that genuinely shrinks**, and it hands you a new problem: which of the hundreds of themes deserve action rather than being merely loudest.
+Examples:
 
-**The move this gives you in a scoping meeting.** When someone proposes AI for a bottleneck, make them name which of the three it is. **If the honest answer is incentives, the tool is not the intervention and buying it will make the problem harder to see**, because the output will be fluent enough to cite.
+- A scheduler may use ordinary calendar and constraint logic, with language understanding to interpret an unusual request.
+- Invoice processing may combine fixed-format extraction, image recognition, field validation, and exception handling.
+- A support workflow may use rules for some routing, a model for ambiguous text, and a person for consequential cases.
 
-*(Source: De Freitas, Israeli, Nave, Timoshenko & Toubia, HBR, "Research: The Innovation Problems AI Can't Solve," Aug 2026, synthesizing a working paper invited by the International Journal of Research in Marketing — ⚠ as reported: the article carries almost no numbers of its own and each finding is sourced to a linked study whose sample sizes it does not reproduce. The synthesis method is sound and the magnitudes are not available here. [VERIFY] against the working paper before citing any effect size. Falsifier: an incentive-rooted bottleneck measurably dissolved by a tool with no change to who is accountable for what.)*
+Structured output, a binary label, or a finite set of categories does not establish that the input-to-output mapping is easy to encode. Conversely, unstructured input does not automatically justify a model.
 
-## THE TWO QUESTIONS ASKED BEFORE THE PURCHASE
+## 2. Compare a simple baseline with the proposed AI
 
-**Across successful and failed AI implementations, two boring questions separate them, and both are asked before anything is bought:**
+Ask what a lookup table, rules, search, an existing product, or a revised manual workflow can achieve on representative cases. A spreadsheet or an afternoon with a domain expert can help propose a baseline; it does not prove completeness or correctness.
 
-1. **Did you know what problem you were trying to solve?**
-2. **Did you have realistic expectations of how you were going to solve it?**
+Measure the baseline’s quality, coverage, error consequences, maintenance, and total task cost. Then identify what the AI approach would improve and what it might make worse. If rules cover most cases, examine the remaining cases by consequence and value rather than assuming an 80/20 split justifies either approach.
 
-**The failure mode both catch is the same one: buying the marketing promise that the software rolls itself out.** Neither question is about the technology, which is why they are usually skipped in a technology evaluation.
+Rules have compute, integration, maintenance, and failure costs even without a model inference fee. Deterministic behavior means repeatability under defined conditions, not correct data or correct policy. Likewise, AI can be appropriate without introducing a large custom training platform. Compare the actual architectures under consideration.
 
-**Three practices that follow from taking them seriously:**
+Keep the comparison fair: same task, population, outcome criteria, relevant exposure, and operating conditions. A rules baseline can reveal that AI adds little; an existing model can reveal that maintaining rules adds unnecessary effort. Prefer evidence over a fixed cost multiplier.
 
-- **Domain experts run the pilots, not the technology team.** In one large health system, every AI pilot is run by a clinician product manager. The person who knows what good looks like owns whether it is good.
-- **Engage one partner around one defined problem**, rather than a set of vendors shopping capabilities at you. A capabilities conversation cannot end in a scoped problem; it ends in a platform.
-- **Expect constant tweaking until the thing is stable.** This is a budgeted phase, not an overrun.
+## 3. Run the four-question AI-Necessity Test
 
-**And an explicit refusal worth copying:** that same health system states it is not trying to become a technology company. Its two stated priorities are the best care, and efficiencies that fund more care. **Naming what you are not becoming is what keeps a build from expanding into one.**
+Use the four questions as a decision record. Answer **supported**, **unsupported**, or **uncertain**, with evidence and next steps. The name is historical: the test assesses comparative value and feasibility, not whether only AI could ever perform the task.
 
-## WHERE IS CODE IN OUR COMPANY? (the opportunity heuristic)
+| Question | What to establish | If the answer is weak or uncertain |
+|---|---|---|
+| **1. What useful capability does AI add?** | Does it improve a relevant operation or user outcome beyond a credible baseline? | Test or strengthen the baseline; keep non-AI options open |
+| **2. Can this approach perform the task, and can we assess it?** | Suitable model capability, data and reuse rights, representative evidence, and a credible evaluation path | Run a capability/evaluation study, narrow the task, or choose another approach |
+| **3. Are the consequences acceptable under actual controls?** | Important failures, exposure, detection, authority, prevention, fallback, and recovery | Reduce exposure or redesign controls; do not proceed into unsupported consequential action |
+| **4. Does the value justify the full cost at this scope?** | Development, operation, review, support, maintenance, benefit, and opportunity cost | Reduce scope, buy or reuse capability, keep a manual path, or defer |
 
-**A fast way to find candidate problems: ask where code already is.** Code means literal software, and it also means **any domain with if-then structure buried inside it.** Law. Mathematics. Policy manuals. Underwriting rules. Clinical protocols. Anywhere a human is executing a decision tree they learned rather than one that is written down.
+“Requires judgment” is not a prerequisite for ML: recognition and classification can benefit even when the desired output is precisely defined. Nor does human agreement on one hundred examples establish model learnability. Training data needs depend on whether the approach trains from scratch, adapts a model, retrieves evidence, or uses existing capability; all still need evaluation appropriate to the decision.
 
-**Pair it with a data-readiness question**, because if-then structure with no record of past decisions gives you a rules engine rather than an AI opportunity.
+A high-volume low-value task can be a poor fit, while a low-volume high-value task can justify assistance. Human review is a control only if the reviewer can detect the relevant error and has time and authority to act. No count of favorable answers offsets an unresolved serious failure or lack of permission.
 
-**Why this beats a capability-first scan.** Starting from what the model can do produces a list of demos. Starting from where the if-then structure already lives produces a list of processes with owners, volumes, and existing error rates, which is what a business case needs.
+If a legacy workflow requests a score out of four, report the count with the individual answers and limitations. It is a checklist count, not a validated fit grade or automatic build decision. Use the [optional expanded profile](references/assessment-profile-and-examples.md) when it helps expose an uncertain dimension; it must not override the four questions.
 
-*(Source: Josh Tyrangiel in an HBR interview, "How Leaders Can Use AI to Solve Real Business Problems," Jul 2026, with the Cleveland Clinic operating model — ⚠ journalist synthesis across reported implementations, with no stated sample and no outcome data. The two questions are his own summary of what came back from successful cases. Falsifier: a set of implementations where the two questions were answered clearly up front and succeeded no more often than those where they were not.)*
+## 4. Decide which role AI should play
 
-## Step 0: Ground in the Customer's Reality
+Separate **making a recommendation** from **being authorized to act on it**. “Engine” and “helper” describe a role in analysis, not an autonomy level.
 
-Before touching any AI assessment, establish what's actually true about the problem. This prevents the most common failure: starting with "we have AI" and searching for a problem to attach it to.
+- **Bounded recommendation engine:** AI produces a prediction, ranking, or other defined recommendation within a tested task. People or explicit governance set objectives, constraints, evaluation, and authorized use. Classical ML, optimization, statistical methods, generative models, or hybrids may fit different components.
+- **Helper for a wider decision:** AI assembles evidence, compares alternatives, surfaces assumptions, or explores scenarios while accountable people resolve the competing objectives and commitments. A generated synthesis can influence that judgment substantially, so inspect its selection and framing too.
 
-**Ask the user these questions — don't proceed without answers to at least the first four:**
+Use six questions to understand the decision’s shape:
 
-> **1. Who exactly is the customer?**
-> Not "businesses" or "users." Be specific: "Series B SaaS companies with 50-200 employees whose support teams handle 500+ tickets/week." The narrower the segment, the clearer the fit signal.
+1. Is the objective sufficiently clear and observable?
+2. Are relevant data accessible, reliable, and suitable for reuse?
+3. Are the relationships stable enough for the intended decision horizon?
+4. Can important boundaries and exceptions be defined and enforced?
+5. Can outcomes and important errors be assessed on a useful timescale?
+6. What can be reversed, corrected, or learned through bounded iteration?
 
-> **2. What problem do they have — in their words, not yours?**
-> How would the customer describe this pain to a colleague over coffee? If you can't state it in their language, you don't understand it yet.
+Clearer answers often support a narrower application. Mixed answers call for decomposition and investigation, not a majority vote. A wide strategy decision can contain narrow forecasting or experiment-design tasks. A seemingly narrow store-location or fraud decision can still involve substantial distributional, political, or financial consequences.
 
-> **3. How do they solve it today?**
-> Every problem has a current solution — even if that solution is "they suffer through it" or "an intern does it manually." The current solution is your real competitor, not other AI products.
+Prediction is not causal identification. An optimization method needs a defensible objective, and a causal claim needs an appropriate design and assumptions. Do not buy generative fluency where the task requires a validated forecast, or presume analytical AI can establish causality merely because it produces a number.
 
-> **4. How painful is it? Where does it rank?**
-> Use the Customer Problem Stack Rank: ask them to list their top 5 problems. Where does this one fall? If it's #4 or #5, solving it won't prevent churn or drive adoption. You're solving a "nice to have."
+Use `rtp-ai-use-case-readiness` for actual action rights and controls. The narrow/wide distinction differs from `rtp-problem-type`’s technical/adaptive distinction; either kind of organizational work can contain narrow and wide decisions.
 
-> **5. Would they pay for a solution? How do you know?**
-> Not "would they say yes in a survey" — that's cheap talk. Have they tried to solve this themselves? Have they spent money on workarounds? Skin-in-the-game signals matter more than stated intent.
+## 5. State a testable hypothesis and the critical assumptions
 
-> **6. What are we saying YES to by pursuing this — and what are we saying NO to?**
-> This is the most important question. "By investing engineering in an AI-powered X, we are choosing NOT to invest in ___." If you can't fill in the blank, you haven't thought about opportunity cost.
+Write the hypothesis at a level that can be checked:
 
-**Why this comes first:** Teams skip this step because it feels "obvious" or "already done." It almost never is. The customer ground determines whether the rest of the analysis matters at all. A perfect AI-fit assessment for a problem nobody cares about is worthless.
-
----
-
-## Step 1: Run First-Principles Decomposition
-
-Import and execute `thinking-core/first-principles`. Get the atomic operation and its classification (LOOKUP, TRANSFORM, CLASSIFY, GENERATE).
-
-**The key question:** What is the ONE fundamental operation this feature does? Strip away vendor features, marketing language, and implementation details. Find the atom.
-
----
-
-## Step 2: Apply the AI-Necessity Test
-
-For each atomic operation, ask these four questions:
-
-```
-Q1: Does the output require JUDGMENT (not just processing)?
-    Judgment = weighing incomplete evidence, handling ambiguity,
-    making subjective assessments.
-    If NO → rules or deterministic code. Stop here.
-
-Q2: Is the judgment LEARNABLE from examples?
-    Can you show 100 input-output pairs and a human would see the pattern?
-    If NO → you need human-in-the-loop, not AI. Stop here.
-
-Q3: Is the cost of being WRONG acceptable?
-    What happens when the AI makes a mistake? Is it recoverable?
-    If NO → you need deterministic guarantees. AI can assist but
-    not decide. Design for human override.
-
-Q4: Is the VOLUME high enough to justify the infrastructure?
-    AI infrastructure has fixed costs (embedding pipelines, eval suites,
-    monitoring). These costs need volume to amortize.
-    If NO → manual process or simple heuristics. Revisit when volume grows.
+```text
+RECOMMENDATION: [AI / rules or software / hybrid / human-led / do not build / research]
+HYPOTHESIS: For [task and population], [approach] will improve [outcome]
+  compared with [baseline], because [evidence and proposed mechanism].
+IF TRUE: [observable leading and later outcomes, with appropriate timing]
+IF FALSE OR INCONCLUSIVE: [contrary evidence or evidence gap and its implication]
+DAMAGE IF WRONG: [user harm, cost, delayed alternative, and recovery limits]
+PIVOT OR STOP TRIGGER: [signal, threshold if justified, date, owner, and alternative]
 ```
 
-### Score the fit
+For example, a support-drafting study might compare resolution quality and total handling time against the current workflow. A forty-percent time-saving target, fifty thousand historic tickets, or a sixty-percent edit rate is not evidence by itself. Editing may be appropriate personalization; evaluate why it occurs and whether the user outcome improves.
 
-```
-4 YES answers → Strong AI fit. Proceed to architecture decisions.
-3 YES answers → Conditional fit. The missing YES is your risk factor.
-               Document it and design mitigations.
-2 YES answers → Weak fit. Consider whether the problem is worth
-               the AI infrastructure cost. Often it isn't.
-0-1 YES      → Not an AI problem. Build with deterministic tools.
-               This is not a failure — it's good product judgment.
-```
+Record assumptions in a compact table:
 
----
-
-## Step 2.5: Which Seat Does AI Take — Engine or Helper?
-
-The fit score above is a go/no-go. For every problem that clears it, there's a second question enterprise PMs get wrong far more often: *what job does AI hold in the decision?* — and that depends on the decision's shape.
-
-- **Narrow decision** — clear, quantifiable objective; reliable, reusable data; fast feedback; codifiable boundaries; cheap to reverse. → AI is the **engine**: analytical AI (optimization, prediction, causal modeling) *produces the recommendation*. The human sets the objective, supplies quality inputs, stress-tests assumptions, defines guardrails, watches for drift. (Forecasting demand, detecting fraud, routing deliveries, scoring churn.)
-- **Wide decision** — competing financial, strategic, ethical, or political priorities; evolving or incomplete information; alignment matters as much as analysis. → AI is the **helper**: generative AI synthesizes inputs, surfaces assumptions, frames scenarios, articulates trade-offs — but the human keeps judgment *and* commitment. (Entering a market, repositioning a brand, redesigning an org.)
-
-**The six-question scorecard** (mostly-yes → narrow/engine; mostly-no → wide/helper): (1) *Objective clarity* — is the goal crisp and quantifiable, not just directionally appealing? (2) *Data readiness* — relevant, reliable, reusable data, not just anecdotes? (3) *Causal stability* — will historical relationships likely hold over the decision horizon? (4) *Boundary transparency* — are the boundaries codifiable, or mostly contextual/political? (5) *Feedback loop* — can you observe outcomes quickly and feed them into the next cycle? (6) *Reversibility* — can you reverse or iterate cheaply, or is it a one-way street?
-
-**The move that matters most — decompose first.** Don't classify the whole decision. A wide decision usually *contains* narrow subdecisions (a brand pivot contains message-testing, media-mix optimization, pricing experiments, demand forecasting). Ask "which subdecisions inside this wide one score narrow?" — those get the engine; the wide wrapper gets the helper.
-
-**Why it matters:** most "the AI failed" stories are really "we gave engine-grade automation to a wide decision whose narrow core we never separated out" — a team buys generative *fluency* for a problem that needed rigorous analytics (a narrow core) or slow human alignment (a wide wrapper), and the polish of the deliverable masks the absence of real conviction. **When this is wrong:** the classification line is itself a wide judgment — boundary cases (a "narrow" store-location choice that's actually politically charged) get the least guidance exactly where you need the most, so treat the scorecard as a lean, not a verdict; and it's silent on cost and latency, since routing every wide decision through generative synthesis plus an agentic harness isn't free.
-*(Source: "Calibrate AI Use to the Decision at Hand," Amorim, Saleh & Sundling, MIT Sloan Management Review, 6 May 2026. Adoption-impact gap it leans on: ~88% of firms use AI in ≥1 function but only ~39% report EBIT impact, mostly sub-5% — ◆ [McKinsey, State of AI 2025](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai). Note: `rtp-problem-type` is a different axis — technical-vs-adaptive org change — not narrow/wide.)*
-
-## Step 3: State Your Hypothesis
-
-This is where most teams stop — they have a score and they move on. But a score is not a decision. A decision requires a hypothesis that can be tested and proven wrong.
-
-**Write the hypothesis:**
-
-```
-HYPOTHESIS: We believe [AI approach — e.g., "an LLM-powered draft response system"]
-  will [expected outcome — e.g., "reduce average support resolution time by 40%"]
-  for [specific customer segment — from Step 0]
-  because [reasoning — e.g., "70% of tickets follow patterns learnable from
-  our 50K historical ticket-resolution pairs, and the remaining 30% benefit
-  from AI-generated first drafts that agents edit"].
-
-IF TRUE, we expect to see:
-  • [Leading indicator — observable in days/weeks]
-  • [Lagging indicator — observable in months]
-
-IF FALSE, we'd observe:
-  • [Counter-signal — e.g., "agent override rate exceeds 60%"]
-  • [Counter-signal — e.g., "resolution time stays flat or increases"]
-
-DAMAGE IF WRONG:
-  • [Specific cost — e.g., "$200K in infrastructure + 6 months of engineering"]
-  • [Opportunity cost — e.g., "We delayed the self-service portal that would have
-    reduced ticket volume by 25%"]
-  • [Reversibility — e.g., "Two-way door: we can revert to manual workflow in 1 week"]
-
-PIVOT TRIGGER:
-  If [specific metric] hits [threshold] by [date], we stop and redirect to
-  [alternative approach].
-```
-
-**Why this matters:** The hypothesis frame is what separates "we should use AI" (an opinion) from "we believe AI will produce X outcome because Y, and we'd know we're wrong if Z" (a testable bet). The first is what junior PMs produce. The second is what senior PMs produce.
-
----
-
-## Step 4: Surface Your Assumptions
-
-Every hypothesis rests on assumptions. Most are invisible until you force them into the open. For each assumption, rate the evidence:
-
-| Assumption | Evidence Level | Load-Bearing? | How to Test |
+| Assumption | Evidence and limits | Why the decision depends on it | Next test or explicit risk decision |
 |---|---|---|---|
-| *e.g., "Customers want faster responses, not just accurate ones"* | Informed (3 interviews, no quantitative data) | Yes — if they want accuracy over speed, our AI approach is wrong | Survey 50 customers: rank speed vs. accuracy vs. cost |
-| *e.g., "We have enough labeled training data (50K examples)"* | Validated (data exists in warehouse) | Yes — without data, model quality collapses | Audit: are labels consistent? Run inter-annotator agreement |
-| *e.g., "Support agents will trust AI-generated drafts"* | Assumed (no evidence either way) | Yes — if agents don't trust it, adoption is zero | Pilot with 5 agents for 2 weeks, measure edit rate |
-| *e.g., "Inference costs will be under $0.02/ticket"* | Informed (based on current GPT-4o pricing) | Moderate — affects unit economics but not viability | Run 1000 test tickets, measure actual cost |
+| Users value the proposed improvement | What was observed, measured, or reported | Which benefit fails if this is wrong | Appropriate behavior or outcome test |
+| Data and labels support the task | Availability, permission, quality, coverage, and leakage checks | Capability or evaluation dependency | Representative audit and baseline |
+| People can use and assess the result | Evidence about workflow, competence, time, and authority | Whether the proposed human control works | Task-based trial with relevant errors |
+| Costs fit the expected benefit | Current workload assumptions and measured or quoted cost scope | Economic viability or deployment limit | End-to-end cost measurement |
 
-**Evidence levels:**
-- **Validated:** Data exists, tested, confirmed
-- **Informed:** Expert judgment, directional data, analogous evidence
-- **Assumed:** Seems reasonable but no evidence
-- **Unknown:** We're guessing
+Use evidence labels carefully: **validated within scope** means a specific claim has been tested; **informed** means indirect or directional support; **assumed** means an explicit untested belief; **unknown** means information is missing. Data existing in a warehouse validates existence, not label quality, representativeness, or permission.
 
-**The rule:** Any assumption rated "Assumed" or "Unknown" that is also "Load-bearing" is a risk you must address before committing resources. Either test it or explicitly accept the risk.
+Prioritize assumptions by consequence, uncertainty, and the value of resolving them. The assumption that makes someone most nervous is useful input, not automatically the one to test first. Address critical uncertainty before the commitment that relies on it, or record a deliberate, authorized, bounded acceptance of that risk.
 
-**Ask the user:** *"Which of these assumptions makes you most nervous? That's probably the one to test first."*
+## 6. Check persuasive claims and hidden constraints
 
----
+| Proposal claim | What to test |
+|---|---|
+| “Competitors use AI” | Actual customer value, use, and relevant market expectations rather than announcements alone |
+| “Leadership wants AI” | The intended customer or strategic outcome and the alternative use of resources |
+| “We already have the infrastructure” | Incremental cost and real reusable capability; sunk expense alone is irrelevant, but existing useful capacity can change the economics |
+| “AI makes it scalable” | The actual bottleneck, total quality, cost, and load behavior; scale may not be the constraint |
+| “This creates new work” | What tasks, responsibility, expertise, and demand change, rather than whether the pitch uses that phrase |
 
-## Step 5: Expanded Fit Assessment (Optional — For Deep Dives)
+For the new-work claim, compare tasks before and after at a useful level of detail. Distinguish augmentation, automation, changed value of expertise, and new tasks. An unchanged high-level job description can conceal new subtasks; an expanded checklist can be overhead rather than valuable new expertise. The comparison is evidence to investigate, not a universal predeployment veto. See [research boundaries](references/research-boundaries.md) for the labor-economics taxonomy.
 
-When the four-question test produces a borderline score (2-3), use this 16-point detailed assessment for more precision.
+Apply five broader lenses:
 
-Score the problem 0-4 on four dimensions:
+- **Customer:** task fit, accessibility, learning and change burden, alternatives, and who gains or loses. A behavior change is a cost to assess, not automatically a red flag that rules out the product.
+- **Business:** total cost and plausible benefit, including review, integration, evaluation, support, and maintenance. There is no universal three-to-five-times-build-cost maintenance rule.
+- **Market:** differentiation, distribution, and credible customer expectations. Incremental improvements can matter; an AI label alone may not.
+- **Team:** ability to build, buy, operate, evaluate, and respond, with real owners and capacity. Hiring or vendor support is a dependency to plan.
+- **Ethics and affected people:** actual harms, fairness, privacy, agency, and recourse, including those who do not choose the system. Reputation alone is not the standard for an acceptable outcome.
 
-**Dimension A: Input Variability**
-- 0 = Fixed inputs (same format every time). Rule engine handles this.
-- 1 = Mostly fixed with occasional variants. Light heuristics work.
-- 2 = Variable but bounded (20-100 distinct patterns). Rules + fallback.
-- 3 = Highly variable, hard to enumerate. Heuristics start failing.
-- 4 = Open-ended variability (millions of distinct patterns). Pattern matching needed.
+Do not reduce these lenses to an unexplained colored radar score. State the material trade-off and evidence gap.
 
-**Dimension B: Output Judgment Required**
-- 0 = Pure lookup (answer exists in table). No judgment.
-- 1 = Simple transformation (reformat, combine fields). No judgment.
-- 2 = Light judgment (choose from 5 options based on clear rules).
-- 3 = Moderate judgment (weigh tradeoffs, handle ambiguity).
-- 4 = Deep judgment (nuanced reasoning, subjective assessment).
+## 7. Use research and examples without inheriting their overclaims
 
-**Dimension C: Data Availability**
-- 0 = No labeled data exists. You're guessing.
-- 1 = <100 labeled examples. Too small to train.
-- 2 = 100-1000 examples. Possible but risky.
-- 3 = 1000-10K examples. Good for simple models.
-- 4 = 10K+ clean labeled examples. Ready for sophisticated models.
+The [examples and optional profile](references/assessment-profile-and-examples.md) retain ticket routing, lead scoring, fraud, invoices, moderation, and scheduling illustrations. Their historical numbers were not verified company outcomes. Use them to construct fair comparisons, not as proof that rules always win a type of task.
 
-**Dimension D: Error Tolerance**
-- 0 = Zero tolerance (one mistake breaks the system). Must be deterministic.
-- 1 = Very low (errors accumulate). Need high accuracy (>99%).
-- 2 = Moderate (errors are recoverable, costly). Accuracy >90%.
-- 3 = High (errors are local, user can override). Accuracy >80%.
-- 4 = Graceful degradation (system works acceptably even with errors).
+The [research reference](references/research-boundaries.md) preserves the innovation-bottleneck, engine/helper, Cleveland Clinic, and worker-task discussions with their limits. In particular:
 
-**Scoring:** Add all four dimensions. Max score = 16.
+- AI ideation can narrow or broaden options depending on design and use; compare diversity, quality, and fixation rather than assuming a universal effect.
+- A common screening format can reduce presentation differences while hiding relevant information; test the rubric and retain appropriate evidence.
+- Simulated customers can help generate questions or exercise a process. Their answers are not automatically evidence of real people’s preferences or lived experience, especially for a new category.
+- Post-launch synthesis can organize feedback, while selection, interpretation, and action still require testing. A long list of themes is not proof the bottleneck dissolved.
 
-```
-13-16 = AI-native problem. Proceed confidently.
- 9-12 = Strong AI fit. Build with care.
- 5-8  = Weak fit. Rules + heuristics first.
- 0-4  = Not an AI problem. Don't use AI.
-```
+Ask what problem is being solved and whether implementation expectations are realistic before buying a platform. Involve domain experts and technical operators with clear responsibilities; budget stabilization and iteration. A single well-scoped partner can simplify a project, but comparison or multiple specialists may be appropriate. Searching for repeatable decisions in policies and workflows can reveal candidates; if-then structure alone does not prove an AI opportunity or a safe rule.
 
-**Assumption check:** After scoring, ask: *"Which dimension score am I least confident about? What evidence would change that score by ±1?"* A swing of 1 point on a borderline assessment can change the recommendation entirely.
+## Deliver, review, and hand off
 
-> **VISUAL: Invoke `excalidraw-svg` to generate an AI Fit Gauge** — a semicircular gauge from 0 (left, red: "Not AI") through 8 (center, amber: "Weak Fit") to 16 (right, green: "AI-Native"). Plot the score as a needle. Label the four zones. Below the gauge, show the four dimension scores as a stacked bar.
+Lead with the recommendation, then the hypothesis, trade-off, biggest risk, critical assumptions, and next action with an owner and timing. Explain why the chosen approach beats the relevant alternative and what remains unproven. “Gather evidence” is a clear position when it names the uncertainty and the test that resolves it.
 
----
+Check that the customer outcome and task decomposition are clear; the baseline is credible; capability, evaluation, consequence, and economics are addressed; and any score is consistent with the stated evidence. Confirm that the recommendation does not infer correctness from determinism or safety from a human checkbox.
 
-## Step 6: Check for AI-Washing Signals
+For research or deliberate capability-building, name the learning objective, budget, and bounded exposure. Such an investment can be worthwhile even when a simpler production solution exists. Competitive positioning or a dramatically better experience can also matter, but should be tested rather than treated as exemptions from evidence and controls.
 
-Even with strong fit, watch for these red flags. Each one is a hypothesis that needs testing, not a disqualifier:
+Use visuals selectively: a component comparison, four-question evidence table, or trade-off diagram can clarify a substantial decision. The optional sixteen-point profile should never appear as a green “AI-native” gauge that implies permission to build. Avoid duplicating the analysis in unnecessary document, slide, and image formats.
 
-**"Our competitors are using AI for this."**
-- *Assumption:* Competitors are getting value from AI, not just marketing it.
-- *Test:* Can you find evidence of actual user outcomes, or just press releases?
-- *If untested:* You might be following a leader into a dead end.
-
-**"The executive team wants AI features."**
-- *Assumption:* Executive interest reflects customer demand, not technology fascination.
-- *Test:* Show exec team the customer problem stack rank. Does AI solve a top-3 problem?
-- *If untested:* You're building for your org chart, not your customers.
-
-**"We already have the model/infrastructure."**
-- *Assumption:* Existing infrastructure creates a cost advantage that changes the fit calculation.
-- *Test:* Would you build this infrastructure FROM SCRATCH to solve this problem? If not, you're rationalizing sunk costs.
-- *If untested:* Sunk cost fallacy — the existence of infrastructure doesn't create user problems.
-
-**"AI makes it more scalable."**
-- *Assumption:* Scale is the binding constraint, not reliability or cost.
-- *Test:* What's the current volume? Is the bottleneck really scale, or is it quality, speed, or cost? Sometimes a 5-person team handles the volume fine.
-- *If untested:* Scale without reliability is a liability, not an asset.
-
-**"This AI deployment creates new kinds of work."**
-- *Assumption:* The task list for the affected role or workflow actually got longer, not just shifted or sped up.
-- *Test:* Write out every task in the role or workflow before the AI deployment and every task after it. If the list is unchanged, the deployment cannot be new-task-creating by definition, since that category requires the task set itself to expand. Run this check before scoring the proposal on any other dimension.
-- *If untested:* You may be calling automation or capital-augmentation "new work" because it sounds better in the pitch than it does in the task list.
-
-*Where this comes from, and its limit (⚠ reported in this pass, not independently verified against the primary source):* Acemoglu, Autor, and Johnson describe five categories of AI's effect on workers in a publicly available economics paper: labor-augmenting, capital-augmenting, automating, expertise-leveling, and new-task-creating. Their own stated limitation is that all five categories can only be classified correctly after the labor market has already repriced the affected work, which makes the taxonomy useless as the ex-ante screen it is often sold as. The task-list comparison above is a derived workaround: a necessary-but-not-sufficient screen that rules out one category before deployment, not a full classifier for the other four.
-
-**Falsifier:** a deployment with an unchanged task list that raises measured demand for the underlying expertise, deepening an existing task rather than adding a new one, would pass this test while still mattering. Treat the before/after comparison as one signal among several, not a disqualifying gate on its own.
-
----
-
-## Step 7: See the Decision in Context
-
-Before finalizing your assessment, view the decision through five lenses. This prevents tunnel vision — the tendency to evaluate AI fit in isolation from the business reality.
-
-| Lens | The Question | Signal Color |
-|------|-------------|-------------|
-| **Customer** | Does the AI approach fit their existing workflow, or require behavior change? Behavior change is expensive and slow. | Green = fits naturally; Red = requires adoption campaign |
-| **Business** | What's the unit economics at scale? Include monitoring, eval pipelines, retraining, failure-mode support. Compare to the deterministic alternative. | Green = clear ROI; Red = economics don't close |
-| **Market** | First-to-market or fast-following? If following, AI must be meaningfully better — marginal improvements don't drive switching. | Green = clear differentiation; Red = me-too |
-| **Team** | Do we have ML/AI expertise to build AND maintain? "We'll hire someone" is an assumption. AI maintenance = 3-5x build cost. | Green = team ready; Red = capability gap |
-| **Ethics** | What happens when AI makes a mistake at scale? Who is harmed? Would we be comfortable if the failure was on the front page? | Green = bounded harm; Red = vulnerable populations affected |
-
-**Ask the user:** *"Which of these lenses reveals the biggest risk you haven't fully thought through?"*
-
-> **VISUAL: Invoke `excalidraw-svg` to generate a Five-Lens Radar** — pentagon chart with each lens as an axis scored Green/Amber/Red. Shows at a glance which lenses support the AI decision and which raise concerns.
-
----
-
-## When ML is Overhead: Real Examples
-
-Teams regularly over-engineer with ML when simpler solutions suffice. Pattern recognition:
-
-**Example 1: Ticket Routing**
-- Proposal: "Use ML to route support tickets to the right team."
-- Reality: 90% of routing can be done with: IF keyword contains "billing" THEN tier-2, ELSE IF keyword contains "account" THEN tier-1.
-- ML investigation: 6 months, $200K, 87% accuracy.
-- Rules solution: 200-line script, $0 cost, 92% accuracy (+ human tier-3 fallback).
-- Outcome: Rules won. ML team disbanded.
-- **The hidden assumption that failed:** "Ticket routing requires understanding context." It didn't — it required matching keywords.
-
-**Example 2: Lead Scoring**
-- Proposal: "Use ML to predict which leads will convert."
-- Reality: Sales team already knows: company size + industry + engagement = conversion.
-- ML investigation: 4 months, feature engineering, retraining pipeline, 74% AUC.
-- Heuristic solution: (company_size=enterprise) AND (industry=tech) AND (opened_email OR clicked_link) = score. 2 weeks.
-- Outcome: Heuristic deployed. ML model never shipped. Sales team adjusted heuristic 3x/year based on results. Works better.
-- **The hidden assumption that failed:** "Conversion patterns are too complex for rules." They weren't — 3 variables explained 80% of variance.
-
-**Example 3: Fraud Detection**
-- Proposal: "Use deep learning to detect fraudulent transactions."
-- Reality: Fraud pattern: unusual amount + unusual location + high velocity = flag.
-- ML investigation: 9 months, false positive rate 15%, costs $500K/year in infrastructure.
-- Rule solution: IF (amount > 3x usual) AND (location != home country) THEN flag. 99% accuracy, $5K/year.
-- Outcome: Rules launched. ML project shelved. Fraud team is happy.
-- **The hidden assumption that failed:** "Fraud patterns are adversarial and evolving." At this company's scale, they weren't — simple rules caught 99%.
-
-**Red flags you're over-engineering:**
-
-1. **Accuracy requirement is binary.** "Yes/no" decisions don't benefit from ML confidence scores. Rules suffice.
-2. **Input space is enumerable.** <1000 distinct categories? Write rules, not models.
-3. **Rules change rarely.** Domain expert can write rules and they don't change >2x/year? Build the rules engine.
-4. **Domain expert can write rules in an afternoon.** If a subject-matter expert can articulate decision logic clearly, that's a signal: this is not a machine learning problem.
-5. **The "accuracy" story is exaggerated.** Team says "AI will be 95% accurate" but hasn't validated baseline. Rules might be 90% and cost 10x less.
-6. **Data labeling is expensive or inconsistent.** If ground truth is hard to establish (subjective, requires expert review), ML quality will be limited.
-7. **The problem hasn't evolved much in 2+ years.** If the rules/patterns haven't changed, it's not a learning problem. It's a lookup problem.
-
----
-
-## REALITY CHECK
-
-- Approximately 60-70% of "AI feature" proposals in enterprise settings decompose to LOOKUP or TRANSFORM problems that don't need AI. This is a rough heuristic from practitioner experience, not a formal study — but it's directionally useful.
-- The remaining proposals that genuinely need AI usually need it for a narrower scope than originally proposed. "AI-powered support" becomes "AI-assisted draft response for human review."
-- Teams that score 2/4 on the AI-necessity test often ship anyway due to organizational pressure. Track the outcomes. They almost always underperform the simpler alternative on user satisfaction and cost efficiency.
-- Problem-AI fit can change over time. A problem that scores 1/4 today (low volume) might score 4/4 in six months (volume growth). Build the rules engine now, plan the AI migration for later. State this as a hypothesis: "We believe volume will reach [threshold] by [date], at which point AI becomes justified."
-
----
-
-## THE TRAP
-
-**The mistake:** Assuming AI is the right approach because the problem involves text, images, or unstructured data. Teams conflate "data that looks like AI input" with "a problem that requires AI."
-
-**Why it feels right:** AI is a general-purpose technology. It CAN process text, images, and unstructured data. The fact that it can doesn't mean it should. A screwdriver can open a paint can, but that doesn't make it the right tool.
-
-**The cognitive bias:** Maslow's Hammer — "if all you have is an LLM, everything looks like a generation problem." Reinforced by organizational incentives: AI features get more funding, more press, and more executive attention than infrastructure improvements.
-
-**The cost:** AI-washing. You ship a feature that's slower (API latency), more expensive (per-token costs), less reliable (hallucination risk), and harder to debug (non-deterministic outputs) than the rules engine it replaced. Users don't care that it uses AI. They care that it works.
-
-**The deeper trap:** Even this skill can create false confidence. Scoring 4/4 on the AI-necessity test doesn't mean you should build it — it means AI is technically appropriate. You still need to ask: Is this the highest-leverage use of our engineering time? (LNO framework: is this a Leverage decision?) Is the opportunity cost acceptable? Would solving a different problem create more value?
-
----
-
-## QUALITY GATE
-
-Before finalizing your assessment, verify:
-
-- [ ] The customer ground is established — you know WHO has the problem and HOW PAINFUL it is
-- [ ] The atomic operation has been decomposed using first-principles
-- [ ] All four AI-necessity questions have been answered with evidence (not assumptions)
-- [ ] A hypothesis has been stated — with IF TRUE, IF FALSE, and PIVOT TRIGGER
-- [ ] Load-bearing assumptions have been named and evidence-rated
-- [ ] The score has been calculated and the implications acknowledged
-- [ ] Red flags for AI-washing have been checked (even if score is high)
-- [ ] The decision has been viewed through all five lenses (customer, business, market, team, ethics)
-- [ ] If the score is 0-2, the team has explicitly decided whether to proceed and documented why
-- [ ] The opportunity cost of this investment has been named — what are we NOT building?
-
----
-
-## WHEN WRONG
-
-This skill gives bad advice when:
-
-- **The problem is at the frontier of what's possible with AI**, and the four-question test is too conservative. Research applications may need AI even with low scores. *Assumption to check: Are we doing research or building a product? Research tolerates different risk profiles.*
-
-- **The primary goal is learning, not production value.** Building an AI feature to develop team capabilities is a valid strategy even if rules would suffice for the current use case. *Assumption to check: Is the organization willing to treat this as a learning investment with uncertain ROI?*
-
-- **The competitive landscape demands AI as table stakes.** If every competitor has AI-powered search and you don't, the fit test is less relevant than market positioning. *Assumption to check: Do customers actually use competitors' AI features, or is it just marketing?*
-
-- **The user experience improvement from AI is dramatic enough to justify the cost premium.** Sometimes a 10x better experience is worth 10x the infrastructure cost. *Assumption to check: Is the experience improvement real and measurable, or projected and hoped-for?*
-
-- **You're applying this skill too early.** If the problem hasn't been decomposed yet (use first-principles first) or you don't know who the customer is, this skill will produce a technically valid but strategically meaningless assessment.
-
----
-
-## TRADE-OFF LEDGER
-
-After completing the assessment, fill this out — it's where the thinking becomes a decision:
-
-```
-BY CHOOSING [AI / Rules / Hybrid / Don't Build]:
-  We are betting on: [the core bet — what must be true]
-  We are giving up: [the opportunity cost — what we can't build instead]
-  This is reversible within: [timeframe] / This is a one-way door because [reason]
-
-THE HIDDEN TRADE-OFF:
-  [The non-obvious consequence — e.g., "Choosing AI means we now need an
-  eval pipeline, which means hiring an ML engineer, which means 3-month
-  recruiting delay before we can even start"]
-
-CONFIDENCE: [High / Medium / Low]
-  What would change our mind: [specific evidence or signal]
-```
-
----
-
-## CONCLUSION
-
-Every Problem-AI Fit assessment MUST end with a clear position:
-
-**1. THE RECOMMENDATION** — "Build with AI" / "Build with rules" / "Build hybrid" / "Don't build this at all" / "Gather more evidence before deciding"
-
-**2. THE HYPOTHESIS** — "We believe [approach] will [outcome] because [evidence]. We'd know we're wrong if [signal] within [timeframe]."
-
-**3. THE KEY TRADE-OFF** — "This means we're prioritizing X over Y because Z."
-
-**4. THE BIGGEST RISK** — "The biggest risk is ___ and we'd mitigate it by ___."
-
-**5. ASSUMPTIONS TO WATCH** — The 2-3 critical assumptions with the weakest evidence, and how/when to test them.
-
-**6. THE NEXT ACTION** — "The next step is ___ by ___ [person/role] by ___ [date]."
-
-Do not leave the user with "here's some analysis, figure it out." Pick a direction. State your confidence. Name what would change your mind.
-
----
-
-## NATURAL FLOW INTO ADJACENT SKILLS
-
-This skill connects forward to:
-
-- **ai-use-case-readiness** → If AI fit is confirmed, assess WHAT LEVEL of AI (rules → copilot → agent → autonomous). That skill picks up where this one ends.
-- **invisible-stack** → If you're choosing BETWEEN AI approaches (not whether to use AI at all).
-- **determinism-compass** → If the analysis reveals the problem needs deterministic guarantees with AI assistance.
-- **cost-model** → If the hypothesis needs economic validation before committing.
-
----
-
-## DELIVERABLE FORMAT
-
-The output should be polished enough to forward to a VP without editing.
-
-### Visual Outputs (Excalidraw SVGs)
-
-Generate these visuals inline. A stakeholder should understand the recommendation from visuals alone.
-
-| Visual | When to Generate | What It Shows |
-|--------|-----------------|--------------|
-| **AI-Necessity Scorecard** | Always | The 4-question test as a visual checklist with Yes/No and score |
-| **AI Fit Gauge** | Always | The 16-point score plotted on a gauge (0-4 red, 5-8 amber, 9-12 green, 13-16 deep green) |
-| **Five-Lens Radar** | When doing comprehensive analysis | Pentagon chart, each axis Green/Amber/Red |
-| **Trade-Off Balance** | When the hidden trade-off is non-obvious | Two sides of a scale: what we gain vs. what we give up |
-| **Decision Tree** | When the lookup table test is relevant | Visual decision tree: "Can a lookup table solve it?" → branches to AI path vs rules path |
-
-**Rule:** If in doubt, generate the visual. Text-based frameworks are forgettable. Clean SVGs with the assessment plotted are instantly understood and shareable.
-
-### Document Output
-
-For comprehensive assessments, produce a formatted document (`.docx` or `.pdf`):
-
-1. **Executive Summary** (half page): Recommendation, hypothesis, key trade-off, next action
-2. **Visual Story** (1 page): The SVGs above, captioned, telling the story without text
-3. **Detailed Assessment** (2-3 pages): Full analysis following the conclusion protocol
-4. **Assumptions & Risks** (half page): Load-bearing assumptions with test plans
-5. **Examples/Precedents** (half page): Similar cases that went right or wrong
-
-### Inline Output
-
-For quick conversation answers: the recommendation, the hypothesis, one or two visuals (AI Fit Gauge + Five-Lens Radar at minimum), and the assumptions to watch.
-
-Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md` for all SVG generation.
-
----
-
-## GENERATE THE DELIVERABLE
-
-Once the analysis is complete, use this prompt to produce the final output:
-
-```
-OUTPUT GENERATION PROMPT:
-
-You have completed the Problem-AI Fit assessment. Now produce the deliverable.
-
-FORMAT: [Word Document / Presentation / Both — as chosen by user]
-
-INSTRUCTIONS:
-1. Read the full analysis above.
-2. Write the Executive Summary first — recommendation as the first sentence.
-3. Generate Excalidraw SVG visuals for:
-   - AI Fit Gauge (always — shows the 16-point score)
-   - AI-Necessity Scorecard (always — the 4-question test visual)
-   - Five-Lens Radar (if comprehensive analysis)
-   - Trade-Off Balance (if the hidden trade-off is non-obvious)
-   - Decision Tree (if lookup table test is relevant)
-4. Structure following the Universal Deliverable Protocol.
-5. Plain language throughout — no unexplained jargon.
-6. Before delivering:
-   - Grammar check all text.
-   - Verify recommendation is consistent across all sections and visuals.
-   - Confirm all scores populated.
-   - Check visuals match text.
-7. Deliver to workspace folder.
-
-QUALITY BAR: Forward-ready for a VP. Actionable for an engineer. Clean for a designer.
-```
-
----
-
-## WORKFLOW HANDOFF
-
-When continuing to a downstream skill (ai-use-case-readiness, invisible-stack, determinism-compass, cost-model), **automatically generate a markdown handoff file** carrying forward:
-- Customer grounding (so the next skill skips these questions)
-- The AI fit recommendation and score
-- The hypothesis with IF TRUE / IF FALSE
-- Critical assumptions with evidence ratings
-- Open questions for the next skill
-
-Follow the Markdown Handoff format in the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 9.
-
-File naming: `problem-ai-fit-handoff-[use-case-slug].md`
+Carry the context forward to `rtp-ai-use-case-readiness`, `rtp-invisible-stack`, `rtp-determinism-compass`, `rtp-build-or-buy`, or `rtp-cost-model` as needed. For a continuing workflow, create `problem-ai-fit-handoff-[use-case-slug].md` using the shared handoff structure: customer grounding, recommendation, evidence, hypothesis, critical assumptions, constraints, and open questions. Include an optional score only with its meaning and limitations. Preserve the user’s requested format and existing context so the next skill can continue without repeating answered questions.

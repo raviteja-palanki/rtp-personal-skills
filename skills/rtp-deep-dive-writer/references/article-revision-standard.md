@@ -1,878 +1,188 @@
-# Article Revision Research and Editorial Standard
+# Article revision research and editorial standard
 
-**Owner:** Raviteja Palanki  
-**Version:** 1.0  
-**Created:** 29 August 2026  
-**Applies to:** AI Evals, AI PM OS, Agentic Systems, Harness Engineering, and future article series
+Owner: Raviteja Palanki. Revision 1.0.1, 13 Sep 2026. Created 29 Aug 2026. Applies to AI Evals, AI PM OS, Agentic Systems, Harness Engineering, and future practitioner series.
 
----
+Improve the reader's understanding, the accuracy of a claim, the central argument, a practical decision, the article's usefulness, or its connection to the series. Freshness alone is insufficient. A small factual correction or structural repair is a valid revision; it need not become a new research essay.
 
-## 1. Purpose
+Read the complete article before a full revision. Preserve the useful functions of its examples, definitions, frameworks, and exercises. The main Deep Dive Writer skill governs voice and the default template; this reference governs evidence and revision quality. Use the active project's publishing requirements when its structure differs from an older template.
 
-This document defines the standard to follow whenever an existing article is researched, updated, or rewritten.
+## 1. Establish what the revision needs
 
-The goal is not to make an article look newer. The goal is to make it more accurate, more useful, easier to understand, and more valuable to a practitioner making a real decision.
+Keep a short working assessment:
 
-A revision is successful only when it improves at least one of these:
-
-- The reader’s understanding of the problem.
-- The quality of a product or business decision.
-- The accuracy of an existing claim.
-- The clarity of the article’s central argument.
-- The usefulness of the article in real work.
-- The connection between the article and the rest of the series.
-
-Fresh information that changes none of these should not be added.
-
----
-
-## 2. Core Principle
-
-Every revision must follow this chain:
-
-> **Evidence → mechanism → product decision → practical action → limitation**
-
-### Evidence
-
-What new fact, case, paper, product change, incident, or operating pattern has appeared?
-
-### Mechanism
-
-Why did the observed result happen? What caused it?
-
-### Product decision
-
-What should a product manager, engineer, leader, buyer, or operator decide differently?
-
-### Practical action
-
-What can the reader do in a meeting, PRD, evaluation, architecture review, launch review, or vendor discussion?
-
-### Limitation
-
-What does the evidence not prove? Where could the insight fail to transfer?
-
-A revision that stops at evidence is a news update. A revision that reaches action becomes practitioner guidance.
-
----
-
-## 3. Revision Philosophy
-
-### 3.1 Fresh does not mean useful
-
-Recent information should be prioritised, but recency is not evidence quality.
-
-Use recent information when it:
-
-- Corrects an important belief.
-- Changes a product decision.
-- Reveals a previously hidden failure mechanism.
-- Introduces a material regulation or standard.
-- Changes pricing or product economics.
-- Provides a strong real-world case.
-- Supplies better evidence for an existing thesis.
-
-Do not include information merely because it is:
-
-- Trending on X or LinkedIn.
-- A new product launch.
-- A funding announcement.
-- A vendor ranking.
-- A dramatic market forecast.
-- A popular but weakly sourced statistic.
-- A new framework with no clear decision value.
-
-Use the newest reliable evidence, not simply the newest information.
-
-### 3.2 Research broadly, verify narrowly
-
-Social platforms and newsletters are discovery tools. They are not automatically final sources.
-
-Use the following research chain:
-
-> Social post or secondary article → original source → methodology → limitations → contradictory evidence → product interpretation
-
-Prefer:
-
-- Original paper over a thread describing the paper.
-- Benchmark repository over a leaderboard screenshot.
-- Regulator over a compliance vendor.
-- Official pricing documentation over a pricing opinion.
-- Technical incident report over a dramatic summary.
-- Specification and release history over an ecosystem prediction.
-- First-party product documentation over a comparison blog.
-
-A secondary source may be used when it provides valuable interpretation, but it must not inherit authority it has not earned.
-
-### 3.3 A case is not a law
-
-A real example can make an article stronger without becoming a universal rule.
-
-Use this pattern:
-
-> “This case demonstrates X. It does not establish Y.”
-
-Examples:
-
-- A benchmark exploit shows that an evaluation system can be manipulated. It does not show that every benchmark is broken.
-- An expensive evaluation run shows that eval costs can become material. It does not establish a standard budget.
-- A simulation benchmark shows how physical systems can be evaluated. It does not prove real-world safety.
-- A seat-plus-credit product shows that AI economics can exceed seat economics. It does not prove seats have disappeared.
-- Outcome-priced support shows where outcome pricing can work. It does not prove every business workflow can be priced by outcome.
-
-### 3.4 Contradiction searches are mandatory
-
-The more useful or exciting a claim appears, the harder the research should try to disprove it.
-
-For every important claim, search for:
-
-- Correction.
-- Delay.
-- Withdrawal.
-- Criticism.
-- Limitation.
-- Replication.
-- Contamination.
-- Methodology.
-- Independent analysis.
-- Updated official guidance.
-- Exceptions and scope.
-
-The purpose is not to manufacture false balance. The purpose is to test whether the claim survives opposing evidence.
-
-### 3.5 Numbers must retain their conditions
-
-Do not publish a number without understanding where it came from.
-
-For each number, record:
-
-1. Original source.
-2. Publication date.
-3. What was measured.
-4. Models, products, or organisations involved.
-5. Sample size or number of runs.
-6. Evaluation method.
-7. Assumptions.
-8. Whether the number was measured, estimated, projected, or self-reported.
-9. Conditions under which it may not transfer.
-10. Whether a fresher correction exists.
-
-If these details cannot be found:
-
-- Use the number only as a clearly attributed example.
-- Label it as directional.
-- Or remove it.
-
-Never turn a vendor benchmark, practitioner rule of thumb, or one-company result into a universal threshold.
-
----
-
-## 4. Source Quality Framework
-
-Classify every source before using it.
-
-### Verified primary
-
-Examples:
-
-- Peer-reviewed paper.
-- Formal technical report.
-- Regulator announcement.
-- Official specification.
-- Benchmark paper and repository.
-- First-party incident report.
-- Official pricing or product documentation.
-
-Use for factual claims within the tested or documented scope.
-
-### Verified case
-
-A dated, documented real-world example with a clear context.
-
-Use to illustrate a mechanism. Do not generalise it automatically.
-
-### Practitioner pattern
-
-Guidance from experienced operators, engineering teams, product leaders, consultants, or vendors.
-
-Use for operating ideas worth testing. Do not present as scientific consensus.
-
-### Author synthesis
-
-A conclusion reached by connecting multiple sources and first-principles reasoning.
-
-Use when the reasoning is made visible. Label assumptions and avoid pretending the conclusion was directly measured.
-
-### Excluded
-
-Exclude a claim when it is:
-
-- Unsupported.
-- Contradicted by stronger evidence.
-- Too context-specific.
-- Based mainly on marketing.
-- Precise without methodology.
-- Unrelated to the article’s decision.
-- Repeated elsewhere in the series.
-
----
-
-## 5. Research Workflow
-
-### Phase 1: Understand the article
-
-Before external research, read the complete article and record:
-
-- The decision it helps the reader make.
-- The central thesis.
-- The intended audience.
-- Existing examples and evidence.
-- Existing frameworks.
-- Claims likely to become stale.
-- Claims that appear overstated.
-- Terms that may confuse readers.
-- Overlap with other articles.
-- Missing practical actions.
-
-Use this table:
-
-| Field | Notes |
+| Field | Record |
 |---|---|
-| Article title | |
-| Reader | |
-| Decision supported | |
-| Current thesis | |
-| Strongest existing section | |
-| Weakest existing section | |
-| Claims needing verification | |
-| Information likely to be stale | |
-| Missing mechanism | |
-| Missing example | |
-| Missing AI PM action | |
-| Related articles | |
+| Article identity and reader | Actual title, file, intended audience, and requested scope |
+| Decision or lesson | What the reader should understand or do |
+| Current thesis | The argument in a few sentences |
+| Existing strengths | Material worth preserving, including exact wording when it works |
+| Weaknesses | Confusing, incomplete, repetitive, overstated, or outdated material |
+| Evidence needs | Important claims, numbers, dates, and versions requiring verification |
+| Teaching gaps | Missing mechanism, definition, example, action, or artifact input |
+| Series relationship | Related articles and the natural home of overlapping ideas |
 
-Do not begin by searching for news related to the title. Understand the article first.
+Understand the article before searching for news about its title. For a narrow edit, read the affected context and report that scope; do not claim a full article review.
 
-### Phase 2: Search in time layers
+## 2. Research according to what can change
 
-Use several research windows.
+Use recent information when it corrects a belief, affects a decision, reveals a failure mechanism, changes an applicable rule or product cost, or strengthens the evidence. A launch, funding round, ranking, forecast, or new framework needs a clear purpose in the article.
 
-#### Last 14 days
+Useful search windows are the last 14 days for fast-changing incidents or prices, the last 60 days for recent research and practice, and the last 12 months for whether a signal persists. These are starting points, not mandatory searches for every edit. Keep older foundational sources when they remain the best support.
 
-Use for:
+Follow discovery material to the underlying evidence: secondary account, original source, method, limitations, counterevidence, and interpretation. Prefer the paper over its summary, the benchmark repository over a screenshot, the regulator over a compliance vendor, the incident report over a dramatic retelling, and official pricing or specifications over comparison articles.
 
-- Breaking incidents.
-- Pricing changes.
-- Regulatory changes.
-- Standards updates.
-- Product removals or major capability changes.
+Social posts and newsletters can themselves be primary statements or firsthand accounts. Identify what they establish and verify supporting evidence; neither their format nor a prestigious publisher makes a claim reliable. A review paper may summarize original studies rather than independently replicate them. An official source can still be self-reported, incomplete, or interested in the outcome.
 
-#### Last 60 days
+For important claims, actively look for corrections, retractions or withdrawals, delays, replication, criticism, contamination, methodological limits, exceptions, and updated official guidance as relevant. Check whether the date is publication, measurement, announcement, or deployment. Compare equivalent conditions and investigate whether the metric measures the value claimed. Test the claim rather than manufacture balance.
 
-Use as the primary freshness window for:
+## 3. Keep an evidence ledger
 
-- New research.
-- Production lessons.
-- Practitioner shifts.
-- Market changes that affect decisions.
+For substantive research, record candidate signals before incorporating them:
 
-#### Last 12 months
-
-Use to decide whether a recent signal is sustained or temporary.
-
-#### Foundational sources
-
-Use older work when it remains necessary for the concept to be correct.
-
-Do not remove a strong foundational source merely because it is old.
-
-### Phase 3: Build an evidence ledger
-
-Record every candidate signal before adding it to an article.
-
-| Field | Question |
+| Field | What to retain |
 |---|---|
-| Signal | What changed? |
-| Date | When did it happen? |
-| Original source | Where is the first-party evidence? |
-| Source type | Primary, case, practitioner, synthesis, or excluded? |
-| Method | How was the conclusion produced? |
-| Scope | What systems, models, users, or domains were covered? |
-| Limitation | What does the evidence not prove? |
-| Counter-evidence | What challenges the claim? |
-| Article fit | Which article should own it? |
-| Decision effect | What should the reader do differently? |
-| Confidence | High, medium, low, or exclude? |
-| Decay risk | How quickly may this become stale? |
+| Signal and dates | What changed, when it happened, and when it was reported |
+| Source and reading scope | Exact source, link or location, author, and what was actually read |
+| Evidence type | Original study or documentation, case, practitioner proposal, secondary report, or author synthesis |
+| Method and scope | Population, systems, sample or runs, comparison, and measurement process |
+| Result and conditions | Units, denominator, period, uncertainty, and assumptions |
+| Status | Measured, estimated, projected, self-reported, independently checked, disputed, or unresolved |
+| Limits and challenges | Transfer limits, alternative explanations, corrections, and counterevidence |
+| Article fit | Where the idea belongs and what it improves |
+| Confidence and decay | Reason for confidence and how quickly the claim may become stale |
 
-### Phase 4: Apply the claim gate
+Not every field applies to every number. A price has a unit and effective date, not a research sample. Where material detail is missing, narrow the claim, attribute it as a limited report, or omit it. Calling a precise unsupported number "directional" does not repair it.
 
-A claim enters an article only if it passes these tests.
+Classify evidence by what it supports:
 
-#### Truth
+- **Inspected primary source:** The original study, specification, report, or statement was read. Its methods and scope still determine the strength of the claim.
+- **Documented case:** A dated example in a defined setting. It can illustrate a mechanism without establishing a general effect.
+- **Practitioner pattern:** An operating idea worth testing, with the contributor's context and interests visible where relevant.
+- **Author synthesis:** A connection or recommendation developed from evidence and reasoning. State its assumptions and distinguish it from a measured finding.
+- **Secondary report:** An attributed account whose underlying evidence may not have been inspected. Preserve that limitation.
 
-Is the claim supported by the source?
+Exclude an unsupported conclusion, a claim contradicted by stronger evidence, or material that distracts from the article. A narrow or vendor-reported result can remain useful if its scope is explicit; it is not automatically unusable.
 
-#### Transfer
+## 4. Decide what enters the article
 
-Is it clear whether the result applies beyond the original setting?
+Use eight checks:
 
-#### Relevance
+| Check | Question |
+|---|---|
+| Truth | Does the inspected evidence support the precise claim? |
+| Transfer | Are applicability and limits clear? |
+| Relevance | Does this improve the article's argument, understanding, or decision? |
+| Novelty | Does it add something useful beyond what the article already says? |
+| Decision value | For guidance, what choice or action does it inform? For a correction, what misunderstanding does it remove? |
+| Clarity | Can the intended reader follow it in ordinary language? |
+| Durability | Is the insight lasting, or does a dated fact need an explicit update condition? |
+| Placement | Is there a natural location without overwhelming the original teaching? |
 
-Does it strengthen the article’s central decision?
+A true claim may still be unnecessary. A temporary price or regulation can be essential to a current decision when clearly dated. Useful clarification does not need a novel thesis.
 
-#### Novelty
+For new practitioner guidance, work through **evidence → mechanism → decision → action → limitation**. Explain the mechanism when known and identify interpretation when it is uncertain. A case shows what happened there; it does not establish a universal threshold. A benchmark exploit shows a vulnerability under particular conditions, not that all benchmarks are useless. An expensive evaluation does not define everyone's budget. A simulation does not alone establish real-world safety. A seat-plus-credit offer does not prove seats have disappeared, and one outcome-priced support product does not establish suitability for every workflow.
 
-Does the article already make this point?
+## 5. Write and place the revision
 
-#### Decision value
+For a substantial research proposal or review, use this working block. For a direct edit, keep only the fields needed to make the change traceable; the article itself should read as finished prose.
 
-Does it change a product, architecture, pricing, evaluation, risk, or operating decision?
-
-#### Clarity
-
-Can it be explained in normal language?
-
-#### Durability
-
-Will it remain useful after the news cycle?
-
-#### Placement
-
-Is there a clear location where it belongs?
-
-A claim may be true and still fail because it is irrelevant, repetitive, or too temporary.
-
-### Phase 5: Search against the claim
-
-Before final acceptance:
-
-1. Search for criticism or correction.
-2. Check whether the date is being misreported.
-3. Check whether the cited source measured the claimed outcome.
-4. Check whether a vendor is evaluating its own product.
-5. Check whether the comparison used equal conditions.
-6. Check whether the metric represents user value.
-7. Check whether the result survives outside the test environment.
-
-### Phase 6: Write the revision
-
-Use the standard article-revision block:
-
-```markdown
-## Article ID — Title
-
-### Decision
-What decision should the article help the reader make?
-
-### Current weakness
-What is incomplete, outdated, repetitive, or misleading?
-
-### New evidence
-What is the strongest useful signal?
-
-### Evidence strength
-Verified primary / verified case / practitioner pattern / author synthesis.
-
-### Why it matters
-How does this change the article or decision?
-
-### Exact placement
-Insert after or replace: “Exact existing sentence or heading.”
-
-### Publication-ready wording
-The exact copy to use.
-
-### Practical action
-What should the reader do next?
-
-### What this does not prove
-The boundary of the evidence.
-
-### Cross-link
-Which related article should be linked, and why?
+```text
+Article ID and title:
+Decision or lesson:
+Current weakness:
+New evidence or correction:
+Evidence type and strength:
+Why this improves the article:
+Exact insertion or replacement location:
+Publication-ready wording:
+Practical action, where relevant:
+What this does not prove:
+Related article and reason for linking:
 ```
 
-### Phase 7: Review the series
+Write from the reader's problem. For example, "When should we price the result?" gives an outcome-pricing article a decision. "Which model may handle this step, and what happens if it fails?" makes model orchestration concrete. "Which failures should become permanent regression tests?" gives a golden-dataset article a practical purpose. A definition-led tutorial is also appropriate when the user's need is understanding the concept.
 
-After individual revisions:
+Explain before relying on terminology. Introduce the problem, a plain explanation, an example, and the decision affected; name the technical term when it helps. For example: "Score the step that helps explain the failure, and keep that score connected to the complete task. This is often called span-level scoring."
 
-- Remove duplicate signals.
-- Give each important idea one natural home.
-- Use links instead of repetition.
-- Check terminology across the series.
-- Check that later articles build on earlier ones.
-- Check that examples do not contradict each other.
-- Verify every number, date, quotation, and product claim.
-- Remove unnecessary jargon.
-- Check whether each article ends with an action.
-- Check whether the revision overwhelms the original teaching.
-- Add limitations where evidence could be overread.
+Use concrete actors and verbs such as choose, test, record, compare, stop, approve, escalate, complete, or pay. Replace inflated words with the specific behavior they hide. "Robust" needs named failure conditions when reliability is the claim; "agentic" does not explain what the system can do.
 
----
+Make recommendations testable where possible: "Shorten the required chain and test whether end-to-end completion improves" is more useful than an unspecified promise of reliability. Explanations need not all be formal hypotheses. Preserve warranted uncertainty and distinguish finding, interpretation, recommendation, and limitation without repeating four rigid labels in every paragraph.
 
-## 6. Writing Standard
+For a practitioner article, a useful sequence is decision, common mistake, mechanism, example, decision criteria, action, limitation, and reusable artifact. Fit this sequence into the series template rather than adding a second competing article structure.
 
-### 6.1 Write from the decision, not the topic
+## 6. Keep the series coherent
 
-Weak framing:
+Give each important idea a primary home. Other articles can explain enough to stand alone, apply the idea, and link for depth. Avoid duplicated full definitions and disconnected link lists. Functional navigation is useful; a substantive cross-link should also explain the relationship.
 
-> What is outcome pricing?
+Maintain an insight-to-article map where the series needs it. Typical connections include failure classification to debugging and root cause; a golden dataset to an eval suite and production learning; a rubric to judge validation and judge design; a product job to cost, pricing, and ROI; or architecture to authority and trust boundaries.
 
-Stronger framing:
+Use shared terms consistently, with room for domain-specific qualifications:
 
-> When should we price the result, and what must be true before we do?
-
-Weak framing:
-
-> What is multi-model orchestration?
-
-Stronger framing:
-
-> Which models are permitted, which model should handle this step, and what happens when it fails?
-
-Weak framing:
-
-> What is a golden dataset?
-
-Stronger framing:
-
-> Which failures deserve to become permanent regression tests?
-
-### 6.2 Explain before naming
-
-Do not begin with specialist language.
-
-Use this sequence:
-
-1. Product problem.
-2. Plain-language explanation.
-3. Example.
-4. Decision affected.
-5. Technical term, if still useful.
-6. Practical action.
-7. Limitation.
-
-Example:
-
-Avoid:
-
-> Attach evaluator scores to causally useful spans.
-
-Prefer:
-
-> Score the individual step that helps explain the failure, but keep it connected to the complete task and user outcome. This is often called span-level scoring.
-
-### 6.3 Prefer concrete nouns and verbs
-
-Avoid:
-
-- Leverage.
-- Unlock.
-- Transform.
-- Revolutionise.
-- Paradigm shift.
-- Rapidly evolving landscape.
-- Seamless.
-- Robust, unless the failure conditions are named.
-- Agentic, when it is being used as an explanation.
-
-Prefer:
-
-- Choose.
-- Test.
-- Record.
-- Compare.
-- Stop.
-- Approve.
-- Reject.
-- Escalate.
-- Complete.
-- Pay.
-- Fail.
-
-### 6.4 Keep sentences falsifiable
-
-Avoid:
-
-> This may potentially help teams improve reliability.
-
-Prefer:
-
-> Shorten the required chain and test whether end-to-end completion improves.
-
-A useful sentence can be wrong. A vague sentence avoids being wrong by saying nothing.
-
-### 6.5 Separate fact, interpretation, and recommendation
-
-Use clear transitions:
-
-- **The source found:** measured result.
-- **The likely mechanism is:** interpretation.
-- **For an AI PM, this means:** recommendation.
-- **This does not prove:** limitation.
-
-Do not blend all four into one authoritative-sounding paragraph.
-
----
-
-## 7. Article Structure
-
-Use this structure for most practitioner articles:
-
-### Opening decision
-
-State the decision or tension, not a broad industry trend.
-
-### Common mistake
-
-Name the belief or operating habit that leads teams astray.
-
-### Mechanism
-
-Explain why the result occurs.
-
-### Practical example
-
-Use a realistic workflow, not a generic chatbot.
-
-### Decision framework
-
-Give the reader questions or criteria.
-
-### Action
-
-Provide something to do this week.
-
-### Limitation
-
-State what the evidence does not establish.
-
-### Reusable artifact
-
-End with a checklist, worksheet, table, memo, or decision template.
-
----
-
-## 8. Series Architecture
-
-### One idea, one home
-
-Every important idea should have one primary article.
-
-Other articles should:
-
-- Link to it.
-- Apply it briefly.
-- Avoid redefining it.
-
-This protects each article’s identity and prevents SEO-shaped repetition.
-
-Maintain a map:
-
-| Insight | Primary article | Articles that may link |
-|---|---|---|
-| | | |
-
-### Cross-link causally
-
-Link articles because one supplies an input to another.
-
-Examples:
-
-- Failure classification → trace debugging → root-cause analysis.
-- Golden dataset → first eval suite → production learning loop.
-- Rubric → judge validation → judge-system design.
-- Agent evaluation → pipeline evaluation → production monitoring.
-- Product job → cost model → pricing model → ROI.
-- Architecture → authority → trust boundary.
-
-Do not add links only for navigation or SEO.
-
-### Use stable terminology
-
-Define a shared vocabulary for each series and use it consistently.
-
-Suggested core terms:
-
-- **Job:** Work the user or business wants completed.
-- **Completed job:** A verified result, not a generated response.
-- **Task definition:** Success, acceptable variation, forbidden actions, and escalation.
-- **Context:** Information available to the system for the current decision.
-- **Test case:** One input and situation used to check behaviour.
-- **Golden dataset:** A reviewed and versioned set of important regression cases.
-- **Evaluator:** Rule, program, AI judge, human review, or combination used to score behaviour.
-- **Trace:** Linked record of steps that produced an outcome.
-- **Harness:** System around the model: context, tools, memory, permissions, retries, and checks.
-- **Meter:** Unit used for billing.
-- **Exception rate:** Share of cases that require human handling.
-- **Trust boundary:** Actions requiring approval or prohibited entirely.
-- **Proof:** Evidence strong enough to change a ship, scale, or stop decision.
-
----
-
-## 9. Lessons from AI Evals
-
-### Evaluate the system, not only the model
-
-A product result is produced by the combination of:
-
-- Model.
-- Instructions.
-- Context.
-- Retrieval.
-- Tools.
-- Permissions.
-- Runtime environment.
-- Human interaction.
-- Evaluator.
-- Test runner.
-
-Do not automatically classify a product failure as a model failure.
-
-### Treat the evaluator as part of the uncertainty
-
-AI judges and human reviewers can disagree or drift.
-
-Test:
-
-- Criteria.
-- Examples.
-- Answer order.
-- Formatting.
-- Length sensitivity.
-- Missing evidence.
-- Model updates.
-- Repeated-run variation.
-
-Approve an evaluator for a particular decision, not for every future use.
-
-### Treat golden datasets as governed memory
-
-A golden dataset is valuable because:
-
-- Cases have known origins.
-- Important journeys and risks are covered.
-- Expected behaviour is reviewed.
-- Changes are versioned.
-- Near-duplicates are controlled.
-- Exposure to prompts or training is understood.
-- Production failures enter through a reviewed process.
-
-Do not define dataset quality through one universal number of cases.
-
-### Close the production loop
-
-Use this sequence:
-
-> Production behaviour → reviewed failure → first wrong step → tested cause → representative regression case → release decision → production verification
-
-The loop is incomplete if the test passes but production behaviour does not improve.
-
-### State the limit
-
-Evals do not prove universal quality or safety. They show performance under tested conditions and a particular scoring process.
-
-Every major eval report should include:
-
-> **What this does not prove:** The result applies to these cases, system versions, environment, and scoring method. It does not establish universal capability, quality, or safety.
-
----
-
-## 10. Lessons from AI PM OS
-
-### Own the job
-
-Define products around work completed, not text generated.
-
-Avoid treating these as value:
-
-- Messages generated.
-- Tool calls.
-- Agent sessions.
-- Tokens consumed.
-- Drafts created without use.
-
-Prefer:
-
-- Jobs completed.
-- Jobs that remained resolved.
-- Human takeovers.
-- Cost per completed job.
-- Time and effort required from the user.
-- Serious failures and authority violations.
-
-### Own the context
-
-Before asking for a stronger model, ask:
-
-> Did the system have the information a competent person would have needed at this step?
-
-Investigate:
-
-- Missing context.
-- Stale context.
-- Excess irrelevant context.
-- Conflicting instructions.
-- Lost conversation state.
-- Wrong customer or permission context.
-- Important information removed during summarisation.
-
-Do not claim context causes most failures everywhere unless the product’s own evidence supports it.
-
-### Own the authority
-
-For any system that can act, define:
-
-- Identity used by the system.
-- Data it may access.
-- Tools it may call.
-- Changes it may make.
-- Actions requiring confirmation.
-- Actions prohibited entirely.
-- Evidence retained for later review.
-
-The trust boundary should be explicit:
-
-> The trust boundary is the list of actions the system cannot take alone.
-
-### Own the economics
-
-Track:
-
-> **Cost per completed, trustworthy job**
-
-Include:
-
-- Model calls.
-- Context and retrieval.
-- Tools.
-- Retries.
-- Failed runs.
-- Evals and monitoring.
-- Human review.
-- Exception handling.
-- Incident cost.
-
-Do not treat cost per token as the complete product metric.
-
-### Own the proof
-
-Use four forms of proof:
-
-- **Task proof:** Important cases pass.
-- **User proof:** Real users complete the job with acceptable effort.
-- **Cost proof:** Cost per completed job remains inside the planned range.
-- **Control proof:** Forbidden actions are tested, logged, and stoppable.
-
-Scale the evidence burden with reversibility and harm.
-
-### Model the exception queue
-
-For service-as-software and outcome-priced products:
-
-\[
-\text{Cost per job}
-=
-\text{automated cost}
-+
-(\text{exception rate} \times \text{human cost per exception})
-+
-\text{error and incident cost}
-\]
-
-Automation rate does not predict margin by itself. The remaining cases may be the hardest and most expensive.
-
----
-
-## 11. Final Revision Checklist
-
-### Research
-
-- [ ] Did I read the complete article first?
-- [ ] Did I identify the decision it supports?
-- [ ] Did I search primary sources?
-- [ ] Did I search for corrections and opposing evidence?
-- [ ] Did I check dates and versions?
-- [ ] Did I inspect the method behind every important number?
-- [ ] Did I label vendor-reported evidence?
-- [ ] Did I state transfer limits?
-
-### Editorial judgement
-
-- [ ] Does the new information change a decision?
-- [ ] Does it strengthen the article rather than distract from it?
-- [ ] Does another article already own the insight?
-- [ ] Is the signal durable enough to include?
-- [ ] Am I turning one case into a universal rule?
-- [ ] Have I removed a weaker or outdated claim?
-
-### Writing
-
-- [ ] Does the paragraph begin with the reader’s problem?
-- [ ] Is the mechanism clear?
-- [ ] Is there one realistic example?
-- [ ] Are technical terms explained before being used?
-- [ ] Can a non-engineering stakeholder understand it on one reading?
-- [ ] Are the sentences direct and falsifiable?
-- [ ] Have I removed hype words and empty transitions?
-
-### Practitioner value
-
-- [ ] Is there a clear AI PM decision?
-- [ ] Is there an action the reader can take this week?
-- [ ] Is there a checklist, table, worksheet, or reusable artifact?
-- [ ] Does the article state what the evidence does not prove?
-- [ ] Is the responsible team or owner clear?
-
-### Series quality
-
-- [ ] Is terminology consistent?
-- [ ] Are repeated signals removed?
-- [ ] Do cross-links connect ideas causally?
-- [ ] Does the article build on earlier episodes?
-- [ ] Does the complete series move from understanding to action?
-
----
-
-## 12. Scoring Rubric
-
-Rate each revised article from 1 to 10 on five dimensions.
-
-| Dimension | Question |
+| Term | Working meaning |
 |---|---|
-| Truth | Are claims accurate, sourced, and limited? |
-| Usefulness | Does the article improve a real decision? |
-| Clarity | Can the intended reader understand it in one pass? |
-| Distinctiveness | Does the article own a clear idea? |
-| Durability | Will the insight remain useful after the news cycle? |
+| Job | Work the user or business wants completed |
+| Completed job | A result verified against the task's completion criteria |
+| Task definition | Success, acceptable variation, prohibited actions, and escalation |
+| Context | Information available to the system for its current decision |
+| Test case | An input and situation used to check behavior |
+| Golden dataset | A reviewed, versioned collection of important evaluation cases |
+| Evaluator | A rule, program, AI judge, human, or combination used to score behavior |
+| Trace | A linked record of steps leading to an outcome |
+| Harness | The system around a model, including context, tools, memory, permissions, retries, and checks |
+| Meter | The unit used for billing |
+| Exception rate | The share of defined cases requiring additional handling; specify what counts |
+| Trust boundary | The boundary between actors or resources with different permissions and trust assumptions; name independent, approved, and prohibited actions |
+| Proof for a decision | Evidence sufficient for the specified decision under stated uncertainty, not universal certainty |
 
-### Score meaning
+Check terminology, examples, arithmetic, cross-links, and the order of learning after edits. If stronger evidence corrects a canonical claim, update its primary home and connected uses instead of preserving a contradiction for consistency.
 
-- **1–4:** Unsupported, confusing, or mostly news-shaped.
-- **5–6:** Useful idea but weak evidence or unclear action.
-- **7–8:** Strong article with identifiable gaps.
-- **9:** Accurate, clear, distinctive, and practical.
-- **10:** Meets the 9 standard and integrates naturally with the original article, contains a memorable mechanism or example, and leaves the reader with a reusable decision artifact.
+## 7. Preserve the AI Evals lessons
 
-Do not award 10 when the complete original article has not been reviewed.
+**Evaluate the complete system.** Results depend on model, instructions, context, retrieval, tools, permissions, environment, human interaction, evaluator, and test runner. Investigate the failure before assigning it to the model.
 
----
+**Validate the evaluator for its decision.** Judges and humans can disagree or drift. Check criteria, examples, answer order, formatting, length sensitivity, missing evidence, model changes, and repeated-run variation where relevant. Approval for one task does not imply fitness for all future tasks.
 
-## 13. Standard Closing Questions
+**Govern the evaluation cases.** Record origins, coverage of journeys and risk, reviewed expected behavior, versions, near-duplicates, and exposure to prompts or training. Add production failures through review. No universal case count establishes quality, and tuning against the final holdout undermines what it can independently show.
 
-End every major practitioner article with:
+**Close the production loop.** Observe behavior, review the failure, locate the first meaningful deviation, test plausible causes, add representative regression cases, make a release decision, and verify production results. A passing test does not establish that the live outcome improved.
 
-1. What decision does this help me make?
-2. What evidence would change that decision?
-3. What does this still not prove?
-4. What should I do next?
-5. Which assumption should I validate first?
+**State the limit.** A major eval result needs the cases, system version, environment, scoring process, and uncertainty required to interpret it. Explain which capabilities, populations, or safety claims were not tested.
 
----
+## 8. Preserve the AI PM OS lessons
 
-## 14. Final Editorial Rule
+**Own the job.** Measure useful work and acceptable user effort. Generated messages, tokens, sessions, or drafts can be diagnostic activity measures; by themselves they do not establish value. Useful outcome measures include completed and durably resolved jobs, takeovers, serious failures, effort, and cost per successful job.
 
-> Research broadly. Verify narrowly. Explain the mechanism. Write in normal words. Connect every insight to a decision. State the boundary. Leave the reader with something they can use.
+**Own the context.** Before assuming a stronger model is needed, check missing, stale, irrelevant, conflicting, or mis-scoped information; lost state; and important content removed during summarization. Context can be causal without being the cause of most failures everywhere.
 
-If a new signal does not change the job, architecture, meter, proof, risk, or trust boundary, it is news—not a revision.
+**Own the authority.** Specify identity, accessible data, tools, permitted changes, approval requirements, prohibited actions, and retained evidence. The implementation must enforce the permissions; a written boundary alone is insufficient.
+
+**Own the economics.** Define the successful outcome and account for model calls, context, retrieval, tools, retries, failed attempts, evaluation, monitoring, review, exceptions, and incident costs. Match costs and outcomes to the same population and period. With no successful jobs, cost per successful job is undefined.
+
+An illustrative per-attempt model is:
+
+```text
+Expected cost per attempt
+  = automated cost
+  + exception rate × incremental human cost per exception
+  + expected incremental error and incident cost
+```
+
+Avoid double counting costs already included elsewhere. Convert aggregate cost to cost per successful job using the verified success count. Model human capacity and delay as well as average cost: the remaining exceptions may be unusually difficult.
+
+**Own the proof.** Look for task evidence, user evidence, cost evidence, and control evidence. Important cases must meet their criteria; users must complete the job with acceptable effort; costs must fit the proposed economics; forbidden actions and intervention must be tested. Scale the evidence burden with harm, reversibility, and uncertainty.
+
+## 9. Review before delivery
+
+Check the areas relevant to the revision:
+
+- **Research:** Complete reading within the stated scope; primary evidence and counterevidence; current dates and versions; method behind important numbers; source interests and transfer limits.
+- **Editorial judgment:** A clear improvement to the article; no distracting novelty, unnecessary duplication, or unjustified generalization; corrected or replaced weaker claims.
+- **Writing:** A useful opening, understandable mechanism, sufficient example, explained terms, direct sentences, and natural rhythm for the intended reader.
+- **Practice:** A decision or lesson, appropriate action, usable artifact and inputs, necessary owner, and evidence limits.
+- **Series:** Consistent terminology, coherent progression, accurate cross-references, and supported publishing metadata.
+
+For a substantial revision, rate truth, usefulness, clarity, distinctiveness, and durability from 1 to 10 with a brief reason. Treat 1–4 as serious defects, 5–6 as a useful idea with major gaps, 7–8 as strong with identifiable repairs, and 9 as accurate, clear, distinctive, and practical. A 10 also integrates naturally and leaves a memorable mechanism or useful artifact. These are editorial judgments; a high average cannot cancel a factual error. Do not award a full-revision score without reading the complete original.
+
+The ending should answer, through suitable prose or the artifact: Which decision does this inform? What evidence could change it? What remains unproven? What should the reader do next? Which assumption matters first? Do not append five repetitive questions when the article already answers them clearly.
+
+Record material changes, completed checks, and unresolved limitations. The result should be accurate, understandable, connected to its series, and useful in the reader's work.

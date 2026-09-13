@@ -1,62 +1,45 @@
 # Bias Spotter — Concept Guide
 
-## FIRST PRINCIPLES
+## The central distinction
 
-Human cognition runs on heuristics. Heuristics are fast but systematically wrong in predictable directions. In AI product management, these systematic errors are amplified because AI products themselves are probabilistic — making it harder to distinguish between "the model is wrong" and "my judgment about the model is wrong."
+Human judgment uses shortcuts. Many are useful; some produce systematic errors under particular conditions. AI product work adds uncertainty about models, data, and user behavior, so a team can confuse a model's weakness with a weakness in how it evaluates that model.
 
-The atomic insight: **the most dangerous AI product decisions are the ones that feel obviously right.** When something feels obvious, it means your System 1 (fast, intuitive) has already decided and your System 2 (slow, analytical) is rationalizing. Bias-spotting forces System 2 to actually check the work.
+Bias-spotting examines the evidence and process behind a decision. A choice feeling obvious is a cue to check its basis, not proof that it is wrong. Introspection alone can miss a bias, but a review must also allow the conclusion that no material bias is supported. Otherwise the audit cannot be disproved and becomes an accusation machine.
 
-## DUAL DEFINITION
+**Business definition:** a practical check for reasoning and measurement errors that could distort an AI investment, design, or rollout decision.
 
-**Business definition:** Bias-spotting is a structured check that prevents the most common and expensive reasoning errors in AI product decisions — especially the tendency to overestimate AI capabilities, underestimate AI costs, and chase competitors rather than user needs.
+**Technical definition:** a structured examination of assumptions, sampling, metrics, comparisons, and human-system interactions, leading to supported risk findings and a proportionate response.
 
-**Technical definition:** A systematic audit of the decision-making process that identifies which cognitive heuristics are active, assesses their impact on the specific decision being made, and produces a bias-adjusted recommendation with explicit residual risk.
+## Three common traps
 
-## THE TRAP (Expanded)
+**The demo effect: optimism and anchoring.** A curated demonstration scores 95%. The team places “95% accuracy” in the PRD without the demo's task and population limits. The remedy is an evaluation on the intended workload, not an argument that demos are always misleading.
 
-AI products create a unique bias cocktail:
+**The competitor cascade: bandwagon and action bias.** A competitor launches an AI feature and a team rushes to match it. Check whether the feature solves a relevant user problem, is succeeding, and changes the competitive situation. A fast response may be justified; its basis should be explicit.
 
-**The Demo Effect (Optimism + Anchoring).** Teams see a demo where the model performs brilliantly on curated examples. This anchors expectations. The 95% accuracy on the demo set becomes the mental model, even when production data is messier, more diverse, and adversarial. The PM writes "95% accuracy" in the PRD without qualifying it.
+**Token blindness: present assumptions carried into scale.** In an illustrative model, 100,000 daily active users making 10 requests each produce 1,000,000 daily requests. At $0.002 per request, that is $2,000 a day. If context and retries add a genuine 3× cost not already included in the unit estimate, the total becomes $6,000. This is multiplicative arithmetic across assumptions, not evidence that cost always grows nonlinearly with traffic. Keep units clear and avoid counting overhead twice.
 
-**The Competitor Cascade (Bandwagon + Action).** A competitor launches an AI feature. The board asks "where's our AI feature?" The team scrambles to build one. Nobody asks whether the competitor's feature is actually working, whether users want it, or whether the competitive threat is real. The bias compound: bandwagon ("everyone's doing it") plus action bias ("we must respond").
+## Illustrative examples
 
-**The Token Blindness (Present + Normalcy).** Per-token costs look trivial at prototype scale. A team calculates "$0.002 per request — negligible!" They don't model 100,000 daily active users, each making 10 requests, with 3x token overhead for context and retries. Present bias makes the current cost feel like the future cost. Normalcy bias makes cost growth feel linear when it's actually multiplicative.
+**The chatbot that appeared successful.** Usage rises, but investigation finds repeat questions after poor answers. The activity metric did not establish successful completion. Check outcomes and rework before deciding whether higher usage is good or bad.
 
-## INTELLECTUAL LINEAGE
+**The enterprise deal that shaped the roadmap.** A large customer requests a feature. Its value may justify priority, but the team should compare the broader market fit, opportunity cost, and contractual commitments. Customer size alone does not settle the decision.
 
-- **Daniel Kahneman** — *Thinking, Fast and Slow.* The System 1/System 2 framework. Most AI product decisions are System 1 dressed in System 2 language.
-- **Charlie Munger** — The psychology of human misjudgment. 25 cognitive biases mapped to investment decisions. Applied here to product decisions.
-- **Amos Tversky** — Prospect theory. Loss aversion explains why teams double down on failing AI features rather than cutting losses.
-- **Gary Klein** — Pre-mortem technique. "Imagine this project has failed. Why?" Forces prospective rather than retrospective bias checking.
-- **Philip Tetlock** — *Superforecasting.* On calibration — the practice of assigning honest probabilities to outcomes rather than binary predictions.
+**The model upgrade with mixed results.** A team spends two months moving to a newer model. Complex-query quality improves, simple-query latency worsens, and token cost triples in this hypothetical example. Testing only expected winners hid the trade-off. Compare the intended workload by segment before choosing a model or routing policy. The earlier GPT-3.5-to-GPT-4 framing was illustrative, not a current recommendation or a verified cost claim.
 
-## REAL-WORLD EXAMPLES
+## Make the check usable in a team
 
-**Example 1: The chatbot that "worked."** A team launched an internal chatbot and measured success by usage volume. High usage felt like validation (confirmation bias). A deeper analysis revealed users were asking the same question multiple times because the first answer was wrong. High usage was a failure signal, not a success signal. The bias: measuring what confirmed the narrative instead of what revealed the truth.
+Agree that consequential proposals can be questioned without attacking their authors. Review early enough to change the decision cheaply, and make room for relevant dissent. A signature or invitation to speak does not establish that someone has time, authority, or a safe route to act on a concern.
 
-**Example 2: The enterprise deal that drove the roadmap.** A large customer requested a specific AI feature. The sales team anchored the entire roadmap around it. Nobody asked whether this feature served the broader market or just this one customer's idiosyncratic workflow. The bias: authority (the customer is always right) compounded with anchoring (the first request frames the roadmap).
+Notice recurring patterns across decisions, but do not turn them into permanent labels for people or teams. Pair a suspected pattern with an observable mechanism and a useful intervention. Missing feedback, rewards for visible activity, and a lack of review capacity may require organizational changes rather than an appeal to “be objective.”
 
-**Example 3: The model upgrade that wasn't.** A team invested two months upgrading from GPT-3.5 to GPT-4 for their product, assuming the upgrade would improve all metrics. It improved accuracy on complex queries but increased latency on simple ones, and the token cost tripled. The bias: optimism (newer = better) combined with survivorship (they only tested on the hard cases where improvement was expected).
+“The senior person decided,” “the data speaks for itself,” and “there is no time to check” are reasons to inspect the process, not automatic findings of bias. Equally, a low-stakes choice may not justify a full audit. Scale the check to consequences and the quality of feedback.
 
-## PRODUCTION DISCIPLINE
+## Intellectual lineage and further reading
 
-The hardest part of bias-spotting isn't identifying biases—it's having the organizational permission to name them without being accused of "being difficult" or "killing momentum."
+- **Daniel Kahneman, *Thinking, Fast and Slow*:** accessible models of intuitive and deliberate thinking. Do not infer which mental process caused a specific decision from its confidence alone.
+- **Amos Tversky and Daniel Kahneman:** prospect theory and judgment under uncertainty. Loss aversion is one possible explanation for choices involving losses, not a diagnosis of every decision to continue.
+- **Charlie Munger, *Poor Charlie's Almanack*:** a practitioner synthesis of recurring judgment errors.
+- **Gary Klein, “Performing a Project Premortem”:** imagining failure to surface prospective risks.
+- **Philip Tetlock and Dan Gardner, *Superforecasting*:** calibration, updating, and probabilistic forecasting.
 
-**Cultural setup:** Bias-spotting works best in teams that have agreed in advance: "We're going to check for biases on consequential decisions. This is not an attack on the person who proposed the idea. It's a check on the reasoning." Without this setup, speaking up about biases feels like political risk.
-
-**The timing question:** The best time to spot biases is before momentum builds. The worst time is after a team has already invested weeks. Run the bias checklist on decisions early, when course-correction is still cheap.
-
-**The dominant bias pattern:** Most AI product teams have one or two dominant biases that repeat across decisions. (e.g., "we always optimize for short-term metrics at the expense of long-term sustainability," or "we always chase competitors rather than users"). Identifying the team's bias pattern is more valuable than doing one-off checks.
-
-**Red flags that bias-checking is being skipped:**
-- "We don't have time for this process"
-- "This is too low-stakes for analysis" (but if it's low-stakes, the analysis takes 15 minutes)
-- "Let the data speak for itself" (the data will be interpreted through biases)
-- "The senior person has decided, so we don't need to check" (especially important to check then)
-
-## FURTHER READING
-
-- Daniel Kahneman, *Thinking, Fast and Slow* — The foundational text on cognitive biases
-- Charlie Munger, *Poor Charlie's Almanack* — 25 cognitive biases applied to decision-making
-- Philip Tetlock, *Superforecasting* — On calibration and honest probability assessment
-- Gary Klein, "Performing a Project Premortem" (HBR) — Prospective bias checking
+The [main skill](SKILL.md) provides the audit, three-stage diagnosis, output format, and handoffs. [Research notes](references/research-notes.md) retain the growth, label-test, and ideation examples with their evidence limits.

@@ -1,13 +1,17 @@
-# Excalidraw Libraries & External Resources
+# Excalidraw libraries and inspiration
+
+Reference revision 1.4.1 — reviewed 13 September 2026.
+
+The forty library names, counts, and links below are preserved from the earlier skill as discovery leads. Their original observation date was not recorded, and they were not individually refreshed in this wording pass. Counts are historical, not current popularity rankings or evidence of quality. Check availability, compatible format, and license before using an asset; preserve required attribution. An SVG export does not guarantee editable native components.
 
 Curated catalog of Excalidraw component libraries and AI-powered diagram generators.
 Use these as visual inspiration and pattern references when creating SVG diagrams.
 
-## Section A: Top Excalidraw Libraries (by downloads)
+## Section A: Earlier library inventory
 
 ### Architecture & System Design
 
-| # | Library | Downloads | Best for |
+| # | Library | Earlier recorded downloads | Best for |
 |---|---------|-----------|----------|
 | 1 | Software Architecture | 201,634 | Microservices, distributed systems, cloud patterns |
 | 2 | System Design Components | 86,756 | Load balancers, caches, queues, databases |
@@ -20,7 +24,7 @@ Use these as visual inspiration and pattern references when creating SVG diagram
 
 ### Cloud Infrastructure
 
-| # | Library | Downloads | Best for |
+| # | Library | Earlier recorded downloads | Best for |
 |---|---------|-----------|----------|
 | 6 | AWS Architecture Icons | 53,586 | AWS services (EC2, S3, Lambda, etc.) |
 | 11 | Cloud (K8s, AWS, Azure, GCP) | 33,729 | Multi-cloud, Kubernetes components |
@@ -32,7 +36,7 @@ Use these as visual inspiration and pattern references when creating SVG diagram
 
 ### UI/UX & Wireframing
 
-| # | Library | Downloads | Best for |
+| # | Library | Earlier recorded downloads | Best for |
 |---|---------|-----------|----------|
 | 8 | Forms | 53,162 | Input fields, buttons, dropdowns, checkboxes |
 | 12 | Basic UX/Wireframing | 33,206 | Low-fidelity mockups, screen layouts |
@@ -43,7 +47,7 @@ Use these as visual inspiration and pattern references when creating SVG diagram
 
 ### Icons & Logos
 
-| # | Library | Downloads | Best for |
+| # | Library | Earlier recorded downloads | Best for |
 |---|---------|-----------|----------|
 | 4 | Software Logos | 61,905 | Tech company logos, tool icons |
 | 10 | Awesome Icons | 36,069 | General-purpose icon set |
@@ -52,7 +56,7 @@ Use these as visual inspiration and pattern references when creating SVG diagram
 
 ### Data & AI
 
-| # | Library | Downloads | Best for |
+| # | Library | Earlier recorded downloads | Best for |
 |---|---------|-----------|----------|
 | 9 | Data Viz | 40,627 | Charts, graphs, data visualization components |
 | 33 | Data Platform (Spark, Kafka, dbt) | 11,299 | Data pipelines, ETL, streaming architecture |
@@ -61,7 +65,7 @@ Use these as visual inspiration and pattern references when creating SVG diagram
 
 ### People & Storytelling
 
-| # | Library | Downloads | Best for |
+| # | Library | Earlier recorded downloads | Best for |
 |---|---------|-----------|----------|
 | 5 | Stick Figures | 58,169 | User personas, interaction diagrams |
 | 26 | Bubbles (Speech/Thought) | 14,400 | Conversations, thought processes, dialogue |
@@ -71,7 +75,7 @@ Use these as visual inspiration and pattern references when creating SVG diagram
 
 ### Modeling & Flowcharts
 
-| # | Library | Downloads | Best for |
+| # | Library | Earlier recorded downloads | Best for |
 |---|---------|-----------|----------|
 | 7 | UML & ER Diagrams | 53,283 | Class diagrams, entity relationships |
 | 13 | Decision Flow Control | 31,682 | Decision trees, if/else flows, state machines |
@@ -80,7 +84,7 @@ Use these as visual inspiration and pattern references when creating SVG diagram
 
 ### Strategy & Business
 
-| # | Library | Downloads | Best for |
+| # | Library | Earlier recorded downloads | Best for |
 |---|---------|-----------|----------|
 | 38 | Business Model Templates | 4,317 | Business Model Canvas, Lean Canvas, Value Prop |
 | 39 | Customer Journey Map | 2,812 | User journey mapping, touchpoint analysis |
@@ -102,14 +106,14 @@ Use these as visual inspiration and pattern references when creating SVG diagram
 
 | Resource | Type | Best for | URL |
 |----------|------|----------|-----|
-| Excalidraw Built-in AI | Text-to-diagram | Any custom diagram from text prompt | `https://excalidraw.com` (AI tool in-app) |
-| Cole Medin's Excalidraw Skill | Claude Code skill | Auto-validated diagrams from prompts | `https://github.com/coleam00/excalidraw-diagram-skill` |
+| Excalidraw AI features | Verify current capability | Check supported inputs and outputs in the current app | `https://excalidraw.com` (AI tool in-app) |
+| Cole Medin's Excalidraw Skill | Claude Code skill | Inspect the current skill and its actual validation | `https://github.com/coleam00/excalidraw-diagram-skill` |
 
 ---
 
 ## Visual Inspiration Sources
 
-The best Excalidraw-style diagrams share these traits (studied from Anthropic docs, ByteByteGo, and top engineering blogs):
+The earlier author recorded the following visual observations from documentation and engineering diagrams. They are inspiration notes, not the named organizations’ official design standards or evidence that one style is best:
 
 ### Anthropic Documentation Style
 - Warm off-white backgrounds (#FAFAF8)
@@ -135,4 +139,4 @@ The best Excalidraw-style diagrams share these traits (studied from Anthropic do
 - Attribution labels on every connection
 - Input/output columns (left → right flow)
 
-Use these as pattern references, but always apply the excalidraw-svg design system (warm backgrounds, dark text, pastel cards) for consistent output quality.
+Use these as inspiration, then follow the active project brand and the main skill’s readability checks. Do not reproduce proprietary diagrams or assume an asset’s availability grants reuse rights.

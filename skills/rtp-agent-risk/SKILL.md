@@ -1,391 +1,195 @@
 ---
 name: agent-risk
-version: v1.4_latest
-description: 'For every agent: is the value worth the potential harm? And can you pull the plug fast enough? Proportionality analysis (value vs worst-case) + kill-switch design (manual, anomaly-triggered, time-elapsed). If you can''t kill it faster than harm cascades, don''t deploy it. Use for any agentic system (AI agents, automated workflows, autonomous processes), pre-launch risk reviews, or when debating autonomy levels. Skip for static systems (no autonomous actions) or systems with trivial harm potential. Pairs with: autonomy-spectrum (choosing the level), agent-spec (checkpoints), judgment-guard (does the human overseer still choose to own it), adoption-launch (when insiders have a reason to want the rollout to fail).'
+version: v1.4.1_latest
+description: 'Decide whether an agent should act, within what limits, and with what evidence of containment. Compare expected value, credible severe harm, alternatives, and residual risk. Map how harm can spread; design and test manual stops, automatic limits, time bounds, scope controls, and approval previews. Examine human oversight, effective permissions, shared failure modes, liability, persistent personal memory, and insider misuse. Use for agent design, pre-launch reviews, or changes in action authority. Scale the review for low-consequence tasks; advisory systems may still need a broader safety review. Pairs with autonomy-spectrum for authority, agent-spec for checkpoints, judgment-guard for effective human ownership, and adoption-launch for incentives and participation. Triggers include "agent risk", "kill switch", "can we stop it", "increase autonomy", and "worst-case harm".'
 imports: [stress-test, failure-modes, autonomy-spectrum]
 ---
 
 # Agent Risk
 
-## DEPTH DECISION
+Decide what an agent may do by examining the value, credible harms, and controls of the actual workflow. A stop button is useful only where stopping can still prevent or limit harm. For an irreversible action that completes immediately, authorization and preventive bounds matter before execution.
 
-**Go deep if:** Designing or evaluating agentic systems, pre-launch risk assessment, or deciding whether to increase autonomy. **Skim to questions if:** Quick screening of whether an agent meets safety criteria. **Skip if:** The system is static (no autonomous actions) or harm potential is truly trivial.
+## Begin with authority, exposure, and the decision
 
-## GROUNDING (Before Starting)
+Identify the actions, affected people/systems, business value, deployment, and current authorization. Include advice that predictably drives consequential human actions. Use a short screening for a bounded task; use the full review before a consequential launch or increase in authority. A small user count or a human approval step does not by itself make the harm trivial.
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: What actions does the agent take autonomously? What's the worst-case outcome? What's the business value?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, or both?
+Reuse known context and existing authorization. This skill should clarify material gaps, not introduce repeated approval requests for actions already authorized. The shared Universal Skill Protocol is at the AI-PM library root, or the plugin root in the packaged library. Choose an output depth and format that fit the request.
 
-Then proceed with the skill-specific analysis below.
+Bring important boundaries forward: prohibited actions, credible severe harms, who can constrain or stop execution, and what evidence is needed to accept residual risk. Societal AI-risk estimates provide context, not a score for this agent. The source review is kept in [cases and evidence](references/risk-cases-and-evidence.md).
 
-## WHAT 272 EXPERTS PUT AT MORE THAN A ONE-IN-TEN CHANCE OF CATASTROPHE
+## Terms that guide the review
 
-**A three-round Delphi panel of 272 international AI experts rated 24 risk domains on likelihood and severity for 2025 to 2030, under two scenarios.** The numbers are worth carrying precisely, because they are the rare case where a risk conversation has a stated population and a stated definition.
-
-**The definition of catastrophic, as the panel used it:** more than a million deaths, more than $100 billion in financial loss, or comparable civilization-scale intangible damage.
-
-| Scenario | Risk domains at 10% or higher probability of a catastrophic outcome |
+| Term | Practical meaning |
 |---|---|
-| **Business as usual** | **18 of 24** |
-| **Pragmatic mitigation** | **5 of 24** |
+| Proportionality | Whether the proposed authority and remaining risk are justified by the benefit, alternatives, and applicable constraints. It is not a universal benefit-to-worst-case ratio. |
+| Harm cascade | The progression from a failure to downstream effects, including delayed, repeated, or correlated harm. |
+| Blast radius | People, assets, decisions, and systems the failure can reach. Reach and severity are separate dimensions. |
+| Stop/containment control | A mechanism that blocks new action, cancels pending work where possible, or limits effects. It does not necessarily reverse completed actions. |
+| Alert fatigue / override assumption | Excessive alert burden can weaken response; separately, having an override does not establish that a person can and will use it effectively. |
+| 3M conditions | Mindset, meaning, and mechanisms that support human ownership of outcomes. They are design prompts, not a validated safety score. |
+| Permission inheritance | An agent may act through a user's credentials or session. Determine its effective access and enforcement rather than assuming it always receives the full account privilege. |
+| Model monoculture | Shared model dependencies can create correlated failures. Other shared components can create them too. |
+| Unallocated liability | Losses may fall outside insurance or contractual coverage. Assign responsibility and funding explicitly; a lack of a quoted price does not mean no risk. |
+| Attachment scope | Whether persistent agent state serves a firm/function, an individual, or both. Personal memory adds ownership and offboarding questions to the usual accountability duties. |
 
-**Read the gap, not either number.** The panel's own estimate is that deliberate mitigation removes thirteen of eighteen domains from the catastrophic-probability band. **That is the strongest available expert case that this class of risk is tractable rather than fated**, and it is a better argument for a mitigation budget than any single scary figure.
+## The review process
 
-**The sectors the panel named as most vulnerable:** information, national security, and finance.
+### 0. Define risk appetite by domain
 
-**How to use it in a product risk review.** This is a field-level prior, not a per-product one. Use it for two things and not a third:
+Translate broad risk appetite into decisions people can use: what is prohibited, what requires specified controls, what can be tried within a bound, and who accepts exceptions. Separate financial reporting, access, personal data, safety, and external commitments from recoverable internal experimentation where relevant.
 
-- **Use it to justify the existence of a mitigation program**, since the panel's own delta says mitigation moves the number.
-- **Use the sector list to weight review depth** if you build into information, national security or finance.
-- **Do not use it to score your feature.** A domain-level probability across all of AI says nothing about whether your retrieval pipeline is dangerous. Borrowing a civilizational figure to characterize a product risk is the error this skill exists to prevent.
+A numeric dial can help a conversation, but qualitative boundaries with examples can be more actionable than two unexplained numbers. “Low tolerance” still needs enforceable rules; it does not promise zero operational risk. Do not assume an organization without a domain dial takes no risks, or that a stated dial changes behavior.
 
-*(Source: MIT Sloan, "These are the most urgent AI risks, according to 272 experts," Jul 2026 — ◆ three-round Delphi panel, n=272 international experts. Elicited expert judgment, not measurement: Delphi produces calibrated opinion and its convergence is partly an artifact of the method. The catastrophic threshold is the panel's own definition and should always be quoted with the number. Falsifier: an independent elicitation with a comparable panel returning a materially different count in either scenario.)*
+The original Verizon interview example contrasts a stated risk posture of 1/10 for financial integrity and cybersecurity with 8–9/10 for experimentation, against a described baseline of 2. Retain it as an executive's stated policy, not demonstrated turnaround causation. The useful move is to make permissions and exceptions understandable and test whether they govern real decisions.
 
-## THE TRAP
+### 1. Compare value, harms, alternatives, and residual risk
 
-You will approve agents based on "average case" harm, not worst case. The bias is **optimism bias in autonomy** — the assumption that if a system works 95% of the time, it's safe. It's not. The 5% failure case is where catastrophe hides.
+Ask: **What benefit requires this level of authority, and what credible harm remains after the proposed controls?**
 
-The mechanism is insidious: **Harm cascade speed**. Some failures cascade instantly (agent makes one bad decision, millions of dollars move). Others cascade slowly (degraded performance over time, customers gradually leave). Most agent risks are of the fast-cascade variety. You can't contain them once they start.
+Consider ordinary performance, plausible severe scenarios, likelihood or uncertainty, exposure duration, affected parties, and alternatives. Include human/manual, deterministic, advisory, or more narrowly scoped designs. An average success rate such as 95% says little about safety until the remaining failures and their consequences are understood.
 
-The trap is most seductive when:
-- The system is well-tested in your lab (where it won't fail in interesting ways)
-- You have a human override in theory (but not in practice — humans miss the alert or are too slow)
-- The worst-case seems unlikely ("what's the probability this goes wrong?")
-- Autonomy delivers clear business value (efficiency, speed, cost savings)
+| Dimension | Benefit and alternative | Harm and exposure | Control/evidence | Residual decision |
+|---|---|---|---|---|
+| Financial | Incremental value, time horizon, operating cost. | Direct loss, cumulative loss, dependencies. | Spending/action caps, reconciliation, tested bounds. | Accept, reduce scope, investigate, or decline. |
+| Customer/worker | Useful outcome, time, access, experience. | Severity, affected count, distribution, reversibility. | Prevention, review, appeal, remediation. | Explicitly address who bears harm versus receives value. |
+| Trust/reputation | Reliability and confidence in service. | Misleading claims, broken commitments, loss of trust. | Honest status, response, evidence. | Do not automatically rank reputation above personal harm. |
+| Legal/policy | Permitted use and documented obligations. | Noncompliance, rights violations, contractual exposure. | Applicable controls and accountable review. | A benefit does not waive a legal prohibition; legal exposure alone is not proof all autonomy is prohibited. |
 
-### The Amazon Marketplace Scraper (2016-2017)
+Use numbers where defensible and ranges where necessary. Keep annual revenue opportunity distinct from net benefit and one-event loss. Do not invent probabilities or convert human rights into an arbitrary dollar score. The old “10× benefit passes, below 3× fails” rule has no adequate basis and leaves important cases undefined.
 
-Amazon's recommendation system uses autonomous agents to scrape competitor prices, adjust product pricing in real-time, and optimize keywords dynamically. Autonomy delivers value: Amazon can optimize thousands of products per hour. Humans can't do this manually.
+**Illustrative hiring case:** handling 500 candidates instead of 50 is ten times the throughput, not proof of better hiring. Discriminatory screening or offers can harm individuals and create legal exposure. Examine affected decisions, fairness, accessibility, effective review, appeal, and authorization. Restrict or reject the proposed authority when the evidence and controls are inadequate; do not infer from a generic hiring label that every form of automation has the same risk.
 
-In late 2016, one category (batteries) had a pricing anomaly. Third-party sellers were flooding Amazon with counterfeit listings. The autonomous agent detected "high-volume listing" as a legitimate tactic (used by authorized resellers) and started cascading price reductions to compete. Within 6 hours, the same product was being listed at $0.01 (the auction was trying to win by volume). Seller margins collapsed. Customers could buy batteries for a cent.
+### 2. Map the harm cascade
 
-Amazon's revenue in that category dropped 40% that day. A human analyst spotted it, but the agent had already taken thousands of actions. Recovery took weeks of manual corrections.
+Draw the initiating failure, first external effect, propagation path, and containment opportunities. Include retries, concurrent agents, batch size, queues, permissions, and common dependencies.
 
-Worst case: This was a pricing agent. If it had been a delivery agent (autonomously contracting with couriers), a healthcare agent (autonomously approving treatments), or a hiring agent (autonomously extending job offers), the cascade would be worse.
+- **Seconds to minutes:** a transfer, deletion, price update, or resource allocation can have an immediate effect.
+- **Hours:** repeated routing or operational choices can accumulate and disrupt a service.
+- **Days to weeks:** quality drift, misinformation, exclusion, or persistent errors can compound slowly.
 
-What stopped the damage? Amazon had a **24-hour audit layer** — human analysts who reviewed agent actions daily. The audit caught it within a day. Imagine if they didn't have the audit.
+These are example time scales, not intrinsic properties of agent categories. A single-person harm can be severe; ecosystem reach is not automatically catastrophic. Map both severity and extent.
 
-## KEY TERMS (plain language)
+For a supply-chain agent that routes shipments to one carrier, test concentration limits, carrier failure, detection delay, alternative capacity, and contractual effects. The original 48-hour discovery/re-routing and weeks of recovery are illustrative assumptions. Do not assume detection will be that quick—or that slow—without evidence.
 
-- **Proportionality test** — weighing the value of an agent against its worst-case harm; deploy only if the upside clearly beats the downside.
-- **Harm cascade** — how fast damage spreads once an agent goes wrong; some cascade in seconds, some over weeks.
-- **Blast radius** — how far the damage reaches: one user, a segment, the whole system, or the whole ecosystem.
-- **Kill-switch** — a way to stop or reverse the agent; the skill lists five kinds (manual, anomaly-triggered, time-elapsed, scope-bounded, simulation).
-- **Alert fatigue** — so many alerts that people stop paying attention to them.
-- **The override assumption** — the (often wrong) assumption that a human who *has* a kill-switch will actually choose to use it.
-- **The 3M conditions (Mindset / Meaning / Mechanisms)** — the three things that keep a human still choosing to own an agent's output.
-- **Permission inheritance** — when an agent runs inside a human's session and gets that human's full access by default, which can bypass approval gates meant for humans.
-- **Model monoculture** — a fleet of agents built on the same underlying model, so a failure mode that defeats one instance can defeat all of them at once.
-- **The missing market** — the absence of an insurance or liability market for agent-caused harm; it does not mean the risk is small, it means the cost defaults silently onto whoever deployed the agent.
-- **Attachment scope** — whether an agent is scoped to a company function (firm-attached) or to one person's judgment (person-attached); the two need different accountability designs, and person-attached raises a new question the other doesn't: what happens to the agent's accumulated judgment when that person leaves.
+Estimate the response chain from **failure onset → detection → decision → stop/containment → external stabilization**. Parallel steps and queued/in-flight operations matter. Detection-plus-stop time is a response measure, not the speed at which harm propagates. If the first irreversible harm precedes any possible response, move the relevant control before execution.
 
-## THE PROCESS
+### 3. Design a combination of prevention and containment
 
-### 0. SET THE RISK DIAL BY DOMAIN, BEFORE ANY SINGLE AGENT
+Use the controls needed for the failure mechanisms and consequences. More layers are useful when their coverage and dependencies are understood; a fixed count of switches is not proof of protection.
 
-The proportionality test below runs per agent. It assumes something that usually does not exist: that your organization has a usable risk appetite to test against. Most do not, because appetite is stated as one number, and **a single organizational risk number cannot be executed.** Told to "take more risks," an employee has to privately guess which domains the instruction excludes. Guessing wrong on an excluded domain (a compliance filing, an access control) ends a career; guessing wrong on an included one is merely unrewarded. **So the rational response to an unqualified instruction is to take no new risks anywhere**, and the organization then looks culturally intransigent while behaving sensibly under the instruction it was actually given.
+| Control | What it does | Main limit and design check |
+|---|---|---|
+| Manual stop | An authorized person suspends the agent or affected actions. | Availability, attention, access, and propagation delay. A requirement for two people to stop can slow containment; use it only if the consequences justify that design. Separate emergency stop authority from authority to resume. |
+| Anomaly-triggered stop | A tested rule or detector pauses a defined activity. | Unknown patterns and false alarms. Use meaningful thresholds, an alert owner, and a safe state; normal-looking actions can still be harmful. |
+| Time-elapsed stop | Runtime or credential expiry bounds an execution period. | Harm may occur before expiry. Verify renewal authority, expiry enforcement, and treatment of in-flight work. |
+| Scope/action bound | Limits targets, values, tools, destinations, rate, or aggregate exposure. | A per-action bound may permit cumulative harm. Check sequences, parallel runs, aliases, and boundary enforcement. |
+| Simulation/preview with approval | Tests or displays proposed effects before authorized execution. | A simulation is a preventive test or approval pattern, not literally a runtime kill switch. Validate its fidelity and bind approval to the actual action, parameters, and relevant state. |
 
-Fix it by stating at least two numbers, with the exempt domains named first. Verizon's CEO does it on a 1-to-10 scale against an inherited company baseline of 2: **"I'm a one when it comes to the integrity of our financial results, cybersecurity. I have no tolerance for any risk in that. But trying new things, failing, learning from them, moving forward, I'm probably an 8 or a 9."** Naming the exemptions is what makes the permission usable at all.
+For example, a ±5% per-update price bound still permits large repeated changes. Add an appropriate aggregate floor/budget and scope if needed. A preview of 1,000 emails must represent the actual recipients and content; approval of an earlier draft must not silently authorize changed actions.
 
-**For AI deployment this is the difference between a governance policy and a governance slogan**, because AI spans both domains inside a single portfolio: irreversible, externally-visible decisions sit beside cheap, recoverable internal ones, and one number for both produces either blanket prohibition or unbounded permission. Write the dial before you run the proportionality test, then run the test inside the domain the agent actually lives in.
+Stopping should reach queues, child agents, scheduled jobs, credentials, and relevant gateways. Determine which downstream operations can be canceled and which require reconciliation or compensation. Keep evidence and recovery instructions. A “fail closed” action can itself be harmful in some services; define the safe degraded mode for that domain.
 
-**When wrong:** Schulman *states* this policy; nothing in the source shows the organization behaving differently across the two domains, and stating a risk posture is the easy half. A dial nobody enforces is worse than no dial, because it grants the permission without the exemption ever being tested. **Falsifier:** an organization that issued an unqualified "take more risks" instruction with no exemptions stated, and then measured increased experimentation in low-consequence domains without a rise in incidents in high-consequence ones, would show employees resolve the ambiguity on their own and explicit exemption is not load-bearing. *(Source: HBR IdeaCast, "Why Great Turnarounds Start with Culture, Not Strategy," Aug 2026 — ⚠ stated policy in a live, unfinished turnaround narrated by its own CEO. The construct is inserted for its logic, not as evidence it worked at Verizon.)*
+Controls can operate automatically with little user-facing delay. Do not assume all safeguards require repeated human review or necessarily reduce throughput. Cost their actual latency, coverage, and operational burden.
 
-### 1. PROPORTIONALITY TEST
+### 3.5. Check whether human oversight is effective
 
-Ask: **"Is the value of this agent worth the worst-case harm?"**
+Before counting a human as a control, establish authority, information, competence, capacity, availability, and reason to act. An approval request can provide real stop authority when refusal blocks execution. Approval frequency or a fast response alone cannot establish rubber-stamping; compare task difficulty, errors, and the actual review process.
 
-This is a deliberate, numerical comparison.
+Use the 3M prompts:
 
-**Build a proportionality matrix:**
+- **Mindset:** does the person understand their contribution and authority? Describe the agent's role without implying that a system absorbs the person's responsibility.
+- **Meaning:** is the review worth doing, and can the reviewer see what matters to the affected person or business?
+- **Mechanisms:** is useful review supported by time, evidence, training, escalation, and recognition, rather than rewarding only output volume?
 
-| Dimension | Value | Worst-Case Harm | Proportional? |
-|-----------|-------|-----------------|---------------|
-| **Revenue at stake** | $10M annual opportunity | $5M loss in catastrophic failure | No. 50% upside, 50% downside if failures aren't caught. |
-| **Customer impact** | 5% efficiency gain = faster service | 0.1% false-positive rate = harmful action to 500 customers | Yes. Harm is bounded. |
-| **Brand damage** | Not quantified | Headline "AI system harms customers" | No. Reputational harm > financial harm |
-| **Regulatory exposure** | Compliant if operating as designed | Non-compliant if agent hallucinates or deviates | No. Risk > reward. |
+A naming/framing experiment involving 1,261 managers found important effects in a subgroup already working in organizations with AI agents on their charts; it does not establish that a human name always removes ownership. The current primary paper distinguishes average and subgroup results. See the evidence note before reusing the percentages.
 
-**Decision logic:**
-- If Best Case > Worst Case by 10x+ → proportional, consider it
-- If Best Case : Worst Case < 3x → not proportional, don't deploy
-- If Worst Case is existential or regulatory → not proportional, period
+Test the response through suitable drills and representative cases. A technical stop test alone cannot prove sustained ownership, but an exercise that includes the people and incentives can reveal operational weaknesses. If human review adds no reliable protection, redesign the system without counting that layer; still meet any applicable oversight obligations.
 
-**Example (AI hiring agent):**
-- Value: Hire 500 candidates/year instead of 50 (10x throughput)
-- Worst case: Agent discriminates based on protected attributes (gender, race, age), harms 50 candidates, exposes company to lawsuits, regulatory investigation
-- Proportionality: No. Regulatory and legal risk > operational upside. Reject autonomy.
+### 4. Test the controls against the required response window
 
-### 2. HARM CASCADE ANALYSIS
+Test in a safely isolated, production-representative environment and use carefully bounded operational exercises where authorized. Do not create real harm to prove that containment works.
 
-Ask: **"How fast does damage spread if the agent goes rogue? Where does it stop?"**
+- Manual stop: the authorized responder receives the signal, can act, and the affected work actually stops.
+- Automatic stop: the chosen condition is detected and enforced, including false-trigger behavior and alert escalation.
+- Time bound: expiry halts or safely transitions work and cannot be silently renewed by the same uncontrolled process.
+- Scope bound: prohibited actions are blocked at an enforceable boundary, including cumulative and concurrent attempts.
+- Preview/approval: no external action occurs before the applicable approval, and changed actions are checked again when needed.
+- Recovery: resume requires the agreed evidence and authority; unresolved external effects are reconciled.
 
-Map the blast radius and cascade speed.
+Measure the full response chain, missed signals, remaining in-flight work, and actual residual exposure. Exercise loss of the control service, responder unavailability, load, and downstream timeout where relevant. The original one-minute automatic/five-minute manual goals and quarterly cadence are examples. Set the cadence from risk and change frequency, and retest after changes that could invalidate the controls.
 
-**Cascade dimensions:**
+### 5. Design detection and monitor its limits
 
-**Speed of cascade:**
-- **Instant cascade** (seconds to minutes): Agent makes one decision, millions move. Price agents, portfolio trading agents, resource allocation agents.
-- **Fast cascade** (hours): Agent's decisions have ripple effects. Delivery agents create cascading service failures. Keyword agents damage SEO over hours.
-- **Slow cascade** (days to weeks): Degraded performance, customer dissatisfaction, compounding failures. Content recommendation agents drift toward low-quality content.
+Combine useful evidence: output audits, anomaly checks, constraint thresholds, customer/partner signals, and regression tests. Choose complementary coverage rather than requiring multiple detectors for every trivial action. A single enforceable bound can prevent a specific failure, while no collection of detectors guarantees every harm will be observed.
 
-**Blast radius:**
-- **Single user**: Agent makes bad decision affecting one customer (low blast, high count)
-- **Segment**: Agent affects a category or cohort (medium blast)
-- **System-wide**: Agent's decision affects the whole platform (high blast)
-- **Ecosystem**: Agent's decision affects customers AND partners AND competitors (catastrophic blast)
+Specify false alarms, misses, sample coverage, data delay, and who acts. Use `production-observability` for alert design. Measure onset-to-detection, alert-to-action, action-to-containment, affected exposure, and recovery separately. Set review coverage from consequences and the detection method; initial 100% human review can be necessary in some cases and ineffective or infeasible in others.
 
-**Example (supply chain optimization agent):**
-- Speed: Fast cascade. Agent routes all shipments through a single carrier for cost savings. Carrier fails. All shipments stuck. 48 hours to realize and redirect.
-- Blast radius: System-wide. All customers affected. Not just one segment.
-- Propagation: Customers see delayed deliveries, competitors steal market share, recovery takes weeks.
+Do not rely on a daily audit for a failure that can cause unacceptable harm within seconds. Also do not assume every agent has a fast cascade. Test the actual workflow and contain before harm where possible.
 
-### 3. KILL-SWITCH DESIGN
+### 6. Review identity, dependencies, liability, and memory
 
-Ask: **"Can I stop this agent faster than harm cascades?"**
+**Effective permissions.** Identify who or what executes each action, the delegated scope, session lifetime, environment, and policy enforcement. Prefer attributable task-scoped identities/tokens where practical. A separate service account with broad privileges does not solve least privilege; a controlled delegated user credential is not automatically unbounded. Confirm that tools cannot bypass required approvals and that logs distinguish agent actions from unrelated human actions.
 
-Design multiple, independent kill switches. One human-controlled override is not enough.
+**Correlated failure.** Review shared model, prompt, retrieval, data, evaluator, tool, and infrastructure dependencies. Different providers can still share blind spots, and different prompts on the same model can sometimes add useful diversity. Test joint failure on relevant cases; use an independent verifier, deterministic constraint, architectural separation, or diversity when it improves the actual control. The cited 54-person cognitive study is not evidence about reliability of model fleets.
 
-**Kill-switch taxonomy:**
+**Liability and funding.** Identify relevant insurance, contracts, exclusions, limits, indemnities, and incident funding with the appropriate owner. AI-related insurance products exist; coverage for this agent's exact acts remains a separate question. Human sign-off does not automatically insure, price, or transfer legal liability. Record uncovered losses and who can accept them.
 
-**1. Manual kill-switch:**
-- Human sees alert, clicks "pause"
-- Problem: Humans miss alerts, or alerts are too frequent (cry wolf → ignored)
-- Backup: One human seeing the alert isn't enough. You need two people, in separate locations, to activate kill-switch (reduces false-positives from triggering cascade stops)
+**Attachment scope and departure.** For firm-attached, person-attached, or mixed agents, define data ownership, access, portability, retention, revocation, and offboarding. A personal agent needs these rules **in addition to** accountable ownership and controls. Regulated or frontline roles can also create mixed personal/company memory. A portability clause must respect data rights and confidentiality; do not assume private company material may follow the individual. Name how disputes and enforcement work, especially where personal preferences and proprietary context are intertwined.
 
-**2. Anomaly-triggered kill-switch:**
-- Agent's outputs deviate from expected range → automatically pause
-- Example: Pricing agent sets price below cost → auto-pause
-- Problem: You have to predict "expected range" in advance. Unknown unknowns bypass this.
-- Backup: Combine with manual review. Auto-pause alerts a human; human reviews in 15 minutes; human decides "resume" or "investigate"
+## Include intentional misuse without mistaking dissent for it
 
-**3. Time-elapsed kill-switch:**
-- Agent has maximum runtime (e.g., 4 hours) before it must be manually re-approved
-- Example: Hiring agent reviews candidates for 4 hours, then stops and waits for human review
-- Problem: If the harm cascades within 4 hours, kill-switch is too slow
-- Backup: Use for lower-impact agents. Combine with other switches for high-impact agents.
+Consider insiders and external users who might misuse tools, disclose data, manipulate outputs, or bypass controls. Also examine poor access, workload, fear, unclear policy, and legitimate concerns about the rollout.
 
-**4. Scope-bounded kill-switch:**
-- Agent can only take actions in a limited scope (e.g., pricing can only change by ±5%)
-- Example: Recommendation agent can only choose from pre-approved content pool
-- Problem: Scope boundaries are a constraint on value. Agent can't optimize beyond the boundary.
-- Backup: Use for high-impact agents. Accept the value trade-off.
+WRITER's 2026 survey reported 29% of employee respondents, including 44% of Gen Z respondents, under its broad “sabotage” framing. Its examples include refusing to use AI as well as unauthorized tools and information sharing. These are self-reports in a sponsored sample, not a universal rate of malicious attacks or evidence against any employee or age group.
 
-**5. Simulation kill-switch:**
-- Agent runs in simulation first. Actions are previewed, not executed. Human approves before execution.
-- Example: Workflow automation shows "I will send 1000 emails" before actually sending. Human reviews, then approves.
-- Problem: Adds latency. Not viable for real-time agents.
-- Backup: Use for batch-process agents or low-frequency high-impact decisions.
+Address incentives and participation through `adoption-launch`, while applying proportionate access and integrity controls from the start. Co-creation can help but does not establish that sabotage disappears; technical protection need not wait until cultural concerns are solved. Distinguish constructive challenge, ordinary mistakes, policy noncompliance, and intentional harm using evidence. A low-threat rollout can still expose sensitive data.
 
-**Effective kill-switch design combines multiple:**
-- Manual (human can stop anytime) + Anomaly-triggered (automatic pause on deviation) + Simulation (preview before execute)
-- This triple layer catches failures at different stages
+## Authority and consequence matrix
 
-### 3.5 THE OVERRIDE ASSUMPTION — Does the Human Still Choose to Own It?
+These three action patterns summarize the original matrix; they are **not** the seven maturity levels in `autonomy-spectrum`. Use that skill's shared labels and the actual action rights in the final recommendation.
 
-Every kill-switch above assumes the human will *choose* to watch and act. THE TRAP named half of this: "a human override in theory, but not in practice — humans miss the alert or are too slow." There is a deeper version the alert-fatigue framing misses. Alert fatigue is *too many alerts*. This is *too little ownership*: a human who sees the alert but has quietly stopped feeling responsible for the outcome, so they rubber-stamp instead of engage. The switch works — the human just doesn't pull it. No chaos test will catch this, because nothing is technically broken.
+| Action pattern | Bounded, low-consequence use | Consequential or broad use |
+|---|---|---|
+| Advisory: human decides before action | Appropriate testing and clear status may suffice. | Validate advice and effective human review; examine anchoring, authority, auditability, and appeal where needed. |
+| Conditional: agent acts inside approved bounds | Enforced limits and outcome checks sized to the task. | Prevent high-impact acts outside scope; define detection, containment, cumulative limits, and accountable review. |
+| Autonomous: acts without case-by-case review | Evidence of acceptable risk, effective bounds, and a suitable recovery path. | Require a strong case for preventive controls and residual risk. Reduce authority or decline when unacceptable harm cannot be prevented or contained. |
 
-Owning an outcome is a choice a person makes, not a control you install — and the way an agent is framed can remove their reason to make it. Before you count a human override as a real safety layer, confirm the owner still has the three conditions that keep ownership alive:
+Customer-count bands such as 1–10 or 100–1,000 are not severity measures. High-consequence autonomy is not categorically impossible, but a fast stop alone cannot justify an action whose unacceptable harm is immediate.
 
-- **Mindset** — they believe they matter to the outcome. (Naming the agent as a colleague — "Kevin," "ALEX-3" — quietly tells them they don't.)
-- **Meaning** — they have a reason worth the effort of checking the agent's work.
-- **Mechanisms** — reviews reward *catching the agent's errors*, not just shipping its output fast.
+## Diagnostic questions and readiness
 
-**Why it matters:** a controlled trial (BCG, 1,261 people) found that framing the AI as an employee dropped personal accountability by about 9 percentage points and led reviewers to catch about 18% fewer errors (⚠/◆). That is a kill-switch that fails silently — and it means a demoralized or de-responsibilized human override should **not** be counted as a safety layer in the proportionality test. **When this is wrong:** where the human override is genuinely redundant (the agent is more reliable than the human and oversight is a formality), you don't need to protect ownership — but say so explicitly, and then don't lean on that human as a real control.
-*(Sources: "Accountability Must Be Chosen, Not Mandated," Okposo, HBR, 29 Apr 2026; the naming/accountability effect is the BCG randomized trial in "Research: Why You Shouldn't Treat AI Agents Like Employees," HBR, 2026.)*
+1. What could happen in a representative period of uncontrolled operation, including one irreversible action and cumulative effects?
+2. What are the credible severe scenarios, affected parties, and uncertain assumptions?
+3. Where does the cascade become irreversible, and which controls act before that point?
+4. What did the latest control test demonstrate, under which conditions, and what remains untested?
+5. Which signal reveals the harm, how late might it arrive, and who can act?
+6. Why is the incremental value worth the remaining risk, compared with safer alternatives? What would change the decision?
+7. What can the effective credential and tool chain actually do beyond the task?
+8. Who owns and controls persistent state when a person, vendor, or organizational role changes?
 
-### 4. KILL-SWITCH TESTING
+Before a consequential deployment, document proportionality, credible cascade/exposure, preventive and stopping controls, representative test evidence, detection, measured response, and residual-risk ownership. Unknowns can lead to a bounded experiment, more evidence, reduced authority, or no deployment. A confident answer is not itself a red flag; confidence needs a basis.
 
-Ask: **"Have I tested the kill-switch? Can I actually stop the agent?"**
+## Output and follow-through
 
-Most teams have kill-switches on paper that don't work in practice.
+```markdown
+# Agent Risk Review: [Agent / workflow]
+Decision: [deploy within bounds / reduce authority / investigate / decline]
+Actions and authority: [scope, identity, permitted effects]
+Domain boundaries: [prohibitions, conditional permissions, risk owner]
+Value and alternative: [incremental outcome, cost, evidence]
+Credible severe scenarios: [harm, likelihood/uncertainty, reach, horizon]
+Cascade: [onset → detection → decision → containment → stabilization]
+Controls: [prevention, stop, expiry, aggregate bounds, approval as needed]
+Dependencies: [shared failure modes and tested independence]
+Human oversight: [authority, capacity, evidence, response]
+Liability and memory: [coverage gaps, ownership, offboarding]
+Test evidence: [conditions, measured result, limitations]
+Residual risk and trade-off: [accepted cost and accountable decision]
+Next action: [owner, bounded scope, evidence needed, review trigger]
+```
 
-**Testing checklist:**
-- [ ] Manual kill-switch: Activates within 5 minutes. Person trained, response time measured.
-- [ ] Anomaly kill-switch: Alerts trigger on test anomaly within 1 minute. Alert escalation path tested.
-- [ ] Time-elapsed: Agent actually pauses after max runtime. Doesn't keep running past the boundary.
-- [ ] Scope boundary: Agent attempts to exceed scope, is blocked, error is caught and logged.
-- [ ] Simulation kill-switch: Execution is blocked until approval. No "sneaking around" the simulation step.
+Use `stress-test` and `failure-modes` to challenge scenarios, `autonomy-spectrum` to set authority, `agent-spec` for the enforceable contract, and `judgment-guard` for human contribution. Hand off the decision and evidence when this is part of a wider workflow.
 
-**Failure mode:** You test kill-switches in lab. In production, under load, with real data, something breaks. The alert system is slow. The human is asleep. The API call to pause the agent times out.
+Explore when uncertainty needs a bounded test; exploit when the evidence supports the approved scope; exit or redesign when value or risk no longer supports it. These are decisions, not fixed one-week phases. Increase authority on relevant evidence rather than months elapsed or a run of uneventful operation alone.
 
-**Solution:** Chaos test your kill-switches quarterly. Simulate failures, measure response time, measure time from "harm detected" to "agent stopped."
-
-### 5. HARM DETECTION
-
-Ask: **"How do I know the agent is causing harm? What's the alert?"**
-
-Without detection, kill-switches never trigger.
-
-**Detection mechanisms:**
-- **Output audit**: Agent outputs reviewed by humans (Pricing agent outputs reviewed daily. Any price < cost is caught.)
-- **Anomaly detection**: Agent's output distribution compared to baseline (Agent suddenly starts recommending a different category → alert)
-- **Threshold monitoring**: Agent's metrics compared to bounds (Conversion rate on recommendations drops below X% → alert)
-- **External signal**: Customer complaints, competitor analysis, partner feedback (Customers report receiving harmful recommendations → alert)
-- **Regression test**: Agent tested against known-good scenarios daily (Agent fails 5% of test cases it used to pass → alert)
-
-**Problem:** All detection has false positives (alert triggers on harmless anomaly) and false negatives (harm happens but isn't detected). You need multiple detection mechanisms. No single signal is sufficient.
-
-### 6. PERMISSION & INFRASTRUCTURE RISK
-
-Ask: **"Does this agent have its own identity, or is it borrowing someone else's?"**
-
-**Permission inheritance.** An agent executing inside a human's session inherits that human's full permission set by default. A reported 2026 incident (⚠, single account, not independently audited): a coding agent caused a 13-hour cloud-billing outage in one region because it ran under an engineer's elevated credentials, bypassing a standing two-person approval that would otherwise have caught the change. The mechanism isn't a permissions bug in the usual sense. Per-task minimum privilege is structurally unenforceable without a separate machine identity for the agent. **When this doesn't apply:** an agent that already runs under its own scoped service account, distinct from any human's login, has closed this gap by design.
-- **Red flag:** the agent's actions show up in logs under a human's username.
-- **Fix:** give the agent its own credential, scoped to the task, before it ships, not after an incident names the gap.
-
-**Model monoculture.** A fleet of agents built on the same underlying model shares that model's blind spots, so a failure mode that defeats one instance can defeat all of them at once. This is a resilience property, not a vendor-preference question. The supporting evidence here is a contested academic preprint (⚠, n=54, arXiv, disputed), so treat the mechanism as plausible and worth designing for, not as proven. **When this doesn't apply:** a single agent, or a fleet where each instance's failure is independently caught before it can cascade to the others.
-- **Fix:** for redundant checks on the same decision, use genuinely different model providers or architectures, not just different prompts on the same model.
-
-**The missing market.** There is currently no real insurance or liability market for autonomous agent actions. Absence of a price for agent-caused harm is absence of a market, not absence of risk. Where no insurance or contractual liability structure exists, that risk defaults silently onto whoever deployed the agent. **When this doesn't apply:** a deployment already covered by an existing liability framework (a human sign-off step that keeps ultimate accountability with a named person, for instance) has already priced this in.
-- **Fix:** name, in writing, who bears the cost if this agent causes harm nobody insured against. If the answer is "nobody decided," that's the finding.
-
-**Attachment scope.** Run this check before designing any agent's accountability model, not after: is the agent firm-attached (scoped to a task or company function, so the accountability work above applies as-is) or person-attached (it has persistent memory that learns one individual's judgment and follows that person rather than the company)? A person-attached agent needs a portability clause instead of the standard accountability triad. The distinction comes from one source only, tiered ⚠: an HBR IdeaCast interview built to promote the interviewee's own new book, entirely single-source and empirically ungrounded. Treat the term "identic AI" as a plausible design category to plan against, not as evidence of anything. **When this doesn't apply:** frontline, physical, or heavily regulated roles, where agents are firm-attached by construction and there is no ownership ambiguity to resolve.
-- **Red flag:** the agent has months of judgment built around one person's decisions, and nobody has asked what happens to that judgment when the person leaves.
-- **Fix:** write a portability clause before deployment naming what the departing person keeps, what the firm keeps, and who arbitrates the overlap (judgment the agent formed from proprietary company data is the hard case, and the source offers no test for it).
-- **Open question, unresolved by any source:** if an employee with a person-attached agent leaves, does the agent's accumulated judgment travel with them or stay with the company, and what actually enforces whichever answer an organization picks.
-
-*(Sources, July 2026: a reported Amazon Kiro incident, ⚠, single account; a Scharmer-adjacent podcast citing a contested MIT Media Lab preprint, ⚠, n=54; an MIT Sloan talk on the AI agent economy, single researcher's position, no data.)*
-*(Source, June 2026 note sweep: "With Rise of Agents, We Are Entering the World of Identic AI," HBR IdeaCast episode 1066, Adi Ignatius interviewing Don Tapscott, ⚠ single-source promotional interview for Tapscott's own book, no data.)*
-
-## DIAGNOSTIC QUESTIONS
-
-Answer these honestly to assess agent risk:
-
-1. **"If this agent went completely rogue for 1 hour, what's the maximum harm?"** Quantify it. Money, customers, brand damage, regulatory exposure.
-   - **Red flag:** "We don't know." "It's unlikely to go rogue." (Don't conflate probability with impact. Maximize on impact.)
-   - **Sharpening probe:** "Has any agent ever done something unexpected? What was the impact?"
-
-2. **"Can I describe the worst-case failure mode in one sentence?"** If you can't, you haven't thought about it.
-   - **Red flag:** "It would just stop working." (That's base case. What about failure modes where it keeps working but wrongly?)
-   - **Sharpening probe:** "What would a malicious actor do if they had access to this agent's parameters?"
-
-3. **"How fast would that harm cascade if it starts?"** Minutes? Hours? Days?
-   - **Red flag:** "It would spread immediately." "We'd need weeks to contain it." (If it's spreading immediately and takes weeks to contain, autonomy level is too high.)
-   - **Sharpening probe:** "At what point in the cascade can a human still intervene?"
-
-4. **"Have I tested the kill-switch? Can I actually stop this right now?"** Test it. Don't assume.
-   - **Red flag:** "We have a kill-switch but haven't tested it under load." "It works in staging." (Not the same as production.)
-   - **Sharpening probe:** "What's the last time we tested stopping this agent? What happened?"
-
-5. **"If this agent made one catastrophic decision, how would I know?"** What alert would fire?
-   - **Red flag:** "We'd see it in the metrics eventually." (Eventually isn't fast enough for fast-cascade harms.)
-   - **Sharpening probe:** "If an alert fired right now, who would see it? In what timeline would they act?"
-
-6. **"Is the business value of this agent's autonomy worth the worst-case harm?"** Honest answer only.
-   - **Red flag:** "Yes, definitely." (If you're certain, you haven't imagined the worst case hard enough.)
-   - **Sharpening probe:** "What would have to be true for you to say no?"
-
-7. **"Whose credential does this agent act under?"** If the answer is a human's, that human's entire access is the agent's blast radius, whether or not the task needs it.
-   - **Red flag:** "It runs as me, it's easier that way." (Easier now, unbounded later.)
-   - **Sharpening probe:** "If this agent's credential leaked, what's the maximum it could do that has nothing to do with its actual job?"
-
-8. **"Is this agent firm-attached or person-attached?"** A task-scoped or company-scoped agent gets the standard accountability triad. An agent with persistent memory of one person's judgment needs a portability clause instead.
-   - **Red flag:** "We haven't thought about what happens if the person who trained it leaves." (That's the finding, not a hypothetical.)
-   - **Sharpening probe:** "If this person left tomorrow, does the agent's judgment go with them, stay with us, or is that undecided?"
-
-## ADVERSARIAL-USER RISK — When the People Inside Have a Reason to Want It to Fail
-
-The proportionality, cascade, and kill-switch analysis above screens whether the agent can cause harm and whether users are paying enough attention (section 3.5). It misses a third surface: users who deliberately work *against* the rollout: feeding sensitive data to unauthorized tools, tampering with outputs to make the AI look worse, ignoring guidelines on purpose.
-
-Treat this as a named risk category with a base rate, not an edge case: in one 2026 enterprise survey, **29% of employees (44% of Gen Z) admitted to sabotaging their company's AI strategy** (◆).
-
-**Why it matters:** sabotage is a rational, self-protective response to a zero-sum frame — when people are placed in an "the AI or me" situation, protecting themselves is sensible, not bad faith. So the base rate to design against is "some insiders are actively adversarial," not "everyone is a cooperative user." A risk model that only asks "are people paying attention?" and never "does anyone have an incentive to make this fail?" is measuring half the surface. **The upstream fix is not anti-tamper controls — it's removing the zero-sum frame** (see `rtp-adoption-launch`, Gate Zero: co-created vs. announced); design anti-tamper only for the residual after that. **When this is wrong:** where the rollout genuinely doesn't threaten anyone's role or status (a tool that removes drudgery nobody wanted), the sabotage incentive is low — don't design heavy anti-tamper controls for a low-threat deployment.
-*(Source: "Empathetic Leadership Can Make or Break AI Adoption," Zaki, HBR, 30 Apr 2026. Sabotage base rate ◆ [Fortune, 8 Apr 2026](https://fortune.com/2026/04/08/gen-z-workers-sabotage-ai-rollout-backlash/) / [Writer survey](https://writer.com/blog/enterprise-ai-adoption-survey-results-press-release/).)*
-
-## REALITY CHECK
-
-**Failure modes:**
-- **False confidence from testing**: Agent works in test environment. In production, with real data and edge cases, it fails in new ways.
-- **Cascading failures**: You designed for single-point failures. Multiple failures happen simultaneously. Cascade is faster than you predicted.
-- **Alert fatigue**: Kill-switch alerts fire so frequently that humans ignore them. Automation bias ("the system will handle it") kicks in.
-
-**Cost traps:**
-- Manual audit for a high-velocity agent is expensive (10+ FTEs to review millions of decisions daily)
-- Scope boundaries limit agent value (can't optimize beyond them)
-- Kill-switch testing is recurring cost (quarterly, minimum)
-
-**Monitoring:**
-- Track "cascade speed for detected harms" (hours to detection + hours to kill-switch + assessment time)
-- Track "false positive rate on kill-switch alerts" (too high = humans will ignore)
-- Track "time from alert to action" (should be <30 min for fast-cascade harms)
-- Track "% of agent decisions audited" (for high-value agents, should be 100% initially, then sample as confidence builds)
-
-## THE AGENT RISK MATRIX
-
-| Autonomy Level | Consequence Magnitude | Risk Level | Required Controls |
-|---|---|---|---|
-| **Tier 1 (Advisory)** Agent suggests, human approves | Low (1-10 customers affected) | Low | None beyond normal testing |
-| **Tier 1 (Advisory)** Agent suggests, human approves | Medium (100-1000 customers) | Medium | Human review before action, audit trail |
-| **Tier 2 (Conditional)** Agent acts, human reviews after | Low | Low | Post-action audit, weekly review |
-| **Tier 2 (Conditional)** Agent acts, human reviews after | Medium | High | Anomaly kill-switch, manual kill-switch, daily audit |
-| **Tier 3 (Autonomous)** Agent acts, humans don't review | Low | Medium | Scope boundaries, anomaly kill-switch, automatic rollback |
-| **Tier 3 (Autonomous)** Agent acts, humans don't review | Medium | **Red zone** | Reconsider. Requires simulation kill-switch + multi-layer detection + fast response protocol. |
-| **Tier 3 (Autonomous)** Agent acts, humans don't review | High | **Do not deploy** | No kill-switch can be fast enough. Reduce autonomy. |
-
-## QUALITY GATE
-
-- [ ] Proportionality test completed (value vs worst-case quantified)
-- [ ] Harm cascade speed estimated (blast radius and timeline mapped)
-- [ ] Multiple kill-switches designed (manual + anomaly + scope bounds, minimum)
-- [ ] Kill-switches tested in production-like conditions (not just in lab)
-- [ ] Harm detection mechanism specified (how do we know something is wrong?)
-- [ ] Response time target for "harm detected" → "agent stopped" defined and measured
-- [ ] Autonomy level is proportional to consequence (Tier 3 autonomous only for low-consequence actions)
-
-## WHEN WRONG
-
-This skill gives bad advice when:
-- **The system is not autonomous** (human-in-the-loop always, no independent action) — agent-risk analysis is not needed
-- **Consequence magnitude is truly trivial** (internal tool affecting <10 people, low financial impact)
-- **You have confidence you can bound the agent's behavior completely** (rare, requires formal verification or extremely constrained action space)
-
-## TRADE-OFF LEDGER
-
-BY CHOOSING **proportional autonomy with kill-switches**:
-  We are betting on: Harm can be contained if we detect it fast enough.
-  We are giving up: Efficiency. Agents with strong kill-switches are slower (reviews, audits, scope boundaries).
-  This is reversible within: Autonomy level can increase after months of safe operation. It's not a one-way door.
-
-THE HIDDEN TRADE-OFF:
-  Designing real kill-switches forces you to admit you don't fully understand the agent's failure modes. This is uncomfortable. It's also honest. The moment you try to design a kill-switch, unknown unknowns become visible. Some unknowns are worth accepting. Some trigger "don't deploy."
-
-CONFIDENCE: **High**
-  What would change our mind: If we saw an agent with no kill-switches that operated safely for years. We've never seen this at scale.
-
-## CONCLUSION
-
-**The recommendation:** Do not deploy autonomous agents in proportion to consequence magnitude without kill-switches. If you can't kill it faster than harm cascades, lower the autonomy level.
-
-**The hypothesis:** We believe that **agents with well-designed, tested kill-switches will catch 95% of harm before cascade completes**, because multiple independent detection and stop mechanisms create redundancy.
-
-**The 3E decision:**
-- **Explore:** Run harm cascade analysis + proportionality test (1 week). If worst-case is acceptable, proceed.
-- **Exploit:** Design kill-switches (manual + anomaly + scope bounds), test them (1 week), deploy with monitoring.
-- **Exit:** If proportionality test fails (worst-case outweighs upside) or kill-switches can't keep pace with cascade, reduce autonomy level or don't deploy.
-
-**The key trade-off:** We're choosing safety redundancy over efficiency. Multi-layer kill-switches are slower than pure autonomy. This is intentional.
-
-**The biggest risk:** That kill-switches look good on paper but fail in production. Test them quarterly under load.
-
-**Assumptions to watch:**
-1. Harm cascade can be detected in real-time (test with synthetic faults)
-2. Kill-switch can execute faster than harm cascades (measure response time)
-3. Proportionality test is based on realistic worst-case (challenge the "it's unlikely" assumption)
-
-**The next action:** Identify worst-case harm scenario for this agent (1 day). Design kill-switch architecture (2 days). Build and test kill-switches (1 week). Measure baseline response time. Deploy.
-
-## GENERATE THE DELIVERABLE
-
-Use the output prompt from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
-If this skill connects to downstream skills, also generate the markdown handoff file (if relevant to broader autonomy governance or safety-by-design).
-
-## VISUAL SUMMARY
-
-After completing the primary output, invoke the excalidraw-svg skill to create a single Excalidraw SVG visual summary showing:
-- The Agent Risk Matrix (autonomy level × consequence magnitude → required controls)
-- Harm cascade timeline (detection lag + kill-switch activation lag + stop lag = total response time)
-- Kill-switch architecture (multiple independent kill-switches with overlap)
-- Proportionality test visualization (value curve vs worst-case harm curve)
+The original 95% harm-capture claim was an unvalidated hypothesis. Replace it with a task-specific target and test, including missed harm and shared control failures. A diagram can help show the cascade, control coverage, or authority matrix; use one when it adds clarity.

@@ -1,64 +1,58 @@
-# Dual-Lens — Concept Guide
+# Dual-lens: concept guide
 
-## FIRST PRINCIPLES
+A shared AI product decision has consequences for both the business and the implementation. Express those consequences in language each audience can act on, then connect them explicitly. Some decisions need only a short translation; consequential commitments deserve a fuller check.
 
-AI product management sits at the intersection of two vocabularies that rarely overlap. Business leaders speak in revenue, risk, competitive position, and customer trust. Engineers speak in latency, throughput, model accuracy, and system architecture. The PM who can only speak one language is, at best, a translator. The PM who thinks in both languages simultaneously is a bridge.
+**Business explanation:** make the intended outcome, cost, risk, and decision clear to the people committing resources.
 
-The atomic insight: **every AI product decision has a business meaning and a technical meaning. If you can only articulate one, you understand neither.**
+**Technical explanation:** connect stakeholder requirements to system behavior and measurable constraints, while showing how design choices affect the outcome.
 
-## DUAL DEFINITION
+The connection matters more than producing two polished paragraphs. A technically precise statement can still leave a business reader unable to decide. An ambitious commercial statement can leave engineers guessing about scope, cost, performance, or failure handling.
 
-**Business definition:** Dual-lens communication is the practice of expressing every AI product concept in two parallel forms — one that enables business leaders to make resource and strategy decisions, and one that enables engineers to make architecture and implementation decisions — connected by an explicit translation layer.
+## Three ways translation goes wrong
 
-**Technical definition:** A structured communication protocol that maps business requirements to technical constraints and technical decisions to business implications, producing bi-directional traceability between stakeholder needs and system design.
+**Precision without actionability.** An engineering explanation is accurate, but the approving stakeholder does not understand its implications. Approval then appears to mean more agreement than it does.
 
-## THE TRAP (Expanded)
+**Ambition without constraints.** "AI-powered personalization by Q3" sets a direction without specifying the relevant user outcome, cost ceiling, behavior, or quality expectations. The implementation team fills those gaps with assumptions.
 
-**The Engineer's Trap: Precision Without Actionability.** An engineer describes the system with perfect technical accuracy. The business stakeholder nods, understands nothing, and approves whatever was proposed. Three months later, when the feature doesn't match expectations, both sides are surprised. The spec was precise. It just wasn't actionable for the person making the resource decision.
+**Simplification that changes the meaning.** "The model is pretty accurate" loses the meaning of an F1 score of 0.87 with materially weaker results on long-tail queries. The score, affected population, and decision implication should survive translation. A statement such as "12% variance" also needs a defined measure before reuse.
 
-**The Executive's Trap: Ambition Without Constraint.** A VP declares "we need AI-powered personalization by Q3." The engineer hears no latency requirements, no cost ceiling, no accuracy threshold, no failure mode handling. They build what they think was meant. It's technically impressive and commercially useless.
+## Teaching cases
 
-**The PM's Trap: Translation Without Fidelity.** The PM tries to bridge the gap by simplifying. "The model is pretty accurate" becomes the translation of "87% F1 score with significant variance on long-tail queries." The simplification loses the information that would change the business decision.
+These examples are illustrative. The original guide did not identify evidence supporting its numerical results. Verify equivalent claims in the actual product before presenting them as measured outcomes.
 
-## INTELLECTUAL LINEAGE
+### Explain unsupported answers to a board
 
-- **Anthropic's communication pattern** — Simultaneously publishing Constitutional AI research papers (technical) and enterprise trust documentation (business). The same concept, dual expression.
-- **Shreyas Doshi** — On product sense requiring both "customer obsession" (business) and "technical depth" (engineering) — not as separate skills but as simultaneous lenses.
-- **Marty Cagan** — "Deep enough to earn the respect of engineers." The PM earns cross-audience credibility by demonstrating fluency, not just familiarity.
-- **Edward Tufte** — On the integrity of data presentation. Simplification that distorts is worse than complexity that's accurate.
+Suppose a test finds unsupported or incorrect claims in 3–8% of responses across different query groups. Explain what counts as an error, the test population, and the consequences for the product. A confident tone does not establish factual support.
 
-## REAL-WORLD EXAMPLES
+Do not translate a response-level rate into "3–8 out of every 100 users" unless the user-level exposure and calculation support it. A proposed mitigation target below 1% remains a target until evaluated. Even a passing test is evidence within its scope, not a guarantee that all future responses are correct.
 
-**Example 1: Explaining hallucination to a board.** Technical: "The model generates text that is syntactically correct but factually unsupported by the training data or retrieved context, with occurrence rates of 3-8% depending on query complexity." Business: "In 3-8% of responses, the AI will say something that sounds confident but is wrong. For a customer-facing product, that means 3-8 out of every 100 users get misinformation. Our mitigation strategy reduces this to under 1%, but eliminating it entirely is not possible with current technology."
+The business decision is which uses and failure consequences are acceptable, what mitigation and review cost, and what evidence is needed to proceed.
 
-**Example 2: Justifying RAG architecture.** Technical: "Retrieval-Augmented Generation embeds domain documents into vector representations, retrieves relevant chunks at query time via semantic similarity, and injects them into the model's context window, reducing hallucination on domain-specific queries by 60-80%." Business: "Instead of teaching the AI everything about our domain (expensive, slow to update, hard to control), we let it look up the answer in our own documents every time someone asks a question. It's like giving the AI an open-book exam instead of expecting it to memorize the textbook."
+### Explain retrieval-augmented generation
 
-**Example 3: Explaining latency requirements.** Business: "We need responses in under 2 seconds. If it takes longer, users abandon the feature." Technical: "Sub-2-second SLA means we can't do full cross-document search, can't run expensive ranking algorithms, and can't use larger context windows. We need streaming output and token-level budget management." The translation: "The business constraint of 2-second latency has these specific architectural implications that trade against other desirable properties (depth of context, ranking sophistication)."
+A retrieval system can find relevant material and provide it to the model when answering. Vector similarity is one approach; structured queries, keyword search, or a combination may also fit. An open-book analogy helps explain the idea, provided the reader understands that the system can retrieve the wrong material or misinterpret the right material.
 
-## PRODUCTION DISCIPLINE
+The business implication is that knowledge can be maintained in external sources rather than relying only on model training. The organization still needs source ownership, access controls, refresh processes, and evaluation. A claimed 60–80% reduction in unsupported answers requires a specified baseline and study; it is not a general benefit of adopting RAG.
 
-**The alignment cost:** When business and engineering are misaligned on what's being built, the cost is catastrophic. Engineers ship a technically sound solution that doesn't match the business requirement. Three months of work delivers the wrong thing. Dual-lens communication catches this misalignment before work begins.
+### Explain a two-second response requirement
 
-**The credibility multiplier:** A PM who can explain concepts in both languages gains credibility with both audiences. Engineers believe the PM understands their constraints. Business leaders believe the PM understands their goals. This credibility is the PM's most valuable asset in a conflict.
+First establish whether two seconds means acknowledgment, the first useful content, or the complete result—and whether abandonment was actually measured. The technical team can then evaluate retrieval, ranking, caching, model choice, context, output length, and streaming against that requirement.
 
-**The bridge-building skill:** Dual-lens is not about dumbing down technical concepts for executives. It's about finding the business meaning of every technical decision and the technical implication of every business requirement. This is hard work. It requires:
-- Understanding the technical depth (or you'll oversimplify until you're wrong)
-- Understanding the business context (or you'll miss what matters)
-- The ability to translate between vocabularies (or the bridge won't hold)
+A two-second target does not automatically rule out cross-document search or sophisticated ranking. Feasibility depends on the workload and implementation. Streaming can change when users start receiving content without proving that the complete answer meets the target. The bridge should expose the actual trade-off between responsiveness, completeness, freshness, quality, and cost.
 
-**Red flags for broken dual-lens communication:**
-- The business definition and technical definition don't describe the same thing
-- One audience understands the concept and the other is confused
-- Technical decisions are made without business stakeholders understanding the implications
-- Business decisions are made without technical stakeholders understanding the constraints
-- A PRD that works perfectly for business but is unactionable for engineering
-- An engineering spec that engineers love but business leaders don't understand
+## Reading connections
 
-**Common failure mode:** The PM writes a "translation" that's actually just a simplification. "The model is pretty good" is not a translation of "87% F1 with 12% variance on long-tail queries." It's a loss of information. Real translation preserves meaning while changing form.
+The original guide points to these influences, which are useful for further reading rather than proof that this particular framework has been empirically validated:
 
-## FURTHER READING
+- Marty Cagan, *Inspired*: product work across business and engineering.
+- Edward Tufte, *The Visual Display of Quantitative Information*: preserving meaning while making information understandable.
+- Shreyas Doshi, writing on product sense: customer understanding and technical depth.
+- Anthropic's technical research and public-facing safety material: examples of explaining related ideas to different audiences.
 
-- Marty Cagan, *Inspired* — On PM credibility across business and engineering
-- Anthropic, "Core Views on AI Safety" — Dual-audience communication in practice
-- Edward Tufte, *The Visual Display of Quantitative Information* — On honest simplification
-- Shreyas Doshi, "How to Develop Product Sense" — On simultaneous business + technical thinking
+Inspect the relevant source before using an exact quotation or attributing a specific finding. The operating method is in [SKILL.md](SKILL.md).
+
+## Recognize whether it worked
+
+Business readers should understand the consequence and decision; technical readers should understand what to build or test. Both should identify the same scope and material uncertainty. A PRD that one audience finds compelling and another cannot act on still needs work.
+
+Fluency in both domains can help credibility, but the practical test is whether the explanation supports compatible action. Confirm that with readers where possible. A self-review can find inconsistencies; it cannot stand in for stakeholder understanding or approval.

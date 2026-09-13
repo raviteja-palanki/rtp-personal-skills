@@ -1,187 +1,181 @@
 ---
 name: failure-modes
-version: v2.1_latest
-description: "What will go wrong with this AI feature, what does each failure cost, and what happens to the user when it does? Maps the full failure surface (six kinds of hallucination, injection, cascade, silent decay), prices each by cost and how long it stays invisible, then designs the response: honest uncertainty language, correction paths, when the AI should refuse, and the fallback chain when it breaks. Use when speccing an AI feature, designing production monitoring, running a pre-launch failure audit, or writing failure acceptance criteria. Do NOT use to decide whether to use AI at all (that's problem-ai-fit), or for purely deterministic systems. Pairs with: stress-test (the load/cost/latency surface), feedback-triage (routes live failures to their fix team using this taxonomy), ai-ux-patterns (how failure looks to the user), trust-ladder (repairing trust after a visible miss), agent-risk (kill-switch when failure cascades). Triggers: 'what could go wrong', 'failure audit', 'how should it fail'."
+version: v2.1.1_latest
+description: "Identify how an AI feature can fail, assess the consequences and detection gaps, and design the response before release. Covers six hallucination subtypes, retrieval failures, prompt injection, inappropriate refusals, latency and cost overruns, cascades, and silent degradation. Build a failure register with evidence, owners, prevention and detection controls, user recovery, fallback triggers, and testable acceptance criteria. Use for feature specifications, production monitoring, pre-launch audits, and analysis of live failures, including deterministic components within the AI workflow. Pairs with stress-test, feedback-triage, ai-ux-patterns, confidence-tuner, trust-ladder, and agent-risk. Use problem-ai-fit when the main question is whether AI belongs in the solution. Triggers: 'what could go wrong', 'failure audit', 'how should it fail'."
 imports: [stress-test]
 ---
 
-# Failure Modes — Diagnostic & Design Framework
+# Failure Modes — Diagnostic and Response Design
 
-**The objective:** know what will go wrong before users find out, and design the product's behavior for those moments on purpose — for the PM speccing an AI feature or auditing one before launch.
+Map how the product can fail its users, then specify what prevents the failure, detects it, contains its effects, and helps people recover. The deliverable is an **owned failure register and testable response criteria**. This skill includes the confidence UX, correction paths, refusal boundaries, and degradation content formerly separated into Failure Design.
 
-## The one idea
+A successful model response can still be false, incomplete, stale, unauthorized, or unsuitable for its next use. Valid syntax and a successful tool call do not establish a correct outcome. Design the full path from input to user consequence, including deterministic components and human handoffs.
 
-Every demo shows success. Every design review walks the ideal flow. Every user story describes winning. So the PM writes one line about failure — "show error message" — and moves on. That is designing a car with no seatbelts because you plan to only drive in good weather.
+## Start with consequence and exposure
 
-Here is why that's a category error for AI specifically: **in a probabilistic product, how you fail IS the product experience for a meaningful slice of every single day.** A model that's right 92% of the time is *wrong, in front of a user, thousands of times a day.* The happy path is not the product; the product is the happy path *plus* what happens the other 8% of the time — and that second half is usually left undesigned. This skill makes the failure surface a first-class design object: map what will go wrong, price each failure by its cost *and* how long it stays invisible, then design the response.
+Establish the user and task, the output's next use, permitted actions, and the time before a mistake causes harm. Read existing telemetry and incidents when available. Distinguish observed failures from suspected ones and unknown coverage; do not invent a rate to complete the table.
 
-And the single most important thing to internalize is which failure to fear. It is not errors — it's **confident wrong.** When the model is wrong and *says* "I'm not sure," the user verifies and you're fine. When the model is wrong and says it with full confidence, the user acts on it — because nothing in the experience prompted a check. In a chain of agents, one confidently-wrong step poisons every step downstream. Prioritize by **failure cost × how long it stays invisible**, never by frequency alone: a rare catastrophic confident-wrong outweighs a flood of harmless refusals.
+Prioritize severe or unacceptable consequences before using an expected-cost estimate. **Confident wrong** is an important risk when certainty encourages action on false information, but it is not always the most harmful failure. An omitted warning, denied legitimate request, privacy breach, or late result can be worse in a particular task. A disclaimer does not guarantee that the user verifies or avoids harm.
 
-## How to use this skill
+Use `rtp-jtbd-analysis` to understand the job and relevant failure costs, without assuming a hidden job from a label. If the main question is whether AI is appropriate, use `rtp-problem-ai-fit`. Reuse the shared `UNIVERSAL-SKILL-PROTOCOL.md` at the AI-PM collection or plugin root.
 
-1. **Identify** the failure taxonomy for this feature (the six hallucination subtypes, injection, cascade, silent decay). (Phase 1.)
-2. **Quantify** each by detection latency and annual cost, and prioritize by cost × invisibility. (Phase 2.)
-3. **Design the response** — failure UX, the refusal boundary, the graceful-degradation fallback chain, and (for multi-agent) verification gates against cascades. (Phases 3–5.)
-Then write failure *acceptance criteria* into every user story — "when the AI is wrong, the user can X; when uncertain, the system does Y."
+A quick audit can focus on the most consequential few modes and the next decision. A full review covers the workflow, dependencies, monitoring, controls, and response tests. Five modes, twenty minutes, or two to four hours are planning examples—not proof of sufficient coverage. A sandbox or beta label can reduce exposure but does not remove data, tool, or downstream risks.
 
-## KEY TERMS (plain language)
+## Phase 1 — Identify specific failures
 
-- **Failure mode** — one specific way the system gets things wrong (invents a fact, returns stale data, refuses a fair request); named so it can be detected and designed for.
-- **Hallucination** — the model states something false as if true; split below into six subtypes because each is caught differently.
-- **Confident wrong** — false output delivered with full certainty; the most dangerous mode, because nothing prompts the user to check.
-- **Detection latency** — how long a failure stays invisible: immediate (user sees it), delayed (days), silent (months, or never without an audit).
-- **Cost asymmetry** — failures aren't equal; a rare catastrophic miss outweighs frequent harmless ones, so budget by annual cost, not frequency.
-- **Cascade** — in a chain of agents, one step's bad output becomes the next step's trusted input, and errors compound instead of cancel.
-- **Graceful degradation** — the fallback ladder when AI fails: cached answer → simpler model → fixed rules → human → honest error; each step trades capability for reliability.
-- **Refusal boundary** — the confidence line below which the AI says "I don't know" instead of guessing; a product decision tuned empirically, not a technical constant.
-- **Circuit breaker** — an automatic trip that stops a failing step from dragging down the whole pipeline.
+Write each mode as a concrete event: **under [condition], the system does [wrong behavior], causing [effect] for [person or system].** Keep cause, manifestation, consequence, and detection separate. Taxonomy categories can overlap; tag them for routing without counting one incident several times in a loss estimate.
 
-## GROUNDING (Before Starting)
+| Type | What can go wrong | Check to consider |
+|---|---|---|
+| Hallucination — fabrication | Invents a fact, event, citation, or result | Verify against an authoritative source or independent evidence. |
+| Hallucination — conflation | Combines real facts from different entities or contexts | Check entity, scope, and relationships against the underlying records. |
+| Hallucination — extrapolation | Extends a pattern beyond the supporting data without adequate qualification | Inspect the inference, assumptions, and limits of the evidence. |
+| Hallucination — temporal confusion | Presents historical or future information as current | Check dates, version, and the task's freshness requirement. |
+| Hallucination — over-generalization | Treats a finding about a specific setting as broadly established | Compare the claimed population and scope with what was measured. |
+| Hallucination — misattribution | Assigns a real quote, fact, or work to the wrong source | Check the citation and its actual support for the claim. |
+| Confident wrong | Presents an incorrect result with unjustified certainty | Compare correctness with the signal users receive and the actions they take. |
+| Prompt injection | Untrusted content redirects behavior or seeks unauthorized access or disclosure | Test instruction boundaries, permissions, data handling, and tool controls. |
+| Retrieval or synthesis failure | Misses relevant material, retrieves unsuitable material, or misuses a correct source | Inspect coverage, access, ranking, source support, and synthesis separately. |
+| Inappropriate refusal | Declines a legitimate supported request or fails to offer available help | Review refusal reasons, task scope, and outcome costs. An appropriate refusal is a control, not an error. |
+| Latency or cost overrun | Misses a time requirement, repeats work, or exceeds the budget | Measure end-to-end latency, tails, retries, tool costs, and human work. |
+| Cascade or coordination failure | A bad assumption, stale state, or failed action propagates through later steps | Test handoff contracts, state transitions, partial failure, and final outcomes. |
+| Silent degradation | Quality or coverage changes without a useful alert | Use representative outcome checks, change records, segment analysis, and detection tests. |
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). Answer three questions first: (1) who's the user and what stakes do they face (a doctor acting on output ≠ a knowledge worker drafting an email — this changes which failures matter and how much UX they deserve)? (2) what does the output feed into next (a final recommendation, an input to another system, or raw material the user edits — each has a different cascade and recovery profile)? (3) do you have telemetry (if yes, read the error rates before theorizing; if no, the monitoring design is this session's most urgent deliverable). Then pick depth: **quick audit** (top-5 failure modes + annual risk budget + failure UX, ~20 min) or **full registry** (complete taxonomy, latency map, cascade paths, mitigation budget, monitoring, failure UX, degradation hierarchy, acceptance criteria, 2–4 hrs). *If the real question is "should we use AI at all?", that's `problem-ai-fit` — this skill assumes the decision is made.*
+Include other task-relevant failures: omissions, unequal performance, unauthorized actions, privacy leakage, data corruption, and poor recovery. The list is a starting taxonomy, not an exhaustive proof that every failure is known. Detectability and severity depend on the actual product; conflation is not inherently undetectable and refusal is not inherently low-cost.
 
-## THE TRAP
+## Phase 2 — Quantify exposure and detection gaps
 
-- **Accuracy mono-focus** — obsessing over accuracy while ignoring latency, cost, drift. A 95%-accurate model at 4s loses users faster than an 88%-accurate one at 500ms. Accuracy is one of six dimensions.
-- **Happy-path monopoly** — the seatbelt problem above.
-- **Confident wrong** — the deadliest mode; when it's wrong *and* certain, the user acts on it.
-- **Blame-shift** — "try rephrasing your question" puts the failure on the user; trust erodes because the AI dodged responsibility. Compare: "I'm not confident here — verify before acting." Same failure, opposite trust impact.
-- **Confidence theater** — "87% confidence" is noise unless it maps to an action: "confident — no check needed" vs. "review this" vs. "too uncertain — ask a human." Actionable language beats false precision.
+For each material mode, record:
 
-## PHASE 1 — IDENTIFY: the failure taxonomy
+- **Frequency or probability:** observed rate, estimate range, or unknown; include denominator, period, and source.
+- **Consequence:** direct and downstream effects, affected population, severity, recoverability, and who bears the cost.
+- **Detection:** method, coverage, likely delay, owner, and time remaining to intervene.
+- **Response and residual risk:** proposed control, expected effectiveness, cost, new failure modes, and what remains after it.
 
-| Failure type | Manifestation | Detectability | Cost asymmetry |
-|---|---|---|---|
-| Hallucination: **fabrication** | pure invention (facts never existed) | medium (needs external check) | high (user trusts false info) |
-| Hallucination: **conflation** | correct facts, wrong attribution/context | hard (needs domain knowledge) | critical (undetectable) |
-| Hallucination: **extrapolation** | extends a true pattern past the data | hard (sounds plausible) | high (false confidence) |
-| Hallucination: **temporal confusion** | reports 2023 data as current | medium | high in fast-moving domains |
-| Hallucination: **over-generalization** | applies a specific fact broadly | medium | medium-high |
-| Hallucination: **misattribution** | real quote/fact, wrong source | hard (needs citation check) | critical in legal/academic |
-| **Confident wrong** | high certainty + false | critical (no uncertainty signal) | extreme (highest user harm) |
-| **Prompt injection** | external input hijacks behavior | hard (zero-day potential) | extreme (jailbreak, data theft) |
-| **Retrieval failure** | wrong doc; bad synthesis | medium (verify vs. source) | high in confidential/legal |
-| **Refusal** | legitimate request declined | immediate | low per instance, high if systematic |
-| **Latency / cost explosion** | too slow / token budget blown | immediate / delayed (billing) | low / high (feature disabled) |
-| **Cascade: sub-agent failure** | one agent's bad output propagates | hard (buried in the chain) | extreme (compounding) |
-| **Silent degradation** | quality drifts down, no error signal | critical (invisible) | extreme (months of bad output) |
+Use **immediate**, **delayed**, or **unobserved without additional checks** as useful detection descriptions, with task-specific time ranges. **External discovery** describes who notices, not a distinct delay: a customer can discover an error immediately or months later. Assign effective detection to material silent failures; where detection remains weak, reduce exposure, add prevention, or defer the unsupported use.
 
-## PHASE 2 — QUANTIFY: detection latency × cost
+An expected annual loss can help compare ordinary recurring risks:
 
-**Detection latency** — how long until a silent failure is noticed: **immediate** (seconds), **delayed** (days/weeks — drift, cost creep), **silent** (months or never without an audit), **discovered externally** (a complaint, a lawsuit, a news article — reputational). Every *silent* failure needs an owned monitoring mechanism before launch.
+```text
+annual expected loss = annual exposure × failure probability per exposure × expected loss per incident
+```
 
-**Prioritize by annual risk, not frequency** (numbers below are illustrative — a worked *shape*, not research; build your own from telemetry): a 0.5% confident-wrong at $5K/incident ($250K/yr) outranks a 3% fabrication at $500 ($150K/yr) which outranks a 0.01% injection at $50K ($50K/yr). The structure is the point: `frequency × cost per incident × annual volume`, compared against prevention cost — invest when prevention is <10% of annual risk, reassess when it's >50%.
+State assumptions about dependence, event definitions, and overlapping losses. This estimate does not replace severe-scenario analysis or applicable requirements. Detection delay can increase exposure and loss, but **cost × time invisible** and **cost × 1/detectability** are not universal quantitative formulas. Use them as qualitative prompts unless the variables and model are justified.
 
-## PHASE 3 — DESIGN: failure UX & response modes
+An illustrative comparison at **10,000 exposures per year**:
 
-For each output, answer *"what happens when this is wrong?"* — wrong-and-noticed-now → correction path; wrong-and-noticed-later → recovery + trust repair; wrong-and-never-noticed → verification mechanism; wrong-and-causes-a-downstream-action → undo/reversal.
+| Mode | Assumed probability | Loss per incident | Expected annual loss |
+|---|---:|---:|---:|
+| Confident wrong | 0.5% | $5,000 | $250,000 |
+| Fabrication | 3% | $500 | $150,000 |
+| Injection incident | 0.01% | $50,000 | $50,000 |
 
-**Pick a response mode per failure type:** **graceful degradation** (partial result + explicit uncertainty — best for non-critical, early-stage); **explicit failure** (refuse, explain, offer alternatives — best for high-stakes, where silence is worse than refusal); **silent failure** (output with a confidence signal but no verification path — acceptable only for low-stakes experimentation where users know they're testing). **Never ship confident-wrong** — if you can't detect or prevent it, you've *chosen* silent failure; own that choice.
+The rows illustrate arithmetic, not measured attack rates or a universal priority order. Categories can overlap and must not be blindly summed. A rare injection with a much larger plausible consequence may still dominate the decision.
 
-**Failure UX patterns:** progressive confidence *inline* ("fairly confident, but verify the date" beats a generic disclaimer); inline correction (edit in place, train on the fix); explanation on failure ("no recent pricing — our KB was last updated in January" beats "no results"); one-click undo (≥30s); dead-easy feedback (route bad outputs to the improvement queue); a visible degraded-mode indicator.
+Compare **expected risk reduction**, control effectiveness, and complete control cost—not only prevention cost versus gross annual risk. The former “invest below 10%, reassess above 50%” bands were illustrative and ignore important context. Some controls are required even when financial estimates are uncertain; some cheap controls are ineffective.
 
-**Refusal boundary:** what confidence triggers "I don't know"? what does refusal look like? is refusal better than a low-confidence answer (usually yes for high-stakes)? *The refusal paradox:* too many refusals = useless, too few = dangerous — it's a product decision, tuned empirically. (Design the confidence *signals* themselves with `confidence-tuner`.)
+## Phase 3 — Design the response and user experience
 
-## THE LAUNDERING PATH — the failure that gets *harder* to detect over time
+For each failure, distinguish four situations:
 
-Most failure modes in this skill get noticed eventually. This one gets quieter, and the mechanism that makes it quieter is usually a feature someone shipped on purpose.
+| Situation | Required design question |
+|---|---|
+| Wrong and noticed before use | How can the result be corrected, rejected, or independently checked? |
+| Wrong and noticed after use | Which actions and people are affected, and what repair or notification is possible? |
+| Wrong but unlikely to be noticed | What check can detect it, or what boundary prevents unsupported reliance? |
+| Wrong and already propagated | How do we stop further use, identify descendants, correct records, and address external consequences? |
 
-**The chain, in four steps:**
+Choose among **bounded partial service**, **explicit abstention or failure**, and **an explicitly accepted residual risk**. The last is not a license to hide failure. In a low-consequence experiment, users may knowingly receive unverified drafts; describe what is unverified and prevent unsupported use. When residual risk is unacceptable, constrain or withhold the affected capability.
 
-1. **Weak boundary detection.** The system cannot reliably tell that a case is outside its competence.
-2. **It resolves the case** instead of escalating it. No error is raised, because from the system's point of view nothing went wrong.
-3. **A provenance record is written.** The answer is now traceable, attributed and, in most designs, reusable as a precedent.
-4. **The wrong answer becomes permanent.** Downstream systems and people treat it as settled, and a later reviewer finds a documented decision rather than an open question.
+Useful UX patterns include task-specific uncertainty, editable drafts, evidence views, a meaningful feedback route, clear degraded-mode labels, and supported undo or escalation. State known causes accurately: “The available policy was last updated in January” is appropriate only when verified. A request for one missing detail can be helpful; asking someone to rephrase everything may merely shift the burden.
 
-**Why this is worse than an ordinary silent failure.** A silent failure leaves nothing behind. This one leaves an artifact **that looks exactly like a correctly handled case**, and the provenance requirement, which exists to make the system auditable, is what makes the error durable. Auditability and error-permanence are the same mechanism pointed at different content.
+An edit or report does not automatically train the model. Route proposed corrections through validation, privacy handling, evaluation, and change approval as appropriate. Feedback collection and deployed learning are separate processes.
 
-**The metric moves the right way while this happens.** Exception rate falls. Escalation rate falls. Automation rate rises. Every one of those is the number a team celebrates, and all three are equally consistent with the system having stopped noticing. See the Two Opposite Causes trap in `rtp-ai-product-metrics`.
+**Refusal boundaries depend on support and consequence.** Define when the system can answer, should ask a focused question, may provide a limited result, must escalate, or must refuse. Where a calibrated probability usefully informs this decision, specify the measure and justified threshold. Do not invent one from the model's wording or use confidence as the sole control. Over-refusal can cause real harm too.
 
-**Detection, and it has to be sampled rather than triggered**, because by construction nothing fires:
+An undo control must state its true window and effects. Thirty seconds is not a universal minimum, and deleting a record does not retract information already disclosed. Use `rtp-ai-ux-patterns` and `rtp-confidence-tuner` for the interface; this register owns the failure-response requirement.
 
-- **Sample resolved cases that would previously have escalated**, and have a human grade them. Not a random sample of all cases: the population you need is the one just inside the current boundary.
-- **Watch the boundary itself as a moving object.** If the escalation rate fell, ask what changed: a model update, a prompt change, a threshold someone tuned, or a genuine improvement. All four produce the same graph.
-- **Make rules retractable.** If a learned rule can be traced to the exchange that produced it, a wrong one can be found and removed. If it cannot, you have no path back from step 4.
+## Watch for a documented error becoming an accepted rule
 
-**When this is wrong:** where the cost of a wrong resolution is low and reversible, absorbing borderline cases is the correct trade and the sampling is overhead. The laundering path matters where a decision is expensive, hard to reverse, or becomes precedent for later decisions.
+The library's **laundering-path hypothesis** describes a risk in four steps:
 
-*(Source: assembled in this corpus from HBR, "4 Steps to Transform the 'Middle Office' with AI," Aug 2026 — ⚠ consultant-and-vendor authored, unnamed clients, own unpublished analysis. That article prescribes both the interrogation loop and the provenance requirement, and warns separately to "guard against speed that hides a worse decision" without connecting the two. **The chain above is this corpus's construction and no source states it.** Treat it as a mechanism to test for rather than a documented incident class. See `rtp-context-spec` for the boundary-detection precondition it depends on.)*
+1. The system fails to recognize that a case exceeds its competence.
+2. It resolves the case rather than escalating, without a visible error.
+3. A traceable record is saved and may be reused as precedent.
+4. Later people or systems treat the recorded answer as validated rather than as an unresolved result.
 
-## PHASE 4 — GRACEFUL DEGRADATION HIERARCHY
+Provenance helps audit and correction; it does not itself cause error or establish truth. The dangerous step is **promotion from recorded output to accepted guidance without validation**. Silent errors can also leave records, and a documented wrong answer is not necessarily permanent if correction and invalidation are designed.
 
-The fallback chain when AI fails, each step trading capability for reliability: **cache** (last known good — fast, stale) → **simpler model** (cheaper, less capable) → **rules** (deterministic, no surprises) → **human escalation** (slow, high trust) → **error state** (last resort). *Worked example — AI support agent:* cache (exact match on 50+ historical, 50ms, "from our knowledge base") → simpler model (low complexity, 200ms) → rules (confidence <60%, includes escalation link) → human ("creating a support ticket") → error ("here's how to reach us directly"). Show the user when they're in a fallback — transparency builds trust even in failure.
+Falling escalation and rising automation may reflect improved capability—or a weakened boundary check. Investigate the change rather than celebrating or condemning it from the graph alone.
 
-## PHASE 5 — CASCADES IN MULTI-AGENT SYSTEMS
+Sample cases near the operating boundary and cases that previously would have escalated, alongside representative general cases and appropriate automated checks. Human grading must be competent and sufficiently independent. Review model, prompt, threshold, data, and policy changes. Preserve status, version, source, and links from a rule to the evidence and decisions that produced it; provide a way to retract a wrong rule and find affected outputs.
 
-When agents chain, failures compound in ways single-agent systems never see. *The math:* Agent A at 95% hands Agent B 5% garbage; B can't tell garbage from valid text, treats it as ground truth, and its accuracy on garbage input collapses to ~20% — so ~1% of end-to-end paths are *confident-wrong*, your worst mode. **Patterns → mitigations:** upstream hallucination propagation → a verification gate between agents; coordination drift → shared-state monitoring; tool-call cascade → a circuit breaker per tool; context saturation → compaction at each handoff; evaluator hallucination → hybrid eval (LLM + code-based graders). **Design:** circuit breaker (3 fails/10 min → fallback), isolation (a handoff contract with fallback input types), checkpoint/rollback before each handoff, per-step timeouts, and error attribution logging (agent → operation → latency → failure type → recovery).
+This mechanism was assembled in the Novel Insights ledger from the middle-office article; it is a hypothesis, not a documented universal incident class. `rtp-context-spec` owns the boundary context and handoff requirements. Scale checks to consequence; a cheap reversible draft may need much less than a reused decision precedent.
 
-**Recovery cost spectrum** — not all failures cost the same to fix: **seconds** (wrong autocomplete → undo) · **minutes-hours** (bad email/code → correction + apology) · **days-weeks** (bulk records wrong → audit trail + escalation) · **permanent** (PII leaked, safety-critical, trust destroyed → *prevention only, no recovery exists*). Design by user type: power users tolerate errors and recover fast (design for speed); casual users don't know when the AI is wrong (design for safety — prefer "I'm not sure"); enterprise admins affect thousands (design for confirmation + audit + reversibility).
+## Phase 4 — Choose a valid fallback path
 
-## PRODUCTION CASE — the cascade no one saw coming
+Consider cache → simpler model → rules → human escalation → explicit error as **options**, not an automatically safer fixed hierarchy. Choose the order by failure cause and task requirements; a later option may be less suitable than stopping.
 
-*Anonymized, B2B SaaS, 2024.* A 3-agent pipeline (Analyst pulls data → Summarizer synthesizes → Reporter formats an exec brief). The Analyst's warehouse partition stopped refreshing but returned data *with no error signal.* The Summarizer summarized stale data with full confidence; the Reporter formatted a polished brief. **Undetected for 19 days; 34 enterprise customers got briefs; 3 made budget decisions on stale metrics.** Fixes: a freshness hard-stop (data >6h old), a cross-check (flag if data deviates >20% from prior period), a freshness timestamp on every output, and an end-to-end pipeline acceptance metric checked daily. **The lesson: structurally-valid output with no error code is invisible to agent-level monitoring — you need pipeline-level quality and freshness checks at every handoff.**
+| Option | Useful when | Check before using it |
+|---|---|---|
+| Cached result | A prior result remains valid for the current request | Freshness, context, user/tenant permissions, policy version, and whether the original result was verified |
+| Simpler model | The task remains within that model's evaluated capability | It does not repeat the same failure, lower required quality, or bypass restrictions. |
+| Deterministic rules | The relevant case is covered by current, tested logic | Rule correctness, completeness, inputs, and appropriate exceptions; deterministic does not mean error-free. |
+| Human escalation | A suitable person can resolve the issue in time | Competence, access, capacity, authority, response time, and what happens while waiting |
+| Explicit failure or limited result | No supported path can complete the request | Clear status, preserved work, useful next step, and no false claim of completion |
 
-## DIAGNOSTIC QUESTIONS (design review)
+For each path, specify the trigger, allowed data and actions, user-visible status, owner, timeout, cost limit, and exit behavior. A support flow might use a current authorized knowledge-base answer, then a bounded response, then a staffed handoff. “Creating a support ticket” is a completed-action claim only when the tool has actually created it and the action is authorized.
 
-- **Worst-case failure and its cost?** Not most likely — worst *plausible*. "A user takes [action] on [failure] and suffers [harm], [frequency], [$/incident]."
-- **How long until we notice a silent failure?** Band each type immediate/delayed/silent; every silent one needs an owned monitor before launch.
-- **Recoverable vs. permanent?** For the top 3: fastest path to making the user whole, and its cost. No answer = permanent = invest in prevention.
-- **False-confidence vector?** Run accuracy against confidence scores; if accuracy <60% in the high-confidence bucket, that's your confident-wrong zone — fix before launch.
-- **Cascade check?** Draw the agent chain; at each handoff, "could garbage pass through undetected?" If yes, add a verification gate.
+The old 50-plus cached matches, 50 ms/200 ms targets, and 60% threshold were examples. Test the actual service; exact textual similarity does not establish factual applicability. Do not silently return stale or less reliable information as an ordinary successful answer.
 
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+## Phase 5 — Control cascades across the full workflow
 
-Failure-modes is the **taxonomy home** — how AI breaks, and how to design for it. It composes with:
+Cascades can occur in a single agent with several tools, multiple agents, deterministic services, or a human handoff. They are not exclusive to multi-agent systems. Map dependencies and specify checks at consequential boundaries, with final outcome checks for failures no individual step can see.
 
-- **`rtp-stress-test`** *(import)* — the load/cost/latency/adversarial surface (the *technical* pre-mortem); this skill is the *failure-behavior* half.
-- **`rtp-feedback-triage`** — routes *live* production failures to their fix team *using this taxonomy* (its sub-types are this skill's failure modes); triage routes, this designs.
-- **`rtp-ai-ux-patterns`** — how each failure *looks* to the user (uncertainty ladder, error states); this decides the response, that renders it.
-- **`rtp-confidence-tuner`** — designs the calibrated trust signals that make the refusal boundary and progressive-confidence UX actually work.
-- **`rtp-trust-ladder`** — repairing trust after a visible miss (the recovery half of a failure).
-- **`rtp-agent-risk`** — the kill-switch and proportionality when a cascade turns catastrophic.
-- **`rtp-problem-ai-fit`** *(upstream)* — decides whether to use AI at all; this assumes yes.
-- **`rtp-jtbd-analysis`** *(upstream — supplies the cost asymmetry)* — this skill prioritizes by failure cost, but *which* failure is catastrophic vs. survivable is decided by the hidden job the user hired the AI for. An "audit-trail" hidden job makes silent degradation fatal; a "feel-competent" hidden job makes a wrong refusal hurt more than an error. Import the hidden job before you rank the failures by cost, or you'll price the wrong one highest.
+| Propagation path | Controls to evaluate |
+|---|---|
+| Unsupported upstream claim reused as fact | Evidence and validity checks, explicit uncertainty/status, and a handoff contract |
+| Coordination or shared-state drift | Ownership, state-version checks, concurrency control, and reconciliation |
+| Repeated failing or duplicate tool actions | Retry limits, idempotency where supported, timeouts, isolation, and circuit breakers |
+| Context loss or saturation | Context-budget monitoring, grounded summaries, preserved constraints, and checks after handoff; compaction can itself lose information |
+| Evaluator error | Appropriate deterministic checks, calibrated model-based assessment, expert review where needed, and disagreement analysis |
 
-## REALITY CHECK
+A **circuit breaker** temporarily blocks a failing operation and routes to a defined response. Set its conditions from failure severity, volume, and behavior. The former “three failures in ten minutes” was illustrative; a single severe event may require immediate stopping. Test reset and recovery so the breaker does not silently resume an unsafe action.
 
-- Not every failure needs mitigation — accept low-cost ones, but *document* the choice.
-- The worst failures are the ones you don't know you have — invest in detection, not just prevention.
-- Mitigations compound into a latency tax (guardrails + retrieval + post-hoc checks) — measure total cost.
-- Over-warning creates fatigue — if every output has a disclaimer, users stop reading them; calibrate transparency to risk.
-- Cascades are exponential (95% × 95% = 90.25%) — map yours.
-- Hamel Husain: spend 60–80% of your time on error analysis and evaluation. Anthropic's eval-saturation point: when your eval catches 99%, the last 1% is where the catastrophic ones hide — refresh eval sets quarterly.
+Log enough to trace agent or component → operation → input/source version → latency → failure → response, while limiting sensitive data. A checkpoint supports recovery only if the state and external effects can actually be restored. Do not prescribe rollback before every handoff as if it reverses every consequence.
 
-## QUALITY GATE
+**Use conditional reliability arithmetic.** If two stages each succeed with probability 0.95 under the necessary independence or conditional-success assumptions, both succeed with probability 0.9025. That describes a defined two-stage requirement, not an automatic law of final-answer accuracy.
 
-- [ ] Top-5 failure modes ranked by cost × (1/detectability)
-- [ ] All six hallucination subtypes explicitly mapped
-- [ ] Detection latency assigned to each (immediate/delayed/silent)
-- [ ] Response mode chosen per mode, with justification
-- [ ] Failure UX designed for each high-stakes output (confidence, correction, escalation)
-- [ ] Refusal boundary defined with a specific threshold and reasoning
-- [ ] Failure acceptance criteria written for every user story
-- [ ] Graceful-degradation hierarchy mapped with triggers
-- [ ] Cascade paths documented with verification gates (multi-agent)
-- [ ] Monitoring designed for any failure with detection latency >1 hour
-- [ ] Annual risk budget calculated for the top failures; escape hatch documented
+In the earlier example, A passes bad input 5% of the time and B succeeds on bad input 20% of the time. Then **1% of all paths are bad-input cases B rescues**, and **4% retain an error on that branch**, assuming success means correction. Neither number establishes confident-wrong frequency. Overall outcome quality also needs B's performance on good input and the workflow's recovery behavior.
 
-## WHEN WRONG
+Classify recovery by actual effect: some suggestions can be dismissed in seconds; sent content or code may need correction and communication; bulk-record errors may require a broader audit. Information disclosure or injury may be irreversible, but containment, notification, remediation, and support can still be necessary. “No full reversal” does not mean “no useful response.”
 
-- Truly sandboxed features that never touch external-facing output.
-- Research prototypes with explicit "beta" messaging.
-- Ship-to-learn is the priority AND detection/rollback is fast (<1 hr).
-- When failure analysis becomes a delay tactic instead of a path to safer shipping.
-- Deterministic components (rules-based error handling is a different discipline).
-- When the real question is "use AI at all?" — that's `problem-ai-fit`.
+## Example: stale data through a reporting pipeline
 
-## TRADE-OFF LEDGER
+An illustrative three-stage pipeline uses an Analyst to retrieve warehouse data, a Summarizer to synthesize it, and a Reporter to format an executive brief. A partition stops refreshing but continues returning structurally valid rows. No component reports an error, and the polished final brief conceals the stale input.
 
-By making the failure surface a first-class design object, you bet that in a probabilistic product the cost of undesigned failure (confident-wrong acted on, silent decay shipped for months) dwarfs the design time. You give up velocity — a full registry is 2–4 hours, and mitigations add a latency tax. **Reversible?** The analysis is; a permanent failure (leaked PII, a safety incident) is a one-way door, which is exactly why you spend here. **The hidden trade:** the failure mode of *this* skill is over-mitigation — a disclaimer on everything, a refusal at every turn, until the product is useless; calibrate transparency and the refusal boundary to risk, don't max them. **Confidence: High** — how you fail is the product for a slice of every day. What would change it: a sandboxed, fast-rollback, low-stakes feature where shipping to learn wins.
+The original anonymized story gave 19 days undetected, 34 customers receiving briefs, and three acting on them, without a verifiable source. Treat those as scenario values, not a documented 2024 incident. The lesson is testable: data freshness and end-to-end usefulness need checks beyond tool success or output format.
 
-## CONCLUSION
+Define freshness requirements from the business use, carry source timestamps, test the freshness check itself, and examine final output quality. A six-hour freshness limit, 20% deviation flag, and daily check are example settings. Genuine business shifts can exceed a deviation threshold; stale data can remain within it. Use independent signals rather than treating either check as proof of correctness.
 
-Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): the recommendation ("the top unmitigated risk is [X], annual risk $[Y], prevention $[Z] → invest/accept/monitor"), the key trade-off (which response mode, accepting what to avoid what), the biggest risk (the failure mode you know least about + how you'll baseline it), and the next action (specific, owner, deadline). Frame it as a hypothesis: "we believe [monitoring] will catch [failure] because [mechanism]; we're wrong if [signal] within [timeframe]."
+## Deliver the register and acceptance criteria
 
-## VISUAL SUMMARY
+Use a table containing:
 
-After the primary output, invoke the **excalidraw-svg** skill for one visual: the failure taxonomy plotted on two axes — cost per incident (up) × detection latency (right) — so the top-right quadrant (expensive AND invisible: confident-wrong, silent degradation, cascade) is visibly the priority zone, with the graceful-degradation ladder drawn alongside as the response. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+```text
+Failure ID and version | subtask | condition and wrong behavior | affected user/action
+Evidence, exposure, rate/uncertainty | severity and recoverability | detection coverage/delay
+Prevention | detection | containment/recovery | fallback and user-visible response
+Owner and operating capacity | response deadline | residual risk and decision
+Acceptance case and expected result | validation evidence | next review trigger
+```
+
+For each relevant user story, add a specific failure criterion. For example: **Given** data older than the allowed freshness window, **when** a brief is generated, **then** the affected conclusion is withheld or clearly limited, the source date is visible, and the defined recovery path is offered. Test the real control, including partial failure, rather than only its wording.
+
+Before concluding, check coverage of the six hallucination subtypes and other relevant modes; plausible severe scenarios; assumptions behind risk estimates; detection ownership; refusal and fallback triggers; cascade boundaries; recovery limits; and evidence that the planned response works. Mark a category inapplicable with a reason rather than inventing an example. The need for monitoring follows consequence and detectability, not a universal one-hour cutoff.
+
+`rtp-stress-test` supplies load, cost, latency, adversarial, and operating evidence. `rtp-feedback-triage` routes observed failures using this taxonomy. `rtp-ai-ux-patterns` renders the response; `rtp-confidence-tuner` validates signals; `rtp-trust-ladder` addresses reliance and repair; `rtp-agent-risk` handles proportionality, authority, and stopping.
+
+Name the top unresolved risk, the recommended control or accepted residual risk, its evidence and cost, the largest uncertainty, and the next action with an owner. Consider over-mitigation too: checks can add latency and workload, refusals can block useful work, and repeated generic warnings may be ignored. Choose proportionate controls instead of maximizing every safeguard.
+
+Use a cost/consequence-versus-detection-delay visual when it clarifies priorities, with uncertainty shown and hard constraints kept visible. Consult [examples and calculation notes](references/examples-and-calculations.md) and the [concept guide](CONCEPT.md) for supporting detail.

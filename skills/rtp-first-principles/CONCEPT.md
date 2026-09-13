@@ -1,65 +1,62 @@
-# First Principles — Concept Guide
+# First principles: concept guide
 
-## FIRST PRINCIPLES
+First-principles thinking identifies the user outcome and the operations required to achieve it before selecting a technology. In an AI product, a fluent response or working interface may conceal an incorrect result. Conventional software can also fail silently. Inspect the outcome rather than relying on the appearance of successful execution.
 
-Every complex system is built from simple operations. The job of first-principles thinking is to find the ONE irreducible operation buried under layers of implementation, politics, and inherited assumptions.
+The practical contribution is a decomposition that separates explicit rules, learned patterns, and decisions needing judgment. A workflow may contain several essential operations. Preserve their relationships and the user's context while examining them individually.
 
-In AI products, this matters more than in traditional software because AI introduces a seductive layer of complexity. Traditional software fails visibly — the button doesn't work. AI software fails invisibly — the button works, but the answer is wrong. First-principles thinking strips away the AI layer to ask: what is the user actually trying to accomplish, and does this accomplishment require probabilistic computation at all?
+## Two ways to explain the method
 
-The atomic insight: **most AI product failures aren't AI failures. They're decomposition failures.** The team built an impressive AI system to solve a problem that didn't need AI, or that needed AI in a different place than where they applied it.
+**For a business reader:** establish the useful customer outcome before deciding what to build. Compare the proposed investment with simpler ways to achieve it.
 
-## DUAL DEFINITION
+**For a technical reader:** map the system into operations, dependencies, and completion conditions. Identify where conventional code, learned components, and review belong, then choose component and end-to-end checks.
 
-**Business definition:** First-principles thinking is the practice of identifying the single most important user outcome before deciding what technology to build. It prevents the most expensive mistake in AI product development: building sophisticated AI for the wrong problem.
+## Why the first solution can become the only solution
 
-**Technical definition:** First-principles decomposition maps a proposed system to its minimal viable computation graph — identifying which operations are deterministic (rules), which are probabilistic (AI), and which require human-in-the-loop oversight. It produces a determinism classification for every load-bearing component.
+Three common reasoning traps deserve attention:
 
-## THE TRAP (Expanded)
+- **Anchoring:** a competitor's "AI search" becomes the assumed answer before the team asks whether users need search, curation, alerts, or a current authoritative record.
+- **Availability:** a technique the team recently learned, such as retrieval or agents, comes to mind more easily than other approaches.
+- **Sunk cost:** prior investment makes revisiting the framing uncomfortable, even when new evidence warrants it.
 
-Three cognitive biases conspire against first-principles thinking in AI:
+Treat each as a possibility to investigate, not a diagnosis of someone's motives. Ask what evidence supports the need and whether the design still follows from that evidence.
 
-**Anchoring bias.** The first solution you encounter becomes the invisible frame. If a competitor launched an "AI-powered search," your team anchors on AI-powered search. Nobody asks whether search is the right metaphor, or whether users actually want search at all (maybe they want curation, or alerts, or a feed).
+## Intellectual influences retained from the original guide
 
-**Availability bias.** Whatever technology the team recently learned feels like the right tool. Team just completed a RAG proof-of-concept? Every problem looks like a retrieval problem. Team just experimented with agents? Every workflow needs an agent.
+These are conceptual influences, not empirical proof that a particular design will work:
 
-**Sunk cost fallacy.** Once a team has invested weeks building an AI component, first-principles questioning feels threatening. "Are you saying we wasted three sprints?" becomes the unspoken response, and the decomposition exercise gets short-circuited.
+- **Kapil Gupta:** understand the problem before prescribing a solution; the earlier guide points to *A Master's Secret Whispers*.
+- **Physics-style first-principles reasoning, associated in the original with Elon Musk:** examine underlying constraints rather than relying only on what competitors do.
+- **Charlie Munger's inversion:** examine where a proposed approach could make the problem worse.
+- **Shreyas Doshi's product-sense writing:** give sustained attention to the problem and the opportunity cost of a solution.
 
-The common pattern: a team proposes "an AI feature that does X." The PM nods and writes the PRD. Nobody stops to ask whether X needs AI, whether the user even wants X, or whether X is the right decomposition of the user's actual problem.
+Further reading retained from the original includes Daniel Kahneman's *Thinking, Fast and Slow* and Shane Parrish's *The Great Mental Models*. Verify a precise quotation or empirical claim against the relevant source before using it.
 
-## INTELLECTUAL LINEAGE
+## Illustrative cases
 
-- **Kapil Gupta** — "Diagnosis before prescription." Gupta's insistence that prescriptions (solutions, how-tos, frameworks) are worthless without first seeing the problem clearly. Applied here: decompose the problem before reaching for AI.
-- **Elon Musk / Physics thinking** — Reasoning from first principles rather than analogy. "We need AI because competitors have AI" is analogy. "We need probabilistic classification because this input is unstructured" is first principles.
-- **Charlie Munger / Inversion** — "Tell me where I'm going to die, so I don't go there." Applied: before asking "where should we add AI?", ask "where would AI make this worse?"
-- **Shreyas Doshi / Product Sense** — The distinction between the problem and the solution. Product sense starts with obsessing over the problem, not the technology.
+The original guide presented the following cases without identifiable company records or supporting citations. Use them as constructed teaching examples. Their numerical assumptions are not verified results or general design thresholds.
 
-## REAL-WORLD EXAMPLES
+### Find the current policy
 
-**Example 1: Enterprise document search.** A team proposed building an AI-powered semantic search for internal documents. First-principles decomposition revealed the atomic operation wasn't "search" — it was "find the current version of a specific policy." Rules-based metadata tagging with version control solved 80% of the problem. AI semantic search was needed for only the remaining 20% — natural language queries over unstructured content. The hybrid saved 60% of the original cost estimate.
+A team proposes semantic search for internal documents. Decomposition reveals that many users need the current version of a known policy. Explicit metadata and version control may solve those requests, while semantic retrieval may help with open-ended questions.
 
-**Example 2: Customer support AI.** A team proposed an "AI agent that handles customer support tickets." Decomposition revealed five distinct atomic operations: routing (rules), information retrieval (RAG), sentiment detection (classifier), response drafting (LLM), and escalation decisions (hybrid). Treating these as one "AI agent" meant the entire system had the reliability of its weakest link. Decomposing them allowed independent optimization and monitoring.
+The original illustration assumed an 80% rules / 20% semantic split and a 60% reduction from an initial cost estimate. Those values require measurement in a real deployment. The preserved lesson is to distinguish locating an authoritative record from interpreting an unfamiliar query before choosing the search architecture.
 
-**Example 3: Pricing recommendation engine.** A team wanted to use AI for dynamic pricing. First-principles analysis showed the atomic operation was "adjust price based on demand signals." The demand signals were structured, quantitative, and followed predictable patterns. A statistical model outperformed the LLM-based approach at 1/100th the cost. AI was solving the wrong layer of the problem.
+### Handle a support request
 
-## PRODUCTION DISCIPLINE
+Separate routing, information retrieval, sentiment signals where relevant, response drafting, and escalation. These may use different combinations of code, models, and review. Each needs an appropriate measure, and the completed customer journey needs its own evaluation.
 
-In high-stakes AI product decisions, first-principles thinking becomes a forcing function that prevents expensive mistakes late in development:
+A single agent interface can contain this decomposition. The issue is whether the implementation makes component responsibilities and failure recovery visible, not whether it uses the word "agent."
 
-**The decomposition gate:** Before estimating effort, assigning resources, or writing a PRD, decompose the problem. A team that skips this will spend 8 weeks building the wrong thing. A team that spends 4 hours decomposing will spend 4 weeks building the right thing. The math is brutal.
+### Recommend a price
 
-**The "atomic operation" discipline:** The ability to state what the user actually needs in one sentence, without technology words, is not a nice-to-have. It's the bare minimum of understanding the problem. If your team can't do this, you don't understand the problem yet. Stop.
+The proposed outcome is to adjust a price using demand signals. If the relevant inputs are structured and the relationship can be modeled appropriately, a conventional statistical method may be a stronger baseline than a language model.
 
-**The hybrid architecture insight:** Most AI products don't fail because the AI is bad. They fail because someone built AI for the entire problem when AI was only needed for 20% of it. The decomposition that separates rules from AI from hybrid components is the difference between a cost-effective product and a cost-prohibitive one.
+The original example asserted a cost of one hundredth of the LLM approach without a cited comparison. Retain that ratio only as an explicitly assumed teaching value. Compare actual task quality, constraints, implementation effort, and operating costs before selecting a method.
 
-**Red flags that decomposition is being skipped:**
-- "We'll figure it out during design" (you won't)
-- "The demo shows it works" (demos are best-case scenarios)
-- "This is how the competitor did it" (different decomposition, different users)
-- "We have budget, so let's build the full feature" (decomposition should constrain scope, not budget)
+## Use decomposition as a decision check
 
-## FURTHER READING
+Before a consequential investment, agree on the user outcome, essential operations, and main uncertainty. The original guide contrasted four hours of decomposition with eight weeks of mistaken building and four weeks of well-directed building. That is an illustrative planning story, not a measured time-saving claim. Use a timebox suited to the uncertainty and commitment.
 
-- Kapil Gupta, *A Master's Secret Whispers* — On seeing the problem before prescribing
-- Daniel Kahneman, *Thinking, Fast and Slow* — On anchoring and the illusion of understanding
-- Shreyas Doshi, "Product Sense" essays — On problem obsession vs solution obsession
-- Shane Parrish, *The Great Mental Models* — On first-principles reasoning across domains
+Watch for conclusions justified only by a demo, a competitor's design, available budget, or a promise to clarify the problem later. A demo can be useful evidence when its limits and representative coverage are understood. Budget does not establish the need, and an incomplete frame should be made explicit rather than hidden in the implementation plan.
+
+Decomposition is complete when it improves the team's ability to choose and evaluate an approach. It does not need to eliminate AI, change every proposed component, or reduce every workflow to an arbitrary 80/20 split.

@@ -1,230 +1,219 @@
 ---
 name: harness-operating-model
-version: v1.3_latest
-description: 'How to fund, staff, run, and future-proof a harness as a multi-year program: the discipline around the machine, not the machine. Covers the cost shape (front-load/plateau/compound), the five cost centers, the reliability dividend (failure getting cheap is the business case), the lock-in and runtime wedges, and the stopping rule. Then the maturity ladder, nine-day kit and stakeholder scripts. Then the four org models and deployment shapes, the Harness PM role, build against buy, and open against closed. Finally the longevity layer: permanent residents against the dissolving ladder, and why the harness is the moat. Use when budgeting or defending a harness program, deciding open/closed or build/buy, naming the harness owner, or placing your team on the maturity ladder. Sibling: agent-harness (the machine). Pairs with: cost-model, adoption-launch, alignment-check, capability-tracking, moat-finder. Triggers: ''harness cost'', ''harness ROI'', ''harness owner'', ''open vs closed harness'', ''human in the harness''.'
+version: v1.3.1_latest
+description: 'Plan how to fund, staff, operate, and maintain the system around an AI agent. Use for harness budgets, ROI reviews, ownership decisions, deployment and vendor choices, or capability-retirement plans. Compare the reliability dividend and other benefits against full costs; assess review capacity, five maturity stages, four organization models, the AI-spine and Assembler patterns, and four deployment shapes. Separate capabilities that may move into models or managed platforms from responsibilities the organization must continue to govern. Produce a proportionate operating plan with a baseline, budget, owners, evidence, next investment, and stopping conditions. Treat cost ratios, timelines, staffing counts, and moat claims as hypotheses to test. Agent-harness covers the machine and diagnosis; this skill covers the program. Pairs with cost-model, token-economics, build-or-buy, adoption-launch, alignment-check, capability-tracking, and moat-finder.'
 imports: [agent-harness, cost-model, capability-tracking]
 ---
 
-# The Harness Program: Economics, Org & Longevity
+# The Harness Operating Model
 
-**The objective:** turn a harness from a science project into a funded, staffed, compounding program — one that survives the CFO's month-fourteen question, gets a named owner before it needs one, and invests only in the parts that outlive the next model generation. This skill is the *program*. Its sibling, `agent-harness`, is the *machine* (the anatomy, diagnosis, and patterns). Build the machine there; here you decide what it costs, who owns it, and what stays yours.
+Decide what operating capability the workflow needs, who will own it, how it will be funded, and when to expand, change, or stop investing. Use `agent-harness` to diagnose the machine; use this skill to make the surrounding program viable.
 
-## THE ONE IDEA
+Start with the workflow, customer or employee outcome, current alternative, expected scale, consequential actions, and constraints. A small managed workflow may need a short plan and an existing owner. A shared agent platform may need a larger program. Neither requires a new team merely to satisfy a maturity label.
 
-**A harness does not change the model's judgment. It changes what a wrong judgment *costs* — from an unrecoverable incident to a recoverable, auditable event.** That repricing of failure is the whole business case, because *an organization grants autonomy in exact proportion to how cheaply the system fails.* Three consequences reorganize how you run the program:
+Produce an operating plan with a supported value case, complete costs, ownership and authority, deployment boundaries, review capacity, change policy, and the next decision. Separate observed results from forecasts and illustrative planning numbers.
 
-1. **The reliability dividend is the argument that survives a CFO who already knows tokens are cheap.** Productivity ("faster") is the surface pitch and it dies under scrutiny. The durable pitch: with a real harness a wrong decision at 3 AM is caught by an eval gate, routed to a human, reversed in a defined window, and logged for the auditor — so the autonomy limit moves from 5% to 30% *without the org flinching*, and the gain compounds from 5× more volume, not 5× faster completion. The cleanest demonstration: same Opus-class model, same prompt — no harness = $9 / 20 min / unusable; full harness = $200 / 6 hrs / a shippable product. The extra $191 didn't buy intelligence. It bought output the organization can act on. *(Practitioner-reported ⚠; trust the shape, not the decimals.)*
-2. **The moat is the harness, not the model.** Mitchell Hashimoto (creator of Terraform, who has watched more infrastructure layers commoditize than almost anyone): *"Models are now commodities. Harness is the moat: business rules, data pipelines, verification logic. None of this transfers when you swap models."* Rent a closed harness for a differentiating workflow and you are renting the moat.
-3. **At some point the org organizes *around* the harness — deliberately or reactively.** Three of the four MHTE layers already have owners (Model → Applied AI, Tools → Platform, Environment → Security). The harness is the one layer without a default owner, and "shared responsibility is another word for nobody's job." Naming the owner is the first org decision; every other one is downstream.
+## 1. Establish the value case
 
-The machine wins a sprint. The program wins the eighteen months that decide whether your agents get renewed or quietly wound down.
+The **reliability dividend** is value gained by preventing failures, detecting them earlier, reducing their impact, or recovering more effectively. It can make useful delegation feasible. A harness can also change the quality of model decisions by supplying better context, tools, routing, and verification; it does more than reduce the cost of an unchanged wrong answer.
 
-## A WORKED OPERATING MODEL, WITH THE PART EVERYONE SKIPS STAFFED
+Include all relevant benefit channels:
 
-This skill argues in the abstract for how to staff and run a harness program. Here is one financial-services firm's actual structure, useful because **it is the only one in this corpus that staffs adoption as a function rather than as an afterthought.**
+- Better completed work, quality, or customer outcomes.
+- Less rework, interruption, loss, and remediation.
+- Faster delivery or reduced effort where those gains matter.
+- Greater capacity or new kinds of useful work.
+- Evidence and controls needed to operate within the organization's obligations.
 
-**Four units, all reporting through a chief AI officer who owns product management, engineering, research and adoption together:**
+Do not dismiss productivity as a weak pitch or promise that every error becomes recoverable. Authority is not granted in exact proportion to cheap failure; consequence, demonstrated performance, control quality, user expectations, and policy also matter.
 
-| Unit | Shape | What it owns |
-|---|---|---|
-| **Embedded product teams** | one per business unit, run "AI-first" | product management, engineering and data science **fused into one team**, not three functions collaborating across boundaries |
-| **Common AI platform team** | shared, central | the shared substrate |
-| **Research team** | shared, central | scope not described in the source |
-| **Adoption and solutions team** | shared, central | drives employee implementation **and** ties the tools back to a business benefit |
+For an economic comparison, use the same workload, timeframe, completion standard, and scope on both sides. Estimate baseline and proposed failure exposure by incident class, with uncertainty. Avoid double-counting saved effort as both cash savings and extra revenue. Capacity becomes financial value only through an explicit use or cost change.
 
-**Two things worth taking from this, and one worth noticing about what is missing.**
+```text
+Incremental net benefit for a period
+= incremental value of completed work
++ realized savings and avoided losses
+− incremental operating costs
+− investment costs allocated or incurred for that comparison
+```
 
-**Take the fusion.** Embedding product, engineering and data science in a single unit per business line is the structural answer to handoff latency, which is the failure this skill's org section already names.
+Use the appropriate cash-flow treatment for payback or investment appraisal. Keep important non-financial outcomes visible rather than forcing unreliable monetary values onto them. `cost-model` and `token-economics` provide the detailed analysis.
 
-**Take the staffed adoption function.** Most programs treat adoption as change management bolted onto a launch. Giving it a standing team with two explicit mandates, usage *and* business-benefit alignment, is the version that survives past the launch quarter. Route to `rtp-adoption-launch` for what that team should actually do.
+The historical $9/20-minute unusable attempt versus $200/six-hour deliverable is a practitioner anecdote. It illustrates why cost per valid outcome may matter more than cost per attempt. It does not isolate the effect of a harness or establish what a similar program should cost.
 
-**Notice what is not described.** The source names the platform team and then never explains it. **That absence is the finding**, not an omission in the write-up: the platform layer is the one everyone agrees they need and nobody specifies, which is exactly why this skill exists.
+## 2. Budget the full program
 
-**One design principle from the same firm, carried with its own tension attached.** The stated objective is **"copilot, not autopilot"**: support investment advice rather than automate it, through better information and faster iteration. Hold that against the systems the same source describes, which can contradict a human analyst. **A stated copilot posture and a system with standing to dissent are not automatically compatible**, and the resolution rule is the thing to specify. See the launch gate in `rtp-trust-ladder`.
+Keep the five often-missed cost centers explicit, then add execution costs without hiding them under maintenance.
 
-*(Source: HBR, "Transforming Investing With AI at Franklin Templeton," Jun 2026 — ◆ single company, self-described, no outcome data attached to the structure. Carry it as one worked example, not as a reference architecture.)*
+| Cost center | Include |
+|---|---|
+| **1. Evaluation and reference outcomes** | Domain-expert time, case design, labeling, rubric development, test execution, judge calibration, and maintenance. |
+| **2. Engineering and product capacity** | Implementation, integration, reliability work, product decisions, and the opportunity cost of diverted staff. |
+| **3. Observability and records** | Instrumentation, storage, access, retention, analysis, privacy handling, and incident investigation. |
+| **4. Human review and escalation** | Review effort, queue management, reviewer training, specialist availability, and support tooling. |
+| **5. Maintenance and migration** | Version changes, dependency testing, repair, policy updates, deprecation response, and exit preparation. |
 
-## KEY TERMS (plain language)
+Also account for **inference, tools, retrieval, runtime, sandbox compute, network, licenses, and vendor support**, where applicable. Shared costs may be allocated across workflows; avoid counting the same platform cost twice. Cost ranking depends on the deployment. Tokens are not inherently the fifth-largest expense, and evaluation data is not automatically training data or available for training.
 
-- **Reliability dividend** — the return that isn't productivity: failure becomes cheap and recoverable, so the org trusts the system with more volume. "95% cheaper and worth zero, vs 22× more expensive and worth a product."
-- **The cost shape** — front-loaded (Year 1), plateau (Year 2, the political danger zone), compounding (Year 3). Any other shape means the budget is lying.
-- **The five cost centers** (in order of magnitude): eval infrastructure + ground-truth authoring; staff-engineer + PM attention during ramp; observability + trace storage; human review for high-stakes paths; harness maintenance/migration debt — with token spend usually the *fifth*, not the first.
-- **Lock-in wedge** — the Year-3 cost of a Year-1 convenience: a closed harness that owns your memory policy compounds rent every quarter and never shows on a purchase order.
-- **Runtime wedge** — even an open harness pays for the runtime beneath it (durable execution, checkpoints, audit-grade observability); a budget with no runtime line undercounts by ~30–40%.
-- **Maturity ladder** — five rungs: Prompt → Retry → Eval Suite → Harness → Harness Discipline. Most teams are at Rung 2 acting like Rung 4.
-- **Harness PM** — the named owner of the harness product: its failure modes, eval suite, cost envelope, autonomy envelope, and change policy. The single highest-leverage AI-native hire.
-- **Human-in-the-harness** — the replacement for "human in the loop": humans are a *component* the harness routes to (review queue, escalation, feedback channel), not a synchronous gate on every action.
-- **Permanent residents vs dissolving ladder** — the five capabilities no model absorbs (your evals, workflows, audit trail, cost controls, user context) vs the ones it does (structured output, tool-calling, long context, multi-step reasoning, generic safety).
-- **Open vs closed harness** — you author the five clusters (open) vs you configure a vendor's (closed). The first org decision, and it's per-workflow.
+### Make the human-review line concrete
 
-## THE ECONOMICS — What It Costs, What It Returns
+Illustrative load: `10,000 sessions/day × 3% routed to review × 5 minutes = 1,500 minutes = 25 review-hours/day`. That is workload, not sufficient staffing. Allow for peaks, shift coverage, utilization, breaks, training, complex cases, rework, and urgent response. Measure completion latency and backlog as well as average handling time.
 
-### The cost shape (front-loaded → plateau → compounding)
+A review queue can be a designed part of the system without reducing the human to a passive component. Give reviewers evidence, competence, workload limits, and real authority. Synchronous review can work at high volume with adequate resources; exception-based review can fail if it misses important errors. Choose the design by task and consequence, not a universal 10/100/1,000-actions rule. See `judgment-guard` and `adoption-launch`.
 
-**Year 1 is front-loaded** — you're paying for the infrastructure that makes AI *usable*, not for AI. Harness infrastructure typically runs **3–5× the token-spend budget**; if your AI line-item leads with token cost, the ratio is inverted. **Year 2 is the plateau** — the most politically dangerous phase: visible spend drops, returns haven't compounded, and the honest answer to "what's it done for us?" is "it stopped costing us what the unmanaged version cost." Reframe *before* the meeting: "we eliminated the incident class costing us $X/quarter; Year 3 converts that recovered floor into new throughput." **Year 3 is where the return lives** — the harness absorbs new-workflow onboarding, evals catch regressions before users, autonomy limits rise because failure is now recoverable. Most programs die on the plateau — not because the harness was wrong, but because the budget was shaped wrong and the CFO lost patience on month fourteen. *If your CFO hasn't pushed back yet, you haven't built the real budget.*
+### Treat the cost shape as a scenario
 
-### The five cost centers most budgets miss
+**Front-load → plateau → compounding benefit** is one possible trajectory:
 
-Every budget ranks tokens first; every program that *runs* has the opposite ranking. In order of magnitude: **(1) eval infrastructure + ground-truth authoring** — the largest and least-budgeted; if you cut one line, not this one (it's the training data for everything else). **(2) Staff-engineer + PM attention during ramp** — your best engineer off the ship-rate for a quarter; invisible on the token bill, load-bearing. **(3) Observability + trace storage** — compounds at production volume; the day you realize you needed 90-day retention not 14, the bill has a shape nobody planned. **(4) Human review for high-stakes paths** — structural, doesn't disappear as models improve (moves up the stack to harder cases); the *queue* is infrastructure — 3% of 10k daily sessions at 5 min each = 25 person-hours/day, plus review tooling, escalation routing, and calibration dashboards. **(5) Maintenance + migration debt** (tokens live here) — cheap to do, ruinous to skip; skip it and every model upgrade becomes a month-long migration exactly when you want to ride the next frontier model.
+1. Initial work creates contracts, controls, integration, and evaluation.
+2. Stabilization may deliver less visible improvement while reducing incidents.
+3. Reuse and learning may lower onboarding effort or improve later outcomes.
 
-**The token-ledger paradox:** per-token prices fell ~67% YoY ($18.40 → $6.07/M, FinOps Foundation, 2.4B calls) while enterprise bills *tripled* ($1.2M → $7M), because agentic/reasoning workloads consume 5–30× the tokens of a chat turn. Unit price is not the story; consumption is — and consumption is a harness decision (model routing, effort dials, per-cluster attribution). Recall Datadog's finding: 69% of production input tokens are system prompts — context-rot manufactured at industrial scale, and a Memory-Policy choice, not a vendor price.
+These stages need not take one year each or occur in that order. A vendor-based deployment can start cheaply; growth can increase costs; a platform may never justify expansion. Show actuals, scenarios, assumptions, and the conditions under which reuse would pay. A “Year 2 plateau” is not an explanation that excuses missing value, and CFO enthusiasm is not break-even evidence.
 
-### The wedges, the trilemma, the stopping rule
+## 3. Compare investment, dependencies, and alternatives
 
-- **Lock-in wedge** — two programs with identical Year-1 cost can diverge 3× by Year 3 on the open-vs-closed choice alone. **60% of workflows** (internal productivity, non-differentiating CX) belong on a closed stack without remorse; the **40%** (agents that *are* the product, regulated data, proprietary-evals-as-moat) should pay the Year-1 open cost or underwrite a Year-3 migration nobody wants. Classification test: *would we be hurt if this vendor changed their memory policy next quarter?* If yes, it's 40% territory.
-- **Runtime wedge** — buy the runtime (most should), but *know* you bought it and have an exit story; a budget with no runtime line undercounts ~30–40%.
-- **The trilemma** — cost / quality / speed trade against each other; a budget claiming all three improve on the same axis hasn't been stress-tested. Name the one you're paying for this quarter.
-- **The stopping rule** — the dividend has a ceiling. Stop engineering a harness capability when (a) it's on the frontier lab's roadmap (buy time with a thin wrapper, don't build deep), (b) the eval curve has gone flat (last three edits moved reliability <1pp), or (c) the next dollar buys more *coverage* (a new workflow) than *depth* (a workflow already at 95%). Year-3 compounding is *one harness applied to five more workflows*, not one harness that keeps getting deeper.
+### Lock-in and runtime exposure
 
-### Break-even: three signs, none numerical
+The **lock-in wedge** is future dependence created by today's interface, memory, workflow, data, or commercial choice. Estimate migration effort, service interruption, data export, retraining, and lost capabilities. Open source can also create coupling; a managed platform can provide portable interfaces and exports. Do not assign 60% of workflows to closed platforms and 40% to open ones without examining them.
 
-Break-even is legible in behavior a quarter before the dashboard shows it. **(1)** Engineers stop rewriting prompts every sprint (the eval suite absorbed the drift). **(2)** The eval suite catches regressions before users do (the loop runs backwards; incident cost drops 1–2 orders of magnitude). **(3)** The CFO stops asking for the business case and starts asking for the *expansion* plan ("can we run compliance on it too?"). Watch the CFO; the CFO will tell you.
+The **runtime wedge** is the cost and responsibility of durable execution, scheduling, checkpoints, tenancy, and isolation that may be overlooked in a model-only budget. Account for it where incurred; do not add an automatic 30–40% surcharge.
 
-## THE AI SPINE: A THIRD ORG SHAPE, AND THE FUNDING TRICK THAT MAKES IT WORK
+Cost, quality, and speed often trade off, but a better design can improve all three. State which constraints bind and test each outcome rather than invoking a fixed “pick two” rule.
 
-Most companies pick one of two shapes and both have a known failure. **A center of excellence hoards the expertise and never learns the business process. Business-unit squads learn the process and rebuild the same plumbing five times.** A third shape sits between them.
+### Stop, hold, or redirect effort using evidence
 
-**The AI spine is a permanent cross-functional structure that owns use cases end to end**, centralizing technical and business-process knowledge in the same body rather than splitting them across two.
+Review the next investment against:
 
-**Inside the spine, three permanent roles:**
+- Its expected marginal benefit, uncertainty, cost, and operational obligation.
+- Remaining important failure modes and the ability to measure progress.
+- Alternatives: a smaller change, a different model, a purchased capability, narrower scope, another workflow, or stopping the use case.
+- Vendor roadmap confidence, timing, access, and the cost of waiting.
 
-- **A technology owner**, who prevents fragmentation of data and tools and runs the shared platform: prompt libraries, models, evaluation, and cost metrics including token consumption.
-- **AI developers and engineers.**
-- **A risk and compliance role that lives inside the spine**, not an outside compliance group consulted at gates. That placement is the design decision, because a reviewer who is not in the room reviews artifacts rather than choices.
+A flat aggregate score can hide an important rare-error improvement; less than one percentage point after three edits is not a universal stopping rule. A workflow at 95% can still need substantial work. A roadmap announcement is not a shipped substitute. Expanding coverage may be better than deeper work, or may spread an inadequate control to more users.
 
-**Connected in from each business unit, three more:**
+Fewer recurring prompt repairs, earlier regression detection, and requests to expand are useful operating signals. Calculate break-even from the relevant benefits and costs; these signals do not establish it alone.
 
-- **A business owner** who identifies use cases, sets nontechnical targets (a minimum star rating, say), and is **accountable for killing underperforming use cases.**
-- **A knowledge owner** who curates ground truth, captures tacit knowledge, and holds **the authority to declare a solution good enough even when it is not technically perfect.** That authority has to sit somewhere or nothing ever ships.
-- **End users** who validate usefulness and surface edge cases.
+## 4. Assign ownership and choose an organization model
 
-Overseen by a C-suite leader who keeps it aligned to strategy. Cadence: biweekly standups inside the spine, a monthly summit with end users for demos and feedback.
+Name an accountable program owner and the people authorized to change policies, permissions, workflows, evaluations, and production configuration. Shared responsibility can work when the division and escalation path are explicit. Do not assume model, tools, and environment already have owners while only the harness lacks one.
 
-**The funding mechanism is the part worth stealing.** Top management allocates capital, **and the spine keeps a cut of the revenue or cost savings it generates.** Two things follow that no governance document achieves on its own: ROI discipline becomes self-interested rather than imposed, and **killing a weak use case stops being political**, because the spine is spending its own future budget by keeping it alive.
-
-**The three practices this structure institutionalizes:** expand a use case across a whole process rather than one task, treat every use case as continual work in progress, and kill underperformers fast.
-
-*(Source: Schmitt, Vial & Blohm, in the MIT Sloan Management Review special report "Scaling AI in the Enterprise," Summer 2026, sponsored by Workhuman — ⚠ and the sponsorship matters: a vendor-sponsored special report is not neutral ground. The spine is the authors' own model, diagrammed rather than measured, with no comparative outcome data against centers of excellence or unit squads. Falsifier: a company that scaled generative AI across many processes on a hub-and-spoke center of excellence with no cross-functional owner.)*
-
-## THE MATURITY LADDER + THE MONDAY KIT
-
-**Five rungs:** (1) *"We have a prompt"* — a string and a model call; nobody owns the prompt file. (2) *"We have a retry"* — naive retries, some parsing; where 60–70% of enterprise teams sit, stalled on drift. (3) *"We have an eval suite"* — ground truth exists, structured output enforced, drift detection live; **the highest-ROI transition in the whole program — most of the pain disappears here.** (4) *"We have a harness"* — all clusters exist, observability traces every call, the team has a name and a diagram for it. (5) *"We have a harness discipline"* — everything versioned, migrations written, a named owner whose job is to *tend* the harness, not ship the next feature. Rung 5 teams are rare and are the ones whose agents get renewed year after year. *Most teams are at Rung 2 acting like Rung 4; the ladder is a diagnosis of which problems you're equipped to solve.*
-
-**The nine-day audit** (diagnosis before surgery, fits one sprint): map the eleven components (what exists / where / "missing") → read 50 production traces (tally the failure signatures) → interview the staff engineer + on-call ("what do you quietly work around?") → catalog tools + MCP servers + agent-identity → find the eval gap (where production failures and eval coverage don't overlap = eval debt) → write the maturity diagnosis paragraph → write four tickets → **evals onboarding day** (the day most teams skip and regret: stand up trace storage, author 5 evals, wire one to CI, calibrate the judge to >90% agreement on a 50-case sample) → **open-harness audit** (score each cluster portable / partial / locked-in; a harness locked-in on 3+ clusters isn't yours). The single metric to watch: **drift-recovery rate** (fraction of errored sessions that return to a valid output with no human) — the closest number to "how reliable is my harness"; expect 30–50% before the patterns, 70–80% after, and *held there* as you add features.
-
-**The stakeholder scripts** — one investment, four translations: to **Engineering** ("we're reducing the surface area of random failures"), to **Design** ("the harness is how users get consistent behavior — what your research calls trust"), to the **Exec team** ("every dollar into the harness buys the *option* to raise autonomy next year without a rewrite"), to **Security/Compliance** ("the harness is your audit trail — every interception hook is an audit entry, every trace a compliance artifact"). The words matter; the same plan freezes or ships depending on which room you're translating for. *(This is the Bridger discipline; the full translation craft is `stakeholder-communications`.)*
-
-## THE ORG — Rebuilding Around the Harness
-
-### Four org models (pick one deliberately; the shape decides what you can ship)
-
-| Model | Thesis | Best-fit | Failure mode |
+| Model | Arrangement | Useful when | Watch for |
 |---|---|---|---|
-| **Harness-as-Platform** | Central team owns orchestrator/evals/registry; product teams build thin logic on top. | 12+ product teams sharing infra. | The queue → shadow harnesses in product repos; you pay platform cost *and* the duplication. |
-| **Harness-as-Feature** | Each product team owns its slim harness; no central layer. | 2–8 teams, diverse workflows, early. | Drift — six teams, six retry strategies; learning doesn't propagate. Extract a thin platform when >30% of eng time goes to harness maintenance. |
-| **Harness-as-Operating-Model** | The harness *is* the product; PMs write harness specs, evals are the system of record. | AI-native, <500 people, one dominant workflow. | Culture debt; near-impossible to retrofit onto an incumbent — the transformation-office illusion. |
-| **Harness-as-Deployment** | A Forward-Deployed Engineer maintains a customer-specific harness inside the customer. | Vendors of vertical agents; regulated buyers. | Customer atrophy; harness authority migrates out of the buyer. |
+| **Harness-as-Platform** | A central team supplies shared orchestration, evaluation, registry, and controls. | Workflows share enough needs to justify a common service. | Queues, weak fit, and product teams building ungoverned alternatives. |
+| **Harness-as-Feature** | Product teams own their workflow's harness. | Needs differ or a small local implementation is sufficient. | Duplicate infrastructure, divergent controls, and learning that does not travel. |
+| **Harness-as-Operating-Model** | Harness design and evaluation are central to how the product organization delivers work. | Agent execution is integral to the product and operating process. | Overstandardization, unclear business ownership, and expensive change. |
+| **Harness-as-Deployment** | A forward-deployed team adapts and supports a customer-specific system. | Customer integration or domain work needs sustained close involvement. | Dependence on individuals, weak knowledge transfer, and unclear customer authority. |
 
-**MDASH vs FDE — know which you are.** *Are you buying AI or selling it?* If **buying** (banks, retailers, hospitals — most of the Global 2000), your problem is MDASH: your own employees use agents, so name a harness owner, register every agent, contain tool calls, DLP outputs, route across vendors. FDE is then just a *procurement* question you ask your vendor. If **selling** (Palantir, Harvey, Sierra, the labs), FDE is your *delivery model* — a named track with a rotation policy so customers can't poach the engineer. The failure mode: a Fortune 500 CEO reads a Palantir case study, stands up an internal "FDE team," and staffs MDASH work with the wrong people, the wrong metric, and the wrong reporting line. Name what you are first.
+These can coexist. The source's 12+ teams, 2–8 teams, fewer than 500 staff, and 30% maintenance-time threshold are planning examples, not selection rules. Incumbents can adopt relevant practices without copying an AI-native organization wholesale.
 
-### The Harness PM — the role that didn't exist 18 months ago
+Distinguish **internal deployment governance** from **customer delivery**. The source uses the unexplained acronym “MDASH” for the former; use plain language unless the team has defined it. Buyers may use embedded or forward-deployed teams, and sellers still need internal governance. Set responsibilities and incentives from the work, not from the buying/selling label alone. Staff continuity, succession, and customer knowledge transfer matter more than treating engineer retention as an anti-poaching tactic.
 
-Owns the harness *product*: its failure modes, eval suite, cost envelope, tool catalog, escalation surface, and — critically — the **autonomy envelope** (every request to widen what the agent may do lands here; they say yes based on whether the harness has the verification, rollback, and escalation to *contain* the new surface, not on what the model *can* do). Differs from an ML PM (who owns model selection/benchmarks — a line item here) and a platform PM (measured on adoption; the Harness PM is measured on *production reliability*). Sits at the intersection of reliability engineering, product, and applied AI. *A Harness PM who can't state their current eval-coverage %, top three uncovered failure modes, and last five closed eval cases isn't yet operating at the level the role demands.*
+### The Harness PM responsibility
 
-### Human-in-the-loop → human-in-the-harness
+This role coordinates the product's failure modes, evaluation priorities, cost envelope, tool scope, escalation experience, and proposed changes in autonomy. It may be an existing PM or a dedicated role. It is not automatically the highest-value hire, and model/platform PM roles can also own reliability and domain outcomes.
 
-"Human in the loop" implies a synchronous gate; it works at a few actions/day, breaks at 10, fails at 100, and is a fiction at 1,000. **Human-in-the-harness:** the human is a *component the harness routes to* — the review queue, the escalation path, the feedback channel — engaged when confidence/anomaly/policy triggers say so, not on every action. Human attention becomes a resource the harness *allocates*, like tokens or retries. The operating tell: *what is your human-review throughput?* If the answer is a queue length, a latency, and an SLA, you're running human-in-the-harness; if it's "someone looks at most things," you're still in human-in-the-loop and will eventually either stop looking or stop scaling. This is more precisely safe, not less — but it lands differently in a board review than a product retro, and landing it in both rooms is the Harness PM's translation job.
+Give the owner enough technical understanding and decision authority to connect product value with operational evidence. They should know key uncovered risks, recent improvements, limits of the evals, and current cost and service performance. “Eval coverage percentage” needs a defined denominator; an arbitrary top-three/last-five recital is not a competence test. Permission expansion may require business, technical, security, or other authorized owners beyond the PM.
 
-### The build/buy boundary + the Assembler pattern
+### Two additional patterns
 
-**Keep in-house (compounds for you):** harness design discipline, eval philosophy & quality rubric, domain failure-mode taxonomy, org-specific workflow logic, autonomy-envelope decisions, escalation routing. **Outsource (commodity):** observability/trace plumbing, model providers, base retrieval/RAG libraries, standard scaffolds, cost dashboards, generic tool libraries. The one-line test: *if a role can be written as a short spec, outsource it; if it requires domain-specific judgment every week, keep it.* The **Assembler pattern** scales the function past ~10 workflows: one PM + one engineer maintain a library of harness *primitives* (Identity templates, Memory modules, Orchestration patterns, Interception stacks, Obs/Evals infra); new workflows compose a harness in days. The trap: the library starts owning workflow logic and becomes Model One in disguise — the Assembler owns primitives, workflow teams own composition.
+**The AI spine:** a cross-functional structure brings technical and business-process knowledge together. The source proposes a technology/platform owner, AI engineers, and embedded risk/compliance, connected to a business owner, knowledge owner, and end users, under executive sponsorship. Business ownership includes deciding whether an underperforming use case continues. Knowledge ownership includes curating reference material and judging domain adequacy within agreed authority. It does not override required safety or policy constraints.
 
-### The execution-environment decision — managed ≠ accountable
+Biweekly internal meetings and monthly user sessions are possible cadences. A model in which the spine retains a share of verified revenue or savings may support reinvestment. It can also create inflated attribution, reluctance to fund controls, and short-term incentives. Define benefit measurement, independent review, allocation, and funding for obligations without direct revenue. Funding design does not eliminate political disagreement.
 
-"Agent platform" bundles four separable layers, and the build/buy call is made *per layer*: **model service** (inference), **agent runtime** (the loop, sessions, retries, persistence), **execution environment** (filesystem, shell, sandbox, resource isolation), and **business environment** (internal systems, production data, identities, approvals, financial limits). A vendor can run the first three; **the business environment is always yours**. That yields four deployment shapes:
+**The Assembler:** a small team maintains reusable identity, memory, orchestration, interception, and observability/evaluation components, while workflow teams own their composition and outcomes. The source's one PM plus one engineer and approximately ten-workflow trigger are illustrative. Staff for demand, shared complexity, and support needs. Keep common primitives useful without silently taking over all business logic.
 
-- **A — Vendor-managed** (model + runtime + sandbox operated by the vendor, e.g. a managed-agents product): fastest to production; the vendor runs the room.
-- **B — Hybrid** (vendor runs the model + runtime; the *sandbox and tool execution run in your infrastructure*): data-local execution, but note — execution locality is *not* data invisibility (tool arguments and results still flow to the vendor's control plane so the model can keep reasoning).
-- **C — Composed** (runtime from one platform, sandbox from that or another provider): maximum flexibility, but *you* own verifying no gap exists between orchestration, isolation, access, and approval.
-- **D — Customer-managed** (you operate everything): maximum control and residency fit, highest engineering/security burden — and self-hosting a "sandbox" that's really a container with an open network and inherited credentials is false confidence.
+## 5. Choose deployment boundaries and vendor responsibilities
 
-Three lines govern the choice: **managed infrastructure is not managed accountability** (a vendor can operate the computer; it cannot decide which consequences your org should permit — your refund limits, consent rules, change-freeze policy stay yours); **orchestration is not isolation** (a durable runtime survives failures; a sandbox stops damage — different problems, often both needed); and **a sandbox is not safety** (it may isolate files while exposing network, credentials, data, or irreversible external APIs). So: **choose the boundary before the vendor** — decide where files, processes, credentials, tool results, session state, and logs are *allowed to exist*, then pick the configuration that satisfies it. And choose by **consequence, not org size**: low-consequence knowledge work → managed cloud is fine; production mutation (money, records, deploys, external comms) → the execution environment alone is insufficient (needs tool-boundary policy, task-scoped credentials, approval thresholds, independent verification, recovery); regulated/high-sensitivity → hybrid or self-hosted, analyzed boundary by boundary. Write an explicit **shared-responsibility matrix** — most environment failures happen because both parties assumed the other owned the control. *(The per-tool contract that enforces the business-environment boundary is `tool-architecture`; the sandbox/blast-radius containment is `safety-by-design` / `agent-risk`. Source: Ravi's Harness "Environment Is the Product Boundary" bonus.)*
+Assess four separable layers: **model service**, **runtime**, **execution environment**, and **business systems and authority**. Decide where data, files, processes, credentials, tool results, session state, and logs may exist. Then compare configurations against those requirements.
 
-The line that ties it to this skill's spine: **buy the commodity, design the consequence.** Sandbox provisioning, session queues, and runtime recovery are becoming platform capabilities you can reasonably rent — but authority, approval, blast-radius budgets, and recovery from *business* harm are organization-specific and cannot be outsourced by selecting a managed product.
+| Deployment shape | Typical split | What to establish |
+|---|---|---|
+| **A. Vendor-managed** | Provider operates model, runtime, and sandbox. | Actual isolation, access, retention, service limits, control interfaces, and shared duties. |
+| **B. Hybrid** | Provider supplies some model/runtime services; customer hosts selected tools or execution. | What data still crosses the boundary, including prompts, arguments, results, metadata, and logs. |
+| **C. Composed** | Runtime, model, and execution services come from multiple providers or components. | End-to-end identity, policy, tracing, recovery, support, and ownership across interfaces. |
+| **D. Customer-managed** | Customer operates the selected stack. | Engineering and security capability, isolation, dependencies, updates, and actual control over every relevant service. |
 
-### Open vs closed is the *first* org decision
+No shape is inherently fastest, most flexible, or compliant. Sensitive or regulated work can sometimes use appropriate managed services; local execution alone does not make all data private or satisfy every requirement. Verify the exact deployment and applicable rules through the relevant specialists and `safety-by-design`.
 
-Before the org models, before the Harness PM: *for this workflow, are we rebuilding around a harness we own or one we rent?* If "rent," the org models are irrelevant — the Harness PM becomes a vendor-relationship manager, the flywheel becomes "file a feature request." Fine for the 60%; catastrophic for the 40%. June 2026 supplied four proof points to carry into any vendor review: buy the identity/containment floor (Claude Tag) and build above it; the lab may ship *your* vertical (Claude Science) so differentiate on what it can't see — your workflows, ground truth, compliance surface; never rent the eval layer (OpenAI retired hosted Evals with ~6 months' notice — the vendor didn't raise the price, it deleted the shelf); and model-portability became a *continuity* requirement the week Fable 5 was suspended for 19 days with zero notice.
+Write a shared-responsibility matrix for operations, business permissions, data handling, validation, response, and recovery. A vendor may carry meaningful contractual and operational responsibility; selecting that vendor does not by itself settle what consequences the organization permits.
 
-## LONGEVITY — What Survives the Model, and the Meta-Skill
+Orchestration is not isolation. Isolation is not proof of safety. A container with broad network access and inherited credentials may have a wider effect than its label suggests. A durable runtime can repeat a side effect unless the action and recovery contract prevent it. Route action contracts to `tool-architecture` and incident exposure to `agent-risk`.
 
-### The dissolving ladder (two destinations)
+### Build, buy, and retain control deliberately
 
-Capabilities migrate off your harness in one of two directions, and they price differently. **Destination A — Model absorption** (a *gift*: you delete code, keep your architecture; structured output, tool-calling, long-context RAG, multi-step reasoning, generic safety have already crossed). **Destination B — Vendor-harness absorption** (a *trade*: you shed engineering cost and take on vendor coupling in the same motion; parallel fan-out didn't become an API parameter, it became dynamic workflows inside Claude Code, on the vendor's pricing/availability/roadmap). Every dissolving capability also drags a *quieter* capability out with it — the JSON validator guarded semantic drift; the ReAct trace was your explainability artifact; RAG enforced freshness/governance. Find that residue and put it somewhere permanent.
+Separate **source availability**, **customization**, **operational control**, **portability**, and **commercial dependence**. “Open” and “closed” alone are insufficient. A rented harness still needs domain evaluation, workflow ownership, adoption work, and vendor review; the team is not reduced to filing feature requests.
 
-### The five permanent residents (invest here relentlessly)
+Domain rubrics, workflow policies, and authority decisions commonly need strong internal ownership. Implementation of tracing, retrieval, runtime, dashboards, and tool libraries can often be purchased. These are candidates, not mandatory boundaries. A short specification does not make outsourcing appropriate, and domain complexity does not prohibit competent outside support. Use `build-or-buy` for the comparison.
 
-No model absorbs these because they depend on information, incentives, or obligations the model structurally cannot have: **(1) domain-specific evals & ground truth** (your product's opinion of "good" — outsource it and you have a wrapper, not a product); **(2) org-specific workflows** (your approval hierarchy, your 2017 ERP↔CRM bridge); **(3) observability & audit** (a stateful, tamper-evident, court-defensible record — the model is a stateless transformation); **(4) cost controls** (the harness is *adversarial to the model on spend* — spending more is the model's revenue; correct, forever); **(5) user-specific context & memory** (privacy-scoped per-user state a general model cannot legally carry). *(Candidate sixth, written in 19 days of Fable-5 downtime: model-availability insurance — routing policy + capability-degradation map + fallback evals that let the product survive a dark model.)*
+## 6. Assess maturity and choose the next useful improvement
 
-### The meta-skill — four questions that predict what dissolves by 2027
+The five-stage ladder is a diagnostic aid. Teams can have different maturity by responsibility.
 
-For any capability in your harness: **(1) Is it generic or org-specific?** **(2) Does it benefit from scale?** **(3) Does the frontier lab have economic pressure to absorb it?** — and the 2026 fourth question: **(4) Has it entered the self-improving tier** (can the harness evaluate and improve it autonomously — worker/evaluator/evolution loops)? Three yeses on 1–3 → it dissolves, plan accordingly (build cheap, don't architect a team around it). Two or fewer → it stays, invest seriously. A yes on 4 → your job shifts from *authoring* to *supervising* (you set the rubric the evolution agent optimizes against, and you audit the audit trail). The third question is the one most-often gotten wrong: *the question is not what feels generic — it's what the labs will make money on generalizing.*
+1. **Prompt:** an initial model call and task instruction.
+2. **Retry:** basic parsing and recovery behavior.
+3. **Eval suite:** explicit outcomes and representative checks.
+4. **Harness:** coordinated context, actions, verification, and operational controls.
+5. **Harness discipline:** ownership, versioning, incident learning, migration, and continuing review.
 
-### The moat, and why the eval suite is the last line
+Do not infer that 60–70% of teams sit at stage 2, that every stage-3 transition removes most pain, or that only stage-5 teams renew. Identify the actual gap affecting this workflow.
 
-*The eval suite is the skeleton of the moat; the flywheel is the moat itself.* A static eval suite a patient competitor can approximate; a flywheel wired from *your* production traces to *your* evals to *your* harness edits runs on data nobody else has (LangChain moved a coding agent rank 30 → top-5, +13.7pp, with no model change, on harness edits the flywheel proposed). The blind spot: proprietary evals can't be benchmarked against peers, so self-assessed quality drifts — keep a 50–100-item **calibration subset**, de-sensitized enough to run against public benchmarks, or you inherit the BloombergGPT-style surprise two years later. And the final bet, as vendor fine-tuning pipelines start absorbing workflows, audit, cost, and context: *a vendor can absorb the behavior; they cannot absorb the arbiter of whether the behavior is right.* Organizations that keep rigorous evals always have something worth protecting; those that let evals decay have already handed over the moat and just haven't been sent the invoice.
+### A nine-part audit, schedulable as a nine-day starter kit
 
-**The transferable instincts** (the patterns expire; these compound): probabilistic systems need deterministic wrappers; trust is engineered, not assumed; economics and reliability are the same problem (the invoice and the incident are two views of one phenomenon); the gap between demo and production is a first-class design concern. *The one line for your next planning meeting: the model reasons, but the harness decides what that reasoning is allowed to touch — still true in Q4 2027, whichever layer owns the primitive by then.*
+1. Map actual components against `agent-harness`: Model, Harness, Tools, Environment; the five clusters; and governance. Do not invent an unexplained eleven-component checklist.
+2. Inspect a representative and risk-relevant sample of traces, including successes and failures. Fifty is a planning example.
+3. Interview the engineer and operational responder about recurring workarounds and hidden work.
+4. Catalog tools, MCP servers where used, agent identities, permissions, and external dependencies.
+5. Compare important production failures with current evaluation coverage.
+6. Write the evidence-based maturity diagnosis, including strengths and unknowns.
+7. Create prioritized changes with owners and acceptance criteria. Four tickets is optional.
+8. Establish or improve the trace-to-eval loop. Five cases and one CI integration can be a starter; validate any model judge against representative expert decisions, including severe disagreements.
+9. Assess each important cluster as portable, partially portable, or coupled, with an exit cost and test. Three coupled clusters are not an automatic failure.
 
-## WHERE THIS SKILL ENDS — the boundary, and the siblings it routes to
+The work may take less or more than nine days. The source's >90% judge agreement on 50 cases is not a universal standard: agreement can be inflated by common easy cases. Use metrics and uncertainty appropriate to the error cost.
 
-This skill is the **program** — the money, the org, the years. It routes to:
+Track **recovery rate** as `eligible errored sessions reaching the defined valid outcome without human intervention / eligible errored sessions`. Define error, eligibility, valid outcome, and observation window. Report cost, harm, timeout, and escalations alongside it. A system with more unnecessary retries can improve this rate while worsening the service. The historical 30–50% before and 70–80% after ranges are not validated targets.
 
-- **The machine itself → `agent-harness`** (the sibling): MHTE, the five clusters, the Anatomy Atlas, failure signatures, the four shippable patterns, the paradoxes. *That skill decides what to build and how to diagnose it; this one decides how to fund, staff, and future-proof it.*
-- **Deep unit economics at 10× → `cost-model` / `token-economics`**; **build-now vs wait-for-the-model on a specific capability → `capability-tracking`**.
-- **Rolling the harness out to an org → `adoption-launch`**; **whether the org is structurally ready → `alignment-check`**; **the four stakeholder translations in depth → `stakeholder-communications`**.
-- **Safety as competitive defensibility → `safety-as-moat`**; **where the durable advantage sits across the stack → `moat-finder`**.
+## 7. Plan what changes and what remains accountable
 
-The spine: **the machine wins the sprint; this program wins the eighteen months.** A harness with no named owner, no cost shape, and no permanent-residents list is a science project that will be wound down when reliability never arrives — no matter how good the machine is.
+The **dissolving ladder** distinguishes two possible migrations:
 
-## DIAGNOSTIC QUESTIONS
+- **Into a model capability:** better output structure, tool use, long-context handling, reasoning, or safety behavior may reduce particular workarounds.
+- **Into a vendor's harness or platform:** orchestration, persistence, and other services may become purchased capabilities, with a different cost and dependency profile.
 
-1. What *phase* is your program in — front-loaded, plateau, or compounding — and are you narrating the CFO accordingly? (Naming it wrong is how programs die on the plateau.)
-2. Rank your five cost centers against your actual line items. Which are you under-budgeting (usually evals + human review) and over-budgeting (usually tokens)?
-3. Which rung of the maturity ladder are you on, by evidence — and is your team acting like a higher rung than the evidence supports?
-4. Who is the *named* Harness owner with authority to modify prompts, gate hooks, approve skills, and sign eval scorecards? If it's "whoever's interested in AI," that's the gap.
-5. For each workflow: open or closed, and is that the right call for *Year 3*? (Misclassification is a migration bill nobody underwrote.)
-6. Can you name your five permanent residents and, for every other meaningful component, its retire-by trigger? (If not, half your roadmap has an unpriced timer.)
-7. Which of the three break-even signs have you seen, and which are you still waiting for?
-8. Is your eval suite a static artifact or a living flywheel wired from production traces — and do you keep a calibration subset so self-assessment doesn't drift?
+Neither is guaranteed. Long context does not eliminate retrieval freshness or access controls; structured generation does not eliminate semantic validation; model safety does not replace action policy. Before retiring a component, identify every job it performed and ensure the replacement covers each necessary one. A generic JSON schema also never proved factual meaning by itself.
 
-## QUALITY GATE
+Keep five continuing responsibilities visible, whether implemented internally or through a provider:
 
-- [ ] The program's cost shape is named (front-load / plateau / compound) with a Year-2 reframe ready before the budget meeting.
-- [ ] All five cost centers are budgeted, with tokens correctly ranked (usually fifth) and a runtime line included.
-- [ ] The team's maturity rung is diagnosed from evidence, with the next-rung move named.
-- [ ] A single Harness owner is named, with authority and a career ladder — not enthusiasm.
-- [ ] Every workflow is classified open vs closed, deliberately, with the Year-3 cost of being wrong acknowledged.
-- [ ] "Human in the harness" is real: human review has a throughput, latency, and SLA (not "someone looks at most things").
-- [ ] The five permanent residents are written down; every other component carries a retire-by trigger (the meta-skill four questions run each quarter).
-- [ ] The eval suite is a flywheel (traces → evals → edits), with a shareable calibration subset guarding against self-assessment drift.
+1. **Domain evaluation and reference outcomes:** what counts as a good result and how that standard is maintained.
+2. **Organizational workflow and authority:** how work connects to real decisions, systems, and obligations.
+3. **Observability and records:** what evidence is needed, who may access it, and how its integrity and retention work.
+4. **Cost and capacity controls:** what the organization can spend and how it handles variable demand.
+5. **User context and memory:** authorized, relevant, current state with appropriate privacy controls.
 
-## WHEN WRONG
+These are continuing responsibilities, not five implementations that no model or vendor could ever supply. A model is not a revenue-seeking actor adversarial to the customer; supplier incentives and billing terms are the relevant economic issue. Add **availability and degraded operation** when continuity requires it, with tested alternatives rather than assumed instant provider switching.
 
-This skill over-applies when the workflow is genuinely commodity (the 60%): internal productivity, non-differentiating CX, or a low-stakes agent where the harness is not your advantage — run those on a closed stack with a small procurement-oriented team, and do *not* stand up a Harness PM, an open-harness program, or a permanent-residents review for them. It also mis-fires if used to *delay*: the maturity ladder and the nine-day kit are diagnostic, not a gate to hide behind while not shipping. And be honest about the evidence tier — the cost multiples, the $191 delta, the 3–5× front-load, and the failure-share percentages are practitioner-reported field patterns (⚠), not audited universals; use them to shape the argument and the budget, then measure your own numbers against your own baseline.
+For each capability, ask whether it is generic or specific, benefits from scale, is attractive for a provider to supply, and can be improved through a validated automated evaluation loop. Use these as scenario inputs, not a three-yes forecast of absorption by 2027. Automated improvement still needs controlled objectives, held-out checks, authority boundaries, and monitoring for metric gaming.
 
----
+## 8. Test the advantage and explain the plan
 
-## TRADE-OFF LEDGER
+A harness, proprietary model, dataset, or other asset can contribute to advantage. None is automatically a moat. Ask whether the improvement matters to users, whether the organization captures its value, how competitors could reproduce it, and what must keep working. `moat-finder` owns the deeper assessment.
 
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
+A trace→eval→change loop can improve the system, but it can also overfit observed cases or reinforce a weak rubric. Keep held-out cases and independent calibration where useful. A 50–100-item sanitized subset is a possible starting point, not enough by definition; public benchmarks may measure a different task and are not mandatory if sharing would violate data rights.
 
-## CONCLUSION
+Translate the same evidence for different stakeholders:
 
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5: state the recommendation, name the key trade-off, acknowledge the biggest risk, define the next action.
+- **Engineering:** which failure classes and maintenance work the investment should reduce.
+- **Design and users:** how behavior, recoverability, and review experience should improve.
+- **Executives and budget owners:** expected outcomes, cost, uncertainty, and the next expansion or stopping decision.
+- **Security and other control owners:** which boundaries and records the design supplies and what still needs review.
 
----
+Avoid promising that every trace is a compliance artifact or every dollar buys future autonomy. User adoption and buyer value are different questions; explain both without inventing a second benefit. `stakeholder-communications` supports the wording.
 
-## VISUAL SUMMARY
+## Final operating-plan check
 
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary — ideally the three-year cost curve crossing the compounding-return curve at break-even, or the permanent-residents vs dissolving-ladder split. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Confirm a comparable baseline, complete budget and scenarios, named owners with usable authority, sufficient review/response capacity, deployment responsibilities, and a justified next investment. Include important dependency risks, retirement or re-evaluation triggers, and evidence that could change the decision.
+
+Use the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) for proportionate trade-off and handoff records. A cost scenario, organization map, or responsibility diagram can help; use `excalidraw-svg` when useful. Do not draw an inevitable Year-3 break-even curve as if it were a measured forecast.
+
+For the machine use `agent-harness`; for economics use `cost-model` / `token-economics`; for adoption and readiness use `adoption-launch` / `alignment-check`; for changing capabilities use `capability-tracking`; and for defensibility use `moat-finder` / `safety-as-moat`. See [evidence and worked examples](references/evidence-and-worked-examples.md) for the source cases and numerical limits.

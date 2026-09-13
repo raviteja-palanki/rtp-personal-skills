@@ -1,47 +1,26 @@
-# Visual Summary Protocol
+# Visual summary protocol
 
-## Purpose
-Every skill output should end with an Excalidraw SVG visual summary — a single, beautiful diagram that captures the essence of the analysis in a glanceable image. This makes every deliverable dramatically more impactful.
+Reference revision 1.4.1 — reviewed 13 September 2026.
 
-## When to generate a visual summary
-- After completing ANY skill's primary analysis or output
-- When the output contains a framework, decision, comparison, flow, or architecture
-- When the user would benefit from a "one-image takeaway" of the work
+Create a visual summary when the user asks for one or when a framework, comparison, dependency, or flow becomes easier to understand visually. A brief answer, simple edit, or already clear list may need no image. Complete the requested primary artifact without treating a diagram as an automatic requirement of every skill.
 
-## How to create the visual summary
+Read the source output and identify the important takeaway. Preserve its evidence, trade-offs, and unresolved conditions. Choose the pattern that represents the relationship accurately:
 
-### Step 1: Identify the story
-Read the skill's output and find the single most important insight. This becomes the diagram's title.
+| Output | Starting pattern | Show |
+|---|---|---|
+| PRD or feature specification | Flow Chain | Problem, proposed behavior, outcome checks, and relevant risk |
+| Strategy or roadmap | Layers or Timeline | Decisions, dependencies, and phases |
+| Research or analysis | Grouped Cards | Findings with their relative weight and limits |
+| Comparison or decision | Contrast Panels | Options against comparable criteria |
+| Architecture | Grouped Containers | Components, boundaries, and connections |
+| Planning | Timeline and Capacity Bar | Work, dependencies, units, and capacity |
+| Stakeholder update | Sequence | What changed and the next decision |
+| Evaluation or metrics | Metric Cards and Callout | Measures, denominators, and interpretation |
+| Safety or trust | Layers | Risks, controls, remaining exposure, and ownership |
+| Agent design | Agentic Loop | Request, tools, review, output, and stop or failure paths |
 
-### Step 2: Pick a pattern
-Match the output type to the best visual pattern:
+Six to eight major elements are a useful starting limit for a summary. Keep more when omission would distort the conclusion; otherwise provide a separate detail view. Use a takeaway title and a callout only when they add distinct information. The label “Quick Check — Executive Summary” is optional.
 
-| Output type | Best pattern | Elements |
-|------------|-------------|----------|
-| PRD / Feature spec | Flow Chain | Problem → Solution → Metrics → Risk |
-| Strategy / Roadmap | Layer Cake or Timeline | Phases with key decisions |
-| Analysis / Research | Grid of Equals | Key findings as equal-weight cards |
-| Comparison / Decision | Contrast Panel | Option A vs. Option B |
-| Architecture / Design | Grouped Containers | Components + connections |
-| Sprint / Planning | Timeline + Capacity Bar | Tasks + capacity visualization |
-| Stakeholder Update | Step-by-Step Flow | What happened → what's next |
-| Evaluation / Metrics | Grid + Callout | Metric cards + insight punchline |
-| Safety / Trust | Layer Cake | Risk layers with mitigations |
-| Agent Design | Agent Loop | User → Agent → Tools → Result cycle |
+Apply the main skill's text, geometry, contrast, and rendered-review guidance. Name the file `{output-name}-visual-summary.svg` when that convention fits the project. Place it near the explanation it supports and provide useful alternative text. Do not insert an image into another application or publish it unless the user has authorized that action.
 
-### Step 3: Apply the excalidraw-svg design system
-- Use `Quick Check — Executive Summary` depth label
-- Maximum 6-8 elements (ruthlessly prioritize)
-- Title = the document's thesis, not its name
-- Include a punchline callout with the "so what?"
-- Follow all color, typography, and layout rules from SKILL.md
-
-### Step 4: Name and embed
-- File: `{skill-output-name}-visual-summary.svg`
-- Place at the top of the output or immediately after the executive summary
-
-## The visual summary instruction (add to every skill)
-```
-## VISUAL SUMMARY
-After completing the primary output, invoke the excalidraw-svg skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image. Follow the Visual Summary Protocol in excalidraw-svg/references/visual-summary-protocol.md.
-```
+For other skills, a reusable instruction is: “Where a diagram would make this result easier to understand, create a visual summary using the Excalidraw SVG skill. Preserve the source's meaning and verification limits, and follow the destination's artifact requirements.”

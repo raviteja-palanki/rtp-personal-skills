@@ -1,241 +1,90 @@
-# tool-architecture: Reading vs Doing
+# Tool Architecture: Reading, Changing, and Establishing What Happened
 
-## The Dual Definition
+**Business lens:** a tool exposes access to information or an operation that can affect people and systems. Define the useful scope, who may authorize it, and how the result will be checked.
 
-**Business lens:** Tool architecture is the API surface by which an agent interacts with your systems. Observation tools are information supply. Action tools are decisions made durable. Trust depends on controlling what actions the agent can durably make.
+**Technical lens:** enforce the actor, delegation, operation, resource, environment, limits, state preconditions, and approval policy. Human users also need these boundaries; good judgment is not a substitute for least privilege.
 
-**Technical lens:** Tools are method calls with permission boundaries. Read tools query state (no mutation). Write tools change state (mutation with rollback). Delete tools make permanent changes. Permission boundaries are (agent_id, tool_id, resource_id, rate_limit, approval_gate). The boundary is where safety lives.
+## Avoid symmetric access without making reads unrestricted
 
----
+Permission to inspect an account does not imply permission to refund it. Neither action is intrinsically safe or unsafe: account history can be private, and a routine refund can be explicitly authorized. Split permissions where consequences differ. A broad query tool can still be safe if the server correctly constrains it; a narrowly named tool can still leak data if its implementation does not.
 
-## The Trap: Symmetric Access
+File reads, API queries, database SELECTs, log searches, and analytics are not necessarily pure or cost-free. Results can change between calls, queries can consume resources, and information can be disclosed. A thousand repeated reads need not be harmless.
 
-You give a user (human or agent) access to a database. They can read and write. This is fine for a human because humans have judgment. For an agent, it's dangerous because judgment is missing.
+Drafts, development writes, configuration changes, temporary files, and cache updates may be recoverable. Production writes, messages, scheduling, deletion, and cascading jobs need effect-specific controls. Staging can still contain real data and credentials; an environment's name is not an isolation guarantee.
 
-The instinct is symmetry: "If I can read users, I should be able to update users." False. Observation is safe. Mutation is costly. Permission asymmetry is required.
+## Three illustrative permits
 
-**Real example:** Customer support agent reads customer account history (safe). Agent writes refund to account (unsafe without approval). Same database, different permission model.
+These examples describe authorization contracts; their numbers are not default limits.
 
-The fix: Design read access liberally, write access conservatively. One tool per read, one tool per write, never merge them. Read returns data. Write requires a decision gate.
+### Send a support response
 
----
+- Actor: support responder acting under the user's or organization's valid delegation.
+- Operation: `send_email`, separate from draft creation.
+- Scope: the authorized support case and recipient; no broadcast or unrelated destination.
+- Limits: case-specific message count, content policy, and any applicable rate limit.
+- Gate: the actual standing permission or required approval, bound to the material recipient and content.
+- Result: operation ID and provider acceptance/delivery state as available.
+- Recovery: status reconciliation and duplicate prevention; cancellation only if the provider still supports it.
 
-## Tool Categories: From Safe to Dangerous
+Marking an email as spam within 48 hours is **not recall**. Provider acceptance is not proof of recipient receipt, reading, or agreement. A self-reported confidence score above 90% does not grant permission to send.
 
-**1. Observation tools (safe to give widely)**
-- File read
-- API query (GET)
-- Database select
-- Log search
-- Analytics query
+### Update a preference
 
-Characteristics: Pure functions, no side effects, fully idempotent. Safe to call 1000 times. Agent can use these to think. High autonomy, no approval gates needed.
+- Actor: personalization service with a narrowly scoped workload identity or delegation.
+- Scope: authorized preference fields for the intended user; exclude credentials and unrelated records.
+- Precondition: expected resource version, validated value, and applicable user preference/consent.
+- Duplicate/concurrency behavior: idempotent operation identity and a conditional update where appropriate.
+- Recovery: restore only when safe against later legitimate changes; otherwise reconcile the conflict.
+- Records: relevant old/new state or protected references, with suitable access and retention.
 
-**2. Reversible write tools (medium safety)**
-- Create draft (email, document, report)
-- Modify dev database
-- Update configuration (with rollback supported)
-- Create temporary files
-- Update cache entries
+A “24-hour rollback window” is only real if the implementation preserves what is needed and avoids overwriting intervening work. Passing development tests does not itself expand production authority.
 
-Characteristics: State changes, but undo is possible (usually within hours). Cost is moderate (time to rollback + opportunity cost). Needs post-audit logging. Approval gates optional if agent is confident.
+### Deploy an approved change
 
-**3. Audited write tools (lower safety)**
-- Modify production database
-- Publish to staging environment
-- Send communication to user (email, SMS, notification)
-- Schedule task execution
-- Trigger workflow
+- Actor: deployment service scoped to the actual target environment.
+- Scope: reviewed artifact and configuration; staging rights do not imply production rights.
+- Gate: the applicable approval and release policy, which may include standing automation.
+- Recovery: tested rollback or forward repair, including data and downstream effects.
+- Stop: restrict further deployment, assess in-flight work, and reconcile the current version.
 
-Characteristics: State changes visible to users, rollback is costly or breaks continuity. Must be pre-approved or post-audited. Requires rate limiting.
+One deployment per day, mandatory manual review, and a one-week rollback window were source examples, not universal requirements. Automated deployment can be appropriate under an authorized tested contract.
 
-**4. Irreversible delete tools (unsafe, needs locks)**
-- Delete file
-- Drop database table
-- Purge user data
-- Archive and delete
-- Remove backup
+## Record evidence without inventing causality
 
-Characteristics: No undo. Data is gone forever. Compliance and liability issues. Agent should never have autonomous access. Always requires human approval, preferably multi-level.
-
-**5. Cascade tools (most dangerous)**
-- Deploy code to production
-- Migrate database schema
-- Restart critical service
-- Send broadcast message
-- Trigger reconciliation job
-
-Characteristics: Single action triggers many downstream actions. One bug cascades. Consequence magnitude is unpredictable. Always requires explicit approval and careful monitoring.
-
----
-
-## Permission Boundaries: The Permit Matrix
-
-For each tool, you grant (or deny) access per agent, per context.
-
-**Dimensions:**
-
-1. **Agent identity:** which agent is calling? (only specific agents get write access)
-2. **Resource scope:** which resources can it touch? (customer A's data, not all customers)
-3. **Rate limit:** how often? (1 per second, 100 per day?)
-4. **Approval gate:** who approves? (none, pre-approval, post-audit?)
-5. **Sandbox vs prod:** is this a safe copy or live system?
-6. **Rollback window:** how long to fix mistakes? (5 min, never?)
-
-**Example permits:**
-
-```
-PERMIT: email_write
-  AGENT: support_responder
-  SCOPE: single user (not broadcast)
-  RATE: 1 per second, 10 per user per day
-  GATE: None if confidence >90%, else ask human
-  SANDBOX: User gets email; can be marked as "draft" if pre-approval needed
-  ROLLBACK: User can mark as spam within 48h (recall)
-
-PERMIT: database_write
-  AGENT: personalization_agent
-  SCOPE: specific columns only (preferences, settings, NOT credentials)
-  RATE: 1 per user per hour
-  GATE: Post-audit logging mandatory, no pre-approval
-  SANDBOX: Write to dev replica for testing; prod after testing passes
-  ROLLBACK: Automatic rollback on error, manual rollback within 24h
-
-PERMIT: deploy_code
-  AGENT: deployment_bot
-  SCOPE: staging only (not production)
-  RATE: 1 per day
-  GATE: Requires human code review + human approval
-  SANDBOX: Staging is mandatory; prod requires separate approval
-  ROLLBACK: Rollback available for 1 week
-```
-
-Notice: each permit is specific. No "give agent full database access." Every access is bounded.
-
----
-
-## Escape Hatches: Kill Switches and Gradual Rollback
-
-For every tool, design a way to stop it:
-
-**Circuit breaker:** Monitor tool errors in real-time. If error rate exceeds threshold, disable tool.
-- Example: Email write tool fails 10 times in a row → disable for all agents → human investigates
-- Configuration: error_rate > 5% for 10+ calls → trip circuit
-
-**Rollback window:** For audited writes, user can undo within time window.
-- Example: Agent modifies user settings. User discovers 2 hours later, clicks "undo change."
-- Configuration: undo available for 24h, then locked
-
-**Graceful degradation:** Rather than all-or-nothing, reduce tool access progressively.
-- Example: Agent is misbehaving. Reduce from "any user" scope to "test users only" before full disable.
-- Configuration: degradation levels (all → test → none)
-
-**Kill switch:** Human can disable tool instantly across all agents.
-- Example: Security discovers vulnerability in delete tool → hit kill switch → tool unavailable → fix in progress
-
-**Audit review:** Regular (weekly, monthly) review of tool usage by humans.
-- Example: Detect agent is using write tool 100x more than historical average → investigate → maybe it's normal (feature change) or maybe it's broken
-
----
-
-## Sandbox vs Production: Copy Semantics
-
-**Observation tools:** No sandbox needed. Reading is safe. Read prod directly.
-
-**Write tools:** Sandbox is essential. Design like this:
-
-1. **Development:** Agent can write to dev database freely (it's a sandbox)
-2. **Testing:** Agent reads prod data, writes to test database, human verifies output
-3. **Staging:** Agent can write to staging (copy of prod structure) with approval
-4. **Production:** Agent can write to prod only after stages 1-3 pass
-
-This way, agent proves it works before touching production.
-
-**Dangerous pattern:** Agent writes to prod directly. Testing is after deployment. Consequence magnitude is uncontrolled.
-
----
-
-## Audit Trails: Decision + Action
-
-Logging "the action happened" is insufficient. Log the decision:
+An illustrative audit record can include:
 
 ```json
 {
-  "timestamp": "2026-03-26T14:32:00Z",
-  "agent_id": "personalization_agent",
-  "tool": "email_write",
-  "action": "send_email",
-  "target_user": "user123",
-  "decision_confidence": 0.87,
-  "approval_gate": "pre_approval_not_required",
-  "alternatives_considered": ["resend_existing_email", "wait_for_user_action", "send_different_email"],
-  "reasoning": "User has not engaged with onboarding in 7 days, conversion rate 0.15. Email reminder increases conversion to 0.35. Net benefit: $12",
-  "outcome": "email_sent",
-  "user_response": "opened_after_4h",
-  "impact": "user_completed_onboarding"
+  "operation_id": "case-771-response-1",
+  "actor_id": "support_responder",
+  "tool": "send_email",
+  "tool_version": "1",
+  "target_reference": "case-771-authorized-recipient",
+  "authorization_reference": "case-771-response-policy",
+  "policy_result": "allowed",
+  "execution_status": "provider_accepted",
+  "evidence_reference": "provider-event-123",
+  "delivery_status": "pending",
+  "reconciliation_required": false
 }
 ```
 
-This log tells the story: why the agent decided to act, how confident it was, what happened, what the result was. Invaluable for audits and debugging.
+This is an example shape, not a production schema or proof that an event occurred. Production records need appropriate timestamps, integrity, access controls, and retention. Reconciliation status must change if uncertainty arises.
 
----
+The original log asserted that a reminder raised conversion from 0.15 to 0.35 and generated $12 of benefit. Those are unsupported causal claims unless a valid analysis establishes them. Later onboarding or an email-open signal alone does not prove that benefit. Keep observed events, model estimates, and evaluated business impact separate.
 
-## Tool Escalation Protocol
+## Test and respond in proportion to the work
 
-Don't grant all tools at once. Escalate tools as agent proves reliability:
+Simulation, shadow operation, sandbox/staging tests, and bounded production rollout are possible stages. Use authorized representative data or suitable synthetic/sanitized substitutes. Reading production data during a “test” can itself be consequential. No fixed sequence proves production safety, and a clean log or <1% average error rate does not justify every permission expansion.
 
-**Phase 1 (Observation only):**
-- Agent reads data from all systems
-- Agent cannot modify anything
-- Goal: verify agent can read without errors, can understand data
+Circuit-breaker examples such as ten consecutive errors or 5% over at least ten calls need a useful denominator, time window, dependency scope, and reset rule. The signals may identify very different problems. An undo control cannot reverse an effect the system never made reversible.
 
-**Phase 2 (Safe writes):**
-- Agent can write to dev/test systems
-- Agent can write reversible changes (drafts, configs with rollback)
-- Goal: verify agent can make decisions without breaking things
+## Preserved pitfalls, treated as illustrations
 
-**Phase 3 (Audited prod writes):**
-- Agent can modify prod databases with post-audit
-- Agent can send communications (email, notification) with logging
-- Goal: verify agent makes good decisions and acts predictably
+- **Permission growth:** a service expands from S3 reads to writes, deletes, queues, database updates, and role delegation. Each added permission deserves a justified scope; the named AWS sequence is illustrative, not a verified incident.
+- **Environment mismatch:** sparse staging data and dense production data can reveal different behavior. Test relevant conditions without using unrestricted production mutation as the first experiment.
+- **Messaging excess:** 100 emails per hour being technically allowed does not make sending that many relevant or authorized. A rate limit is an upper bound, not a target.
+- **Sparse audit:** “account modified” omits actor, operation, authority, and state needed for investigation.
+- **Temporary-file drift:** expanding what counts as temporary can expose production configuration to deletion. Validate resource boundaries rather than trusting a loose name.
 
-**Phase 4 (High-confidence autonomous writes):**
-- Agent gets pre-approval-free access to medium-blast tools
-- Error rate must be <1% for phase 3 before phase 4
-- Goal: maximize latency improvement while maintaining safety
-
-**Never phase:** Cascade and delete tools. Humans always approve.
-
----
-
-## Real-World Pitfalls
-
-**AWS Lambda permission explosion:** Service starts with s3:GetObject. Over time: s3:PutObject, s3:DeleteObject, sqs:SendMessage, dynamodb:UpdateItem, iam:PassRole. Now it has broad powers and no one knows when it happened (gradual privilege escalation).
-
-**Database agent testing:** Agent tested on production tables (no sandbox). Works fine. Deployed to staging. Staging has different data distribution (sparse vs dense). Agent does something that was harmless on dense data, catastrophic on sparse.
-
-**Email tool rate limit gap:** Agent can send 100 emails/hour (legitimate). User doesn't expect this. Suddenly customer service ticket goes from 1 email to 100 emails. User thinks it's a bug, actually it's the rate limit being hit.
-
-**Audit trail too sparse:** Agent modifies user account, log says "account modified". Months later, dispute. What changed? Why? Was it the agent or a human admin? Logs don't say. Unresolved.
-
-**Delete tool surprise escalation:** Agent given "delete temp files" access. Over time, temp file definitions expand. Agent deletes production config thinking it's temp. System crashes.
-
----
-
-## Decision Checkpoints
-
-**When designing tool access:**
-1. Is this a read or write tool? (Asymmetric permissions)
-2. What's the consequence magnitude if it goes wrong? (Scope matters)
-3. Can we undo it? (Reversibility determines gates)
-4. How fast does it need to be? (Approval adds latency)
-5. Is there a sandbox to test in first? (Prod always risky)
-
-**When escalating tool access:**
-1. Did the agent use phase N correctly? (No errors, no surprises?)
-2. Is the audit log clean? (Decisions documented?)
-3. What's the error rate? (<1% to escalate)
-4. Can we undo phase N decisions? (Rollback available?)
-5. Is there an escape hatch to revert? (Kill switch ready?)
-
-Get these right, tool architecture becomes invisible. Get them wrong, a single tool becomes a liability.
+Use the [main skill](SKILL.md) to translate these questions into the tool contract and its enforcement.

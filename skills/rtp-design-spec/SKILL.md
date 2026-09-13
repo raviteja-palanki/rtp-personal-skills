@@ -1,368 +1,152 @@
 ---
 name: rtp-design-spec
-description: 'Generates and validates DESIGN.md format files, Google Labs'' emerging standard for describing design systems to coding agents. Use when handing a design system to engineering, when documenting a brand for AI consumption, when standardizing tokens across products. Triggers on "design.md", "design tokens", "design spec", "DESIGN.md", "tokens.json", "Tailwind config from design", "agent-readable design system.'
+description: 'Encode an existing design system as DESIGN.md so people and coding agents can find exact tokens, understand their purpose, and apply them consistently. Use for design-to-engineering handoffs, agent-readable brand guidance, token audits, or Tailwind and DTCG exports. Triggers include "design.md", "design tokens", "design spec", "tokens.json", and "Tailwind config from design". Read the current brand and project implementation first; preserve their decisions and identify gaps instead of inventing a replacement system. Choose a token-only, standard, or full handoff; validate references and supported formats, check the intended consumer, and document motion, interaction, and accessibility work that the format cannot verify.'
 author: Ravi Teja Palanki
-version: v1.0_latest
+version: v1.0.1_latest
 created: 25 APR 2026
 updated: 25 APR 2026
 ---
 
-# design-spec — Agent-Portable Design Systems
+# Design Spec — Make a design system usable across handoffs
 
-A skill for producing and validating `DESIGN.md` files. DESIGN.md is Google Labs' format spec (`@google/design.md`, alpha) for describing a design system as one Markdown file: YAML frontmatter for tokens, prose for rationale. The output is meant to be consumed by coding agents (Claude Code, Cursor, v0, Bolt, Gemini Code Assist) so they produce on-brand UI without reading a 50-page Figma file.
+Create or review `DESIGN.md`: exact design tokens in YAML, with Markdown explaining their roles. The useful outcome is a handoff that preserves design decisions and exposes unresolved ones. A readable file can reduce guesswork; it cannot guarantee identical output across agents or replace a rendered review.
 
-This skill does NOT design systems from scratch. It encodes existing systems into a portable format, validates them against the spec, and exports them to Tailwind / DTCG / Figma.
+This skill encodes an existing system. If the task also needs new design decisions, develop those with the appropriate brand or UX skill and distinguish approved choices from proposals. The file format is maintained by Google Labs and remains **alpha**; verify the version of the tool that will consume it.
 
----
+## 1. Establish the source and scope
 
-## DEPTH DECISION
+Read the applicable brand guide, current project specifications, and implemented tokens. Record the source revision, intended surface, themes, and export destination. Resolve conflicting values before declaring a canonical file; a historical example does not override a newer project decision. For Ravi's website, check its current design-language documents and CSS. For AI-Fluent material, use that program's brand guidance.
 
-Three depths. Pick before writing.
+Confirm whether `DESIGN.md` will be the maintained source or a generated view of another source, such as a token repository. State the synchronization direction and owner. Do not replace an existing source-of-truth arrangement simply because this skill produces Markdown.
 
-| Depth | When | What you ship |
+Choose the smallest useful depth:
+
+| Depth | Use it when | Deliver |
 |---|---|---|
-| **Frontmatter-only** | The system has tokens but no prose discipline yet, or you need a quick handoff to one agent | YAML frontmatter only. Skip prose sections. Lints will warn on `missing-typography` if absent. |
-| **Standard** | The system has tokens AND opinions about how they're used | Frontmatter + 4 sections: Overview, Colors, Typography, Components. Skip Layout/Elevation/Shapes/Don'ts if not load-bearing. |
-| **Full** | The system is the visual identity of a product or brand and needs to survive multi-agent handoffs | Frontmatter + all 8 sections. Lint-clean. Token references resolve. Contrast checked. |
+| Token-only | Exact values are enough for the bounded handoff | YAML tokens, with assumptions or omissions recorded in the handoff |
+| Standard — default | Readers need values and the main usage decisions | Tokens plus Overview, Colors, Typography, and Components |
+| Full | The handoff needs the complete visual system | Tokens and all eight sections below, with applicable implementation references |
 
-Default to **Standard**. Upgrade to Full only when the system is the contract between design and engineering for a real product. Frontmatter-only is for prototypes and one-off agent briefs.
+These are working levels, not three levels of format conformance. A full document is not automatically safer than a concise, accurate one. An audit may need only findings, and an export task may need no prose rewrite.
 
----
+## 2. Encode values without changing their meaning
 
-## THE STRUCTURAL INSIGHT
-
-Most design system documentation is written for one of two audiences: humans (style guides, brand books) or engineers (Storybook, Tailwind config, Figma libraries). Both fail the third audience that now matters more than either: **coding agents**.
-
-A coding agent given a 50-page Figma file with auto-layout, variants, and prose annotations gets it wrong half the time. The same agent given a DESIGN.md produces consistent UI in 30 seconds — every time, across sessions, across providers.
-
-The 0.1% angle: **AI-agent-portable design.** DESIGN.md is the contract between a brand and the agents that will produce surfaces in that brand's voice. The skill is not about making design systems — it's about making them survive the human → AI handoff.
-
-This is why every section has prescribed structure, why tokens use `{path.to.token}` references instead of hard-coded values, why a `primary` color is required even for monochrome systems. The format optimizes for one thing: an agent reading it cold and producing on-brand output without escalating questions.
-
-The corollary: a design system that can't be expressed as a clean DESIGN.md probably isn't a design system. It's a collection of opinions.
-
----
-
-## THE FORMAT IN ONE PAGE
-
-A DESIGN.md file has two layers separated by `---` fences.
-
-**Layer 1 — YAML frontmatter (machine-readable tokens):**
-```yaml
----
-version: alpha          # optional, current spec version
-name: <string>          # required
-description: <string>   # optional one-liner
-colors:
-  <token-name>: "#RRGGBB"
-typography:
-  <token-name>:
-    fontFamily: <string>
-    fontSize: <Dimension>      # 48px, 3rem, 1.5em
-    fontWeight: <number>       # 400, 700, 900
-    lineHeight: <number|Dim>   # 1.6 (multiplier) or 24px
-    letterSpacing: <Dimension> # -0.02em, 0.1em
-    fontFeature: <string>      # optional, font-feature-settings
-    fontVariation: <string>    # optional, font-variation-settings
-rounded:
-  <scale>: <Dimension>     # sm: 4px, md: 8px, full: 9999px
-spacing:
-  <scale>: <Dimension>     # base: 16px, gutter: 24px
-components:
-  <component-name>:
-    backgroundColor: <Color | "{colors.primary}">
-    textColor: <Color | "{colors.on-primary}">
-    typography: "{typography.label-md}"
-    rounded: "{rounded.sm}"
-    padding: <Dimension>
-    height: <Dimension>
-    width: <Dimension>
-    size: <Dimension>
----
-```
-
-**Layer 2 — Markdown body (8 sections in order):**
-1. `## Overview` (or "Brand & Style") — personality, audience, emotional response
-2. `## Colors` — palette rationale and roles
-3. `## Typography` — font choices and hierarchy
-4. `## Layout` (or "Layout & Spacing") — grid model, spacing rhythm
-5. `## Elevation & Depth` — shadows, tonal layers, glass
-6. `## Shapes` — corner radius philosophy
-7. `## Components` — how atoms compose
-8. `## Do's and Don'ts` — guardrails
-
-**Reference syntax:** `{path.to.token}` resolves at lint time. Examples: `{colors.primary}`, `{rounded.lg}`, `{typography.body-md}`, `{spacing.md}`.
-
-**Color format:** `#RRGGBB` hex in sRGB only. No `rgba()`, no `hsl()` in token values (use them in prose for transparency notes).
-
-**Dimension format:** Number + unit. Valid units: `px`, `em`, `rem`. Unitless `lineHeight` is a fontSize multiplier (CSS best practice).
-
----
-
-## THE 8 SECTIONS WALKTHROUGH
-
-### 1. Overview (also "Brand & Style")
-**Goes here:** Brand personality, target audience, emotional response, the one-line aesthetic ("Architectural minimalism meets journalistic gravitas").
-**Does NOT go here:** Specific colors, font names, component examples. Keep it tonal. The agent uses Overview when no specific rule applies — it's the fallback.
-**Example tone:** "The UI evokes a premium matte finish — a high-end broadsheet or contemporary gallery. Trustworthy, restrained, expert."
-**Canonical token names:** none — this is pure prose.
-
-### 2. Colors
-**Goes here:** Color palette explanation. Which color drives interaction, which carries text, which is decorative. Why each choice exists.
-**Does NOT go here:** The literal hex values (those live in YAML frontmatter and are referenced by name in prose). Don't list every shade — only the semantic roles.
-**Example tone:** "Primary (#1A1C1E) is deep ink for headlines. Tertiary (#B8422E) is the sole driver for interaction — used exclusively for primary actions."
-**Canonical token names:** `primary`, `secondary`, `tertiary`, `neutral`, `surface`, `on-surface`, `error`. Material-derived systems also use `on-primary`, `surface-container`, `inverse-surface`, `outline`.
-
-### 3. Typography
-**Goes here:** Font family choices, the rationale (why this serif, why this sans), how weight maps to hierarchy.
-**Does NOT go here:** Every font size in pixels (frontmatter has them). Don't enumerate 15 levels — describe the system.
-**Example tone:** "Public Sans Semi-Bold for headlines establishes institutional voice. Space Grotesk in uppercase for technical metadata evokes a digital stopwatch."
-**Canonical token names:** `display-lg`, `display-md`, `headline-lg`, `headline-md`, `headline-sm`, `title-lg`, `title-md`, `body-lg`, `body-md`, `body-sm`, `label-lg`, `label-md`, `label-sm`. Most systems use 9-15 levels.
-
-### 4. Layout (also "Layout & Spacing")
-**Goes here:** Grid model (fluid vs. fixed-max-width), spacing rhythm (8px base?), gutter philosophy, density vs. breath.
-**Does NOT go here:** Component-specific padding (that goes in Components). Don't conflate page layout with element padding.
-**Example tone:** "Fluid grid for mobile, fixed-max-width 1200px for desktop. Strict 8px scale, 4px half-step for micro-adjustments."
-**Canonical token names:** `xs`, `sm`, `md`, `lg`, `xl`, plus semantic ones like `gutter`, `margin`, `container-padding`, `section-margin`.
-
-### 5. Elevation & Depth
-**Goes here:** How visual hierarchy is conveyed. Shadow specs, tonal layers, glass effects, border-only flat designs.
-**Does NOT go here:** Z-index values (those are implementation). Don't describe specific component shadows here — describe the SYSTEM (e.g., "all elevated surfaces use blurred ambient shadows tinted with primary").
-**Example tone:** "Depth through tonal layers, not heavy shadows. Background uses soft off-white; primary content sits on pure white cards."
-**Canonical token names:** No standard tokens yet (the spec is still alpha here). Most systems describe levels in prose: Level 1 (base), Level 2 (card), Level 3 (modal).
-
-### 6. Shapes
-**Goes here:** Corner radius philosophy. Why 4px vs. 16px. Where shapes get sharper or softer.
-**Does NOT go here:** Every component's corner radius (frontmatter `rounded` has them). Describe the language, not the inventory.
-**Example tone:** "Architectural sharpness — minimal 4px corners for engineered feel. Buttons and cards never exceed 8px."
-**Canonical token names:** `none` (0), `sm`, `md`, `lg`, `xl`, `full` (9999px). Some systems add `DEFAULT` or component-scoped names like `card-recession`.
-
-### 7. Components
-**Goes here:** How atoms compose. Which components are heroes, how variants relate, interaction state grouping.
-**Does NOT go here:** Layout of specific pages (that's not in the spec — keep it to atom-level patterns).
-**Example tone:** "The card-profile is the hero container with rounded-xl and a tinted ambient shadow. card-walk-stat uses high-contrast secondary for data viz."
-**Canonical token names:** Common atoms: `button-primary`, `button-secondary`, `button-ghost`, `card-default`, `input-field`, `chip`, `badge`, `list-item`, `nav-link`. Variants follow the pattern `{component}-{state}`: `button-primary-hover`, `button-primary-active`, `button-primary-disabled`.
-
-### 8. Do's and Don'ts
-**Goes here:** Practical guardrails. What to never combine. What contrast ratios to maintain. Maximum simultaneous accents.
-**Does NOT go here:** Brand personality reminders ("be friendly!"). Make every line actionable.
-**Example tone:**
-- "Do use primary color only for the single most important action per screen"
-- "Don't mix rounded and sharp corners in the same view"
-- "Do maintain WCAG AA contrast (4.5:1) for body text"
-- "Don't use more than two font weights on a single screen"
-**Canonical token names:** none — this is rules, not tokens.
-
----
-
-## TOKEN COMPOSITION RULES
-
-The format only works if tokens compose cleanly. Five rules.
-
-**Rule 1 — Primary always exists.** Even monochrome systems need a `primary` color. Linter throws `missing-primary` warning otherwise, and downstream agents auto-generate one (which produces drift across surfaces).
-
-**Rule 2 — References go one level deep, not zero, not three.**
-```yaml
-# CORRECT — direct reference to a primitive
-button-primary:
-  backgroundColor: "{colors.primary}"
-
-# WRONG — reference to a group, not a value
-button-primary:
-  backgroundColor: "{colors}"
-
-# AVOID — chained references work but obscure intent
-colors:
-  brand: "#9D4EDD"
-  primary: "{colors.brand}"   # works but the linter prefers direct
-```
-
-**Rule 3 — Components reference, never duplicate.** If three components use the same purple, all three reference `{colors.primary}` — never copy `#9D4EDD` into each. When the brand color shifts, one edit propagates.
-
-**Rule 4 — Variant components share a name root.** Hover, active, disabled, pressed: all named `{component}-{state}`. The agent matches the root and treats them as a state machine.
-
-**Rule 5 — Orphan tokens are a smell.** A color defined in `colors:` but never referenced by any component is dead weight. The linter emits `orphaned-tokens` (warning). Either reference it from a component or delete it.
-
-**Failure modes when these rules break:**
-- Broken `{colors.primary-60}` reference when only `colors.primary` exists → linter error, agent picks a fallback that drifts from brand
-- Two colors named `accent` and `secondary-accent` with no usage → agent treats them interchangeably, surfaces become inconsistent
-- Component declares hex literal instead of token reference → brand color update misses that component, you get a one-off purple in the wild
-
----
-
-## LINTING RULES
-
-The `@google/design.md` CLI runs eight rules against any DESIGN.md. Each emits structured findings (severity + path + message).
-
-| Rule | Severity | What it catches | Why it matters |
-|---|---|---|---|
-| `broken-ref` | error | A `{path.to.token}` that doesn't resolve to any defined token | Agents will pick a fallback color, drifting from brand. Hard fail. |
-| `missing-primary` | warning | Colors defined but no `primary` key | Agents auto-generate a primary, which is unpredictable across runs |
-| `contrast-ratio` | warning | Component `backgroundColor`/`textColor` pair below WCAG AA (4.5:1) | Accessibility regression — body text becomes unreadable |
-| `orphaned-tokens` | warning | A color token defined but never used in any component | Dead weight; suggests the system is bloated or the token is mis-named |
-| `token-summary` | info | Counts tokens defined per section | Sanity check — a system with 60 colors and 2 typography levels is unbalanced |
-| `missing-sections` | info | Optional sections (`spacing`, `rounded`) absent when other tokens exist | Surfaces gaps that agents will paper over with defaults |
-| `missing-typography` | warning | Colors defined but typography is empty | Agents pick default fonts (usually system-ui), which guarantees brand drift |
-| `section-order` | warning | Markdown sections appear out of canonical order | Some consumers parse top-to-bottom; out-of-order sections may be skipped |
-
-**Run command:**
-```bash
-npx @google/design.md lint DESIGN.md --format json
-```
-
-Exit code `1` if any error finding, `0` otherwise. Wire this into CI for any project shipping a DESIGN.md.
-
----
-
-## EXPORT PATHS
-
-DESIGN.md is the source. Three outputs derive from it.
-
-### Tailwind theme config
-```bash
-npx @google/design.md export --format tailwind DESIGN.md > tailwind.theme.json
-```
-**Pros:** Drops directly into `tailwind.config.js` under `theme.extend`. Coding agents using Tailwind get tokens as utility classes (`bg-primary`, `text-on-primary`, `rounded-card-recession`).
-**Cons:** Tailwind doesn't support every DESIGN.md construct (e.g., `fontFeature` strings need manual mapping). Component tokens flatten — Tailwind has no native concept of `button-primary-hover` as a single object.
-**Use when:** The codebase is Tailwind-first and you want tokens as classes.
-
-### DTCG tokens.json
-```bash
-npx @google/design.md export --format dtcg DESIGN.md > tokens.json
-```
-**Pros:** Compatible with Style Dictionary, Tokens Studio, Specify. Becomes the lingua franca for any design tool that supports the W3C Design Tokens Format Module.
-**Cons:** DTCG is also a moving spec — verify the consumer supports the version emitted. Component tokens may not round-trip into Figma cleanly.
-**Use when:** The consumer is Figma Tokens Studio, Style Dictionary, or any non-Tailwind tooling.
-
-### Figma variables (manual)
-**There is no auto-export to Figma.** The mapping is manual but mechanical.
-
-| DESIGN.md | Figma Variable Type | Figma Collection |
-|---|---|---|
-| `colors.<name>` | Color | Colors |
-| `rounded.<scale>` | Number (px) | Radius |
-| `spacing.<scale>` | Number (px) | Spacing |
-| `typography.<name>.fontFamily` | String | Type/Family |
-| `typography.<name>.fontSize` | Number (px) | Type/Size |
-| `typography.<name>.fontWeight` | Number | Type/Weight |
-| `components.<name>.<prop>` | Mode-bound aliased variable | Components |
-
-**Pros:** Designers can pull tokens into Figma with full mode support (light/dark).
-**Cons:** Manual. Drift between DESIGN.md and Figma is a real risk. Treat DESIGN.md as canonical and re-sync Figma on every brand release.
-**Use when:** Designers and engineers must share a token vocabulary.
-
----
-
-## RAVI'S DESIGN DNA AS DESIGN.MD
-
-Ravi's `ravi-personal-branding` (v2.1) is 1,251 lines. The frontmatter below is the agent-readable distillation. Pair with the markdown sections in the enhanced `ravi-personal-branding` skill.
+The frontmatter of the **generated DESIGN.md** is separate from this skill's Claude frontmatter. Preserve the latter when editing the skill.
 
 ```yaml
 ---
 version: alpha
-name: Ravi Personal Branding
-description: >
-  Architectural minimalism meets warm intelligence. Premium matte aesthetic with four
-  semantic color identities (Model/Harness/Tools/Environment), four-typeface stack,
-  recession glass cards, paper canvas overlay.
+name: Example System
+description: A short description of the existing visual identity.
 colors:
-  primary: "#9D4EDD"        # Aureate Purple — Model (intelligence, drop caps, evals accent)
-  secondary: "#F43F5E"      # Crimson Rose — Harness (warnings, anti-patterns, harness series)
-  tertiary: "#F59E0B"       # Amber — Tools (capabilities, L3 badges, systems accent)
-  quaternary: "#06B6D4"     # Cyan — Environment (default homepage hero, CTA halos)
-  success: "#10B981"
-  surface-light: "#FCFDFD"
-  surface-dark: "#030407"
-  on-surface-light: "#202226"
-  on-surface-dark: "#F9FAFB"
+  primary: "#1A1C1E"
+  on-primary: "#FFFFFF"
 typography:
-  display:
-    fontFamily: Instrument Serif
-    fontSize: 4.5rem
-    fontWeight: 400
-    lineHeight: 1.1
-    letterSpacing: -0.02em
-  h1:
-    fontFamily: Inter
-    fontSize: 4rem
-    fontWeight: 900
-    lineHeight: 0.95
-    letterSpacing: -0.03em
   body-md:
-    fontFamily: Newsreader
-    fontSize: 1.2rem
+    fontFamily: Public Sans
+    fontSize: 1rem
     fontWeight: 400
-    lineHeight: 1.7
-  meta:
-    fontFamily: JetBrains Mono
-    fontSize: 0.75rem
-    fontWeight: 700
-    letterSpacing: 0.15em
+    lineHeight: 1.6
+    letterSpacing: 0em
 rounded:
-  sm: 4px                  # neon highlight, pastel highlight
-  md: 12px                 # folder cards
-  lg: 20px                 # level badges
-  card-recession: 40px     # signature 40px rounded-top recession glass
+  none: 0px
+  sm: 4px
 spacing:
-  xs: 4px
-  sm: 8px
   md: 16px
-  lg: 32px
-  xl: 64px
 components:
-  card-glass:
-    backgroundColor: "{colors.surface-dark}"
-    rounded: "{rounded.card-recession}"
-    padding: 32px
   button-primary:
     backgroundColor: "{colors.primary}"
-    textColor: "#FFFFFF"
-    typography: "{typography.meta}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.body-md}"
     rounded: "{rounded.sm}"
     padding: 12px
 ---
 ```
 
-The pairing principle: frontmatter is the contract; prose is the rationale. An agent given this frontmatter alone can build a passable Ravi-branded surface. Adding the 8 prose sections (in `ravi-personal-branding` v2.1+) closes the gap from passable to on-brand.
+This is a syntax example, not a replacement palette or proof that Public Sans is available in the target app. Use the source system's names and values. Typography also supports `fontFeature` and `fontVariation`; retain these when relevant and check their export mapping. Component properties include `backgroundColor`, `textColor`, `typography`, `rounded`, `padding`, `height`, `width`, and `size`.
 
----
+Use explicit units for dimensions: `px`, `em`, or `rem`. A unitless `lineHeight` is a multiplier. Current alpha also permits numeric spacing values, such as column counts; do not turn a ratio into pixels during export. Current color support extends beyond six-digit hex to valid CSS colors. Quote hex strings in YAML. Confirm that the specific parser, exporter, and destination support the chosen notation. See the [format specification](https://github.com/google-labs-code/design.md/blob/main/docs/spec.md).
 
-## DELIVERABLE FORMAT
+Apply five composition checks:
 
-Every `design-spec` task produces one or more of:
+1. **Give the primary role an explicit meaning.** The documented format expects a primary palette, and the linter warns when colors lack `primary`. Map the existing role; do not invent an accent merely to remove a warning. Explain a deliberately limited palette or unsupported mapping.
+2. **Reference the right value.** `{colors.primary}` points to a color; `{colors}` points to a group and is not a substitute. A component's typography may reference a composite such as `{typography.body-md}`. Keep aliases understandable, resolvable, and free of cycles; an arbitrary one-hop limit is not a design requirement.
+3. **Share values when they share a meaning.** Components that use the same brand role should reference its token. Two roles may happen to have the same value and still deserve separate names because they can change independently.
+4. **Group variants consistently.** Names such as `button-primary-hover`, `button-primary-active`, and `button-primary-disabled` make relationships visible. Describe focus, loading, pressed, and error states where applicable. Naming a state does not implement its behavior or keyboard interaction.
+5. **Investigate apparently unused tokens.** A color unused by the file's components may serve a chart, an unlisted component, another theme, or a downstream consumer. Map it, document the dependency, or remove it only after checking actual use. A lint warning alone is not proof of dead content.
 
-1. **A complete `DESIGN.md` file** — frontmatter + 8 sections, lint-clean against `@google/design.md`, ready to commit alongside the codebase or brand kit.
-2. **A frontmatter-only spec** — when the system is being prototyped or handed to a single agent for a specific surface.
-3. **A lint report** — when an existing DESIGN.md is being audited. Emit findings with file path, severity, and one-line fixes.
-4. **An export bundle** — `tailwind.theme.json` + `tokens.json` + Figma mapping table when the system is being shipped to an engineering team.
-5. **A migration map** — when converting an existing skill (like `ravi-personal-branding`) into DESIGN.md, produce a mapping table from existing tokens to DESIGN.md tokens, flagging any concept that doesn't fit (animations, scroll-driven effects).
+A broken reference should lead to a repair or an explicit unresolved finding. It should not invite an agent to silently choose a fallback. Similarly, explain the difference between `accent` and `secondary-accent` if both exist; names without roles leave the important decision unstated.
 
-**Quality bar:** the file passes `npx @google/design.md lint --format json` with zero errors and either zero warnings or warnings that are explicitly justified in the prose.
+## 3. Put usage decisions where readers expect them
 
----
+Use `##` headings in this order for the sections included. Keep exact values authoritative in tokens and explain application in prose. Repeating a value for clarity is allowed, but it creates another place to keep synchronized. The following examples illustrate the kind of decision to describe; they are not universal visual rules.
 
-## RED TEAM — When DESIGN.md Is the Wrong Tool
+| Section | Explain | Keep distinct |
+|---|---|---|
+| **Overview** or **Brand & Style** | Audience, personality, and desired experience; for example, a restrained editorial surface | The overall direction versus detailed component specifications |
+| **Colors** | Text, surface, interaction, status, and decorative roles; where each palette belongs | A color's role versus its numerical value; decorative accents versus essential status cues |
+| **Typography** | Font purpose, hierarchy, fallback behavior, and loaded weights | Reading text versus headings and metadata; the actual family versus a hoped-for font |
+| **Layout** or **Layout & Spacing** | Grid, maximum width, responsive behavior, density, gutters, and spacing rhythm | Page structure versus individual component padding |
+| **Elevation & Depth** or **Elevation** | Tonal layers, borders, shadows, blur, and the hierarchy they express | Visual depth versus stacking behavior; link implementation details when needed |
+| **Shapes** | Radius choices and where sharp, soft, or pill shapes belong | Shared shape rules versus a complete component inventory |
+| **Components** | How tokens combine, which elements dominate, and how variants relate | Reusable components versus a specific page composition |
+| **Do's and Don'ts** | Concrete combinations to use or avoid, with relevant exceptions | Testable guidance versus repeated personality adjectives |
 
-DESIGN.md is alpha and opinionated. Three classes of system where it will fail:
+Common vocabulary includes color roles `primary`, `secondary`, `tertiary`, `neutral`, `surface`, `on-surface`, and `error`; some systems add `on-primary`, `surface-container`, `inverse-surface`, and `outline`. Typography can use `display-lg/md`, `headline-lg/md/sm`, `title-lg/md`, `body-lg/md/sm`, and `label-lg/md/sm`. Keep a simpler hierarchy when that is what the system uses; nine to fifteen levels is not a quota.
 
-**1. Animation-heavy systems.** DESIGN.md has no concept of motion tokens (duration, easing, keyframe patterns). Ravi's own brand has 8+ named keyframes (`palankiReveal`, `pulseCyan`, `dataStream`, `recession`, `floatIso`). The format silently drops them. If motion IS the brand — Stripe's old payment flow, Linear's hover physics, anything where signature animations carry identity — DESIGN.md captures only the static skeleton. Document motion separately and reference it from prose.
+Spacing commonly uses `xs` through `xl`, with semantic names such as `gutter`, `margin`, `container-padding`, or `section-margin`. Radius names may include `none`, `sm` through `xl`, `full`, `DEFAULT`, or a meaningful component-specific name. Preserve the difference between a scale step and a contextual role.
 
-**2. Interaction-as-identity systems.** Glassmorphism with `backdrop-filter` chains, magnetic button physics, scroll-driven recession stacking, parallax — none of these have token primitives in the spec. You can stuff `backdrop-filter: blur(32px)` into a component's `backgroundColor` as a string, but the linter won't validate it and downstream consumers won't reproduce it. For these systems, ship DESIGN.md for the static layer + a separate motion spec.
+Component examples include primary, secondary, and ghost buttons; cards; inputs; chips; badges; list items; and navigation links. Explain special components such as a profile card or walk-stat card through their purpose and token relationships. A rule limiting accent groups or font weights should reflect the actual brand; do not impose a two-weight limit or ban mixed corner shapes on every product.
 
-**3. Accessibility-critical systems.** DESIGN.md lints contrast for component backgroundColor/textColor pairs but doesn't model focus rings, screen reader labels, motion-reduced fallbacks, or color-blindness palettes. For systems with WCAG AA+ as a hard floor (government, healthcare, education), DESIGN.md is necessary but not sufficient. Pair it with WCAG audit prose and tested component fallbacks.
+## 4. Validate the file and the handoff
 
-**4. Brand-only documentation.** If the audience is humans reading a brand book — voice, tone, photography style, illustration treatment, video editing standards — DESIGN.md is the wrong format. It's a UI design system spec, not a brand identity guide. Use Brand.md or a traditional brand book.
+Use the project's installed, versioned CLI when available. If installing a dependency is necessary, follow the project's package policy and record the version used. The documented invocation is:
 
-**5. Pre-token systems.** A system with 4 ad-hoc colors and no naming discipline shouldn't be force-fit into DESIGN.md. The format presupposes a system with semantic roles. Trying to write DESIGN.md for a chaotic palette produces a chaotic DESIGN.md. Stabilize the system first; encode it second.
+```bash
+npx @google/design.md lint DESIGN.md --format json
+```
 
-**The honest read:** DESIGN.md is the right tool for the contract between a static design system and the agents that will produce surfaces in that system. It is not a brand book, a motion spec, an accessibility audit, or a pre-system grooming exercise. Used inside its envelope, it survives the human → AI handoff better than any alternative. Used outside, it's friction without payoff.
+Review all findings. The original eight checks remain useful: `broken-ref`, `missing-primary`, `contrast-ratio`, `orphaned-tokens`, `token-summary`, `missing-sections`, `missing-typography`, and `section-order`. They examine reference resolution, palette and type omissions, declared component contrast, unused color references, token counts, missing groups, and document order. Counts describe the file; they do not by themselves prove a balanced design.
 
----
+As checked on 13 September 2026, the CLI documents eleven rules, adding `unknown-key`, `token-like-ignored`, and `omitted-rules`. The optional `omitted` field records intentionally excluded token groups. Use it for a real scope decision, not to conceal a missing requirement. The [current CLI reference](https://github.com/google-labs-code/design.md#cli-reference) lists commands and severities.
 
-## REFERENCES
+Record the tool version, file tested, result, and unresolved findings. Aim for zero errors and reviewed warnings. If the tool could not run, say so; a manual reading is not a successful CLI run. An error-free exit does not mean warnings are absent. Export success is also not a substitute for linting.
 
-- Spec: `https://github.com/google-labs-code/design.md/blob/main/docs/spec.md`
-- CLI: `npm install @google/design.md` or `npx @google/design.md`
-- Examples: `paws-and-paths`, `atmospheric-glass`, `totality-festival` in the design.md repo
-- Companion skill: `ravi-personal-branding` v2.1+ — section "DESIGN.md Export — Agent-Portable Design System"
-- For learn.ravitejapalanki.com tokens (4-color identity #9D4EDD/#F43F5E/#F59E0B/#06B6D4): now covered by `ravi-personal-branding` directly (`rtp-learn-site-design` archived 18 JUL 2026)
+Then check what the file cannot establish: fonts actually load, the intended theme resolves, text and controls remain readable, interaction states work, and the exported values reach the rendered surface. A contrast check on declared text/background pairs is a useful test, not a complete WCAG audit. Transparent colors, gradients, images, and dynamic backgrounds need checks in their rendered context.
+
+## 5. Export for the actual consumer
+
+Choose the requested output; do not create every format by default. Write exports to a new or reviewed destination so a failed conversion cannot destroy a maintained file.
+
+| Destination | Export or mapping | Follow-up |
+|---|---|---|
+| Tailwind v3 | `npx @google/design.md export --format json-tailwind DESIGN.md` | Inspect the emitted configuration shape before merging into the existing configuration |
+| Tailwind v4 | `npx @google/design.md export --format css-tailwind DESIGN.md` | Review the `@theme` output against the project's existing CSS token mappings |
+| DTCG | `npx @google/design.md export --format dtcg DESIGN.md` | Check the emitted dialect, alias handling, and destination's import support |
+| Figma | Use the available integration or a documented mapping | Check value types, units, property bindings, modes, and synchronization ownership |
+
+`tailwind` remains an alias for the JSON export. It is not the v4 CSS export. Ravi's current website design-language specification uses Tailwind v4 and CSS-based configuration; do not introduce `tailwind.config.js` merely to follow an old example.
+
+For Tailwind, verify font feature and variation settings and component states separately; an exported token is not a complete component. For DTCG consumers such as Style Dictionary or Tokens Studio, compatibility depends on the versions and mappings actually used. DTCG 2025.10 is a stable Community Group report, not a W3C Standard; see its [published status](https://www.designtokens.org/tr/2025.10/format/#status-of-this-document).
+
+For a manual Figma handoff, a useful starting map is colors to Color variables, spacing and radii to numeric values, font families to strings, and font sizes and weights to appropriate numeric properties. These are mapping candidates, not a promise that every Figma property supports the same binding. Resolve `em` and `rem` against an explicit base when pixels are required. Map each component property to its compatible variable or style; “mode-bound aliased variable” is not a universal variable type. Verify any import plugin before describing it as automatic or lossless.
+
+## 6. Preserve what sits outside the format
+
+Five cases need additional work:
+
+- **Motion:** preserve duration, easing, triggers, keyframes, and reduced-motion behavior in a linked motion specification. Historical Ravi examples include `palankiReveal`, `pulseCyan`, `dataStream`, `recession`, and `floatIso`; verify current names before use.
+- **Interaction:** glass effects, magnetic buttons, scroll-driven stacking, and parallax need implementation guidance. A CSS declaration such as `backdrop-filter: blur(32px)` is not a valid substitute for a color token.
+- **Accessibility:** link requirements and tested behaviors for keyboard use, focus, labels, contrast, zoom, and motion. DESIGN.md can contribute to that work; it is not a prerequisite for accessible design or evidence of conformance.
+- **Wider brand identity:** voice, photography, illustration, and video guidance can remain in a brand book. Link the relevant source instead of forcing every discipline into UI tokens.
+- **Unsettled design choices:** identify inconsistent names, values, and roles, then resolve or label them. A provisional token inventory can help that discussion; do not present it as an approved system.
+
+The [Ravi migration example](references/ravi-design-example.md) preserves the earlier skill's token values for comparison. Use it to understand mapping, then reconcile it with the current brand and website before applying it.
+
+## Deliver the requested artifact with its verification status
+
+Provide the appropriate `DESIGN.md`, token-only file, lint report, export bundle, or migration map. A migration map should show the source item, destination token or section, changed meaning if any, and items retained elsewhere. For an audit, give the path, finding, consequence, and suggested repair.
+
+State what was checked, what remains unresolved, and which file owns future changes. “Ready for implementation” should mean the receiving team can follow the decisions and see the gaps; it should not imply that a generated interface has already passed visual, behavioral, or accessibility testing.
+
+Revision note: wording and compatibility review completed 13 September 2026. Original `created` and `updated` frontmatter values are preserved; this revision is identified by the increased skill version.

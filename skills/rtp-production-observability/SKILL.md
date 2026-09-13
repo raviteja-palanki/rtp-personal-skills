@@ -1,397 +1,193 @@
 ---
 name: rtp-production-observability
-version: v1.2_latest
-description: 'Catch silent AI degradation in production before users leave. AI systems fail quietly through model drift, prompt regressions and distribution shift, in ways traditional logging misses. Covers the trace, not the request, as the unit of AI observability. Also: quality-aware alerting on eval-score drift, telling a model failure apart from a harness failure, trace debugging, agent-gaslighting detection, the gap between dashboards and what employees actually experience, and tracing thousands of failures back to about three root causes. Use when shipping to production, debugging "it worked yesterday", designing alerts, or auditing whether you would catch a degradation before users complain. Pairs with: eval-framework, confidence-tuner, invisible-stack, feedback-flywheel. Triggers: ''monitoring AI'', ''model drift'', ''quality regression'', ''traces'', ''why did the agent fail''.'
+version: v1.2.1_latest
+description: 'Detect, investigate, and respond to AI degradation in production. Connect system health, task quality, user outcomes, and cost to traces, versioned configurations, and an accountable response. Design alerts without mistaking a proxy, a noisy score, or a missing span for proof of failure. Distinguish model, prompt, retrieval, memory, tool, and infrastructure problems; reconcile claimed actions with verified effects; and turn recurring failures into evaluation cases and discovery evidence. Examine human review and gaps between organizational reports and lived experience, with limits on proposed instruments. Use when shipping, debugging "it worked yesterday", designing alerts, or checking whether monitoring would detect an important failure. Pairs with eval-framework, confidence-tuner, invisible-stack, feedback-flywheel, and observability-stack. Triggers include "monitoring AI", "model drift", "quality regression", "traces", and "why did the agent fail".'
 imports:
   - stress-test
   - eval-framework
   - feedback-flywheel
 ---
 
-## DEPTH DECISION
+# Production Observability
 
-Can you detect when your AI product degraded in the past hour? Or do you find out when users complain?
+Make important failures visible early enough for someone to act. Observe system health, task quality, and user outcomes together, then connect each alert to an owner and a recovery path. A responsive service can still produce wrong answers; a high quality score can still hide slow, expensive, or unauthorized behavior.
 
-**Red flag**: "We check dashboards weekly." By then, you've served bad outputs to thousands of users.
+## Start with the harm and response window
 
-**Green flag**: Real-time alerts on latency spikes, cost anomalies, quality drift, and usage patterns. You detect degradation and roll back before it becomes a user problem.
+Identify the customer, task, deployment, consequential failure, and decision monitoring should support. Use known context rather than repeating questions. Choose an inline audit or fuller monitoring design to fit the request; the shared Universal Skill Protocol lives at the AI-PM library root, or the plugin root in the packaged library.
 
-Silent failure is the AI product killer.
+A quick pass follows one recent failure from detection to diagnosis and recovery. A full pass covers the six process steps, relevant human/organizational checks, and readiness review. Choose detection and recovery targets from exposure, severity, traffic, label availability, and operating capacity. Weekly review can suit a slow business outcome; it is insufficient for an active, serious incident. Real-time telemetry is useful only if the signal and response work.
 
----
+Before expanding collection, establish allowed data, access, destinations, retention, and authorization. Use `observability-stack` for platform and instrumentation choices. Detailed traces can contain customer data, secrets, or sensitive business context; emergency debugging still needs bounded, appropriate collection.
 
-## THE ONE IDEA
+## What observability adds
 
-**In a deterministic system you monitor whether it's *up*. In an AI system you monitor whether it's *right* — and "right" degrades silently, continuously, and statistically. That single difference forces three shifts most teams never make:**
+Use three complementary views:
 
-1. **The unit of observation is the trace, not the request.** A request log tells you *what happened*; a trace tells you *why* — the full reasoning path, every tool call, retrieval, and model invocation as nested spans. You cannot debug a wrong answer from a status code. (This is now the industry standard: OpenTelemetry graduated CNCF with **GenAI semantic conventions**, and the canonical 2026 pattern is *eval-score-as-span-attribute* — quality lives inside the trace.)
-2. **The signal that matters is eval-score drift, not p99 latency.** Latency and cost are the SRE's job and they move loudly. Quality drift moves silently — "context recall −4% this week" — and it's *the PM's job to alert on it*. A green latency dashboard over a rotting quality score is exactly the silent failure that kills AI products.
-3. **Most "model failures" are context failures — attribute correctly or you'll fix the wrong thing.** With frontier models, degradation usually traces to the *harness* (context overflow, retrieval stuffing, a prompt regression), not the model's raw capability. "The harness failed the model" is a different bug than "the model failed," and it routes to a different team.
+1. **Events, traces, and outcomes.** Request records show an interaction; traces connect instrumented operations; external outcomes show whether the intended task succeeded. A trace supports diagnosis but is not a complete account of internal reasoning or proof of causality.
+2. **Quality alongside reliability and cost.** Monitor task correctness, relevant safety constraints, latency, availability, and cost together. PM, engineering, evaluation, and operations share ownership; quality is not useful if nobody can respond, and latency is also a product concern.
+3. **Attribution before repair.** A model, context pipeline, instruction, tool, evaluator, or changed workload can explain degradation. Test plausible causes rather than assuming that most failures belong to one component.
 
-And the integrative point that reframes the whole skill: **observability is not a downstream ops chore — it's the *top* of the feedback flywheel.** Production traces are the raw material that feeds the eval challenge tier (`eval-driven-development`), the correction clusters that reveal unmet needs (`ai-product-metrics`), and the recalibration set for the judge (`confidence-tuner`). Read defensively, the trace catches a regression. Read offensively, the trace *is* the discovery pipeline.
+Production evidence feeds the learning loop: traces and user reports → investigated failures → evaluation cases → changes → production checks. It also reveals unmet needs and reviewer workload. Logging alone does not close that loop.
 
----
+An illustrative failure: after a prompt change, unsupported answers increase slightly, while latency stays flat. Support complaints rise later. Without versioned quality evidence the team cannot easily connect the events. The example's original “2%” was not a measured case and did not specify percentage points versus relative change. Define both the metric and comparison before acting on such a number.
 
-## GROUNDING (Before Starting)
+## The six-step process
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
+### 1. Define the events and evidence to retain
 
-Then proceed with the skill-specific analysis below.
+Log strategically. Determine which fields support the actual monitoring or audit need and which can be omitted, aggregated, pseudonymized, or retained briefly.
 
----
+| Level | Useful evidence |
+|---|---|
+| Request/task | Timestamp, correlation ID, permitted segment/task labels, input/output tokens and units, estimated or billed cost, time to first useful output and completion, model/prompt/configuration version, outcome status. |
+| Trace/span | Model request, retrieval, tool invocation, guardrail decision, retry, handoff, error, and external result. Preserve parent/link relationships and distinguish attempts from completed effects. |
+| Batch/window | Latency distribution, availability/errors, cost per output and successful outcome, task-quality estimates, acceptance/regeneration/correction behavior, traffic by relevant segment, region, and task. |
+| Change/incident | Deployment and routing changes, evaluator/rubric version, affected window and cohort, detection time, evidence, response, and recovery result. |
 
-## THE TRAP
+For model routing, record the actual served provider/model/version when exposed, including fallback and retries. Distinguish it from the requested alias and record unknowns honestly. A successful failover may change capabilities, price, or the authorized data path.
 
-**The "Silent Degradation" Problem**
+Separate measured correctness from proxies. Acceptance, correction, regeneration, confidence language, and user satisfaction are informative but are not interchangeable with accuracy. A “hallucination rate” needs a defined unit, adjudication rule, denominator, and treatment of missing labels; it is not automatically a false-positive rate. Label model-estimated costs as estimates until reconciled with billing.
 
-Your AI product slowly gets worse. But you don't notice because:
+### 2. Build views that support a decision
 
-- Traditional metrics (DAU, retention) lag by weeks
-- Users tolerate degradation until it's intolerable
-- Quality drift is statistical (slightly more hallucinations, slightly worse reasoning)
-- Failures are often soft (wrong answer, not crashed system)
+Provide four views: system health, task quality, usage, and cost. Enable useful splits by model/prompt/configuration version, task or customer segment, tenant where permitted, and time/region when relevant. Control cardinality and access rather than indiscriminately indexing personal identifiers.
 
-You ship a prompt change. Hallucination rate ticks up 2%. Users don't complain immediately. Two weeks later, your support volume spikes. You don't connect it to the change.
+Display sample size, sampling method, time window, data freshness, missingness, and evaluator version beside quality metrics. Show both overall results and important slices; average performance can hide a rare severe failure, while small slices can fluctuate sharply. Guard against traffic-mix shifts masquerading as model changes.
 
-**The "Observability Debt" Problem**
+Connect evaluations to their trace/span or response ID. Scores may be span attributes, linked evaluation events, annotations, or records in an evaluation store. Asynchronous scores often arrive after a span closes. The essential property is a reliable join with the score definition and version, not a mandate to put every score inside a span.
 
-Building observability feels like "non-product work." So you skip it. Then:
-- You can't correlate user problems to system changes
-- Cost surprises you (infrastructure bills spike)
-- Performance degrades and you don't know why
-- You can't prove that a fix actually worked
-- Rollbacks are painful because you don't have baseline metrics
+OpenTelemetry graduated within CNCF in May 2026. That project milestone does not make every GenAI convention stable: the GenAI event documentation checked for this revision still marks its conventions as in development. Verify the supported schema and language implementation. See [monitoring examples and sources](references/monitoring-examples-and-evidence.md).
 
-The cost of not observing is higher than the cost of observing.
+### 3. Define alerts and the response they trigger
 
----
+For each alert, specify the metric and denominator, baseline, important effect size, evaluation window, data/label delay, relevant slice, severity, owner, and action. Distinguish an absolute threshold, a relative change, and a percentage-point change. Use uncertainty and minimum evidence where appropriate; one confirmed critical violation may justify action without waiting for a large sample.
 
-## THE PROCESS
+Possible alerts include latency or token spikes, rising cost per successful outcome, availability loss, validated quality drift, excessive blocking, repeated tool failures, and sustained traffic changes. Treat traffic declines and unusual geography as questions to investigate, not proof of abandonment or abuse. Cost can rise because of price, task mix, more valuable work, retries, or bad configuration.
 
-**1. Define What to Log**
-
-Log strategically (logs are expensive and noisy):
-
-**Per request:**
-- Request timestamp, ID, user segment
-- Input tokens, output tokens, total cost
-- Latency (time to first token, total)
-- Model version, prompt version
-- Output quality signals (confidence, uncertainty markers)
-
-**Per batch/hourly:**
-- Latency distribution (p50, p95, p99)
-- Cost per output, cost per successful outcome
-- Quality metrics (acceptance rate, regeneration rate, correction rate)
-- Error categories (timeout, rate limit, model error, validation error)
-- Usage patterns (peak traffic, geographic distribution)
-
-**On degradation:**
-- Hallucination spike (false positive rate increases)
-- Latency regression (p95 crosses threshold)
-- Cost anomaly (cost per output increases > 15%)
-- Availability drop (error rate increases > 2%)
-
-**2. Build Observability Dashboards**
-
-Real-time dashboards for:
-- **System Health**: Latency, error rate, cost, availability
-- **Quality Metrics**: Acceptance rate, regeneration rate, correction rate, hallucination rate
-- **Usage Patterns**: Peak times, user segments, task types, geographic distribution
-- **Cost Tracking**: Cost per output, cost per successful outcome, cost by segment
-
-Split every metric by:
-- Model version (to detect model regression)
-- Prompt version (to catch prompt-induced degradation)
-- User segment (degradation often hits edge cases first)
-- Time of day (some issues are traffic-dependent)
-
-**3. Set Regression Thresholds with Alerts**
-
-**Latency Alerts:**
-- p95 latency > 5 sec (or your domain threshold)
-- p99 latency > 10 sec
-- Time to first token > 2 sec (affects user experience significantly)
-
-**Cost Alerts:**
-- Cost per output increases > 15% (usually bad prompting or model change)
-- Cost per successful outcome increases > 20%
-- Sudden spike in token usage (runaway generation, bad prompt, or abuse)
-
-**Quality Alerts:**
-- Acceptance rate drops > 3%
-- Hallucination rate increases > 1%
-- Regeneration rate increases > 20%
-- Error rate increases > 2%
-
-**Usage Alerts:**
-- Spike in specific error category (rate limits? model errors? validation failures?)
-- Unusual geographic pattern (potential abuse or regional outage)
-- Sustained drop in traffic (users abandoning due to degradation?)
-
-**4. Harness-Level Monitoring**
-
-When running multi-agent harnesses (Planner/Generator/Evaluator), monitor each agent individually AND the pipeline as a whole.
-
-**Key signals per agent:**
-- **Planner spec quality:** Does the evaluator pass the spec on first try? Declining pass rate = planner regression.
-- **Generator iteration count per sprint:** Trending up = degradation (model worse, prompt worse, or context confusion).
-- **Evaluator false pass rate:** Cross-validate with deterministic checks. If evaluator marks bad outputs as good, its judgment is breaking.
-- **Inter-agent latency:** How long do handoffs take? Planner → Generator → Evaluator delays compound. Alert on > 2x baseline.
-- **Context utilization per agent:** Track tokens used by each agent per sprint. Approaching Pre-Rot Threshold (see below).
-
-**Context Anxiety Detection:** Anthropic finding — agents wrap up work prematurely as context fills. Monitor output quality vs. context utilization. If quality drops at 50-60% of max context, you've hit the Pre-Rot Threshold. Alert on this pattern: quality dropping while context is abundant is a signal to pause and investigate.
-
-**Sprint Contract Compliance:** For harness systems, monitor whether agents are adhering to sprint contracts — are they completing all criteria before declaring done? Track: criteria pass rate per sprint (did agents complete 100% of required work?), iteration count per sprint (are they overshooting?), kill condition triggers (are they exiting at the right moment?).
-
-Set alerts on:
-- Planner spec fail rate increasing (regenerate spec, don't proceed)
-- Generator iteration count trending up (model or context degradation)
-- Evaluator false positive rate (re-eval the evaluator)
-- Inter-agent latency spike (investigate handoff bottleneck)
-- Context anxiety pattern (quality drops while tokens available)
-- Sprint contract violations (agents not meeting criteria before exit)
-
-**5. Categorize Errors Ruthlessly**
-
-Not all errors are equal. Categorize by:
-
-**Transient** (can retry):
-- Timeout
-- Rate limit
-- Temporary model unavailability
-- Network blip
-
-**User Error** (they sent bad input):
-- Validation failure
-- Malformed request
-- Out-of-bounds parameters
-
-**System Failure** (we broke something):
-- Model error (hallucination, reasoning failure)
-- Prompt error (output format broken)
-- Infrastructure failure
-- Cost overrun (token limit exceeded)
-
-Alert differently for each. Transient errors retry. User errors log and ignore. System failures escalate.
-
-**6. Cost-of-Observability Accounting**
-
-Observability isn't free. Track:
-- Log storage costs (might exceed product revenue at scale)
-- Query costs (dashboards hitting log systems constantly)
-- Alert fatigue (too many false positives kills alerting value)
-
-Optimize:
-- Log only high-signal data (not every request)
-- Aggregate before storing (hourly rollups vs. per-request logs)
-- Prune old logs (30-day retention? 90-day?)
-- Sample traffic (if you have 1M requests/day, sample 10K for detailed logging)
-
----
-
-## TRACES & SPANS: THE UNIT OF AI OBSERVABILITY
-
-The per-request logging above tells you *what* happened. To debug *why*, you need the trace — and this is the shift ops-grade monitoring misses.
-
-- **A trace is the full path of one request through your system.** A **span** is one step inside it — an LLM call, a retrieval, a tool invocation, a guardrail check. Nested spans reconstruct the reasoning path. Analogy: the **trace is a patient's full medical chart; each span is one test result**. You don't diagnose from the discharge code; you read the chart.
-- **This is now standardized — instrument against it.** OpenTelemetry graduated the CNCF with **GenAI semantic conventions**; each tool call, model invocation, and retrieval step becomes a child span with standard attributes (model name, token counts). Instrument against the open convention, not a vendor SDK, so you keep the migration door open.
-- **Attach eval scores to spans (eval-as-span-attribute).** The canonical 2026 pattern: quality metrics live *inside* the trace, not in a separate dashboard. That's what makes "correlate a quality regression to the exact config/prompt change that caused it" a query instead of an archaeology project — and it's the join that turns the two skills together: `eval-framework` produces the score, observability records it on the span.
-
-*(Sources: [OpenTelemetry GenAI semantic conventions, Greptime 2026](https://greptime.com/blogs/2026-05-09-opentelemetry-genai-semantic-conventions); [OTel graduation + GenAI observability, 2026](https://www.webhani.com/blog/opentelemetry-graduation-genai-observability-2026).)*
-
-## TRACE DEBUGGING: LOGIC BUG vs MEMORY BUG (and "the harness failed the model")
-
-When a trace shows a wrong output, resist the reflex to blame the model. Classify the failure first:
-
-- **Logic bug** — the agent followed a *wrong procedure* (bad plan, wrong tool, flawed reasoning step). The fix is in the instructions/architecture.
-- **Memory bug** — the agent followed the *right procedure but lost the context* it needed (dropped an earlier fact, forgot a constraint). The fix is in state/memory management.
-- **The harness failed the model** — the classic false accusation. Example: retrieval stuffed 12 documents / 47K tokens into a 64K window; the relevant fact was there but *drowned*. The model didn't fail — the context pipeline did. With frontier models this is the *majority* case. It routes to `invisible-stack` / `context-spec`, not to a model swap.
-
-**Slice with high-cardinality queries.** Aggregate metrics hide the failure; the trace store lets you slice by user, tenant, error type, model/prompt version, and time. Degradation almost always concentrates in a slice (one tenant, one task type, one prompt version) before it shows in the average. Find the slice, read its traces, classify the bug.
-
-## QUALITY-AWARE ALERTING: alert on eval-score drift, not just p99
-
-The SRE team already alerts on latency and cost — those move loudly. The PM's unique contribution is **alerting on quality drift**, which moves silently. Alert on the eval score itself: "context recall −4% this week," "hallucination-rate +1.5% on tenant X," "acceptance −3% since prompt v7." Run a lightweight eval continuously on a sample of production traffic and treat its drift as a first-class signal.
-
-**Tier the alerts, or fatigue kills them:**
-
-| Tier | Trigger | Route |
+| Tier | Meaning | Response |
 |---|---|---|
-| **Critical** | Safety / policy breach, availability drop | Page someone now |
-| **Warning** | Quality drift (eval-score regression, guardrail FP-rate rising) | Daily digest, investigate same-day |
-| **Informational** | Usage-pattern shifts, cost trend toward the cliff | Weekly review |
+| Critical | A serious active safety, permission, availability, quality, or spending incident. | Notify the accountable responder promptly; contain exposure using the agreed mechanism. |
+| Warning | A meaningful deterioration that permits investigation before immediate containment. | Assign a bounded response window, such as same-day investigation when suitable. |
+| Informational | A trend, small change, or planning signal without urgent impact. | Review on a suitable cadence and promote if evidence or consequences change. |
 
-Two AI-specific monitors ops teams forget: the **guardrail false-positive rate** (a guardrail that over-blocks trains users to route around it — a Layer-1 alert-fatigue problem manifesting in production), and **agent gaslighting** — the agent *claims* it did the thing ("I've booked the meeting"), but the trace shows the API was never called. Detect it by comparing the agent's stated actions against the actual tool/API-call spans in the trace. Fabricated execution evidence passes every text-only quality check; only the trace catches it.
+Quality incidents can be critical; cost incidents can also be critical. The category alone does not set urgency. Tune precision, recall, detection time, and reset behavior together. Evaluate the burden of false alarms and the cost of missed incidents. “Fewer than 10% false positives” is not a universal release threshold, and false alarms among alerts are not the same denominator as a classifier's false-positive rate.
 
-## THE COLLABORATION PARADOX: the dead zone where reviewers rationally stop looking
+Version alerts and test routing. Use SLO/error-budget methods where the metric supports them. The historical numerical examples are retained in the reference as illustrative starting points, not product-independent targets.
 
-Source note (⚠ theoretical, unrefereed): an SSRN paper by Gu, Li, and Zhu (Carnegie Mellon and HBS, Jul 2026) proves this formally but tests none of it against real data. The authors themselves call for someone to run the empirical study. Treat every claim below as a well-argued hypothesis, not a measured result.
+### 4. Monitor agents and the whole workflow
 
-**The mechanism.** Once an AI system alone clears the required performance bar for a task, a rational human reviewer's optimal move is to let review effort fall toward zero. This is not negligence and not a training failure. It is the reviewer doing the math correctly: if the AI is already good enough, spending time checking its work costs more than it catches. The paper pairs this with "automation cliffs": the human/AI split of work does not shift smoothly as AI capability rises, it jumps at thresholds.
+In a planner/generator/evaluator harness, inspect component performance and end-to-end results:
 
-**The operational consequence (this is this note's own synthesis, not the paper's claim, and it is the part that matters for your alerting).** Between "the AI is good enough that reviewers rationally disengage" and "the AI is good enough to run alone" sits a dead zone. Inside it, every visible metric looks like success: throughput climbs, override rate drops, output quality holds flat. The review layer has quietly stopped functioning, and none of your normal dashboards show it, because a caught error and an error the AI never made in the first place produce the identical output stream. Output quality alone can never tell you which of the two happened.
+- **Planner:** specification completeness and first-review outcomes. A falling pass rate may reflect the planner, the evaluator, harder tasks, or changed criteria.
+- **Generator:** attempts, useful progress, completed requirements, cost, and outcome. More iterations can signal degradation or more thorough work; compare similar tasks.
+- **Evaluator:** missed defects and incorrect rejections against trustworthy checks or adjudicated samples. Deterministic checks cover only their defined properties. Use `confidence-tuner` for calibration and threshold interpretation.
+- **Handoffs:** delay, missing state, lost constraints, duplicate work, and unresolved tool results. A delay relative to baseline should be interpreted with workload and service commitments.
+- **Context:** tokens, retained constraints, retrieval relevance, compaction/reset events, and quality over task duration. Token occupancy alone cannot locate a universal “pre-rot” threshold.
+- **Work contract:** required criteria satisfied, justified exceptions, iteration/cost bounds, stop conditions, and evidence supporting completion. A status statement is not a completed task.
 
-**The instrument this demands: the seeded-error catch-rate test.** Seed known-bad cases into the review stream at a known rate, and track the catch rate on those seeded cases as its own metric, separate from your overall quality score. A falling catch rate on seeded cases while model-quality metrics hold flat or improve is the clean signature of the dead zone: the model did not get better, the reviewer stopped looking.
+Anthropic describes context anxiety in some tested models: premature wrapping up near a perceived context limit. Its account also describes model-dependent improvements. Test the behavior in the actual model/harness; the original 50–60% window threshold is not a general finding. Compare context selection, retrieval, state persistence, model capability, and task difficulty before prescribing a reset or model swap.
 
-Status: PROPOSED, UNTESTED. Nothing in the source paper, and nothing else in this corpus, has validated this instrument in a live deployment. Pilot it as a hypothesis before you trust it as a metric.
+Use verified critical failures to stop or contain a workflow when necessary. A noisy planner-score decline does not automatically require regenerating the entire specification. Preserve completed work and the evidence needed for recovery.
 
-**Where this is wrong, or breaks.** Never seed known-bad cases into a review stream where a seeded case could consume attention or capacity a real clinical, legal, or safety-critical case needs. That domain carve-out already exists elsewhere in this corpus and applies here without exception. Separately, two of the paper's own background assumptions are probably false and are load-bearing for the whole result: it assumes assisted review costs no more than manual review, and it assumes assisted review is at least as good as either channel alone. Both are empirical claims the paper does not test. If either is false in your domain, the "rational disengagement" math changes and so does the size of the dead zone.
+### 5. Categorize failures to choose a useful response
 
-## THE POLISH PARADOX: the reporting-to-reality gap
+| Category | Examples | Response |
+|---|---|---|
+| Potentially transient | Rate limit, temporary provider outage, network interruption, timeout. | Use bounded backoff/retries when safe. A timeout after a write may leave its outcome unknown; reconcile before repeating the action. |
+| Input or interaction problem | Malformed input, unsupported parameter, failed validation, unclear request. | Give actionable feedback and investigate recurrence. These may reveal product, accessibility, integration, or documentation defects; do not simply blame the user and ignore them. |
+| System or policy failure | Wrong answer, invalid format, retrieval miss, lost state, tool error, authorization breach, infrastructure failure, spending overrun. | Contain according to severity, attribute the cause, and route to an owner. Several categories can contribute to the same incident. |
 
-Source note (⚠ tier throughout): a practitioner piece naming "the two-organizations problem," built on one anonymized advisory anecdote, with no comparison group, no effect size, drawn from a single author's own client base. Treat every claim below as a field observation, not a measured result.
+For trace debugging, retain the **logic versus memory** distinction. A logic failure follows an unsuitable procedure, tool choice, or inference; a memory/state failure omits or loses required information. Both can involve model and harness interactions, and neither is proven solely by a surface symptom.
 
-**The mechanism.** Every scaled company runs two organizations in parallel: the "reported" one (dashboards, board decks, status reports) and the "lived" one (what employees actually experience day to day). Three structural causes drive the two apart. Information layering: each management level compresses and reframes what it passes up. Incentive shaping: people report what makes them look good. Tenure curation: people who would say uncomfortable things leave, or get filtered out of the reporting chain over time.
+The original example of twelve retrieved documents occupying 47,000 tokens in a 64,000-token window is illustrative. It raises a retrieval/context hypothesis; it does not prove that the relevant fact was “drowned” or absolve the model. Compare controlled variants and actual retrieval usefulness. Read permitted slices and trace details to identify candidate causes, then test them. A correlation with a deployment is a lead, not a complete causal explanation.
 
-AI accelerates all three because it sits exactly where data crosses upward, and it produces more polished, more authoritative-looking reports than any human draft would, without polish and accuracy being the same axis. Call this the polish paradox: the more polished an organization's self-reporting becomes, the less effort has gone into surfacing what is actually wrong, because polishing and surfacing compete for the same attention above some threshold.
+**Reconcile claimed actions with effects.** If an agent says it booked a meeting, verify the operation and resulting booking through an authoritative receipt or state check. A recorded API call may fail; provider acceptance may precede completion; an absent span may reflect sampling, broken instrumentation, or an asynchronous path. Use states such as requested, attempted, pending, confirmed, failed, and unknown. The historical label “agent gaslighting” describes a misleading completion claim here, not an inference about intent. Text review, state checks, receipts, and traces can all expose the mismatch.
 
-**The observability gap this exposes.** Every gap this skill covers elsewhere sits at the system or model layer: traces, spans, eval scores, latency, the agent-gaslighting check on tool calls. The reporting-to-reality gap is different in kind. The distortion happens in human reporting, not in the system, so logs, traces, and alerts do not detect it. A status report can pass through a clean pipeline, cite a passing eval score, and still misrepresent the organization it describes. Treat the reporting-to-reality gap as something to instrument, not assume away. It sits one layer above the trace, not inside it.
+### 6. Account for the cost of observing
 
-**Where this is wrong, or breaks.** This applies most where AI-generated or AI-assisted reports get consumed several organizational levels away from where the underlying work happened; the layering has room to compound across those levels. A flat, small organization where the report's author and its ultimate reader sit at the same distance they always did has much less exposure to this specific gap, since there was never much layering to distort in the first place.
+Track storage, ingestion, queries, evaluator calls, instrumentation overhead, investigation time, and alert burden. Choose sampling, aggregation, retention, and indexing to preserve useful diagnosis without collecting everything by default.
 
-## FAILURE-MODE GENEALOGY: from thousands of traces to ~3 root causes
+Sampling 10,000 of one million requests is a 1% example, not a sufficient design for every service. Rare failures may need targeted capture; unbiased overall estimates need known inclusion rules and suitable weighting. Error-enriched samples should not be presented as production incidence. Protect required audit records from inappropriate sampling or deletion, and check both data minimization and retention duties.
 
-Defensive observability catches one regression. Offensive observability does something no single trace can: **aggregate thousands of failing traces and cluster them by root cause.** The pattern that repeats across mature teams — roughly **80% of failures trace back to ~3 architectural root causes** (⚠ practitioner heuristic, not a law — measure your own distribution). Those root causes are *invisible in any single trace*; they only emerge in aggregate. One overflowing retrieval step, one ambiguous instruction, one missing state handoff — each generating hundreds of surface-different failures.
+Monitor the monitoring: exporter errors, dropped spans, missing labels, broken joins, late ingestion, evaluator failures, and stale dashboards. “No failures observed” is ambiguous when the sensor is not working.
 
-This is the observability payoff that feeds the rest of the stack: the genealogy is your architectural fix-list (ranked by volume), your challenge-tier seed (`eval-driven-development`), and your demand-signal map (`ai-product-metrics`'s "evals as discovery"). The review queue and the failure clusters are the same raw material seen from two skills. *(B6 "production-grade trace scoring" framing: score traces to protect **users**, not to decorate dashboards — the genealogy is what turns scoring into action.)*
+## Human review and organizational reporting
 
-## KEY DIAGNOSTIC QUESTIONS
+### Check whether review is contributing
 
-**On Tracing & Attribution:**
-- When an output is wrong, can you pull its full trace (every span) — or only its request log?
-- Are eval scores attached to spans, so you can correlate a quality drop to the exact change?
-- For your last "the model got worse" incident, was it the model or the harness (context overflow, retrieval, prompt regression)? How did you tell them apart?
+Gu, Li, and Zhu's theoretical working paper models how reviewers adjust effort as AI becomes more reliable, and how small capability changes can alter the preferred coordination structure. It is not a measured law that every reviewer disengages once a score crosses a bar. Workload, incentives, consequences, and review effectiveness matter.
 
-**On Logging Completeness:**
-- Can you tell me the cost per output for requests in the last hour? (Real answer, not estimate.)
-- Do you log which prompt version produced each output?
-- Can you correlate a quality drop to a specific change? (What metrics would you check first?)
+A useful local hypothesis is that good aggregate output can coexist with weak oversight of exceptions. Output scores alone may not identify the human contribution, particularly near a ceiling. They can still reveal meaningful differences on other outcomes, harder cases, or more discriminating criteria. Do not assume there are only two valid measurement methods.
 
-**On Dashboard Visibility:**
-- Show me your real-time latency dashboard. (Do you have one?)
-- Can you see cost anomalies in < 1 hour? (Or do you discover them in the weekly report?)
-- Do you track acceptance rate by user segment? (Where is degradation hitting first?)
+Possible checks include adjudicated audits, review interaction evidence, representative exception drills, and a **seeded-error catch-rate test**. The last is a proposed instrument in this library: in a controlled, separately managed exercise, present known flawed cases and measure which defects are caught, with matched difficulty and a clear denominator. Include acceptable cases to measure unwarranted rejection where useful.
 
-**On Alert Responsiveness:**
-- What happens when latency p95 spikes? (Do you get paged? Does someone check it?)
-- If quality drops 5%, how long until you know? (Should be < 5 minutes.)
-- Can you rollback a prompt change in response to an alert? (Or does it require a deploy?)
+Do not inject known bad material into live clinical, legal, or safety-critical work, or divert attention/capacity needed for real cases. Prevent any test action from reaching real users or systems; agree on the exercise and data handling. Pilot the instrument before treating it as a release gate or employee-performance measure.
 
-**On Reviewer Effort:**
-- On any task where your AI already clears the bar, do you know whether reviewers are still checking the work, or just approving it? What tells you the difference?
-- If you ran a seeded-error catch-rate test on that stream today, do you expect the catch rate to hold or to have quietly dropped?
+A lower catch rate indicates worse performance on those test cases, not uniquely lower effort. Case difficulty, interface changes, fatigue, incentives, and training can also explain it. Review logs can help, but time spent and click counts alone do not establish sound judgment.
 
-**On Reporting Integrity:**
-- Do any AI-assisted status reports in your org travel three or more management levels before reaching their final reader? Who checks them against what actually happened at the source?
-- Is your most polished recurring report also your most accurate one, or has anyone tested that assumption?
+### Compare reports with work at the source
 
-**On Error Understanding:**
-- How many requests failed today? (For each category: transient, user error, system failure.)
-- Which error category is growing? (Indicator of a real problem.)
-- Can you distinguish between "user sent garbage" and "your system broke"?
+The **reporting-to-reality gap**, also called the polish paradox in the original, is a practitioner hypothesis: polished reports can diverge from employees' experience. Three candidate mechanisms are information compression across levels, incentives shaping what is reported, and selective retention of voices over time.
 
----
+AI can amplify or reduce these distortions. Better writing and accurate reporting are compatible. Neither a polished report nor a long management chain proves distortion, and a small organization can also misreport.
 
-## REALITY CHECK
+For a consequential recurring report, trace selected claims to source records, compare omitted concerns, and gather candid observations from people doing the work. Protect appropriate confidentiality and avoid turning this into surveillance of individuals. System traces may corroborate some claims but cannot describe all lived experience. Link this work to `alignment-check`, `judgment-guard`, and relevant discovery skills rather than claiming that no skill can address it.
 
-**What mature AI product observability looks like:**
-- Real-time dashboards: latency, cost, quality, errors
-- Automated alerts: paging on degradation, not on normal variance
-- < 5 minute detection time (from degradation to alert)
-- < 30 minute recovery time (from alert to rollback or fix)
-- Error categorization (you know which errors matter)
-- Correlation analysis (you can connect drops to changes)
-- Cost tracking (you know which features are expensive)
+## Turn recurring failures into a useful fix list
 
-**What it doesn't look like:**
-- Weekly reviews of metrics (too late, damage is done)
-- No latency/cost dashboards (flying blind)
-- Alerts on everything (alert fatigue kills responsiveness)
-- Can't connect quality drop to the prompt/model change
-- No error categorization (all errors treated equally)
-- Log volume consuming majority of infrastructure budget
+**Failure-mode genealogy** means linking different symptoms to shared contributing causes. Group failing traces by a provisional mechanism, retain counterexamples, and validate the cluster. A single trace may already expose a cause; aggregation shows its reach and recurrence.
 
----
+The historical “80% of failures from about three causes” is a practitioner heuristic, not an expected distribution. Measure the actual concentration. Prioritize by severity, frequency, affected users, recovery cost, confidence in the cause, and feasibility—not volume alone. One rare permission breach can outrank a common minor formatting issue.
 
-## QUALITY GATE
+Each validated cluster can produce an architectural repair, a challenge or regression case for `eval-driven-development`, and a needs hypothesis for `ai-product-metrics` or `feedback-flywheel`. Preserve successes and population denominators separately. A cluster of errors is evidence to investigate an unmet need, not proof of market demand.
 
-**Observability infrastructure must include:**
-1. ✓ Per-request logging (timestamps, tokens, cost, latency, versions)
-2. ✓ Real-time dashboards (latency, cost, quality, errors, by segment)
-3. ✓ Regression thresholds (with automated alerts)
-4. ✓ Cost tracking (cost per output, cost per successful outcome)
-5. ✓ Error categorization (transient vs. user error vs. system failure)
-6. ✓ Correlation analysis (what changed when metrics moved?)
-7. ✓ Rollback automation (< 5 min to respond to alert)
-8. ✓ Log retention policy (cost-effective, not forever)
-9. ✓ Trace capture with nested spans (OpenTelemetry GenAI conventions), eval scores attached to spans
-10. ✓ Quality-drift alerting on eval score (not just latency/cost), tiered critical/warning/informational
-11. ✓ Failure attribution discipline (logic bug vs memory bug vs harness-failed-the-model)
-12. ✓ Agent-gaslighting check (stated actions reconciled against actual API-call spans)
-13. ✓ Seeded-error catch-rate test (PROPOSED, ⚠ untested) for any review stream where the AI has cleared its performance bar and human review effort has dropped, run outside any clinical/legal/safety-critical stream
-14. ✓ Reporting-to-reality gap named as a distinct target (⚠ single-source) for any AI-assisted report crossing three or more organizational levels; standard trace/log/alert coverage does not detect it
+## Readiness and diagnostic review
 
-**Blocks shipping if:**
-- No baseline cost-per-output to compare against
-- Can't measure latency impact of change
-- Alerts would generate false positives > 10% (will be ignored)
-- Rollback procedure untested
+Check the relevant parts rather than forcing every system into the same fourteen-item checklist:
 
----
+1. Required request/task evidence and version identifiers exist, with appropriate data controls.
+2. System, quality, usage, and cost views expose material failures and relevant slices.
+3. Alert thresholds, owners, channels, and response windows are defined and exercised.
+4. Cost per output and successful outcome have clear units, scope, and estimate/billing status.
+5. Failure categories lead to useful responses, including safe retries and input feedback.
+6. Changes can be linked to affected evidence, with causal claims kept distinct from correlation.
+7. Containment and recovery have been tested at the required level; automation is used where justified.
+8. Retention, sampling, access, and deletion fit the purpose and applicable obligations.
+9. Traces and evaluation records can be joined reliably, with known coverage and freshness.
+10. Quality and guardrail performance are monitored alongside reliability and cost.
+11. Investigations consider model, logic, state, retrieval, tools, and infrastructure.
+12. Claimed external actions can be reconciled with authoritative outcomes.
+13. Where human review is relied on, its effectiveness is assessed. Seeded testing is optional and proposed, not a universal prerequisite.
+14. Important AI-assisted organizational reports have an appropriate source check; the polish-paradox account remains a hypothesis.
 
-## WHEN WRONG
+Useful desk questions: Can we reconstruct the last wrong output? Which model and prompt served it? What is known versus estimated about its cost? Could a severe failure remain invisible because of sampling or missing labels? Who responds to a quality or latency alert? What indicates that human review contributed? Which report claims have been checked against source work?
 
-**You'll see:**
-- Quality complaints spike but you can't find the cause
-- Infrastructure costs balloon unexpectedly (runaway token usage)
-- Latency degradation but only users report it
-- Specific user segments suffering (you didn't see it in aggregate metrics)
-- Recovery takes hours (you don't know what to roll back first)
+Set release gates for the product's actual risk. A consequential system may need a demonstrated baseline, quality visibility, enforceable limits, and tested containment before exposure. Do not impose universal five-minute detection, thirty-minute recovery, automatic rollback, or a fixed false-alarm percentage on every deployment.
 
-**Recovery:**
-- Implement emergency logging (detailed per-request logs to understand the failure)
-- Correlate timing (when did the problem start? What changed that day?)
-- Segment analysis (which users affected? Which queries? Which model versions?)
-- Build the observability you should have had (cost-of-learning)
-- Set stricter thresholds (you want to catch this earlier next time)
-- Automate rollback for future alerts (so recovery is < 5 min)
+## Respond when monitoring misses a failure
 
----
+Contain the active harm, preserve the necessary evidence, establish the affected time and cohort, and inspect recent changes and alternative causes. Use bounded additional logging if justified. Repair the detector, sampling, labels, routing, or response that failed, then exercise the repair.
 
-## WHERE THIS MEETS YOUR STACK
+Stricter thresholds are one option; better signals or less noisy thresholds may work better. Rollback can restore a prior configuration but does not undo sent messages, payments, data exposure, or other external effects. Reconcile and remediate those separately. Recovery is complete when the relevant service and user outcomes recover, not merely when a deployment command succeeds.
 
-Observability is the top of the feedback flywheel — it hands the rest of the domain its raw material:
+## Output and connections
 
-- **The quality scores you alert on come from → `eval-framework`, and are only trustworthy if the judge is calibrated → `confidence-tuner`.** Alerting on a drifting eval score is worthless if the judge producing it is itself drifting. Calibrate the judge; then trust the alert.
-- **Most "model degraded" incidents route to → `invisible-stack` / `context-spec`.** The "harness failed the model" attribution is the same context-failure bridge that runs through the whole eval domain: before proposing a model swap, read the trace and check the context pipeline (retrieval, window, prompt).
-- **Failure-mode genealogy feeds → `eval-driven-development` (challenge tier) and `ai-product-metrics` (evals as discovery).** The clustered root causes are your next-sprint fix-list, your new hard eval cases, and your unmet-need map — one artifact, three consumers.
-- **Production traces feed → `feedback-flywheel`.** This is the loop closing: traces → labeled failures → eval dataset → next model/prompt → new traces. Observability is where the flywheel gets its fuel.
-- **What the agent is allowed to do (and the kill-switch you trip on a critical alert) → `agent-risk` / `tool-architecture` / `safety-by-design`.** A critical-tier alert is only useful if you can *act* on it fast; the rollback/kill-switch design lives in those skills.
-- **The seeded-error catch-rate test is a proposal, not a finished instrument → pilot it through `eval-driven-development` before trusting it, and read the human-in-the-loop assumptions it rests on in `safety-by-design`.**
-- **The reporting-to-reality gap sits one layer above the trace, on the human-reporting side → no skill in this domain owns it yet.** Treat it as a new instrumentation target: name which of your recurring AI-assisted reports cross the most organizational levels, and start there.
+```markdown
+# Production Observability: [Product]
+Decision and important failure: [customer, task, consequences]
+Monitoring scope: [events, versions, quality evidence, data boundary]
+Baseline and slices: [metric definitions, counts, windows, uncertainty]
+Alerts: [condition → severity → owner → response window → action]
+Trace/outcome coverage: [joins, sampling, freshness, unknowns]
+Attribution: [candidate cause, supporting evidence, alternative, next test]
+Containment/recovery: [tested mechanism, limits, external remediation]
+Human review/reporting checks: [relevant method and evidence limits]
+Learning loop: [failure cluster → repair/eval/needs hypothesis → owner]
+Operating cost and trade-off: [accepted collection/response cost]
+Open gaps and next action: [owner, scope, success condition]
+```
 
-The spine: **observability turns silent, statistical degradation into a signal you can attribute, alert on, and feed back — it is the sensor layer the entire eval loop runs on.**
+Use `eval-framework` for valid quality measures and `confidence-tuner` for judge calibration; neither turns a score into unquestionable truth. Route context/state hypotheses to `invisible-stack` and `context-spec`, and test model changes when evidence supports them. `agent-risk`, `tool-architecture`, and `safety-by-design` define action limits and containment. `feedback-flywheel`, `eval-driven-development`, and `ai-product-metrics` turn investigated evidence into improvements.
 
----
-
-## TRADE-OFF LEDGER
-
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
-
-## CONCLUSION
-
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
-
----
-
-## VISUAL SUMMARY
-
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Close with the recommendation, material trade-off, main uncertainty, and next action. A diagram is optional when it clarifies the signal-to-response path or the learning loop.

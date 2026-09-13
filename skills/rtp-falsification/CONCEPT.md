@@ -1,60 +1,56 @@
-# Red Team — Concept Guide
+# Falsification: concept guide
 
-## FIRST PRINCIPLES
+A useful product claim explains what evidence would count against it. Before committing substantially, decide how to collect that evidence and how it would affect the next decision. The point is to learn and act, including stopping when warranted, rather than protect a proposal from every possible result.
 
-Karl Popper's foundational insight: a theory that can't be proven wrong isn't a theory — it's a belief. Applied to products: a feature hypothesis that has no defined failure conditions isn't a hypothesis — it's a wish.
+**Business explanation:** define failure conditions and the response before momentum makes them difficult to acknowledge.
 
-AI products are uniquely vulnerable to unfalsifiable reasoning because non-deterministic outputs make it easy to find confirming examples. "The model works great!" can always be supported by cherry-picked examples. Falsification forces the question: "Under what specific, measurable conditions would we admit this doesn't work?"
+**Technical explanation:** map a hypothesis to suitable measures, data, evidence windows, and decision rules. Some questions use formal statistical hypotheses; others use observable events or structured qualitative evidence. Not every product test needs a null-hypothesis significance test.
 
-## DUAL DEFINITION
+This approach draws on Karl Popper's account of falsifiability. A product experiment rarely disproves a broad probabilistic claim with one counterexample. Interpret results within the test's assumptions, uncertainty, and scope.
 
-**Business definition:** Falsification is the practice of defining what failure looks like before you launch, so you can recognize it when it happens — instead of rationalizing it away after the fact.
+## Three ways a claim becomes hard to challenge
 
-**Technical definition:** The construction of testable null hypotheses for AI product features, with pre-committed decision thresholds on specific metrics (accuracy, latency, cost, user behavior), measured over defined time windows.
+**Anecdotes shield the aggregate.** Selected successes can hide a low success rate or severe failures. Show the relevant distribution and selection process.
 
-## THE TRAP (Expanded)
+**The goal moves after results arrive.** The team moves from accuracy to satisfaction to engagement until something improves. Learning that a different measure matters is legitimate; silently presenting it as confirmation of the original claim is not.
 
-AI products create three falsification-resistant patterns:
+**More time is always the answer.** Better data, prompts, or models may help, but the proposal needs a bounded test of that explanation. State what the additional work is expected to change, what it costs, and when to decide whether it did.
 
-**The anecdote shield.** Non-deterministic systems always produce good outputs sometimes. A PM under pressure to justify an AI feature will find the perfect example. "Look, it handled this complex query perfectly!" The five mediocre responses and two terrible ones don't make the slide deck.
+## Three illustrative cases
 
-**The moving goalpost.** When initial metrics disappoint, the definition of success shifts. "Well, accuracy is only 70%, but user satisfaction is up." When satisfaction disappoints: "But engagement increased." The goalpost moves until a metric is found that confirms the narrative.
+The source guide did not identify company records for these examples. Treat their numbers and events as constructed teaching scenarios.
 
-**The premature scaling defense.** "It doesn't work yet because we need more data/better prompts/a larger model." This is sometimes true and sometimes a rationalization. Without pre-committed kill conditions, you can't distinguish between "needs more time" and "fundamentally flawed."
+### Summaries that add work
 
-## INTELLECTUAL LINEAGE
+Suppose use grows after launch, but a six-month study finds that readers repeatedly return to the original because the summary is insufficient or untrusted. More usage has not established time saved.
 
-- **Karl Popper** — The Logic of Scientific Discovery. Falsifiability as the demarcation between science and pseudoscience.
-- **Anthropic's red-teaming practice** — Systematic adversarial testing of AI systems before deployment. Applied here to product decisions.
-- **Teresa Torres** — Assumption mapping. Identifying the riskiest assumptions and testing them first.
-- **Nassim Taleb** — The Black Swan. On the asymmetry of evidence: a thousand white swans don't prove "all swans are white," but one black swan disproves it.
+A measure of completed-task time and quality, including verification and re-reading, could reveal the problem earlier. It cannot be claimed that a particular month-two review would certainly have caught it without evidence about that test.
 
-## REAL-WORLD EXAMPLES
+### A recommendation system with a repairable failure
 
-**Example 1: The summarization feature.** A team launched AI document summarization without kill conditions. Usage was "growing." Six months later, a user study revealed people were re-reading the original documents after the summary because they didn't trust the output. Usage was high because the feature was creating extra work, not reducing it. With pre-committed kill conditions on "time saved per document," this would have been caught in month two.
+Suppose the team agrees to investigate click-through below 15% for two consecutive weeks and consider a rule-based fallback below 10%. A 12% reading in week three is an early alert; it satisfies the two-week condition only if the preceding week also qualifies. Immediate investigation may still be sensible under a separately stated alert policy.
 
-**Example 2: The recommendation engine.** A team defined clear falsification criteria: "If click-through rate on AI recommendations drops below 15% for two consecutive weeks, we investigate. Below 10%, we revert to rules-based." CTR hit 12% in week three. Because the kill condition was pre-committed, the team investigated immediately instead of waiting and hoping. They found a data freshness issue, fixed it, and CTR recovered to 22%.
+The team finds a freshness problem, repairs it, and subsequently observes 22% click-through. That improvement is evidence worth examining, not proof that the repair alone caused it. The case shows why a failure condition can trigger investigation or repair rather than automatic termination.
 
-**Example 3: The cost trap.** A team launched an AI feature with "cost efficiency" as a success metric but no kill threshold. The per-token cost was $0.002 per request. At prototype scale, this felt negligible. At production scale with 10M daily tokens, it became $20k/day. The kill condition "if cost exceeds $5k/day for 30 days, we pivot" would have caught this in month one. Without pre-commitment, the team rationalized the expense for six months until the CFO demanded an explanation.
+### A cost rule with consistent units
 
-## PRODUCTION DISCIPLINE
+At an assumed $0.002 per request, ten million requests per day cost $20,000 per day before other costs. Ten million **tokens** cannot be multiplied by a per-request price without knowing requests and token use; the source guide mixed those units.
 
-**Pre-commitment is political.** The team that championed a feature will resist formalizing failure conditions. It feels like saying "I might be wrong," which feels weak. But pre-commitment is actually strength—it means you're confident enough to specify what success looks like. The team that won't define failure conditions isn't confident; it's avoiding accountability.
+A proposed $5,000 daily spend threshold sustained for thirty days would be a business decision rule, not a universal budget policy. Include earlier spend controls where necessary so the team does not have to incur a month of unacceptable cost merely to prove it is unacceptable. Measure total cost and value at the relevant volume.
 
-**The metric selection problem:** The easiest kill condition to define is the one that will almost certainly not trigger. Teams often choose vanity metrics (engagement, usage) over hard metrics (revenue, cost, retention). Falsification forces honest metric selection. If the only success metric is "teams are using it," that's not falsification—that's a wish.
+## What makes pre-commitment useful
 
-**The time window matters:** Most AI products look like failures at week two and successes at month three (or vice versa). Falsification requires specifying time windows. "If accuracy is below 70% after two weeks of production data, we investigate" is different from "after two months." The time window should match the natural pace of the system and your ability to gather signal.
+Choose measures that reflect the outcome and its guardrails rather than selecting easy conditions that cannot plausibly trigger. Give each condition an observation window matched to the decision, and record what to do when the evidence is inconclusive.
 
-**Red flags for failed falsification:**
-- Metrics chosen after launch instead of before
-- Kill conditions that are vague ("if it doesn't feel right")
-- Kill conditions that are impossible to measure
-- No pre-commitment—just a promise to "check metrics after launch"
-- Different stakeholders with different definitions of success
+For a shared investment, discussion with the people who must execute the response can reveal missing authority, capacity, or disagreement. A signed brief is evidence of agreement only if people actually agreed; operational readiness still needs to be established. A solo reversible experiment can use a much lighter record.
 
-## FURTHER READING
+When refining the hypothesis, revise its counter-test at the same time. Preserve the previous claim and result. A claim that keeps adding exceptions while retaining a test of its original narrow wording becomes less accountable as it gets longer.
 
-- Karl Popper, *The Logic of Scientific Discovery* — The origin of falsifiability
-- Nassim Taleb, *The Black Swan* — On the asymmetry of evidence
-- Teresa Torres, *Continuous Discovery Habits* — Assumption testing in product
-- Anthropic, "Red Teaming Language Models" — Adversarial testing methodology
+## Reading connections
+
+- Karl Popper, *The Logic of Scientific Discovery*: falsifiability and the limits of confirmation.
+- Nassim Nicholas Taleb, *The Black Swan*: asymmetry between observations supporting a universal claim and a counterexample challenging it.
+- Teresa Torres, *Continuous Discovery Habits*: testing consequential assumptions.
+- Anthropic's red-teaming research: adversarial evaluation of systems, distinct from treating a generated skeptical persona as evidence.
+
+Inspect the appropriate source before using an exact quotation or empirical attribution. [SKILL.md](SKILL.md) contains the operating method; [counter-tests.md](references/counter-tests.md) contains the numerical examples and the research-led refinements.

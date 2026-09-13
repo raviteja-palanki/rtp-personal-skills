@@ -1,7 +1,7 @@
 ---
 name: rtp-observability-stack
-version: v1.0_latest
-description: 'Choose and drive an AI observability platform without buying a data-model you cannot leave. Covers the decision most teams skip (what question is the telemetry answering?), instrumenting to the OpenInference/OTel standard so the vendor stays swappable, picking a backend on data gravity not features, and the traps that make trace tooling lie to you: index lag that hides your own fix, bulk exports that dump production PII to local disk, and "read-only" tools that write. Use when standing up observability, evaluating Arize AX vs Phoenix vs LangSmith, wiring the trace→eval→dataset→experiment loop, or auditing a setup before it touches regulated data. Pairs with: production-observability (what to monitor and why; read that first), eval-framework, eval-driven-development, gen-ai-experimentation. Triggers: "which observability tool", "Arize vs Phoenix", "LangSmith", "set up tracing", "instrument my agent", "OpenInference", "vendor lock-in on traces".'
+version: v1.0.1_latest
+description: 'Choose and operate an AI observability platform with a clear purpose, controlled data collection, and a practical exit path. Connect tracing to evaluation, datasets, experiments, and regression checks. Compare Phoenix, Arize AX, LangSmith, or structured logs against deployment needs, operating cost, useful features, and migration effort. Explain OpenTelemetry, OTLP, OpenInference, and GenAI semantic conventions without promising effortless portability. Check query freshness, export limits, sensitive fields, access, and write-capable tools before production data flows. Use for observability selection, agent instrumentation, trace-to-eval setup, or a tooling audit. Start with production-observability when the monitoring questions are unclear; use eval-framework and eval-driven-development for evaluation design. Triggers include "which observability tool", "Arize vs Phoenix", "LangSmith", "set up tracing", "OpenInference", and "vendor lock-in on traces".'
 imports:
   - production-observability
   - eval-framework
@@ -10,192 +10,162 @@ imports:
 
 # Observability Stack
 
-## DEPTH DECISION
+Choose a stack that helps the team explain system behavior and act on failures. Make the collection boundary and migration plan explicit before connecting production data. A tracing standard can reduce switching work; it does not make the entire platform interchangeable.
 
-**Quick pass (10 min)** — you already have a platform and just need the traps. Read THE SCENE, then REALITY CHECK.
+## Start with the decision and data boundary
 
-**Full pass (60–90 min)** — you're choosing a platform, or auditing one before it sees production data. Run the whole PROCESS and fill the WHERE YOU ARE artifact.
+Use a quick pass for an existing setup: check the missing-trace example, data safeguards, and five diagnostic questions. For a platform selection or production audit, work through all five steps and complete the output. The original 10-minute and 60–90-minute estimates are planning aids, not completion guarantees.
 
-Sibling boundary: `production-observability` answers *what to watch and why*. This skill answers *what to buy and how to drive it*. If you don't yet know which signals matter, read that one first — a platform won't tell you.
+This skill consumes the monitoring question, deployment and data constraints, current application framework, and operating capacity. It produces a backend recommendation, an instrumentation plan, an audit of important defaults, and a record of checks still open.
 
-## THE TRAP
+`production-observability` defines what to monitor and why. This skill selects and operates the infrastructure for those signals. `eval-framework` defines evaluation validity; `eval-driven-development` connects tests to development; `gen-ai-experimentation` designs experiments. Read the relevant sibling when its decision is unresolved, rather than repeating work already completed.
 
-Teams treat the observability platform as a tooling choice. Reversible, cheap, argue about it later.
+Before a real trace is collected or exported, establish its allowed contents, destination, access, retention, and purpose. Reuse existing authorization where it covers the action. A writing or selection task alone does not authorize transferring production prompts.
 
-It isn't. The subscription is reversible. The instrumentation isn't. When you wire tracing into an agent, you touch every LLM call, every tool handler, every retriever. Do that against a vendor's proprietary SDK and the switching cost stops being a renewal negotiation and becomes a re-instrumentation project across your whole codebase. The bill is small. The exit is not.
+## Understand the parts that can become expensive to move
 
-### The deeper trap: the escape hatch is free and almost nobody takes it
+The subscription is only one switching cost. Instrumentation at model calls, tool handlers, and retrievers can create dependencies throughout an application. Datasets, annotations, evaluator definitions, dashboards, access rules, and historical traces create additional migration work. This accumulation is **data gravity**.
 
-There is an open standard underneath. **OpenTelemetry** carries the spans; **OpenInference** is the semantic convention that says what an LLM span looks like — `llm.input_messages`, `tool.name`, `retrieval.documents`, `session.id`. Instrument to the *standard* and the vendor becomes a backend you point at, not a decision you're married to.
-
-This costs nothing at instrumentation time. It costs a rewrite afterward. That asymmetry is the whole reason this skill exists, and it's the one thing to get right in week one.
-
-## KEY TERMS (plain language)
-
-| Term | What it actually means |
+| Term | Meaning |
 |---|---|
-| **Span** | One operation — an LLM call, a tool call, a retrieval. The atom. |
-| **Trace** | A tree of spans sharing an ID. One user request, end to end. |
-| **Session** | Several traces sharing a conversation ID. A multi-turn chat. |
-| **OpenInference** | The open convention for what fields an LLM span carries. Your portability layer. |
-| **OTLP** | The wire protocol spans travel over. Vendor-neutral. |
-| **Data gravity** | Once traces live somewhere, evals, datasets and experiments accrete around them. That mass — not features — is what actually locks you in. |
+| Span | A timed operation, such as retrieval, a model request, or a tool call, with identifying attributes and optional events. |
+| Trace | Related spans sharing a trace ID, commonly organized by parent relationships. A request may cross services, queues, or trace boundaries; use appropriate context propagation and links. |
+| Session | An application grouping, often a conversation containing several traces. Define its boundaries explicitly. |
+| OpenTelemetry / OTLP | OpenTelemetry provides telemetry APIs, SDKs, and collection infrastructure. OTLP is its transport format/protocol for telemetry. Transport support alone does not prove field compatibility. |
+| OpenInference / GenAI conventions | OpenInference supplies AI instrumentation and semantic conventions. OpenTelemetry also maintains GenAI conventions. Specify which convention and version each component produces and accepts. |
+| Data gravity | The accumulated data and workflows that make a backend costly to replace, even when new spans can be sent elsewhere. |
 
-## WHAT THIS SKILL CONSUMES & PRODUCES
+OpenInference fields such as `llm.input_messages`, `tool.name`, `retrieval.documents`, and `session.id` illustrate semantic content; verify exact names and supported mappings in the selected version. Useful telemetry does not require every prompt, document, or identifier to be stored in full.
 
-**Consumes:** the decision the telemetry is meant to change · your deployment constraints (regulated data? air-gapped? who can see prompts?) · the existing framework, if any.
+## A missing-trace example
 
-**Produces:** a backend choice with the reasoning written down · an instrumentation approach that survives changing your mind · a guardrail list before production data flows · the WHERE YOU ARE artifact below.
+At 2 p.m., a team deploys a prompt fix. A query for the last hour returns nothing. They assume ingestion broke and roll back. One possible explanation is delayed indexing: direct trace lookup and filtered search can become available at different times.
 
-**Not this skill's job:** which metrics to alert on (`production-observability`), how to design the evals (`eval-framework`), or how to run the experiment (`gen-ai-experimentation`).
+Treat that as a diagnosis to test. Check the trace ID, environment/project, permissions, time zone and range, sampling, exporter flushing and errors, clock alignment, pagination, and ingestion status. Compare query paths using a known synthetic event. A direct lookup can also lag or fail; an empty time-range result alone does not establish either a deployment failure or an indexing delay.
 
-## THE SCENE: the afternoon you lose to a lie
+The original skill attributed a **6–12-hour** Arize delay to vendor tooling documentation from 29 July 2026. This revision did not recover a supporting primary source or measure the platform. Keep the number as an unresolved historical claim, not a current service expectation. See [source and audit notes](references/platform-and-audit-notes.md).
 
-You ship a prompt fix at 2pm. Reasonable next move: query the last hour of traces and confirm it worked.
+## The five-step process
 
-Zero results.
+### 1. Name the decision the telemetry supports
 
-So you assume the deploy broke ingestion. You roll back. You spend the afternoon reading exporter logs, checking API keys, adding print statements to the OTel pipeline. Nothing is wrong. The traces were there the entire time.
+Complete: “With this telemetry, we will be able to decide ______; today we rely on ______.” Examples include diagnosing a quality regression, attributing token cost, confirming tool execution, investigating an incident, or producing an appropriate audit record.
 
-The reason is architectural, and no dashboard tells you: the store indexed by trace ID gets written on ingestion, but the **time-series index** that answers "show me the last hour" is built asynchronously behind it. Arize documents that lag at **6–12 hours** ◆ *(vendor-disclosed, in their own tooling docs — I have not measured it independently)*. A direct trace-ID lookup would have returned your fix in seconds. A time-range query was never going to.
+If the purpose is exploratory diagnosis or future incident readiness, say so and size collection accordingly. There need not be a known failure before instrumentation is useful. Avoid collecting every field merely because a dashboard supports it.
 
-The lesson generalizes past Arize. **Every trace platform has a fast path and a slow path, and the UI rarely tells you which one you're on.** Find out which is which on day one, or you will eventually debug a problem you don't have.
+Where record-keeping is required, identify the applicable obligation, system scope, accountable owner, and retention rule. EU AI Act Article 12 addresses logging capabilities for covered high-risk systems; applicability and timing need a current assessment. NIST AI RMF guidance is not itself a universal legal obligation, and MANAGE 2.1 concerns resources and alternatives, not a blanket event-log requirement. An audit need still requires a collection and backend decision; do not skip them.
 
-## THE PROCESS
+### 2. Design instrumentation and test its portability
 
-### 1. NAME THE DECISION THE TELEMETRY CHANGES
+Prefer widely supported telemetry interfaces when they meet the task. Select OpenTelemetry instrumentation, suitable AI semantic conventions, and an exporter/collector arrangement that preserves the fields you need. A vendor SDK can be a reasonable choice when it provides material benefits; document its coupling and alternatives.
 
-Before evaluating anything, finish this sentence: *"When this is instrumented, I will be able to decide ______, which today I decide by guessing."*
+Record:
 
-If you can't finish it, you don't have an observability problem — you have a "we should probably have dashboards" instinct. Instrument anyway if you like, but know you're buying insurance, not answers, and size the spend accordingly.
+- Required span relationships, statuses, latency/cost units, tool results, retrieval references, and application/version identifiers.
+- Actual provider and model identity for each model decision, including retries and fallback routes. Distinguish the requested alias from the served model/version; mark identity unavailable when the provider does not expose it.
+- Sampling and redaction location, export failure behavior, buffering limits, and the effect of instrumentation on latency and cost.
+- Convention and SDK versions, vendor-specific attributes, mappings, authentication, and endpoint configuration.
 
-**Why:** platform evaluations without a decision behind them collapse into feature-grid comparison, which every vendor wins.
-**When this is wrong:** regulated deployments. If EU AI Act Art. 12 or NIST MAN-2.1 obliges you to keep event logs, the audit trail *is* the decision. Skip to step 3.
+Use a small synthetic workflow to verify a second backend or export format when exit risk matters. Check nested spans, links, errors, streaming, model identity, and the fields the evaluations consume. Also test export/reimport of an example dataset and annotation if those are essential assets.
 
-### 2. INSTRUMENT TO THE STANDARD, NOT THE VENDOR
+An endpoint change may redirect compatible new traces. It does not automatically migrate history, dashboards, identities, rubrics, experiments, or permissions. Estimate actual work rather than promising an afternoon switch or treating any code change as proof that standardization failed.
 
-Wire OpenTelemetry with OpenInference conventions. Point the OTLP exporter at whichever backend you're trying. Changing your mind later becomes an endpoint change instead of a refactor.
+### 3. Select the backend against the operating need
 
-**Why:** it's the only decision in this list that's free now and expensive later.
-**When this is wrong:** you need a vendor-specific capability that has no OTel expression, and you've confirmed it has no OTel expression rather than assuming. Rare. Verify before accepting it.
+Evaluate data location and control alongside useful features, integration, reliability, query behavior, scale, cost, and team capacity. These options are examples, not the complete market:
 
-### 3. CHOOSE THE BACKEND ON DATA GRAVITY, NOT FEATURES
-
-Three realistic shapes, and the honest reason to pick each:
-
-| Option | Pick it when | The real cost |
+| Option | A reason to consider it | What to verify |
 |---|---|---|
-| **Arize Phoenix** (open source, self-host) ◆ | Prompts or outputs can't leave your infrastructure. Regulated data, or enterprise review you'd rather not run. | You operate it. Storage, upgrades, retention are yours. |
-| **Arize AX** (hosted) ◆ | You want the eval/dataset/experiment loop wired without building it, and sending trace content to a vendor is acceptable. | Trace content — including whatever PII sits in prompts — leaves your perimeter. That's a DPIA question, not a procurement one. |
-| **LangSmith** ⚠ | Your app is already LangChain/LangGraph and you want the native fit. | Tightest to that ecosystem. Verify current OTel ingestion support before assuming portability — don't take my word or theirs. |
+| Arize Phoenix | Self-hosted tracing and evaluation can fit teams that need control of deployment and storage. | Current license, supported instrumentation, authentication, retention, backup, upgrades, and every outbound connection. The repository identifies Elastic License 2.0; do not infer unrestricted use from an “open source” label. |
+| Arize AX | A managed environment may reduce the work of connecting traces, evaluations, datasets, and experiments. | The specific deployment offering, residency, access controls, contracts, query freshness, export completeness, cost, and operational support. |
+| LangSmith | Integrated tracing/evaluation may fit LangChain/LangGraph applications or other frameworks. | Current OpenTelemetry support and mappings, enterprise/self-hosted licensing where relevant, deployment constraints, migration, and the features actually needed. It is not limited to LangChain applications. |
+| Structured logs and a notebook | A small or simple workflow may need only searchable events and focused analysis. | Whether troubleshooting, collaboration, access, retention, and repeated evaluation remain manageable. Volume alone does not determine when to adopt a platform. |
 
-Same span shape underneath the Arize pair, so moving between them is an endpoint change if you followed step 2.
+Self-hosting does not automatically prevent data egress: model APIs, evaluators, telemetry, support access, and backups may cross the boundary. It also does not remove the need for an appropriate security/privacy review. For hosted services, determine exactly what leaves which boundary and under whose authorization. Use the applicable review process; do not assume every deployment requires the same assessment.
 
-**Why:** features converge within two quarters. Where your traces live, and what accretes around them, doesn't.
-**When this is wrong:** at genuinely small scale — under a few hundred traces a day — structured logs and a notebook beat all three. Adopt a platform when *reading the logs* is the bottleneck, not before.
+Features do not reliably converge on a two-quarter timetable. A feature that makes an important investigation possible can justify a platform choice. Record what matters enough to accept additional coupling, then test that capability.
 
-### 4. WIRE THE LOOP, NOT JUST THE TRACES
+### 4. Connect traces to learning
 
-Tracing alone gives you forensics. The compounding version is a loop: **trace → find the failures → make them a dataset → run experiments against it → keep the eval that catches the regression.**
+Build the loop: **trace → investigate failure → curate dataset → run experiment → retain useful regression check → monitor production**.
 
-If you land on the Arize toolchain, four of its thirteen skills carry that loop — `arize-instrumentation`, `arize-trace`, `arize-evaluator`, `arize-experiment`. The rest are situational; `arize-compliance-audit` matters only if you're facing an actual regulatory question, and it is guidance, not legal advice.
+Preserve enough context to reproduce the failure without copying unnecessary customer data. Label the expected behavior, source of judgment, dataset version, and known limits. Include successes, edge cases, and underrepresented slices where needed; an error-only dataset cannot estimate overall production performance.
 
-**Why:** teams that stop at traces re-debug the same failure class every month. The dataset is what makes a fix permanent.
-**When this is wrong:** pre-product-market-fit, where the failure classes are still moving. Build the loop once failures repeat.
+Validate the fix using `eval-framework` and `eval-driven-development`, then check the relevant production outcome. A regression test reduces the risk of repeating a known failure; it does not make a fix permanent or cover every related failure.
 
-### 5. SET THE GUARDRAILS BEFORE PRODUCTION DATA FLOWS
+The original Arize workflow named `arize-instrumentation`, `arize-trace`, `arize-evaluator`, and `arize-experiment` as the four core skills, with `arize-compliance-audit` for relevant compliance questions. Check the installed tool inventory and contracts before relying on these names or the historical count of thirteen skills. Compliance guidance does not itself establish compliance.
 
-Four defaults worth overriding, all verified first-hand by reading the Arize skill sources on 29 JUL 2026 ✅. Treat them as a template for auditing *any* trace tooling:
+A lightweight loop is useful before product-market fit as well as afterward. Let changing failure categories lead to revised datasets and criteria, without turning every exploratory observation into a permanent gate.
 
-- **Exports auto-escalate.** A targeted export that hits its row limit re-runs unbounded without asking. Bulk production traces land unencrypted in your working directory. Decide where that directory is before you find out.
-- **Spans carry PII by design.** `input.value`, `output.value`, `user.id`, and custom metadata like `user_email` are the point of tracing. Redact at the span processor, before the exporter fires — not after it's in the vendor's store.
-- **"Read-only" tools write.** The trace skill also exposes bulk annotation — up to 1000 writes per request. Read the verbs, not the name.
-- **Report paths default outside your control.** The compliance skill writes to `/tmp` by default, and a compliance report is a map of exactly where your secrets and PII live. Redirect it explicitly.
+### 5. Check collection and tool defaults before production use
 
-**Why:** each of these is a default someone chose for convenience, and every one of them is wrong for regulated data.
-**When this is wrong:** never, for production. For a scratch project, ignore all four and move fast.
+Apply these checks to any platform. Scale the effort to the data and consequences, including sensitive data in a scratch project.
 
-## DIAGNOSTIC QUESTIONS
+| Default to inspect | Safe, useful operating decision |
+|---|---|
+| Export scope and limits | Set the project, time range, fields, row/byte cap, pagination behavior, and destination. If a limit is reached, report truncation or use the authorized bounded continuation; do not silently rerun unbounded. |
+| Sensitive span content | Minimize or redact before the earliest persistent or external capture, including local logs and debug output. Inspect prompts, outputs, retrieval content, identifiers, errors, and custom metadata. Check that downstream collectors and evaluators receive only allowed data. |
+| Tool side effects | Read each operation contract. Querying, exporting, annotating, deleting, and running an evaluator have different effects. A tool called “trace” or “read-only” may expose write operations; authorize the actual action and scope. |
+| Files and reports | Choose an appropriate destination, access, encryption, retention, and cleanup. Temporary directories are not inherently unsafe or outside organizational control, but a default path is not a data-handling decision. Reports can expose sensitive system details. |
 
-1. If you switched vendors tomorrow, how many files change? (More than the exporter config means step 2 didn't happen.)
-2. Which query path is fast, and which lags? Can you name the lag in hours?
-3. What's in `input.value` on your highest-volume span, and would you be comfortable reading it aloud in a compliance review?
-4. When a trace shows a failure, what's the path from there to a test that prevents it? How many manual steps?
-5. Who can see production prompts today, and did anyone approve that?
+The prior author recorded four Arize source-audit findings on 29 July 2026: unbounded export retry, sensitive span fields, annotation batches of up to 1,000, and a temporary report destination. Retain them as dated audit leads, not verified behavior of every current installation. Distinguish application-level encryption, encrypted storage, and access protection; a JSON file alone does not establish whether its disk is encrypted.
 
-## REALITY CHECK
+## Five diagnostic questions
 
-**The five-minute audit.** Export one trace. Open the JSON. Look at `input.value` and `output.value` with the eyes of your DPO. Most teams discover they've been shipping customer PII to a vendor for months and nobody explicitly decided to.
+1. What would moving vendors require for instrumentation **and** stored assets? Which parts have been tested?
+2. How fresh are direct lookup and filtered queries under normal and overloaded conditions? What was measured, and when?
+3. What sensitive information can the busiest span capture, and which fields are necessary for its purpose?
+4. How does a discovered failure become a useful test, an accountable change, and a production check?
+5. Who can collect, view, export, annotate, and delete production telemetry? What authorization covers those actions?
 
-**The claim that ages fastest.** Anything in this skill about a specific vendor's features. Re-verify before citing — this was written 29 JUL 2026 against tooling that ships to main continuously.
+For a quick audit, inspect one authorized, minimized trace or a synthetic trace in the approved environment. Confirm its actual fields and query behavior. Do not begin by bulk-exporting raw production content to a local directory.
 
-**Honest limits.** I verified the Arize skill sources directly ✅ and read their license and file contents. I have *not* independently measured the index lag, benchmarked any platform, run Phoenix, or tested LangSmith's current OTel support — those are marked ◆ vendor-disclosed and ⚠ unverified above, and should stay that way until someone measures them.
-
-## WHERE YOU ARE — OUTPUT
+## Output: where the setup stands
 
 ```markdown
 # Observability Stack: [Product]
 
-## The decision this telemetry changes
-[One sentence. If it's empty, say so — that's a finding.]
+## Purpose and scope
+Decision or audit need: [what this enables]
+Data/environment: [allowed contents, destination, access, retention]
+Authorization and owner: [existing basis or unresolved decision]
 
-## Instrumentation
-Standard: [OpenInference/OTel | vendor SDK — and why]
-Files touched if we switch vendors: [count]
+## Instrumentation and exit
+Interfaces/conventions/versions: [choices and mappings]
+Required fields: [including requested and served model identity]
+Sampling/redaction/export behavior: [design and checks]
+Migration estimate: [code/config, history, datasets, annotations, dashboards]
+Portability check: [tested example, results, limits]
 
 ## Backend
-Choice: [Phoenix | Arize AX | LangSmith | logs, not yet]
-Chosen because: [data gravity / residency / ecosystem — not features]
-Trace content leaves our perimeter: [yes/no] · Approved by: [name or NOT ASKED]
+Choice and alternatives: [recommendation with reasons]
+Capabilities/control/cost/operating trade-off: [accepted cost]
+Data movement and approval: [specific boundary, scope, owner]
 
-## Query paths
-Fast path: [trace-ID lookup] · Lag: [none]
-Slow path: [time-range] · Lag: [hours] · Source: [measured | vendor-disclosed]
+## Query freshness
+Direct lookup: [result/lag or unknown]
+Filtered search: [result/lag or unknown]
+Evidence: [measured environment/date, documented claim, or unchecked]
 
-## The loop
-trace → [ ] dataset → [ ] experiment → [ ] regression eval
-Broken at: [step]
+## Learning loop
+Trace → investigation → dataset → experiment → regression → production
+Working links: [evidence] · Gaps and owners: [next action]
 
-## Guardrails
-[ ] Export directory chosen deliberately
-[ ] PII redacted at span processor, pre-export
-[ ] Write-capable tools inventoried
-[ ] Report/output paths redirected in-perimeter
-
-## OPEN: decision-needed
-[Anything above needing a human call — residency, DPIA, budget]
+## Safeguards and open decisions
+Exports: [bounds/destination]
+Sensitive data: [minimization/redaction/access/retention]
+Write operations: [inventory and authority]
+Reports: [storage and handling]
+Not checked: [specific limitations]
+Next action: [owner, scope, success condition]
 ```
 
-## QUALITY GATE
+## Review the recommendation
 
-- Every vendor claim carries a tier: ✅ verified · ◆ vendor-disclosed · ⚠ unverified. No blending.
-- The backend choice names a reason that isn't a feature.
-- Someone has actually opened a raw span and read it.
-- The output states what wasn't checked.
+Label evidence plainly: **observed/tested** with method and environment; **documented** with provider, version, and date; **unverified** with the missing check. Reading a source verifies what it says, not the behavior of the installed product. The historical ✅/◆/⚠ labels may be used if their meaning is explicit and does not merge these tiers.
 
-## WHEN WRONG
+Confirm that the choice meets the important monitoring need, respects the data boundary, explains operating and migration costs, and states what remains untested. Do not claim a raw span was inspected when only documentation was reviewed.
 
-**You'll know this skill misled you if:** you followed the standard-first advice, then hit a genuine capability that has no OTel expression and had to instrument twice. That's the real cost of the recommendation, and it's a bet, not a certainty — the bet is that portability is worth more than the marginal feature, which holds for most enterprise teams and fails for teams doing something unusual enough that the vendor is the only one who's built it.
+Reconsider standard-first instrumentation if a required capability is lost, mapping costs exceed the expected exit benefit, or supported conventions diverge. Reconsider the backend when query delays, operating burden, or export gaps prevent useful decisions. These are concrete tests of the recommendation, not reasons to assume portability has no value.
 
-**Falsification condition:** if OpenInference adoption stalls and the vendors diverge into proprietary span shapes, step 2 stops buying portability and becomes ceremony. Watch for that.
-
-## TRADE-OFF LEDGER
-
-| We chose | We gave up | Because |
-|---|---|---|
-| Standard-first instrumentation | Some vendor-native ergonomics | The exit stays cheap |
-| Data gravity as the deciding axis | Feature-grid rigor | Features converge; stored data doesn't |
-| Guardrails before production data | A faster first week | Every default here is tuned for convenience, not regulated data |
-| Naming vendor claims by tier | Cleaner-looking prose | A confident wrong number is the failure this corpus exists to prevent |
-
-## CONCLUSION
-
-The platform question feels like the decision. It isn't. The decision is whether your traces are written in a shape someone else owns.
-
-Get that right and the vendor becomes an endpoint — swap it in an afternoon when the pricing or the roadmap turns. Get it wrong and you'll discover the real cost the first time you want to leave, which is exactly when you have the least appetite for a refactor.
-
-**Monday move:** export one trace from whatever you're running today, open the JSON, and answer two things — how many files change if you switch vendors, and would you read `input.value` aloud in a compliance review. Both answers are findings.
-
-## VISUAL SUMMARY
-
-Invoke `excalidraw-svg` for: (1) the lock-in asymmetry — vendor-SDK instrumentation against OpenInference/OTel, with the switch cost drawn on each path (one endpoint config versus every call site); (2) the fast-path/slow-path split — primary trace store answering trace-ID lookups instantly, time-series index lagging behind it, and which question routes to which; (3) the compounding loop — trace → dataset → experiment → regression eval — drawn as a cycle with the usual break point marked between trace and dataset.
+The trade-offs remain explicit: portable instrumentation may give up native convenience; control of data may add operating work; useful native features may add coupling; collection safeguards require setup effort. Use a diagram only when it clarifies the migration dependencies, measured query paths, or the trace-to-evaluation loop.

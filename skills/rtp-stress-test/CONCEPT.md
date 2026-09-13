@@ -1,47 +1,49 @@
 # Stress Test — Concept Guide
 
-## FIRST PRINCIPLES
+## Why a working demo is not enough
 
-Traditional software has binary failure modes — it works or it doesn't. The server responds or it times out. The function returns the right answer or it throws an error.
+A demo answers whether a feature can work in the demonstrated setting. A production commitment asks whether it can meet defined expectations across the intended workload, including unusual inputs, congestion, dependency failures, abuse, and changing usage.
 
-AI products fail differently. They degrade. The model gets slightly less accurate after a provider update, and nobody notices for three weeks. Latency creeps up as context windows grow, and the PM attributes declining engagement to "seasonal patterns." Costs increase gradually as usage grows, and finance doesn't flag it until the quarterly review.
+Both conventional software and AI systems can fail abruptly or degrade quietly. AI adds particular challenges when a response is fluent and technically successful but substantively wrong. Uptime alone will not reveal that failure, and an average can hide a consequential tail or subgroup.
 
-The atomic insight: **AI products require stress testing not because they might fail catastrophically, but because they will fail gradually — and gradual failure is invisible until it's expensive.**
+Stress testing brings likely failure conditions into a controlled examination before the exposed commitment. It improves the evidence available for a decision; it cannot promise that every future failure will be found.
 
-## DUAL DEFINITION
+**Business definition:** assess whether a proposed AI release can meet its user, operating, cost, and reliability commitments, and identify the changes or limits needed before proceeding.
 
-**Business definition:** Stress testing is the practice of verifying that an AI feature will remain economically viable, performant, and reliable at production scale — before committing the resources to launch it. It prevents the most common AI product failure: a feature that works beautifully in pilot and bankrupts you at scale.
+**Technical definition:** evaluate six areas—failure at scale, cost at volume, tail latency, monitoring, adversarial inputs, and applicable agent resilience—under specified conditions and criteria. Combine those tests with a pre-mortem for outcome failures the current metrics may miss.
 
-**Technical definition:** A four-dimensional evaluation of system behavior under production conditions: fault tolerance at scale, unit economics at volume, tail-latency under load, and observability coverage for non-deterministic components.
+## Four gaps worth examining
 
-## THE TRAP (Expanded)
+**Demo to production.** More users may change arrival rates, request mix, context length, and exposure to rare cases. Costs can scale approximately linearly under fixed per-request assumptions, but those assumptions may not hold. Test the mechanism rather than simply assert that AI never scales linearly.
 
-**The Demo-to-Production Gap.** The most dangerous moment in AI product development is the successful demo. Stakeholders see it work and extrapolate linearly: "If it works for 10 users, it'll work for 10,000." But AI systems don't scale linearly. Context windows grow (slowing retrieval), token costs multiply as users ask more complex questions (not constant per request), the distribution of inputs at scale includes adversarial cases that never appeared in the pilot, and model provider behavior changes under load. The gap between "works" and "survives" is where most AI products die.
+**Successful response to useful response.** A provider update might reduce quality while requests still succeed. In an illustrative case, a 3-percentage-point accuracy decline, a latency change from 600ms to 900ms, or a 40% cost rise could escape an incomplete dashboard. These outcomes have different causes and require different measures.
 
-**Gradual Failure is Invisible.** This is THE critical insight. Traditional systems fail noisily — the server goes down, requests error out, something is clearly broken. AI systems fail quietly. A model provider pushes an update and accuracy drops 3% — nobody notices for three weeks. Context window grows by 20% and latency creeps from 600ms to 900ms — attributed to "seasonal variation." Token costs increase 40% and the feature becomes unprofitable — discovered in the quarterly review. Gradual failure is invisible until it's expensive. Stress testing exists to find gradual failure before production users do.
+**Average to distribution.** An 800ms average does not describe every user's experience. If a material group faces four-second waits, examine the tail and its workload. P95 is a percentile threshold, not automatically the experience of power users or the worst-case request. Keep the average where useful, alongside percentiles, timeouts, and segmentation.
 
-**The Average Lie.** "Average latency: 800ms." This number is useless for predicting user experience. If 5% of users experience 4-second latency, and those 5% are disproportionately power users with complex queries, your average is hiding your biggest pain point. P95 is not a vanity metric — it's the experience of your most engaged users.
+**Unit price to complete operating cost.** At an illustrative $0.003 per 1K tokens, $45,000 in monthly inference requires 15 billion billed tokens at that blended rate. The price alone does not imply the volume. Real estimates need separate billing categories, context, retries, tools, evaluation, infrastructure, and relevant human work.
 
-**The Cost Blindness.** Token costs are abstract. "$0.003 per 1K tokens" doesn't trigger an alarm. "$45,000/month" does. But one is the other at scale. Teams that don't model cost at volume discover their AI feature is economically doomed only after they've built user dependency on it and committed the roadmap.
+## Illustrative scenarios
 
-## INTELLECTUAL LINEAGE
+These examples teach mechanisms; they are not verified company cases.
 
-- **Google SRE** — Error budgets, SLOs, and the philosophy that reliability is a feature. Applied to AI: model quality is a reliability metric.
-- **Eugene Yan** — Production ML systems writing. On the gap between ML research metrics and production metrics.
-- **Netflix Chaos Engineering** — The principle that you should test failure before it tests you. Applied to AI: simulate model degradation, not just model outage.
-- **Nassim Taleb** — Antifragile. Systems that benefit from stress vs systems that break under it. AI products should be designed to improve from production stress (via feedback loops), not just survive it.
+**A writing assistant's cost surprise.** Five hundred users cost $2,000/month in a pilot. Fifteen thousand users cost $89,000/month after a broader launch. Users increased 30x while cost increased **44.5x**. That could reflect more requests, longer contexts, different models, or overhead; it does not prove that longer requests caused the gap. A useful test measures those drivers and models plausible changes before committing.
 
-## REAL-WORLD EXAMPLES
+**A search feature's latency cliff.** A test records 600ms average latency; production records 3.2-second P95 with an eight-times-larger corpus. Average and P95 are different measures, so that comparison alone does not establish a regression or its cause. An O(n) retrieval step is a candidate bottleneck only if the implementation and measurements support it. Compare consistent measures under controlled workload changes.
 
-**Example 1: The cost surprise.** A team launched an AI writing assistant. At pilot (500 users), token costs were $2,000/month. At GA (15,000 users), costs hit $89,000/month — not 30x (linear) but 44x, because average tokens per request increased as users learned to ask more complex questions. A stress test modeling user behavior evolution would have caught this.
+**A provider update and delayed quality detection.** Accuracy on a defined evaluation falls from 91% to 87%, a four-percentage-point decline. The team hears about problems four weeks later. A suitable daily reference check might detect the change earlier; it cannot guarantee detection within 24 hours without sufficient coverage, sample size, sensitivity, and functioning response. Production segments may reveal failures the reference set misses.
 
-**Example 2: The latency cliff.** An AI search feature performed at 600ms average in testing. In production, P95 was 3.2 seconds because the retrieval step was O(n) on document count, and the production corpus was 8x larger than the test corpus. The average was fine. The tail was catastrophic.
+## People are part of the test
 
-**Example 3: The silent degradation.** A model provider pushed a minor update. Average accuracy dropped from 91% to 87%. Without automated quality monitoring, the team discovered this four weeks later through a spike in customer complaints. A monitoring system that tracked accuracy on a reference test set daily would have caught it in 24 hours.
+Set decision rights and stopping conditions before results arrive. Give testers and reviewers access, time, and a way to challenge an unsafe or unsupported conclusion. The person who finds a failure should not be penalized for contradicting the hoped-for outcome.
 
-## FURTHER READING
+Personal exposure can reveal an incentive or conflict; it is not the measure of a reviewer's value. Independent evidence may be especially useful when the proposal owner faces strong pressure to proceed. Reward well-supported judgment, including correction, cancellation, or continuation as appropriate.
 
-- Google SRE Team, *Site Reliability Engineering* — Error budgets and SLO design
-- Eugene Yan, "What I've Learned Working with AI Products" — Production ML realities
-- Nassim Taleb, *Antifragile* — Designing systems that benefit from stress
-- Will Larson, "Sizing and Costing AI Features" — Unit economics for AI products
+## Intellectual lineage and further reading
+
+- **Google SRE:** service-level indicators and objectives, error budgets, and user-centered reliability. [Service Level Objectives](https://sre.google/sre-book/service-level-objectives/) provides a primary reference.
+- **Chaos engineering practice, including Netflix:** controlled experiments on failure and recovery. The test itself needs a bounded blast radius and stop conditions.
+- **Eugene Yan's production-ML writing:** connecting model measures with operating systems and user outcomes. Verify the exact article before citing a particular claim.
+- **Nassim Nicholas Taleb, *Antifragile*:** distinguishes surviving stress from improving through it. A feedback loop must demonstrate improvement before a system is described as benefiting from stress.
+- **Will Larson's engineering-management writing:** a practitioner reading lead for operating and costing systems. The earlier guide's “Sizing and Costing AI Features” title was not verified in this pass and should not be treated as a checked citation.
+
+Use the [main skill](SKILL.md) for the process and report. [Calibration and examples](references/calibration-and-examples.md) retain the detailed worksheets, historical quantities, and source limits.

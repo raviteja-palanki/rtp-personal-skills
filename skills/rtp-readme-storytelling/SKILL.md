@@ -1,104 +1,91 @@
 ---
 name: rtp-readme-storytelling
-description: "README writing with Morgan Housel-level storytelling. Narrative-first, no feature specs. Triggers: 'readme', 'GitHub readme', 'repo description', 'storytelling readme'"
-version: 1.0
+description: 'Write or revise a README, GitHub project introduction, or public technical description that connects the project to a recognizable problem. Explain why it exists, what it does, how it works, and what the reader can do next. Preserve the narrative approach, concrete examples, and personal voice while making practical information easy to find. Use verified project facts and genuine author experience; distinguish illustrative comparisons from measured results and documented learning processes from automatic improvement. Adapt the structure for a reusable tool, a personal showcase, or a documentation repository. Pair with rtp-thinking-writing for clarity, evidence, and voice.'
+version: v1.0.1_latest
 ---
 
-# README Storytelling — Narrative-First Technical Writing
+# README storytelling
 
-Write READMEs and public-facing technical descriptions that make people care before they understand.
+Help a new reader understand why the project matters, what it actually does, and whether it is relevant to them. Use a clear narrative to connect the problem, the design, and a concrete result. Keep the practical information easy to find.
 
-## CORE PHILOSOPHY
+Use `rtp-thinking-writing` for the shared writing standard. The original reference to Morgan Housel describes an editorial aspiration: familiar situations, clear reasoning, specific observations, and natural rhythm. Develop the project's own story rather than borrowing a signature passage or inventing an emotional origin.
 
-A README is not a feature spec with a title. It's the first 30 seconds of a conversation with someone who doesn't care yet — and your job is to make them care.
+## 1. Understand the project before writing its story
 
-Three principles:
+Read the existing README, relevant source or architecture, usage guidance, and license. Establish the intended reader and whether the repository is a reusable tool, public showcase, research artifact, or internal documentation. A public repository does not automatically grant permission to reuse its contents.
 
-1. **Open with a frame of reference, not a feature count.** "66 skills, 3 layers, 5 plugins" means nothing to a stranger. "The best PMs don't have better answers — they have better questions, and they ask them in the right order" makes them lean in.
+Check what exists now, what is proposed, and what has actually been tested. Verify counts, commands, supported environments, file paths, ownership, and any claimed results. Do not infer the project's capabilities from its name or an old diagram. For a revision, preserve working installation or usage steps, important limitations, links, and licensing information unless a verified change requires updating them.
 
-2. **Tell the story of why before the story of what.** The frustration, the pattern you kept seeing, the moment you realized the existing tools weren't enough — that's what earns the reader's attention. The technical architecture comes after they already care.
+Identify the central problem in the reader's terms. An inventory such as "90 skills" can orient a visitor when its purpose is explained, but a count alone does not explain value. A useful opening states what the project does and the decision or difficulty it addresses.
 
-3. **Show the difference, don't describe the features.** A before/after comparison — "without this" vs "with this" — does more work than three paragraphs of capability description.
+## 2. Build the narrative around useful questions
 
----
+Use the following sequence as a starting point. Move quick-start or essential scope information earlier when that helps the visitor. A short project description may need only a few of these parts.
 
-## STRUCTURE
+| Part | Purpose |
+|---|---|
+| Opening | Establish a recognizable problem and explain the project's purpose within the first few lines |
+| Bridge | Connect that problem to the design choice or the author's intention |
+| Origin | When relevant, describe the real frustration or observation that prompted the work |
+| Getting started or exploring | Show the next useful step for this repository's intended audience |
+| Architecture | Explain components through what they take in, decide, and produce |
+| Example or comparison | Demonstrate the practical difference with a representative case |
+| Improvement over time | Explain the actual learning, maintenance, or feedback process, if one exists |
+| Author and project context | Provide relevant, verified experience and responsibilities |
+| Help, contribution, and license | State or link the project's actual expectations where applicable |
 
-### The Hook (first 3 lines after the hero image)
-- A frame of reference the reader already agrees with
-- No statistics, no product names, no "introducing..."
-- Reads like the opening of a Morgan Housel essay — a truth about the domain that the reader recognizes
+### Open with a point the reader can recognize
 
-### The Bridge (1 sentence)
-- Connects the hook to the author's intent
-- "I wanted to build a system that thinks like that."
-- Short. Declarative. No hedging.
+A direct explanation, concrete problem, short story, or verified number can work. A hero image is optional. Do not require a slogan, ban the product name, or delay what the repository does until the reader has finished an origin story.
 
-### The Origin Story (1-2 paragraphs)
-- The frustration or pattern that motivated the work
-- Specific enough to feel real — name the failure mode you kept seeing
-- This is where lived experience shows: "I'd been shipping Gen AI products" not "teams often ship"
-- End with the architectural insight that solved the frustration
+The bridge can be a simple sentence connecting the problem and approach. Use first person only when writing for the author and the intent is supported. "I wanted to make those decisions easier to review" is appropriate only if that is the author's stated intent.
 
-### The Architecture (bulk of README)
-- Explain each layer through what it DOES, not what it IS
-- Skill names never appear as raw technical labels — describe what the skill asks or produces
-- Use the reader's language: "the skill that asks 'who pays the cost if you're wrong?'" not "`rtp-falsification`"
-- Color-code layers with emoji dots (🟣 🔵 🟢) for visual scanning
+### Tell the origin honestly
 
-### The Comparison (mandatory)
-- Before/after block showing output without the system vs with it
-- The "without" should sound like every generic AI output the reader has seen
-- The "with" should be specific enough to feel like real work product
-- Bold the punchline: **"The difference isn't polish. It's that the thinking happened in the right order."**
+One or two paragraphs often suffice. Name the recurring difficulty, why the existing approach was insufficient, and the design insight that followed. Include lived experience only when supplied or verified. Do not replace "worked with a team" with "shipped" if that inflates the author's role. Some repositories need no personal origin story.
 
-### The Compounding Story
-- This is the "moat" section — what makes the system improve over time
-- Use the blockquote callout for the key insight
-- End with the strongest single line: **"The system doesn't just run — it learns from running."**
+### Explain architecture in both human and practical terms
 
-### About Me
-- Lead with concrete experience: years, scale, verticals, what you shipped
-- Then the archetype/identity — but grounded in specific behavior, not abstract labels
-- The bridger description works because it names what happens in the room, not a personality trait
-- Close with: "This isn't a side project. It's how I actually work."
+Describe what each layer or component does, then include its real identifier and a useful link when the reader needs to locate or invoke it. For example, explain that a falsification skill identifies evidence that would overturn a recommendation, then name `rtp-falsification`. Human descriptions and exact labels serve different needs and can appear together.
 
----
+Show the sequence or dependencies when they affect use. Distinguish automatic behavior from user-triggered actions, supported parallel work from a universal promise, and generated artifacts from validated outcomes. Put detailed reference material in linked documents where that keeps the introduction readable.
 
-## ANTI-PATTERNS
+### Show a fair example
 
-- **Never open with a feature count.** "66 skills, 3 layers" is a spec, not a story.
-- **Never use "leveraging" or "harnessing" or "empowering."** Say what it does.
-- **Never list technical labels without explaining what they do in human terms.**
-- **Never describe yourself passively.** "I've shipped" not "I've worked with teams that ship." "I sit in the room with engineers" not "I've been in environments where engineers..."
-- **Never use "game-changing," "revolutionary," "cutting-edge."** The work speaks.
-- **Never force a rule of three.** Use whatever number is actually right.
-- **Never end with a generic positive conclusion.** End with a specific, declarative statement about what this means.
+Include a before-and-after comparison or worked example when it helps explain the project. Label constructed outputs as illustrative. For an observed comparison, record the input, relevant configuration, versions, and conditions, including material differences in available information.
 
----
+Do not invent a weak baseline or imply that a curated example is an experiment. Explain the specific difference: perhaps the revised output names assumptions, identifies a decision owner, or records what evidence would change the recommendation. Avoid a mandatory punchline such as "the thinking happened in the right order" unless the example establishes it.
 
-## FORMATTING TRICKS FOR VISUAL EMPHASIS
+### Describe improvement as a real process
 
-- **Bold + italic for key insight phrases:** ***ways of thinking***
-- **Blockquote + italic for section openers** that set emotional tone
-- **Bold the punchline sentence** in any comparison or conclusion
-- **Emoji color dots** (🟣 🔵 🟢 🟠 🔴) to create visual layers in lists
-- **Arrow chains** in protocol descriptions: gather context → choose depth → quality gate
-- **Sub tags** for the footer: `<sub>Built with Claude · April 2026</sub>`
-- Keep headers as **## level** — never go deeper than ### in a README. Depth comes from prose, not heading hierarchy.
+If the system improves through use, explain what is captured, who reviews it, how accepted changes enter the project, and what is versioned or tested. Distinguish stored feedback from adopted changes and demonstrated improvement. A system does not automatically learn merely because a README says it compounds. If no learning loop exists, describe maintenance or omit the claim.
 
----
+A concise callout can highlight the mechanism. Claims of a moat or defensible advantage require evidence and conditions; they are not required for an appealing project introduction.
 
-## VOICE
+### Ground the author section in relevant facts
 
-Write like Morgan Housel explains finance — with frames of reference that sting the heart before they inform the mind. Vary sentence rhythm. Short declarative sentences after long flowing ones. Let some structural messiness in — perfect structure feels algorithmic.
+Use verified experience, scope, domain, and contributions before abstract identity labels. Show what the author does rather than assigning a flattering archetype. An author can be a thoughtful practitioner without claiming sole ownership of team results. Include "this is how I work" only when the author has established that the project is actually used that way.
 
-Have opinions. "A framework that doesn't know its limits is more dangerous than having no framework at all" is an opinion. It's also true. Don't hedge it.
+## 3. Make the README usable and readable
 
----
+For a reusable tool, provide or link the necessary prerequisites, setup, a first useful example, limitations, and help. For a personal showcase, explain how to explore the material and its reuse terms instead of inventing an installation promise. Keep claims consistent with the repository's license and current documentation.
 
-## QUALITY GATE
+Use ordinary verbs and concrete nouns. Explain technical labels rather than removing them. Replace hype with the specific capability or result. Retain a meaningful opinion when supported, and qualify it where the conditions matter. "A framework without limits is always worse than no framework" is an argument to examine, not an established fact.
 
-Before shipping, read the README aloud. If any sentence sounds like it came from a product launch blog post, rewrite it. If any paragraph could apply to any project by changing the proper nouns, it's too generic. If the About Me section could describe any experienced PM, it hasn't earned its place.
+Use a clear heading hierarchy, usually a project title followed by second-level sections and occasional third-level subsections. Greater depth can be valid when genuinely needed; a separate reference often reads better. Use bold or a blockquote for an important sentence sparingly. Avoid layering bold, italics, color, and callouts on every paragraph.
 
-The test: would someone who reads this think "I want to talk to this person" — not "I understand this product"?
+Diagrams, before-and-after tables, and short arrow sequences can explain architecture. Include meaningful image descriptions. Use text labels alongside any color coding; decorative emoji are not required. A small HTML footer can work when the renderer supports it, but its tool attribution and date must be accurate rather than copied from an old template.
+
+Use working relative links for files inside the repository and verified external links where needed. Check heading anchors after renaming sections. Keep essential information available as text rather than only in a hero image.
+
+## 4. Review before delivery
+
+Read the opening, example, practical instructions, and ending as a newcomer would. Check whether each paragraph identifies something specific about this project. Retain clear reusable language where it serves ordinary documentation; not every sentence needs an original flourish.
+
+Review natural rhythm aloud when available or silently otherwise. Do not add deliberate disorder to make the writing seem human. Check links and claims, and verify commands when feasible and within the task's authorized scope. Report untested commands as untested rather than implying successful execution.
+
+The finished README should let the reader explain the purpose, find a concrete example, understand the important limits, and take the intended next step. Interest in the author is a possible benefit, not a substitute for understanding the project. Deliver the revised file and a concise note about material changes or incomplete checks. Publishing follows the user's authorization for the task.
+
+Reference checked 13 Sep 2026: [GitHub's guidance on repository READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) covers purpose, usefulness, getting started, help, maintainers, and relative links. It supports these practical documentation needs without prescribing one narrative style.
+
+**Revision 1.0.1, 13 Sep 2026.** Preserves the narrative opening, bridge, origin, functional architecture, example, improvement story, author context, and visual emphasis. Clarifies factual limits, actual repository use, and practical information a visitor needs.

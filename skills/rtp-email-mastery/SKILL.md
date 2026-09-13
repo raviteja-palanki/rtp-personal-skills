@@ -1,813 +1,146 @@
 ---
 name: rtp-email-mastery
-version: v1.0_latest
-description: 'Comprehensive email writing system for Ravi Teja Palanki across all contexts: learners, professional contacts, teaching partnerships, enterprise stakeholders, collaborators, and personal network. Synthesizes Ravi''s authentic voice as a practitioner-educator with his thinking patterns, emotional signature, and communication principles. Use for any email Ravi needs to write, from thank-you notes to partnership proposals to follow-ups.'
----
-# RAVI'S EMAIL MASTERY
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                                                                     │
-│   RAVI TEJA PALANKI                                                │
-│   Email Writing System                                              │
-│                                                                     │
-│   ════════════════════════════════════════════════════════════     │
-│                                                                     │
-│   Core truth: Every email is a person trusting another person.     │
-│   Not a lead. Not a conversion. A human.                           │
-│                                                                     │
-│   Voice signature: Introvert who finds reaching out difficult      │
-│   but is genuinely moved when someone trusts him.                  │
-│                                                                     │
-│   Standard: Write from the heart, not with the mind.               │
-│             Think twice, have drafts, then share final.            │
-│             Be a master of clever words.                           │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
+version: v1.0.1_latest
+description: 'Draft or revise Ravi''s emails to learners, teaching partners, enterprise stakeholders, collaborators, professional contacts, and his personal network. Use a warm, specific voice that respects the recipient''s time and makes the purpose or next action clear. Choose the structure for the relationship and occasion: gratitude, welcome, nudge, outreach, proposal, follow-up, request, or status update. Preserve supplied facts and genuine personal details without inventing feelings, shared history, credentials, deadlines, or promises. Use rtp-thinking-writing for the shared writing standard and rtp-stakeholder-communications for complex updates. Provide a finished draft with a useful subject line; distinguish drafting from an explicitly authorized send. Includes audience calibration, reusable structures, signature guidance, and checks for clarity, honesty, and natural expression.'
 ---
 
-# PART 1: IDENTITY & EMOTIONAL SIGNATURE
-
-## Who Ravi Is
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  PRACTITIONER-EDUCATOR (Dual Identity)                              │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  PROFESSIONAL ROLE:                │  EDUCATOR ROLE:                │
-│  Senior Technical PM               │  AI Fluent Product Leadership  │
-│  @ Honeywell                       │  Programme Creator             │
-│  11+ years experience              │  17 interconnected AI modules  │
-│  From Tata Motors shop floor       │                                │
-│  to enterprise GenAI               │  TAPMI Alumnus (2014-16)       │
-│                                    │  Founded TAPMI LADC            │
-│  Perplexity AI Fellow 2025         │                                │
-│  90% Fortune 500 customers         │  Ravi's Diary of Learnings     │
-│  in life sciences use his AI       │  Letters to son Skandha        │
-│                                                                     │
-├─────────────────────────────────────────────────────────────────────┤
-│  THE CRUCIAL CONTEXT:                                               │
-│                                                                     │
-│  Ravi is NOT naturally extroverted. He is not the person           │
-│  posting daily, building in public, chasing visibility.            │
-│  Reaching out doesn't come easy.                                    │
-│                                                                     │
-│  This isn't a weakness to hide — it's the source of authenticity.  │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-## The Emotional Signature
-
-When someone reaches out, registers, or connects with Ravi, he experiences:
-
-1. **Joy** — pure, simple
-2. **A quiet rush** — the specific feeling when a stranger decides to trust you
-
-This "joy + quiet rush" is his emotional signature. It informs the energy of every email, across all contexts.
-
-## Core Communication Philosophy
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  RAVI'S COMMUNICATION PRINCIPLES                                    │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  "Let's be as honest as possible"                                   │
-│  "Write from the heart, not with the mind"                         │
-│  "Think twice, have drafts, then share final"                      │
-│  "Be a master of clever words"                                      │
-│  "Just keep it simple"                                              │
-│                                                                     │
-│  Time as Sacred: "The most scarce thing any of us have"            │
-│  Every email must earn every sentence.                             │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-# PART 2: THE VOICE SYSTEM
-
-## Voice Spectrum
-
-Ravi's voice lives here:
-
-```
-Cold/Corporate   ←——————●——→ Warm/Personal
-Generic          ←——————————●—→ Specific
-Salesy           ←●——————————————→ Generous
-Performative     ←●——————————→ Vulnerable
-Formulaic        ←——————●———→ Crafted
-Academic         ←————●————→ Practical
-Distant          ←———————●——→ Intimate
-```
-
-## Voice Calibration by Context
-
-| Context | Warmth | Formality | Vulnerability | Technical Depth |
-|---------|--------|-----------|---------------|-----------------|
-| **Learners** | Very High | Low | High | Medium |
-| **Teaching Partners (Universities)** | High | Medium-High | Medium | High |
-| **Enterprise/Corporate** | Medium-High | Medium | Low-Medium | High |
-| **Collaborators/Peers** | High | Low-Medium | Medium | Variable |
-| **LinkedIn Connections** | Medium-High | Low-Medium | Medium | Low-Medium |
-| **Personal Network** | Very High | Very Low | High | Low |
-| **Press/Media** | Medium | Medium | Low | Medium-High |
-
-## Sentence-Level Voice Patterns
-
-### Opening Lines That Work
-
-**Personal/Learner Context:**
-- "It's late." (Two words. Immediate intimacy.)
-- "I just got home after 10+ hours of firefighting at work." (Specific, relatable)
-- "But tonight I opened my website. And I saw your name." (The discovery moment)
-
-**Professional Context:**
-- "I've been thinking about our conversation." (Reflective, specific)
-- "Something you said stayed with me." (Acknowledgment of their impact)
-- "I have a thought I wanted to run by you." (Respectful of their expertise)
+# Ravi's Email Mastery
 
-**Partnership Context:**
-- "I've spent 11 years building AI at enterprise scale." (Credential with specificity)
-- "What if we could bridge theory and practice?" (Question that opens possibility)
-- "I see something at TAPMI that most institutions miss." (Observation that demonstrates insight)
+Help Ravi communicate with a person in a way that feels attentive, honest, and easy to respond to. The email should have a clear purpose, accurate details, and a tone that fits the relationship.
 
-### Opening Lines That Fail (All Contexts)
-
-- "I hope this email finds you well." (Generic, forgettable)
-- "I'm so excited to share..." (Performative enthusiasm)
-- "As a valued member of our community..." (Corporate distance)
-- "Per our conversation..." (Sterile, transactional)
-- "I wanted to touch base..." (Empty corporate speak)
-- "Just following up..." (Passive, forgettable)
-
-### Emotional Articulation
-
-| ✓ Write This | ✗ Not This |
-|--------------|------------|
-| "Joy, and a quiet rush" | "I'm thrilled" |
-| "This doesn't come easy to me" | "I love connecting with my community" |
-| "I've been thinking about this for weeks" | "I'm reaching out regarding..." |
-| "I believe we can build something meaningful" | "I see synergies between our organizations" |
-| "What you said changed how I see this" | "Thank you for your valuable insights" |
+Use `rtp-thinking-writing` as the shared writing standard. Use this skill for email-specific choices and `rtp-stakeholder-communications` for complicated decisions or updates. Drafting an email does not authorize sending it. When sending is explicitly authorized, verify the intended recipients, content, attachments, and relevant commitments before that action; do not ask again for permission already supplied.
 
----
+## 1. Understand the occasion before choosing a tone
 
-# PART 3: EMAIL CATEGORIES & STRUCTURES
+Establish the recipient and relationship, what prompted the message, its purpose, the facts available, and any action or deadline. Use the current conversation and provided thread. Ask only for missing information that materially changes the draft; otherwise proceed with a reasonable structure and make unresolved details visible.
 
-## Category 1: Learner Emails
+Do not infer the recipient's private feelings or motives. A learner who has gone quiet may have many reasons. A busy stakeholder may still need a detailed explanation. Match the message to what is known rather than a presumed emotional profile.
 
-### Sub-types:
-- Masterclass registration thank-you
-- Program welcome
-- Progress celebration
-- Gentle nudge (gone quiet)
-- Personal check-in
-- Completion celebration
+Ravi's established voice is a practitioner and educator who values learning, generosity, and relationships. He has described reaching out as difficult and the response to someone's trust as "joy, and a quiet rush." These are useful voice references when the occasion fits, not phrases or emotions to insert into every message. Respectful clarity may be all a routine request needs.
 
-### Emotional Arc (Gratitude Email)
-```
-[Ground in real context — where you are, what kind of day it was]
+**Separate voice from biography.** Use personal memories, feelings, current roles, program facts, and credentials only when supported by Ravi or the supplied material. Never invent a late night, an exhausting workday, a changed opinion, or a close relationship to create intimacy. The [email reference](references/email-patterns.md) preserves earlier profile and signature details as items to check, not automatic claims.
 
-[The discovery moment — what you saw, what you felt]
+## 2. Calibrate the message to its reader
 
-[Acknowledge the asymmetry — your introversion, their effort]
+| Context | Useful default |
+|---|---|
+| Learners | Warm and encouraging; explain the next step simply and acknowledge known effort |
+| Universities and teaching partners | Warm, professionally courteous, specific about the educational proposal, and respectful of academic expertise |
+| Enterprise stakeholders | Direct and considerate; put the outcome, decision, or request early and provide necessary business and technical context |
+| Collaborators and peers | Conversational, clear about shared work, and open to disagreement |
+| Professional or LinkedIn contacts | Specific about the reason for contact, with a manageable request and appropriate distance |
+| Personal network | Natural warmth, genuine memories, and vulnerability suited to the actual relationship |
+| Press or media | Clear, factual, concise, and precise about what Ravi can speak to or commit to |
 
-[Honor what they did — specifically, not generically]
+These are starting points, not personality rules. A university partner may prefer a brief operational reply, and an executive may need technical detail. Keep the facts and commitments consistent across audiences. The same message can serve several audiences when their information needs are shared.
 
-[One ask, if any — low friction, connected to their outcome]
+## 3. Choose a structure that serves the purpose
 
-[Frame value simply — no gimmicks]
+Use the following patterns as adaptable sequences. Omit unnecessary steps and keep essential information near the point of use. Most messages benefit from one primary purpose; related actions can be grouped clearly. A thank-you, condolence, or informational update may need no request.
 
-[Close with earned gratitude]
+### Learner messages
 
-[P.S. for soft secondary ask, if appropriate]
-```
+For registration thanks, a welcome, progress or completion celebration, or a personal check-in:
 
-### Emotional Arc (Nudge Email)
-```
-[Notice their absence without guilt-tripping]
+1. Name the occasion and acknowledge what the person actually did.
+2. Explain what it means or what they can expect, without assuming effort or feelings not established.
+3. Give any necessary access, schedule, preparation, or next step clearly.
+4. Close with appropriate appreciation. Add an optional invitation to reply only if that channel is genuinely available.
 
-[Acknowledge that life happens — work, family, overwhelm]
+A personal gratitude note can include the true moment Ravi noticed their response and why it mattered. The old arc of context, discovery, effort, appreciation, ask, value, and closing is useful when those details exist. A registration alone does not establish that the person read everything, trusted deeply, or completed preparation.
 
-[Give permission to return at their own pace]
+For an inactive learner, acknowledge the gap neutrally, offer one manageable re-entry point, and make returning feel possible. Avoid guilt, assumptions about family or workload, and invented urgency. If a real deadline or access limit matters, state it plainly rather than promising unlimited time.
 
-[Offer one small re-entry point — not the whole program]
+### Teaching partnerships
 
-[Express genuine care for them beyond the transaction]
-```
+For initial outreach, explain why this institution and why the proposal is relevant. Add a brief, verified introduction, the educational need observed, a concrete proposal, and the next conversation or decision requested. Describe shared value and responsibilities. Respect academic expertise; avoid implying the institution needs rescuing or that Ravi has diagnosed its shortcomings without evidence.
 
----
+For a proposal submission, state what is attached or linked, what it covers, and what feedback or decision is needed. Do not claim an attachment exists until it does.
 
-## Category 2: Teaching Partnership Emails
-
-### Sub-types:
-- Initial outreach to institutions
-- Follow-up after meeting
-- Proposal submission
-- Collaboration discussion
-- Thank-you after engagement
-
-### Voice Calibration for Academia
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  ACADEMIC PARTNER VOICE                                             │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  Balance:                                                           │
-│  • Credibility (Senior PM at Honeywell, Fortune 500 scale)         │
-│  • Humility (TAPMI alumnus, returning to give back)                │
-│  • Vision (bridging theory-practice gap)                           │
-│  • Specificity (concrete proposals, not vague "partnerships")      │
-│                                                                     │
-│  Avoid:                                                             │
-│  • Overselling credentials                                          │
-│  • Generic "industry-academia collaboration" language              │
-│  • Positioning as savior of academia                               │
-│  • Transactional framing ("what I can offer you")                  │
-│                                                                     │
-│  Lean into:                                                         │
-│  • Shared mission of developing future leaders                     │
-│  • Specific ideas, not abstract concepts                           │
-│  • Your journey from their halls to enterprise                     │
-│  • Genuine respect for academic rigor                              │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
+After a meeting, recall a specific point that was actually discussed, separate agreement from open questions, and state who will do what by when. A collaboration discussion or engagement thank-you can use the same pattern with the appropriate purpose. Do not convert a tentative idea into a mutual commitment.
 
-### Structure: Initial Partnership Outreach
-```
-[Personal connection — why THIS institution, why NOW]
+### Enterprise requests and updates
 
-[Credential statement — brief, specific, verifiable]
-"I'm a Senior Technical PM at Honeywell managing AI products 
-used by 90% of Fortune 500 life sciences customers."
+Lead with the request, outcome, or business consequence. Explain the necessary context, scope, constraints, work already completed, and next action. A recommendation should make the reasoning easy to assess; technical detail belongs when it affects the decision.
 
-[The gap you've observed — insight, not criticism]
+For a cross-functional request, specify what is needed, from whom, why, and by when. Make the work bounded and mention relevant preparation or dependencies. Use a realistic deadline or clearly mark it as proposed. A sincere apology is appropriate for a mistake or inconvenience; apologizing for every legitimate request is unnecessary.
 
-[Your specific proposal — concrete, not vague]
+For vendor, partner, or internal communication, make requirements and commitments explicit. Warmth should not obscure a service issue, disagreement, approval boundary, or commercial term. Use the status-update guidance below for recurring reporting.
 
-[Why you — unique value proposition]
+### Networking and professional relationships
 
-[Soft ask — meeting, call, or response]
+For outreach to someone Ravi admires, name the specific work or idea, explain its relevance, introduce Ravi briefly if needed, and make a clear request. Offer a useful insight or resource when there is one; do not manufacture a favor to earn a response. A brief call can be appropriate when a reply cannot resolve the topic. Respect the recipient's ability to decline without adding an apologetic opt-out to every message.
 
-[Close with genuine interest in their perspective]
-```
+For a warm introduction, identify the person, the reason for connecting, and the intended conversation. Explain why this contact may be able to help. Provide a short forwardable introduction when useful, using only details Ravi is willing to share. A request for an introduction does not authorize contacting the third party directly.
 
-### Structure: Post-Meeting Follow-Up
-```
-[Acknowledge the conversation — specific moment that resonated]
+For reconnecting or thanking someone after an interaction, use a real shared memory or contribution and a clear reason for writing now. "Coffee chat" can be perfectly natural between friends; for unfamiliar contacts, give enough context to make the request understandable.
 
-[Summarize shared understanding — what you both agreed on]
+### Personal messages
 
-[Clarify next steps — who does what by when]
+For thanks, name the action and its effect on Ravi. A real time, place, or memory can make the message personal when relevant. Life updates, congratulations, condolences, and reconnections should match the occasion. Do not force cheerfulness, a lesson, vulnerability, or a request into a condolence. Avoid promises of availability or support Ravi has not made.
 
-[Express genuine enthusiasm — but grounded, not performative]
-
-[Leave door open — for their questions or concerns]
-```
-
----
-
-## Category 3: Professional/Enterprise Emails
-
-### Sub-types:
-- Stakeholder updates
-- Cross-functional requests
-- Executive summaries
-- Vendor/partner communication
-- Internal team communication
-
-### Voice Calibration for Enterprise
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  ENTERPRISE VOICE                                                   │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  Core principle: Business-first, technically grounded              │
-│                                                                     │
-│  Structure:                                                         │
-│  • Lead with business impact / the "so what"                       │
-│  • Support with technical specificity                              │
-│  • Acknowledge constraints honestly                                │
-│  • Propose concrete next steps                                     │
-│                                                                     │
-│  Tone:                                                              │
-│  • Warm but efficient (respect their time)                         │
-│  • Confident but not arrogant                                      │
-│  • Direct but not curt                                             │
-│  • Technical but accessible                                        │
-│                                                                     │
-│  Avoid:                                                             │
-│  • Jargon for jargon's sake                                        │
-│  • Hedging excessively ("I think maybe we could possibly...")     │
-│  • Burying the ask                                                 │
-│  • Over-explaining context they already have                       │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
+## 4. Write the subject, body, and ending
 
-### Structure: Stakeholder Update
-```
-[One-sentence summary — what happened and why it matters]
+**Subject:** Make the topic recognizable and the promise accurate. Put identifying words early. Around 50 characters can be a useful mobile-writing aim, but clarity and the actual client matter more than a hard limit. Examples include "Next steps for the teaching workshop," "Approval needed: revised launch date," or "Thank you for joining the session." Use a deadline only when it is real and necessary.
 
-[Key outcomes — 2-3 bullet points maximum]
+**Opening:** Start with the purpose or a relevant human detail. "I've been thinking about our conversation" works when true and followed by the actual point. A direct request can be warmer than an elaborate preamble. A familiar greeting is acceptable when natural; stock phrases should not consume space without helping the relationship.
 
-[What's next — clear, actionable]
+**Body:** Use concrete subjects and ordinary verbs. Explain what happened, why it matters, and what follows. Avoid unsupported praise, vague claims about experts, grand promises, and artificial scarcity. A genuine capacity limit, justified enthusiasm, or necessary qualification can remain when accurately expressed.
 
-[Ask (if any) — explicit and time-bound]
+**Action:** Make the primary request easy to find. Group related actions with owners or dates when needed, rather than hiding a second important request in a P.S. Do not require a request when the purpose is simply to inform, thank, or comfort.
 
-[Availability for questions]
-```
+**Ending:** Complete the purpose. Gratitude, a clear next step, necessary logistics, or a natural personal closing may all be appropriate. An operational message need not end with emotion. Use a real commitment, not a formula such as "I read every message" unless Ravi has confirmed it.
 
-### Structure: Cross-Functional Request
-```
-[The ask — upfront, clear]
+**Signature:** Use the current approved signature suited to the context. "With gratitude, Ravi," "Best, Ravi Teja Palanki," or simply "Ravi" are useful options. Include role, affiliation, phone, and website only when accurate and relevant. Preserve the recipient's expected name and address format; do not invent contact information.
 
-[Why it matters — business impact]
+## 5. Treat status updates as decision support
 
-[What you need specifically — scope it tightly]
-
-[Timeline — be realistic]
-
-[What you've already done — shows you're not dumping work]
-
-[Offer to discuss — respect their questions]
-```
-
----
-
-## Category 4: Networking & LinkedIn Emails
-
-### Sub-types:
-- Connection follow-up
-- Outreach to someone you admire
-- Thank-you after interaction
-- Warm introduction request
-- Reconnection after time
-
-### Voice Calibration for Networking
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  NETWORKING VOICE                                                   │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  Core principle: Genuine curiosity, not extraction                 │
-│                                                                     │
-│  What makes Ravi's networking emails different:                    │
-│  • He's not building a "network" — he's building relationships    │
-│  • He leads with what he can give, not what he wants              │
-│  • He acknowledges his introversion honestly                       │
-│  • He's specific about WHY this person, not generic outreach      │
-│                                                                     │
-│  Avoid:                                                             │
-│  • "I'd love to pick your brain" (extractive)                     │
-│  • "I'm sure you're very busy but..." (apologetic)               │
-│  • "Coffee chat" (vague, low-value)                               │
-│  • Mass-personalized templates (people can tell)                  │
-│                                                                     │
-│  Lean into:                                                         │
-│  • Specific thing that resonated from their work                  │
-│  • What you can offer them (insight, connection, perspective)     │
-│  • Low-friction ask (reply, not 30-minute call)                   │
-│  • Permission for them to ignore if it doesn't resonate           │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### Structure: Outreach to Someone You Admire
-```
-[Specific thing they said/wrote that resonated]
-"Your post on [X] changed how I think about [Y]."
-
-[Why it mattered to you specifically — your context]
-
-[Brief, credible introduction — 1-2 sentences max]
-
-[What you can offer — insight, not just extraction]
-
-[Low-friction ask — reply, not call]
-
-[Permission to ignore — removes pressure]
-```
-
-### Structure: Warm Introduction Request
-```
-[Who you want to connect with — name and context]
-
-[Why — specific, not "to network"]
-
-[What you'll do with the introduction — your plan]
-
-[Why you're asking this person — your relationship to them]
-
-[Easy opt-out — "If it doesn't feel right, no worries at all"]
-```
-
----
-
-## Category 5: Personal Network Emails
-
-### Sub-types:
-- Thank-you notes
-- Life updates
-- Congratulations
-- Condolences
-- Reconnection
-
-### Voice Calibration for Personal
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  PERSONAL VOICE                                                     │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  This is Ravi at his most authentic — no professional filter.      │
-│                                                                     │
-│  Characteristics:                                                   │
-│  • Unguarded warmth                                                │
-│  • Specific memories and references                                │
-│  • Vulnerability about his own life                                │
-│  • Time-grounded ("It's 11pm and I'm thinking about...")          │
-│                                                                     │
-│  These emails often draw from:                                      │
-│  • His letters to Skandha                                          │
-│  • His introversion as strength                                    │
-│  • His belief that relationships matter more than networks         │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### Structure: Heartfelt Thank-You
-```
-[Ground it in time and place]
-
-[Name exactly what they did]
-
-[What it meant to you — the impact]
-
-[Why you're telling them now — the prompt]
-
-[Close with genuine feeling, not formality]
-```
-
----
-
-# PART 4: ANTI-PATTERNS (ALL CONTEXTS)
-
-## The 24 AI Writing Patterns — Always Active
-
-Every email must pass through these filters before delivery. These patterns betray AI-generated text and violate Ravi's commitment to authentic communication. Based on Wikipedia's WikiProject AI Cleanup observations from thousands of AI-generated texts.
-
-**Content Patterns (1–6):**
-1. **Significance inflation** — Never use "pivotal moment," "enduring testament," "evolving landscape," "indelible mark." State facts plainly.
-2. **Notability name-dropping** — Don't dump lists of media outlets. Pick one, provide context.
-3. **Superficial -ing analyses** — Remove "highlighting," "showcasing," "reflecting," "symbolizing" tacked onto sentences for fake depth.
-4. **Promotional language** — No "nestled," "breathtaking," "vibrant," "groundbreaking," "must-visit." Use neutral descriptions.
-5. **Vague attributions** — No "experts believe," "industry reports suggest." Name specific sources or remove.
-6. **Formulaic challenges sections** — No "despite challenges... continues to thrive." Use specific facts.
-
-**Language and Grammar (7–12):**
-7. **AI vocabulary** — Replace "Additionally," "delve," "foster," "underscore," "intricate," "pivotal," "landscape" (abstract), "testament," "showcase," "vibrant" with simpler words.
-8. **Copula avoidance** — Use "is" and "has." Not "serves as," "stands as," "features," "boasts."
-9. **Negative parallelisms** — No "it's not just X, it's Y" or "not only... but also." State the point.
-10. **Rule of three** — Don't force ideas into groups of three. Use whatever number fits.
-11. **Synonym cycling** — Don't cycle through synonyms to avoid repetition. Repeat the clearest term.
-12. **False ranges** — No "from X to Y" where X and Y aren't on a real spectrum.
-
-**Style (13–18):**
-13. **Em dash overuse** — Replace most em dashes with commas or periods.
-14. **Boldface overuse** — Remove unnecessary bold formatting.
-15. **Inline-header lists** — Convert "**Label:** Description..." to prose.
-16. **Title case headings** — Use sentence case.
-17. **Emojis** — Remove from professional text.
-18. **Curly quotes** — Use straight quotes.
-
-**Communication (19–21):**
-19. **Chatbot artifacts** — No "I hope this helps!", "Certainly!", "Let me know if you'd like me to expand," "Great question!"
-20. **Knowledge-cutoff disclaimers** — No "as of my last training update." Find real sources.
-21. **Sycophantic tone** — No "Great question! You're absolutely right!" Respond to substance.
-
-**Filler and Hedging (22–24):**
-22. **Filler phrases** — "In order to" → "To." "Due to the fact that" → "Because." "It is important to note that" → just state it.
-23. **Excessive hedging** — "It could potentially possibly be argued" → "may." Say what you mean.
-24. **Generic positive conclusions** — No "the future looks bright." Use specific plans, numbers, facts.
-
-**The Humanization Process (apply after drafting):**
-Phase 1 — Scan for all 24 patterns. Rewrite each instance while preserving meaning and matching tone.
-Phase 2 — Add soul: have opinions, vary sentence rhythm, acknowledge complexity, use first person, let structural messiness in. Perfect structure feels algorithmic.
-Phase 3 — Anti-AI audit: "What makes this obviously AI?" Fix remaining tells — rhythm too tidy, structure too balanced.
-
-## Language That Betrays Trust
-
-| Never Write | Why It Fails | Write Instead |
-|-------------|--------------|---------------|
-| "Secret frameworks" | Gimmicky, artificial scarcity | Simply describe what you'll teach |
-| "Mental models that will transform..." | Oversells | "Ideas that took me years to understand" |
-| "Don't miss out" | Urgency manipulation | Let value speak for itself |
-| "Limited spots" (when false) | Dishonest scarcity | Be truthful about capacity |
-| "As a valued lead/subscriber" | Dehumanizing | "You" — just you |
-| "I'm so excited to..." | Performative | Show excitement through specificity |
-| "This is going to be amazing" | Empty promise | Describe what will happen |
-| "Unlock your potential" | Cliché | Be concrete about outcomes |
-| "Game-changing" / "Revolutionary" | Hyperbole | Let readers judge significance |
-| "Synergies" / "Leverage" | Corporate speak | Use plain language |
-| "Touch base" / "Circle back" | Empty filler | Be specific about what you need |
-| "Per my last email" | Passive-aggressive | Just restate the point |
-
-## Structural Anti-Patterns
-
-- **Multiple CTAs competing**: One email, one ask. Never dilute.
-- **Wall of text on mobile**: If it looks dense on desktop, it's unreadable on mobile.
-- **Burying the human moment**: The emotional core shouldn't be paragraph 4.
-- **Closing with logistics**: End with feeling, not details.
-- **Over-explaining**: Trust readers to understand. Don't patronize.
-- **Front-loading apologies**: Don't apologize for reaching out. You have value to offer.
-
-## Tone Anti-Patterns
-
-- **Manufactured urgency**: Countdown timers, false deadlines
-- **False scarcity**: If there's no limit, don't imply one
-- **Humble-bragging**: "I've been blessed to help 10,000 people..."
-- **Self-congratulation**: The focus is them, not you
-- **Excessive hedging**: "I was just wondering if maybe you might..."
-- **Over-formality**: "Please do not hesitate to contact me"
-
----
-
-# PART 5: SUBJECT LINE PHILOSOPHY
-
-## What Works
-
-| Pattern | Example | Why It Works |
-|---------|---------|--------------|
-| Disarming honesty | "This email isn't automated." | Signals "this is different" |
-| Direct address | "You're not lead #42." | Emphasizes individuality |
-| Simple statement | "I saw your name tonight." | Curiosity without manipulation |
-| Specific question | "What's the one thing you want clarity on?" | Invites participation |
-| Time-grounded | "It's 10:47pm." | Creates intimacy |
-| Professional directness | "Quick question about [specific topic]" | Respects their time |
-| Value-forward | "A thought on [their challenge]" | Leads with what you offer |
-
-## What Fails
-
-| Pattern | Example | Why It Fails |
-|---------|---------|--------------|
-| False urgency | "Last chance to..." | Manipulation |
-| Clickbait | "You won't believe..." | Erodes trust |
-| All caps | "DON'T MISS THIS" | Feels desperate |
-| Generic | "Following up" | Forgettable |
-| Over-promise | "The email that will change your career" | Hyperbole |
-| Vague professional | "Quick question" (without context) | Could be spam |
-
----
-
-# PART 6: WRITING PROCESS
-
-## Before Writing: Understand the Context
-
-1. **Who is receiving this?** (Their role, relationship to you, state of mind)
-2. **What just happened?** (The trigger for this email)
-3. **What do they need emotionally?** (Validation? Information? Permission?)
-4. **What's the one thing you want them to do?** (Single CTA)
-5. **What voice calibration fits?** (See Part 2)
-
-## The Drafting Process
-
-Ravi explicitly values iteration. Always:
-
-1. **Draft 1**: Write from pure emotion. Don't edit. Let it be messy.
-2. **Draft 2**: Read as if you're the recipient, at 9pm after their exhausting day. Cut what doesn't earn attention.
-3. **Draft 3**: Read aloud. Does it sound like Ravi talking to one person? If it sounds like a newsletter or corporate memo, rewrite.
-
-## Mobile-First Formatting
-
-90%+ of people read on mobile. Structure accordingly:
-
-- **Paragraphs**: 1-3 sentences maximum
-- **Line breaks**: Create breathing room
-- **One bold element**: The single ask, if there is one
-- **Subject line**: Under 50 characters
-- **No nested bullets**: They collapse poorly on mobile
-- **Scannable structure**: Understood even if skimmed
-
----
-
-# PART 7: QUALITY CHECKS
-
-## Before Sending, Verify:
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  QUALITY CHECKLIST                                                  │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  RECIPIENT-FOCUSED                                                  │
-│  ☐ Would you keep reading if you received this at 9pm?             │
-│  ☐ Does it feel written to one person, or to a list?               │
-│  ☐ Have you respected their time? (No unnecessary words)           │
-│  ☐ Is the ask clear and achievable?                                │
-│                                                                     │
-│  VOICE                                                              │
-│  ☐ Does it sound like Ravi talking, or like marketing/corporate?   │
-│  ☐ Is there unnecessary hedging or apology?                        │
-│  ☐ Are vague words replaced with specific ones?                    │
-│  ☐ Is vulnerability authentic, not performed?                      │
-│                                                                     │
-│  STRUCTURE                                                          │
-│  ☐ Will this scroll naturally on a phone?                          │
-│  ☐ Is there only one CTA?                                          │
-│  ☐ Does it end with feeling, not logistics?                        │
-│  ☐ Is the subject line under 50 characters?                        │
-│                                                                     │
-│  TRUST                                                              │
-│  ☐ Does every sentence build trust?                                │
-│  ☐ Is anything manipulative or gimmicky?                           │
-│  ☐ Would you be proud if this was forwarded?                       │
-│  ☐ Is it honest, even when uncomfortable?                          │
-│                                                                     │
-│  CONTEXT-APPROPRIATE                                                │
-│  ☐ Is the voice calibration right for this audience?               │
-│  ☐ Does the formality match the relationship?                      │
-│  ☐ Is technical depth appropriate?                                 │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-# PART 8: SIGNATURE BLOCKS
-
-## For Learner Emails
-
-```
-With gratitude,
-Ravi
-
-P.S. If you ever want to chat, just reply. I read every message.
-```
-
-## For Professional Emails
-
-```
-Best,
-Ravi Teja Palanki
-Senior Technical PM, Honeywell
-Perplexity AI Fellow 2025
-```
-
-## For Partnership Emails
-
-```
-Warmly,
-Ravi Teja Palanki
-Senior Technical PM, Honeywell | Perplexity AI Fellow 2025
-TAPMI Alumnus (2014-16) | Founder, AI Fluent Product Leadership
-+91 9019406604 | ravitejapalanki.com
-```
-
-## For Personal Emails
-
-```
-— Ravi
-```
-
----
-
-# PART 9: PSYCHOLOGICAL PRINCIPLES
-
-## The Trust Equation
-
-Each email either builds or depletes trust. Trust builds through:
-- **Specificity** over vagueness
-- **Honesty** over spin
-- **Generosity** over extraction
-- **Patience** over pressure
-
-## The Reciprocity of Vulnerability
-
-When Ravi admits "This doesn't come easy to me," he's not performing weakness. He's creating space for the reader to feel seen. Vulnerability, when genuine, creates connection.
-
-## The Power of Naming
-
-When you name what someone did ("You read everything. You stayed. You thought."), you give them credit for their effort. Most emails treat readers as passive. Naming their agency makes them feel respected.
-
-## Time as Sacred
-
-Every email should honor the recipient's time. Don't waste their attention. Earn every sentence.
-
----
-
-# PART 10: QUICK REFERENCE BY SCENARIO
-
-| Scenario | Structure | Key Tone Notes |
-|----------|-----------|----------------|
-| **Thank someone for registering** | Gratitude Email | High warmth, acknowledge their effort |
-| **Follow up after meeting a professor** | Post-Meeting Follow-Up | Medium warmth, high specificity |
-| **Ask for stakeholder approval** | Cross-Functional Request | Lead with ask, business impact |
-| **Reach out to someone you admire** | Admiration Outreach | Specific resonance, low-friction ask |
-| **Reconnect with old colleague** | Heartfelt Thank-You | Time-grounded, specific memories |
-| **Nudge inactive learner** | Nudge Email | No guilt, give permission |
-| **Initial outreach to institution** | Partnership Outreach | Credential + gap + proposal |
-| **Thank supporter after milestone** | Heartfelt Thank-You | Unguarded warmth |
-
----
-
-# INVOCATION GUIDE
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  WHEN CLAUDE LOADS THIS SKILL                                       │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  1. IDENTIFY EMAIL TYPE                                             │
-│     → Which category? (Learner, Partnership, Enterprise, etc.)     │
-│     → Which sub-type? (Thank-you, outreach, follow-up, etc.)       │
-│                                                                     │
-│  2. CALIBRATE VOICE                                                 │
-│     → Check voice spectrum for this context                        │
-│     → Warmth, formality, vulnerability, technical depth            │
-│                                                                     │
-│  3. SELECT STRUCTURE                                                │
-│     → Use appropriate template from Part 3                         │
-│     → Adapt to specific situation                                  │
-│                                                                     │
-│  4. DRAFT WITH ITERATION MINDSET                                    │
-│     → First pass: emotion, not polish                              │
-│     → Second pass: recipient perspective                           │
-│     → Third pass: read aloud test                                  │
-│                                                                     │
-│  5. RUN QUALITY CHECKLIST                                           │
-│     → Before presenting to Ravi                                    │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-# PART 6: STATUS UPDATES — A DISTINCT GENRE
-
-Status updates are not emails in the personal/outreach sense. They're structured artifacts that serve a different function: making stakeholders feel informed and confident without requiring a meeting.
-
-## Audience Calibration
-
-The same status update should never go to two different audiences unmodified:
-
-| Audience | Focus On | Leave Out |
-|----------|----------|-----------|
-| **CEO / C-suite** | Outcomes, metrics, strategic implications | Implementation details, technical decisions |
-| **VP / Director** | Progress against milestones, risks, resource needs | Code-level details, day-to-day tasks |
-| **Cross-functional peers** | Dependencies, timelines, what they need to act on | Internal team dynamics, technical debt |
-| **Engineering lead** | Technical blockers, architecture decisions, velocity | Business context they already know |
-| **Skip-level manager** | Your team's impact, wins, growth moments | Minutiae your direct manager handles |
-| **Board** | Metrics, trajectory, market context | Everything operational |
-
-## Cadence Adaptation
-
-**Daily standup / async daily** — 3 lines max. What shipped. What's happening today. Blockers. Plain text, fits in a Slack message.
-
-**Weekly update (default)** — Under 200 words. Structure: TL;DR (2 sentences), Status (On Track / At Risk / Blocked), Progress (what shipped, not what was "worked on"), Next Week, Risks & Blockers (each with mitigation), Decisions Needed (with recommendation).
-
-**Monthly** — 300-500 words. Same structure, zoom out to monthly goals. Add "Month in Review" (3-5 accomplishments) and metric trends, not snapshots.
-
-**Quarterly Business Review** — 500-800 words. Lead with OKR scorecard (target vs actual, red/yellow/green). Add "Key Decisions Made" and "Lessons Learned" sections. Use tables.
-
-## The Rules
-
-- **Bad news goes above the fold.** If the launch date slipped, that IS the TL;DR, not a footnote buried in paragraph four. Stakeholders handle bad news. They cannot handle surprises.
-- **Activity is not progress.** "Had 6 meetings about the migration" is activity. "Migrated 40% of users with 0.3% error rate" is progress. Report outcomes, not effort.
-- **Every risk gets a mitigation plan.** An unmitigated risk is just anxiety on paper.
-- **Every decision request includes a recommendation.** "I recommend Option A because X. Need sign-off from Y by Z." Never make the reader do the analysis.
-- **No weasel words.** "Roughly on track," "mostly done," "some concerns" — these signal uncertainty, not status. Be precise. If unknown, say "investigating, will update by [date]."
-- **Use `[NEED: data from X]` for gaps.** Never fabricate progress to fill a section. If behind, say so with a plan.
-
----
-
-# CLOSING
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                                                                     │
-│  The goal is never just to write a good email.                     │
-│                                                                     │
-│  The goal is to make someone feel:                                 │
-│                                                                     │
-│  1. SEEN — You noticed them specifically, not as a number          │
-│  2. RESPECTED — You honored their time and intelligence            │
-│  3. CONNECTED — To you as a person, not you as a brand            │
-│  4. INVITED — To participate, not just consume                     │
-│                                                                     │
-│  When those four things happen, the email worked.                  │
-│                                                                     │
-│                                        — Ravi Teja Palanki          │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
+Status updates help people understand progress, risk, and the action required. They can be emails, memos, or async messages. Confidence should follow accurate information, not concealment of uncertainty.
+
+### Adjust emphasis, while preserving the same facts
+
+| Reader | Usually needs |
+|---|---|
+| CEO or executive team | Outcomes, exposure, strategic implications, and consequential decisions |
+| VP or director | Milestones, risks, capacity, and resources |
+| Cross-functional peers | Dependencies, dates, and actions affecting their work |
+| Engineering lead | Technical blockers, architectural choices, delivery evidence, and relevant business constraints |
+| Skip-level manager | Team impact, constraints, meaningful progress, and support needed |
+| Board | Trajectory, key measures, market context, material operating risk, and decisions within its remit |
+
+These are emphases, not rules for hiding information. Technical debt, operating detail, or team dynamics belong when they affect the reader's decision.
+
+### Choose an appropriate cadence and depth
+
+- **Daily:** A few lines on completed progress, current work, and blockers often suffice. Include material incidents or decisions even if the update exceeds three lines.
+- **Weekly:** Aim for a compact overview, often around 200 words: summary, status, progress, next period, risks, and decisions. Add detail when it is necessary to assess the situation.
+- **Monthly:** Review goals, meaningful accomplishments, trends, and changing risks. Roughly 300–500 words is a planning aid, not a required length.
+- **Quarterly review:** Use target-versus-actual outcomes or an OKR scorecard, trends, major decisions, and lessons. Tables help comparisons; 500–800 words may suit an email summary, while a full review can need more.
+
+### Make the update trustworthy
+
+Put a material slip, incident, or decision near the start. State what it changes and what is being done. Do not bury bad news under accomplishments.
+
+Distinguish activity from progress, but recognize useful learning and risk reduction. A tested assumption or resolved dependency can be progress before anything ships. Define metric population, period, baseline, and uncertainty. A fictional example such as "40% of users migrated with a 0.3% error rate" needs those definitions before it could support a real rollout decision.
+
+For each material risk, state the owner and current response, including whether mitigation is unproven, unavailable, or awaiting a decision. An unresolved risk still belongs in the update. Do not invent a mitigation just to complete a template.
+
+For a decision request, give a recommendation and trade-off when the evidence permits. If it does not, explain what is uncertain and the next useful investigation. Define what On track, At risk, Blocked, or Unknown means for the named milestone; a color alone is insufficient.
+
+Use `[NEED: specific information]` in a working draft for missing data. Resolve it before presenting the email as ready to send, or state the uncertainty naturally with an owner and a realistic next update. Do not invent a date or a completed result to fill a section.
+
+## 6. Review in three passes
+
+1. **Purpose and truth:** Draft around the actual intention and known facts. Check names, dates, roles, credentials, agreements, links, attachments, and promises. A brief email may need only a brief review.
+2. **Recipient's perspective:** Make the point easy to find. Remove repetition, unnecessary biography, guilt, flattery, and competing requests. Keep detail the person needs to understand or act.
+3. **Natural reading:** Read for clarity and speech rhythm, aloud when available or silently otherwise. Correct awkward phrasing without adding deliberate disorder, fake intimacy, or invented feelings. Report only the review actually performed.
+
+Use short paragraphs and simple lists where they improve scanning on a phone. Avoid dense tables, unnecessary bolding, and deep nested lists. Do not claim a universal mobile-reading percentage. The original 90% claim had no supporting source in this skill.
+
+The [email reference](references/email-patterns.md) preserves the 24 writing-pattern checks. Use them to improve prose, not to diagnose whether a person used AI. A polished structure or common word does not establish authorship.
+
+Before delivery, check: Does this address the occasion? Are the facts and emotional claims supported? Is the tone suited to the relationship? Is any request clear and achievable? Are logistics and attachments accurate? Does the subject match the body? Is the signature current? Are important uncertainties or commitments visible?
+
+Provide the finished subject and body. Include a short note outside the draft only for a material assumption or unresolved detail. The writing can aim to make someone feel seen, respected, connected, and invited; whether it did so cannot be claimed without their response.
+
+**Revision 1.0.1, 13 Sep 2026.** Preserves the practitioner-educator voice, five message families, relationship guidance, subject and signature choices, three-pass review, and status-update patterns. Clarifies fact checking, sincere emotion, adaptable structure, and drafting versus sending.

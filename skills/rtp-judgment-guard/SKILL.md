@@ -1,477 +1,252 @@
 ---
 name: judgment-guard
-version: v1.9_latest
-description: 'Decide, on purpose, where human judgment sits inside an AI system, because if you don''t, adoption decides for you and the default removes the human. Two cases. ATROPHY: leaning on AI silently fades expert judgment over 6–18 months and stops an organization making new experts; design deliberate friction (rotation, calibration, state-first override, repair, reasoning capture) to keep humans sharp. COMPLEMENTARITY: in regulated, catastrophic-cost work (surgery, aviation, lending) the human stays permanently because human and AI together are more precise and more certain than either alone; design the labor split so each brings its best, the tail not the average setting the floor. Use when deploying high-stakes AI, users stop questioning AI outputs, designing human-in-the-loop for regulated work, or rolling AI into a team of experts. Do NOT use for low-stakes work where full automation is intended. Pairs with: determinism-compass, autonomy-spectrum, trust-ladder, agent-risk.'
+version: v1.9.1_latest
+description: 'Design where human judgment belongs in an AI workflow, how it remains effective, and how its contribution will be tested. Distinguish loss of expertise, failure to develop it, poor transfer to review, passive reliance, motivated avoidance, suppressed dissent, and framing that arrives too early. Choose proportionate checkpoints for practice, calibration, independent judgment, repair, reasoning records, and safe disclosure. Use when expert work changes, people stop questioning AI, or consequential decisions need effective human oversight. Compare human-only, AI-only, and combined performance where feasible; do not assume human involvement always improves outcomes. Pairs with determinism-compass, autonomy-spectrum, trust-ladder, agent-risk, and capability-tracking.'
 imports: []
 ---
 
 # Judgment Guard
 
-**The objective:** decide, deliberately, which human judgment you keep inside an AI system, how you keep it sharp, and when you fuse human and machine into one permanent joint system — for the leader rolling AI into expert, high-stakes, or regulated work. It turns a decision that adoption otherwise makes for you, by default and always against the human, into one you make on purpose.
+Decide which human capabilities and decision rights a workflow needs, then design the work so those capabilities can be developed, exercised, and assessed. Human involvement should have a clear purpose and an effective role.
 
-## The one idea
+This skill addresses two connected design questions:
 
-**AI doesn't just do the work. It changes what your people become — and if you don't decide the change, the default decides it, and the default removes the human.** There are two versions of this, and a serious system needs both.
+- **Case 1 — Capability and judgment:** is the workflow changing what people can learn, notice, evaluate, or say? If a useful capability is at risk, choose a remedy that fits the mechanism.
+- **Case 2 — Human–AI complementarity:** does a particular division of labor improve the outcome, satisfy an applicable requirement, or manage a consequence that another design does not? Test the contribution rather than assume that the combination is always better.
 
-**The atrophy case.** Every expert got good the same way: by doing the task, clumsily at first, over and over, until the judgment moved into their hands and became instinct. AI removes exactly that step — it does the reps for them. The work still ships, better and faster by every number on your dashboard, so it *looks* like pure gain. Underneath, the thing that made the expert an expert goes quiet from disuse, and no alarm rings. You find out the day the AI is finally wrong about something that matters, and no one in the room can still tell. The shape worth memorizing: **the cost of AI is paid twice — once, small and visible, when you keep a human sharp on purpose; or later, large and hidden, when you didn't.**
+Adoption does not inevitably remove the human, and automation does not always erode a valuable skill. The task is to make the change deliberate and inspect its consequences. A capability may be worth preserving, worth rebuilding, or intentionally retired; those are different decisions.
 
-**The complementarity case.** Sometimes you keep the human not because they're fading, but because the human and the machine are each irreplaceable and *together* they are better than either could ever be alone. A surgical robot holds the instrument to a tenth of a millimeter with no tremor; the surgeon reads the bleed the scan never showed and owns the life on the table. Neither alone is tolerable. Together they operate more precisely *and* with more conviction — the surgeon acts decisively *because* the system confirms, and the system is safe *because* the surgeon governs it. Here the human is permanent **by design**, and where a wrong answer is catastrophic and irreversible, no amount of AI maturity changes that.
+## Start here: role, consequence, authority, and evidence
 
-Same skill, one question underneath both: **which judgment stays human, and how do you engineer that on purpose** — before adoption answers it for you.
+Before prescribing a checkpoint, state:
 
-## How to use this skill — three questions
+1. **The decision and role:** what judgment is needed, who currently exercises it, and what changes with AI? Separate the expert who produces work, a trainee learning it, a reviewer, and an accountable decision-maker.
+2. **The consequence:** what can go wrong, who is affected, how quickly harm can occur, and whether it can be detected, reversed, or recovered from. Include the cost of delay or unnecessary intervention.
+3. **The authority:** who can approve, refuse, stop, correct, or escalate? Respect the user's constraints and verified requirements for the actual jurisdiction and use. This skill does not create a universal legal rule that every regulated decision needs the same permanent human loop.
+4. **The capability objective:** which skills must remain available, to whom, and for what future task or fallback? Do not preserve manual work solely because it existed before automation.
+5. **The evidence:** what would show capability loss, useful learning, effective review, or added harm? Establish a baseline and a way to compare outcomes before interpreting adoption or override rates.
 
-1. **Which judgment must stay human?** The stakes and the reversibility of a wrong call decide this. Everything downstream depends on it.
-2. **How do you keep that judgment from fading?** → **Case 1 (Atrophy)** below: the seven ways it drains, plus a pre-output failure (drain zero) that precedes them all, and the checkpoints that stop each.
-3. **When must the human and AI be fused as one permanent system?** → **Case 2 (Complementarity)** below: the design for high-stakes, regulated work where the combination beats either alone.
+Use the Universal Skill Protocol for grounding and handoffs. It is at `ai-pm-skills/UNIVERSAL-SKILL-PROTOCOL.md` in the source library and at the plugin root. A focused design can be delivered inline.
 
-Most systems live mostly in one case. Read the diagnosis to find yours; read the design to build it.
+**Keep these distinctions near the decision:**
 
-## KEY TERMS (plain language)
+- Lower override rates may reflect better AI, changed cases, less engagement, suppressed reporting, or unnecessary deference. They do not diagnose atrophy on their own.
+- Stable human performance while AI improves is a widening relative gap, not evidence that the human has lost capability.
+- Assisted output quality does not establish unassisted ability, and unassisted skill does not guarantee skill at supervising AI.
+- An explanation being available or opened does not prove that someone understood it or detected an error.
+- Agreement between a human and AI is stronger evidence only to the extent that each supplies relevant information and their errors are not merely shared.
 
-- **Judgment atrophy** — the slow, silent loss of a person's ability to make a call on their own as they lean on AI.
-- **The cost paid twice** — you either pay a small, visible cost to keep a human sharp, or a large, hidden cost later when their judgment has quietly gone.
-- **The three clocks** — judgment fades inside one *person* (fast, 6–18 months), inside one *organization* that stops making experts (slow, years), or *down a chain* of AI handoffs where each step trusts the last (sideways).
-- **Thinkslop (drain zero)** — the judgment never forms because the thinking collapses before the AI produces anything to react to: lost intent, outsourced thinking, unrecorded reasoning, or sycophantic agreement standing in for real scrutiny.
-- **Skill-keeping budget** — deliberately keeping people in some learning-by-doing loops even when automating is cheaper, booked as an investment in future capability, not waste.
-- **Offloading vs. chosen blindness** — catching fewer errors because a colleague-like AI made you feel less responsible (offloading), versus knowing it's your call and choosing not to look at the AI's reasoning because looking would cost you (chosen blindness).
-- **AI gravity** — the pull toward offloading that gets stronger with every model release: conserving mental energy, competitive pressure to match expert output, and peer AI use that's undetectable, which turns individual restraint into unilateral disarmament.
-- **Formative-task test** — a task is formative if you couldn't evaluate the AI's output without having done the work yourself; this corpus's own diagnostic, built on top of the AI-gravity source rather than drawn from it, for deciding when offloading costs a skill you still need.
-- **The three-question diff** — after stating your own view, compare it to the AI's along three questions: what did it add, what did it get wrong, and what *looks right but isn't* (the costliest error — plausible, well-structured, wrong in a way only domain knowledge catches).
-- **Suppression** — the judgment is formed, correct, and privately stated, and it never survives the room. The only drain where nothing cognitive is missing, and the only one no output metric can see.
-- **Terminating condition** — the thing that ends a dispute: either a criterion both sides accepted before it started, or a named person who can call it. Friction with a disputant and no terminating condition produces rework, not decisions.
-- **Asymmetric cost** — the arrangement where *not concluding* is more expensive than disputing. Effortful review is not enough; the expense has to sit on silence.
-- **Pre-emption** — the judgment is present and correctly aimed and never activates, because a plausible answer arrived before the person built one. The only drain that leaves no override to count and no error to catch.
-- **Controlled document** — an AI summary a group reasons from when nobody in the room holds the source. Treat it the way compliance treats any controlled document: versioned, owned by a named person, and issued with a note on what it left out.
-- **Second-order candour** — whether a person can say their concern was dismissed, as distinct from whether they can raise one. Two survey items, and the pair separates suppression from an override problem.
-- **Stock and flow of judgment** — a stock is the expertise a person already had when the tools arrived; a flow is how a newcomer accumulates it now. Nearly all evidence measures the first and is used to predict the second.
-- **Complementarity** — a joint human-AI system deliberately designed so each does what it is irreducibly best at, and the combination beats either alone.
-- **Tail risk** — the rare, worst-case outcome; in catastrophic-cost domains it sets the design, not the average performance.
-- **Convergence / divergence** — two independent judgments agreeing (the source of the joint system's extra conviction) versus disagreeing (the signal to stop and resolve, never average).
-- **Evidence tiers used below** — ✅ audited/peer-reviewed · ◆ company- or study-disclosed · ⚠ reported or practitioner estimate. Numbers marked *illustrative* are teaching devices, not measured facts.
+The original fixed loss and recovery timelines, compulsory review percentages, and numerical warning thresholds are retained as historical examples in [calibration and evidence notes](references/calibration-and-evidence.md). They are not general laws or default requirements.
 
-## GROUNDING (Before Starting)
+## Prepare the disclosure condition first — Checkpoint 6
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum, answer: What expertise is at risk, and what does a wrong call cost — reversibly or not? How will anyone *know* judgment is fading? Then route depth (building a new system vs. auditing one) and output format (Document, Presentation, or Both).
+The checkpoint numbers are retained for compatibility with the rest of the library. **Checkpoint 6 comes first in use** because the other checks may depend on records people choose to provide.
 
----
+Ask whether people can raise a concern in the decision-making group, whether they can say that a concern was dismissed, and what happens next. Give them a usable route to challenge, investigate, or escalate a consequential issue. Check that the recipient has time and authority to respond. Clear accountability without practical ability to act can produce poor decisions even when people speak candidly.
 
-## CASE 1 — ATROPHY: when leaning on AI quietly fades the human
+A two-question comparison can help investigate the group:
 
-### The trap
-
-You will celebrate adoption. The bias is the **success illusion**: automation metrics feel like proof ("90% of tickets auto-routed!") while the real cost is invisible. Expertise doesn't erode visibly — it erodes in six-month increments, and the timeline is predictable:
-
-- **Month 0–3 — Adoption.** People use the AI, catch its misses, learn the edge cases.
-- **Month 4–6 — Complacency.** "The AI usually works." Exceptions start sliding through.
-- **Month 7–12 — Delegation.** People manage exceptions instead of judging; "the AI said so" becomes authority.
-- **Month 13–18 — Dependency.** They can't make the call without it. The expert is now a manager of exceptions, not a practitioner.
-
-**Why it's expensive:** restoring judgment costs two to three times what it took to lose — if the expert hasn't already left, feeling their expertise was devalued. It *feels* like a technology problem (blame the AI) when it's a design problem (you built no checkpoints).
-
-**Why disengagement is rational, not a discipline failure.** An unrefereed theory paper (Gu, Li, Zhu, Carnegie Mellon/HBS, ⚠ theoretical, no data, the authors call for empirical validation) proves formally that once AI alone clears the required performance bar, a rational reviewer optimally lets review effort fall toward zero. That is optimal behavior given the incentives, not negligence. The result is a **dead zone**: the AI is good enough that reviewers rationally disengage but not yet good enough to run alone, and every visible metric (throughput up, override rate down, output quality flat) reads as success, because output quality cannot tell "the model got better" apart from "the reviewers stopped looking"; both produce the same output stream. The only thing that separates the two causes is seeded known-bad cases injected at a known rate, with the catch rate checked against it. See `rtp-production-observability`'s catch-rate instrument for the concrete fix, itself a proposed, untested instrument rather than a validated one.
-
-### Drain zero, and the seven drains (diagnosis)
-
-Judgment doesn't drain one way. Look for each: they run on different clocks and need different fixes.
-
-**Sort them by when they fire.** Drain zero happens *before* the AI produces anything, in how the person frames the problem. The seven numbered drains all fire at or after the model's output. Six of those seven are cognitive. The exception is drain six, suppression, which is social: the judgment forms, it is correct, and it never survives the room.
-
-One note on the numbering, because it is historical rather than chronological. **Drain seven, pre-emption, actually fires earliest of the seven:** a frame arrives before the person builds their own.
-
-**0. Thinkslop — the judgment never forms, because the thinking collapsed before the AI produced anything**
-- **How it's different from every drain below:** drains 1 through 7 all fire at or after the AI produces output, whether by reviewing it, deferring to it, or being pre-empted by it. This one fires earlier, in how the person frames the problem before the AI answers at all.
-- **Four sub-mechanisms:** losing track of your own intent before you've even formed a prompt; outsourcing the thinking itself, not just the production of the work; no longer writing down your own reasoning at all; and false rigor, where a sycophantic AI's agreement stands in for real scrutiny.
-- **The fix:** treat the AI as an intellectual foil to argue with, not a co-author to defer to. This is the same posture checkpoint 3's state-first override enforces downstream, just applied one step earlier, before a prompt exists to state a position against.
-- **When this is wrong:** a genuinely open-ended brainstorm has no prior intent to lose track of yet. Thinkslop's diagnostic doesn't apply until the person is expected to have formed one.
-*(Source: an annual AI use-case census, 12,637 use cases mined from roughly 50,000 records across six platforms, Jun 2026 — ⚠ social-listening methodology, not a probability sample; it skews toward people motivated to post about their AI use publicly, so treat prevalence claims here as directional, not representative. Names the failure "thinkslop.")*
-
-**1. The fast clock — one person dulls (6–18 months)**
-- **Mechanism:** the timeline above. A tool that's 90% accurate teaches people to stop attending to the 10% where it fails; the mind stops working the problem, and the heuristics fade.
-
-**2. The slow clock — the organization stops making experts (years)**
-- **Mechanism:** junior staff never build judgment because the AI does the work they'd have learned from; senior expertise fades from disuse.
-- **Why it's worse than the fast clock:** invisible until the day you need an expert and discover you stopped making them three years ago.
-- **Why it happens — the economics trap:** AI cheapens the part of a job you can *measure* and raises the value of the part you can't, so a firm sheds the unmeasurable half without noticing, booking two liabilities as savings — **capability debt** (cut the seniors who trained juniors) and **judgment debt** (the experts you kept only *review*, so their calibration decays).
-- **Why software is worse than the classic radiologist case:** a radiologist's miss is caught same-day; a coding error "looks fine at launch and only surfaces when the system is modified, scaled, or secured" — long after the author has left.
-- **The one control that slows both:** a named senior stakes their name on each AI-generated production release *with a junior working under them* — one act that fixes accountability AND is the apprenticeship that keeps the pipeline alive.
-- **Formation and retention need different feeds, and confusing them breaks the control above.** Process knowledge, the kind that lives in the hands and between heads, transfers only by observation and compounds through exercise. Doing the work accumulates it. Being handed a decision secondhand does not. That splits into two failure modes with opposite remedies:
-  - **Formation** is the junior's problem. It needs juniors watching seniors actually do the work. Not narration, not a workshop.
-  - **Retention** is the senior's problem. It needs seniors still producing real work themselves, not only reviewing it.
-
-  A program that keeps seniors "in the loop" as reviewers can lose retention *and* fail formation at the same time. So the named-senior-releases-with-a-junior control above works only if the senior is visibly doing the work the junior watches, rather than signing off on it. *(Source: Dan Wang, HBR IdeaCast, 2026 — process knowledge as the third asset in a three-part anatomy of technology, ⚠ conceptual framework, no measured retention data. When this is wrong: a team whose capability held steady on output-only sign-off with no observed production, over a multi-year window, would break the exercise-fed claim.)*
-- **A pre-AI confirmation, from outside any AI system entirely.** School of Rock's Method App, a curated song-and-show library with no model anywhere in it, produced the identical fork this section describes for AI-mediated work. New instructors, with no established teaching method of their own yet, treated the tool as pure scaffolding, in one instructor's case a straightforward gift. Veteran instructors who had already built a personal method over years treated the same tool as a threat to something they had already formed, and were the population headquarters had to invite into co-curating the show library rather than simply hand the finished product to. Same artifact, opposite risk, and the variable is not the tool's design, it is whether the recipient's judgment on the covered task existed before the tool arrived. **The generalizable rule:** segment any standardizing rollout, AI-powered or not, by formed-versus-unformed judgment rather than by role or tenure as a rough proxy for it, and treat invited co-authorship of the standard, not a better incentive, as the actual fix for the already-formed population. **When this is wrong:** where the covered task genuinely has no meaningful judgment component yet to protect (pure data entry, a compliance checklist), the unformed-judgment scaffolding treatment is correct for everyone regardless of tenure. *(Source: HBR Cold Call, "How School of Rock Created Structure in Order to Scale with Agility and Creativity," Jun 2026.)*
-- **Mentoring needs an artifact from the mentee, not narration from the mentor.** Three July 2026 sources land here. Two ran in the same outlet within a fortnight, so call this corroborated rather than independently replicated.
-  - One HBR piece on mentoring in the AI era prescribes narrating a senior's own decisions aloud.
-  - A sibling finding contradicts it directly. Senior bankers retained expertise by interrogating juniors' actual production, a real draft, analysis or decision, rather than by narrating their own choices.
-  - A Watkins podcast on enterprise leadership arrives at the same word, apprenticeship, for the same mechanism.
-
-  **Why the artifact is the active ingredient.** It gives both parties something concrete to reason over. Narration with no artifact from the mentee leaves the mentor nothing specific to correct, so the exchange defaults to generic principles.
-
-  **A near-free fix:** have the mentee write down what they think the mentor is watching for, before the debrief, then compare. That turns narration into a disputable artifact. *(Falsifier: a cohort whose judgment formed through narrated observation alone, with no production of their own, performing at parity with a producing cohort on an independently scored judgment measure.)*
-- **When this is wrong:** the expertise is genuinely being retired — book the loss and move on.
-*(Sources: MIT Sloan Management Review, Renieris et al., 12 May 2026 — 84% panel poll ◆, opinion not population survey. HBR, Liu & Kovács, "Big Tech's Looming Capability Crisis," 2 Jun 2026. Radiologist pay ~$570k/2025 ◆; Meta ~8,000 cut redirected to AI ⚠.)*
-
-**3. The relay clock — quality decays down a chain of handoffs (sideways)**
-- **Mechanism:** the moment one person stops checking ("the next step is AI anyway"), the next rationally does the same, and fidelity to the original truth drops link by link (Holweg & Davenport call it *knowledge decay*). A hiring pipeline where AI writes the JD, AI screens CVs against it, AI runs the interview against that — four checks meant to catch errors instead multiply their misses.
-- **The check:** map a real cross-team process and count AI-mediated handoffs; three or more in a row with no human check on the *original* source is a decay risk.
-- **The fix:** you can't police AI use (people hide it) — instead tag the earliest ground-truth artifact (the real transcript, the source doc) as the **provenance of record**, and require every downstream summary to point back to it, so a reader can always return to the truth instead of a summary of a summary.
-- **When this is wrong:** a chain that each time *re-anchors* to the same source (a well-built retrieval pipeline) holds fidelity nearly flat — count re-anchored passes as low-risk.
-*(Source: HBR, Holweg & Davenport, "Don't Let AI Slop Muck Up Your Company's Processes," 16 Jun 2026. Deloitte Australia's ~AUD 440,000 report with ~20 fabricated references ◆. No measured decay rate given — treat as a mechanism to watch, not a constant.)*
-
-**4. Offloading ownership — the AI feels like a colleague, so the human feels off the hook**
-- **Mechanism:** owning an outcome was never something you could hand off; it's a choice a person makes each day, and an AI in the chair quietly removes the three conditions under which they'd choose it.
-- **Protect Mindset** ("I matter to this outcome" — naming the AI "Kevin" destroys it). *Break signal:* the owner calls themselves a rubber stamp.
-- **Protect Meaning** (a reason worth the effort of checking). *Break signal:* no one can say why careful review matters.
-- **Protect Mechanisms** (reviews reward *catching the AI's mistakes*, not just shipping fast). *Break signal:* your routines reward speed of shipping.
-- **Why it matters:** a controlled trial (BCG, 1,261 people) found treating the AI as an employee dropped personal accountability ~9 points and led reviewers to catch ~18% fewer errors (⚠/◆) — a disclaimer won't fix a direct hit on whether a human still *chooses* to own the result.
-- **Why offloading keeps accelerating, which the treatment above does not explain.** Everything above describes what offloading does to judgment. None of it explains why people choose to offload in the first place. A named account, "AI gravity," gives three drivers:
-  - **Energy conservation.** More capable AI amplifies the instinct to conserve mental effort, and that loop strengthens with every model release. So a discipline-based fix has a half-life set by the release schedule, not by willpower.
-  - **Competitive and aspirational pressure**, pushing people to mimic expert performance.
-  - **Peer AI use is undetectable.** This is the decisive one.
-
-  **Why the third driver defeats exhortation.** If nobody can tell who used AI and everyone is judged on the same output, declining to offload is unilateral disarmament. Every judgment-preservation recommendation then asks one person to accept a worse measured result for a benefit no one can see. **That is why the discipline this skill recommends is widely agreed with and rarely followed.**
-- **A practical diagnostic this corpus adds on top of that account, not one the source itself offers: the formative-task test.** A task is formative if you could not evaluate the AI's output without having done the work yourself. Run it before deciding whether to offload a given task, not after. The source offers no falsifier for it, and it has a real limit worth stating: it cannot tell erosion of a capability that still matters apart from supersession of one that doesn't. A skill can atrophy because it's obsolete, not because it's endangered.
-- **When this is wrong:** full hand-off is intended and human ownership isn't the goal — skip it.
-*(Source: HBR, Okposo, "Accountability Must Be Chosen, Not Mandated," 29 Apr 2026, corroborated by the same BCG trial. AI gravity: MIT Sloan Executive Academy, Jun 2026 — ⚠ mostly argued; its one empirical figure is preliminary, second-hand, and uncited, so treat it as unusable and do not cite it as a number.)*
-
-**5. Chosen blindness — people know it's their call and still choose not to look**
-- **How it's different from offloading:** here the reasoning is exactly where the risk to *them* lives, and the pointer runs the other way — not "I feel less responsible" but "looking would cost me."
-- **The evidence:** in a study of 2,512 people making real $10,000 loan decisions, 80% wanted the AI's score but only ~46% viewed the reasoning behind it; tying pay to the outcome made them ~20% more likely to skip it; warning them the explanation might reveal bias pushed avoidance up 10+ points.
-- **The tell it's avoidance, not fatigue:** skipping is *strongest* exactly where the person is most accountable and most exposed.
-- **The fix is different from offloading's:** you can't reassign ownership (they already own it) — you remove the payoff to not-knowing by making the "why" a *mandatory, logged* review before the decision finalizes. "Explanation available" is not evidence anyone looked; log whether it was *opened*.
-- **The sharp warning:** a bias-disclosure prompt can *backfire*, triggering avoidance of the very information it meant to surface — pair any bias warning with mandatory engagement.
-- **When this is wrong:** in low-stakes, low-exposure contexts the cost that drives avoidance isn't present — don't force review where looking costs the viewer nothing.
-*(Source: HBR, Chan / Rand, "Employees Aren't Questioning AI Advice Enough," 24 Jun 2026 — ◆ single study, n=2,512, pre-replication. Regulatory stakes ✅ CFPB circular 2023-03, GDPR / EU AI Act. Note: viewing the explanation raised overrides of both *right and wrong* AI calls, not only wrong ones.)*
-
-**6. Suppression — the judgment is formed, correct, and never reaches the decision**
-- **How it's different from every drain above:** nothing cognitive is missing. The person has the judgment, can state it, and states it privately. It does not survive the room.
-- **The evidence:** in a study of professional-services executives, each one defended keeping junior training, setting firm-wide AI rules, and rebuilding pricing when interviewed alone. The researchers: "Each of them, individually, knew what AI required of the firm." Collectively they dropped all of it without argument. The cleanest instance is a director who "had just refused, out loud, to lower the firm's day rate" and then, "minutes later and on the anonymous post-deliberation scale," accepted exactly that cut. Same person, same information, minutes apart.
-- **Mechanism, and it is a first-mover problem rather than a courage problem:** speaking is costly, silence is free, and it is only worth speaking if others will too. To defend those positions out loud is to push the firm to bill less and to train people rivals can hire away.
-- **Why it matters more than its position in this list suggests:** every instrument in this skill reads the visible record: the decision, the review, the override log, the reasoning capture. **If suppression is present, that record is wrong in one direction, toward the comfortable answer, at the altitude where the decisions are largest.** Rotation, calibration and reasoning capture all measure a judgment that was never in doubt.
-- **The fix is not exhortation, and it is cheap:** give one named person a professional reason to hold the question open. A formal mandate does not make speaking safe. It makes silence expensive, for exactly one person, whose job description now contains the thing everyone else is avoiding. The article is specific about where that person sits: "the people one level down, the AI-governance leads and practice directors, because they sit close enough to the work to keep the questions concrete." One level down, not the CEO. Proximity supplies concrete questions; the mandate supplies the standing they lack by rank.
-- **The detection instrument:** an anonymous pre-and-post scale on the same question the room just discussed. The visible record showed no movement; the administered instrument showed judgments moving a few people at a time. This is the same instrument class as seeded known-bad cases in `rtp-ai-product-metrics`, doing the same job at executive level. **Wherever there is a social cost to a position, the visible record is censored toward the safe answer, and only an instrument administered to the person recovers the rest.**
-- **When this is wrong:** where the private and public positions match, there is no suppression and the mandate adds a bottleneck for nothing. Test before installing.
-*(Source: HBR, Blangeois & Roulet, "'Leadership Drift' Is Stalling Your AI Strategy," Aug 2026 — ◆ qualitative, one professional-services firm, interviews plus convened workshops. The anonymous-scale gap may in part be an artifact of researcher presence; that would show in any study using the instrument without a convened workshop. Ledger pattern E, fifth mode.)*
-
-**7. Pre-emption — the judgment was never exercised, because a frame arrived before the person built one**
-- **How it's different from every drain above:** in drains 1 and 2 the judgment decays or never forms. In 3 it degrades across handoffs. In 4 and 5 it exists and is not applied. In 6 it is applied and is not heard. Here the judgment is present, formed, and correctly aimed, and it **never activates**, because a plausible answer was already on the table before the person produced their own.
-- **The worked example:** a business-unit president reads an AI summary of a margin review, and the meeting spends most of its time on supplier costs. He was not confused about margins. He had run that review every quarter for years. The summary was not even wrong; supplier costs were genuinely rising. It arrived first.
-- **Why it is invisible in both directions:** nobody notices a judgment that was not exercised, and nobody notices that the answer they accepted is not the answer they would have produced. There is no override to count and no error to catch, which is why the four instruments in this skill that read the visible record cannot see it.
-- **The severity does not track the model's error rate. It tracks the size of the room.** The exposure is **the number of people whose only view of the evidence is the summary, times the cost to any one of them of going back to the source.** One person can reopen the spreadsheet. A room of eight cannot reopen it mid-meeting, and will not. This is why a summary that is entirely accurate can still be the most expensive thing in the meeting.
-- **The design rule:** a summary read by one person who also holds the source is a productivity gain. The same summary read by a group where nobody holds the source is a **controlled document**, and should be handled like one: versioned, attributed to a named owner, and issued with an explicit note on what it left out. That is drain 3's provenance-of-record treatment applied to a room instead of a chain. Most advice on this tells the individual reader to ask what the summary omitted, which is the right instruction pointed at one person when the problem is the group.
-- **Where this bites in an AI product, concretely.** Any feature that produces one synthesized artifact for many readers: meeting-summary agents, RAG-generated executive briefs, LLM narrative layers on a BI dashboard, automated incident timelines, agent run summaries in a review queue. The design tell is a **one-to-many fan-out with no cheap path back to source**. If your summary UI has no per-claim citation the reader can open in one click, you have built the pre-emption condition into the product. See `rtp-ai-ux-patterns` on traceability, which is stage 4 of the sequencing law and is capped by whatever is broken earlier.
-- **The fix is ordering, and that is the whole of it:** produce your own diagnosis before the model produces one, then hand the model yours to attack. This is the cheapest repair of the seven drains, because nothing has to be rebuilt.
-- **An artifact written before a conclusion attaches can still be neutralized at the moment it's read, if the senior person in the room speaks first.** The room anchors on whoever speaks first, and in AI-assisted review a junior reader now faces two anchors (the senior's view and the model's confident draft) instead of one. The fix is not only "state your own view before the AI's" (checkpoint 3 already covers that); it's sequencing who in the room speaks or writes first: collect the lowest-authority reviewer's independent assessment before the highest-authority view, or the AI's, is visible to them.
-- **A companion instrument: the dissent log.** A cheap, optional, timestamped field ("I proceeded and disagreed, because [X]") readable by someone other than the person who overrode the dissent. Keep it optional. Making it mandatory converts an honest empty channel into confident fabricated prose, because a compulsory field gets filled whether or not real review happened, while an optional field's emptiness is itself information. *(Source: HBR IdeaCast, Duhigg, on the Amazon memo ritual, 2026 — ⚠ practitioner account, no measured anchoring rate. Falsifier: a setting with a cheap recorded-dissent channel where reviewers who are accountable but cannot alter outcomes still fabricate justification at the same rate as without one.)*
-- **When this is wrong:** where the group has no independent judgment to pre-empt, a shared summary raises the floor rather than lowering the ceiling. Pre-emption is a loss only where someone in the room could have produced a competing read.
-*(Source: HBR, Lancefield, "Don't Let AI Flatten Your Leadership Style," Aug 2026 — ⚠ anecdote-tier, four anonymized coaching cases, no comparison group, and the article's one external citation is an unrefereed preprint this corpus has already read at primary and struck. Cite the mechanism, never the claim that AI flattens thinking, which the article does not evidence. The group-scaling rule is this corpus's reading of the case, not the author's; he files it as one leader's judgment going slack. Ledger candidate U.)*
-
-### The four capabilities that only exist through use
-
-**A short list worth carrying, because it names what the drains actually take.** Four capabilities do not develop automatically and are maintained only through use:
-
-1. **Judgment under uncertainty.**
-2. **Systems thinking.**
-3. **Ethical escalation.**
-4. **Interpretive reasoning**, meaning the ability to view an opportunity or a challenge through the lens of a chosen strategy.
-
-**Three erosion mechanisms, each with its own countermeasure**, and they are not interchangeable:
-
-| The mechanism | What it looks like | The response |
+| Ability to raise a concern | Ability to discuss its dismissal | What to investigate |
 |---|---|---|
-| **People stop thinking** | the drains in this skill | identify the critical human capabilities explicitly, by name |
-| **Rules get buried in systems** | the criterion moves into a model and stops being arguable | protect the structures that produce expertise |
-| **Social ties are weakened** | the colleague you used to ask is now a prompt | rebuild the communities the tool thins out |
+| High | High | Whether the concerns receive a sound disposition and necessary action. |
+| High | Low | Whether objections can be voiced but not effectively challenged after rejection. |
+| Low | Low | Whether fear, incentives, access, or process suppress relevant information. |
+| Low | High | Whether the items refer to different situations or are interpreted differently; do not dismiss the result as an artifact without checking. |
 
-**The third one is the one this skill has been weakest on.** Drains 1 through 7 are about a person and a model. **Erosion also runs through the relationships that used to carry correction**, and no checkpoint in this skill measures whether anyone still asks a colleague. See `rtp-needs-guard` on relatedness.
+This is a proposed diagnostic, not a validated scale. Phrase questions about the relevant group and decision setting. High reported candor does not certify that the record is complete; private/public differences can reflect learning or different interpretations as well as suppression.
 
-*(Source: HBR, "Don't Let AI Destroy the Skills That Make Your Company Competitive," Apr 2026 — ⚠ practitioner-tier, no measured data. The four-capability list is given verbatim there and only the fourth is defined.)*
+Respond to mistakes and rule departures with both investigation and proportionate accountability. The original research distinguishes self-interested, prosocial, situationally pressured, and principle-driven motives. These help explain what happened; they do not excuse harmful behavior or settle legal consequences. Do not promise immunity, assume punishment is always required, or turn a disclosure into a forced confession. Follow applicable obligations while preserving a fair route to report errors and improve the system.
 
-### The state the reviewer is in decides whether any checkpoint works
+Where useful, keep an optional dissent record: “I proceeded under the decision, and my unresolved concern is…” Make it accessible to an appropriate reviewer beyond the person whose decision is challenged. An empty optional field is ambiguous, not evidence that all is well. Required decision or incident records should still be completed truthfully; do not require invented disagreement to fill a form.
 
-Every checkpoint below assumes the reviewer can think. **That assumption has a physiological floor, and oversight work sits right on top of it.**
+## Case 1 — Diagnose what is happening to judgment
 
-Cognitive performance follows an inverted-U against arousal. Three usable states:
+The original numbering is historical, not a timeline. Use it as a shared vocabulary, not a validated taxonomy. More than one mechanism may be present.
 
-| Gear | State | Good for | Bad for |
-|---|---|---|---|
-| **1** | low arousal, hazy, slow | incubation, wide-angle framing, connecting ideas | anything targeted |
-| **2** | the Goldilocks zone, sustained focus | **deep review, catching the plausible-but-wrong** | nothing, this is the target |
-| **3** | high arousal, fast, narrow | incident response, speed | **accuracy, nuance, second-order consequences** |
-
-**Two consequences for checkpoint design.**
-
-**Scheduling a review into gear 3 guarantees rubber-stamping.** A reviewer under deadline pressure or in a message flood is physiologically narrowed. They will approve faster and catch less, and the override log will look healthy. If a checkpoint matters, protect a gear-2 window for it rather than adding it to a queue.
-
-**Monitoring work fails the other way, and this is the counterintuitive one.** An AI-oversight role is low-action by design, which drops the reviewer into gear 1. **Boredom is not a motivation problem here, it is an arousal problem**, and the fix adds stimulus rather than removing distraction. One air-traffic-control simulation raised engagement in a low-action supervisory task with nothing more than a simple click-on-new-data step. **Build a lightweight feedback loop into any standing monitoring role**, or the monitor drifts out of the state where noticing is possible.
-
-**When this is wrong:** for a genuinely mechanical check with a binary answer, arousal state barely matters. This applies where the reviewer has to exercise judgment, which is every checkpoint in this skill that is worth having.
-
-*(Source: Mithu Storoni, *Hyperefficient*, discussed in HBR, May 2026 — ⚠ the three-gear model is her application of decades-old inverted-U arousal research, not a new finding, and the transcript carries no effect sizes. The air-traffic-control study is cited there without a full reference. Carry the design consequence, not the numbers.)*
-
-### How much friction is enough (the sizing question this skill has left open)
-
-The checkpoints below say friction must exist. **They have never said how much**, and that gap has stayed open across several sightings.
-
-**The finding that closes it: a well-matched low-cost friction performs as well as a high-cost one.** You do not need the heaviest review. You need the one that fits the situation. Attention rose 9 to 15 percent and irritation fell 8 to 17 percent when the control offered was matched rather than maximal (◆ single study, from consumer research rather than review design).
-
-**Size the friction on three variables, not on stakes alone:**
-
-- **Reviewer commitment.** How invested is this reviewer in the outcome? High commitment carries a full comparative review. Low commitment will not complete one.
-- **Session predictability.** Does the reviewer know what is coming? Predictable queues absorb heavier checks; unpredictable ones need lighter ones.
-- **Case familiarity.** A reviewer deep in the domain can use a comparison. One who is not cannot, and will rubber-stamp it.
-
-**So the practical rule: demand a full state-first comparative review where all three are high, and a lighter confirmation step where they are not.** A heavy checkpoint applied to a low-commitment, unpredictable, unfamiliar reviewer produces theater, which is worse than a light one because it looks like control.
-
-*(Source: HBR, "Research: When Consumers Have More Control Over Ads, They Respond Better," Jun 2026 — ◆ single study, ad-tech domain. **Carried for the equivalence result, which is domain-general, not for the percentages.** The three-variable sizing applied to review design is this corpus's. See `rtp-trust-ladder` for the user-facing version.)*
-
-### The seven drains have an organizational twin: the training function you removed with the role
-
-Drain 2 covers the organization that stops making experts. **This is the mechanism underneath it, and it explains why the loss is larger than the headcount.**
-
-Professional development runs roughly **70% from doing the job, 20% from working alongside experienced colleagues, and 10% from formal training.** Entry-level roles carry the first two.
-
-**So automating an entry-level function removes about 90% of the development model, not a training line item.** The training budget survives untouched, which is exactly why nobody notices.
-
-**This sharpens why friction matters here.** The checkpoints below exist to catch bad output in the moment. **They also matter because the role that generated the friction was carrying a training function alongside it.** Remove the role and you remove both, and only one of them shows up in a metric.
-
-Route the workforce-level version, including the three-question audit, to `rtp-capability-tracking`.
-
-*(Source: HBR, "Your Talent Strategy Has to Keep Up with Your AI Transformation," Jun 2026 — ⚠ practitioner-tier. The 70-20-10 model is the Center for Creative Leadership's. This is the second independent sighting of capability debt in a month, after the engineering-provenance version.)*
-
-### The organizational twin has a second case: the accountability layer you removed with the role
-
-The entry-level case above loses a training function. Cutting middle management loses a different one: oversight. In most organizations, accountability functions run through middle managers, who bridge strategy and execution, own implementation decisions, and know when to override a recommendation. That is a live instance of this skill's own alterability question: the person accountable has to be able to change the outcome, or the accountability is theater.
-
-**Why this matters here specifically.** A 2025 Korn Ferry survey found 41% of companies have already reduced managerial layers, in part because of AI (◆ Korn Ferry's own disclosed survey finding; the AI-attribution is the article's own hedge, not a controlled measurement). The discovery cost shows up later: in a survey of 600 HR leaders who made AI-driven layoffs in the year to February 2026, 55% said the cuts required more human oversight than they had expected (⚠ reported, polling organization not named). Same shape as the training-function loss: the metric that shows the headcount saving does not show the oversight capacity that went with it, and nobody notices until the AI is wrong about something that matters and no one in the room can still tell.
-
-**When this is wrong.** Not every management layer carries this function; some middle-management roles are coordination overhead with no accountability content, and cutting those loses nothing this mechanism describes. The test is the same one this skill already applies elsewhere: ask whether the role, before it was cut, was a place where a bad call actually got stopped, not just reviewed. If it was pure pass-through, the accountability-layer twin does not apply.
-
-Route the workforce-level audit question, "what oversight capacity does this role provide that no metric currently measures," to `rtp-capability-tracking`'s Capability Debt three-question audit as an optional fourth question.
-
-*(Source: HBR, "AI Transformation Requires Redesigning Work, Not Cutting Roles," Aug 28 2026 — the Korn Ferry figure is ◆, the 55%-oversight figure is ⚠.)*
-
-**The atrophy drain is not confined to technical judgment.** A room-reading practitioner names, unprompted, the identical shortcut-versus-depth trade this skill documents for code and clinical review: AI can "speed read somebody... right before you meet them," but the practice that actually produces influence is "much deeper and it's much more thoughtful." The mechanism generalizes past technical review into interpersonal skill; it does not extend the mechanism itself, only its scope. *(Source: Pamela Meyer, HBR IdeaCast, Aug 2026 — ⚠ single practitioner aside, illustrative rather than measured.)*
-
-### The six checkpoints (treatment)
-
-Deliberate friction, designed to keep the human sharp rather than to slow the AI down. Choose what the stakes justify; two or three, enforced, beat six that aren't. Checkpoint 6 is the exception and is not a choice: it decides whether the readings from the other five mean anything.
-
-**Before any of that: the substitute test.** A leadership method built to widen perspective can fail its own purpose in one specific way: every parameter of the method (which stakeholders, how long, which view to weight) is itself set by the operator's judgment, so running the remedy presupposes the judgment it claims to replace. A sharper case from the same source: an AI-generated "contrary persona" arguing the dissenting view is a recall exercise, not a discovery exercise. A synthetic persona's objection costs the persona nothing and is drawn from the distribution the prompt-writer already anticipated, so it surfaces only the objection types someone already expected, never the unanticipated class that actually matters. A real dissenting stakeholder's objection is costly: they risk relationship capital, being wrong, being remembered as the pessimist. That cost is what makes the objection informative. So before adopting any proposed judgment substitute, this skill's own checkpoints included, ask whether operating it requires the judgment it's meant to replace. Never treat an AI-generated dissent persona as a substitute for a real, costly, human disagreement; it's coverage of anticipated objections, not a red team. *(Source: HBR IdeaCast, Choe & Goldsmith, 2026 — ⚠ practitioner account, a panoramic-leadership method critiqued on its own terms.)*
-
-**Before you choose one: the three requirements every checkpoint has to meet.** Friction that misses any of them produces activity and no decision, and the corpus has now watched that happen at four separate sites.
-
-1. **An artifact.** Something written down. A held opinion is not a checkpoint.
-2. **A disputant who bears a cost.** A second person who reads it, can disagree with it, and pays something for being there. This is why the AI cannot review its own output, and why a self-kept reflective log is a measurement instrument rather than an intervention.
-3. **A terminating condition, and this is the one everyone omits.** Either a criterion both parties accepted before the dispute, or a named person who can call it.
-
-**The cost has to be asymmetric, and most designs point it the wrong way.** The requirement is not that reviewing is effortful. It is that **not concluding must be more expensive than disputing.** An executive committee with maximum dispute capability, shared technical credibility and no one able to shut a question down argued genuinely and reached no decision. A workshop where a team read its own productivity data recognised what it implied and "asked for time to make sense of it." Both had artifact, disputant and cost. Neither had a terminating condition, and both produced rework instead of a call.
-
-**Why exhortation-shaped checkpoints decay, and what to do instead.** Telling one person to think harder is asking them to be slower than their peers for no measurable quality gain, which is unilateral disarmament in a game where everyone is scored. Two interventions in the corpus change the payoff rather than the appeal, and both work:
-
-- **Remove the scoring inside a bounded venue.** A divisional CEO brought his peer group to external advisory sessions "simply to be rigorously challenged where no one was scoring them." The sessions "became a training ground rather than a performance arena."
-- **Make silence expensive for one named person.** See drain 6 above. This is the same move at organisational scale, and it is the only kind that survives a first-mover problem.
-
-**Protect production asymmetrically, not uniformly.** This skill's premise is that judgment is a byproduct of producing the work, so the reflex is to protect all production. Two capacities are in play and they behave differently: **breadth of perception**, noticing weak signals and adjacent patterns, and **independence of interpretation**, forming your own view rather than deferring. A professional's frame is a liability in search and an asset in evaluation. It narrows what you find, and it is the only thing that says which finding matters. **So guard the production that forms evaluation judgment and let exhaustive search go.** A junior who never learns to comb a data set by hand loses less than a junior who never learns to decide which of three surfaced patterns is worth the partner's time. Untested: a cohort whose evaluation judgment degraded after search was automated, holding evaluation practice constant, would show the two capacities are not separable and blanket protection is right.
-
-*(Sources for this block: HBR, Sudakov & Furr, Aug 2026 (RED method, advisory networks, the two-capacity split); HBR, Blangeois & Roulet, Aug 2026 (the executive committee, the workshops, the mandate); MIT SMR, Sloan & Glaser, "Stop Prompting AI. Start Directing It," Aug 2026 (frame as liability in search, asset in evaluation). Ledger patterns Q, O and E.)*
-
-**1. Rotation — keep two decision pathways alive**
-- **The practice:** no one uses the same AI tool for more than ~80% of their decisions for more than four weeks straight. A radiologist reads some scans unassisted, some with AI, some as peer reviewer of the AI's reads — rotate every four weeks, not daily (that's chaos).
-- **Red flag:** "we can't rotate, they're too busy" — the AI has reached 100% dependency; fix that first.
-
-**2. Calibration — measure the human against ground truth**
-- **The practice:** monthly, give the team 10–20 cases where you already know the answer. Human judges blind (no AI answer first, to avoid anchoring), AI judges, reality shows who was right.
-- **Red flag:** after six months, human accuracy is flat while AI accuracy improves — that gap is erosion.
-
-**3. Override — its sharpest form is stating your call first, at the right frequency and depth**
-- **The practice:** the strongest version of a human review is not "approve unless something looks off" — it's stating your own view *before* you see the AI's, so there is something real to compare against.
-- **Mechanism:** gate the AI's output behind a required, timestamped "here's what I think and why" field — a stated position, not a click-through. A click without a prior stance is exactly the theater mandatory review decays into, and it defeats chosen blindness by removing the ability to stay uncommitted.
-- **How often it fires, not just what it asks: fewer, well-placed checkpoints can beat many shallow ones.** Where tasks split cleanly into AI-suitable and not, group the AI-suitable ones and remove the repeated per-task handback instead of routing each one back to a human individually. Each handoff is itself a failure surface: a reviewer facing ten small handbacks in a row reviews all ten shallowly, while one well-placed checkpoint covering the batch gets reviewed at real depth. Set this checkpoint's frequency by that trade-off, not by a default of reviewing everything or reviewing nothing.
-- **What the checkpoint should ask, restated:** the standard content of a state-first checkpoint should be "why are you following this recommendation," not "do you agree with it." In one internal banking pilot (population unspecified), requiring that written reason before acting measurably reduced uncritical reliance on the AI's recommendation and improved decision accuracy, with no measured cost in time. This is the same "here's what I think and why" field above; the finding is that the why is doing the work, not the field's mere presence.
-- **The caution this pairs with, and it matters more than the finding above:** a checkpoint that reduces uncritical reliance cannot currently be told apart from one that simply makes people reject more, including AI outputs that were correct. Track both sides: catch rate on seeded known-bad cases (already this skill's fix for the dead zone under "The trap") and false-rejection rate on seeded known-good cases. The two failure modes diverge further as the underlying model improves, so a checkpoint design's apparent success has a shelf life that can expire without warning. *Falsifier:* a deployment that tracked both catch rate and false-rejection rate over time and saw both stay stable would show that a given checkpoint design is not decaying this way.
-- **Then run the three-question diff:** what did the AI add that you missed; what did it get wrong; and — ranked highest, because it's the costliest — what *looks right but isn't* (plausible, well-structured output resting on a wrong assumption, the error only domain judgment catches).
-- **Red flag:** override rate under ~1% — either the AI is perfect (unlikely) or no one is engaging. The rate alone can't tell you which; a falling override rate looks identical whether the model improved or the reviewers quietly stopped looking (see the dead-zone note under "The trap"). Only a seeded-case catch rate, via `rtp-production-observability`, distinguishes rational disengagement from erosion. A rate that looks too high has the same blind spot in reverse: it can mean sharper catching, or it can mean the checkpoint now rejects good AI output along with bad. Read the override rate against a false-rejection rate measured on seeded known-good cases, not against the raw rate alone.
-*(State-first + the three-question diff and "looks right but isn't" as top severity: HBR, Duncan & Anderson, "Help Employees Get Better, Not Just Faster, with AI," 15 Jun 2026 — conceptual, built on the Dreyfus and Polanyi tradition; the "jagged frontier" calibration idea is ✅ Dell'Acqua/Mollick et al., HBS 24-013. The article's own 90%/10% and two-weeks-to-an-hour figures are ⚠ illustrative. Checkpoint frequency and the "why" standard: MIT Sloan Management Review, 2026 — two practitioner findings, both ⚠ and neither settled: the frequency finding names no model, prompt, or reviewer population; the "why" finding is described in its own source as an ongoing, unpublished internal pilot.)*
-
-**4. Repair after a miss — before you re-engineer the process**
-- **The practice:** when an AI-assisted call goes wrong, the reflex is to fix the process. Do the *social* repair first, or the fix lands structurally sound and socially inert.
-- **Mechanism:** run an explicit reconciliation — both parties state what they could have done differently — opened with normalization ("there can be multiple good decisions; a call can be reasonable and still be beaten by how events unfold") so it doesn't collapse into blame. *Then* ask the process question — "*why* did this happen," not "what happened" — and change the system so the failure can't recur.
-- **Why it matters:** this protects the Mindset condition from drain 4 — skip it, and the person you most need to keep owning the outcome quietly stops.
-- **When this is wrong:** where psychological safety is genuinely absent, the "what could I have done differently" confession can be weaponized — fix the safety first, or the repair backfires.
-*(Source: HBR, McCall, Wolfberg, Bilsborough, Pruna, "How Elite Sports Coaches Make High-Pressure Decisions," Jul–Aug 2026 — ⚠ anecdote-tier, 11 coaches, no numbers; cite the mechanic, not the quotes.)*
-
-**5. Reasoning documentation — capture the why, not just the decision**
-- **The practice:** "I decided [X] because [signals]; I ignored [Y] because [reason]; I'd change my mind if [condition]." Make capture automatic (a prompt after the decision, not extra work).
-- **Cadence:** review monthly for patterns; quarterly, look for reasoning that has *disappeared* ("six months ago people flagged X; nobody mentions it now").
-- **Red flag:** reasoning drops in complexity over time — "AI seems good" — that's the signal, in the person's own words.
-
-**6. Disclosure safety — the checkpoint that decides whether the other five are measuring anything**
-- **The problem it solves:** checkpoints 1 to 5 all read a record a person chooses to produce. An override, a stated prior view, a documented reason, a flagged near-miss. Drain 6 established that the record is censored wherever holding a position has a social cost. This is the treatment side of that finding, and it has to be installed before the other five are trusted, not after.
-- **The mechanism, and it comes from outside AI entirely:** people break a rule for four separable reasons. **Self-interested** (to benefit themselves), **prosocial** (to help a customer or colleague), **corrupted** (under situational pressure), **edified** (because they believed breaking it was right). Two questions sort them: was the behavior constructive or destructive, and was it driven by individual choice or by the situation.
-- **The error that destroys your data:** responding to all four with the same instrument, which is usually punishment. Punish prosocial or edified rule breaking and people stop exercising judgment, or they keep exercising it and stop telling you. Either way the early-warning signal disappears while the compliance numbers improve.
-- **What that means here, concretely:** if someone logged an override that turned out wrong, would they expect curiosity or consequences? If consequences, your override rate is already false and checkpoints 1, 3 and 5 are reporting on a filtered population. The red flag in checkpoint 3 (override rate under ~1%) has two causes, and this is the second one.
-- **The detection instrument costs two survey items.** First-order candour asks whether a person can raise a concern. **Second-order candour asks whether they can say their concern was dismissed.** Score both:
-
-| | High second-order | Low second-order |
+| ID | Mechanism | Distinction and first check |
 |---|---|---|
-| **High first-order** | working team; the record is usable | **people can speak, and then get overruled with no way to say so.** This is the dangerous cell, because it reports as a healthy engagement score |
-| **Low first-order** | rare, probably a measurement artifact | suppression (drain 6); the one-named-person mandate applies |
+| **0 — Thinkslop** | Intent, criteria, or reasoning are outsourced before they are adequately formed. | Ask what the person needs to decide and what a good answer must satisfy. Open-ended exploration may legitimately start without a fixed view. |
+| **1 — Individual atrophy** | A previously demonstrated, still-needed capability weakens through changed practice or other causes. | Compare relevant capability over time under comparable conditions; do not infer loss from AI adoption alone. |
+| **2 — Non-formation and organizational capability loss** | People no longer get suitable opportunities to develop expertise, or the organization removes the people and practices that sustain it. | Map how newcomers learn and how existing experts stay calibrated. These may need different designs. |
+| **3 — Handoff degradation** | Errors, omissions, or weak assumptions travel through summaries and delegated steps. | Trace important claims and decisions to the source and check end-to-end fidelity. A handoff can also correct an error. |
+| **4 — Offloaded ownership** | People feel less responsible for evaluating a result because AI appears to own the work. | Examine responsibility, meaning, incentives, and observable review behavior. Anthropomorphic framing is one possible influence. |
+| **5 — Motivated avoidance** | A person avoids information because engaging with it may create an unwelcome cost or conflict. | Separate unavailable, unusable, misunderstood, and deliberately avoided information before assigning a motive. |
+| **6 — Suppression** | A relevant concern or judgment does not reach, or survive, the decision process. | Compare how views are formed, voiced, heard, and acted on; use the disclosure check above. Private confidence does not establish correctness. |
+| **7 — Pre-emption** | An early AI or senior-person framing prevents an independent view from being exercised. | Check the order of information and judgments. A summary can be accurate yet incomplete for the decision. |
 
-- **One bound on the trust question you are probably already asking.** A trust item phrased about colleagues measures something held one relationship at a time. What this checkpoint needs is whether someone will say the hard thing in the room where the decision happens, which is a property of the group. Phrase it group-referenced or the instrument returns high trust for a team that cannot speak, which is the exact false negative it exists to catch.
-- **When this is wrong:** regulatory and legal violations take a hard line regardless of intent, and triaging them by motive is how a compliance failure becomes a coaching conversation. Run the four-type sort on everything else.
-*(Sources: Gill, "Rule Breaking in Organizations: An Integrative Review," Academy of Management Annals 2026, DOI 10.5465/annals.2023.0170 — ✅ integrative review of 250+ studies across four decades; HBR's treatment of it, Aug 2026, for the five-step protocol and the Delinea practitioner rule. ECI 2023 Global Business Ethics Survey, >70,000 employees across 42 countries: 65% of employees report having observed misconduct, up from 60% in 2020 ⚠ single-source. The second-order candour item: HBR, "How the Best Leaders Shape Conversations," Aug 2026 — ◆ the authors scored it across more than a hundred teams and reported only its rank, so the two-by-two above is this corpus's construction and has not been tested as a two-by-two.)*
+**Also test misapplication:** someone may have strong task expertise and actively intervene yet make the assisted result worse. Producing, directing, and reviewing are different operations. Compare relevant baselines and teach the new role rather than automatically prescribe more of the old task. Misapplication overlaps several drains but is not the same as atrophy or non-formation.
 
----
+### Preserve formation, retention, and transfer separately
 
-## CASE 2 — COMPLEMENTARITY: when the human stays because human + AI together beat either alone
+The three original “clocks” remain useful as scales of inquiry: change within a person, change in an organization's future supply of expertise, and change along a chain of handoffs. Their rates depend on the task, practice, feedback, and design. Do not forecast universal 6–18-month decay or a fixed recovery period.
 
-Case 1 keeps a human sharp against a fading default. Case 2 is the opposite starting point: in a regulated or catastrophic-cost domain, the human is *permanent by design*, and the goal is to fuse human and AI so the combination is more precise **and** more certain than either alone. The neurosurgeon-plus-robot is the clean picture — the robot's tremor-free precision, the surgeon's judgment on the bleed the scan never showed, and an outcome someone is accountable for. Here is how to design it.
+Ask how a capability is acquired and maintained through production, observation, interrogation, feedback, and peer relationships. Useful options include:
 
-### The Complementarity Design — four moves
+- A senior and junior examining a concrete work product together, with the junior making a prediction or explaining what they think matters before feedback.
+- Experts continuing selected production or difficult reviews, with outcomes that let them update their judgment.
+- Protected practice on representative and boundary cases, rather than only repetitive easy work or only rare exceptions.
+- Communities where people can ask colleagues, contest embedded rules, and compare interpretations.
 
-**1. Split by irreducible strength**
-- **The move:** list the task's sub-decisions and give each to whoever cannot lose it. *AI:* precision, consistency, recall across millions of cases, no fatigue. *Human:* the novel situation, the context no data held, the call someone must answer for. Give the robot the tremor-free motion; give the surgeon the bleed and the accountability.
-- **Why:** a joint system is only as strong as the fit between the split and each party's true edge — mismatch the split and you get the weaknesses of both.
+A senior's signature is not an apprenticeship. Narration can help, but a concrete case and the learner's response make understanding easier to assess. Interrogating someone else's work may preserve some expertise; producing every artifact personally is not the only plausible route. Test the learning result for the role rather than declare one route universally necessary.
 
-**2. Set the floor by the tail, not the average**
-- **The move:** where the 0.1% is a dead patient or an unlawful denial, "the AI is more accurate on average" is the *wrong number* — you design for the worst plausible case.
-- **Why this is precisely why mature AI does not remove the human here:** the tail, not the mean, sets the design, and the human is the tail's last defense.
-- **When this is wrong:** where errors are cheap and reversible, designing for the tail is over-engineering — that's a Case 1 or a full-automation problem, not this one.
+The **formative-task test** asks whether doing a task contributes to a capability the person still needs to evaluate future work. The earlier “could not evaluate it without having done it” formulation is a useful prompt, not a complete test: comparable practice, observation, or another task may supply the learning, and the old skill may be obsolete.
 
-**3. Make convergence your conviction, divergence a full stop**
-- **The move:** two independent judgments agreeing is *why* the joint call carries more conviction than either alone — the surgeon acts more decisively because the system confirms. When they disagree, that is the alarm: stop and resolve it, **never average it**.
-- **Why:** averaging two judgments that disagree hides the very signal the joint system exists to surface, and manufactures false confidence in the middle.
+Keep the four named capabilities visible where relevant: **judgment under uncertainty, systems thinking, ethical escalation, and interpretive reasoning**—understanding a situation through a chosen strategy. Check three kinds of erosion: less active reasoning, important criteria buried inside systems, and weaker relationships through which people formerly learned or corrected mistakes. Use `rtp-needs-guard` when changes affect meaningful connection or agency.
 
-**4. Keep the human's hands on the hard part, not just their eyes on the screen**
-- **The move:** assign the permanent human the sub-decision that keeps their judgment live — not the rubber-stamp seat.
-- **Why:** this is where the two cases fuse — a permanent human who only *watches* still atrophies (Case 1), so the atrophy checkpoints *serve* the complementarity design; oversight-by-watching decays into rubber-stamping within months, oversight-by-doing-the-hard-part stays calibrated.
+### Map what a role carries before automating it
 
-**The regulated-domain rule, stated plainly:** where a wrong answer is catastrophic *and* irreversible *and* someone must be legally accountable, keep the human in the loop regardless of AI maturity — and still keep them few and elite, because scarcity is not the enemy here; a dull majority is. Complementarity is not a compromise between human and machine. It is a multiplier — done right, the pair is safer *and* more decisive than the sum.
+An entry-level role may produce work and provide practice, observation, and feedback. A middle-management role may carry oversight, escalation, and coordination. Removing the role can remove more than its visible output, but that is a hypothesis to inspect, not a reason to preserve every role unchanged.
 
----
+Name each useful function, decide whether it is still needed, and show where it will live. Some coordination may become unnecessary; some learning or oversight may need replacement capacity. The 70–20–10 learning framework does not imply that automating an entry-level task removes 90% of development. Route the workforce plan to `rtp-capability-tracking`, including the optional question: “What oversight capacity does this role provide that our current measures miss?”
 
-## WHERE THIS MEETS YOUR STACK
+### Protect source access and the order of reasoning
 
-Judgment-guard owns one seat: which judgment stays human, how you keep it sharp (Case 1), and how you fuse it with the machine when the stakes demand both (Case 2). It has no imports — every companion below is a hand-off, not an input.
+For a chain of AI-assisted work, identify a **source of record**: the original document, transcript, data, or other appropriate evidence with its own reliability limits. Preserve accessible references and versions. A source can be wrong; a citation makes a claim traceable, not automatically true. Three unreviewed handoffs is a useful example to inspect, not a threshold below which fidelity is safe.
 
-**Hands off to, to build the rest of the joint system:**
-- `determinism-compass` — which parts must be rule-bound and reproducible vs. which can tolerate the model's variance. Decide this *before* you split the labor in Case 2.
-- `autonomy-spectrum` — who holds the decision at each step. In Case 2 the human keeps the final call by design; this skill sets where on the spectrum the rest of the system sits.
-- `trust-ladder` — how far to trust the AI's half, calibrated, and how trust is repaired after a miss (the calibrated mirror of Checkpoint 4).
-- `agent-risk` — proportionality and the kill-switch when the cost of a wrong call is catastrophic (Case 2's tail is agent-risk's home ground).
-- `safety-by-design` — encode the constraints into the system so the joint pair can't be driven outside them.
-- `stress-test` — its human gate ("will anyone say it fails?") is a worked instance of this skill's checkpoint pattern, applied to one specific moment: the pre-launch kill decision. Reuse the state-first-override and reward-the-honesty machinery there instead of re-deriving it from scratch.
+For one summary serving many readers, make ownership, version, scope, known omissions, and a usable route to source material clear. This is the practical meaning of a **controlled document** here, not a claim that every AI summary has a formal regulatory status. Per-claim links can reduce the cost of checking; their presence alone does not guarantee it happens. Route interface details to `rtp-ai-ux-patterns`.
 
-**Acts on this skill's decision, one hop downstream:**
-- `agent-spec` — takes "this judgment stays human" and encodes it as an actual autonomy level and confidence threshold in the technical spec; without that translation, the decision stays a slide, not a system.
-- `stakeholder-communications` — carries the "why a human stays in the loop here" case to a board or regulator who will ask for the efficiency number this design deliberately doesn't optimize for.
-- `needs-guard` — when the REALITY CHECK below's "some people resent checkpoints" risk materializes into real resistance, that's a need-violation to diagnose, not a training problem to push through.
+When independent judgment is needed, collect the person's assessment or evaluation criteria before exposing them to the AI's conclusion. In a group, independent collection can prevent the highest-status view from becoming everyone's starting point. Do not require the least experienced person to make an unsupported decision; an honest question or uncertainty may be the appropriate initial contribution.
 
-**Arbitrates when this skill disagrees with a pure efficiency recommendation:**
-- If `autonomy-spectrum` or `agent-spec` would otherwise push toward a higher autonomy level for speed or cost, and this skill's Case 2 test says the domain is regulated and catastrophic-cost, **judgment-guard's human-stays-in-the-loop call overrides the efficiency recommendation.** Run judgment-guard first in any domain where the two could conflict, not after.
+## Choose the smallest checkpoint that addresses the mechanism
 
-## REALITY CHECK
+A checkpoint needs a purpose, suitable evidence, an owner, and a consequence for what it finds. For consequential human review, also ensure a capable reviewer can challenge the result, the challenge can change something, and a criterion or authorized decision-maker can bring the review to a conclusion. A separate person is useful when independence matters; not every low-stakes check needs a second reviewer.
 
-- **The failure mode of this skill:** checkpoints without enforcement. "We require override documentation" that no one enforces is theater. Non-negotiable, or nothing.
-- **The most expensive mistake:** waiting 12 months to check. Start monitoring at month 1 — by month 12 the judgment is already hard to restore.
-- **The social cost:** some people resent checkpoints ("I know my job"). Frame as "we're protecting your expertise," not "we're watching you."
-- **The honest inversion:** if the AI is genuinely better than the human on the *average* case and the tail is cheap, maintaining independent human judgment can create harm — then you're building oversight, not restoring judgment (and you may be in Case 2's opposite: full automation with a human only on the tail).
+An AI critic can generate useful and unexpected objections or check observable properties. It is not an independent stakeholder, a new empirical observation, or a substitute for an authorized accountable reviewer. Test any proposed judgment substitute against the skills needed to operate it. Do not assume that a reviewer must personally suffer a loss for their evidence to be valuable.
 
-## QUALITY GATE
+Avoid both endless dispute and forced premature closure. Name a reasonable deadline, decision rule, and escalation path. Reward supported correction and learning; do not make silence costly in a way that manufactures objections or punishes warranted uncertainty. A protected learning venue can reduce performance pressure where that is the mechanism.
 
-- [ ] Which judgment must stay human is decided, and *why* (stakes × reversibility), before anything else
-- [ ] The case is named: atrophy (Case 1), complementarity (Case 2), or a mix — and the design matches
-- [ ] Case 1: the specific drain(s) identified among the seven numbered drains, or drain zero if the failure preceded any AI output, and checkpoints chosen to match (not a generic "add friction")
-- [ ] Case 1: at least the state-first override (checkpoint 3) and the repair-after-a-miss step (checkpoint 4) are present for high-stakes work
-- [ ] Case 2: the labor split is by irreducible strength, the floor is set by the tail, and divergence triggers a stop
-- [ ] Every checkpoint has an owner, a cadence, and a red-flag threshold; enforcement is named
-- [ ] Hand-offs to the companion skills (determinism-compass, autonomy-spectrum, trust-ladder, agent-risk, safety-by-design, agent-spec) are named where the design needs them
+Size review for **consequence, reviewer competence and commitment, workload predictability, and case familiarity**. If a consequential case exceeds the reviewer's ability or capacity, provide support, a different reviewer, or a narrower scope. A lighter confirmation click is not an adequate substitute merely because the reviewer is unfamiliar or overloaded. The consumer-advertising study behind the original sizing analogy does not validate that substitution for high-stakes oversight.
 
-## DIAGNOSTIC QUESTIONS
+Fatigue, interruptions, workload, and monotonous monitoring can affect attention. Protect appropriate review time, vary or rotate monitoring work where useful, and test whether lightweight engagement aids help. The three-gear model is a practitioner metaphor; it does not guarantee rubber-stamping under pressure or establish that mechanical checks are immune to fatigue.
 
-1. **When did someone last override the AI?** "Can't remember / >6 months" → eroding. "This week" → still engaged.
-2. **If the AI vanished tomorrow, could this person do the job at 70%?** "No, they'd be lost" is a red flag; "slower, but they know the fundamentals" is green.
-3. **What's the most recent edge case this person caught that the AI missed?** A blank stare is the signal.
-4. **Has their accuracy moved against the AI's over six months?** Diverging (human flat, AI rising) is erosion.
-5. **(Case 2)** When human and AI disagree, does the system *stop* — or does it quietly average them into a confident middle?
-6. **If someone logged an override that turned out badly, would they expect curiosity or consequences?** "Consequences" means the override rate you are reading is already filtered, and checkpoints 1, 3 and 5 are reporting on a censored population. Fix checkpoint 6 before you trust any of the others.
-7. **In your last consequential meeting, how many people in the room had read the source rather than the summary?** Zero or one is the pre-emption condition, and the cost of reframing scales with everyone else in the room.
+### Checkpoint 1 — Rotation and practice
 
-## OUTPUT FORMAT
+Keep appropriate opportunities to work with and without the assistance where independent capability remains needed. Select the tasks and cadence deliberately, using simulations or protected exercises when live unassisted work would expose people to avoidable risk. Include useful peer review and debriefing.
 
-```
-## Judgment Design: [Role / Decision Type]
+The original 80% tool-use cap and four-week rotation are example schedules, not evidence-based universal limits. An inability to rotate may indicate capacity constraints, but does not prove complete dependency. Define the desired capability and measure whether the chosen practice preserves it.
 
-**Which judgment stays human, and why:** [the sub-decisions, tied to stakes × reversibility]
-**Case:** [Atrophy / Complementarity / mixed] — [one line on why]
+### Checkpoint 2 — Calibration
 
-**Case 1 — if atrophy applies**
-- Drain(s) present: [which of the seven, or drain zero]
-- Timeline of concern: [erodes in X–Y months here]
-- Checkpoints (owner · cadence · red flag):
-  1. Rotation — … 2. Calibration — … 3. State-first override — … 4. Repair-after-a-miss — … 5. Reasoning capture — …
+Use suitable cases with independently established answers or qualified reference judgments. Where feasible, compare **human alone, AI alone, and the combined process** on comparable tasks. Collect an independent human view first when the purpose is to measure unassisted judgment. Include uncertainty and cases without one definitive answer when the work requires them.
 
-**Case 2 — if complementarity applies**
-- Labor split (by irreducible strength): AI does […]; human does […]
-- Tail the design must survive: [worst plausible case]
-- Convergence/divergence rule: [what happens when they disagree]
-- Which sub-decision keeps the human's hands (not just eyes) in it: […]
+For longitudinal assessment, keep conditions, task difficulty, and measures comparable enough to interpret change. Use a stable reference component plus new coverage where the work changes. Ten to twenty monthly cases may support a learning conversation but need not yield a precise performance estimate.
 
-**Hand-offs to the stack:** [determinism-compass / autonomy-spectrum / trust-ladder / agent-risk / safety-by-design / agent-spec — where each is needed]
+Seeded known-good and known-bad cases can help assess detection and unnecessary rejection. Use controlled, authorized evaluation conditions; do not let deliberately wrong test material drive real consequential actions. Other methods—expert audits, outcome-linked samples, or carefully designed comparisons—may also be valid. Seeded cases are not the only way to distinguish mechanisms, and they may be unrepresentative or recognizable.
 
-**Monitoring:**
-| Metric | Baseline | Green | Red | Frequency |
+### Checkpoint 3 — Independent view, criteria, and meaningful override
+
+When anchoring or passive assent is the concern, capture a concise initial judgment, criteria, or uncertainty **before** the AI's recommendation. Then compare the result. A “why do you follow this recommendation?” response written afterward is a different intervention; it can assess justification but does not establish an independent prior view.
+
+Run the **three-question comparison**:
+
+1. What did the AI add that was missing?
+2. What did it get wrong?
+3. What looks plausible but rests on a wrong assumption, omitted constraint, or weak evidence?
+
+Do not require a flaw where none is supported. Plausible errors deserve attention, but severity depends on consequence rather than appearance alone. Use the comparison to support a real option to accept, revise, reject, escalate, or abstain.
+
+Choose checkpoint frequency according to the workflow. A batch review can reduce repetitive handbacks when coverage and timely intervention remain adequate. Per-case review may be necessary where exposure cannot safely accumulate. Test review depth, delay, coverage, and outcomes rather than assume fewer checks always improve them.
+
+Track correct acceptance and error detection as well as unnecessary rejection. A low override rate—even below 1%—does not prove disengagement. A high rate does not prove sound judgment. Compare with the underlying error rate, task mix, and outcome evidence; route instrumentation to `rtp-production-observability` and `rtp-ai-product-metrics`.
+
+### Checkpoint 4 — Repair after a miss
+
+First contain active harm and meet any urgent reporting or recovery obligations. Then conduct a fair review of what happened, why it happened, and what people and systems could do differently.
+
+Where relationships or ownership were damaged, make room for social repair alongside technical correction. A reasonable decision can have a bad outcome; a favorable outcome can also conceal a poor process. Do not force admissions, postpone urgent containment for reconciliation, or promise that one process change makes recurrence impossible.
+
+Assign the follow-up and verify whether the repair addressed the mechanism. Use `rtp-trust-ladder` for warranted trust and recovery, and `rtp-stress-test` for operational failure evidence.
+
+### Checkpoint 5 — Decision rationale and learning records
+
+Capture a concise, decision-relevant account:
+
+> I chose [action] because [evidence and criteria]. I set aside [alternative or signal] because [reason]. I would reconsider if [condition].
+
+Use this for meaningful decisions rather than every trivial act. A recorded rationale can be incomplete or post-hoc; it is not direct access to someone's internal reasoning. Automatic capture still has review, storage, privacy, and maintenance costs. Avoid collecting sensitive information without a purpose.
+
+Review records for recurring assumptions, missed constraints, and learning. Less text or simpler language does not establish lost expertise. Compare substance and task demands, not a “reasoning complexity” score alone. A monthly or quarterly review is an option to adapt to risk and volume.
+
+## Case 2 — Design and test human–AI complementarity
+
+Human–AI combinations can improve outcomes, but the benefit depends on the task and design. A systematic review found that combinations did not, on average, outperform the better of the human-only or AI-only alternatives; results varied by task. This makes a relevant baseline essential. See [Vaccaro, Almaatouq, and Malone](https://arxiv.org/abs/2405.06087).
+
+Use four moves:
+
+1. **Split work by demonstrated strengths and required authority.** List the sub-decisions and assign them based on evidence, capabilities, constraints, and responsibility. Precision, consistency, contextual understanding, and novelty handling are not guaranteed properties of all machines or all humans. The surgeon-and-robot illustration describes complementary roles, not a universal performance specification or a rule for every clinical system.
+2. **Assess severe tails alongside ordinary outcomes.** Define plausible consequential errors, detection limits, and recovery. Average accuracy cannot settle a catastrophic-risk question, but the presence of a human is not proof that the tail is controlled. Test whether that person can detect and alter the relevant outcome in time. Include the consequences of intervention and delay.
+3. **Define agreement and disagreement handling.** Agreement can support a decision when inputs and errors provide genuinely additional evidence. When disagreement matters to a safety or authority boundary, stop or escalate before the exposed action. Elsewhere, use a justified adjudication, routing, or aggregation method. Do not average away a material conflict, but do not forbid all aggregation of differing estimates or require an unsafe pause during time-critical work.
+4. **Keep the needed capability active.** Give the human a meaningful task, information, authority, and feedback. That may involve production, probing exceptions, contextual judgment, or evaluated oversight. Apply Case 1's checks where retention or formation matters. Merely watching can be inadequate; watching does not inevitably cause atrophy on a fixed schedule.
+
+Preserve verified human-oversight requirements and task-specific hard boundaries when efficiency recommendations conflict with them. Resolve the actual requirement and risk with `rtp-autonomy-spectrum`, `rtp-agent-risk`, and the responsible domain owner. Do not replace those assessments with an unqualified claim that a human must remain forever because the domain is regulated. Where full automation is justified, specify residual accountability, monitoring, and fallback needs.
+
+## Check the design with seven questions
+
+1. When was the last meaningful acceptance, correction, or override, and what does the underlying error rate imply about that frequency?
+2. If assistance were unavailable, which tasks must people still perform, to what standard, and how was that capability assessed safely?
+3. What recent case shows human contribution—or an unnecessary human intervention—and what can be learned from it?
+4. Has relevant human ability changed under comparable conditions, separately from changes in AI quality?
+5. Does disagreement receive the response required by its consequence, with an effective route to resolution?
+6. Can someone report a mistaken override or a dismissed concern and receive a fair, useful response?
+7. Can the people using a consequential summary inspect appropriate source evidence, limitations, and alternative interpretations before commitment?
+
+## Output and handoffs
+
+```markdown
+## Judgment Design: [role, task, decision]
+
+Purpose of human involvement: [capability, contribution, authority or requirement]
+Scope and consequence: [users, exposure, reversibility, intervention deadline]
+Case: [capability / complementarity / mixed / deliberate automation]
+Evidence: [baselines, observed gaps, hypotheses, limits]
+
+Capability design:
+- Mechanism(s): [drain IDs and/or misapplication, with evidence]
+- Population: [newcomers / established experts / reviewers / other roles]
+- Capability needed: [formation, retention, transfer or fallback]
+- Checkpoints: [selected IDs; purpose, owner, capacity, cadence, action trigger]
+- Disclosure and challenge route: [Checkpoint 6, response and escalation]
+
+Complementarity design:
+- Work and authority split: [sub-decisions and reasons]
+- Tail constraints: [failure, detection, intervention and recovery]
+- Agreement/disagreement handling: [decision rule and exceptions]
+- Capability maintenance: [practice, feedback and evaluation]
+
+| Measure | Baseline and scope | Review trigger | Frequency | Owner/action |
 |---|---|---|---|---|
-| Override rate | | >Y% | <Z% | Weekly |
-| Calibration accuracy | | stable | drops 5%+ | Monthly |
-| Reasoning complexity | | stable | drops 30%+ | Monthly |
-| (Case 2) divergence-resolved rate | | 100% stopped | any averaged | Per incident |
+| Error detection and correct acceptance | | | | |
+| Unnecessary rejection or harmful intervention | | | | |
+| Relevant capability over time | | | | |
+| Review time, workload and unresolved cases | | | | |
+| Concern reporting and disposition | | | | |
+
+Recommendation: [design to adopt or test, explicit limits]
+Trade-off: [quality, capability, time, cost and intervention risk]
+Next step: [owner, date, evaluation and condition for changing the design]
 ```
 
-## WHEN WRONG
+This skill has no formal imports; the companions below are targeted handoffs:
 
-- Low-stakes, high-frequency decisions where efficiency is the goal and judgment isn't critical.
-- The organization has deliberately chosen full delegation and the human isn't meant to own the output.
-- The human's prior judgment is genuinely biased and the AI is better on a tail that's cheap — build oversight, not restored judgment.
-- The timeline is so short (a six-week project) that judgment maintenance is premature.
-- **The organization is centered on friction erasure, and this is the exclusion most likely to be applied wrongly.** A company whose organizing principle is removing friction for the customer will read every checkpoint here as waste, and it will be right about some of them.
+- `rtp-determinism-compass`: required rules, repeatability, and acceptable variation.
+- `rtp-autonomy-spectrum`: decision rights at each step.
+- `rtp-trust-ladder`: calibrated reliance and recovery after a miss.
+- `rtp-agent-risk` and `rtp-safety-by-design`: consequential boundaries and enforceable controls.
+- `rtp-stress-test`: readiness evidence and the practical ability to report a no-go.
+- `rtp-agent-spec`: translate the design into workflow, permissions, tested gates, and escalation; use confidence thresholds only when calibrated for the task.
+- `rtp-stakeholder-communications`: explain the evidence and trade-off behind the human role.
+- `rtp-production-observability` and `rtp-ai-product-metrics`: measure review and outcome quality over time.
+- `rtp-capability-tracking`: learning pathways, role changes, and oversight capacity.
+- `rtp-needs-guard` and `rtp-ai-ux-patterns`: agency, relationships, resistance, and usable access to evidence.
 
-  **Sort the friction before you argue:**
-  - **Erasing customer friction is on-strategy.** This skill has no claim on it.
-  - **Erasing reviewer friction is a different act wearing the same word.** The stakes test still governs it.
+## Final checks and limits
 
-  A firm that cannot tell the two apart will automate its own review under the banner of its strategy, and record it as consistency. *(Source: HBR, McGrath, "The Power of Strategic Centering," Aug 2026 — ⚠ framework-tier, five center types, no outcome data. The friction-erasure trap is this corpus's inference from her taxonomy, not her finding.)*
+Before handing off, verify that the human role has a purpose; the diagnosis distinguishes capability, behavior, and authority; each selected checkpoint addresses a mechanism with an owner and capacity; metrics assess both helpful and harmful intervention; and hard constraints are reflected in the actual workflow.
 
-**One caution about the whole evidence base, and it applies to this skill more than to any other in the library.** Almost every measured finding about AI and expertise, including the ones cited above, was taken on people whose expertise formed *before* AI, and then reported as a property of the technology. Nobody has measured a cohort whose expertise formed under AI assistance from the start. **So the drains describe what AI does to a stock of judgment, and this skill is routinely used to predict what it does to the flow.** Those are different claims. Treat the seven drains as well-evidenced on incumbents and as a hypothesis on anyone who joined after the tools arrived, and say which population you are reasoning about before you prescribe.
+Do not install heavy review in low-consequence work merely to preserve a feeling of control. Do not abandon a needed capability because it is already weak; restrict exposed work and plan supervised rebuilding where appropriate. A short project may not need long-term retention monitoring but can still have immediate anchoring, avoidance, or suppression risks.
 
-The same error appears in the prescriptions. Two 2026 articles, in two journals, two weeks apart, both instruct professionals to exercise a judgment capacity while neither explains how a newcomer accumulates it. One of them describes the capacity as something that "has always distinguished exceptional professionals," which is the assumption stated out loud. *(Ledger pattern P. See `rtp-capability-tracking` for the workforce-level version.)*
+Separate customer friction from reviewer friction, then assess each by its function. Some customer effort supports consent or accurate input; some reviewer effort adds no useful protection. “Remove friction” is not a sufficient reason either to delete a safeguard or retain a redundant one.
 
-**Three challenges to this skill's central premise, all live, none settled.** The premise is that judgment is a byproduct of producing the work. Carry these openly rather than defending the premise, because a claim that cannot lose is not doing any work.
+Evidence differs across mechanisms, roles, and timescales. A single-session study cannot establish years of atrophy. Findings on established experts do not automatically predict how newcomers learn, though research on learning with AI does exist. The live challenges and numerical examples are retained in [calibration and evidence notes](references/calibration-and-evidence.md), with the longer diagnosis and practitioner cases in [mechanisms and design notes](references/mechanisms-and-design.md).
 
-**One: the premise is role-relative, and a single deployment can move two people in opposite directions.** An ambient clinical scribe at Mass General Brigham drafts the visit note. The attending stops producing it, so atrophy applies, and the recognition failure is already audible in what they say: "when I read this note, this is not how I would write the note." The resident standing in the same room now hears reasoning that used to happen silently, because the tool requires the clinician to speak it. Non-formation runs backwards for them. **So the premise is production-fed for the person who was producing and observation-fed for the person who was watching, and you have to say which role you are reasoning about before you prescribe anything.** Two consequences. The reviewer who no longer recognizes the output as something they would have written has lost the fastest error signal they had, which is a red flag for checkpoint 3 in the reviewer's own words. And the trainee question ("do we train residents on AI or keep them AI-independent") is probably the wrong variable; whether the senior is now speaking their reasoning where the junior can hear it looks more consequential than either option. *(Source: a Mass General Brigham deployment in HBR, "Can an AI-Powered Scribe Curb Physician Burnout?," Aug 2026 — ◆ practitioner interview, roughly 800 self-selected clinicians in the pilot, no controlled comparison. The role-relative restriction is this corpus's reading.)*
-
-**Two: interrogation may preserve judgment, and if it does, the premise's central term is wrong.** One 2026 prescription states the substitution as a goal: "Experts stop being reviewers who inspect output case by case and become teachers who set the unwritten rules once." Read through this skill, that is a designed-in loss. Read the other way, it is the strongest counter-argument in the corpus, because **an expert answering one targeted question per exception is engaged only with the boundary cases, which is where judgment is worked hardest.** The interrogation regime concentrates whatever production the expert has left onto exactly the material the premise says forms judgment. That runs at the premise rather than around it. The study that settles it is ordinary and nobody has run it: does an expert who answers a hundred exception questions a year retain the judgment that made the early answers good? Until someone does, treat a move from reviewing to rule-setting as unresolved rather than as a loss you have already priced. *(Source: HBR, "4 Steps to Transform the 'Middle Office' with AI," Aug 2026 — ⚠ the article asserts that interrogation preserves expertise and demonstrates nothing. Ledger pattern E, fifth falsifier firing.)*
-
-**Three: a controlled comparison against an AI-only baseline finds a failure this skill has no name for.** A KPMG/UT Austin field study split 523 early-career staff against an AI-only baseline (n=523, ◆ single-site, unpublished) and found three profiles, not the two this skill's language expects. **AI apprentices** (24.1%) had high measured skill and were actively engaged, and still finished below the baseline: engaged, skilled, and net value-destroying. **AI delegators** (25.8%) had the lowest skill and the least engagement, and matched the baseline anyway, which is invisible underperformance no dashboard catches. **AI amplifiers** (50.1%) beat the baseline not on higher skill but on sequence: they set their evaluation criteria before seeing the model's output, where apprentices reacted to the output after it appeared, carrying a producing reflex, rewriting and reorganizing, into what should have been a directing role. Foundational skills (critical thinking, domain knowledge, AI literacy) did not separate the three groups; sequence did. **Call this misapplication: judgment formed by producing does not automatically transfer to directing and reviewing.** It's a third failure mode, distinct from atrophy (fading judgment) and non-formation (judgment that never built), and it's a role-relative failure this skill's checkpoints were not built to catch. The fix is cheap: require the evaluation criteria in writing before the AI's output is visible, converting the producing reflex into a directing discipline, a one-line extension of checkpoint 3's state-first override aimed at a failure this section had not named. *(Source: the KPMG/UT Austin field study in HBR, "Research: Why Some Junior Employees Work Well with AI-and Others Don't," Jul 2026, n=523, ◆ single-site, unpublished — strong but unreplicated. Falsifier: a longitudinal study showing unassisted and AI-assisted judgment scores correlate strongly across a real population would undercut misapplication as a distinct failure mode from atrophy.)*
-
----
-
-## TRADE-OFF LEDGER
-
-- **The bet:** by designing judgment on purpose, you're betting this expertise is valuable and — in Case 2 — irreplaceable.
-- **What you give up:** ~10% of human time to checkpoints, and in Case 2 you refuse the cheaper fully-automated path.
-- **Reversible?** Barely. Judgment lost over 18 months takes 9–15 to rebuild — a one-way door.
-- **The hidden trade:** you're choosing sustained capability and decisive, accountable decisions over the next 24 months, not the fastest possible decision this month.
-- **Confidence: High. What would change it:** the expertise is being retired (Case 1 moot), or the AI has proven itself on a tail that's cheap and reversible (build oversight differently).
-
-## CONCLUSION
-
-Follow the Conclusion Protocol (Universal Skill Protocol, Section 6): state the recommendation (which judgment stays human, which case, which checkpoints or which labor split), name the key trade-off (efficiency vs. sustained, accountable judgment), acknowledge the biggest risk (checkpoints unenforced, or a labor split that mismatches each party's real edge), and define the next action (owner of monitoring, first checkpoint or first convergence-review date).
-
----
-
-## VISUAL SUMMARY
-
-After the primary output, invoke the **excalidraw-svg** skill for one visual. Show the atrophy timeline (drain zero before month 0, then month 0–18) with the six checkpoints placed on it, beside the Case 2 panel showing the labor split (AI precision × human judgment), the tail-set floor, and the convergence-or-stop rule, so a viewer sees both halves of the one idea at a glance. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+End with the recommended design, its strongest evidence, the capability or risk it protects, the cost it introduces, and the next evaluation. A visual may compare the two cases and the chosen checkpoints; avoid drawing an unsupported universal decay timeline.

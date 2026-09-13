@@ -1,488 +1,195 @@
 ---
 name: rtp-trust-ladder
-description: 'How much should users trust your AI, and does their trust match its real reliability? Designs autonomy that grows only with a proven track record, catches both failure directions (blind acceptance of AI output, and rejecting a tool that actually works), and repairs trust after a visible mistake, which drops trust 2–3× faster than it builds. Use when: defining permission models, staging autonomy, detecting over-reliance, post-incident trust repair. Do NOT use: to justify maximum trust or full autonomy without the track record. Pairs with: autonomy-spectrum (the levels), confidence-tuner (the signals users see), judgment-guard (keeping reviewers engaged). Triggers: ''calibrated trust'', ''over-reliance'', ''trust repair'', ''progressive autonomy'
+description: 'Design appropriate reliance on AI so users understand its limits, accept useful help, and catch consequential errors. Use for permissions, progressive autonomy, over-reliance, avoidable distrust, and recovery after failure. Match authority to the task, stakes, evidence, user needs, and real recovery options. Assess trust separately from the ability to challenge an outcome. Measure correct acceptance and error detection without targeting a fixed rejection rate. Produce a permission and visibility plan, calibration measures, failure examples, and a recovery path. Pairs with autonomy-spectrum for capability labels, confidence-tuner for uncertainty signals, judgment-guard for effective review, and trust-under-fog for disclosure. Triggers: calibrated trust, over-reliance, trust repair, progressive autonomy. Trust scores or acceptance rates alone do not authorize consequential action.'
 imports: ["determinism-compass"]
-version: v1.4_latest
+version: v1.4.1_latest
 ---
 
-## DEPTH DECISION
+# Trust Ladder
 
-**Go deep if:** Designing trust progression for a new AI feature, diagnosing trust issues in production, or deciding autonomy levels for multi-step agents.
+Help people rely on AI appropriately for the task. **The goal is neither maximum acceptance nor a quota of rejections.** A user can reasonably accept nearly every suggestion from a reliable system in a narrow task. A user can also reject many suggestions without noticing the errors that matter.
 
-**Skim to Diagnostic Questions if:** Quick trust audit — you just need to check whether users have calibrated expectations and whether rejection rate is healthy (not too high, not too low).
+Assess three things separately: what the system can reliably do, what the user believes it can do, and what authority the system actually holds. Trust is relevant to design; it does not grant permission or establish safety.
 
-**Skip if:** Users already have established trust with the product, or you're tuning an existing autonomy level (use reality check instead).
+## Start with the task and the decision
 
-## GROUNDING (Before Starting)
+Use this skill for a new permission model, a change in autonomy, a production reliance problem, or recovery after a visible failure. Established trust is still worth checking after a material change. For a quick audit, use the diagnostic questions near the end; use the full process when designing progression.
 
-Follow the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the customer? What problem? What are we saying YES to and NO to?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, spreadsheet, or inline?
+Identify the user and affected people, task, available evidence, action boundaries, and decision to make. Reuse known context and clarify only material gaps. Follow the shared Universal Skill Protocol at the appropriate depth. Use `determinism-compass` for invariants and `autonomy-spectrum` for the library’s shared capability labels.
 
-Then proceed with the skill-specific analysis below.
+This skill’s five **trust states** describe a relationship in a particular task. They are not autonomy levels, personality diagnoses, or a validated maturity scale. Do not translate tenure, confidence, or a high acceptance rate directly into permission.
 
----
+## Terms that guide the assessment
 
-## THE TRAP
+- **Calibrated trust:** confidence in the system that matches evidence about its reliability and limits in the relevant setting.
+- **Appropriate reliance:** using, checking, correcting, or declining the system in a way that improves the decision, given its consequences and alternatives.
+- **Automation complacency or over-reliance:** insufficient scrutiny where scrutiny is needed, allowing material errors to pass.
+- **Under-reliance:** avoiding useful assistance without sufficient reason. Nonuse can also be rational because of poor fit, privacy, effort, or preferences.
+- **Calibrated suspicion:** treating an uncertain adverse signal as a reason for proportionate investigation, not as proof against a person.
+- **Trust repair:** acknowledging a failure, addressing harm, restoring usable control, and demonstrating relevant improvement.
+- **Independent detection competence:** the ability to assess an output using relevant knowledge, evidence, tools, or other checks beyond simply accepting the AI’s explanation.
+- **Influence:** the practical ability to contest, correct, restrict, or change an outcome. A person can be trusted and still lack this authority.
+- **Visibility tax:** the perceived reputational, workload, or job-security cost of revealing useful AI methods at work. Treat it as a design lens, not a diagnosed motive.
 
-Binary choice: ask for everything (safe but creates decision theater) or full autonomy (fast but dangerous). The trap is confusing *maximum* trust with *appropriate* trust. Users who accept 100% of suggestions aren't more trusting — they've stopped checking. That's the failure mode.
+## Step 1 — Establish severity, reversibility, and authorization
 
-Real cost: Over-asking wastes user attention and trains users to click yes without reading. Full autonomy breeds over-reliance. Both break catastrophically when the system fails. Calibrated trust means users still reject ~15–30% of suggestions — they're still thinking.
+Describe what can go wrong, who is affected, and when intervention remains possible. Separate the severity of harm from the ease of correction.
 
-## THE PROCESS
+| Situation | Design implication |
+|---|---|
+| Low consequence, easily corrected | Reduce unnecessary interruption within the user’s authorization; provide useful visibility and correction. |
+| Recoverable with cost, delay, or cooperation | Verify the actual recovery path, its limits, and who bears the cost. Consider bounded delegation and targeted review. |
+| Irreversible or difficult to remedy | Prioritize prevention and appropriate authorization before the effect; restrict scope where assurance is inadequate. |
 
-**Step 1: Failure Mode Severity**
-- What goes wrong if the AI acts alone?
-  - **Trivial:** Typo, formatting error → Undo easily.
-  - **Reversible:** Money transfer, file deletion → Undo with friction.
-  - **Irreversible:** Publishing, legal commitment, medical decision → Cannot undo.
-- **Trivial → Don't Ask.** **Reversible/Irreversible → Go to Step 2.**
+A transfer, deletion, calendar cancellation, or sent message is not inherently reversible. An apology or a compensating transaction does not erase the original effect. “Undo for 24 hours” is valid only if the system really provides it—for example, by delaying execution or retaining a recoverable version—and its limits are clear.
 
-**Step 2: Assess User Mental Model**
-- Does the user's understanding of what the AI can/can't do match reality?
-  - Test: Ask user, "What will happen if you press this button?" If their answer doesn't match what actually happens, their mental model is wrong.
-  - Danger zone: Enterprise users often assume AI is deterministic ("It always does X"). When it doesn't, trust collapses.
-- **If mental model is wrong:** Add transparency design *before* autonomy level discussion. Show reasoning traces, confidence scores, failure examples. Build accurate model first.
-- **If mental model is right:** Proceed to Step 3.
+Record current authority: actor, action, resource, scope, limits, duration, and applicable policy. A narrow, already authorized workflow need not ask again at every routine step. A friendly interface or a high confidence score cannot expand that authority. Apply relevant legal and organizational requirements to the specific activity; HIPAA does not impose blanket approval for every medical decision.
 
-**Step 3: Trust Calibration (Scale)**
-- **Level 1 (Distrusts):** Burned before. Wants proof for every action.
-- **Level 2 (Skeptical):** New or unsure. Wants safety rails.
-- **Level 3 (Conditional):** Trusts AI on emails, not money. Domain-dependent.
-- **Level 4 (Trusts):** Consistent good experiences. Willing to delegate.
-- **Level 5 (Over-reliant):** Treats AI as ground truth. RED FLAG. User has stopped thinking.
+## Step 2 — Test the user’s mental model
 
-Detection: **If user rejection rate < 5%, they're over-reliant.** Healthy products show 15–30% rejection rate.
+Ask the user to explain what will happen before a consequential interaction: what the system will access, decide, change, and ask them to review. Compare that explanation with actual behavior. Include failure and recovery, not just the happy path.
 
-**Second axis: measure influence separately from trust.** Trust alone hides a dangerous case: a reviewer can be trusted enough to be heard without being empowered enough to change the outcome. Ask both sides of a review relationship to rate trust and influence on separate scales. Watch for high trust paired with low influence, a reviewer who is respected but underpowered. This combination predicts silent, fabricated justification rather than honest escalation. The reviewer stops raising real objections, because raising them never changes anything, and writes justifications nobody will challenge instead. This is directional, drawn from one consultancy's own client data with no published scale, so treat it as a hypothesis to test in your own product, not an instrument to install as-is.
+Correct material misunderstandings before exposing the user to the misunderstood action. Use concrete previews, evidence, limitations, and examples. Explain whether a result is a recommendation, a queued action, or a completed action. System-level deterministic checks can coexist with a probabilistic model; avoid suggesting that every part of an AI product must vary.
 
-**Step 4: Autonomy Assignment**
+Use explanations that help the person assess the result. A generated account is not a faithful trace of all internal reasoning. Showing evidence, source quality, assumptions, or verified action receipts can be more useful than a long rationale. Evaluate comprehension; do not equate opening an explanation with reading or understanding it.
 
-*For Trivial failures:*
-- All levels → Autonomous. User can undo.
+## Step 3 — Assess trust and influence separately
 
-*For Reversible failures:*
-- **Level 1–2:** Ask + show reasoning, alternatives, refusal option.
-- **Level 3:** Ask with "trust this type of decision" checkbox.
-- **Level 4:** Autonomous + 24hr undo visible. Include confidence score.
-- **Level 5:** **Block autonomy intentionally.** Force permission even if annoying. This is calibration, not punishment.
+Use these five states as prompts for inquiry:
 
-*For Irreversible failures:*
-- **All levels → Ask.** Show reasoning, cost of being wrong, alternatives, refusal. No exceptions.
-
-**Step 5: Confidence Display (The Most Underrated Feature)**
-- Always show confidence:
-  - **95%+ confidence:** "I'm very confident in this."
-  - **70–95% confidence:** "I'm fairly confident, but double-check."
-  - **50–70% confidence:** "This is a guess. I could be wrong."
-  - **Below 50%:** "I don't have enough information."
-- Research: 63% of users are more likely to rely on AI that displays confidence levels. This builds *calibrated* trust, not blind trust.
-- Show reasoning trace: Not just "transfer $5K." Say: "Transfer $5K because: (1) historical spend pattern suggests budget available, (2) vendor invoice matched, (3) approval authority confirmed."
-- Explanation is an uptake feature, not an automatic safety feature: it raises acceptance either way, and only raises safety when the reviewer can independently check the AI's work. See the worked example under Calibrated Trust.
-
-## KEY TERMS (plain language)
-
-- **Calibrated trust** — the goal: a user's confidence in the AI matches its actual reliability, so they verify the right amount (not too much, not too little).
-- **Automation complacency (over-trust)** — accepting AI outputs without checking, so failures go unseen until something breaks.
-- **Adoption friction (under-trust)** — rejecting the AI as too slow or unreliable, so it never gets used.
-- **Rejection rate** — how often users override the AI; a healthy, understood rejection rate is a sign of calibration, not failure.
-- **Calibrated suspicion** — the mirror image: when a system flags a human or an output, the flag routes to a human review, never to an automatic verdict.
-- **Trust repair** — rebuilding trust after a visible mistake, which drops trust 2–3× faster than it builds.
-- **Independent detection competence** — a reviewer's own, separate ability to catch what the AI misses, built before and apart from the AI's explanation. Explanation only builds safety where this competence already exists.
-- **Influence (as distinct from trust)** — whether being heard by a decision-maker actually changes the outcome. Rate it separately from trust, since a person can have one without the other.
-- **Visibility tax** — the cost an employee pays for using AI openly when doing so could be read as a threat instead of a contribution. An employee who feels this tax hides AI use rather than shares it, even when they know sharing would help the team.
-
-## CALIBRATED TRUST
-
-The goal is **calibrated trust**, not maximum trust. Over-trust is as dangerous as under-trust.
-
-**The asymmetry:**
-- Users who trust AI too much skip verification → **automation complacency.** They accept outputs without reading.
-- Users who trust too little won't adopt → **adoption friction.** They reject the system as too slow.
-- **Calibrated trust:** User's confidence matches actual system reliability. They still think. They verify 15–30% of recommendations.
-
-**Why this matters:**
-When a user reaches "maximum trust" (95%+ acceptance rate), they've stopped evaluating output. The system is *more* autonomous, but there's *zero visibility* into failures until catastrophe. Calibrated trust means the user is still in the loop — not clicking blindly.
-
-**Design for calibration, not adoption metrics:**
-- "We got acceptance rate to 94%" is a failure flag, not a win.
-- "Users reject 22% of recommendations, and we know why each time" is healthy.
-- Calibration = system trust ↔ user vigilance alignment.
-
-### Worked example — a flag is a reason to review, not a verdict
-
-Calibrated trust has a mirror image: *calibrated suspicion*, for when a system flags a human (or an output) as suspect. The discipline is the same — a flag routes to a human look, never to an automatic decision. In a study of 6,380 first-round hiring screens, sessions were scored on three signals — unusual delays before answering, sudden shifts in vocabulary or fluency, and eye movement that didn't match someone actually recalling an answer — and two or more signals sent a session to a human for review, never to an automatic rejection; suspicion ran near 60% for new-grad software roles. **Why it matters:** the authors are blunt that suspicion alone — even when it turns out wrong — corrodes trust, so a flag must never stand in for proof. The moment a flag becomes an auto-reject, you've traded calibrated suspicion for exactly the blind over-trust (now placed in the flagging system) that this section warns against on the other side. **When this is wrong:** this illustrates the *discipline*, not a recommended detection stack — the three signals produce flags, not proof, and the study's authors sell screening software, so don't present them as a validated fraud detector. *(Source: "AI Has Broken Hiring. Here's How to Fix It.", Sunil & Saraf, HBR, 8 Jun 2026 — ◆ disclosed detection model, n=6,380.)*
-
-### Worked example — explanation is an uptake lever, not a safety lever
-
-An early AI sepsis-flagging tool gave no reasoning, and doctors ignored it. Once the tool explained its flags, doctors started using it. Watching for what the model might miss, those doctors still caught roughly 10% of sepsis cases themselves, by direct observation such as smell and skin color, that the model had missed. **Why it matters:** the explained version is safe here because the clinicians' own detection skill predated the model and covers a real, if narrow, slice the model does not reach. Where a reviewer has that independent competence, explanation turns justified skepticism into justified action. Where a reviewer lacks it, the same explanation turns skepticism into unjustified action, and this gets worse, not better, as the explanation gets more polished. **The correction:** the source interview's flagship number for this deployment, a claimed 41% sepsis-mortality reduction, does not survive a check. Cleveland Clinic's own press release for the deployment reports no mortality figure, credits the improvement to several initiatives including a human rapid-response team, and discloses a financial stake in the vendor. Do not cite the 41% figure anywhere; the checkable finding is the 10% independent catch rate, not the mortality claim. **When this is wrong:** treating "add explanation" as unconditionally safety-improving. Its safety value depends entirely on the reviewer's own independent detection rate, which must be measured separately from acceptance rate. **Falsifier:** a deployment where adding explanation measurably raised reviewers' catch rate on seeded known-bad cases, not just their acceptance rate, would show explanation builds competence and not just uptake. *(Source: HBR interview on AI in healthcare decisions, Jul 2026 — ⚠ reported/unverified for the mortality claim, checked against Cleveland Clinic's own press release; the 10% independent-catch detail is a direct-observation finding with population and n undisclosed in the interview.)*
-
-### Worked example — knowledge-hiding is a trust symptom, and sanctioned tools can make it worse
-
-A 604-person survey of daily AI-using US employees found that 30.3% intentionally withheld AI-related knowledge from coworkers or their employer, even though about 80% agreed that sharing it would help the team. Organizational trust was the strongest predictor, independent of job insecurity, competitiveness, or a formal AI policy: employees in the lowest-trust quartile hid at 47%, versus 14% in the highest-trust quartile, a gap of roughly 3.4 times. **The mechanism:** trust does not stop hiding on its own. It builds psychological safety, and safety is what stops the hiding. Add safety to the statistical model and the trust-hiding relationship weakens substantially. Call this the visibility tax: what an employee pays whenever using AI openly could read as a threat rather than a contribution, paid in withheld knowledge rather than in a formal complaint. **The counterintuitive part:** where trust is already low, giving employees access to sanctioned, approved AI tools increases hiding instead of reducing it, because logging reads as evidence-gathering against the employee, not as support. Sanctioned tools amplify existing trust. They do not substitute for it. Rolling out approved AI tooling into a low-trust team can backfire before anyone has changed how they work. **When this is wrong:** the data is correlational and cross-sectional. It could partly reflect that organizations already good at building trust are also better at rolling out tools well, not that tools causally amplify trust. Treat the visibility tax as a design lens to test against your own rollout data, not a proven causal chain. **Falsifier:** an organization that rolled out heavily logged AI tooling into a documented low-trust environment and saw hiding decrease instead of increase would break the amplification-not-substitution claim. *(Source: 604-person survey of daily AI-using US employees, full citation not supplied with this brief — ◆ self-reported survey data, n=604, US-only, self-selected into daily AI use. Flag: verify title, author, publication, and date before this enters the corpus's citation graph.)*
-
-## FIVE TECHNIQUES THAT MOVE CALIBRATION, AND ONE THAT IS A TRAP
-
-**The adoption number that frames this: 59% of enterprise organizations say they use agentic AI, and 9% have turned it into autonomous workflows** (⚠ reported, survey self-report, 2026). Read the verbs. "Say they use" and "have autonomous workflows" measure different things, and the 9% is the one that matters. Trust is the named cause of the gap.
-
-**The scene the whole thing turns on.** A manager sets up an agent. Three permissions appear: access, create and delete all files; read and send emails; view and make payments. All three feel unsafe. Denied. The agent gets stuck constantly, the manager closes it more disillusioned than before. **The failure happened at the permission dialog, before the agent did anything.**
-
-| # | Technique | Why it moves calibration | Effect, as reported |
-|---|---|---|---|
-| 1 | **State where it fails, specifically** | Disclosure of a known weakness is read as self-awareness, which raises perceived transparency, which raises trust | up to 14.6% more transparent, up to 7.2% better collaboration, across two experiments |
-| 2 | **Competent, not warm** | Warmth reads as a substitute for capability, so agreeableness suppresses delegation | People were less willing to use a friendly agent than a competent one |
-| 3 | **Show it understands the longer goal** | An action tied to a stated objective beats an isolated recommendation | Recommendations accepted **54% more often**. Largest effect in the source and the most underused |
-| 4 | **Frame as helper, not authority** | Perceived power flips the risk read | 13.8% lower perceived privacy risk than a human doing the same task, **reversing entirely once the agent's real power was made salient** |
-| 5 | **Keep people in control where it matters** | Moderate autonomy beats both minimal and total | Confirmation before any consequential action |
-
-**Technique 1 is the counterintuitive one and it matches a pattern already in this corpus.** Voluntarily disclosing a weakness raises credibility, the same mechanism as a bank advertising the drawbacks of its own credit card. Note that neither Gemini nor Claude does this at task level; both give a blanket error disclaimer. **If you deploy on someone else's model, technique 1 is yours to build.**
-
-**Technique 4 is the trap, and the source does not name it.** Framing a system as less powerful than it is, in order to lower perceived risk, manages the perception rather than the risk. Where the agent genuinely holds consequential permissions, that is a **trust exploit and it is in direct contradiction with technique 1**. Use technique 4 on framing verbs ("assisting", not "deciding") only where the underlying permission model actually matches. If it does not, fix the permissions instead.
-
-**The reversal in technique 4 is the real finding, not the 13.8%.** An agent reads as safer than a person right up until people remember it can act. Any trust gain that depends on the user not thinking about what the agent can do will evaporate the first time something goes wrong, and it will take the rest of your credibility with it.
-
-*(Source: HBR, "To Adopt AI at Scale, Employees Need to Trust Agents", Thomas McKinlay, Stefano Puntoni and Serkan Saka, 9 Sep 2026, drawn from the Wharton Blueprint for AI Agent Adoption. All effect sizes ◆ study-disclosed and experimental, none from a production deployment; the concern-decomposition study is a consumer financial-adviser population, not employees. Note in `3_Research/09_hbr-and-journals/hbr-articles/ai-agents/`.)*
-
-## HANDING CONTROL BACK WHEN THE INTERACTION IS FORCED
-
-The calibration work above assumes the user chose to be there. **This is the inverse case: a mandatory step, an interruption, a consent gate, a required review.** The user is captive, and the instinct is to minimize the interruption by removing all choice from it.
-
-**That instinct is wrong, and there is measured evidence against it.** Handing back a small, well-matched choice performs better than handing back none. Attention rose 9 to 15 percent and annoyance fell 8 to 17 percent (◆ single study).
-
-**The finding that makes this practical: a well-matched low-cost choice performs as well as a high-cost one.** You do not have to give the user a big decision. You have to give them the right small one.
-
-**Two kinds of choice, equivalent in effect, different in failure mode:**
-
-| Choice offered | What it costs the user | How it fails |
+| Trust state | What to investigate | Useful response |
 |---|---|---|
-| **Timing** ("not now", "remind me later") | almost nothing | **delay and stray**: the deferred obligation never resolves and the session is abandoned |
-| **Content** (pick which of two, compare options) | real attention | the user disengages from the comparison itself if it is too heavy |
+| Distrustful | Prior failure, poor fit, or a reasonable unmet requirement. | Show task-relevant evidence and a usable alternative; do not pressure adoption. |
+| Skeptical | Uncertainty about capability, data use, or consequences. | Demonstrate the bounded task and its controls. |
+| Conditional | Trust varies by action, domain, or circumstance. | Preserve separate permissions and evidence by task. |
+| Confident | Experience supports delegation in a defined scope. | Verify that reliability and permissions still match the scope. |
+| Potentially over-reliant | Evidence suggests material errors are being accepted or necessary review is ineffective. | Investigate the failure, reduce relevant exposure if needed, and repair the review design. |
 
-**Route the choice by three variables, not by uniform policy:**
+Ask about trust directly and compare responses with task performance. Do not assign a state solely from click speed, tenure, low rejection, or lack of reported errors. These signals have multiple explanations.
 
-- **Commitment.** How invested is this user in finishing? High commitment tolerates a content choice; low commitment needs a timing choice.
-- **Attentional predictability.** Does the user know what is coming next in this session? Predictable sessions absorb heavier choices.
-- **Familiarity depth.** How well does the user know the inventory or the domain? Unfamiliar users cannot use a comparison choice, so give them timing.
+For reviewers, ask two distinct questions: “How much do you trust the recommendation in this task?” and “Can you challenge or change what happens when it is wrong?” Investigate the reasons and actual decision rights. High trust with low influence can expose an authority gap; it is not a validated detector of fabricated justification. A score difference needs a defined instrument and comparable meanings before interpretation. Use `judgment-guard` for review competence and `responsible-ai-program` for authority and escalation.
 
-**The design rule:** never offer the same control to everyone. **Match the choice to the user's state, and prefer the cheapest choice that fits**, because the equivalence result means you gain nothing from the expensive one when the cheap one matches.
+## Step 4 — Assign a permission mode for each action
 
-**Watch specifically for delay-and-stray.** A timing choice is the easiest to ship and the one with a silent failure mode. If you offer "later," instrument whether "later" ever arrives.
+Choose from explicit modes such as **suggest**, **prepare for approval**, **execute within delegated bounds**, or **pause and refer**. Use the shared autonomy labels only as a separate description of the system. These modes replace the earlier conflicting Level 0–4 numbering.
 
-*(Source: HBR, "Research: When Consumers Have More Control Over Ads, They Respond Better," Jun 2026 — ◆ single-study, the effect sizes are the study's own and the domain is ad tech rather than AI. **Carried because the mechanism is domain-general and the equivalence result is the useful part**, not because the percentages transfer. The three-variable routing and the AI-product framing are this corpus's.)*
+Decide from stakes, actual permissions, tested performance, available controls, user preferences, and recovery. Trust alone is insufficient. More autonomy is not the required endpoint of every ladder.
 
-## TRUST REPAIR MECHANISMS
+- For a new or uncertain workflow, previews and approval can establish a shared understanding without asking about every trivial substep.
+- For a validated, bounded workflow, execution may be delegated with visible scope, limits, and effective intervention or recovery.
+- For significant unresolved risk, narrow the scope, require qualified review where useful, or pause the action. Adding a confirmation modal is inadequate if nobody can assess or stop the outcome.
+- When evidence shows harmful reliance, target the affected action and failure path. Do not withdraw all autonomy merely to raise a rejection metric.
 
-After visible mistakes, trust drops **2–3x faster than it builds**. Unlike earning trust (slow, incremental), losing trust is catastrophic and immediate.
+Make permission changes specific and reviewable. A “trust this type” control should name the action class, data, recipients, limits, and duration; it is not an open-ended waiver. Allow people to change a preference or revoke delegation through a usable route. Recheck policy and resource authorization at execution.
 
-**The repair pattern (5 phases):**
+See the [calibration design tables](references/calibration-design-tables.md) for the eleven relationship scenarios and domain-specific considerations retained from the original framework.
 
-1. **Immediate Acknowledgment**
-   - Say it now: "I was wrong about this."
-   - Don't hide. Don't say "that's surprising." Own it.
-   - Timeline: Within 1 message, 1 interaction.
+## Step 5 — Present uncertainty and explanations that support judgment
 
-2. **Transparent Explanation**
-   - Explain *what* happened: "I missed the currency mismatch."
-   - Explain *why* it happened: "I didn't check the sender's location against the invoice currency code."
-   - Explain *where you were uncertain*: "I was 67% confident the amounts matched without cross-checking currency."
-   - Never blame the user ("you provided unclear data") or external systems.
+Use `confidence-tuner` to determine whether a confidence signal is valid and understandable. Show what the person needs for this decision, not a number on every recommendation by default.
 
-3. **User Control Restoration**
-   - Show manual alternative immediately: "You can review this transfer manually here."
-   - Or: "I've flagged this for manual review before execution."
-   - Communicate: "You're back in control."
+| Pattern | When useful | Limit |
+|---|---|---|
+| Clear recommendation | The action and decision rule are understandable without a probability. | “Hold for review” is a recommendation, not a claim of certainty. |
+| Graded confidence | Validated bands communicate meaningful differences. | Define what high, medium, and low refer to. |
+| Numeric estimate | A calibrated probability for a named event helps the decision. | Avoid invented precision and explain applicability or uncertainty. |
+| Evidence and explanation | Sources, assumptions, alternatives, or checks help the recipient evaluate. | Source counts and polished language do not establish correctness. |
 
-4. **Compensation (Offer Manual Alternative)**
-   - For reversible failures: "I'll process this, but with your explicit approval required."
-   - For irreversible failures: "I won't process this autonomously again until you confirm the fix."
-   - Friction is *appropriate* here. It rebuilds trust.
+Offer progressive detail according to task and user needs. Expertise alone does not dictate a format. Novices can benefit from well-explained probabilities; experts can prefer a concise recommendation. Do not convert an 82% fraud probability into an “18% false-positive rate.” The complement concerns this predicted event; false-positive rate is measured across cases that are actually negative.
 
-5. **Demonstrated Improvement**
-   - Show the system learned: "I'm adding a currency-match check against sender geolocation."
-   - Quantify: "This check will catch 94% of similar mismatches."
-   - Timeline: Not "we'll fix it," but "here's what changed and when you'll see it."
+A confidence estimate of 85% is calibrated when the named event occurs about 85% of the time across comparable predictions. It does **not** mean users should accept 85% of those recommendations. Stakes, action costs, alternatives, and personal preferences affect the decision.
 
-**The 63% finding:** Users trust systems that explain their reasoning 63% more than black boxes. This applies *especially* after a failure. Explanation = trust repair fuel. This is conditional. It repairs trust only if the reviewer keeps independently detecting errors after the explanation arrives. Without that check, a more polished explanation increases confidence, not correctness.
+Explanation can improve understanding, error detection, or uptake; it can also increase unwarranted reliance. Measure the effects separately. A reviewer may develop competence through useful explanations and feedback, so pre-existing independent skill is not the only path. Do not treat explanation as inherently protective or inherently harmful. The sepsis and other research examples are qualified in the [evidence notes](references/trust-evidence.md).
 
-**Trust repair is product design, not support.** Build error acknowledgment and recovery into the product. If it's a support ticket, you've already lost users.
+### Five techniques to test
 
-## CONFIDENCE DISPLAY PATTERNS
+1. **State specific limitations.** Match them to the task and current configuration. Verify provider features before claiming every product supplies only generic disclaimers.
+2. **Demonstrate competence.** Be clear, respectful, and willing to disagree. Competence and warmth can coexist; avoid hostility and sycophancy.
+3. **Connect recommendations to stated goals.** Show the actual connection without inventing intentions or pretending to understand emotions. The cited acceptance effect was conditional on long-term or virtue-oriented choices, not a universal task gain.
+4. **Describe actual authority honestly.** “Assists” is misleading if the system independently decides or executes consequential actions. Fix the permissions or the description rather than concealing power to reduce concern.
+5. **Preserve effective control.** Show where people can approve, edit, pause, stop, appeal, or recover. Select the scope from the task; “moderate autonomy” is not a universal optimum.
 
-Users don't all want the same confidence format. Progressive disclosure by expertise level.
+These interventions need evaluation in the intended use. Reported adoption figures do not establish that distrust is the sole cause of limited autonomous deployment. Successful bounded assistance can be valuable without becoming fully autonomous.
 
-**Pattern 1: Binary (Novice Users)**
-- Simple yes/no with confidence threshold.
-- "Yes, safe to send" vs. "No, hold for review."
-- Example: "Should I delete this file?" → "No, this looks like a template. Hold for review."
-- Use case: Non-technical users who want clear recommendation without probability details.
+## Step 6 — Measure appropriate reliance
 
-**Pattern 2: Graded (Intermediate Users)**
-- High / Medium / Low confidence labels.
-- "I'm fairly confident this vendor is authorized. Medium confidence on pricing accuracy."
-- Example: Email spam detection → "High: Spam" / "Medium: Review" / "Low: Unsure."
-- Use case: Users who want nuance but not raw probabilities.
+Pair behavior with independent evaluation of the relevant outcomes. Use representative, consented or otherwise appropriate samples and safely isolated known-error exercises when useful. Never insert dangerous live errors or fabricated “45% confidence” messages every tenth turn to provoke rejection.
 
-**Pattern 3: Numeric (Advanced Users)**
-- Raw probabilities: "87% confidence this is spam."
-- "Confidence: 82%. Risk of false positive: 18%."
-- Show the inverse explicitly: confidence to accept *and* confidence to reject.
-- Example: Fraud detection → "82% confident this is fraud. 18% chance of false positive."
-- Use case: Data analysts, engineers, power users who want precision.
+| Measure | Definition or question |
+|---|---|
+| Correct acceptance | How often are sound, applicable recommendations used when use is appropriate? |
+| Harmful acceptance | How often are materially wrong or unsafe recommendations accepted or acted on? |
+| Error detection and correction | Of the relevant errors present, which were caught and corrected before harm? |
+| Erroneous override | When does a user change a sound recommendation into a worse result? |
+| Review burden | What time and effort does the review consume, and what does it detect? |
+| System outcome | Does the combination of user and AI improve the actual task relative to a suitable alternative? |
 
-**Pattern 4: Explanation-Based (Learners)**
-- Confidence shown through reasoning depth: "I found 3 matching sources confirming this. 1 source contradicts it."
-- Example: "Is this a real person? Yes. I found: LinkedIn profile (2019+), GitHub history (5 years), Twitter presence (consistent handle)."
-- No numeric score. Confidence is *implicit* in evidence count.
-- Use case: Users building their own mental model of system reliability.
+For each rate, state numerator, denominator, labels, exclusions, sample, time window, and severity. Rejection, editing, regeneration, ignoring, and undo are useful diagnostic events; none inherently indicates error, vigilance, or distrust. A correct output may be edited for style. Silence may mean abandonment, delayed review, or successful background operation.
 
-**Implement for progressive disclosure:**
-- Novice users default to Pattern 1 (binary).
-- Let users upgrade: "Would you like to see confidence scores?" → Pattern 3.
-- Expert mode → Pattern 4 + raw probabilities + failure case analysis.
-- Never force numeric confidence on novices. It creates false precision.
+The old 15–30% rejection target, <5% over-reliance trigger, fixed industry ranges, two-second reading rule, and <5% undo target are not validated universal benchmarks. Do not optimize toward them. A low harmful-error rate and effective controls may justify high acceptance; a high rejection rate can hide serious misses.
 
-## TRUST-AUTONOMY CALIBRATION TABLE
+Use privacy-conscious event capture with output or action IDs, configuration and policy version, the confidence measure if valid, available user action, and actual execution state. Distinguish multiple events on one item from final outcomes. Select an observation window and alert threshold suited to volume and risk; seven-day averages, thirty-day cohorts, and a five-percentage-point alert are optional starting choices, not fixed rules. Inspect severity and actual cases before drawing conclusions.
 
-Map autonomy levels against trust states. Each cell specifies: (1) what the system does, (2) what the user sees, (3) what data you collect.
+### Teach limitations with representative failure cards
 
-### How to Navigate the Calibration Table
+Use a small, relevant set of safely presented failures to support learning. Five cards can cover: a common failure, a consequential failure, a subtle failure, an obvious failure, and a user-specific case. Categories may overlap; do not pad the set to reach a count. Include successes and boundaries so examples do not falsely imply pervasive failure.
 
-The table has multiple rows representing different trust stages. Don't try to read all rows — use this decision tree to find your starting point:
+For each card show the scenario, what the system did, the specific error, how to detect it, and what to do. Test whether the user can explain the relevant limitation and recovery action. The previous “three of five identified” and “four of five recoveries” were exercise scores, not validated authorization gates. Tailor competence checks to the actual responsibility and stakes; do not make users bear a risk the product could prevent.
 
-```
-WHERE ARE YOU?
-│
-├── NEW USER (first 1–7 days of use)
-│   └── Start at rows 1–3
-│       Focus: Establishing baseline expectations. Show what the AI is good at
-│             AND bad at before the user has formed strong opinions.
-│
-├── BUILDING TRUST (1–4 weeks, using regularly)
-│   └── Start at rows 4–7
-│       Focus: Consistent reinforcement. Users are forming mental models.
-│             Every unexpected failure here costs 3x a failure in the expert stage.
-│
-├── CALIBRATED USER (1+ months, using confidently)
-│   └── Start at rows 8–12
-│       Focus: Maintaining calibration. Watch for over-reliance signals
-│             (rejection rate drops below 5% = red flag).
-│
-└── POST-FAILURE RECOVERY (any stage, after a significant AI error)
-    └── Go back 2 stages from current position.
-        A calibrated user who sees a significant failure needs to rebuild trust
-        from the "building trust" stage. Skipping this = over-reliance.
-```
+## Step 7 — Support enterprise trust and review rights
 
-| Trust State | Autonomy Level | System Action | User Visibility | Data Collected |
-|---|---|---|---|---|
-| **New User** | Level 0 (Ask Everything) | Always ask. Show 3 alternatives. Request explicit permission. | "I need your approval. Here's why (reasoning). Here's what happens if I'm wrong (cost). Here are 2 alternatives." | Permission rate, reasoning clarity feedback, alternative selection. |
-| **New User** | Level 1 (Recommend + Ask) | Recommend top option with confidence. Always ask for irreversible/reversible actions. Autonomous only for trivial. | Recommendation ranked. Confidence shown. Permission modal includes reasoning and cost. Undo visible (if reversible). | Recommendation acceptance rate, time to decide, which users choose alternatives. |
-| **Building Trust** | Level 1 (Recommend + Ask) | Same as above. *Monitor:* Is rejection rate healthy (15–30%)? | Same as above. + Add: "I was wrong X times last week. Improving." | Rejection rate trend, error acknowledgments, user follow-up after repair. |
-| **Building Trust** | Level 2 (Autonomous on Low Stakes) | Autonomous for trivial failures. Ask for reversible/irreversible. Show confidence on all actions. | Trivial actions: "I [did X] autonomously. Undo." For ask-decisions: full reasoning + cost + refusal. | Undo rate, permission time, confidence calibration (are users trusting high-confidence recommendations?). |
-| **Calibrated** | Level 2 (Autonomous on Low Stakes) | Same as above. *Introduce "trust checks":* Occasional scenarios where AI is intentionally uncertain to see if user still evaluates. | All actions show confidence. Every 10th recommendation: "I'm uncertain here (45% confident). What's your call?" | Are users still evaluating? Trend in edit rate (should stay 15–30%). Do users accept high-uncertainty recommendations? |
-| **Calibrated** | Level 3 (Autonomous on Reversible) | Autonomous for reversible. Ask for irreversible. 24-hour undo window visible. Confidence on all actions. | All decisions: Confidence + reasoning. Reversible actions: "I did this. You can undo until [time]." Irreversible: Ask. | Undo rate (should be < 5%). Permission acceptance for irreversible (should be high, ~80%+). Rejection rate trend. |
-| **Over-Reliant** (RED FLAG) | Level 0 (Reset) | Block autonomy intentionally. Force permission even if annoying. Ask on *reversible* decisions (normally autonomous for Level 3). Introduce explicit uncertainty. | "I notice you're accepting most suggestions. I'm flagging uncertain recommendations so you stay in the loop." Permission modal for reversible. + Confidence always shown. | Rejection rate (should rise toward 20%+). Do users push back on new friction? Session data: are they still reading explanations? |
-| **Over-Reliant** | Level 1 (Graduated Re-Trust) | Autonomous for trivial. Ask for reversible with "*trust this type*" checkbox to graduate back to Level 3. Use confidence to guide caution. | Reversible: Ask + confidence. Checkbox: "I understand the risk. Proceed autonomously next time." Reasoning always visible. | Do users re-enable autonomy? Time between failures and re-enablement? New failures post-re-enablement? |
-| **Repairing (Post-Failure)** | Level 1 (Recommend + Ask) | Revert to Level 1. Ask on reversible (even if user was Level 4). Show *exact* reasoning for every action. Introduce manual alternative. | "I was wrong about [X]. Here's what changed. I'm asking permission going forward on [decision type]." Manual path visible. | Permission rate on previously-autonomous decisions (should jump). Do users accept manual alternative? Time to rebuild trust (measure as rate of permission acceptance dropping). |
-| **Repairing** | Level 2 (Graduated Autonomy) | Conditional autonomous based on sub-category. E.g., "I'm autonomous on emails, but asking on all financial decisions." Confidence required. | "I'm rebuilding trust on [decision type]. Currently asking. When I reach [confidence threshold], I'll ask less." + Manual option always visible. | Do users re-enable autonomy by decision type? Rejection rate by category. Time to full autonomy recovery. |
-| **Enterprise** | All Levels | All decisions (regardless of autonomy level) must generate audit trail: decision made, reasoning, confidence, who approved, when, what changed. Rollback must be visible. | Audit trail visible on demand. "Decision made by [user/system]. Reasoning: [trace]. Confidence: [%]. Approved by [user]. Rollback until [time]." | Compliance: can you recreate every decision? Rollback usage rate. Do users appeal autonomy decisions? |
+Use the original enterprise trust equation as a discussion aid: reliability, transparency, and compliance can support trust, while exposure to blame or reputational harm can discourage delegation. It is **not** a calculable equation with validated weights, and embarrassment is not always the dominant factor. Include the customer’s mission, economics, rights, and operational consequences.
 
-**Key metrics by cell:**
-- **Permission Rate:** % of decisions user approved vs. total shown.
-- **Rejection Rate:** % user rejected. Healthy = 15–30%.
-- **Edit Rate:** % of autonomous outputs user edited post-delivery. Healthy = 15–30%.
-- **Undo Rate:** % of reversible decisions user undid. < 5% = healthy.
-- **Confidence Calibration:** User accepts 85%+ when system shows 85% confident. User rejects 40%+ when system shows 50% confident.
+Preserve appropriate evidence of consequential actions: actor, authority, action and resource, time, configuration, source or rationale where available, approval if required, actual result, and recovery limits. An audit trail cannot reproduce unknowable internal reasoning or reverse every effect. Define scope and retention from the use and obligations; enterprise status alone does not require every raw interaction to be recorded.
 
-### Navigation by Product Type
+Treat knowledge hiding as a separate organizational question. The 604-person survey links trust, psychological safety, and disclosure, with sanctioned tooling moderating the association. It does not prove that installing approved tools causes concealment. Clarify what is logged and why, credit contributions, limit the burden of sharing, and make fair use of efficiency gains credible. Address actual security issues without treating all private experimentation as misconduct. The identified source and limits are in the evidence notes.
 
-Different product categories have different starting points on the trust ladder and different safe maximum autonomy levels:
+## When an interaction is mandatory
 
-| Product Type | Starting Autonomy | Safe Maximum (6 months) | Key Constraint | Rejection Rate Benchmark |
-|---|---|---|---|---|
-| Consumer creative tools (writing, design) | Level 2 (suggest with preview) | Level 4 (act with undo) | Users expect speed over safety. False positives are worse than false negatives. | 5-15% — users tolerate some bad outputs if recovery is fast |
-| Enterprise knowledge work (search, analysis) | Level 1 (show options) | Level 3 (act with approval) | Accuracy matters more than speed. Wrong answers erode trust permanently. | 10-20% — users prefer conservative over confident-and-wrong |
-| Financial services (transactions, advice) | Level 0 (inform only) | Level 2 (suggest with confirmation) | Regulatory constraints. Every autonomous action needs audit trail. | 20-30% — high rejection is expected and healthy |
-| Healthcare (diagnosis, triage) | Level 0 (inform only) | Level 1 (show options with evidence) | Liability. AI must never be the sole decision-maker for clinical decisions. | 25-40% — rejection signals appropriate caution |
-| Legal (contract review, research) | Level 1 (show options) | Level 2 (suggest with citation) | Hallucination is catastrophic. Every output needs source attribution. | 15-25% — lawyers verify everything regardless |
-| Customer support (routing, response) | Level 2 (suggest response) | Level 4 (auto-respond for simple) | Simple queries can be automated; complex ones need human. The boundary shifts over time. | 8-15% for simple queries; 30-40% for complex |
+A review, consent step, or interruption can sometimes offer useful choice over timing or content. Ensure the choice is real and compatible with the obligation. Do not offer “later” when authorization is needed before acting, or imply optional consent where no meaningful choice exists.
 
-### Rejection Rate Benchmarks
+Consider three factors: commitment to complete, available and predictable attention, and familiarity with the options. The advertising research suggests timing choice can work when people are committed and can anticipate their session; low commitment increases the risk of deferral and abandonment. Content choice requires meaningful options and enough attention. Unfamiliar options or limited inventory can favor a timing choice when deferral is feasible.
 
-The rejection rate — how often users override or dismiss AI suggestions — is your primary trust calibration signal. Target is 15–30% for most products. Here's how that breaks down by product type:
+This is a hypothesis for AI workflows, not a proven transfer from ads to approvals. Similar average effects in separate studies do not establish universal equivalence. A standard choice can be appropriate when needs are shared; personalization is not mandatory. Track whether deferred obligations are completed, and evaluate comprehension and outcomes alongside attention and annoyance.
 
-| Product Type | Healthy Range | Under-reliance | Over-reliance |
-|---|---|---|---|
-| Enterprise finance (audits, forecasting) | 20–35% | >50% | <10% |
-| Legal review (contracts, compliance) | 25–40% | >60% | <15% |
-| Consumer email / writing assistant | 3–8% | >20% | <1% |
-| Internal developer tooling | 10–15% | >30% | <3% |
-| Healthcare decision support | 30–50% | >70% | <20% |
-| Customer support agent assist | 10–20% | >40% | <5% |
-| Code review / suggestion | 15–25% | >45% | <5% |
+## Repair trust after a failure
 
-**Why ranges differ:**
-- High-stakes domains (finance, legal, healthcare): You *want* users to check the AI's work. Low rejection = users aren't thinking.
-- Low-stakes, high-volume tasks (email writing, consumer features): Users don't need to scrutinize every suggestion. Low rejection is normal.
+Use five phases, scaled to the consequence:
 
-**How to measure:** Track the ratio of "AI suggestion used as-is" to "AI suggestion modified or dismissed" over a rolling 30-day window per user cohort.
+1. **Acknowledge promptly.** State what is known to have failed and who or what is affected. Do not invent a diagnosis or accept unsupported blame merely to sound accountable.
+2. **Explain accurately.** Separate observed facts, likely causes, and unresolved questions. Include relevant external dependencies without using them to evade responsibility. Never fabricate a past confidence score or internal rationale.
+3. **Restore usable control.** Contain exposure and offer a genuine manual, assisted, or safe fallback path. Report whether the action occurred, remains queued, or is still uncertain.
+4. **Provide remedy or support.** Correct or compensate where feasible and authorized. Additional review can be temporary protection; it is not automatically compensation. Support teams can be part of effective recovery.
+5. **Demonstrate relevant improvement.** Name the change, owner, evidence, and remaining limits. Claim a “94% catch rate” only with a defined supporting evaluation. Show when the fix takes effect and how it will be checked.
 
-### How to Measure Rejection Rate in Practice
+There is no established rule that trust falls two to three times faster than it grows, every user must drop two stages, or recovery must reach full autonomy. Restrict the affected scope according to the incident, then reassess with evidence and user preferences. Repeat approval requests without correcting the failure can worsen the experience.
 
-**Event logging pattern:**
-```
-{
-  "event": "ai_output_presented",
-  "session_id": "...",
-  "output_id": "...",
-  "confidence": 0.87,
-  "autonomy_level": 2,
-  "timestamp": "..."
-}
-{
-  "event": "user_action",
-  "output_id": "...",
-  "action": "accepted" | "edited" | "rejected" | "regenerated" | "ignored",
-  "time_to_action_ms": 3200,
-  "timestamp": "..."
-}
+## Deliver a trust and permission plan
+
+```markdown
+## Trust-Ladder Review: [task and user group]
+Decision and evidence:
+Actual permissions and recovery limits:
+User mental model and material gaps:
+Trust assessment and separate influence/recourse assessment:
+
+| Action | Consequence | Permission mode | User visibility | Check or recovery | Owner |
+|---|---|---|---|---|---|
+
+Calibration measures: [correct/harmful acceptance, detection, overrides,
+                      review burden, denominators, outcome comparison]
+Learning and failure examples:
+Change, escalation, and trust-repair path:
+Next action: [owner, test, date, evidence that changes the decision]
+Main trade-off and residual risk:
 ```
 
-**Computing the rate:**
-- Rejection rate = (rejected + regenerated) ÷ total outputs presented
-- Acceptance rate = accepted ÷ total outputs presented
-- Edit rate = edited ÷ total outputs presented (partial acceptance — the output was useful but wrong)
+Use the shared conclusion and trade-off guidance without duplicating content. Add a visual map through the available drawing skill if it makes the permissions clearer.
 
-**Trending:**
-- Use 7-day rolling average (not daily — too noisy).
-- Alert if rejection rate changes >5 percentage points week-over-week.
-- Segment by: autonomy level, user tenure, query complexity, time of day.
+## Seven checks and practical questions
 
-### Mental Model Validation Protocol
+Check credible severity mapping; tested mental models; useful and valid uncertainty information; effective permission and recovery paths; outcome-based reliance measures; an honest repair process; and appropriate action evidence. “All failures identified” or “every recommendation has a confidence number” is not a realistic completion standard.
 
-Before a user depends on AI outputs for consequential decisions, they should understand what the AI gets wrong. This isn't a disclaimer — it's a calibration step.
+Ask: Are material errors reaching action? Do users understand the boundary and have the means to intervene? Does review improve outcomes at an acceptable cost? Are product and marketing claims accurate? What happens after a visible failure? Can the organization explain who authorized a consequential action and what actually happened?
 
-**The protocol: Show 5 failures before you let users depend.**
-
-Present 5 real examples of the AI being wrong *in the domain the user will use it for* during onboarding or during the first week of use. Not edge cases — representative failures.
-
-**Why this works:**
-- Users who see failures first are better calibrated than users who discover failures on their own.
-- Seeing a failure in a safe environment (training, onboarding) is less damaging than discovering it in a live situation.
-- It sets the right prior: "This AI is useful AND fallible." Both parts of that sentence matter.
-
-**Implementation:**
-1. During onboarding: "Here are 3 examples where this AI got it wrong. Notice what they have in common."
-2. First week: Surface 2 low-stakes errors with annotations: "The AI said X, but the correct answer was Y. Here's why this happens."
-3. Optional: Build a "known limitations" page that's easy to find (not buried in help docs).
-
-**The test:** Before a user hits the high-autonomy stage of the trust ladder, can they answer: "What's the one type of question where I should double-check this AI's answer?" If they can't answer, they're not ready for high-autonomy use.
-
-### Failure Presentation Template
-
-For each of the 5 representative failures shown to users before they advance to higher autonomy:
-
-**Failure Card Format:**
-1. **The scenario** (1-2 sentences): What the user asked and what context the AI had.
-2. **What the AI did** (1 sentence): The action or output the AI produced.
-3. **What went wrong** (1 sentence): The specific error — hallucination, wrong context, outdated information, misunderstood intent.
-4. **How to catch it** (1 sentence): The signal the user should look for to detect this class of error.
-5. **What the user should do** (1 sentence): The correct recovery action.
-
-**How to select the 5 representative failures:**
-- 1 from the most common failure mode (highest frequency)
-- 1 from the most dangerous failure mode (highest consequence)
-- 1 that is subtle (AI output looks correct but isn't)
-- 1 that is obvious (AI clearly wrong — builds calibration that AI does fail)
-- 1 from the user's specific domain or use case
-
-**Validation checklist — user passes when they can:**
-- [ ] Identify what went wrong in 3 of 5 failure cards without hints
-- [ ] Describe the correct recovery action for 4 of 5 failures
-- [ ] Articulate one category of error they'd watch for in their own work
-
-**Step 6: Over-Reliance Detection (Covered in Calibration Table)**
-- This step is now integrated into the Trust-Autonomy Calibration Table above.
-- Key metric: If user rejection rate < 5%, they're over-reliant. Intervene.
-
-**Step 7: Enterprise Trust Equation**
-- Enterprise buyers evaluate trust differently: **Trust = (Reliability × Transparency × Compliance) / (Risk of Embarrassment)**
-- The denominator dominates. Enterprise doesn't care if your AI is 99.9% reliable if a 0.1% failure gets the CRO fired in front of the board.
-- Design for: Audit trails (who approved what), rollback capability, compliance documentation, "I'm uncertain" displays, permission trails.
-- Enterprise over-reliance is *worse* than consumer because the consequence magnitude is larger.
-
-## REALITY CHECK
-
-**Failure: Over-Asking**
-Ask permission for everything. Users fatigue and click yes without reading. Now the AI is *more* autonomous (because users aren't paying attention), but you have no visibility.
-- Prevention: Only ask for reversible/irreversible. Autonomous for trivial.
-
-**Failure: Over-Reliance**
-Users stop checking. AI fails on a reversible action. Users lose money because they'd learned to trust without verification.
-- Prevention: Monitor rejection rate. Force permission on high-stakes even if user is Level 4. Show confidence scores. Introduce doubt.
-
-**Failure: Mental Model Debt**
-User thinks AI is deterministic. It's not. Trust breaks catastrophically when reality doesn't match expectation.
-- Prevention: Show failure examples early. Document what the AI will/won't do. Test user understanding directly.
-
-**Failure: Expectation Debt**
-Marketing says "AI handles your entire approval workflow." Product only handles 60%. Enterprise buyer feels deceived.
-- Prevention: Align marketing claims with actual capability boundaries. Be specific about what triggers the "ask human" path.
-
-**Failure: No Trust Repair Path**
-AI makes a mistake. You say "sorry" but don't change anything. User trust moves from 4 → 2 and stays there.
-- Prevention: Design error acknowledgment and recovery into the product, not the support team.
-
-## QUALITY GATE
-
-Before shipping:
-
-1. **Severity Mapped:** All failure modes identified and categorized?
-2. **Mental Model Validated:** User's understanding of AI capability matches reality? (Test it.)
-3. **Confidence Display:** Every recommendation shows confidence + reasoning?
-4. **Permission UX Complete:** Action + reasoning + cost + alternatives + refusal?
-5. **Over-Reliance Metrics:** Can you detect when rejection rate < 5% and respond?
-6. **Trust Repair Designed:** What happens after a visible failure? Built in, not a support ticket?
-7. **Enterprise Audit Trail:** Can you show the approval decision, the reasoning, who approved, when? (For enterprise, this is non-negotiable.)
-
-## KEY PRACTITIONER QUESTIONS
-
-- "What's the user rejection rate right now? If it's > 95% or < 5%, something's wrong." (Not a bug. A design signal.)
-- "If the AI fails here, does the user's mental model predict that failure? Or does trust collapse because reality didn't match expectation?"
-- "Are we designing for calibrated trust (users still thinking) or maximum trust (users stopped checking)?"
-- "What's our trust repair story after a visible mistake?"
-- "For enterprise: Can we audit every decision that was made autonomously vs. asked for permission?"
-
-## WHEN WRONG
-
-This skill gives bad advice if:
-- Failure severity changes at runtime. (Rerun analysis.)
-- You can't detect user trust level. (Ask directly. Don't guess.)
-- Mental models are misaligned and you skip transparency design. (Build the model first.)
-- Over-reliance fires but you have no autonomy-blocking mechanism. (Design for it upfront.)
-- Regulatory requirements override the ladder. (HIPAA requires approval for all medical decisions. Accept.)
-- Trust is domain-specific. (User trusts AI on emails, not money. Use separate ladders per domain.)
-- You measure trust by "did the user accept this?" (Wrong metric. Measure by "is the user still thinking?")
-- You treat "add explanation" as automatically safety-improving. (It only is if the reviewer keeps independent detection competence; otherwise a better explanation just makes unjustified reliance feel more justified.)
-- You treat trust as single-dimensional. (A reviewer can be trusted, meaning heard, without having influence, meaning power to change the outcome. Measure them separately, especially before assuming a high-trust reviewer is a safe one.)
-
----
-
-## TRADE-OFF LEDGER
-
-Complete the Trade-Off Ledger from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 3.
-
-## CONCLUSION
-
-Follow the Conclusion Protocol from the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5:
-1. State the recommendation
-2. Name the key trade-off
-3. Acknowledge the biggest risk
-4. Define the next action
-
----
-
-## VISUAL SUMMARY
-
-After completing the primary output, invoke the **excalidraw-svg** skill to create a single Excalidraw SVG visual summary. This diagram captures the essence of the analysis in one glanceable image — making the deliverable 10x more impactful. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Reassess when stakes, permissions, users, or system behavior change. Ask about trust rather than guessing it. Preserve separate plans by domain. Increasing trust is useful only when it makes reliance more appropriate; lowering warranted trust is not a safety achievement. See [CONCEPT.md](CONCEPT.md) for worked examples.

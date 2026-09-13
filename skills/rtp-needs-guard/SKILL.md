@@ -1,160 +1,125 @@
 ---
 name: needs-guard
-version: v1.2_latest
-description: 'Ensure AI deployment doesn''t threaten what workers actually care about: autonomy, competence, belonging. When workers resist AI, it''s usually not fear of change or a skill gap: the AI removed something they depend on to feel like a professional. Resistance is a need-violation problem, which makes it a product problem, not a change-management one. You diagnose which psychological need is broken (Self-Determination Theory: autonomy, competence, relatedness) with the AWARE diagnostic, then redesign the deployment to protect it. Use when workers resist AI, adoption plateaus at months 3–4, or people use unauthorized ''shadow AI'' tools. Do NOT use before tools are selected (ai-use-case-readiness first), or when resistance is really a UX or AI-quality problem. Pairs with: attitudinal-segmentation (stance vs. need), adoption-launch (the phased motion), problem-type (need violation = adaptive challenge), eval-framework (rule out quality issues). Triggers: ''workers resist AI'', ''adoption dropping'', ''shadow AI''.'
+version: v1.2.1_latest
+description: 'Investigate how an AI deployment affects workers’ autonomy, competence, relatedness, identity, and workload. Use when designing a rollout, understanding resistance or declining use, or examining unauthorized-tool workarounds. Combine worker accounts with workflow and quality evidence before attributing a cause. Apply the AWARE response and the separate local five-lens review to propose useful changes, clear ownership, and measures of worker experience and task outcomes. Treat the lenses as a discussion aid, not a validated adoption score or psychological diagnosis. Pairs with attitudinal-segmentation, adoption-launch, ai-use-case-readiness, problem-type, eval-framework, and judgment-guard. Triggers: workers resist AI, adoption dropping, shadow AI, loss of autonomy, AI rollout workload.'
 imports: [first-principles, bias-spotter]
 ---
 
 # Needs Guard
 
-**The objective:** make sure an AI deployment doesn't quietly strip the things workers depend on to feel like professionals — autonomy, competence, belonging — for the PM or leader watching adoption stall and hearing "our people just resist change."
+Examine what an AI deployment changes for the people doing the work. A tool may help the task while weakening control, learning, connection, or professional identity. It may also be inaccurate, difficult to use, poorly supported, or burdensome. Diagnose the situation with workers rather than beginning with either “they resist change” or “a psychological need must be violated.”
 
-## The one idea
+The outcome is an evidence-based explanation, a feasible change to the tool or working arrangement, and a way to assess whether it helps. Sustained appropriate use matters alongside task quality, worker experience, and actual capability.
 
-You roll out the AI. Month 1, adoption surges — novelty. Month 3, it collapses. The team concludes: "workers don't understand the technology," or "we didn't train them enough," or "this generation resists change."
+## Start before assigning a cause
 
-None of that is true, and here is what's actually happening: **the AI removed something the worker depends on to feel like a professional.** The support agent who can no longer explain *why* a ticket was routed the way it was can't defend her decision to a customer — so she feels exposed and stops trusting the tool. That's not fear of change. It's a need being violated.
+Identify the workers and tasks, the proposed or deployed AI, actual decision rights, and the observed pattern. Separate access, required use, voluntary use, frequency, task completion, and realized benefit. A month-three dip is one possible pattern, not a universal adoption stage or a diagnosis.
 
-The core idea reframes the whole problem: **resistance is not a change-management problem, it's a need-violation problem — which makes it a *product* problem.** You're shipping a tool that violates a psychological need, and no amount of training, propaganda, or executive mandate fixes a need violation (a worker who understands the AI perfectly but feels replaced will still resist it). Self-Determination Theory names the three needs every professional requires: **autonomy** (control over how I work), **competence** (feeling skillful, able to learn and defend my answers), and **relatedness** (belonging, being valued, not disposable). Diagnose which one the deployment breaks, redesign the workflow to protect it, and adoption happens *naturally* — because the tool stops threatening the person.
+Check early for genuine quality problems, unsafe behavior, inadequate access, workload, incentives, training, and usability. These can coexist with need frustration. Contain a consequential product failure promptly while investigating the experience around it. Use `rtp-eval-framework` and `rtp-problem-type` to distinguish technical and adaptive work without forcing a single cause.
 
-The bias that hides this is **fundamental attribution error**: blaming the person's character ("they resist change") instead of the system ("this violates their competence need"). The signals are usually already there — most sharply when workers bypass your official tool for an unauthorized "shadow AI" one. That workaround isn't disobedience; it's them restoring a need your system took away. Ask what the unauthorized tool lets them do that yours doesn't, and they'll name the violated need for you.
+Be candid about role and staffing decisions. If work or headcount will change, describe what is decided, uncertain, and available to affected people. Need-supportive design still matters, but it cannot substitute for addressing a real employment conflict. Do not imply job security that the organization cannot promise.
 
-## How to use this skill
+Use this skill during tool selection as well as after rollout: worker needs can inform `rtp-ai-use-case-readiness`. Reuse known context and follow the Universal Skill Protocol at the source library root or packaged plugin root, with proportionate depth and format.
 
-1. **Map the touch points** — every moment a worker interacts with the AI: what they see, where they can intervene, what happens to their input.
-2. **Run the AWARE diagnostic** — score each touch point Green/Yellow/Red on the five need dimensions. (THE AWARE DIAGNOSTIC.)
-3. **Name the dominant violation and redesign the deployment to protect it** — not the model, the *workflow and framing* around it — then measure *voluntary* adoption, not forced compliance.
+## Understand the three needs
 
-## THE THREE NEEDS, AND HOW EACH ONE GETS THREATENED
+Self-Determination Theory provides a useful foundation for examining motivation and well-being. Its broad research base does not automatically validate every AI-specific prediction in this skill.
 
-Three psychological needs sit under most AI resistance, and each has a satisfying path and a threatening one:
-
-| Need | Definition | Threatened when |
+| Need | Meaning for this review | Possible experience to investigate |
 |---|---|---|
-| **Competence** | the feeling of being effective and capable | the tool outperforms them at the thing they were good at |
-| **Autonomy** | the feeling of being in control of one's actions | the tool decides, and they execute |
-| **Relatedness** | having meaningful interpersonal connections | the tool replaces the colleague they used to ask |
+| **Autonomy** | Acting with a sense of willingness and ownership | Being required to approve an answer without meaningful input or a credible way to raise concerns |
+| **Competence** | Feeling effective and able to develop mastery | Losing opportunities to practise, receiving unusable feedback, or being accountable for outputs one cannot assess |
+| **Relatedness** | Feeling connected to and cared for by other people | Losing useful colleague contact or feeling excluded from the team’s work |
 
-**Read the coping behavior to find which need is broken.** People respond in two directions, and the maladaptive column is the one that reaches you as a delivery problem rather than as feedback:
+Autonomy does not require unrestricted individual override of every decision. Competence as an experience is different from measured capability. Relatedness is not identical to job security; concerns about replacement can involve identity, finances, fairness, autonomy, and belonging together. A model outperforming a task can support or threaten a worker depending on the circumstances.
 
-**Adaptive**, each mapped to a need: enhancing skills (competence), adjusting tasks and workflows (autonomy), collaborating with colleagues to learn and refine the tool together (relatedness).
+## Keep the two AWARE uses distinct
 
-**Maladaptive**, and these are the tells:
+The earlier skill used **AWARE** for two different tools. They serve different purposes:
 
-- **Task avoidance, withdrawal, disengagement**, escalating in the worst case to active sabotage.
-- **Dissociating**: withdrawing psychologically, or reducing their identification with the domain where they feel threatened. **This one looks like calm acceptance and is not.**
-- **Shadow AI use**: secretly adopting unsanctioned tools. Read it as a signal about autonomy, not as a compliance problem.
+- **The AWARE response:** Acknowledge, Watch, Align, Redesign, Empower—a sequence described in the local HBR research.
+- **The local AWARE lenses:** Autonomy, Work identity, Affiliation, Routine/expertise, Expertise recognition—a practical review aid used in this library.
 
-## THE AWARE RESPONSE
+The lenses are not five separate SDT needs, a validated psychological instrument, or a score that predicts adoption. Use the full label when handing either tool to another skill. [Evidence and terminology notes](references/evidence-and-terminology.md) preserve the source boundaries.
 
-Five moves, and the order matters because the first two are diagnosis:
+## 1. Acknowledge: map the work and listen
 
-1. **Acknowledge** workers' psychological needs.
-2. **Watch** for adaptive and maladaptive coping behaviors.
-3. **Align** support systems with the needs you actually found.
-4. **Redesign** roles to create genuine human-AI complementarity.
-5. **Empower** through transparency and participation.
+Map the important touchpoints: starting a task, receiving a suggestion, checking evidence, accepting or changing an output, handling an error, learning, escalating, and having work assessed. Include what happens before and after the visible AI interaction.
 
-**The allocation that makes step 4 concrete**, in three levels rather than the usual binary: **automate the simpler tasks; assist where people and AI perform similarly; and free people for the difficult and ambiguous work.** The cruder two-way version, give AI the repetitive work and people the empathy and judgment, is directionally right and skips the middle band where most real work sits.
+Ask workers for specific recent episodes. What helped? What became harder? What control, knowledge, time, or connection changed? Compare different tasks and groups rather than assigning needs by age, seniority, or an Embracer/Skeptic label.
 
-**When this is wrong:** where the threat is accurate and the role genuinely is being eliminated, this framework addresses the wrong problem. **A need-based intervention aimed at a real headcount threat reads as manipulation**, and correctly so. Route that to a straight answer about the conflict.
+A sample of ten to fifteen interviews can be a planning option, not a minimum or proof of coverage. Include users, non-users, and relevant workarounds where feasible. Record the limits of a small or self-selected sample and use `rtp-uncertainty-research` or `rtp-interview-synthesis` when deeper work is needed.
 
-*(Source: HBR, "Why Gen AI Feels So Threatening to Workers," Apr 2026 — ⚠ practitioner-tier. The three needs are the authors' synthesis of self-determination theory, which the article never names. AWARE and the coping taxonomy are the article's own, with no measured data attached to either.)*
+## 2. Watch: separate behavior from its explanation
 
-## KEY TERMS (plain language)
+Look for skill-building, task adjustment, peer learning, and useful collaboration. Also examine avoidance, withdrawal, reduced identification with the work, complaints, and bypasses. Record what was observed and what workers say it means; do not diagnose dissociation, sabotage, or a psychological condition from usage logs or apparent calm.
 
-- **Self-Determination Theory (SDT)** — Deci & Ryan's finding that people need three things to feel motivated and professional: autonomy, competence, relatedness.
-- **The three needs** — *autonomy* (control over how I work), *competence* (feeling skillful, able to learn and defend my answers), *relatedness* (belonging, being valued).
-- **AWARE** — the five-dimension diagnostic that maps onto the three needs: **A**utonomy, **W**ork-identity + **A**ffiliation (≈ relatedness), **R**outine/expertise + **E**xpertise-recognition (≈ competence).
-- **Shadow AI** — workers bypassing the official tool for unauthorized consumer ones; the clearest signal your system violates a need, and a map to which.
-- **Fundamental attribution error** — blaming the worker's character ("they resist change") for a problem the system caused ("this violates their competence need").
-- **Voluntary vs. deployment adoption** — % who use the tool *when they could choose not to* vs. % who merely have access; only the first is real adoption.
-- **Evidence tiers used below** — the resistance stats (~31% actively resist, ~54% use unauthorized tools) and the Green-count→adoption bands are ⚠ practitioner/survey figures cited without a primary link here — treat as directional [VERIFY], not audited. SDT itself is ✅ established psychology.
+**Shadow AI** means use outside the organization’s authorization or approved arrangements. It may reflect missing capability, convenience, speed, incentives, uncertainty about policy, or a need for greater control. It can also create a real data or compliance problem. Investigate both the practical reason and the actual risk. Unauthorized use is neither automatic proof of misconduct nor proof that the official system violated a need.
 
-## GROUNDING (Before Starting)
+Ask, when appropriate: “What does that tool let you do that the approved option does not?” Avoid punitive assumptions and unnecessary collection of personal details. Retain the distinction between intended use, actual use, declared use, and authorized use.
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). At minimum: who are the workers, what AI is being deployed, and what's the resistance pattern (a month 3–4 dip? active workarounds? shadow AI? complaints to HR?). Listen to *how* they resist — "I can't see what it's doing" (autonomy), "I don't trust it with my reputation" (competence), "this makes me replaceable" (relatedness). **Skip** if you haven't selected the AI tools yet (run `ai-use-case-readiness` first). Then route depth and output format.
+### Apply the local five-lens review
 
-## SELF-DETERMINATION THEORY, APPLIED TO AI
+For each important touchpoint, mark **supported**, **at risk**, **frustrated**, or **unknown**, with evidence. If using Green/Yellow/Red, include the words so color alone does not carry meaning. Unknown must remain visible.
 
-Three needs, and what breaks each:
+| Lens | Question | Evidence of support might include |
+|---|---|---|
+| **Autonomy** | Can workers meaningfully influence how the task is done and raise a concern? | Appropriate choices, understood boundaries, and a working escalation or override route |
+| **Work identity** | Is their contribution and the change to their role understood honestly? | A credible account of responsibility, growth, and what work will change |
+| **Affiliation** | Does the workflow sustain useful human connection and cooperation? | Reachable colleagues, shared learning, and fair credit for joint work |
+| **Routine/expertise** | Can people practise, learn, and assess what the tool does? | Appropriate practice, usable evidence, feedback, and demonstrated evaluation skill |
+| **Expertise recognition** | Does relevant human judgment have meaningful influence? | A qualified person can question a result, and the organization acts on justified concerns |
 
-- **Autonomy** — control over your work. AI strips it when the worker *must* accept the AI's decision; they feel the system owns their work.
-- **Competence** — feeling skillful and able to meet challenges. AI strips it when it hides *how* it reached a decision; the worker can't learn, can't defend the answer, can't improve.
-- **Relatedness** — belonging and being valued. AI strips it when it's positioned as a replacement ("this will replace 30% of support staff"); the worker feels disposable.
+Do not infer support from wording alone. “You handle complex cases” may describe an opportunity or an overload. An AI-only throughput metric may be legitimate operationally while insufficient for judging total outcomes. A model explanation may feel helpful without enabling error detection.
 
-Systems that protect all three see high sustained adoption; systems that violate even one see it decay by month 6 (⚠ directional). AI *can* protect all three — most don't, because teams build for capability, not for need protection.
+Identify leading need-related hypotheses and alternatives. More than one can matter, and none may be well supported yet. Never convert the count of Green cells into a predicted adoption percentage or force a dominant violation from incomplete evidence.
 
-## THE AWARE DIAGNOSTIC
+## 3. Align: provide the support the evidence calls for
 
-For each touch point, score five dimensions Green (protected) / Yellow (at risk) / Red (violated):
+Match resources, incentives, training, and product support to the diagnosed problem. Training can build competence and agency when lack of knowledge is material; it cannot by itself repair an unusable tool or an unresolved role conflict. A technical repair can also restore confidence and reduce a need-related threat.
 
-| Dim | Question | Red flag | Green flag |
-|---|---|---|---|
-| **A — Autonomy** | Does the worker control how they work, or does the AI dictate it? | "The AI decides, the worker executes" | "Worker can override, modify, or choose the output" |
-| **W — Work identity** | Is the AI positioned as replacing or assisting? | "This AI will handle 70% of tickets" | "The AI handles routine cases; you handle complex ones" |
-| **A — Affiliation** | Does the worker belong to a team, or compete with the AI? | "We measure how many tickets the AI handles *without* a human" | "We measure how well worker + AI solve tickets together" |
-| **R — Routine/expertise** | Can the worker learn, or is the reasoning a black box? | "The AI's decision is a black box" | "The worker can see how the AI reasons and learn its patterns" |
-| **E — Expertise recognition** | Is the worker's judgment still valued, or is the AI the authority? | "The AI's score is the decision; the worker implements it" | "The worker's judgment is the decision; the AI's score is input" |
+Check the full workload, especially when the rollout is described as time-saving:
 
-**The pattern (⚠ directional):** 5 Green → high sustained adoption · 3–4 Green → mid adoption with friction · 2 Green → low adoption, workers turn to shadow AI · 0–1 Green → active resistance.
+- **New duty without retired work:** reviewing, correcting, or escalating is added while all previous responsibilities remain.
+- **Unassigned operational support:** monitoring or on-call work falls to whoever volunteers rather than a resourced owner.
+- **Decision effort grows faster than production:** more drafts or alerts consume the time supposedly saved in generating them.
 
-**Then name the dominant violation** — usually one or two needs drive it. *"I can't explain the AI's output to the customer"* → **competence**. *"I'm just clicking approve; I have no choice"* → **autonomy**. *"This is going to replace me"* (even if untrue) → **relatedness**. And if workers use shadow AI, interview them: "what does the unauthorized tool let you do that ours doesn't?" — the answer names the violated need.
+Name the old work removed, the new work added, who owns it, and who receives the benefit of any saved time. Even after an old workflow is formally retired, check actual practice, transitional duplication, and total burden. Retirement on paper is not proof of realized capacity.
 
-## REDESIGN TO PROTECT THE NEED
+## 4. Redesign: choose a concrete change and test it
 
-Don't redesign the model yet — redesign the *deployment and workflow*. Each fix has a one-question test:
+| Hypothesis | Candidate response | Check whether it helps |
+|---|---|---|
+| Meaningful control was lost | Appropriate accept/modify/reject choices, clearer delegation, or a credible escalation path | Can the worker affect the relevant decision within the task’s actual authority? |
+| People cannot assess or learn from the output | Evidence, known limits, domain training, practice, or more usable feedback | Can they detect relevant errors and explain the decision using sound evidence? |
+| Human connection or contribution is weakened | Peer support, mentoring, collaborative review, or fair recognition | Do workers report useful connection, and does the workflow make it available? |
+| Work identity or expertise has no real influence | Clarify roles, involve practitioners in design, and act on qualified objections | Does participation change a consequential choice rather than only collect comments? |
+| New review or support duties overload the team | Retire work, staff the new duty, reduce output volume, or narrow scope | Does total workload improve without shifting the burden to another group? |
 
-- **Autonomy violated** → add explicit decision gates (override/modify/reject), and let the system learn from the worker's choice. *Test: "Can I change the AI's decision?"* Example: "AI routes, worker implements" → "AI recommends with reasoning, worker confirms or changes, system learns."
-- **Competence violated** → make the reasoning visible and learnable. *Test: "Can I explain this decision to a colleague?"* Example: bare decision → decision + top-3 reasoning factors + links to similar past cases.
-- **Relatedness violated** → position it as "worker + AI team," and measure that way. *Test: "Do I feel my job is secure?"* Example: "AI handles 50% of tickets" → "This frees you from routine triage for complex work and mentoring; we measure 'solved by worker + AI,' not 'by AI alone.'"
-- **Routine/expertise violated** → build a feedback loop the worker improves from. *Test: "Am I learning something new each week?"* Example: "AI decision is final" → "weekly digest of the error patterns the AI catches, so you can spot them before it does."
+Use automation, assistance, and human-led work as options. A useful starting question is whether simpler tasks can be automated, comparable performance benefits from assistance, and ambiguous work needs skilled human leadership. Complexity alone does not decide allocation: consider consequence, complementarity, reviewer capability, cost, and real action rights. Hard work is not automatically best assigned to a person without support.
 
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+Test explanation design carefully. Show evidence and supported factors when useful; do not claim generated rationale is a faithful view of internal reasoning or that a persuasive account proves competence. The appropriate outcome is better understanding and judgment, not only greater acceptance.
 
-- **`rtp-attitudinal-segmentation`** — segmentation ships to the *stance* (Embracer/Neutral/Skeptic); this diagnoses the *need* under a Skeptic's resistance. Diagnose the need here, ship the default there.
-- **`rtp-adoption-launch`** *(owns the curve; mind the sequence)* — the surge→dip→rebound adoption *motion* and its phase-by-phase support live in adoption-launch; needs-guard supplies the *why* behind the dip (which need broke). Hand off to it for the phased plan — but note the direction of dependence: adoption-launch's *rebound* only materializes if the need this skill diagnosed actually got fixed. Run the phased motion over an un-fixed need violation and it just re-runs the dip on schedule, with better comms. Fix the need here first; sequence the launch there.
-- **`rtp-ai-use-case-readiness`** *(upstream)* — select and right-size the AI tools before diagnosing need violations; a badly-scoped tool violates needs by construction.
-- **`rtp-problem-type`** — a need violation is textbook *adaptive challenge* (requires people to change, not a better build); problem-type classifies it, needs-guard names the specific need.
-- **`rtp-eval-framework`** — rule out the honest case first: if workers resist because the AI genuinely produces bad results they'll be blamed for, that's a quality problem, not a need violation — validate performance before redesigning the deployment.
-- **`rtp-first-principles`, `rtp-bias-spotter`** *(imports)* — strip the "they resist change" story to the atomic need at stake, and catch the fundamental attribution error driving it.
+Route worker corrections through a validated, authorized feedback process. An override is input to investigation, not automatic ground truth for shared memory or retraining. Use `rtp-feedback-flywheel` for that loop and `rtp-judgment-guard` for capability formation and retention.
 
-## REALITY CHECK
+## 5. Empower: make participation and authority real
 
-- **Diagnosing without worker input.** You run AWARE yourself, conclude "autonomy," redesign — and they still resist, because you diagnosed the symptom, not the lived experience. Interview 10–15 resisters or shadow-AI users; their answers beat your inference.
-- **Assuming all workers share a need.** Senior staff may prioritize autonomy (they want to mentor); juniors may prioritize competence (they want to learn). Segment the diagnostic by persona.
-- **Confusing adoption with forced compliance.** Month-1 adoption is deceptive; what matters is month-6 use *when no one's watching*. Measure voluntary adoption, not access.
-- **One-time training won't fix a need violation.** Training solves "they don't understand the AI"; it fails on "the AI violates a need." Distinguish capability problems (train) from need problems (redesign).
-- **A "time-saving" framing can hide a capacity collision.** A rollout can be genuinely good and still overload the team it lands on, because it changes the shape of work faster than it changes the amount. Whenever leadership frames a rollout as pure time-saving, check AWARE against three patterns:
-  - **New surface, no retirement** — the AI adds a duty (reviewing, correcting, escalating) without removing an old one, so the strongest performers end up carrying both.
-  - **Orphaned on-call** — the rollout creates new monitoring or on-call duty that defaults to whoever volunteers, instead of being deliberately assigned.
-  - **Decision load outruns production load** — output speeds up faster than judgment does, so the "saved" hours go to deciding what to do with the AI's output, not to rest or other work.
+Explain the system’s role, important limits, escalation routes, and how worker input can change the deployment. Distinguish decisions open for participation from those already made. Honor existing authority and constraints rather than adding approval gates to every action for appearance’s sake.
 
-  Each pattern reads as an autonomy or competence violation on AWARE, even though the rollout's stated goal was capacity relief. **Doesn't apply** if the team explicitly retired the old workflow and reassigned the freed hours. Then the time-saving framing is accurate and this check can be skipped.
+Provide usable feedback and support on a cadence suited to the work. A weekly error-pattern digest is one option; it should help people learn rather than become another unread duty. Relatedness requires meaningful human relationships, not merely calling the worker and AI a “team.”
 
-## QUALITY GATE
+## Measure outcomes and revisit the hypothesis
 
-- [ ] AWARE diagnostic completed for each major touch point
-- [ ] Dominant need violation(s) named
-- [ ] Specific redesigns proposed to protect the need (not "communicate better")
-- [ ] A feedback loop for continuous worker improvement is included
-- [ ] Worker personas considered (not one-size-fits-all)
-- [ ] Success metric is voluntary use, not deployment access
+Use a baseline and a suitable follow-up comparison. Choose measures for the claim: experienced autonomy or connection, ability to assess outputs, total task quality, workload, support burden, retention of capability, and appropriate use. State uncertainty and relevant segment differences.
 
-## WHEN WRONG
+Voluntary use is informative where people can choose. Required use also has real outcomes worth measuring; do not dismiss it as unreal adoption. Avoid covert “when no one is watching” surveillance. Use proportionate, transparent evidence sources and keep anonymous accounts separate from verified operational events.
 
-- **Resistance isn't about needs** — sometimes it's poor training, missing digital skills, or genuine usability problems. Run user testing alongside; if they can't figure out the UI, that's UX, not needs.
-- **The AI is genuinely unsafe and workers are right to resist** — the issue is AI quality; validate with `eval-framework` before touching the deployment.
-- **Leadership has actually decided to cut headcount 30%** — redesigning to "protect autonomy" won't move adoption; workers sense when the story ("focus on complex work") doesn't match reality. Fix the strategy first.
+A five-Green review does not guarantee adoption, and high adoption does not prove needs are supported. If a change improves the measured need but use stays flat, examine task fit, alternatives, incentives, or infrequent demand. If the expected need experience does not improve, revisit the intervention and diagnosis. Neither outcome by itself overturns SDT.
 
-## TRADE-OFF LEDGER
+## Deliver and connect
 
-By redesigning the deployment to protect psychological needs, you bet that sustained adoption and discretionary effort rise when workers' needs are protected. You give up speed (add ~2–3 weeks for interviews, redesign, persona validation) and *absolute* automation — "AI handles 50%" becomes "AI handles 70% but the worker has override," which lowers throughput metrics and raises quality-and-learning metrics. **Reversible?** Yes, at the deployment layer — revert and re-diagnose if it doesn't land. **The hidden trade:** protecting needs *keeps humans in the loop*, so if your only metric is AI throughput, this will look like a regression; if your metric is worker+AI quality, it's a gain. **Confidence: High** (SDT is well-validated ✅; the AI-specific stats are ⚠). What would change it: a deployment that violates every AWARE dimension and still hits 60%+ voluntary adoption.
+Lead with the supported finding, its limits, the proposed change, and the owner and next check. Include the major touchpoints, worker evidence, local AWARE statuses, competing explanations, workload trade-offs, and outcome measures. A compact table or before/after workflow usually communicates more clearly than a numerical radar chart of subjective color ratings. Use a visual when it helps the decision.
 
-## CONCLUSION
+Before finishing, check that the diagnosis includes worker input; actual quality and role conflicts are addressed; unknowns remain visible; proposed authority is real; and the plan tests worker and task outcomes rather than access alone. The previous two-to-three-week estimate and automation percentages are illustrations, not promised costs or required throughput losses.
 
-Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): state the recommendation (run AWARE before blaming workers; name the violated need; redesign to protect it), the hypothesis (workers voluntarily adopt when the three needs are protected; we're wrong if a 4–5-Green deployment still dips by month 3), the biggest risk (a wrong diagnosis, or a need so fundamental — "this automates my job away" — that redesign can't fix it, meaning the problem is strategy), and the next action: **interview 10–15 resisters or shadow-AI users, ask "what's missing for you in the official system?", map answers to AWARE, redesign from that evidence.** Hand off to `adoption-launch` for the phase-specific support plan.
-
-## VISUAL SUMMARY
-
-After the primary output, invoke the **excalidraw-svg** skill for one visual: the AWARE diagnostic as a five-spoke radar (each spoke Green/Yellow/Red) with the three underlying SDT needs (autonomy / competence / relatedness) labeled beneath the spokes they map to, and a small before→after workflow strip showing one need being protected (e.g., black-box decision → decision + reasoning + similar cases). So a viewer sees which need is broken and what protecting it looks like. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+`rtp-attitudinal-segmentation` examines stance; needs can matter across every stance. `rtp-adoption-launch` organizes the rollout and follow-through, while this skill contributes specific hypotheses and interventions. Neither guarantees a surge–dip–rebound curve. `rtp-ai-use-case-readiness` and this analysis can inform each other. `rtp-problem-type` handles technical/adaptive combinations, and the imports `rtp-first-principles` and `rtp-bias-spotter` help challenge both worker-blaming and unsupported system-blaming explanations.

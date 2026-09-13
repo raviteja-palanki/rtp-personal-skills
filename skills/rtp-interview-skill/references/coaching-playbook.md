@@ -1,186 +1,109 @@
-# AI PM Technical Interview — Coaching Playbook
+# AI PM interview coaching playbook
 
-How to get better at the AI PM technical round — the diagnosis-to-drill map, study plans by timeline, the "run it tonight" self-interviewer, and the one truth that underlies all of it: **real depth comes from building, not rereading.** You can memorize this whole library and still get exposed on the second follow-up. The candidates who pass have shipped small things and can say "the first thing that broke was…"
+Match the practice to the observed gap. Understanding a mechanism, retrieving it under time pressure, explaining it clearly, and having relevant experience are different needs. Do not prescribe a new project when a focused explanation or delivery drill will solve the problem.
 
-Use this file for Coach mode and for end-of-session next steps.
+Use the main skill’s six criteria throughout: **clear direction, technical depth, relevant evidence, useful nuance, concise delivery, and honest uncertainty**. There is no evidence here for a universal grade improvement, a guaranteed hiring result, or a fixed share of follow-ups that any drill will cover.
 
----
+## The practice loop
 
-## The one thing that actually moves the needle
+Select one relevant question, answer aloud if useful, and take one follow-up on the most consequential gap. Review the applicable criteria, repair the gap, and answer again in fresh words. Compare the reasoning and clarity, not just how polished the second attempt sounds. Use existing practice history if available and relevant; do not infer a weakness from the absence of a history file.
 
-Reading a guide teaches you the *answers*. It cannot teach you how you *sound under a follow-up* — and this round is 80% follow-ups. Two moves matter more than any fact in `concepts.md`:
+## Twelve patterns and matching drills
 
-1. **Practice out loud, under pressure.** Not in your head. Dictate your answers, or run the self-interviewer below. The gap between "I know this" and "I can say this in 90 seconds while someone pushes back" is the entire game.
-2. **Build one small real thing** in your weak area. Ship a churn model with XGBoost. Wire up a single tool call. Stand up a 20-document RAG. Then your answers carry the operational tells ("I'd put…", "the first question after I ship…") that can't be faked, because you'll have actually shipped it.
+| Observed pattern | Check before diagnosing | Targeted drill |
+|---|---|---|
+| Correct definitions, weak application | Was application actually requested? | Explain a concept, then apply it to one decision and a relevant trade-off; use the matching topic question |
+| Confident factual errors | Is the mechanism wrong, the fact stale, or the source missing? | Correct the concept, state what is known and unknown, and explain the check needed; do not label every error bluffing |
+| Rambling | Is the answer too long for this task or merely poorly ordered? | Give a timed 90-second practice version, then a 30-second direction and an optional deeper version |
+| Accurate mechanism without a product consequence | Does this round need a decision as well as an explanation? | Add the specific effect on evaluation, UX, cost, or failure handling |
+| Elaborate architecture without justification | Which actual requirement needs the complexity? | Compare a direct call, fixed workflow, and dynamic agent; explain the smallest sufficient design |
+| Activity presented as success | Does the metric demonstrate a quality-adjusted outcome? | Define the user’s completed task, denominator, and guardrails; use concept §8 |
+| Design assumes correct outputs | Which failure would matter and how is it handled? | Trace a confidently wrong result to detection, fallback, owner, and appropriate action controls; use §13 |
+| Platform or model ownership is unclear | What did the candidate personally build, configure, or lead? | Rewrite the story with exact responsibility and dependencies |
+| No answer to “what would you change?” | Is there a real relevant lesson or changed decision? | Prepare one verified setback or reconsidered choice, including its consequence; never invent one |
+| Weak model-selection reasoning | Can the candidate distinguish the task from the technology label? | Compare churn, fraud, and one language task against simple baselines; use §3 |
+| Weak evaluation reasoning | Are the outcome, failure cases, and evidence missing or confused? | Build an evaluation outline and answer the “quietly getting worse” question; use §8 |
+| Weak cost reasoning | Is the issue arithmetic, scope, or choosing interventions? | Calculate cost per successful task from actual or explicitly illustrative prices; add retries and review, then diagnose the largest driver; use §9 |
 
-Aakash's own read on his mock answers: "about an 8.5 out of 10 — you could go deeper on all of them, and that depth comes from actually running the demos, not from rereading this guide." Model that honesty for the user. The library gets them to a B+. Building gets them to an A.
+## Plans for the time available
 
----
+### One day
 
-## The 5 Laws as a practice loop
+Review the glossary for recall and the relevant model answers for structure. Confirm one strong personal story, including role, outcome, and a real lesson. Run a short mock and fix its most consequential gap. Keep the six criteria and seven diagnostic patterns in a compact practice note if useful. Prioritize rest and reliable recall over adding many unfamiliar concepts. Use notes during a real interview only when its rules allow them.
 
-Coach the user to self-check every answer against the sticky-note version:
+### One week
 
-**Commit → Depth → Experience → Nuance → Succinct.**
+- **Days 1–2:** concepts §1–§5: generation, hallucination, model choice, tools, and agents. Apply each relevant concept aloud.
+- **Days 3–4:** §6–§9: routing, RAG, evaluation, and economics. Work through the most relevant follow-ups and one calculation.
+- **Day 5:** §10–§14: hardware, adaptation, transformers, safety, and multimodal systems. Set depth from the actual role, not its employer’s reputation alone.
+- **Day 6:** practice the same questions with engineering and product emphasis. Compare what each answer needs.
+- **Day 7:** repair the weakest recurring gap, verify personal facts, and prepare questions for the employer. Add a small build only if it serves the gap and fits the time.
 
-Have them write it on an actual sticky note in front of them during practice and the real interview. After every practice answer, ask them to grade themselves ✓/✗ on each. The most common failures, in order:
-1. **No commit** (fence-sitting) — the #1 tell of not knowing.
-2. **No nuance** (one-dimensional) — the B+ ceiling.
-3. **Too long** (word salad) — the anxiety tell.
-4. **Told, didn't show** (no experience texture) — the "stood near a project" tell.
-5. **Wrong jargon** (bluff) — the only unrecoverable one.
+### One month
 
----
+In weeks 1–2, study one concept per session and test understanding with spoken applications. In weeks 2–3, undertake a bounded project if hands-on experience is the missing ingredient. During week 3, verify the company and role context, choose relevant stories, and use historical questions as practice prompts. In week 4, run mock loops with both interview lenses and progressively deeper follow-ups.
 
-## Diagnosis → Drill Map
+An optional practice target is five well-supported answers that withstand two meaningful follow-ups each. It is a coaching target, not a validated readiness threshold. Adjust time, difficulty, and scope to the role and the candidate’s needs.
 
-Match the user's pattern (from `interview-history.md` or observed in a mock) to the fix.
+## Reusable self-interviewer prompt
 
-| Pattern you observe | Diagnosis | Drill |
-|---------------------|-----------|-------|
-| Recites definitions, dies on "okay, now apply it" | Knowledge without application | Mock in Engineer-in-the-Room mode; every answer must end in a decision or a trade-off, not a definition. Study §-by-§ then immediately answer a Topic question from `question-bank.md`. |
-| Confidently states wrong facts | Bluffing (auto-fail) | Drill the "name the edge" answer (#10 in model-answers). Practice saying "I'd confirm with the team, but my instinct is X, and here's what I'd check." Re-study the mis-stated concept in `concepts.md`. |
-| Rambles past 2 minutes | Verbosity / anxiety | 90-second timer on every answer. Force two-paragraph structure. Practice the check-in: "does this make sense so far?" |
-| Great mechanism, no "so what" | Over-answering / wrong archetype | Mock in Product-Layer mode. After each mechanism, force the day-two playbook: eval, fallback, cost, UX. |
-| Reaches for the fanciest answer | Over-engineering | Drill the "does orchestration come into a single tool call?" trap. Reward saying "no, and here's when it would." |
-| Names sessions/prompts as success | Input-metric habit (Mistake 3) | Drill: "which metric goes on the CEO's dashboard?" → task resolution. Study §8. |
-| Designs assume the model is always right | Deterministic PRD (Mistake 5) | For every design, force: "what happens when the model is confidently wrong?" → fallback, cite, escalate, HITL. Study §13. |
-| "We built our own platform/model" | Wrapper-as-platform (Mistake 2) | Rewrite their project story to claim exactly what they did. "I configured and evaluated connectors" > a false infra claim. |
-| Can't answer "what would you do differently" | Perfect-record (Mistake 4) | Prep one real killed feature / lesson with the takeaway. |
-| Vague on ML vs LLM | Foundational gap | Study §3; drill churn, fraud, and one language task until the tabular/hybrid logic is reflexive. |
-| Vague on evals | The most common applied gap | Study §8; drill the eval-framework question and the "quietly getting worse" question until fluent. |
-| Can't talk cost | Business-layer gap | Study §9; memorize the formula (in+out, output 3–5×), caching ~10×, routing 17×, p95. |
+```text
+Run a practice interview for an AI Product Manager role.
+Use the role and time constraints I provide; otherwise start with a general five-question mock.
 
----
+Tell me whether this practice emphasizes engineering mechanisms or product decisions.
+Real interviews can blend both. Ask one question at a time and wait for my answer.
+Follow up on the most consequential gap before giving feedback. Ask for application
+when useful, but accept a correct definition when that is what the question requests.
+Name a technical error or unsupported claim specifically; do not infer dishonesty
+from an error alone. Keep my real experience distinct from hypothetical designs.
 
-## Study Plans by Timeline
+Select from these questions:
+1. Design a high-level system for how an assistant responds to a user query.
+2. Users say the assistant is confident but wrong. How would you fix it?
+3. How do you decide which tasks suit an LLM and which do not?
+4. A feature calls a tool. What happens under the hood?
+5. Explain an LLM feature's economics and how its latency targets affect the design.
+6. Describe an evaluation harness: what belongs offline, and what do you watch after launch?
+7. The north-star metric rose. How would you detect quietly worsening quality?
 
-### T-minus 1 day (cram)
-- Read the **30-second glossary** (§15 of concepts) twice, out loud.
-- Read **all 13 model answers** aloud, once. Feel the shape: commit → depth → experience → nuance → stop.
-- Memorize the **5 Laws sticky note** and the **six mistakes**.
-- Run the **self-interviewer** below once, Engineer archetype, 5 questions.
-- Pick your ONE real project story and rehearse the agent/experience answer (#13).
-- Sleep. Do not cram new concepts you'll half-remember and bluff.
+After five questions, review clear direction, technical depth, relevant evidence,
+useful nuance, concise delivery, and honest uncertainty. Use strong, partial,
+material gap, or not applicable, with reasons from my answers. Do not invent quotations.
+Watch mechanism fluency, treatment of uncertain outputs, operational follow-through,
+and awareness of knowledge limits as diagnostic prompts within those six criteria.
+Give an honest assessment, not a deliberately harsh one or a hiring prediction.
+End with the single most useful next improvement and a concrete drill.
 
-### T-minus 1 week
-- Day 1–2: Read `concepts.md` §1–§5 (LLMs, hallucination, ML-vs-LLM, tools/MCP, agents). Answer the matching Topic questions aloud.
-- Day 3–4: §6–§9 (routing, RAG, evals, unit economics). These are where applied roles push hardest. Drill each.
-- Day 5: §10–§13 (GPUs, fine-tuning, transformers, safety) — depth-lab and infra material. Skim if your target is applied; go deep if it's Nvidia/OpenAI/Anthropic/DeepMind/Glean.
-- Day 6: Run **two full mocks** — one Engineer, one Product-Layer — on the same questions. Feel the archetype gap.
-- Day 7: Fix your weakest pattern (diagnosis map). Build one tiny thing if you can.
-
-### T-minus 1 month (do it right)
-- Weeks 1–2: Work through all of `concepts.md`, one topic per session, always ending in spoken answers.
-- Week 2–3: **Build.** Pick one: an XGBoost churn model on a Kaggle dataset, a single-tool function-calling demo, a small RAG over your own docs, a Slack/email digest agent. This is the highest-leverage week. It converts memorized answers into experienced ones.
-- Week 3: Company-specific — load your target's section in `question-bank.md`, match the archetype, drill their real questions.
-- Week 4: Mock loops. Alternate archetypes. Grade against the rubric. Target: five clean answers in a row that survive two follow-ups each, under 120 seconds.
-
----
-
-## The Self-Interviewer (run it tonight)
-
-Give this to the user to paste into any Claude or ChatGPT window and answer **out loud**. It's the single best between-session drill because it delivers what a static guide can't: adaptive follow-ups.
-
-```
-You are running a technical interview for an AI Product Manager role.
-Your job is to find out whether I understand the systems I build on, or whether I only use them.
-
-HOW TO RUN THIS
-- Ask one question at a time. Wait for my full answer before responding.
-- After every answer, push exactly one level deeper on the weakest part of it.
-- Do not accept a definition as an answer. Make me apply it.
-- If I bluff, name it immediately.
-- Run 5 questions, then score me.
-
-PICK AN ARCHETYPE, and tell me which one you are before you start:
-- The Engineer in the Room. You want the mechanism. Every answer earns a follow-up one layer down.
-- The Product Layer PM. You ask a mechanism question but listen for what I do with it. If I go deep on implementation detail instead of validation, failure handling, and user experience, mark me down for it.
-
-QUESTION BANK
-- Design a high-level system for how an assistant responds to a user query.
-- Users complain the assistant is confident but wrong. How would you fix it?
-- How do you decide what is a good task for an LLM and what is not?
-- Your feature calls a tool. Walk me through what actually happens under the hood.
-- Walk me through the unit economics of an LLM feature. How do cost per inference and p95 latency change what you build?
-- Walk me through your eval harness. What is in the offline set, and what do you watch online after launch?
-- You ship an assistant and the north-star metric goes up. How would you know the model is quietly getting worse anyway?
-
-SCORE ME 1 TO 5 ON EACH
-1. Mechanism fluency. Did I say what happens between the prompt and the answer, and where the model's job ends and my code begins?
-2. Probabilistic instinct. Did I treat the output as a distribution, and design for being wrong some of the time?
-3. Day-two playbook. Did I describe an eval harness, a fallback path, and a rule for shipping the AI version over the deterministic one?
-4. Edges. When I hit the end of what I knew, did I name the edge and what I would check, or did I guess confidently?
-
-SCORING RULES
-- Be harsh. A comfortable score is useless to me.
-- A confident wrong answer scores lower than "I don't know, here is what I would check."
-- Quote my exact words back when you mark something down.
-- End with the single highest-leverage thing to fix before a real loop.
-
-Start by telling me which archetype you are, then ask question one.
+State the practice emphasis and ask question one.
 ```
 
-**Coach the user to run it twice — once against each archetype.** The same answer that lands with the Engineer in the Room often gets marked down by the Product-Layer PM, and feeling that gap yourself is worth more than any list of tips.
+Running the same questions under both lenses can reveal a delivery mismatch. Do not require repeated mocks if one already answers the user’s need. The four diagnostic prompts in the reusable prompt support the shared rubric; they are not a second competing scoring system.
 
----
+## Build experience where it will help
 
-## The Six Mistakes That End Loops (memorize the list)
+Scope a project to the available time, permissions, data, and budget. None is guaranteed to fit a weekend or establish production experience.
 
-Detail and detectors are in `grading-rubric.md`. The sticky-note version:
+- **Predictive ML:** compare a simple baseline and an XGBoost model on an appropriate public churn or fraud dataset. Inspect leakage, calibration, and error cases. Feature importance does not establish causality.
+- **Tools:** build a calculator or weather-tool demonstration. Inspect structured requests, pre-execution validation, errors, and the boundary between model selection and execution.
+- **RAG:** use 20–50 authorized documents as a manageable starting exercise. Compare parsing, retrieval, chunking, and optional reranking on actual questions; the document count is not a quality guarantee.
+- **Agents:** create a digest from mock messages or authorized read-only Slack or email data. Define task guidance, tool access, state, and completion checks. Producing a draft does not authorize sending messages, and three files alone do not prove an end-to-end agent.
+- **Evaluation:** begin with roughly 20 varied cases if that is practical, then review errors and judge disagreements. A small exercise does not demonstrate all judge biases or production reliability.
+- **Cost:** estimate costs first, then compare two suitable models on a bounded sample within an approved budget. A 1,000-query experiment is an optional scale, not mandatory spending. Compare quality and successful outcomes as well as bills.
 
-1. **Bluffing a detail** — the only unrecoverable one. Name the edge instead.
-2. **Calling a wrapper a platform** — claim exactly what you did.
-3. **Reporting input metrics** — task resolution is the number.
-4. **The perfect record** — have one real failure/lesson ready.
-5. **The deterministic PRD** — design for the model being wrong.
-6. **Going too deep** — read the archetype; depth is only an asset when asked for.
+Record what was actually built, its limitations, observed failures, and the evidence for any improvement. A prototype supplies a truthful prototype story; it should not be promoted into a production claim.
 
-Mistakes 1 and 5 are the two most common and most fatal: the bluff (kills credibility) and the deterministic PRD (marks you as a traditional PM, not an AI PM).
+## End with a concrete next step
 
----
-
-## How to Build Real Experience (so depth is earned)
-
-Prescribe one small build matched to the weak area. Each is a weekend, and each makes a whole category of answers real:
-
-- **Weak on ML vs LLM →** train an XGBoost churn/fraud model on a public dataset (Kaggle telco churn). Now "trees are cheaper, faster, interpretable" is something you've *seen*, and you can answer "why wasn't this account flagged" because you've pulled feature importances.
-- **Weak on tools/MCP →** build a single function-calling demo (weather, or a calculator tool) with any model's API. Now you know the model emits a request and *your* code runs it — because you wrote the code that ran it.
-- **Weak on RAG →** stand up a 20–50 document RAG over your own notes (LlamaIndex/LangChain quickstart + a vector store). Now chunking and reranking are real tuning knobs you've turned, not words.
-- **Weak on agents →** build a Slack or email digest agent with a system prompt, one tool, and a skill file. Now the three-layer answer (#13) is your actual project.
-- **Weak on evals →** write a 20-example golden set for any of the above and grade outputs with an LLM-judge. Now you've felt judge bias firsthand.
-- **Weak on cost →** run 1,000 queries through two models and compare the bills. Now the unit-economics answer has your numbers in it.
-
-The point isn't to become an engineer. It's to have *stood close enough to the fire* that your answers carry heat. That's the difference between a B+ library user and an A candidate.
-
----
-
-## Session-End Coaching Template
-
-At the end of a Coach session, deliver:
-
-```markdown
-## Your AI Technical Round — Coaching Plan
-
-**Target:** [company / role / date]  ·  **Archetype to expect:** [X]
-
-**Your top weakness pattern:** [name it, quote evidence]
-**Why it's costing you:** [tie to a specific mistake or law]
-
-**This week:**
-1. Study: [concepts.md §X, §Y]
-2. Drill: [question-bank Topic Z / a Set from Part C]
-3. Build: [the one small project matched to the weakness]
-4. Run the self-interviewer twice (both archetypes), out loud.
-
-**Your one sticky note:** Commit → Depth → Experience → Nuance → Succinct.
-**Your one trap to avoid:** [the specific mistake they're prone to].
-
-Come back and run `/ai-pm-tech mock` when you've done the build — your answers will be different.
+```text
+Target role and round:
+Practice evidence: [specific answer or observed pattern]
+Most important improvement and why:
+Study: [relevant concept]
+Drill: [one question or practice set]
+Build, only if needed: [bounded scope, data, and budget]
+Success check: [what a better answer or result would demonstrate]
+Unresolved fact:
 ```
 
----
-
-## Final Word (for the user)
-
-The AI PM technical round has no ceiling — even an A+ answer earns another follow-up, because AI keeps pulling PMs closer to engineering. That's not a threat; it's the opportunity. You don't need to out-engineer the engineer. You need to understand the systems you build on well enough to be a credible partner — and to know, honestly, where your edge is. Name that edge, ground your claims in things you've actually built, commit, layer the nuance, and keep it short. Do that and you'll clear a round almost no one has prepared for.
+Select only the actions that fit the available time. Save relevant practice notes in the authorized location when useful; do not create sensitive personal profiles or assume a particular slash command exists. Encourage another mock when it helps measure progress, without promising that a drill will secure an offer.

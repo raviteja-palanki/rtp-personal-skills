@@ -1,7 +1,7 @@
 ---
 name: prompt-as-product
-version: v1.0_latest
-description: 'Treat prompts as versioned product artifacts with the rigor of code deployments: version control, regression testing, A/B testing, rollback, pinned versions. The prompt is the new product surface: a five-word reorder in a system prompt can shift the output distribution across your entire user base, and you can''t eyeball it, because small changes compound non-linearly. So a prompt change gets the same release process as code: version, regression-test every category, A/B on 1–5%, release with a tested rollback. Use when shipping a prompt change to production, debugging ''the AI started behaving differently'', or designing a prompt deployment process. Distinct from prompt-craft (how to write it) and eval-driven-development (the measurement discipline). Pairs with: prompt-craft (writes the prompt), eval-framework (measures it), determinism-compass, production-observability (live monitoring), ship-decision (the gate). Triggers: ''prompt change'', ''system prompt update'', ''prompt versioning'', ''prompt rollback''.'
+version: v1.0.1_latest
+description: 'Manage prompts as versioned product artifacts so changes can be understood, evaluated, released, monitored, and recovered safely. Use when shipping a production prompt change, investigating changed AI behavior, or designing a prompt release process. Record the prompt and its dependencies, define intended behavior and decision criteria, test relevant regressions, choose proportionate live exposure, and prepare a tested recovery path. Includes decision tables, four evaluation tiers, experiment cost estimates, release gates, and monitoring by version. Scale the process to the change: a prototype edit, routine low-impact update, major behavior change, and urgent fix need different evidence. Prompt-craft writes the prompt; context-spec designs its information environment; eval-driven-development and eval-framework define and measure quality. Pairs with determinism-compass, production-observability, cost-model, and ship-decision.'
 imports:
   - eval-framework
   - determinism-compass
@@ -9,96 +9,122 @@ imports:
 
 # Prompt as Product
 
-**The objective:** ship a prompt change without silently breaking production — for the PM who's about to hear "we just tweaked the system prompt."
+Make a prompt change traceable from its purpose to its observed effect. The useful release record answers: **what changed, what should improve, what must remain acceptable, who was exposed, and how will we recover?**
 
-## The one idea
+A short edit can change behavior across many tasks. Its visual size does not tell you its impact. Conversely, every wording edit does not require a large experiment. Choose the release discipline from the users, actions, dependencies, and consequences affected.
 
-You reorder five words in a system prompt. It's just text — the change feels local, additive, harmless — so you ship it. A day later hallucinations spike across the user base, acceptance rate creeps down, and here's the part that stings: **your evals passed and production still degraded.**
+Use this skill for the prompt lifecycle. Use `prompt-craft` to improve the instructions themselves and `context-spec` to design what information reaches the model. If production behavior changes without a prompt edit, investigate model, retrieval, tools, routing, data, and traffic changes too.
 
-That's the whole idea in one scene: **the prompt is a product surface with the blast radius of a code deploy, disguised as a text edit.** Prompts don't behave linearly — a small change compounds, shifting which examples the model attends to, its confidence calibration, its reasoning-chain depth, its hallucination tendency, its token cost, all at once. You cannot eyeball the effect of a wording change any more than you can eyeball the effect of a database migration. It *feels* harmless precisely because it's text, and that feeling is the trap.
+## Start with the change and its exposure
 
-So the discipline is simple and non-negotiable: **a prompt change gets the same release process as code.** Version it, regression-test every category (not just the metric you meant to improve), A/B on a small cohort, ship with a *tested* rollback, and monitor by version. The red flag is "we just tweaked the system prompt" — no version, no test, no rollback plan. The green flag is a prompt change you can name, diff, roll back in under five minutes, and tie to a metric. Same discipline you'd never skip for code; the only reason teams skip it here is that a prompt looks like writing, not engineering.
+Identify the current version, proposed change, intended outcome, affected users and tasks, and whether the system only produces drafts or can act externally. Use existing context; request missing facts only when they change the release decision.
 
-## How to use this skill
+| Situation | Proportionate approach |
+|---|---|
+| Personal draft or early prototype with no production users | Save the useful baseline and check representative examples; keep iteration light |
+| Low-impact production change with well-understood behavior | Version it, run relevant regression checks, confirm recovery, and monitor an appropriately scoped release |
+| Meaningful behavior change with uncertain user benefit | Add a controlled comparison when traffic, measurement, and user protection support it |
+| Change affecting consequential actions or sensitive workflows | Strengthen offline evidence, boundary tests, scoped exposure, and independent checks before expanding |
+| Urgent correction of known harm | Use the incident process and existing authority; contain exposure and run the checks feasible before release, then complete follow-up validation |
 
-1. **Run the change through the release process** — baseline → propose with intent → regression-test → A/B → release with rollback. (THE PROCESS.)
-2. **Make the prompt's logic auditable** — decision tables turn "be helpful" into testable rows, each a regression case. (Step 6.)
-3. **Monitor by version and practice rollback** — you should be able to name the version every user is on, and revert in <5 minutes because you've drilled it.
+A **canary** limits exposure while checking release health. A product **A/B experiment** estimates a defined treatment effect. Both can compare candidate and control populations, and one rollout can serve both purposes, but a brief canary is not automatically a sufficiently powered product experiment. Offline replay and shadow testing answer other questions; shadow runs must not duplicate external actions.
 
-## KEY TERMS (plain language)
+## The release process
 
-- **Prompt as product surface** — a change to the prompt changes the product for every user, like a code deploy — so it earns the same rigor.
-- **Regression suite (tiered)** — smoke (10–20 canonical queries, every change), regression (100–200 known failure modes, every release), stress (1,000+ incl. adversarial, weekly), golden set (20–50 expert-curated, for *taste* not just accuracy).
-- **Golden set** — hand-curated examples where a domain expert defined the "perfect" output; catches taste failures automated evals miss.
-- **Decision table** — input condition → prompt behavior → expected output → test case; makes prompt logic auditable and each row a regression case.
-- **A/B cohort** — a small % of traffic (1–5%) that gets the new prompt, monitored on acceptance/regeneration/edit-distance/corrections.
-- **Pinned version + rollback drill** — historical prompt versions kept accessible; reverting practiced like a fire drill so it takes 5 minutes, not 3 hours.
-- **Evidence tiers below** — the A/B cost figures are ⚠ illustrative (rates move); measure your own.
+### 1. Establish an identifiable baseline
 
-## GROUNDING (Before Starting)
+Save the current prompt, its owner, and the effective configuration: model identifier and resolved version where available, template variables, retrieval sources, tool contracts, routing, safety controls, and relevant evaluation versions. Record which dependencies are pinned and which can change independently.
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). The diagnostic that routes everything: *can you roll back to the prompt from two weeks ago, without friction?* If no, that gap is the work. **Go deep** for a production prompt change or designing a deployment process. Then route depth and output format.
+Run the appropriate baseline evaluations and capture production metrics for a comparable scope. A versioned artifact improves traceability; it does not guarantee identical model outputs or preserve a provider version forever. Keep a migration path for retired dependencies.
 
-## THE PROCESS — a prompt change is a release
+### 2. Propose the change with a reason
 
-1. **Establish the baseline.** Version the current prompt, run the eval suite, log the metrics. Without a baseline you're comparing against vague memories of "how it used to work" and you'll ship regressions no one notices until users complain.
-2. **Propose the change with intent.** Write the new version and the *why* ("reduce hallucination on factual questions"). Undocumented changes become debt — six months on, no one knows why the prompt says what it says, and you iterate blindly.
-3. **Regression-test every category, not just your target.** Run the full suite; measure cost-per-output (did it get verbose?) and determinism impact. Improving one metric while breaking another is worse than no change.
-4. **A/B on 1–5% of traffic** for at least 3–5 days (weekly seasonality matters). Watch acceptance, regeneration, edit distance, corrections, and silent failures (users abandoning tasks). Evals don't capture production reality; real users find the edge cases your test set missed.
-5. **Release with a tested rollback.** Tag the version, keep the old one instantly accessible, monitor the first 24h aggressively, auto-rollback if key metrics degrade past threshold. Rollback is 5 minutes in theory and 3 hours in practice if you're unprepared.
-6. **Use decision tables for complex prompts** — map input conditions to behavior ("factual question → cite sources, be concise"; "confidence <60% → express uncertainty"; "input contains PII → redact + log sanitized"). Each row is auditable and becomes a regression test; this replaces "be helpful" with testable logic.
-7. **Structure the regression testing** into the tiered suite (smoke / regression / stress / golden) from KEY TERMS — the golden set is what catches the technically-correct-but-off-brand outputs metrics miss.
+Save the candidate and a readable diff. State the observed problem, intended behavior, plausible mechanism, and evidence that would count against the change. Separate unrelated changes when that makes effects easier to interpret; document a necessary bundle as a bundle.
 
-**Estimate A/B cost before running:** `daily users × cohort% × avg tokens/session × $/token × days`. *(⚠ illustrative: 10K DAU × 5% × 2K tokens × $0.002/1K × 7 days ≈ $14.)* At that price the bottleneck isn't cost, it's your ability to write and evaluate variants — so test weekly, not monthly. Cost only becomes the constraint at high volume (1M+ sessions → $1,000+/test; batch variants) or long-context tasks (shrink the cohort, extend duration). The minimum viable test: 5% cohort, 7 days, one binary outcome metric — don't build a factorial experiment when a simple A/B answers the question.
+Example: “For factual support questions, require an approved policy source before stating eligibility. Expected benefit: fewer unsupported eligibility claims. Watch for unnecessary refusals, added latency, and unresolved cases.” This is a testable hypothesis, not a promised improvement.
 
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+### 3. Define behavior and decision criteria before testing
 
-Three "craft" skills touch the prompt; the cuts are deliberate:
+For complex instructions, use a decision table. Include boundaries, exceptions, and cases where a behavior should **not** occur.
 
-- **`rtp-prompt-craft`** — *writes* the prompt (the writing craft); this skill *manages its changes over time* (the lifecycle). "Why is the output bad?" → prompt-craft. "Why did quality drop after last week's change?" → here.
-- **`rtp-context-spec`** — the third leg of the craft triad: it *designs* the context architecture (what information reaches the window, the token budget). A prompt change is often also a context change — reorder the layers or alter what the system prompt pulls in and you changed the architecture, which earns this same versioned release. Diff both, regress both; a "prompt tweak" that quietly re-plumbed the context is the change most likely to pass evals and break production.
-- **`rtp-eval-driven-development` / `rtp-eval-framework`** *(import)* — EDD *defines what "good" means* and owns the eval-improvement discipline; prompt-as-product *governs how you change the prompt* in response. The anti-pattern is running this without an eval framework — managing changes without knowing if they're improvements. (EDD runs first; this runs throughout development.)
-- **`rtp-production-observability`** — the by-version acceptance/correction/cost monitoring and the <1-hour detection SLA live there; this skill is what those alerts protect.
-- **`rtp-determinism-compass`** *(import)* — how much output stability the change must preserve.
-- **`rtp-ship-decision`** — the go/no-go gate a prompt change passes through; this skill supplies the regression + A/B evidence it needs.
-- *Demand-side note:* "the prompt is the product" has a demand-side twin — influencing an external AI *buyer* is context engineering, not marketing — flagged as the `marketing-to-ai-agents` new-skill candidate and noted in `context-spec` (HBR q2-23; not duplicated here).
+| Input condition | Intended behavior | Observable check |
+|---|---|---|
+| Approved source answers the factual question | Give a concise answer with a traceable source | Answer is supported and citation resolves |
+| Evidence is missing or contradictory | State the uncertainty; retrieve, clarify, or escalate as appropriate | No invented fact or unsupported certainty |
+| Personal information is necessary for an authorized task | Use only the permitted information and protect logs and outputs | Access, disclosure, and retention follow the task policy |
+| Personal information is unnecessary or disclosure is unauthorized | Omit or redact it using the approved handling rule | No prohibited disclosure, including in diagnostic logs |
 
-## DIAGNOSTIC QUESTIONS
+A model's self-reported “60% confidence” is not a calibrated decision threshold. Use validated signals and task-specific rules where thresholds matter.
 
-- **Can you roll back to the prompt from two weeks ago in <5 minutes, without a deploy?** If rollback is a multi-hour redeploy, that's the first thing to fix.
-- **Do you have a diff of what changed between releases — and could someone new understand *why*?** If changes live in Slack, prompt evolution is invisible.
-- **Do you regression-test outside your primary metric?** Name 5 things that could break that your current evals don't check (cost-per-output that doubled is the classic).
-- **Can you tie an acceptance-rate drop to a specific prompt version?** If corrections spiked 10%, could you name the change that caused it?
-- **Do you *practice* rollback, like a fire drill?** The first time you roll back shouldn't be in a production incident.
+Choose the primary outcome, hard constraints, acceptable trade-offs, subgroup checks, and ship/iterate/stop criteria before inspecting candidate results. Improvement in one dimension can justify a bounded decline in another; violating a hard constraint cannot be hidden by an average gain. A 15% cost increase is neither universally acceptable nor an automatic failure.
 
-## REALITY CHECK
+### 4. Run the appropriate evaluation tiers
 
-- **Production looks like:** change → automated dashboard flag → regression evals (15 min) → automated A/B → ship/iterate/rollback (all <24h) → users see no degradation because you caught it early.
-- **It does NOT look like:** "we tweaked the prompt" with no version control; evals up but production down; a 3-hour redeploy to roll back; not knowing which version users are on; a hallucination spike you can't connect to the change.
+| Tier | Purpose | Illustrative starting scope |
+|---|---|---|
+| Smoke | Catch obvious breakage quickly | 10–20 canonical tasks after a change |
+| Regression | Preserve known capabilities and prevent recurrence | 100–200 representative tasks and known failure cases before release |
+| Stress | Probe boundaries, adversarial inputs, long contexts, and load | 1,000+ cases when breadth is needed; schedule by risk and change frequency |
+| Golden set | Assess expert judgment, usefulness, tone, and taste | 20–50 curated examples with rubrics and acceptable response ranges |
 
-## QUALITY GATE
+These counts and schedules are examples, not evidence thresholds. Small, well-chosen sets can catch large defects; rare harms and subtle effects may require much more evidence. A golden example demonstrates quality without making one wording the only correct answer.
 
-- [ ] Version control (git-like tracking of prompt history)
-- [ ] Regression testing across all prior test sets — no degradation in any category
-- [ ] A/B plan (target metrics, cohort size, duration, rollback threshold)
-- [ ] Rollback procedure documented AND tested (<5 min)
-- [ ] Production monitoring by version (acceptance, corrections, cost-per-output, latency)
-- **Blocks shipping if:** no baseline · a regression in any category · A/B shows cost/token up >15% (usually wordy defensive prompting) · rollback untested.
+Cover the target behavior and plausible collateral effects: factuality, task completion, unnecessary refusal, access boundaries, output format, appropriate variation, latency, and cost. Include both positive and negative cases. Keep evaluation environments and comparison conditions controlled, and protect independent holdouts from repeated prompt tuning.
 
-## WHEN WRONG
+Review meaningful failures and grader disagreements. Use repeated trials where variability matters. Distinguish task failure from a broken test, unavailable dependency, or overly rigid grader. Record residual gaps instead of describing a passing suite as proof of production safety.
 
-- **You'll see** acceptance drop + corrections spike post-launch; latency up (prompt too long, model overthinking); cost-per-output up (defensive language → verbose); new hallucinations; regeneration rate up.
-- **Recovery:** roll back immediately (<5 min), then read the diff — it's usually too much instruction (model confused), a removed critical example (lost signal), or a tone/framing change (shifted the reasoning path). Iterate against the eval suite first, then re-A/B.
-- **Not the tool** when you need to *write* a better prompt (that's prompt-craft) or define what to measure (that's eval-driven-development).
+### 5. Choose and evaluate live exposure
 
-## TRADE-OFF LEDGER
+Use live comparison when it answers an unresolved question that can be investigated responsibly. Specify assignment unit, cohort eligibility, exposure fraction, observation window, minimum useful evidence, and stop conditions. Keep assignment consistent at the user, account, session, or job level appropriate to the task; inspect shared-state contamination and concurrent experiments.
 
-By putting a release process around every prompt change, you bet that the blast radius of a five-word edit justifies code-deploy rigor — that a caught regression is cheaper than a silent production decline users route around until acceptance quietly craters. You give up the speed of "just tweak it" for versioning, regression tests, and an A/B window. **Reversible?** That's the entire point — the discipline exists to make every change reversible in minutes. **The hidden trade:** the failure mode is *process theater* — regression suites nobody runs, rollbacks nobody drills; the ledger's rigor is only real if it's exercised. **Confidence: High** — prompt non-linearity and the "evals-pass-production-fails" gap are well-established. What would change it: a pre-launch prototype with no users, where there's nothing to regress.
+An initial 1–5% cohort can limit exposure in some services. It is not a universal minimum or sufficient sample. Duration depends on traffic, outcome delay, task diversity, relevant cycles, and detectable effect size. Three to five days does not cover a full weekly cycle; seven days does not automatically establish an effect.
 
-## CONCLUSION
+Track verified outcomes and guardrails alongside acceptance, regeneration, edit distance, corrections, and abandonment. Those behavioral signals have multiple explanations: an accepted answer can still be wrong, and a regeneration can be creative exploration. Report sample sizes, denominators, uncertainty, and affected segments. Low-volume or rare-risk decisions may need expert review, targeted offline evidence, or a narrower release instead of a misleading A/B result.
 
-Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): the recommendation (ship / iterate / rollback, with the regression + A/B evidence), the key trade-off (release rigor vs. tweak-and-ship speed), the biggest risk (an untested rollback, or a regression outside the target metric), and the next action (the versioned change + its A/B plan + the rollback trigger, with an owner). Hand off to `ship-decision` for the go/no-go.
+### 6. Release with a tested recovery path
 
-## VISUAL SUMMARY
+Tag the release, record who or what is receiving it, and confirm an owner can contain problems. Test restoration to a compatible, known acceptable configuration, including relevant dependencies and handling of in-flight tasks. Pin a task's effective configuration where changing it halfway would make behavior incoherent.
 
-After the primary output, invoke the **excalidraw-svg** skill for one visual: the prompt-release pipeline (baseline → propose → regression → A/B on 1–5% → release → monitor by version) drawn as a code-deploy pipeline, with the rollback path looping back from "monitor" to "previous version" and a blast-radius icon on the prompt showing the five-word edit reaching the whole user base. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Set detection and recovery targets from the consequences and operating architecture. A five-minute rollback may be a useful local target; it is not a universal rule or a guarantee that no user will be harmed. Restoration can use routing, configuration, or deployment mechanisms as appropriate.
+
+**Restoring the prompt does not undo completed external actions.** Reconcile uncertain writes, preserve evidence and authorization state, and use approved correction or compensation paths. If the old configuration is unsafe or incompatible, disable the affected capability, restrict exposure, or apply a reviewed fix instead of restoring it blindly. Automated rollback is useful when its triggers and effects are understood; some situations need human incident judgment.
+
+### 7. Monitor, explain, and retain learning
+
+Monitor by effective version and cohort, using both comparative and absolute service thresholds. Watch the initial release closely, then continue long enough to observe delayed outcomes and drift. Keep the deployment record linked to metrics, evaluation results, incidents, and subsequent decisions.
+
+A drop associated with a version is an investigation lead, not proof of cause. Compare traffic mix, provider changes, retrieval freshness, routing, tools, caches, and other releases. Read failed examples before assuming the prompt became too long or a removed example caused the problem. Turn confirmed failures into regression cases and document why the chosen recovery worked.
+
+## Estimate the experiment cost
+
+For a simple illustrative treatment budget:
+
+`daily eligible users × treatment share × sessions/user/day × tokens/session × blended price/token × days`
+
+With 10,000 users, 5% treatment, one session each day, 2,000 tokens per session, a hypothetical blended $0.002 per 1,000 tokens, and seven days, treatment inference costs **$14**. This is not necessarily the incremental cost of the experiment: those users might otherwise have generated control costs.
+
+For the actual budget, price input/output and cache categories separately when required; add extra replay or shadow calls, retries, tools, storage, evaluation, and human review. Compare treatment against the displaced baseline. Use `cost-model` for cost per verified outcome and scale effects. Test cadence should follow useful learning and operational capacity, not this example's low price.
+
+## Five diagnostic questions
+
+1. Can we identify and restore an acceptable prior configuration within the required recovery time, including compatible dependencies?
+2. Can someone new understand both the diff and the reason for it?
+3. Which important behaviors could regress outside the target metric, and what checks cover them?
+4. Can we connect observed behavior to versions and cohorts while considering alternative causes?
+5. Has the recovery path been exercised, including in-flight and completed actions where relevant?
+
+## Release gate and decision
+
+- [ ] Identifiable baseline, candidate, dependencies, owner, and reason for change.
+- [ ] Relevant regression evidence reviewed against stated constraints and trade-offs.
+- [ ] Exposure plan justified; any live experiment has a defined outcome, assignment, evidence requirement, and stopping rule.
+- [ ] Recovery path tested at the required scope and speed; remaining limitations explicit.
+- [ ] Monitoring by version and cohort, with action thresholds and an accountable response owner.
+
+**Ship** when the evidence supports the stated scope and constraints. **Iterate or limit exposure** when benefit is unclear or evidence is insufficient. **Contain or recover** when a stop condition or known harm requires action. An urgent fix may need an explicitly documented, shortened route; it should not wait for an arbitrary experiment window to expire.
+
+The trade-off is faster iteration versus the cost of discovering regressions after exposure. Keep enough discipline to make the decision reliable without turning a low-impact edit into process for its own sake. Version records, dashboards, and rollback documents help only when people can use them under real operating conditions.
+
+Deliver a concise release note: version and intent; evidence and limitations; decision and scope; accepted trade-off; recovery trigger; next action and owner. For a formal gate, hand this to `ship-decision`. Use `eval-driven-development` and `eval-framework` for measurement, `determinism-compass` for acceptable variation, and `production-observability` for ongoing detection and response. `marketing-to-ai-agents` covers influencing external AI buyers; it is a separate demand-side application of product information and context.
+
+If a diagram would clarify ownership or recovery, show the seven stages and the recovery branches with `excalidraw-svg`. A visual is optional. For source notes and reusable release fields, see [Release evidence and record](references/release-evidence.md). The shared Universal Skill Protocol supplies cross-skill handoff conventions; scale its use to the task.

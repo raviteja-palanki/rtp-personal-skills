@@ -1,51 +1,52 @@
-# Determinism Compass — Concept Guide
+# Determinism compass: concept guide
 
-## FIRST PRINCIPLES
+An AI product combines operations with different requirements. Some must return an exact value; some must reach a consistent substantive decision; others can produce several useful answers. Choose an implementation and evaluation method that fits each operation, and define what happens when one component hands work to another.
 
-Every software system is a composition of operations. Each operation sits somewhere on a spectrum from fully deterministic (given input X, always produce output Y) to fully probabilistic (given input X, produce an output from a distribution of acceptable responses). Traditional software lives at the deterministic end. LLMs live at the probabilistic end. Production AI products live in the messy middle — and the PM's job is to draw the map.
+**For a business reader:** identify where consistency protects the outcome, where variation adds value, and what the controls and review will cost.
 
-The atomic insight: **the single most important architectural decision in an AI product is where the boundary sits between deterministic and probabilistic components.** Get this wrong and you'll have an unreliable product (too much AI) or a brittle product (too many rules). Get it right and you'll have a system where each component uses the right tool for its job.
+**For a technical reader:** map components to deterministic code, model inference, or hybrid execution; specify input and state assumptions, output invariants, acceptable variation, tests, and recovery.
 
-## DUAL DEFINITION
+Deterministic execution means the same relevant inputs and conditions produce the same output. It does not mean the output is right. A probabilistic model can produce a correct answer to a task with one required answer, and several different outputs can all meet a task's requirements. The operating method is in [SKILL.md](SKILL.md).
 
-**Business definition:** The determinism compass tells you which parts of your product need AI and which parts should be traditional software — so you don't pay AI costs for problems that have simpler solutions, and you don't build brittle rules for problems that require AI judgment.
+## Three traps
 
-**Technical definition:** A component-level classification system that maps each operation in a feature to one of three execution modes — deterministic (rules engine), probabilistic (model inference), or hybrid (model inference with deterministic guardrails) — based on input structure, output variability, and judgment requirements.
+**Using AI where a simple check suffices.** Checking whether a string contains an `@` character can use ordinary code. That check alone does not establish that an email address is valid or deliverable. Define the real requirement before choosing either a rule or a model.
 
-## THE TRAP (Expanded)
+**Using rules beyond their useful scope.** A large intent decision tree may become hard to maintain and miss relevant language. Compare it with model-assisted alternatives using actual coverage, errors, costs, and maintenance effort. Complexity does not prove that AI is required.
 
-**The "AI-First" Fallacy.** Teams adopt an "AI-first" philosophy that sounds innovative but produces absurd results. An AI-first team might use an LLM to validate whether an email address contains an "@" symbol. This is a regex problem. The LLM is slower, more expensive, and occasionally wrong. But "AI-first" doesn't have a carve-out for regex, so nobody questions it.
+**Leaving the handoff undefined.** Specify which inputs cross the boundary, what the receiver may assume, how invalid or uncertain results are handled, and who owns recovery. An otherwise useful model can fail the product if its output is trusted beyond its demonstrated meaning.
 
-**The "Rules-Only" Fortress.** The opposite trap. Teams burned by AI unreliability retreat to rules for everything. They build elaborate decision trees to handle customer intent classification — hundreds of if/else branches that become unmaintainable, miss edge cases, and produce a robotic user experience. The problem genuinely requires pattern recognition on unstructured input, but the team's bad experience with AI has made rules the default.
+## Three illustrative component boundaries
 
-**The Missing Boundary Contract.** Even teams that classify correctly often fail at the handoff. The rules engine passes a request to the AI component — but what format? What happens if the AI returns an unexpected response? Who validates the AI output before it reaches the user? The boundary between deterministic and probabilistic zones is where most production failures occur.
+These cases are constructed design examples. Their numbers are not external mandates or validated operating thresholds.
 
-## INTELLECTUAL LINEAGE
+### Transaction monitoring
 
-- **Ravi's CONTEXT Framework** — The seven-layer production AI architecture where each layer has different determinism requirements. The Constitution layer is mostly rules; the Execution layer is mostly AI; the Equipment layer is hybrid.
-- **Anthropic's Constitutional AI** — A masterclass in hybrid design. The model (probabilistic) is guided by constitutional principles (deterministic rules) that constrain its output space. The boundary is explicit and engineered.
-- **Martin Fowler / Domain-Driven Design** — Bounded contexts applied to AI systems. Each bounded context has its own determinism classification.
+A rule can identify transactions above a specified amount; a $10,000 value here would be an illustrative internal threshold, not a universal regulatory rule. A model can help identify patterns that need investigation. The system still needs defined policies, appropriate domain review, and accountable decisions.
 
-## REAL-WORLD EXAMPLES
+Do not turn a model score above 90% into an automatic account-freeze policy by default. A score's meaning, error costs, authority, and intervention process must be established separately. This case illustrates the difference between detecting a pattern and being authorized to act on it.
 
-**Example 1: Banking transaction monitoring.**
-- Rules (deterministic): Flag transactions over $10,000 (regulatory mandate — no judgment needed).
-- AI (probabilistic): Classify whether a pattern of small transactions constitutes structuring (requires pattern recognition on complex temporal sequences).
-- Hybrid: AI flags suspicious patterns with a confidence score. Below 90% → human analyst review. Above 90% → auto-freeze account with instant customer notification. The boundary is explicit, and each zone has a clear responsibility.
+### Content moderation
 
-**Example 2: Content moderation pipeline.**
-- Rules: Block known prohibited URLs and phone numbers (deterministic blocklist, zero false negatives required).
-- AI: Classify whether novel user-generated content violates community guidelines (judgment call on subjective policy).
-- Hybrid: AI assigns severity score (1-10). Scores 1-3 → no action. Scores 4-7 → queued for human review. Scores 8-10 → auto-remove with transparent appeals path. The confidence threshold is tunable based on false-positive cost.
+A blocklist can match known prohibited entries, subject to normalization, list freshness, and evasion. Deterministic matching does not guarantee zero missed prohibited content. A model can assess novel content against a defined policy, with review and appeal paths matched to the consequences.
 
-**Example 3: Customer support routing.**
-- Rules: Password reset requests → automated flow (structured category, keyword match, zero judgment needed).
-- AI: Ambiguous requests that don't match any category → intent classification and urgency assessment.
-- Hybrid: AI classifies intent. But if customer has been escalated 3+ times in 30 days OR account value > $100K, route to human regardless of AI confidence. Business rules override probabilistic judgment.
+A severity scale of 1–10 could route scores 1–3 to no action, 4–7 to review, and 8–10 to removal in a hypothetical tested policy. Those bands need definitions and evaluation; severity is not the same as confidence. Assess both missed violations and unwarranted restrictions.
 
-## FURTHER READING
+### Customer support routing
 
-- Ravi Teja Palanki, "The CONTEXT Framework" — Seven-layer production AI architecture
-- Anthropic, "Constitutional AI: Harmlessness from AI Feedback" — Hybrid deterministic/probabilistic design
-- Martin Fowler, "Bounded Contexts" — Domain boundaries applied to system design
-- Google, "Rules of Machine Learning" — When to use ML and when not to
+A verified password-reset intent can enter a standard flow. A keyword alone may not establish that intent. Ambiguous requests may benefit from model-assisted classification and urgency assessment.
+
+An internal policy might route customers with three escalations in thirty days or account value above $100,000 to a human regardless of model score. Those are illustrative business choices requiring justification. The essential boundary is that a model's interpretation cannot silently override an explicit routing or permission rule.
+
+## Reading connections
+
+The source guide connects this idea to Ravi's CONTEXT framework, Anthropic's *Constitutional AI: Harmlessness from AI Feedback*, bounded contexts in domain-driven design, and Google's *Rules of Machine Learning*. Use these as reading connections, with the following distinctions intact:
+
+- CONTEXT organizes production concerns; inspect the actual framework before assigning one execution mode to an entire layer.
+- Written constitutional principles or model training guidance are not equivalent to deterministic runtime enforcement. A principle can guide behavior without guaranteeing it.
+- A bounded context clarifies the meaning and ownership of a domain; it does not itself classify model execution.
+- Choosing whether to use machine learning requires evidence about the problem and alternatives, not an "AI first" or "rules only" identity.
+
+## Know whether the boundary is useful
+
+The component map should explain what must be exact, what may vary, how correctness is judged, and which action is permitted. It should make debugging and recovery possible without demanding pointless textual sameness. Check the completed workflow, because local consistency and passing schemas can still produce a wrong final result.

@@ -1,137 +1,147 @@
 ---
 name: competitive-map
-version: v1.2_latest
-description: 'Map competitive positioning for an AI product across the dimensions that actually decide defensibility: model, safety, privacy, unit economics, switching cost and trust, rather than feature parity and pricing tiers. The core reframe: in AI, features and model capability commoditize in 3–6 months (yesterday''s breakthrough is today''s table stakes), so advantage lives in moat durability, cost structure and trust. Two products with identical UIs can differ 3× in defensibility by substrate. Different economics = different markets: you compete where YOUR economics work. Use when evaluating competitive threats, designing a defensible position, or deciding which AI game to play. Do NOT use pre-PMF, for feature-level comparisons (use first-principles), or to justify a price war. Pairs with: moat-finder (your own defensibility), strategy-canvas (the strategy), cost-model (the unit-economics math), signal-scanner (weak-signal detection). Triggers: ''competitive analysis'', ''competitive positioning'', ''battlecard''.'
+version: v1.2.1_latest
+description: 'Compare an AI product with the alternatives its customers actually consider, including manual work, existing tools, in-house systems, and doing nothing new. Look beyond feature parity to task quality, safety, privacy, full unit economics, switching costs, trust, distribution, and the durability of each advantage. Use observed evidence and labeled estimates; model choice, certifications, low cost, and an AI-native label do not establish a moat by themselves. Add agent-mediated discovery and purchase measures where relevant. Produce a competitive map, positioning choices, and an evidence-backed battlecard when needed. Useful before or after product-market fit, with depth matched to the decision. Pairs with moat-finder, strategy-canvas, cost-model, signal-scanner, and marketing-to-ai-agents. Triggers: competitive analysis, competitive positioning, competitor map, battlecard.'
 imports:
   - moat-finder
   - first-principles
 ---
 
-# Competitive Map — AI-Native Analysis
+# Competitive map for AI products
 
-**The objective:** map where you actually stand against AI competitors — and where your position is defensible — for the PM deciding which threats are real and which game to play.
+Identify which alternatives customers would choose, where your product creates better value, and what could sustain or erase that advantage. The deliverable should support a concrete decision: a segment to pursue, a threat to respond to, a capability to invest in, or a claim the sales team can substantiate.
 
-## The one idea
+Similar interfaces can hide different quality, costs, data rights, controls, and operating capabilities. Those differences matter alongside features, usability, distribution, and customer fit. A model lead may be temporary or durable; neither a fixed expiry date nor a product's “AI-native” label answers that question.
 
-Two AI products have nearly identical UIs, the same core features, the same demo. One is three times more defensible than the other. The difference is invisible on the product surface, because it isn't *on* the surface — it's in the substrate: which model, trained on whose data, with what trust posture, at what unit cost.
+## Start with the customer and the decision
 
-That's the reframe this skill exists to force, and its enemy is **commodity blindness** — mapping AI competitors the way you'd map traditional software (feature parity, pricing tier, segment) and treating *model capability* as a durable advantage. It isn't: capability commoditizes in 3–6 months (⚠ practitioner rule), so yesterday's breakthrough model is today's table stakes, and the teams that lose are the ones still celebrating last year's model differentiation. In AI, **competitive advantage doesn't live in features — it lives in moat durability, cost structure, and trust capital.** A competitor with lower unit economics out-executes you regardless of feature superiority; a competitor with a data flywheel out-learns you; a competitor with enterprise trust charges 3× your price.
+Define the task, buyer/user, segment, geography, deployment constraints, and time horizon. Use known context and identify consequential gaps. Replace vague arenas such as “AI for knowledge workers” with the particular work and requirements customers pay to satisfy. Avoid invented measures such as “98% privacy compliance.”
 
-And the sharpest consequence: **different unit economics = different markets.** You're not competing to be "best" in the abstract — you're competing in the market where *your* economics work. A rival who can serve at $0.018/user/day plays a price-sensitive game you can't win; you at $0.05 play a mid-market game they can't afford to enter; a rival at $0.095 must play premium/regulated. Map the substrate, and the competitive picture stops being "who has more features" and becomes "who can profitably own which market" — which is the only competitive question that survives the next model release.
+Include the alternatives that affect this decision: direct products, adjacent tools, manual services, internal builds, rules-based workflows, and the status quo. Five to eight rivals can be manageable for a substantial review, but do not invent competitors to fill a quota. Pre-PMF products still have alternatives; use a lightweight map to test assumptions about them.
 
-## How to use this skill
+For a feature comparison, keep the relevant feature evidence and use `first-principles` to test whether the difference matters. Use a deeper map when economics, dependencies, trust, or durability determine the strategy. Stop expanding the analysis when the next decision has enough evidence; an exhaustive map is rarely necessary.
 
-1. **Score the substrate** — rate each competitor AI-native vs. AI-enhanced across the maturity dimensions; that reveals durable positioning. (MATURITY SCORING.)
-2. **Analyze the dimensions that decide defensibility** — model, safety/trust, privacy, unit economics, switching cost, trust capital — reverse-engineering competitor cost. (THE DIMENSIONS.)
-3. **Synthesize and position** — the three 2×2s locate your defensible market; Dunford's five components + a battlecard make it sayable in a deal. (SYNTHESIS + POSITIONING + BATTLECARD.)
+## Keep evidence visible
 
-## KEY TERMS (plain language)
+For every material claim record source, date, product tier/configuration, observed fact, inference, and uncertainty. Distinguish vendor claims, your own tests, customer reports, estimates, and rumors. “Not publicly documented” is different from “absent.”
 
-- **Commodity blindness** — treating model capability as a durable moat when it commoditizes in months; the central trap.
-- **AI-native vs. AI-enhanced** — built *for* AI (high maturity, higher switching cost + moat durability) vs. AI bolted on as a feature (cheaper to build, commoditizes faster).
-- **Moat durability / cost structure / trust capital** — the three places AI advantage actually lives (not features).
-- **Unit-economics-as-market** — your effective cost/user determines which price games you can profitably play; different economics serve different markets.
-- **Switching cost premium** — high lock-in (data history, fine-tunes, deep integration) supports a +30–50% price multiplier.
-- **Trust capital** — brand + sentiment + enterprise relationships + certifications; slow to build, fast to destroy, and worth a premium in regulated markets.
-- **Positioning (Dunford)** — the five answers (alternatives, unique attributes, value, who-cares, category) that make your advantage sayable.
-- **Battlecard** — the one-page field artifact that turns positioning into what a rep says Tuesday morning.
-- **Evidence tiers below** — cost/day figures and the 3–6-month commoditization are ⚠ illustrative; build your own from real benchmarks.
+Benchmark comparable workflows with the same task constraints and appropriate data permissions. Include representative and consequential edge cases, relevant repetition, version/settings, and outcome scoring. Twenty to thirty queries can reveal issues in an exploratory screen; they do not establish broad superiority or rare-failure reliability. Report coverage and uncertainty.
 
-## GROUNDING (Before Starting)
+Unknown internals remain unknown. Public price is not production cost; a model named in marketing may be only one part of a routed system. Respect lawful access and confidentiality when gathering evidence. A customer report can prompt investigation without becoming a public accusation or a verified claim.
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). **Go deep** when evaluating threats, designing a defensible position, or choosing which AI game to play. **Skip** pre-PMF (no competitors yet) or for feature-level comparisons (use `first-principles`). Then route depth and output format.
+## Compare operating capability without a maturity shortcut
 
-## MATURITY SCORING — AI-native vs. AI-enhanced
+Review the following dimensions using anchored descriptions. An optional 1–4 scale can summarize absent/limited/deployed/validated capability **when the evidence supports that classification**; keep unknown separate and define the anchors for each dimension.
 
-Score each competitor 1–4 (absent → mature) across the substrate dimensions: model quality (off-the-shelf API → proprietary fine-tune), hallucination mitigation (none → RAG + fact-check + override), latency, cost structure, evals/monitoring, safety posture, data flywheel, trust design, regulatory readiness (SOC 2 / HIPAA / FedRAMP), model diversity, infrastructure customization (third-party API → on-prem/fine-tune), moat clarity. **AI-native** averages >3.0 (built FOR AI — wins on quality, cost, and accumulated trust); **AI-enhanced** averages <2.5 (a feature bolt-on — cheaper to build, commoditizes faster). The gap between the two is where durable positioning lives.
+Model quality, failure mitigation, latency, cost structure, evaluation/monitoring, safety, data learning, trust design, applicable regulatory/procurement readiness, model flexibility, infrastructure/deployment fit, and moat clarity are useful prompts. They are related dimensions, not independent scientific measures.
 
-## THE DIMENSIONS THAT DECIDE DEFENSIBILITY
+Do not average them into an “AI-native >3.0” verdict. A proprietary fine-tune, multiple models, or on-premises deployment may help one task and add cost or risk to another. Hosted APIs and a well-integrated AI feature can be strong product choices. Show the specific capability, evidence, and customer value instead of treating complexity as maturity.
 
-Work each competitor across these; the substrate ones matter more than the surface:
+## Examine the dimensions that could change the decision
 
-- **Arena & model.** Define the *specific* problem ("enterprise knowledge retrieval, <2s latency, 98% privacy compliance, zero hallucination tolerance"), not "AI for knowledge workers." Name each competitor's base model (public / proprietary fine-tune / hybrid), and **benchmark on YOUR use case** — 20–30 real test queries against 3–4 competitors, scored on accuracy/completeness/latency/cost; be honest about parity. Assume any capability lead expires at the next foundation-model upgrade (6–12 months).
-- **Safety & trust posture** (refusal policy, hallucination tolerance, transparency, incident-response track record). High safety supports premium pricing; low safety undercuts but risks regulatory pressure. Does trust matter in *your* market? (Healthcare: yes. Entertainment: maybe.)
-- **Data & privacy** (retention, "will they train on your data?", SOC 2 / HIPAA / GDPR, transparency). Privacy is enterprise trust capital: a competitor with SOC 2 Type II can sell to regulated customers, one without cannot — so estimate what % of your TAM requires high privacy (that slice is closed to low-privacy rivals).
-- **Unit economics — the moat that matters.** Reverse-engineer each competitor's cost (token price × usage; or pricing tier ÷ assumed users; freemium margin math) and compare on model, context size, cache-hit rate, retry rate → **effective cost/user/day.** Then compute who can play which game: at $0.05 you can charge $0.15–0.30 (mid-market); a rival at $0.018 can charge $0.06–0.12 (price-sensitive); a rival at $0.095 needs $0.28+ (premium/regulated). *(The deep math is `cost-model` / `token-economics`.)*
-- **Switching cost & lock-in** (API integration depth, data history, workflow coupling, whose value is in fine-tunes vs. the base model). High lock-in supports a +30–50% price premium; low lock-in means you compete on capability and price.
-- **Share of algorithmic choice** (agent-mediated selection rate, feed completeness, verification status, API latency). See the machine-buyer block below; this ranks independently of awareness.
-- **Trust capital & brand** (recognition, sentiment/NPS, 5-year enterprise relationships, published certs). Built slowly, destroyed quickly — one incident can erase three years in three months; estimate each rival's trust-collapse trigger.
+### Task capability and architecture
 
-**Add a machine-buyer row wherever an agent can transact on the buyer's behalf.** Every dimension above assumes a human evaluates you. When the consumer still decides what they need and an algorithm does the shopping, the buyer parses structured data and queries APIs instead of reading your positioning, and your competitive position has a second, separate ranking:
+Compare quality, completeness, latency, reliability, supported actions, and integration under the buyer's real workload. Identify the model, data, retrieval, orchestration, or UX contribution only when supported. Separate measured outcomes from explanations for them.
 
-- **Share of algorithmic choice.** The share of agent-mediated purchase decisions in which your product is selected. Score each competitor on it the way you score share of voice, and keep the two apart.
-- **The reason it needs its own row:** a brand's rank in awareness and its rank in algorithmic selection are **measurements of two different corpora and have no obligation to agree.** Awareness is measured on what humans remember. Selection is measured on what a machine can parse, verify and compare against a stated constraint. A strong brand with incomplete, unverified or slow product data ranks well on the first and disappears from the second, and nothing in a traditional competitive map would show it.
-- **Score the inputs separately from the outcome.** Feed completeness, attribute coverage, third-party verification status and API latency are *inputs* to share of algorithmic choice. Treating them as the result is the same mistake as reporting seat activation as adoption.
-- **The structural dimension underneath it: who owns the agent.** If a small number of platforms control the agents your buyers use, they control placement, and reaching those buyers eventually means paying for it. Score every competitor on **direct-channel strength**, because the direct channel is switching capability and switching capability is the only stop authority anyone holds over a platform. Route the investment framing to `rtp-build-or-buy` Lens 4, and the brand-side mechanics to `rtp-marketing-to-ai-agents`, which explains why a brand ranks where it does on this row, which sets out why this asset is a defense against exclusion rather than a source of margin.
+Test the durability of a lead against plausible model upgrades, replication, substitutes, and changing customer requirements. A shared foundation-model upgrade does not improve every product equally: integration, routing, costs, data access, and release choices differ. Use dated scenarios rather than assuming all advantages expire in three to six months.
 
-*(Source: HBR, "Algorithmic Shopping Is Here. Is Your Company Ready?," Aug 2026 — ⚠ framework-tier, a five-pillar maturity audit with no outcome data. The verifiable part of that article is its platform-move timeline (Amazon's agent checkout, an agentic commerce protocol, a competing universal commerce protocol with retail partners, agent-readable storefronts switched on by default across a large merchant base); its headline projection for 2028 B2B volume is a third-party forecast and should not be cited as a measurement. **No company has yet published a share-of-algorithmic-choice figure**, so the definition is usable and the benchmark does not exist. Ledger patterns W and X.)*
+### Safety and trustworthiness
 
-## SYNTHESIS — three 2×2s locate your defensible market
+Compare relevant failure prevention, appropriate refusal, uncertainty communication, recovery, incident handling, and evidence of consistent operation. More refusals do not automatically mean more safety. Safety can be essential even where customers do not pay a visible premium; any commercial premium needs buyer evidence.
 
-- **Capability × Cost** — which market do you own? (high-capability/low-cost vs. high-capability/high-cost vs. DIY.)
-- **Trust × Price** — regulatory defensibility (high-trust/high-price = enterprise/regulated; low-trust/high-price = premium UX only).
-- **Moat type × Runway** — whose advantage expires first? (weak-moat/short-runway competitors are the ones a model release erases.)
+Separate the harm controls a product needs from the features buyers notice and the advantages rivals cannot easily copy. Use `safety-as-moat` and `moat-finder` when those distinctions are central.
 
-Your competitive position is the *intersection* of the three — that's your defensible market, not a single "we're the best" claim.
+### Data rights and privacy
 
-## POSITIONING — Dunford's five components (how to talk about it)
+Compare collection, permitted use, training policy, retention/deletion, access isolation, deployment options, subprocessors, and contractual commitments. Verify the applicable plan and settings.
 
-The matrices tell you where you stand; positioning tells you how to say it. Answer five, each testable:
+Treat a SOC 2 report, a legal obligation, and a government authorization as different forms of evidence with different scopes. SOC 2 is not an AI-safety certification or a universal license to sell to regulated customers; “HIPAA-ready” and “FedRAMP in progress” do not establish compliance or authorization. Identify actual buyer requirements before estimating which part of the market is accessible.
 
-1. **Competitive alternatives** — what would the customer use if you didn't exist? *Not just other AI products* — rule-based automation, human BPO, other LLM agents, in-house build, and the strongest one: **status quo/do-nothing** (inertia is a competitor). Each needs different positioning; comparing yourself only to AI startups when the buyer is comparing you to a $40/hr contractor is malpractice.
-2. **Unique attributes** — what do you have no alternative has? *Attributes, not features* ("the only product that retrieves your contracts AND CRM AND email in one query"). Test each: can a rival add it in 6 months (then it's a temporary lead, not unique)? is it visible at decision time? does it map to a value the customer cares about? *Cross-check against your own unit-economics and trust-capital scores — if a rival is within 0.5 of you on a dimension, it's not your unique attribute.*
-3. **Value** — the *outcome* the attributes deliver ("finds liability clauses across all three systems in 90 seconds — work that took associates 4 hours"), with a specific outcome, time delta, and user. "We have RAG" is not value.
-4. **Who cares** — the segment where the value is most acute (pain intensity × decision authority × buying readiness × reference-ability), *not the largest segment*. The best-fit is rarely the biggest TAM; it's where your unique attribute solves the sharpest pain and the deal moves in weeks.
-5. **Market category** — the box the customer mentally puts you in, which sets the comparison. "AI assistant" compares you to ChatGPT (you lose); "contract intelligence platform" compares you to Kira/Evisort (you can win). The category is a lever — narrow it until your unique attributes are category-defining. If you don't pick the frame, your competitor picks it for you.
+### Full unit economics
 
-**Assemble:** *"For [who cares] who struggle with [the pain your unique attributes solve], [product] is the [category] that [value]. Unlike [alternatives], we [unique attributes]."* If it passes the dimensional cross-checks, it's defensible; if not, usually "unique attributes" is claiming uniqueness the unit-economics or trust scores already disproved.
+Estimate cost on a consistent unit, period, workload, quality target, and service scope. Include input/output billing, context, cache behavior, retries, tools, serving infrastructure, review, support, and relevant fixed allocations. Use `cost-model` and `token-economics` for the calculation.
 
-## BATTLECARD — positioning made operational (one page, sales-ready, quarterly)
+Build a range where competitor internals are unavailable. Pricing divided by assumed users is a revenue or price estimate, not a cost estimate. Separate funding/runway from unit costs and profitability.
 
-Six sections, in order: **(1) Positioning snapshot** (the statement, 3 sentences — the lede, the answer to "why you over them?"). **(2) Strengths vs. this competitor** — 3 bullets, each a customer-language claim with evidence (eval scores, customer quotes, deployment counts); no evidence, no bullet. **(3) Weaknesses** — 3 honest bullets, *each with a reframe* (acknowledge + pivot: "their UI is mature; ours moves faster — our last 6 sprints shipped what they're still planning") — a weakness without a reframe leaves the rep stuck. **(4) Objection handling** — the 5 objections the rival's reps plant, each with a specific answer ("been doing this longer" → "longer means optimized for an older problem; our architecture was built for 2026 workloads"). **(5) Proof points** — 3–5 concrete artifacts, each defensible if the buyer says "send me the source" (customer outcome, eval comparison, analyst reference, cost comparison). **(6) Talk track** — 2–3 verbatim sentences the rep delivers head-to-head; if reps won't say it because it sounds fake, it's wrong — rewrite until they will. **Hygiene:** one card per direct competitor, owned by product marketing, refreshed quarterly (monthly during a surge), versioned/dated, adoption-tracked (unused sections are wrong — fix or cut).
+Lower costs can support lower prices, higher margins, or reinvestment; they do not force a rival to remain in a low-price market. A costlier product can win where its additional value justifies its price. Market access also depends on capability, trust, distribution, contracts, willingness to pay, and service costs. See the [worked scenarios](CONCEPT.md).
 
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
+### Switching costs and portability
 
-- **`rtp-moat-finder`** *(import)* — this maps the *competitive landscape*; moat-finder assesses *your own* defensibility (the four moat types). Use moat-finder's concepts as the substrate dimensions here.
-- **`rtp-cost-model` / `rtp-token-economics`** — the deep unit-economics reversal behind the "different economics = different markets" call.
-- **`rtp-strategy-canvas`** — competitive-map is an input to strategy; the canvas turns the defensible market into the plan and the conditional bets.
-- **`rtp-signal-scanner`** — detects the weak signals (a competitor's new model, a pricing move) that expire this map; budget quarterly refreshes.
-- **`rtp-gossip-mode`** *(informal upstream)* — signal-scanner is the *systematic* refresh; gossip-mode is the *informal* one. "Heard at a meetup that [competitor] is doing X" or "a customer said they're also evaluating [rival]" is competitive intel (gossip's signal 7) that catches a move *between* quarterly refreshes — with a confidence tag, low for a rumor, higher for a direct customer signal. Gossip catches it sideways and routes it here; this map is where it lands as an updated dimension.
-- **`rtp-first-principles`** *(import)* — for feature-level "is this actually different?" cuts beneath the positioning claims.
-- **`rtp-trust-under-fog`** — when the "trust matters here" dimension is load-bearing and you're communicating a probabilistic advantage to a certainty-seeking buyer.
+Assess the actual effort, disruption, risk, and lost value from moving: data history, integrations, learned configuration, workflow change, contracts, training, and export/import quality. Distinguish genuine ongoing value from avoidable lock-in.
 
-## REALITY CHECK
+Estimate migration cost and recovery time with an explicit basis. Do not assume a universal 30–50% price premium, indefinite retention, or a data flywheel from repeated usage. Useful learning requires rights, valid feedback, effective improvement, and benefits that rivals cannot cheaply reproduce.
 
-- **Benchmarks are only as good as your test queries** — 20–30 per use case minimum, common AND edge cases.
-- **Asymmetric information** — you can't see competitor internals (fine-tuning, data retention); make inferences *visible* and labeled as assumptions.
-- **This map decays in 3–6 months** — a competitor's model launch invalidates the capability row; budget quarterly refreshes.
-- **Upstream consolidation** — if all rivals use the same base model, a model upgrade levels everyone equally; the differentiation must be elsewhere.
-- **Economic sustainability** — a VC-backed rival with lower unit economics can outlast a bootstrapped you in a price war; don't start one.
+### Trust, brand, and relationships
 
-## QUALITY GATE
+Compare buyer recognition, relevant references, sentiment, demonstrated performance, relationship depth, incident history, and verified procurement evidence. These signals can overlap, so avoid counting the same evidence as several independent advantages.
 
-- [ ] Arena defined specifically (not "AI for knowledge workers")
-- [ ] 5–8 direct competitors; base models named; capability benchmarked on 20+ real cases
-- [ ] Safety, privacy, and regulatory posture compared; switching cost calculated
-- [ ] Unit economics reverse-engineered per competitor (assumptions explicit)
-- [ ] Trust capital scored; the three 2×2s completed; your defensible segment identified
-- [ ] Positioning statement assembled and cross-checked; battlecard drafted if sales-facing
+Identify events that could undermine a claim and the competitor's capacity to respond. Trust can erode quickly or recover; there is no general “three years lost in three months” rule. A familiar brand or a safety-oriented founding story does not prove superior operation.
 
-## WHEN WRONG
+### Agent-mediated discovery and choice
 
-- Very early exploration where competitive threats don't yet exist, or a genuine monopoly market.
-- When competitive analysis becomes a way to avoid shipping (perfectionism).
-- When the analysis fixates on feature parity rather than moat durability — this is a strategic tool, not a feature comparison.
-- When used to justify a price war — competing on price is a race to the bottom in commoditized AI.
+Add this dimension when software agents influence the relevant buyer's discovery, shortlist, recommendation, or purchase. Measure these stages separately.
 
-## TRADE-OFF LEDGER
+Define **share of algorithmic choice** for a bounded observation set: selections of your product divided by eligible observed agent-mediated choices, with the agent/platform, task, category, period, sampling method, and purchase-versus-recommendation distinction stated. A synthetic shopping test is a test-set result, not market share. Mark real-market coverage unknown when platform data is unavailable.
 
-By mapping the substrate instead of the surface, you bet that defensibility lives in moat/cost/trust, not features — that the durable question is "who can profitably own which market," not "who has more features." You give up the comfort of a clean feature-comparison grid for the harder work of reverse-engineering economics and trust. **Reversible?** It's analysis — cheap to redo, and it *must* be redone quarterly as capability commoditizes. **The hidden trade:** the failure mode is *commodity blindness dressed as rigor* — a beautiful feature matrix that celebrates a model lead expiring in three months. **Confidence: High** — capability commoditization is the defining dynamic of AI markets. What would change it: a genuine, durable model moat (rare) where capability really is the advantage.
+Track inputs—attribute completeness, verified claims, inventory/price freshness, accessibility, and interface performance—separately from the selection outcome. Human awareness and algorithmic choice can differ, but agents may also use brand preferences, reviews, reputation, and unstructured web content. Structured data is valuable without being the only possible input.
 
-## CONCLUSION
+Assess platform concentration, discovery/payment rules, portability, direct-channel strength, alternatives, fees, and available contractual or regulatory recourse. Direct access to customers can reduce dependence; it is not the only possible influence or remedy, and future tolls are a scenario rather than a certainty. Product data can create operating value beyond preventing exclusion.
 
-Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): the recommendation (your defensible market — the intersection of the three 2×2s — and the position to claim), the key trade-off (which game your economics let you win), the biggest risk (a capability lead you're mistaking for a moat), and the next action (the positioning statement + battlecard, with an owner and a quarterly-refresh date).
+Use `marketing-to-ai-agents` for channel mechanics and `build-or-buy` for dependency choices. The [evidence note](references/competitive-evidence.md) qualifies the HBR algorithmic-shopping examples and the Novel Insights interpretation.
 
-## VISUAL SUMMARY
+## Synthesize the position
 
-After the primary output, invoke the **excalidraw-svg** skill for one visual: the three synthesis 2×2s (Capability×Cost, Trust×Price, Moat×Runway) with each competitor and you plotted, and the intersection — your defensible market — highlighted; plus a small "substrate vs. surface" icon showing two identical UIs sitting on different-sized moats. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Use these three views when they help the decision:
+
+| View | Question to answer | How to keep it interpretable |
+|---|---|---|
+| Capability and cost | Who delivers the required outcome at a viable cost? | Define the task-quality and full-cost units; show ranges where estimates are weak |
+| Trust and price | Which buyers value the assurance offered at this price? | Define trust evidence and a comparable price/service scope; do not equate high price with regulated-market fit |
+| Moat and runway | What could preserve or erode each advantage, and when? | Use a categorical moat-by-scenario table; if drawing a 2×2, use defensibility strength versus estimated durability, not a numerical axis called “moat type” |
+
+Choose meaningful boundaries for a 2×2 rather than putting arbitrary scores at the center. These views support a judgment; their visual intersection does not mathematically prove a defensible market. State the strongest candidate position, credible alternatives, evidence gaps, and the event that would change the choice.
+
+## Develop positioning from buyer alternatives
+
+April Dunford's [five-component method](https://www.aprildunford.com/post/a-quickstart-guide-to-positioning) connects:
+
+1. **Alternatives:** what buyers would actually use without this offering.
+2. **Differentiated capabilities:** the relevant differences against those alternatives.
+3. **Value:** the outcome those differences enable, supported by evidence.
+4. **Best-fit customers:** who most values that outcome and can adopt the product.
+5. **Category:** the context that makes this value understandable without misleading expectations.
+
+Work through the relationships before writing a statement. A fill-in-the-blanks sentence is a summary, not the discovery method. A currently unique feature can still be easy to copy; current uniqueness and long-term defensibility are separate. A half-point difference on an internal score does not settle either question.
+
+Test candidate positioning with the relevant buyer and against actual alternatives. Do not automatically narrow a category until you can claim to lead it, dismiss a general-purpose assistant, or assume the smallest segment is best. Consider value, adoption constraints, commercial opportunity, and evidence.
+
+An optional summary is: “For [customer] facing [problem], [product] provides [value] through [relevant difference], compared with [actual alternative].” Use natural language suitable for the audience, with no unsupported exclusivity or outcome promise.
+
+## Build a useful battlecard when sales needs one
+
+Keep one dated, source-linked card per relevant competitor. Product marketing or the assigned owner maintains it. Use six sections:
+
+1. **Positioning snapshot:** the buyer, value, and reason to consider us.
+2. **Supported strengths:** a few customer-relevant advantages with evidence and comparison scope.
+3. **Honest limitations:** where the rival is stronger, the practical implication, and a valid mitigation or fit boundary. Do not force a positive spin when none exists.
+4. **Objection handling:** real buyer questions and substantiated answers. Avoid invented claims about what the rival's salespeople say.
+5. **Proof points:** artifacts the team can share lawfully, such as documented results, comparable evaluations, references, or scoped cost analyses.
+6. **Talk track:** two or three natural sentences a representative can say accurately, plus qualification when needed.
+
+Do not answer “they have more experience” with an unsupported claim that they are obsolete. Evidence may show the buyer is better served by the rival; the card should help qualify the opportunity honestly.
+
+Refresh after material changes in product, price, evidence, incidents, buyer priorities, or channel rules. A quarterly review can be a useful backstop. Check actual use and feedback; an unused section may reflect relevance, training, access, or workflow rather than incorrect content.
+
+## Review and handoff
+
+- The arena and alternatives reflect the buyer's decision, including the status quo where relevant.
+- Material claims have dates, sources, scope, and uncertainty; unknowns have not been scored as failures.
+- Capability, economics, safety/privacy, switching, trust, and relevant distribution evidence are compared on a fair basis.
+- Model choice and procurement claims are verified or clearly labeled as unknown/inferred.
+- The three synthesis views support the conclusion without pretending to prove it.
+- Positioning and any battlecard use defensible claims and preserve real limitations.
+- The next action, owner, review trigger, and largest unresolved risk are clear.
+
+Hand the chosen position and conditional bets to `strategy-canvas`, your own durability questions to `moat-finder`, and monitoring triggers to `signal-scanner`. `gossip-mode` can supply informal leads between reviews; preserve provenance and verify before changing consequential claims. Use `trust-under-fog` to communicate uncertainty appropriately.
+
+Explain the trade-off between present customer value and investment in a potentially durable advantage. Price competition may be a valid strategy when economics and value support it; do not use this map to rationalize an unsupported price war or to avoid a needed product decision. Include a visual only where it improves comparison.

@@ -1,7 +1,7 @@
 ---
 name: ai-use-case-readiness
-version: v2.6_latest
-description: 'Right-size the autonomy for a use case: the minimum that captures the value, not the maximum you could build. The question is never ''can we make this autonomous?'' but ''what''s the least autonomy that still works?'' Autonomy is a governance question, not a capability one: you CAN build a level-5 agent; cost-of-error, verifiability, and policy decide whether you SHOULD. Runs a 5-phase diagnostic: 12 questions, the 0-7 spectrum, two matrices, a floor/ceiling gap and a phased roadmap. The output is framed as a testable hypothesis, not a rubber stamp. Use when a team says ''let''s build an agent'', or when ''can it be autonomous?'' is asked before ''should it be?''. Do NOT use for a monolithic undecomposed use case (first-principles first) or a pure tech-stack choice. Pairs with: problem-ai-fit (whether AI at all), autonomy-spectrum (quick level reference), determinism-compass (what stays deterministic), cost-model (control-burden economics). Triggers: ''let''s build an agent'', ''how autonomous'', ''can this be an agent''.'
+version: v2.6.1_latest
+description: 'Choose the least autonomous operating model that delivers the required value with acceptable risk, cost, and human workload. Use when assessing an agent proposal, deciding what AI may recommend or execute, or resolving a gap between desired autonomy and current controls. Follow five phases: ground the job, diagnose its subtasks with 12 questions, assess knowledge and control burden, set a practical autonomy floor and ceiling, and plan evidence-based rollout. Separate capability, permission, supervision, and economics; use the shared autonomy-spectrum labels with explicit action rights. The output is a testable recommendation, including prerequisites, critical assumptions, and conditions for changing it. Pairs with problem-ai-fit, determinism-compass, agent-risk, agent-spec, invisible-stack, and cost-model.'
 imports:
   - first-principles
   - determinism-compass
@@ -10,329 +10,178 @@ imports:
 
 # AI Use Case Readiness
 
-**The objective:** determine the right-sized autonomy for a use case — the minimum that captures the value, not the maximum you could build — for the PM or team about to say "let's build an agent."
+Determine how much a system should do on its own for a particular use case. Recommend the simplest operating model that meets the user's needs with acceptable consequences, cost, and human workload. Compare manual work, deterministic automation, AI assistance, and bounded agents; more autonomy is not the objective.
 
-> "Almost any feature has some positive return. The only question that matters is: is this the *absolute best* use of our finite resources?" — Shreyas Doshi
+The deliverable is a **readiness recommendation**: what the system may do now, who remains responsible, what evidence supports that boundary, and what would justify changing it. A score or an autonomy label does not authorize deployment.
 
-## The one idea
+## Separate the decisions before scoring
 
-A team builds a level-5 autonomous agent for a workflow that is 80% stable rules and 20% exceptions. It works. It demos beautifully. And it costs ten times more to build, control, and maintain than the level-2 system that would have done the same job. Impressive, and wrong.
+Four questions must agree:
 
-That is **autonomy theater**, and it comes from asking the wrong question. The instinct, when agents are novel and well-funded, is to look at a use case and ask *"can we make this autonomous?"* The right question — the whole skill — is *"what's the minimum autonomy that captures the value?"*
+1. **Capability:** can the proposed system perform this work reliably in the intended environment?
+2. **Authority:** which decisions and actions may it take under the user's authorization and applicable policy or requirements?
+3. **Control:** can failures be prevented, detected, contained, or recovered within the consequence window?
+4. **Value:** does the benefit justify implementation, controls, operating cost, and the work retained by people?
 
-Here's the mechanism that makes the wrong question so seductive and so expensive: **autonomy is a governance question, not a capability one.** You CAN build a level-5 agent — the model can write the SQL, call the API, take the action. Whether you SHOULD is decided by three other things entirely: what a wrong action costs, whether you can verify correctness before the damage lands, and what policy allows. "The system can act" and "the system should act" are different sentences, and the gap between them is months of engineering and a completely different trust model.
+A model's ability to call an API answers only part of the first question. Advice can also cause harm when people act on it. Human approval is a control only when the reviewer has relevant competence, evidence, time, and authority to intervene.
 
-So this skill sizes autonomy from the bottom up. It starts at "no AI" and moves up only as far as the value genuinely requires and the controls genuinely allow — because harder problems (high tacitness, high cost-of-error) usually need *more* human judgment, not less. The output is never a rubber stamp; it's a testable hypothesis: "level X is right-sized because [reasons]; we're wrong if [counter-signal]."
+Identify hard boundaries before applying weighted criteria. An applicable prohibition or explicit values constraint cannot be averaged away by a high business-impact score. If the boundary is contested or changing, name the decision owner, current rule, and evidence needed to revisit it. A diagnostic does not resolve that dispute by itself.
 
-## How to use this skill
+Decompose a broad use case with `rtp-first-principles`; do not assign one level to a mixture of unrelated actions. If the question is whether AI is useful at all, use `rtp-problem-ai-fit`. If only a technical stack is needed, route to system design. Reuse existing customer grounding and the shared `UNIVERSAL-SKILL-PROTOCOL.md` at the AI-PM collection or plugin root.
 
-Five phases — enter at whichever point matches what you already know. It is a **parameter-driven diagnostic, not a linear checklist**: activate the questions and matrices that actually drive *this* decision.
+## Five phases, scaled to the decision
 
-1. **GROUND** — anchor in the customer's reality (skip if carried from problem-ai-fit).
-2. **DIAGNOSE** — decompose the use case into sub-tasks; run the diagnostic questions.
-3. **ASSESS** — place it on the autonomy spectrum and the two matrices.
-4. **DECIDE** — set the autonomy floor and ceiling; state the recommendation as a hypothesis.
-5. **PLAN** — phased roadmap, controls, operating model.
+Run **Ground → Diagnose → Assess → Decide → Plan**. Reuse evidence already available. A quick assessment may examine the relevant risks and one matrix, with its limitations stated. A full recommendation uses both matrices and addresses all 12 questions, recording unknowns rather than forcing answers. Use the output format the user needs; a comprehensive assessment does not automatically require a Word document.
 
-A quick assessment is Ground + Risk questions + one matrix. A comprehensive one runs all of it.
+### Phase 1 — Ground the job and opportunity cost
 
-## KEY TERMS (plain language)
+Establish:
 
-- **Autonomy level (0–7)** — how much the system does on its own, from deterministic rules (0) to fully autonomous across domains (7); each step up costs more to build, control, and trust.
-- **Autonomy floor** — the minimum sophistication needed for the task to work at all.
-- **Autonomy ceiling** — the maximum autonomy that's *safe* given current controls. When the floor is above the ceiling, you have a real problem to resolve, not a design to ship.
-- **Need for agency** — how much dynamic planning, judgment, and exception-handling the work genuinely requires. High agency need ≠ high autonomy allowed.
-- **Control burden** — how hard it is to let the system act *safely* (driven by cost of error, verifiability, reversibility, consequence breadth).
-- **Explicit vs. tacit knowledge** — codifiable rules vs. expert judgment that resists capture. High tacitness usually means *more* human review.
-- **Verifiability** — whether you can check correctness before action, right after, only later, or not at all. Your primary control lever: if you can't verify, you can't control.
-- **Autonomy theater** — building a high-autonomy agent for work a low-autonomy system would do better; the central failure this skill prevents.
-- **Foundation dependency** — whether the use case works standalone (low-foundation), needs a specific data pipeline to function (data-dependent), or breaks if the underlying infrastructure changes (foundation-critical). Classify this before scoring any other readiness dimension.
+- The specific user and job in their language.
+- The current method, its outcomes, and what breaks.
+- The problem's importance, frequency, and urgency relative to other work.
+- Who bears the consequences of an incorrect, late, or missing result.
+- The outcome worth improving, the alternatives considered, and what this investment would displace.
 
-## GROUNDING (Before Starting) — Phase 1: GROUND
+Pain rankings can guide prioritization, but a user's fourth-ranked problem is not automatically unworthy or unadoptable. A low-frequency task can still matter when consequences or strategic value are large.
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md). Anchor in the human truth before assessing autonomy — an elegant autonomy matrix for a workflow nobody cares about is waste with extra steps. If you came from problem-ai-fit, carry these forward; otherwise answer them:
+For an early company still testing demand, the [lightweight qualification frame](references/opportunity-and-research.md) helps establish the opportunity first. It does not replace an autonomy assessment for consequential actions.
 
-1. **Who exactly is the user?** Name the person ("Tier-2 support agents handling billing disputes"), not "the business."
-2. **What's the actual job, in their words?** What they'd say at lunch, not "leverage AI for process optimization."
-3. **How do they do it today, and what breaks?** The current solution is the baseline you have to beat.
-4. **How painful is this — top-5 problem or a nice-to-have?** A perfect agent for their #4 pain won't get adopted.
-5. **What happens when the current process fails, and who gets hurt?** This grounds cost-of-error in reality.
-6. **What are we saying YES to — and NO to?** If you can't fill in the NO, you haven't made a decision.
+### Phase 2 — Diagnose the subtasks
 
-Then route output format: **Word** (stakeholder report, default for comprehensive), **Presentation** (review), or **Inline** (quick answer).
+Describe the trigger, inputs, outputs, actors, systems, permissions, success measure, and consequence of failure. Break the workflow into actions small enough to assign meaningful controls. A useful hybrid may combine extraction, rules, generated drafts, and human decisions.
 
-## THE TRAP
+**Map foundation dependencies early.** For each subtask, record the needed data, tools, schemas, models, integrations, and owners. Use these working categories without pretending they are mutually exclusive:
 
-You will optimize for *maximum* autonomy instead of *right-sized* autonomy. The bias is **agentic hype**: agents are novel, well-funded, and feel like the future. Five variants:
+- **Low-foundation:** few specialized upstream dependencies; still dependent on ordinary runtime, access, and inputs.
+- **Data-dependent:** relies on a particular source or pipeline whose absence, staleness, or failure affects the result.
+- **Foundation-critical:** a shared platform, schema, model, or integration change can materially disrupt operation and therefore needs change coordination and validation.
 
-- **Autonomy theater** — a level-5 agent for 80%-stable-rules work; it runs, but costs 10× a level-2 system to maintain.
-- **Novelty bias on action rights** — the LLM *can* write SQL or invoke APIs, so you assume it *should*. Execution rights are a governance question, not a capability one.
-- **Cost-of-error amnesia** — you run twelve diagnostics on tacitness and variability and forget Q3: "what happens if it's wrong?" High-tacit, high-error domains need human-in-the-loop, not autonomy.
-- **Values-veto laundering.** A common four-criteria prioritization checklist scores risk, feasibility, business impact and human-vs-AI appropriateness, then averages all four.
+A task may carry more than one tag. Define the actual dependency and change test; the label alone is not a readiness result. Classify per subtask after enough decomposition to see the dependencies.
 
-  **The mechanism:** averaging lets high scores on the other three outvote a hard values line, so a use case that should never have entered scoring comes out "green" anyway.
+**Answer the 12 diagnostic questions.**
 
-  **Fix:** human-vs-AI appropriateness is a gate, not a criterion. Decide it pass/fail first, before the other three are scored at all.
+| # | Question | What the answer must make clear |
+|---:|---|---|
+| 1 | What exact decision or action is delegated? | State what the system proposes, decides, or executes and what the person does. Separate producing a recommendation from authority to use it. |
+| 2 | Is the mode advise, decide, execute, or execute with approval? | Name each approval point and its default. A timeout that proceeds is automatic execution after a delay, not affirmative approval. These modes are not a universal ranking of harm. |
+| 3 | What happens if the result is wrong, late, or silently absent? | Assess each failure separately, including affected people, severity, frequency, and time before consequences occur. |
+| 4 | When and how can correctness or safe operation be checked? | Distinguish pre-action verification, immediate detection, delayed outcome measurement, and uncertainty that cannot be resolved. Monitoring after harm is different from prevention. |
+| 5 | Which parts use explicit rules and which need tacit judgment? | Examine real exceptions. Frequent overrides may indicate incomplete rules, changing conditions, poor inputs, or judgment that is difficult to codify. |
+| 6 | How often do novel cases occur? | Estimate absolute volume at expected scale and identify their handling. An exception may be automatable; it does not necessarily need a person. |
+| 7 | Can the environment change during execution? | Consider concurrent edits, stale reads, expiring permissions, changed business state, and partial completion. |
+| 8 | Can a bad action be undone or its effects contained? | Name the recovery window and residual harm. Irreversibility strengthens the case for pre-action controls; it does not mechanically assign level zero. |
+| 9 | What permissions and decision rights are required? | Specify scope, accountable owner, enforcement, and conflicts with current authorization or policy. Technical access is not sufficient authority. |
+| 10 | What is the smallest bounded slice that still creates value or resolves a critical uncertainty? | Define the test population, action limits, duration, and what the pilot can establish. |
+| 11 | What evidence can show outcomes and control performance? | Identify telemetry, sampling, independent checks, incident signals, and limits. Logging alone does not prove correctness. |
+| 12 | Does the upside justify the complete control burden? | Include implementation, runtime, human review, maintenance, rework, incidents, and opportunity cost. Compare a credible lower-autonomy alternative. |
 
-  **Wrong when:** the appropriateness line is itself contested or actively moving, such as a new regulatory allowance or a shifted internal policy. Then treat it as a gate to revisit on a cadence rather than a permanent veto. *(Source: an AI use-case prioritization webinar recap, Jul 2026 — prescriptive checklist with zero supporting evidence; carried as a common practice pattern, not a validated finding.)*
-- **New-task-creation mislabeling.** A proposal claims the deployment "creates new kinds of work," and nobody checks whether the actual task list changed.
+For consequential human checkpoints, test whether the intended reviewer can identify errors and choose the right response on representative examples. Stating an acceptance standard, sharing vocabulary, or editing frequently is not enough by itself. Direct production experience may help, but competent evaluation and production are different capabilities. `rtp-judgment-guard` develops this distinction.
 
-  **Why the underlying taxonomy cannot settle it.** The five-category model of how AI reshapes labor (Acemoglu, Autor and Johnson: labor-augmenting, capital-augmenting, automating, expertise-leveling, new-task-creating) can only be scored correctly *after* the labor market has repriced the work. That makes it useless as an ex-ante screen on its own.
+Label assumptions **Validated** (measured in a stated setting), **Informed** (supported by relevant expert judgment), **Assumed** (plausible but untested), or **Unknown**. Validation has a scope and date; it is not permanent certainty. Prioritize the assumptions that would change the recommendation and expose the greatest consequence. Name the most concerning one and a concrete way to test it.
 
-  **The test it does yield:** compare the task list required for the role or workflow before and after the deployment. **If the list is unchanged, the deployment cannot be new-task-creating**, because that category requires the task set itself to expand.
+### Phase 3 — Assess the operating model
 
-  **Necessary, not sufficient.** A deployment with an unchanged task list can still raise measured demand for the underlying expertise by deepening a task it already had. This test will not catch that case.
+**Use the shared spectrum consistently.** `rtp-autonomy-spectrum` owns the library's seven labels. Use **0 — no AI/deterministic baseline** as an additional comparator, not as an AI maturity stage.
 
-  **Name the distractor out loud.** A deployment that clearly helps people answers a different question than whether it is ready for its claimed autonomy level. A strong helpfulness case is not a readiness assessment and should never substitute for one. *(Source: Acemoglu, Autor and Johnson, a publicly available economics paper — ⚠ reported in this pass, not independently verified against the primary source.)*
+| Label | Useful shorthand | What still needs to be specified |
+|---|---|---|
+| 0 — Baseline | Manual work or deterministic rules without AI | Rules, permitted actions, monitoring, and responsibility |
+| 1 — AI Feature | A bounded prediction or generation within a product | How code and users consume the output |
+| 2 — Chatbot | A constrained conversational workflow | Whether routing is scripted and what it can actually do |
+| 3 — AI Assistant | User-directed assistance | Task boundaries, tool access, and permitted actions |
+| 4 — Copilot | Assistance embedded in a person's work | What the person reviews or approves before consequential use |
+| 5 — Agent | Model-directed steps within defined boundaries | Scope, action permissions, checkpoints, stopping, and escalation |
+| 6 — Autonomous Agent | Independent execution of a bounded job with outcome supervision | Verification, exposure limits, intervention time, and accountable ownership |
+| 7 — Multi-Agent System | Several agents coordinate | Each agent's authority plus coordination and shared-state controls |
 
-## PHASE 2: DIAGNOSE
+These are descriptive categories, not a validated numeric scale. Several agents can have less authority than one agent, and a chatbot can expose a consequential action. **Always state the operational contract alongside the number.** This version resolves the older readiness skill's conflicting 0–7 numbering; see the [migration crosswalk](references/level-crosswalk.md) when reading earlier assessments. Never silently reinterpret a saved number.
 
-**Zero, classify foundation dependency (required before any other dimension).** Every use case falls into one of three classes. **Low-foundation** works standalone, with no upstream dependency. **Data-dependent** needs a specific pipeline or data source to function, so breaking the pipeline breaks the use case. **Foundation-critical** breaks if the underlying infrastructure changes: a platform migration, a model swap, or a schema change takes it down too. The mechanism this guards against: without classifying first, a team can score a foundation-critical use case "ready" on every autonomy dimension and still ship something that dies the next time the data team touches a schema, because the readiness score was measuring the wrong risk entirely. **Wrong when:** the classes blur within one use case, with some sub-tasks data-dependent and others low-foundation. Classify per sub-task once you decompose, not once for the whole use case. *(Source: HBR, "AI and IT Teams Often Clash. But They Don't Have To.," Jul 2026, three anonymized advisory cases — ◆ company-disclosed pattern, no public citation available given anonymization; carried as a practitioner pattern, not a measured statistic.)*
+Start by comparing the baseline and assistive designs. Add model-directed planning only where it improves the job enough to justify its costs and controls. Deterministic software can already execute multiple steps; multi-step work alone does not establish the need for an agent. Anthropic's workflow/agent distinction is useful here. [Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents).
 
-**Then decompose.** Restate the job in operational terms (trigger, inputs/outputs, actors, systems, permissions, success metric, consequence-if-wrong), then break it into sub-tasks and rate each on: foundation dependency · explicit vs. tacit · advisory vs. executional · cost of error · verifiability · best-fit level. **Critical rule:** if one sub-task is much riskier than the rest, do not let the average hide it. Most good architectures are **hybrids** (level 3 for stable parts, level 1 for risky parts).
+**Matrix A — Knowledge × Cost of error**
 
-**Then run the 12 diagnostic questions.** Answer what you can; mark the rest as assumptions (an honest "I don't know" beats a confident guess).
+| | Lower consequence | Higher consequence |
+|---|---|---|
+| Mostly explicit knowledge | Consider rules or a bounded AI component; verify the actual fit. | Consider controlled automation with strong input checks, pre-action verification, and appropriate review. |
+| Substantial tacit judgment | Consider assistance or a bounded experiment with meaningful feedback. | Prefer a human-led or tightly constrained design until competent review and sufficient controls are demonstrated. A person in the loop is not automatically sufficient. |
 
-1. **What exact decision or action is being delegated?** ("The system [recommends/decides/executes] X; the human [reviews/approves/overrides].") *Red flag:* "the system decides" but a human reviews every output — that's advisement with friction.
-2. **Advise, decide, execute, or execute-with-approval?** Strictly ordered; advising costs nothing if wrong, execution costs a lot. *Red flag:* "approval required" but it defaults to yes after 2 hours — that's execution.
-3. **What happens if the output is wrong, late, or fails silently?** Three separate failure modes. *Red flag:* "low cost, we'll fix it later" — when is later? Weeks isn't low cost.
-4. **Can correctness be checked before action, right after, only later, or never?** Verifiability is the control lever. *Red flag:* "we'll monitor dashboards" — monitoring isn't verification if the damage already landed.
-5. **Which parts are explicit rules vs. tacit judgment?** *Red flag:* "mostly rules" but examples keep needing override — that's tacit masquerading as explicit.
-6. **How often do novel cases appear?** Exceptions = cases needing human judgment, and they grow with scale. *Red flag:* "rare now" — how many per month at 10× volume?
-7. **Does the environment stay stable mid-execution?** *Red flag:* "stable in the happy path" — errors live in the unhappy path.
-8. **Can a bad action be rolled back quickly and cheaply?** *Red flag:* "rollback not possible" → autonomy on that action must be zero.
-9. **What permissions and decision rights are required?** The ceiling is what policy allows PLUS what's safe. *Red flag:* "technically possible but policy says no" — governance is the bottleneck.
-10. **What's the smallest bounded slice that still creates value?** That's your pilot. *Red flag:* "we need to scale to everything now" — you're piloting, not launching.
-11. **What telemetry exists to measure outcomes?** Can't measure it → can't improve or defend it.
-12. **Does the economic upside justify the control burden?** *Red flag:* "upside undefined; we're building because we can."
+**Matrix B — Need for agency × Control burden**
 
-**Then surface your assumptions.** Rate each: **Validated** (measured), **Informed** (expert judgment), **Assumed** (reasonable, untested), **Unknown** (guessing). The test: *if this assumption is wrong, does the autonomy recommendation change?* If yes, it's critical — test it before committing. **Name the assumption that scares you most; test that first.**
+| | Lower control burden | Higher control burden |
+|---|---|---|
+| Low need for dynamic planning | Compare deterministic workflows and AI components. | Improve deterministic checks and checkpoint design; high risk does not create a need for an agent. |
+| High need for dynamic planning | Consider bounded agent execution with tested limits. | Consider supervised planning, restricted actions, stronger verification, or narrower scope; defer unsupported execution. |
 
-## PHASE 3: ASSESS
+The matrices reveal tensions; they do not calculate a permitted level. If they suggest different designs, explain which consequence or control is binding. For the chosen dimensions, low/medium/high or anchored 1–5 ratings can structure discussion: tacitness, error cost, verification difficulty, irreversibility, variability, coordination, environmental change, consequence breadth, and decision-rights sensitivity. Do not average a severe subtask away or convert a decimal score into an autonomy level.
 
-**The autonomy spectrum (0–7)** — use the *lowest* level that captures the value. (For the full per-level teaching, see the imported `autonomy-spectrum`.)
+State four separate judgments: **need for agency**, **control burden**, **implementation effort**, and **economic leverage**. Give units, ranges, scope, and evidence. Monetary bands in earlier versions were illustrative; strategic or nonfinancial benefits need explicit outcomes too.
 
-| Level | Name | The system… | The human… |
-|---|---|---|---|
-| 0 | No AI | follows deterministic if/then rules | writes the rules, monitors |
-| 1 | Rules engine | applies decision trees / business logic | maintains the rules |
-| 2 | AI for one task | classifies, extracts, ranks, or generates from one prompt | integrates the output |
-| 3 | Copilot | drafts (emails, reports, code); value = speed | reviews, edits, approves before anything ships |
-| 4 | Supervised agent | takes multiple actions, escalates ambiguity | reviews outcomes async/batch |
-| 5 | Bounded agent | acts within scoped permissions; can't override policy | audits exceptions |
-| 6 | Semi-autonomous | acts independently in a narrow, reversible domain | spot-checks; intervenes on anomalies |
-| 7 | Fully autonomous | decides and acts across domains, minimal oversight | monitors; handles incidents (rare — only after 0–6 are battle-tested) |
+### Phase 4 — Decide the floor, ceiling, and hypothesis
 
-**Default: start at 0–3.** Move to 4+ only if the case genuinely needs dynamic planning, multi-step tool use, or open-ended exception handling.
+The **floor** is the least independent operation needed to meet the stated value, timeliness, and workload requirements. It is not the intelligence required to understand the task. The **ceiling** is the greatest action scope supported by current capability, authorization, controls, and operating capacity.
 
-**The two matrices — always use both.**
+State both as permissions and human responsibilities, then add the spectrum label if useful. Numeric comparisons are meaningful only within comparable operating modes. If the needed action scope exceeds what can be supported, choose among four responses:
 
-*Matrix A — Knowledge × Cost of Error ("how much can we safely automate?"):* explicit + low cost → **automate** (0–1); explicit + high cost → **controlled automation** (1–2, verify before acting); tacit + low cost → **assistive** (2–3, AI recommends); tacit + high cost → **human judgment zone** (level 3 max — AI assists, human decides, do NOT automate). *Key insight: high tacitness implies stronger human review, not higher autonomy.*
+1. Narrow the job, population, consequence, or service promise.
+2. Build and test the missing controls or capability.
+3. Retain a competent human step with realistic capacity and latency.
+4. Defer or reject the unsupported use.
 
-*Matrix B — Need for Agency × Control Burden ("how much autonomy can we responsibly give?"):* low agency + low burden → **deterministic automation** (1–2); low agency + high burden → **deterministic + checkpoints** (high burden ≠ needs an agent); high agency + low burden → **bounded/semi-autonomous** (5–6, if narrow + reversible + low consequence); high agency + high burden → **copilot/supervised** (3–4, human stays in the loop).
+An assistive first phase is a valid destination, not a promise to become autonomous later. “Ready with controls” means the named controls must exist and pass their checks before the associated actions are enabled.
 
-**Score the operating conditions 1–5** on the dimensions that matter here (numbers structure judgment, they don't imply false precision — "3–4 on tacitness" is useful; "3.72 → autonomy 4.91" is theater): knowledge tacitness · cost of error · verification difficulty · irreversibility · process variability · coordination complexity · environment dynamism · consequence magnitude · decision-rights sensitivity.
+Look for **unnecessary agent design**: extraction or templated generation presented as planning; weak data blamed on reasoning; tool access mistaken for permission; internal eval success without an operational check; or costs that overwhelm benefits. Negotiation and relationship work require explicit ownership and limits, but using an agent does not inherently erase human accountability. The owner and actual decision rights determine that.
 
-**State the four meta-judgments** (don't collapse to one number): **Need for agency** (Low/Med/High), **Control burden** (Low/Med/High), **Implementation effort** (weeks/months/quarters), **Economic leverage** (<$50K / $50K–500K / >$500K or strategic).
-
-## PHASE 4: DECIDE
-
-**Set the floor and ceiling.** Floor = minimum needed to work; ceiling = maximum safe given current controls. If the **floor is above the ceiling**, resolve it four ways: narrow the scope (lowers the floor), strengthen controls (raises the ceiling), delay until controls exist, or accept human-in-the-loop as Phase 1 (level 4 now, level 6 later). The gap is often the most important insight in the whole assessment.
-
-**Watch for agentic false positives** — signs a lower-autonomy design is better: the value is really extraction/routing/templated generation (level 2 is enough); the hard part is bad data or poor integration, not reasoning (fix upstream first); the workflow is too low-frequency to justify the control burden (human labor is cheaper); it "passes internal eval" but can't be verified in production; execution is blocked by policy (solve governance first); the work involves negotiation, relationships, or accountability (humans must own these — agency destroys accountability).
-
-**State the recommendation as a hypothesis** — this is what separates a readiness assessment from a rubber stamp:
-
-```
-HYPOTHESIS: autonomy level [X] is right-sized for [use case] because [reasoning].
-IF TRUE:  leading indicator [e.g., acceptance >40% in 2 wks] · lagging [e.g., 50% time cut in 2 mo] · control [zero rollback-critical errors]
-IF FALSE: counter-signal [e.g., escalation >20%, or users bypass it in 3 wks] · damage [cost/time/trust] · reversibility [timeframe]
-DAMAGE IF WRONG: too high [agent takes bad actions; 6-mo trust recovery] · too low [advisory system nobody uses]
-PIVOT: raise to [Y] if [positive signals + mature controls]; lower to [Z] if [negative signals or control gaps]
-LOAD-BEARING ASSUMPTIONS: 1. [most fragile — evidence level — test by] 2. … 3. …
-THE ASSUMPTION THAT SCARES ME MOST: [name it; test first]
+```text
+HYPOTHESIS: [operating model / label] fits [job and bounded scope] because [evidence].
+CURRENT RIGHTS: system may [actions]; person must [decisions]; prohibited [actions].
+IF SUPPORTED: outcome, leading signal, and control measure over [sample / period].
+IF CHALLENGED: contrary evidence, unacceptable consequence, and response.
+DAMAGE IF WRONG: over-autonomy [harm]; under-autonomy [lost value / workload].
+FLOOR / CEILING: required independence versus supportable action scope; gap and remedy.
+PIVOT: expand only if [capability, value, authorization, controls]; restrict if [signals].
+CRITICAL ASSUMPTIONS: evidence level, scope, owner, test, and decision date.
+MOST CONCERNING ASSUMPTION: [what could overturn the recommendation].
 ```
 
-## PHASE 5: PLAN
+Set thresholds for this use. A fixed acceptance rate, six-month trust-recovery claim, or generic “zero critical errors for four weeks” does not establish readiness.
 
-**Recommend the operating model** — state solution class now, autonomy level now, ceiling later, readiness band (**Ready now** / **Ready with controls** [name them] / **Assist-only now** / **Not a fit** — rules are better), why-not-one-level-lower, why-not-one-level-higher, human checkpoints, telemetry.
+### Phase 5 — Plan operation and evidence-based rollout
 
-**Recommend level 5+ ONLY when ALL five hold:** (1) genuinely needs dynamic planning/multi-step orchestration; (2) action rights can be scoped safely; (3) outcomes are verifiable or reversible; (4) consequence is bounded enough for learning (errors <$100K or <100 users); (5) economics justify the control burden (>$500K/yr or strategic). If any one is shaky, recommend 3–4.
+Choose a readiness band: **Ready now**, **Ready after named controls**, **Assist-only now**, **Not an AI fit**, or **Insufficient evidence**. State why a simpler design falls short, why greater autonomy is unsupported or unnecessary, and what remains uncertain.
 
-**Phase the rollout — smallest valuable wedge first.** Phase 1 (level 2–3 assistive, ~20% savings, basic eval, exit at >30% acceptance + zero critical failures) → Phase 2 (level 4 bounded, ~50%, tool design + fallback + audit logs, exit at <2% escalation + <0.5% critical errors) → Phase 3 (level 5–6, ~70%, governance + monitoring + incident response, exit at zero critical errors over 4 weeks + policy approval). Each phase is its own hypothesis. **Controls to specify at every phase:** approvals, policy constraints, eval plan, monitoring, rollback/recovery, auditability, kill switches.
+For independent agent execution, establish five conditions: a demonstrated reason for dynamic planning; safely scoped action rights; verification or other effective prevention, containment, and recovery; acceptable consequence exposure; and sufficient value after operating costs. Reversibility alone is not permission, and a dollar amount or user count cannot serve as a universal harm limit.
 
-## A LIGHTWEIGHT QUALIFICATION FRAME FOR PRE-PMF WORK
+Phase by evidence, not by the calendar or an obligation to climb the spectrum:
 
-The five phases above are built for an organization deciding how autonomous a use case should be. **When the company is pre-PMF and the founder is the primary seller, that is too heavy.** Six behaviors do most of the work:
-
-| | Creates | The test |
+| Phase | Learn or deliver | Specify before starting |
 |---|---|---|
-| **Speed** | attention | did this person just describe my situation better than I could? |
-| **Problem** | urgency | what has changed to make solving this *now* essential? |
-| **Results** | belief | can the buyer describe the outcome to their own board without you present? |
-| **Implementation** | safety | did you answer the risk question before they raised it? |
-| **Niche** | repeatability | one buyer type, one problem, one motion that repeats |
-| **Trust** | permission | is your credibility transferable, or does it live only in you? |
+| Assistive or shadow test | Task quality, reviewer performance, usefulness, and likely workload | Representative cases, allowed data, safe exposure, evaluation, and limits of shadow evidence |
+| Bounded execution | Whether scoped actions deliver value under real controls | Permissions, approvals, fallback, audit trail, monitoring, exposure limits, and response owner |
+| Sustained operation or expansion | Whether value and control performance hold across the intended conditions | Capacity, change tests, incident response, maintenance, and explicit expansion criteria |
 
-**Use Problem as the qualifying gate.** The named failure it catches: a founder pitching generically, unable to state the buyer's tension precisely. One worked case reframed around "revenue at risk" rather than a generic service pitch, which **disqualified deals that had been consuming the pipeline** and promoted earlier-stage conversations previously dismissed.
+Not every use needs every phase. For each chosen phase, define its hypothesis, baseline, sample, duration, owner, allocated time, control checks, stop conditions, and decision at exit. Confirm that people assigned to review or run the pilot can actually do so. A sponsor or signature without time and authority is insufficient; formal performance-review inclusion is one possible support, not a universal prerequisite.
 
-**Implementation is the one that explains silence.** Buyers who seemed enthusiastic go quiet **not because they stopped believing**, but because someone upstream raised a risk nobody answered.
+Keep approval, policy enforcement, evaluation, monitoring, recovery, auditability, and a tested stop mechanism proportionate to the actions. Plan review throughput before volume creates pressure to remove it. Test interruptions, stale state, partial completion, and escalation—not only successful runs. Do not treat an intentionally appropriate escalation as a defect to minimize unconditionally.
 
-**Where this sits relative to the phases above.** This qualifies the *opportunity*. The five phases size the *autonomy*. Run this first when the question is whether anyone wants it, and the phases when the question is how much the system should decide. See `rtp-fit-signal` for the demand-side signals.
+At a stable 0.1% per-task error rate and 10,000 tasks, the expected count is 10 errors. This is a volume calculation, not evidence that errors compound or that the rate is acceptable. Severity, correlation, detection, and clustered incidents still matter. A period with zero observed failures does not prove zero risk.
 
-*(Source: Rubinstein & Onyemah, HBR, 24 Jun 2026 — ⚠ inductive from an interview set of founders, no effect sizes, and the worked case is a single German manufacturer. Use it as a conversation frame, not as a validated model.)*
+## Keep adjacent questions in their proper place
 
-## READ YOUR READINESS SCORE AS A MOAT AUDIT
+- **Opportunity and adoption:** the Speed–Problem–Results–Implementation–Niche–Trust frame helps qualify demand. A helpful product is not necessarily ready for independent action.
+- **Workforce capability:** test the intended users' actual judgment, correction, and outcomes. Neither a job title nor paste-through alone proves expertise or its absence.
+- **Competitive advantage:** readiness may reveal reusable organizational capability. Call it a moat only after testing value, differentiation, imitation, and durability; vendors can supply parts of many capabilities.
+- **Portfolio sequence:** economic visibility, repeatable processes, and unresolved judgment needs help screen candidates. They do not prove procurement or any other function should always go first. Consequence and readiness can outweigh breadth or demand.
+- **New work:** compare before/after tasks at a meaningful level of detail. Helping an existing task is distinct from creating a new one. Wage, employment, and expertise effects require additional evidence.
 
-A reframe that changes what you do with the output, and it is the most useful thing in this skill for a strategy conversation.
+The [research and opportunity reference](references/opportunity-and-research.md) preserves these lenses, cases, and their evidentiary limits. The [concept guide](CONCEPT.md) provides worked examples without presenting hypothetical savings as measured results.
 
-**A readiness checklist looks like a hygiene exercise. It is a moat audit wearing a checklist's clothes.**
+## Handoff and final check
 
-Here is why. The things a readiness assessment measures are, almost without exception, the inputs that **cannot be bought from a vendor and are not falling in price**: whether people will actually change how they work, whether the data is clean enough to use, whether decisions have owners, whether the workforce trusts what is being deployed. Model capability is rented, commoditizing, and available to every competitor on the same terms. **Organizational change capacity is none of those things.**
+Upstream, `rtp-opportunity-solution-tree` identifies the opportunity and `rtp-problem-ai-fit` tests the role of AI. Reuse their findings. `rtp-determinism-compass` identifies stable rules and verification needs. Data ownership, recency, reuse, and availability may also require `rtp-build-or-buy` and `rtp-moat-finder`; this assessment must record its own dependencies rather than assume the foundation exists.
 
-So a low readiness score is not only a delivery risk. It is a statement about where your competitive position actually comes from, and a high one is an asset most competitors cannot purchase.
+Downstream, pass the action contract, level vocabulary, customer grounding, floor/ceiling, critical assumptions, and operating evidence to `rtp-invisible-stack` and `rtp-agent-spec`. They turn the recommendation into architecture, permissions, checks, escalation, and recovery. `rtp-cost-model` prices the full operating design. `rtp-agent-risk` tests proportionality and consequence boundaries; `rtp-ship-decision` uses that evidence for release. Unverified confidence thresholds must not become permissions during handoff.
 
-**A serviceable external diagnostic, six questions, if you want one that a board will recognize:**
+Before concluding, confirm that consequential subtasks were assessed separately, foundation and reviewer dependencies are named, both matrices were used for a full assessment, unknowns remain visible, and the proposed pilot has an owner with capacity. If a stakeholder has already chosen full autonomy, present the evidence and unresolved decision rights; do not claim a diagnostic is powerless or disguise disagreement as a score.
 
-1. **Shared ambition.** Have you decided how you want to do business differently, and why that is better for customers and employees, before deploying anything?
-2. **Governance.** Does your review process shape the work early, and can it stop something? (Ask the twelve-month question in `rtp-responsible-ai-program`.)
-3. **Scaling past the pilot.** What are you doing to get executive support *before* you start, and to keep those leaders interested as you make progress?
-4. **Technical foundation.** Clean data, working tools, integrated systems. Every organization has some data cleanup to do; the failure modes are ignoring it and trying to fix all of it at once.
-5. **Culture.** Can the organization experiment readily, decide from data rather than history, and accept speed over perfection?
-6. **Skills and reassurance.** Have you told people how their roles will change and what support they get? *"We're going to change your job, but we're going to help you make that transition."* And the reason to say it: *"if you're not telling them, people are thinking the very worst."*
-
-**Two ways to use the score, and the second is the one people miss:**
-
-- **As a gate**, the usual way. Low score, fix the condition before funding the use case.
-- **As a portfolio input.** If your readiness on a capability is genuinely high and rivals' is low, that gap is durable, because it takes years to close and no vendor sells it. Weight toward use cases that *consume* that advantage. Route to `rtp-moat-finder` and `rtp-ai-portfolio-management`.
-
-**Where this reframe is wrong:** readiness that is high because the use case is trivial is not a moat. The asset is change capacity demonstrated on hard work, not an easy deployment that went smoothly.
-
-*(Source: MIT SMR, Westerman, "6 questions to guide your AI strategy," 3 Aug 2026 — the six questions are his, ◆ reported company examples with **no measurement anywhere in the article** and no adoption figures of any kind. The moat reframe is this corpus's: he names organizational change capacity as the constraint and calls it a strategy question rather than a scarce complementary input. Note that this article's only statistic is broken in an instructive way; it is carried as a teaching case in `rtp-trendslop-check`, and its governance framing is refuted in `rtp-responsible-ai-program`. Ledger patterns A and N.)*
-
-## WHICH FUNCTION SHOULD GO FIRST: A THREE-CHARACTERISTIC SCREEN
-
-Most companies pick the function that is loudest about AI. **Three characteristics predict agentic fit, and a function that has all three is better positioned than one that has any two.**
-
-1. **Economic visibility.** Does activity in this function translate directly into financial outcomes, **measurable in the same currency the CFO uses?** If the value has to be argued rather than counted, every scaling conversation will be a negotiation.
-2. **Process structure at scale.** Are the workflows repeatable and multi-step? That is where agents that reason, act and adapt across tasks deliver disproportionate value, as opposed to a single-call assistant.
-3. **Persistent judgment-heavy friction.** Is there manual intervention at specific points that **resisted traditional automation precisely because it needs judgment rather than rule-following?**
-
-**The third is the discriminating one and it is the one most screens omit.** It separates work that rules-based automation already solved from work that stayed manual because it needed a person to weigh something. **Friction that RPA could have removed and did not is an RPA project. Friction that RPA could not remove is the agent-shaped opportunity.**
-
-**The worked ranking that makes the point.** In a survey of 385 organizations, agentic adoption ran software development 35%, IT operations 31%, marketing 26%, and **procurement 9%** — despite procurement scoring highest on all three characteristics. The lag was organizational, not technological.
-
-**Three organizational barriers to check before you name a first function**, because scoring well on the three characteristics does not mean the function can carry the work:
-
-- **Accountability and control.** Where decisions carry contractual or financial consequences, organizations respond by **limiting autonomy and preserving human approval so strongly that they neutralize the benefit.** A function with heavy approval structures needs the autonomy design solved before the pilot, not after.
-- **Fragmented ownership.** Is the function the *owner* of the initiative or its *beneficiary*? Solutions designed by IT with limited operational input succeed in controlled conditions and stall against exception-rich reality. **The trade-offs should be made by the people who will live with the consequences.**
-- **Data as an afterthought.** Inconsistent master data and incomplete categorization mean the agent never had a chance, and the conclusion drawn will be that the technology failed.
-
-**Then the failure mode to name out loud before anyone starts, because it has a name and it is common.** Practitioners call it **the belief stage**: pilots launched, adoption celebrated, accountability for value left unclear, initiative stalls there indefinitely. **The antidote is a requirement, not a warning. Every agent carries an investment case from the outset, mapped to a specific process phase, a defined value lever, and measurable financial KPIs.** A pilot that cannot name its value lever is already in the belief stage on day one.
-
-*(Source: Himmelreich, Oshri, Scala & Zaidani, HBR, "Why Agentic AI Could Transform Procurement," Aug 2026 — drawing on the authors' decade of research through ERP, RPA and intelligent automation plus practitioner interviews. The adoption percentages are ◆ from a survey of 385 organizations cited without its sampling frame or its definition of adoption, so **the ordering is usable and the levels are not.** The three characteristics are presented as a description of procurement; treating them as a general screen is this corpus's move. Falsifier: a function scoring low on all three that captured durable agentic value ahead of one scoring high.)*
-
-## CAN THE REVIEWER JUDGE WITHOUT PRODUCING?
-
-**Before you approve a use case on the theory that AI lets a wider group do this work, run one test: can a person judge whether the output is good without being able to produce it themselves?**
-
-Two tasks, same subject, opposite answers:
-
-- **Come up with article topics.** You can tell a good topic from a weak one without being able to write the article. Judgment here needs less expertise than production.
-- **Write the article.** You cannot tell whether the language lands without knowing how to make language land. Judgment here *is* production.
-
-A controlled experiment at a UK fintech put 78 employees through both tasks in three groups: writers who did the work daily, marketing specialists from the same department who shared the vocabulary but had never written an article, and developers and data scientists from neither world.
-
-**On topic generation, AI collapsed the gap.** The spread between best and worst group fell from 0.80 to 0.13 on a five-point rating. AI-assisted marketers slightly beat AI-assisted writers, and every AI-assisted group beat the unassisted writers.
-
-**On writing, the gap held, and for the furthest group AI added nothing at all.** With AI: writers 3.96, marketers 3.92, technologists 3.38. The technologists' score *without* AI was 3.42. **They were no better with the tool than without it.**
-
-**The mechanism, and it is not what the headline suggests.** Every group got comparable output from the model. Only some could act on it. The marketers had enough shared language to refine what the model produced; the technologists "could not effectively use or improve the AI's suggestions," and many simply pasted the output straight in. **The limit is not on what the model can generate. It is on who can edit.** Editing capacity is exactly the thing the tool does not supply.
-
-**Turn it into a readiness screen, run before the effort estimate:**
-
-| Ask | If yes | If no |
-|---|---|---|
-| Can the intended user state the acceptance standard without producing the artifact? | The use case widens. Score it accordingly. | The use case does not widen. Score it as an assist for people who already do this work. |
-| Is the intended user inside the domain's vocabulary, even without production experience? | Adjacent. Expect near-expert results with review. | Distant. Expect no gain, and expect paste-through. |
-| Can you detect paste-through in production? | Proceed. | Build that detection first. It is the only signal that tells you the widening failed. |
-
-**The rule this replaces.** "AI lets anyone do this now" is not a readiness finding. **The honest version is that AI redistributes capability inside a neighborhood and does nothing across the fence.** Widening a task from writer to marketer is a real plan. Widening it from writer to data scientist is a staffing decision dressed as a capability one, and it will show up as output nobody edited.
-
-*(Source: Vendraminelli et al., HBR, "Gen AI Won't Make Your Employees Experts," Apr 2026 — ◆ controlled experiment, n=78, single UK fintech, executive raters on a 1-5 scale, one task pair. Small n and one company; the design is unusually clean and the grouping variable, distance from the domain rather than seniority, is the right one. Falsifier: a task where a group with no domain vocabulary matches experts on the production half, not only the judgment half.)*
-
-## HARD RULES
-
-1. Recommend the lowest-autonomy design that captures the value.
-2. Decompose before scoring — good architectures are hybrids.
-3. "Needs reasoning" ≠ "can safely act." Intelligence and autonomy are separate questions.
-4. Current readiness ≠ future potential — say *when* it becomes ready, not just that it isn't.
-5. Don't reward novelty — if rules or workflow design solve it better, say so.
-6. High error cost + low verifiability = human-led, not autonomy.
-7. High tacitness ≠ high autonomy — often the opposite.
-8. Action rights matter as much as reasoning quality — solve both.
-9. Name what must change for the recommendation to change — specifically ("if we build X and measure Y past Z"), not "if policy changes."
-10. When evidence is thin, say so — name the critical assumptions and what to test first.
-
-## WHERE THIS SKILL MEETS THE REST OF YOUR STACK
-
-This skill outputs one thing — a right-sized autonomy level, stated as a hypothesis. Trace where that level travels, because "level X is right" is a decision three other skills then have to build, encode, and defend.
-
-**Upstream (settled before you size the level):**
-- **`rtp-opportunity-solution-tree`** — usually the skill that *hands you the use case*: a "probabilistic-with-evals" opportunity the tree greenlit arrives here to have its autonomy right-sized. The tree decided *what's worth building*; this decides *how much agency* it gets.
-- **`rtp-problem-ai-fit`** — confirms AI is the right approach at all; this skill then sizes the *level*. Carry its customer grounding forward. Sizing autonomy for a use case AI shouldn't own is motion without progress.
-- **The substrate question sits even further upstream:** this skill scores individual *use cases* and assumes the data foundation exists. Whether the *substrate* is ready — data vintage, liquidity, reuse, ownership — is a separate question whose pieces live in `build-or-buy`'s data-recency lens and `moat-finder`'s data-liquidity score (both sourced to the Caterpillar/Lenovo "years of data before any model" cases). A dedicated data-foundation-readiness diagnostic is a watch-tier candidate. *(Cross-ref per q2-14 / q2-27, MIT SMR & HBR, May 2026 — substance lands there, not here.)*
-
-**Imports (run inside the diagnostic):**
-- **`rtp-autonomy-spectrum`** *(import)* — the quick 0–7 level reference for fast checks; this skill is the thorough diagnostic behind it. (Confirm on autonomy-spectrum's own pass that it carries the full per-level teaching, so this skill's pointer stays honest.)
-- **`rtp-determinism-compass`** *(import)* — for the deterministic portions of a hybrid design, and when governance questions dominate the call.
-
-**The downstream chain — who acts on the level, two hops out:**
-- **`rtp-invisible-stack`** — the first stop: once the level is set, design the seven-layer architecture to fit it. Autonomy constrains architecture, not the reverse — a level-2 use case doesn't need an agent harness, and building one is the autonomy theater this skill exists to prevent.
-- **`rtp-agent-spec`** — the second hop the level actually lands in: "level X, human reviews Y" becomes an encoded autonomy level, confidence threshold, and handoff/recovery spec. Without that translation the readiness verdict stays a slide, not a system; the floor/ceiling gap becomes agent-spec's escalation design.
-- **`rtp-cost-model`** — prices the control burden the level implies; a level-4+ recommendation is only real if its unit economics survive the human-in-the-loop review cost.
-
-**Arbitrates the level against a downstream push for more autonomy:**
-- **`rtp-agent-risk`** — when the value case argues for higher autonomy than the cost-of-error and verifiability answers allow, agent-risk's proportionality-and-kill-switch test is where the ceiling holds. Where a wrong action is catastrophic and irreversible, this skill's ceiling overrides the autonomy the demo could justify — and that verdict then arms `rtp-ship-decision`'s go/no-go gate.
-
-## REALITY CHECK
-
-- **Autonomy is a governance question, not a technology question** — you CAN build level 5; policy determines whether you SHOULD.
-- **Cost of error compounds** — 0.1% error × 10K tasks/month = 10 errors/month. Acceptable?
-- **Verification IS the product** — if you can't verify output, you can't scale the system.
-- **"Agent" ≠ "autonomous"** — an agent can be supervised (level 4) or advisory (level 2).
-- **Hybrid designs are underrated** — level 1 for 70% + level 3 for 25% + level 0 for 5% often beats a pure level 4.
-- **ROI must be real** — saving 1 hour/month for 2 months of control-building doesn't work.
-
-## QUALITY GATE
-
-- [ ] Customer reality established — who, what problem, how painful, what we're saying NO to
-- [ ] Foundation dependency classified (low-foundation / data-dependent / foundation-critical) before scoring any other dimension
-- [ ] Use case decomposed into sub-tasks, not one blob
-- [ ] The 12 diagnostic questions answered (or gaps named with evidence level)
-- [ ] Load-bearing assumptions surfaced, rated, and flagged
-- [ ] Both matrices completed (Knowledge × Cost; Agency × Control)
-- [ ] Four meta-judgments stated; autonomy floor and ceiling identified and the gap explained
-- [ ] Recommendation stated as a hypothesis (IF TRUE / IF FALSE / PIVOT), with why-not-lower and why-not-higher
-- [ ] Phased path with exit criteria, each framed as a hypothesis; controls named
-- [ ] Any "creates new kinds of work" claim checked against the task list before and after, not asserted from a helpfulness case
-
-## WHEN WRONG
-
-- **The use case wasn't decomposed** — run first-principles first; a monolithic input yields a monolithic (wrong) recommendation.
-- **You need a tech-stack recommendation, not an autonomy one** — use system-design.
-- **The decision is organizational/political** — if the VP already decided "full autonomy," no diagnostic score changes that; have a different conversation.
-- **Evidence is too thin** — when the critical assumptions are all "Assumed/Unknown," the framework produces false precision; name the 3 that matter, test them, defer the decision.
-- **You're using it as a recipe, not a diagnostic** — if the questions don't help you decide, you need more information, not more framework.
-
-## TRADE-OFF LEDGER
-
-By sizing autonomy from the bottom up, you bet that the least-autonomy design that captures the value beats the most-capable one you could build. You give up the novelty and the demo dazzle of a full agent, and you take on the discipline of decomposition. **Reversible?** The assessment is; a shipped level-5 agent that took bad actions and burned customer trust is a ~6-month one-way door. **The hidden trade:** requiring human review caps throughput — if volume outgrows it, you'll raise autonomy under pressure instead of thoughtfully, so plan the phase gates now. **Confidence: High** that right-sizing beats maximizing; the per-level call is only as strong as the evidence behind the critical assumptions. What would change it: a genuinely low-cost, fully-reversible, high-agency domain where a bounded agent is simply correct.
-
-## CONCLUSION
-
-Follow the Conclusion Protocol ([Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md), Section 5): state the recommendation (the autonomy level and readiness band), name the key trade-off (right-sized value capture vs. capability/novelty), acknowledge the biggest risk (the assumption that scares you most), and define the next action (the pilot slice, its owner, and what to measure). When this feeds a downstream skill, carry forward the customer grounding, the recommended level and its hypothesis, and the critical assumptions.
-
-## VISUAL SUMMARY
-
-After the primary output, invoke the **excalidraw-svg** skill for the visuals that carry the story at a glance — a senior stakeholder should follow the recommendation from these alone: the **Autonomy Staircase** (0–7 with the recommended level highlighted, green→amber→red by governance burden), **Matrix A** (Knowledge × Cost) and **Matrix B** (Agency × Control) with the use case plotted, and — when floor and ceiling differ by 2+ levels — the **Floor/Ceiling Gap** bar, plus the **Phased Roadmap** if a phased rollout is recommended. Follow the Visual Summary Protocol in `excalidraw-svg/references/visual-summary-protocol.md`.
+Lead with the recommended operating model and readiness band, the main tradeoff, the assumption most likely to change the call, and the next action with its owner. Use a per-action table, matrix, or floor/ceiling diagram when it helps the audience; do not add every possible visual by default.

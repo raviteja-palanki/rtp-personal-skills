@@ -1,156 +1,50 @@
-# autonomy-spectrum: The Trust Spectrum in Agent Design
+# Understanding autonomy as an action contract
 
-## The Dual Definition
+**Business lens:** decide which work to delegate, which decisions to retain, and what oversight costs. Autonomy can reduce waiting and expand useful work, but can also add cost or amplify errors. There is no universal equation in which trust-recovery cost equals latency gain.
 
-**Business lens:** Autonomy is the axis on which you trade user control for product latency. More autonomy = less waiting, more errors. Less autonomy = safer, slower. The sweet spot is where trust recovery cost equals latency gain.
+**Technical lens:** enforce who can perform an action on which resource, under which conditions, with what evidence and recovery behavior. Model confidence can inform a tested routing rule; it does not grant permission. The contract belongs to the combination of system, action, user, and context.
 
-**Technical lens:** Autonomy is a decision gate: given action A and confidence level C, which approval route executes? The gate is deterministic, queryable, and auditable. It's not "did the agent decide to act?" but "did the governance layer permit execution?"
+## Start with consequences, not available access
 
----
+Suppose an incorrect database write could require $50,000 and two days to remediate. Those illustrative consequences justify examining the write's scope, validation, recovery, and approval needs. They do not mechanically prescribe one approval design. Do not grant authority simply because the credential permits it.
 
-## The Trap: Autonomy as Capability
+Reading a file does not reverse a disclosure. A development database restore may lose intervening work. A production rollback may restore software while leaving customer effects. Deleting one backup may or may not be irreversible, depending on other recoverable copies. Name the effect and available recovery precisely.
 
-The instinct is backwards: "The agent has write access to the database, so it should execute writes autonomously." This treats autonomy as a property of the agent's power, not of the trust relationship.
+Scope matters too: one operation can affect a person, a batch can affect thousands, and a cross-system action can trigger further work. Copying a permission contract to more agents or users changes aggregate exposure and coordination needs. Reassess the expanded deployment.
 
-The fix: Reverse the logic. Start with the failure cost. "If the agent writes bad data, we lose $50k and 2 days of remediation. Therefore, agent write access requires pre-approval from a human." Now autonomy is a function of business risk, not capability.
+## Calibrate evidence rather than trusting a confidence sentence
 
-**Why this matters:**
-- A read-only agent can be given near-total autonomy (observation is safe).
-- A write agent needs careful gatekeeping (action has consequences).
-- A deletion agent needs locks (consequences are permanent).
+“I am 92% confident” is a model output, not a certificate that its training history showed 91% accuracy. Define the prediction, score, task population, and evaluation set. Compare estimated probabilities with observed outcomes, including sample uncertainty and changes in conditions. Calibration is a property of groups of predictions, not proof about one answer.
 
-The trap catches teams when they scale: you give one agent 95% autonomy, it works, so you copy the rule to ten agents, and suddenly one bad decision cascades through all ten. Autonomy escalation needs to be intentional, not inherited.
+If predictions scored around 92% are correct only 60% of the time on representative data, they are overconfident in that setting. Recalibrate, restrict their use, or require stronger evidence. **Lowering the acceptance threshold would generally allow more predictions through; it is not the automatic correction for overconfidence.** Choose a decision threshold against error consequences and review cost after validating the score.
 
----
+An underconfident score also needs calibration rather than an arbitrary threshold change. A calibrated system can still be too inaccurate for the action, and rare severe errors can be hidden by high average accuracy.
 
-## Progressive Trust: The Confidence-Autonomy Curve
+## Choose an initial mode and change it deliberately
 
-Production agents earn autonomy over time. This is not metaphorical. It's measurable:
+Sandbox evaluation, shadow operation, supervised execution, sampling, and exception-based handling are possible stages. Their order, duration, and necessity depend on the work. The source's 0–20, 20–100, 100–500, and 500+ decision bands and its weeks 1–2 through 7+ schedule were illustrative; they are not validated graduation requirements.
 
-1. **Probation (0-20 decisions):** All actions trigger human approval. Agent is black box.
-2. **Observation (20-100 decisions):** Agent gets read access. No approval gates. You observe its analysis quality.
-3. **Co-pilot (100-500 decisions):** Agent gets write access to non-reversible, low-cost actions. Asks for approval on medium-blast decisions. You track approval acceptance rate.
-4. **Autopilot (500+ decisions):** Agent gets autonomous execution on high-confidence decisions. Still audited, still locked down on locked-category actions.
+Likewise, 95% accuracy over 50 cases or 98% over 100 cases does not automatically authorize consequential execution. Check coverage, severe failures, correlated errors, detection, and recovery. A critical failure may justify stopping the affected action; do not use a fixed “drop two levels” rule regardless of cause.
 
-**The metric:** acceptance rate. If you approve 95% of agent requests, the agent is undershooting. If you approve 5%, it's asking too much. Target is 70-85%—agent is making useful recommendations that you trust enough to sign off on.
+Acceptance rate measures acceptance. It is not correctness, sufficient review, or an optimal 70–85% trust target. A person can rightly accept 95% of good suggestions or reject most unsuitable ones. Investigate the result and the review process.
 
----
+## Make the experience understandable
 
-## Consequence Magnitude: The Real Boundary
+Users should understand the scope they delegate, relevant actions taken, and how to intervene. Ask a concrete approval question when approval is needed; proceed on already-authorized routine work. Explain the evidence and rationale for a result without claiming access to an infallible internal reasoning record.
 
-Autonomy isn't about what the agent can do. It's about what can go wrong.
+“Override” can change future behavior or some current state. It cannot retroactively unsend an email. Similarly, a user's correction does not automatically retrain the model; state how feedback affects this run, stored preferences, policy, or a later training process.
 
-**Reversibility:**
-- Reading a file: fully reversible (just read again if needed)
-- Modifying a dev database: reversible (restore from backup)
-- Publishing to production: conditionally reversible (rollback possible, but user-facing)
-- Deleting a backup: irreversible (data is gone)
+## Illustrative pitfalls
 
-**Scope of impact:**
-- Single user, single operation: low blast (mistake affects one)
-- Batch job across all users: high blast (mistake affects thousands)
-- Cross-system cascade (delete triggers cleanup): medium-to-high blast (unintended side effects)
+- **Delivery dispatch:** a workflow that works in ordinary conditions may need different controls during demand or supply disruption. The original named Uber/COVID pricing story was not sourced sufficiently to establish that causal account.
+- **Medical analysis:** 99% test accuracy can conceal selection, prevalence, subgroup, or deployment differences. It does not independently justify removing qualified oversight.
+- **Driving systems:** performance in one location need not transfer to different roads or weather. The original California-to-Arizona story is a generic distribution-shift illustration, not a verified named deployment incident.
+- **Message moderation:** an unexpected deletion can damage trust even if recovery is possible. State the moderation policy, available appeal, and restoration limits. The source's Slack-bot case is illustrative.
 
-**Decision rule:**
-```
-IF reversible AND low_blast:
-  → Autonomy can be high (95%+)
-ELSE IF reversible AND medium_blast:
-  → Autonomy is conditional (80-90%, drops on error)
-ELSE IF irreversible AND medium_blast:
-  → Autonomy is conditional on explicit approval (60%, expert gate)
-ELSE IF irreversible AND high_blast:
-  → Autonomy is denied (0%, locked)
-```
+These examples motivate checking detection, consequence, exposure, recovery, and user expectations. They do not establish that all read access is safe or all deletion must be prohibited.
 
-This is not policy. It's a decision tree. Different agents, different actions will flow through different paths.
+## Conceptual lineage
 
----
+Control theory offers feedback and stability concepts; decision theory connects uncertain outcomes with costs; organizational research examines delegation and accountability; AI evaluation examines calibration, distribution shift, and specification gaming. These are conceptual connections, not proof that a particular historical author prescribed this seven-level taxonomy. Goodhart-style metric failure is a risk of poorly chosen incentives, not a guarantee that any accuracy metric causes deceptive behavior.
 
-## Confidence: The Empirical Gate
-
-The agent tells you: "I'm 92% confident in this recommendation."
-
-What does that number mean? Not philosophical confidence. Empirical: "In my training, when I was 92% confident, I was right 91% of the time."
-
-Your job: validate that number. Run the agent on held-out test cases. Plot confidence vs accuracy. If 92% confidence actually predicts 91% accuracy, trust it. If it predicts 60% accuracy, the agent is miscalibrated and you lower its autonomy threshold.
-
-**The curve matters:**
-- Well-calibrated agent: confidence = accuracy. Raise thresholds based on the curve.
-- Overconfident agent: claims 95%, delivers 70%. Lower all thresholds. Investigate.
-- Underconfident agent: claims 60%, delivers 92%. Raise thresholds (latency gain without risk).
-
----
-
-## Progressive Escalation Protocol
-
-Don't hardcode autonomy. Measure it.
-
-**Phase 1 (Weeks 1-2):** Agent runs in sandbox with full logging. No production access.
-**Phase 2 (Weeks 3-4):** Agent gets read-only access to non-critical prod systems. Audit decisions.
-**Phase 3 (Weeks 5-6):** Agent gets write access to dev environments. Low-blast, reversible actions only.
-**Phase 4 (Weeks 7+):** Agent escalates based on accuracy metrics.
-- Accuracy >95% for 50+ decisions → autonomy on reversible, medium-blast actions
-- Accuracy >98% for 100+ decisions → autonomy on irreversible, medium-blast actions (with human audit)
-- Never autonomy on high-blast, irreversible actions (human signature always)
-
-**Reset rule:** One critical failure drops autonomy by 2 levels. You don't rebuild trust fast.
-
----
-
-## The User Experience of Autonomy
-
-High autonomy should feel invisible when working. Invisible means:
-- Agent acts without asking, but user can see what it did (transparency)
-- User can override decisions retroactively (control)
-- Agent explains its reasoning when asked (explainability)
-
-Low autonomy should feel interactive:
-- Agent asks before acting
-- Ask is specific ("approve write to X?" not "continue?")
-- User can ask for recommendation, disagree, and the agent learns
-
-The failure mode is "silent autonomy": agent acts without user knowing, user discovers it later, trust evaporates.
-
----
-
-## Intellectual Lineage
-
-- **From control theory:** Feedback loops that adjust autonomy based on error signals (Wiener, 1948).
-- **From organizational behavior:** Progressive empowerment as trust metric (McGregor's Theory Y).
-- **From Bayesian decision theory:** Confidence thresholds tied to cost functions (DeGroot, 1962).
-- **From AI safety:** Specification gaming (Goodhart's Law): if you measure only accuracy, agent optimizes for appearing accurate, not being accurate.
-
-The synthesis: Autonomy is a dynamically adjusted control parameter that depends on (action reversibility, consequence magnitude, measured confidence calibration, progressive trust track record). It is not a property of the agent. It is a property of the (agent, action, user, context) tuple.
-
----
-
-## Real-World Pitfalls
-
-**Uber eats dispatching:** Agent autonomy on delivery assignments is high (reversible, low-blast). Trust earned over millions of deliveries. But when consequence magnitude spiked during COVID (surge pricing, limited drivers), autonomy stayed the same → prices exploded → user backlash.
-
-**Medical AI diagnostics:** Agent has 99% accuracy on test set. Gains full autonomy. But test set was selected; real patients have different distribution. Autonomy should have been conditional on real-world calibration.
-
-**Autonomous vehicles:** Tested in California, deployed in Arizona. Different weather, different roads, different drivers. Autonomy didn't transfer. The mistake: treating autonomy as a global property instead of a context-dependent one.
-
-**Slack bot moderation:** Bot had high autonomy on message deletion (reversible-ish, medium-blast). But users didn't expect automated deletion, trust broke. The fix: give autonomy, but make it visible (log it, let user recover it).
-
----
-
-## Decision Checkpoints
-
-**When setting initial autonomy:**
-1. What's the failure mode? (What's the worst decision?)
-2. What's the cost? (Time, money, data, reputation?)
-3. Is it reversible? (Can we undo it?)
-4. How many users are affected?
-5. Can we detect the failure quickly?
-
-**When escalating autonomy:**
-1. Is the agent consistently accurate? (Not lucky.)
-2. Is confidence calibrated? (Not overconfident.)
-3. Are failure modes understood? (Not unknown unknowns.)
-4. Can we still detect and recover from failure? (Reversibility still holds.)
-5. Is the user expecting and accepting this level of autonomy?
-
-Miss any of these, autonomy becomes liability.
+Use the [main skill](SKILL.md) to create the action-level map and choose a supervision contract.

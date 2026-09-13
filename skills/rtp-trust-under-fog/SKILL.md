@@ -1,320 +1,210 @@
 ---
 name: rtp-trust-under-fog
-version: v1.2_latest
-description: 'Communicate confidently when outcomes are genuinely uncertain, without over-promising or under-delivering. Boards want guarantees. Customers want certainty. AI outcomes are probabilistic. This skill helps you build stakeholder confidence through transparency, not false promises. Use when stakeholders demand guarantees you can''t give, when communicating AI capabilities to non-technical audiences, when navigating probabilistic outcomes but deterministic business expectations, or when rebuilding trust after over-promise. Skip when outcomes are deterministic (no fog) or when stakeholders are already comfortable with uncertainty.'
+version: v1.2.1_latest
+description: 'Communicate clearly when outcomes remain uncertain. Use for AI capability claims, stakeholder expectations, planning ranges, disclosure decisions, and recovery after over-promising. Separate observed results, forecasts, enforceable commitments, and unknowns. Explain the evidence, conditions, consequences, and response plan at the depth the audience needs. Decide what to disclose using materiality, obligations, actionability, and timing; account for the costs of silence as well as disclosure. Produce a claim-and-evidence map, audience-specific wording, monitoring and reset conditions, and a recovery plan where needed. Pairs with determinism-compass for system boundaries, dual-lens for technical and stakeholder perspectives, trust-ladder for appropriate reliance, and confidence-tuner for calibrated estimates. Do not invent probabilities, stakeholder tolerance percentages, or guarantees merely to sound confident.'
 imports: [determinism-compass, dual-lens]
 ---
 
 # Trust Under Fog
 
-## DEPTH DECISION
+Help stakeholders make a sound decision with the uncertainty that actually exists. **Say what is known, what is expected, what is uncertain, and what you will do next.** Confidence should come from a credible plan and evidence, not from disguising a forecast as a guarantee.
 
-**Go deep if:** You're communicating AI capabilities to boards, customers, or regulators; rebuilding trust after over-promise; or designing communication strategy for uncertain outcomes. **Skim to questions if:** Quick audit of whether your current communication strategy is over-promising. **Skip if:** Outcomes are deterministic (no uncertainty) or stakeholders are already comfortable with probabilistic results.
+## Start with the decision and the audience
 
-## GROUNDING (Before Starting)
+Identify the stakeholder, decision, consequence of being wrong, relevant evidence, and commitments already made. Use `dual-lens` to connect technical uncertainty to the stakeholder’s practical concern. Reuse known context and ask only for information that changes the claim or decision.
 
-Follow the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md):
-1. Ask the Grounding Questions (Section 1) — at minimum: Who is the stakeholder? What's their comfort with uncertainty? What's the worst consequence of being wrong?
-2. Route depth: Executive Summary or Comprehensive Analysis?
-3. Identify output format: Document, presentation, or both?
+- **Full review:** capability claims to customers, boards, or regulators; a consequential forecast; disclosure policy; or recovery from over-promising.
+- **Focused review:** audit a sentence, proposal, update, or presentation for unsupported certainty and missing conditions.
+- **Simple communication:** if the relevant facts are established and uncertainty is immaterial, state them directly. A deterministic implementation can still have uncertain inputs, operational reliability, adoption, or business effects.
 
-Then proceed with the skill-specific analysis below.
+Use the shared Universal Skill Protocol at a proportionate depth. Choose a document, presentation, or inline response to fit the request. Sophisticated stakeholders may need more precise ranges and assumptions, not fewer.
 
-## THE TRAP
+## The trap: a useful claim becomes a stronger claim
 
-You will over-promise to close the deal, secure budget, or build excitement. The bias is **certainty bias in AI communication** — the assumption that stakeholders need guarantees to move forward, so you provide them (even when you don't have them).
+Pressure to win budget or close a deal can strip away a qualification: “95% correct on this test” becomes “95% accurate,” or “we will test whether this workflow can be automated” becomes “the workflow will be automated.” Repetition can turn the stronger claim into an internal target before anyone checks it.
 
-The mechanism is seductive: You say "95% accuracy" instead of "95% accuracy on our test set, which may differ from production." You say "the AI will automate this workflow" instead of "the AI will automate 70-80% of this workflow, depending on real-world conditions we haven't tested yet." The first statement closes the deal. The second doesn't. So you use the first. Then reality hits.
+The remedy is not adding vague caveats to everything. Preserve the conditions that would change a reasonable person’s decision. Do not replace an unsupported guarantee with an equally unsupported range such as “70–80% automation.”
 
-The trap is most seductive when:
-- Budget is competitive and you're pitching against competitors (who may also over-promise)
-- The stakeholder is non-technical (they hear "95% accuracy" and believe "this will just work")
-- The outcome you're promising is genuinely valuable (you want to believe it yourself)
-- The consequence of not getting funding/approval is high (pressure to say "yes, we can do this")
-- You've already built reputation on similar promises (now you're caught in a cycle)
+Wells Fargo’s sales-practices case illustrates how incentives, leadership, oversight, and the treatment of contrary evidence can interact. It does not prove that a different growth forecast alone would have prevented misconduct or that trust takes exactly five years to recover. Use the qualified [case and evidence notes](references/communication-evidence.md).
 
-### The Wells Fargo Fake Accounts Case (2016-2017, Reputation Angle)
+## 1. Audit certainty claim by claim
 
-Wells Fargo's fake accounts scandal is often cited as ethical failure. But there's a communication angle worth examining: the company promised "ambitious growth" to the board. Growth requires revenue. Sales team promised unrealistic targets to achieve the growth promise. Targets required opening new accounts, even when customers didn't want them. Fake accounts followed.
+Ask: **What exactly are we claiming, and what supports that claim?**
 
-The core failure: Over-promise at the top cascades down. Sales team over-promises to sales managers. Sales managers put impossible quotas on frontline staff. Staff cuts corners. Fraud.
+| Claim type | What to state |
+|---|---|
+| Enforced behavior or commitment | Scope, conditions, owner, enforcement or delivery mechanism, and what happens if it fails. |
+| Observed result | Metric, denominator, population, configuration, period, and uncertainty or limitations. |
+| Forecast | Expected outcome, horizon, assumptions, method, and what could invalidate it. |
+| Target | Desired outcome and the plan to pursue it; distinguish it from a forecast. |
+| Unknown | What is unresolved, why it matters, and a feasible way to reduce or manage it. |
 
-What if Wells Fargo had communicated differently? "We'll grow revenue by 5% annually, from existing customer relationships deepening, plus new acquisitions. This is lower than competitors who promise 10%, but sustainable." No fake accounts needed.
+A service commitment can be meaningful even when delivery is not physically certain. Explain the agreed obligation and remedy; do not imply that a contract makes failures impossible. Verify authority before promising staffing, compensation, timing, or policy changes.
 
-The trust repair required *exact the opposite of over-promise*. After scandal broke, new leadership had to say: "We over-promised. We're now under-delivering on growth to build back trust." It took 5 years.
+### Example: support-ticket triage
 
-**The AI parallel:** You over-promise on model accuracy or automation capability. Deployment happens. Reality doesn't match. Stakeholders feel betrayed. Trust erodes. Recovery is slow.
+The following is a structure for an assessment, not a set of measured probabilities:
 
-## THE PROCESS
+| Component | What can be established | What remains uncertain | Evidence or next step |
+|---|---|---|---|
+| Output uses ten permitted categories | Schema validation can reject invalid labels. | Whether the chosen category is correct. | Test validation and classification separately. |
+| Classification of familiar tickets | Performance on a specified test population. | Transfer to current traffic and uncommon cases. | Compare live samples and evaluate relevant segments. |
+| New or unsupported categories | Whether an unknown-category route exists. | Recognition of unseen cases and routing quality. | Test abstention and escalation, not forced guesses alone. |
+| Usefulness to the support team | User feedback and task observations. | Fit, adoption, review burden, and sustained use. | Evaluate the workflow with representative users. |
+| Faster service or lower cost | A baseline and a proposed improvement. | Causal contribution, staffing, demand, overhead, and quality effects. | Define the comparison and full cost horizon. |
 
-### 1. THE CERTAINTY AUDIT
+Ten thousand successful examples do not create a universal guarantee. Do not assign “20%, 60%, 40%, or 30% confidence” unless a defined method supports those estimates. Carry important unknowns into the recommendation rather than filling blank cells with plausible numbers.
 
-Ask: **"Which parts of this outcome can I guarantee? Which parts are genuinely uncertain?"**
+## 2. Locate the uncertainty in the system
 
-Be forensically honest.
+Use `determinism-compass` to separate rule enforcement, probabilistic inference, and the surrounding workflow.
 
-**Example (AI customer support triage):**
+- **Repeatability:** under identical relevant inputs and configuration, does the system produce the same result?
+- **Correctness:** is that result right for the task and current circumstances?
+- **Operational delivery:** do dependencies, permissions, and execution work as intended?
+- **Human and business effects:** does the result lead to adoption, better decisions, or economic value?
 
-| Component | Guaranteed | Uncertain | Confidence | Why |
-|-----------|-----------|-----------|-----------|-----|
-| **Model classifies tickets into 10 categories** | Yes | N/A | 99% | Tested on 10k+ examples. Accuracy is consistent. |
-| **Classification works on NEW categories (not in training)** | No | Yes | 20% | We haven't seen these tickets. Model will guess. |
-| **Humans accept the classification as useful** | No | Yes | 60% | Depends on how clear the categories are, how well trained they are, workflow friction. |
-| **Support team velocity increases 20%** | No | Yes | 40% | Depends on alert accuracy, adoption, motivation to use the tool. |
-| **Cost per ticket drops 15%** | No | Yes | 30% | Depends on velocity improvement + wage inflation + system maintenance costs. |
+A keyword router can be perfectly repeatable while consistently routing ambiguous tickets incorrectly. A model can return a repeatable answer without that answer being reliable. A deterministic component can fail because of bad input or unavailable infrastructure. There is no 99% repeatability boundary that classifies an outcome as probabilistic.
 
-**Output:** A certainty map showing what you're confident in, what's uncertain, and where the uncertainty lives.
+State where uncertainty enters, what it affects, and which controls reduce it. Do not let confidence in one component silently stand in for confidence in the entire outcome.
 
-### 2. MAP THE UNCERTAINTY SPECTRUM
+## 3. Choose one or combine three communication styles
 
-Ask: **"On a spectrum from deterministic to probabilistic, where does this outcome live?"**
+Select by the decision and information need rather than job title. Use ordinary words unless a technical distinction matters.
 
-Use the [determinism-compass skill](https://example.com/determinism-compass) framework. Outcomes exist on a spectrum:
+### Confident uncertainty
 
-**Deterministic end:**
-- Outcome is rule-based. If X, then Y.
-- Repeatability is 100%.
-- Example: "If ticket contains keyword 'billing,' route to billing team." Always works.
+**Pattern:** “Here is the evidence we have, the limit that matters, and the action we take when that limit is reached.”
 
-**Probabilistic end:**
-- Outcome requires judgment or pattern recognition on ambiguous inputs.
-- Repeatability is <99%.
-- Example: "AI decides if customer complaint is valid or frivolous." Same complaint might get different judgment depending on context.
+Example: “In the reviewed pilot, the system correctly routed 850 of 1,000 eligible tickets. We have not yet validated the new complaint category. Those tickets will remain in manual review while we test it.”
 
-**Most AI outcomes live on the probabilistic side.** Acknowledge this. Don't pretend they're rule-based.
+The numbers are illustrative. They describe observed performance, not a confidence score for each future ticket. If uncertainty estimates guide routing, verify their calibration and the escalation path. The “other 15%” is not necessarily identifiable in advance, and low-confidence routing does not catch every error.
 
-### 3. THE THREE COMMUNICATION STYLES
+### Bounded promises
 
-Design communication for each stakeholder using style appropriate to their tolerance and need-to-know.
+**Pattern:** “We commit to this controllable deliverable or service level under these stated conditions. We forecast this additional outcome, and we will review it if these assumptions change.”
 
-**Style 1: Confident Uncertainty**
-*Use for:* Customers, frontline teams, anyone implementing the system
+Example: “We will complete the defined pilot review by Friday and report results, gaps, and a rollout recommendation. We forecast lower support cost if ticket mix and review effort stay within the tested range; we will revise that forecast if either changes materially.”
 
-Format: "We're [X]% confident, and here's what we'll do about the other [100-X]%."
+Name who owns the commitment and whether it is feasible. A forecast reset does not erase an earlier miss or unilaterally change a contract. Document how a formal commitment can be changed through the applicable agreement.
 
-Example: "The AI is 85% confident in its recommendations. When it's less confident, it flags the recommendation for you to review. This way, you benefit from AI speed on the easy cases, and stay in control on the hard cases."
+### Transparent ranges
 
-**Why this works:** You're not pretending certainty. You're showing competence by naming uncertainty AND having a plan for it. People trust this more than false certainty.
+**Pattern:** “We estimate a range of outcomes over this period, based on these assumptions. Here is how we will plan for the downside and learn more.”
 
-**Style 2: Bounded Promises**
-*Use for:* Boards, investors, contracts where you need to commit to something
+Example: “Our planning scenarios assume 60–85% of eligible tickets can be handled automatically while meeting the quality standard. That leaves 15–40% for manual handling, before adding review, escalation, and rework. We will check those assumptions after two weeks and report whether the evidence is sufficient.”
 
-Format: "Under these conditions, expect X. If conditions change, reset."
+State whether a range is an empirical interval, a forecast interval, or a set of scenarios. A scenario range is not a confidence interval or a guaranteed bound. In this example, **60% automation leaves the larger manual workload: 40%**. The earlier version reversed best and worst cases. A result of 50% is below the stated 60–85% range, not inside it.
 
-Example: "Under current market conditions (competitor pricing stable, customer mix consistent), we expect 15% cost reduction in support operations. If competitors undercut pricing by >20%, or customer mix shifts to higher-support segments, we'll reevaluate."
+## 4. Define the stakeholder’s uncertainty budget
 
-**Why this works:** You're making a promise, but you're also making the boundary conditions explicit. If boundary conditions change, you're not suddenly wrong — you're just resetting. This is contracts language, not marketing language.
+Use “uncertainty budget” to mean the practical amount and type of variation the decision can absorb. Establish it from the decision, capacity, consequences, and requirements—not a percentage assigned to a stakeholder category.
 
-**Style 3: Transparent Ranges**
-*Use for:* Technical teams, detailed planning, resource allocation
+| Stakeholder | What to clarify |
+|---|---|
+| Board or investor | Planning horizon, downside exposure, liquidity or capacity needs, and what evidence changes funding or scope. |
+| Customer | Which outcomes matter, acceptable failure and recovery, service commitments, and meaningful choices. |
+| Frontline team | Workload, exception volume, review capability, training, and whether the fallback is usable. |
+| Regulator or assurance function | Applicable standard, required evidence, permitted operation, and material uncertainties. Do not invent an acceptable error budget. |
 
-Format: "Between X and Y, depending on Z."
+The former 10–20%, 30–40%, 50%+, and 5–10% tolerances were unsupported. The same person may accept wide uncertainty in an experiment and very little in a consequential service.
 
-Example: "Automation will handle between 60-85% of tickets, depending on how well the model learns your specific ticket distribution. We'll know the actual number after 2 weeks of live data."
+For an insurance workflow, distinguish forecast processing speed and cost, the fraction eligible for automation, the evidence of correct decisions, and audit coverage. A 98% aggregate accuracy threshold or ninety days of review is not a universal authorization standard. A claim to audit 100% of decisions must identify the actual review, staffing, detection capability, and timing; it does not imply every error will be caught.
 
-**Why this works:** You're giving decision-makers a range to plan for. They can resource for the worst case (85% automated = 15% remaining) and upside if the best case hits (60% automated = 40% remaining). This is planning language.
+### Decide what to disclose using materiality, actionability, and timing
 
-### 4. THE UNCERTAINTY BUDGET
+Start with required disclosures and information material to rights, safety, consent, contractual expectations, or a reasonable decision. Do not withhold such information because it might reduce trust or because the recipient cannot reverse the event.
 
-Ask: **"How much uncertainty can each stakeholder absorb?"**
+For other details, ask:
 
-Different stakeholders have different tolerance.
+1. What decision or expectation could this information change?
+2. Can the recipient act, prepare, seek help, or choose an alternative?
+3. Will the information arrive while those options remain useful?
+4. What context, uncertainty, or response plan prevents a misleading impression?
 
-**Board:** Can handle 10-20% uncertainty in outcome. They care about predictability for financial planning.
+Porsche’s “Track Your Dream” case contrasts reassuring progress information with distressing delivery news. It suggests that the *kind* of information matters as well as its volume. It does not establish that a customer whose car was lost at sea has zero recourse: they may need to replan, ask about replacement, or exercise contractual options. A truthful production photograph can reassure, but no fact has the same emotional effect on every recipient.
 
-**Customer:** Can handle 30-40% uncertainty in experience quality. They care about value and whether it's predictable enough to rely on.
+Where the customer cannot influence the event, explain its implications, what the organization is doing, what options remain, and when the next update will arrive. Do not recast your own action as customer control when it is not.
 
-**Frontline team:** Can handle 50%+ uncertainty in workflow. They care about tools that help, even if imperfect.
+### Account for silence as well as disclosure
 
-**Regulator:** Can handle 5-10% uncertainty in critical metrics (accuracy, bias, safety). Anything above is approval-blocking.
+The Novel Insights CBA/Porsche comparison proposes an important measurement risk: disclosure’s immediate costs may be more visible than delayed benefits such as better fit, fewer surprises, or more informed decisions. A team could then reduce disclosure because its measurement captures only one side.
 
-**Design:** Communicate style that matches their uncertainty budget.
+Treat that as a hypothesis to investigate. An incomplete feedback loop is not literally a controlled experiment, and under-disclosure is not inevitable. Compare disclosure and silence on relevant outcomes over an appropriate horizon. Use ethical experiments where suitable, interviews, comprehension checks, complaint patterns, and retention or decision outcomes. Do not experiment by withholding required or material information.
 
-**Example (insurance claim automation):**
-- **Board:** "Claims automation will improve processing speed by 20-30%, reducing cost per claim by $50-75. This assumes our model generalizes to new claim types (our biggest unknown)."
-- **Claims team:** "The AI will process 60-70% of claims without human review, on a probationary basis. We'll expand if accuracy stays above 98%."
-- **Regulator:** "The model has 98.5% accuracy on test set. Real-world accuracy may vary. We audit 100% of automated decisions for the first 90 days."
+The CBA podcast withholds the focal experiment’s outcome; it does not prove that disclosing drawbacks increased sales. A team that measures modest commercial benefits may still have a duty to disclose. Better measurement supports judgment but does not replace obligations or affected people’s interests.
 
-**The budget sets how much. It does not set which.** Two facts can sit equally inside a stakeholder's tolerance and still carry opposite risk, so sort each candidate disclosure by whether the recipient could act on it. Porsche's "Track Your Dream" makes the split concrete. The company tracks roughly 150 milestones per vehicle and shows 11 to the customer waiting six to twelve months for a custom order (◆, described by the case's co-author). A production photograph is pure comfort information: nobody can act on it, and it lowers anxiety. A notice that the cargo ship carrying your car has gone down is the opposite, maximum anxiety and zero recourse, since no customer can expedite a sunk hold. Harvard's own classroom argument on this case splits into "more transparency is always better" against "customers don't know what to do with it," and neither side wins, because both are arguing about volume when the real variable is kind. Run each fact through one question before it goes out: **could the recipient do anything differently knowing this?** Share comfort information freely. For high-anxiety, zero-recourse information, decide deliberately rather than by default, and if you disclose it, pair it with the one thing you are doing about it, which converts it from a fact they cannot act on into a fact you can.
+## 5. Define signals and a response before making the claim
 
-**When wrong:** this test is drawn from an experience-quality disclosure and has not been tested on safety-relevant information. Where a defect or a recall is at stake, the case for disclosure does not depend on whether the customer can act, and this cut must not be used to justify withholding. *(Source: HBR Cold Call, "The Evolution of Luxury Brand Porsche," Mar 2025, case HBS 625-038.)*
+For each consequential forecast or commitment, specify the signal, metric and denominator, observation window, threshold or condition, response, owner, and update time. Include data freshness and measurement quality so a broken dashboard is not mistaken for good performance.
 
-**The test above will erode on its own, and the reason is measurement rather than nerve.** When you disclose something uncomfortable, the cost arrives fast and attributable: conversion drops, a call goes badly, a ticket lands. The benefit is a user who calibrated correctly and therefore did not churn, did not complain, and did not appear in any dataset. **Your organization is running a controlled experiment in which only the treatment's costs are instrumented.** Every review cycle then produces a small, locally rational argument to disclose slightly less, and the aggregate is a drift toward silence that nobody chose and everybody can defend. Harvard's Leslie John names the same asymmetry at the individual level: cross the line and "we see the cringe in someone's face," while the person who quietly trusts you more emits no signal at all, so "we systematically overplay the downsides in our mind." Two consequences for an AI product, where the dilemma is continuous (how much to say about model limitations, confidence, and what the system cannot do). **First, do not treat non-disclosure as the neutral baseline.** Silence is a choice with its own costs, and framing it as the default means disclosure has to justify itself while withholding never does. **Second, if you cannot name how you would ever detect the benefit of a disclosure, you have found the reason your team keeps deciding against it, and no policy will fix that until you build the measurement.** This is why Commonwealth Bank of Australia ran an experiment rather than making a decision: an experiment manufactures the signal the feedback loop is not otherwise producing. **When wrong:** this predicts drift, it does not prove your current level is too low. A team that has actually measured the benefit and found it small is not drifting, it is reading its own data, and this argument must not be used to override a real measurement. **A caution on the source:** the CBA experiment's result is deliberately withheld in the case and is not public, so nothing here is evidence that disclosing drawbacks improves outcomes. The claim is about the shape of the feedback, not about the payoff. *(Source: HBR Cold Call, "Why the Commonwealth Bank of Australia Opened Up to Customers about Credit Card Risks," Mar 2026, case HBS 619018, Buell and John, 2018.)*
-
-### 5. SIGNAL-BASED RESETTING
-
-Ask: **"How will I know if my prediction was wrong? And what do I do then?"**
-
-Uncertainty is only manageable if you have a plan for being wrong.
-
-**Define leading indicators** (signal that emerges in days/weeks):
-- "If the model accuracy on live data is <95% after week 1, we pause full rollout and investigate."
-- "If customer satisfaction with recommendations drops >5%, we retreat to hybrid mode (AI suggests, human approves)."
-
-**Define lagging indicators** (signal that emerges in months):
-- "If cost per ticket doesn't improve by 10% after 3 months, we reevaluate the model."
-- "If adoption stays below 60% after 6 months, we solicit feedback on why and adapt."
-
-**Most importantly: Say what you'll do.**
-Not: "We'll monitor and adapt." (Vague. Non-committal.)
-But: "If accuracy drops below 95%, we will pause rollout and spend 1 week investigating. We'll communicate findings to leadership by Friday."
-
-## DIAGNOSTIC QUESTIONS
-
-Answer these before designing your communication strategy:
-
-1. **"Can I list five ways this prediction could be wrong?"** If you can't, you're overconfident.
-   - **Red flag:** "It can't be wrong. We tested it."
-   - **Sharpening probe:** "What's the most surprising way this could fail?"
-
-2. **"What's the worst realistic outcome if this goes wrong?"** Not catastrophic. Realistic.
-   - **Red flag:** "Nothing really bad. Maybe slight delay." (That's probably under-estimating.)
-   - **Sharpening probe:** "What would the news headline be if this failed publicly?"
-
-3. **"What does the stakeholder actually care about?"** Your accuracy metric? Or their business outcome?
-   - **Red flag:** "They want 99% accuracy." (Do they, or do they want their workflow to work smoothly?)
-   - **Sharpening probe:** "If accuracy was 92% but the workflow improvement was 25%, would they still want this?"
-
-4. **"Have I told them the worst-case scenario?"** Or are they assuming best case?
-   - **Red flag:** "I mentioned it was probabilistic." (Did they hear it or did they decide it doesn't apply to them?)
-   - **Sharpening probe:** "If I asked them to repeat back the range of outcomes, what would they say?"
-
-5. **"How will I know I was wrong?"** Specific signal, not abstract.
-   - **Red flag:** "We'll evaluate after launch and adjust." (Too vague. When? By what metric?)
-   - **Sharpening probe:** "What number would make you say, 'This isn't working as promised'?"
-
-6. **"Am I comfortable defending this communication to a skeptical audience?"** Board? Regulator? Customer who got bad result?
-   - **Red flag:** "I'm a little nervous about how this lands." (That's your signal that you've over-promised.)
-   - **Sharpening probe:** "If they pushed back and asked 'why did you say it would do X when it only did Y?', what's my answer?"
-
-## REALITY CHECK
-
-**Failure modes:**
-- **Communicating certainty, then being wrong**: You say "85% accuracy," it's 72%. Stakeholder feels lied to, even if 72% is still useful.
-- **Communicating uncertainty, then underdelivering on what you DID promise**: You say "between 60-85% automation," it's 50%. Even though 50% is in the uncertain range, if you promised "we'll know after 2 weeks," and after 2 weeks you still don't know, trust erodes.
-- **Communicating ranges, then not telling people which end of the range happened**: "60-85% automation" rolls out. You discover it's 62%. You don't communicate this. People assume 85% and are disappointed when they notice the actual number later.
-
-**Cost traps:**
-- Transparent communication feels slower (longer sentences, more caveats).
-- Stakeholders may demand proof of your uncertainties (which is reasonable and requires data you may not have).
-- Recovery from over-promise is expensive (years of under-deliver to rebuild trust).
-
-**Monitoring:**
-- Track "stakeholder satisfaction with accuracy of prediction vs reality" (quarterly)
-- Track "leading indicator signals detected and acted on" (did you catch signals early?)
-- Track "trust signals" (return rates, contract renewals, team satisfaction, regulatory compliance)
-
-## THE OVER-PROMISE RECOVERY PROTOCOL
-
-If you've already over-promised, here's how to repair:
-
-**Phase 1: Admit (Week 1)**
-- Name the over-promise. "We said X, but we're learning it's more like Y."
-- Explain why (technology limits, real-world conditions different from test, etc.)
-- No excuses. No blame-shifting.
-
-**Phase 2: Reset (Week 2)**
-- Communicate the new, more realistic expectation.
-- Use Bounded Promises or Transparent Ranges (not Confident Uncertainty — you've lost that)
-- Offer choices: "Do you want to (A) continue with revised expectations, (B) pause and reassess, or (C) exit?"
-
-**Phase 3: Deliver (Weeks 3+)**
-- Under-promise, over-deliver. If you say "60-70%," aim for 75%.
-- Report frequently. Monthly updates on progress.
-- Celebrate small wins. "We hit 72% this week, on our way to the upper range."
-
-**Phase 4: Rebuild (Months 2-6)**
-- Restore trust through consistency. Do what you say, every time.
-- Involve stakeholders in monitoring. "Here's the leading indicator dashboard. You're seeing exactly what we're seeing."
-- Acknowledge what was learned. "We were wrong about X. Here's what we know now."
-
-## THE TARGET IS NOT CALM
-
-**Every communication playbook says reduce anxiety. The physiology says reduce it to the right level and not below.**
-
-Uncertainty triggers a chemical burst that a person experiences as apprehension. **The same burst is what primes the brain to learn.** Push someone past it into panic and learning stops: attention narrows, nuance disappears, second and third-order consequences go unconsidered. But flatten it to nothing and you have removed the state in which anything new gets absorbed.
-
-So a leader communicating through a fog has a target with two edges, not one floor:
-
-| State | What it looks like in the room | What you get |
+| Signal type | Example question | Response to design |
 |---|---|---|
-| Flat | Nodding, no questions, "sounds good" | Nothing sticks. People leave and carry on as before. |
-| **Apprehensive and controlled** | Hard questions, visible discomfort, people arguing with the plan | **Learning, adaptation, real objections surfaced** |
-| Panicked | Rumor, freezing, escalation, people relitigating settled things | Narrow thinking, missed consequences, no learning at all |
+| Leading | Are error severity, exception volume, review effort, or dependency failures diverging from assumptions? | Investigate, narrow scope, add effective protection, or pause exposed actions. |
+| Lagging | Are cost, adoption, service quality, or business outcomes meeting the forecast? | Reassess causes, economics, product fit, and the forecast; do not assume the model is the only cause. |
+| Evidence gap | Is the sample sufficient and representative to judge the claim? | State what remains unknown, preserve appropriate limits, and set the next evidence plan. |
 
-**The middle row is the goal and it is uncomfortable to sit in**, which is why leaders reflexively talk their way out of it. Over-reassurance is the most common way a communication fails: it feels like leadership and it moves the room to the top row.
+The former 95% accuracy, five-percent satisfaction drop, ten-percent cost gain at three months, and sixty-percent adoption at six months were example triggers. They are not default gates. Distinguish relative change from percentage points and routine variance from a material shift. A single credible severe event can warrant action before a rate crosses a threshold.
 
-**Three moves that hold the middle:**
+Commit to feasible updates and actions, not certainty that an investigation will finish in one week. Some warning signals emerge too late or not at all. Use preventive constraints, downside reserves, or narrower scope where monitoring cannot protect against the harm.
 
-1. **State the real uncertainty and bound it.** "We do not know whether this role exists in the same shape next year. We do know nobody is being cut this quarter, and you will hear from me before anything changes." The unknown stays unknown. The floor is real. That combination keeps apprehension productive.
-2. **Give people something to do with the apprehension.** A question to answer, a scenario to pressure-test, a decision they own. Arousal with no outlet becomes rumination, which reads as panic and produces nothing.
-3. **Watch for the top row as carefully as the bottom.** A room with no hard questions after a genuinely uncertain announcement has not been reassured. It has disengaged, or it does not trust you enough to argue.
+## Six diagnostic questions
 
-**Why this matters more now than it used to.** Models change in months and reskilling is continuous, so **the ability to stay at the top edge of productive apprehension without tipping into panic is a trainable capability rather than a personality trait**, and it is the one that carries a team through repeated change. You are not managing a single announcement. You are setting the state your team will be in for the next several.
+1. **How could this claim be wrong?** Cover material failure paths; being unable to invent five does not itself prove overconfidence.
+2. **What is the worst credible consequence?** Include severe possibilities supported by a causal path; “catastrophic” and “realistic” are not opposites.
+3. **What outcome does the stakeholder need?** Accuracy may matter directly or through workflow performance. Clarify rather than dismissing their metric.
+4. **What do they understand about the range and downside?** Use a brief teach-back or scenario discussion where useful.
+5. **What evidence would make us change course?** Name the signal and response, including how uncertainty will be reported.
+6. **Can the claim withstand scrutiny?** Check evidence and wording. Feeling nervous is not proof that a claim is false or overstated.
 
-*(Source: Mithu Storoni on the HBR IdeaCast, "Redefining What Efficiency Means in the Age of AI," May 2026, applying long-established arousal-and-performance neuroscience — ⚠ mechanism-tier, no measured population, and the application to leadership communication is a deduction rather than a tested finding. Falsifier: a team communicated to with full reassurance that adapted to a major change as well as one held at productive apprehension.)*
+## Recover from an over-promise
 
-## QUALITY GATE
+Use four phases at a pace matched to the harm. The old week-one, week-two, and months-two-to-six schedule was illustrative; do not delay a necessary correction to fit it.
 
-- [ ] Certainty map created (what's guaranteed vs uncertain)
-- [ ] Uncertainty spectrum mapped (deterministic end vs probabilistic end)
-- [ ] Communication style selected per stakeholder (Confident Uncertainty vs Bounded Promises vs Transparent Ranges)
-- [ ] Uncertainty budget defined for each stakeholder (how much variance can they absorb?)
-- [ ] Leading indicators defined (what signal will tell us we're off course?)
-- [ ] Resetting protocol in place (what do we do if the prediction is wrong?)
-- [ ] Communication tested with skeptical stakeholder (can they poke holes in it?)
+1. **Admit and contain.** Identify the original claim, the current evidence, who is affected, and any immediate protective action. Separate known causes from unresolved questions.
+2. **Reset expectations.** State a supported estimate or unknown, explain the gap, and offer feasible choices such as continuing within a narrower scope, pausing, or exiting. Respect existing commitments and rights.
+3. **Deliver and report.** Make realistic commitments and show actual results against them. Do not deliberately understate a forecast to manufacture “over-delivery.” If a range is repeatedly exceeded, improve the estimate rather than treating poor calibration as a win.
+4. **Rebuild through evidence.** Demonstrate relevant changes, keep update commitments, and invite review of outcomes. Trust may recover at different rates or remain limited; full restoration is not guaranteed.
 
-## WHEN WRONG
+Any of the three communication styles can be appropriate during repair if it is accurate. A support conversation, a product change, and a leadership update may all be needed. Record what was learned and what will change in future claims.
 
-This skill gives bad advice when:
-- **Outcomes are actually deterministic** (not probabilistic) — don't apply uncertainty communication if it's rule-based
-- **Stakeholders are sophisticated and already comfortable with uncertainty** (they may find transparent ranges patronizing; accelerate to Bounded Promises)
-- **You're dealing with a situation where transparency will *increase* distrust** (rare, but if the outcome is so uncertain that even being transparent makes them uncomfortable, you may need to first prove capability with smaller bets)
+## Support understanding without manufacturing anxiety
 
-## TRADE-OFF LEDGER
+The Storoni interview offers a practitioner explanation of arousal and learning. It does not establish an ideal emotional state for every stakeholder or show that calm people cannot learn.
 
-BY CHOOSING **transparent, bounded communication over false certainty**:
-  We are betting on: Stakeholders will trust us more if we're honest about uncertainty than if we pretend certainty.
-  We are giving up: The initial excitement and easy approval that comes with over-promising.
-  This is reversible within: If transparency causes you to lose a deal, you can adjust messaging. But recovery from broken trust takes months.
+Use three possible states as observation prompts, not diagnoses:
 
-THE HIDDEN TRADE-OFF:
-  Transparent communication forces you to name what you don't know. This is uncomfortable. It also means stakeholders see the gap between what's promised and what's guaranteed. Some will flee. That's actually good — they're not a good fit anyway. You're attracting stakeholders who are okay with the uncertainty, which is the right kind of stakeholder.
+| Possible state | What to check | Helpful response |
+|---|---|---|
+| Quiet or apparently disengaged | Are people clear, reflecting, reluctant to speak, or uninterested? | Ask for understanding and offer ways to respond privately or later. |
+| Engaged with manageable concern | Can people reason, ask questions, and act on what matters? | State genuine uncertainty, clarify boundaries, and give a useful next step. |
+| Overwhelmed | Are cognitive load, stakes, or lack of control obstructing understanding? | Slow down, prioritize essential information, offer support, and avoid unnecessary pressure. |
 
-CONFIDENCE: **High**
-  What would change our mind: If we saw teams that over-promise consistently win more contracts and maintain more trust than teams that communicate transparently. We've never seen this.
+Three useful moves remain: state the uncertainty and real commitments; give people a meaningful action or question; and check understanding when the room is quiet as well as distressed. Reassurance can be truthful and helpful. Do not infer chemical states from behavior, provoke discomfort as a learning technique, or promise employment stability unless authorized and able to support that commitment.
 
-## CONCLUSION
+## Produce a communication the stakeholder can use
 
-**The recommendation:** Use transparent, bounded communication for all AI outcomes. Do not promise certainty you don't have.
+Lead with the decision or update, then the necessary evidence and limits. A complete working record can use this structure:
 
-**The hypothesis:** We believe that **stakeholders will develop stronger, more durable trust in teams that communicate uncertainty honestly than in teams that over-promise**, because over-promises inevitably break and break trust when they do.
+```markdown
+## Communication Under Uncertainty: [decision and audience]
+Main message:
+What is observed, forecast, targeted, committed, and unknown:
+Evidence and scope: [metric, denominator, population, configuration, period]
+Range or scenarios and planning consequence:
+Important conditions, downside, and available choices:
+Required/material disclosures and timing:
+Monitoring or learning plan: [signal, owner, action, next update]
+What changed from any earlier claim:
+Main trade-off and next decision:
+```
 
-**The 3E decision:**
-- **Explore:** Audit current communication strategy (1 day). Are you over-promising? What signals suggest this?
-- **Exploit:** If over-promising detected, reset communication with stakeholders using one of the three styles (Confident Uncertainty, Bounded Promises, Transparent Ranges). Establish leading indicators for course-correction.
-- **Exit:** If stakeholders refuse to accept any uncertainty and demand guarantees, this is a fit problem. Either (A) find a different stakeholder, or (B) reduce scope until you can guarantee it.
+For a short request, deliver the revised wording and the few assumptions needed to use it. For a broader decision, retain the claim map and evidence. Create a handoff only when another workflow needs it. Add a visual with the available drawing skill if the map, scenarios, or response path are easier to understand that way; do not draw invented stakeholder tolerance percentages.
 
-**The key trade-off:** We're choosing durable trust over initial enthusiasm. Transparent communication is slower to close, but stronger once it lands.
+## Final review and decision
 
-**The biggest risk:** That you reset communication with stakeholders and they decide the risk is too high. This is better than discovering it later after you've over-delivered.
+Check seven things: claim types distinguished; uncertainty located; communication style fitted to the decision; actual tolerance and obligations understood; meaningful signals defined; a feasible reset or recovery path; and wording tested through an appropriate skeptical review or comprehension check.
 
-**Assumptions to watch:**
-1. Stakeholders can tolerate the level of uncertainty you're naming (test this with questions, not assumptions)
-2. Leading indicators you've defined will actually emerge in real-time (false — some won't, meaning you've misunderstood the system)
-3. You can actually deliver the worst-case scenario you've promised (if you can't, you've set the bound too loosely)
+Use 3E as a decision aid: **Explore** unsupported assumptions with a bounded test; **Exploit** evidence and capabilities that support a useful commitment; **Exit** an infeasible claim, scope, or proposal when a sound alternative cannot be found. Exit does not require abandoning the stakeholder, and an unmet guarantee request can sometimes be solved through narrower scope, a service commitment, or a reliable non-AI component.
 
-**The next action:** Conduct communication audit (1 day). Identify places where you're over-promising. Rewrite communication using one of the three styles. Get stakeholder feedback before rolling out.
-
-## GENERATE THE DELIVERABLE
-
-Use the output prompt from the [Universal Skill Protocol](../../../../UNIVERSAL-SKILL-PROTOCOL.md).
-If this skill connects to downstream skills, also generate the markdown handoff file (if relevant to governance or stakeholder management strategy).
-
-## VISUAL SUMMARY
-
-After completing the primary output, invoke the excalidraw-svg skill to create a single Excalidraw SVG visual summary showing:
-- The Certainty Audit matrix (what's guaranteed vs uncertain vs unknown)
-- The Uncertainty Budget by stakeholder (Board: 10% tolerance, Customer: 40% tolerance, etc.)
-- The Three Communication Styles with examples for each
-- Over-promise recovery timeline (Admit → Reset → Deliver → Rebuild)
+State the recommendation, key trade-off, residual risk, and next action. Honesty need not reduce enthusiasm or slow every deal, and a stakeholder who declines may be making a reasonable decision. Do not guarantee a commercial reward for transparency. The practical standard is a claim people can understand and a plan the team can stand behind.

@@ -1,120 +1,122 @@
-# AI User Stories — The Production-Grade Story Deliverable (v1.0)
+# AI user stories
 
-> Companion to `ai-prd-template.md`. The AI-PRD is finished as a **backlog**, not a document. This file defines the six AI story types, the inheritance map back to the PRD, the full story template, worked examples (running example: **Athena** — AI reply drafts for support agents), and the grooming checklist that keeps deterministic stories in AI costumes out of your sprint.
+Revision 1.1, 13 September 2026. Companion to AI-PRD v1.2.1 and the [PRD template](ai-prd-template.md).
 
----
+Turn applicable product decisions into verifiable implementation work. Preserve the user or operational need, permissions, examples, failure behavior, ownership, monitoring, and economics without forcing every story to have a numerical confidence score or its own cost-per-outcome model.
 
-## 1 · Why AI stories are different
+The six areas below help reveal missing work. Existing shared infrastructure can cover an area; a feature does not always need six new tickets. Examples use the fictional draft-only Athena assistant. Numbers are candidate criteria to validate, not production facts.
 
-A normal story assumes the system reliably does X. An AI story can't — the model returns a distribution. So every AI story must carry, as **acceptance criteria**, the probabilistic decisions the PRD made: confidence thresholds, behavior examples, a named failure owner, a drift trigger, and a cost target. If those live only in the PRD (or worse, an engineer's head), the backlog ships stories that assume the model will "just work" — and production proves otherwise.
+## 1 Backlog coverage
 
-**User Story Health (the metric):** % of AI stories in the backlog carrying all five inherited elements. Target: **100% for anything shipping.** Measure it monthly; it surfaces the silent failure of teams writing deterministic stories for probabilistic features.
+| Area | PRD source | Required evidence where applicable |
+|---|---|---|
+| Capability | §1–2, §4–5, §7 | Intended behavior, permitted actions, relevant examples and evidence policy |
+| Evaluation | §6 | Dataset coverage, label/rubric quality, judge validation, regressions and review capacity |
+| Fallback | §7, §9 | Trigger, useful alternative, permissions/freshness, unavailable-alternative state |
+| Guardrails | §2, §9 | Material failure, prevention/detection, containment, actual obligation |
+| Instrumentation | §6, §10 | Event correctness, sources/joins, valid metric computation, missing-data behavior |
+| Rollout and operations | §8, §12 | Exposure controls, decision criteria, recovery and appropriate experiment design |
 
----
+Implement evaluation and instrumentation needed for shadow or live decisions before those decisions. A story that emits events has not necessarily produced a valid metric; a story that passes examples has not necessarily established generalization.
 
-## 2 · The six story types (a world-class AI backlog has all six)
+## 2 Reusable story template
 
-Most teams only write type 1. The other five are the invisible work that decides whether type 1 survives production.
+```text
+As a [user or operational role], I want [behavior]
+so that [outcome linked to PRD §1 or a necessary enabling outcome].
 
-| # | Story type | Inherits from PRD § | What it covers | Typical count per feature |
-|---|---|---|---|---|
-| 1 | **Capability** | §4 §5 §7 | The user-facing AI behavior itself | 3–8 |
-| 2 | **Eval / quality** | §6 | Golden set, judge wiring + validation, human review queue, regression suite | 2–4 |
-| 3 | **Fallback & degraded-UX** | §7 §9 | One story per degradation rung; refusal UX; recovery paths | 2–4 |
-| 4 | **Guardrail & safety** | §2 §9 | Kill switch, PII filters + honeypots, rubber-stamp detection, legal gates | 2–4 |
-| 5 | **Instrumentation** | §10 | Event schema, funnel, dashboards, alerting | 1–3 |
-| 6 | **Rollout / ops** | §8 §12 | Shadow mode, ramp tooling, holdouts, prompt-change pipeline, runbook drills | 2–3 |
+Type and requirement source: [PRD section/version or shared requirement]
+Acceptance criteria:
+- Given [context and authority], when [trigger], then [observable behavior].
+- Evidence required to proceed: [validated checks/score if relevant].
+- Failure, refusal, or unavailable-dependency behavior: [...].
+- Verification method and evidence of completion: [...].
 
-**Sequencing rule:** instrumentation (5) and eval (2) stories ship *before or with* the first capability story — shadow mode depends on them. "Monitoring later" is launch theater.
-
----
-
-## 3 · The AI story template (paste into the backlog)
-
-```
-As a [user], I want [core capability] so that [outcome tied to PRD §1 hypothesis].
-
-Acceptance criteria (probabilistic):
-- Confidence > [X] → [full behavior] (P95 latency ≤ [N] ms)
-- [Y]–[X] → [hedged behavior] (track user acceptance rate)
-- < [Y] or safety flag → [fallback rung / route] and notify owner [Name]
-- Instrumentation: events [list from §10] logged and computable in the funnel
-
-Behavior examples:  [link ≥3 good / bad / reject from PRD §4 / Annex A]
-Failure owner:      [named human, consented] — judged on catch rate, not velocity
-Drift trigger:      [retrain / escalate if metric moves > X in N days, from §6]
-Cost per outcome:   target $[Y] at P90 (from §11) — or the allocation assumption, ⚠-tagged
-Assumptions/risks:  [⚠-tagged assumptions this story rides on + the check that retires each]
-Rollout gate:       [which §8 ramp stage this story must be green for]
-Out of scope:       [the §2 non-goals this story must NOT drift into]
+Behavior/test examples: [relevant stable IDs and links]
+Owner and coverage: [responsible person/role; escalation where needed]
+Monitoring or change trigger: [relevant signal and decision, or justified N/A]
+Cost implication: [feature target, overhead/budget, and allocation basis]
+Assumptions and risks: [unresolved items with checks; or reviewed and none material]
+Exposure/rollout dependency: [...]
+Out of scope and permissions: [...]
 ```
 
-**Cost, honestly:** per-story cost attribution is often not clean. Capability and fallback stories carry the feature's cost-per-outcome target directly. Enabler-type stories (eval, guardrail, instrumentation, rollout) carry the feature-level target plus their own overhead line ("eval sampling adds ~3% to run cost"), with the allocation basis written down and ⚠-tagged. A cost number without its assumption is a number nobody can challenge.
+Use relevant lines; record why a material field does not apply. Capability and fallback work can inherit the feature cost target. Eval, guardrail, instrumentation, and rollout work can state their overhead and allocation to that target. Do not invent a standalone success denominator. An unresolved assignment is a gap, not “owner: none by design.” No per-action reviewer may be necessary where authorized automation and process ownership are adequate.
 
-**Assumptions/risks is not decoration:** every story rides on something unretired — an unsimulated threshold, an unsampled segment, a dependency SLA. Name each on the story with the check that retires it (mirrors PRD §13). An empty line at grooming means nobody looked.
+## 3 Worked stories
 
-**The send-it-back rule:** a story missing thresholds, behavior examples, failure owner, drift trigger, or cost target is not ready for sprint. Exception (write it explicitly): fully autonomous, near-zero-consequence execution layers may carry `Failure owner: none by design` — but any story producing a judgment or customer-visible artifact cannot.
+### A1 Reviewable draft capability
 
----
+As a support agent, I want a source-linked draft for routine tickets so that I can reduce composing time while preserving response quality. The PRD's illustrative target is 15% lower handle time, not an unrelated promise to halve it.
 
-## 4 · Worked examples — one per type (Athena)
+- Given authorized, current context and passing evidence checks, show an editable draft with supporting sources. Test the proposed P95 latency target of two seconds on the defined workload.
+- If a calibrated score is used, implement the validated §7 policy. The example 0.85/0.70 bands remain provisional until evaluated; they never authorize sending or issuing refunds.
+- Facts and commitments must be supported. With insufficient evidence, use the defined fallback or explain the gap. Preserve normal manual handling.
+- Verify the actual permission boundary and representative G1, G2, B1, B2, R1, and R2 cases from PRD §4, plus broader test coverage.
 
-### Story A1 · Capability — high-confidence draft
-As a support agent, I want a ready-to-review reply draft on routine tickets so that I resolve them in under half the current handle time.
+**Ownership and operation:** CX quality role for behavior, engineering for runtime, assignments recorded before dependent exposure. Review quality and task-mix signals before assuming declining acceptance is model drift. Inherit the feature full-cost target and §11 allocation; verify all-attempt costs against verified resolutions. Assumptions: calibration, workload, and quality target need evidence. Auto-send is outside scope.
 
-- **AC:** confidence >0.85 → draft auto-inserted with source citations, P95 ≤2,000ms; 0.70–0.85 → collapsed "review carefully" draft with source highlights (acceptance tracked); <0.70 or safety flag → no draft, KB snippets shown, event logged.
-- **AC:** facts, amounts, and commitments in the draft must match retrieved records (wording may vary — acceptable variance per §4); any unverifiable factual claim = hallucination event.
-- **AC:** out-of-scope intents (§2 non-goals) render no draft — verified by the 9 REJECT examples.
-- Behavior examples: GOOD #1–3, BAD #2, REJECT #1 (Annex A) · Failure owner: M. Chen · Drift: acceptance −20% w/w or eval accuracy −5% in 7 days → escalate · Cost: ≤$0.031/resolved at P90 · Rollout gate: shadow-exit · Out of scope: auto-send, non-English.
+### A2 Evaluation dataset and regression workflow
 
-### Story A2 · Eval/quality — the golden set is a deliverable
-As the AI quality owner, I want a 500-case stratified golden set with binary evals wired into CI so that no prompt or model change ships on vibes.
+As the quality owner, I want representative evaluations and a usable review process so that proposed changes can be assessed against the intended behavior.
 
-- **AC:** 500 cases stratified by 8 intents × difficulty × segment, incl. 60 adversarial + 40 rare-intent; every §4 behavior example present as a test case.
-- **AC:** binary checks (factual ≥98%, intent ≥95%, tone ≥97%, zero confident-wrong) run on every prompt PR; red = merge blocked.
-- **AC:** LLM judge validated against 200 human-labeled cases (TPR/TNR reported) before its scores gate anything.
-- Failure owner: eval eng (named) · Drift: golden set refreshed monthly from production corrections · Cost: eval run ≤$15/full pass.
+- Define coverage by intent, difficulty, important failure, and relevant segment. An illustrative 500 cases is a planning count, not proof of sufficient precision.
+- Link behavior examples to regression cases and preserve a separate holdout for generalization checks. Document provenance and sensitive-data handling.
+- Validate automated judges against suitable reference labels; report relevant true-positive/true-negative measures with denominators, uncertainty, and disagreement handling.
+- Exercise the release decision when a required check fails. Use binary checks for discrete requirements and graded rubrics where they preserve useful quality information.
 
-### Story A3 · Fallback & degraded-UX — the snippets rung
-As a support agent, I want useful KB snippets when no draft qualifies so that a refusal never becomes a dead end.
+**Ownership and operation:** evaluation role, with review coverage. Refresh meaningful failure patterns and investigate changes in judge performance or data mix. Estimate per-run and recurring review overhead against the feature budget; a proposed $15 test-run limit requires a billing basis. No invented user-facing confidence band is needed for this infrastructure story.
 
-- **AC:** confidence <0.70 → top-3 KB snippets ranked (cheap model) render in ≤800ms; empty-state copy tested; refusal event logged with reason code.
-- **AC:** refusal rate >25% on routine intents for 7 days → alert to PM (threshold mis-tuning, §7 re-simulation).
-- Behavior examples: REJECT #2–4 · Failure owner: M. Chen · Cost: snippet path ≤$0.004/request.
+### A3 Source material when drafting is unavailable
 
-### Story A4 · Guardrail & safety — the kill switch is a story
-As the on-call engineer, I want a one-action kill switch that degrades Athena to template mode in under 60 seconds so that a Sev-1 never waits on a deploy.
+As a support agent, I want useful authorized source material when no draft qualifies so that I can continue the task through the normal workflow.
 
-- **AC:** flag toggle reachable from on-call console; full-off ≤60s; degrades to template library, not blank UI; customer-visible drafts stop immediately.
-- **AC:** drill executed in prod before 25% ramp; runbook page linked; auto-trigger wired to hallucination >2% or CSAT breach (§8 kill criteria).
-- Failure owner: on-call rotation (mechanism: drill pass is a ramp gate) · Drift: n/a · Cost: n/a.
+- Given insufficient drafting evidence, show relevant permitted snippets only if they are available, current enough, and safe to display.
+- Exercise empty, stale, unauthorized, and unavailable source states. Explain the actual limitation and preserve the manual path; a fallback cannot guarantee a useful answer for every case.
+- Measure latency and log a safe reason code. A proposed three snippets within 800ms is an example to validate, not a universal requirement.
 
-### Story A5 · Instrumentation — the funnel before the feature
-As the product analyst, I want every draft to emit the §10 event schema so that all §6 metrics are computable from logs alone.
+**Ownership and operation:** CX quality and retrieval roles as appropriate. Investigate changes in fallback volume alongside data mix and retained-answer quality; a 25% refusal rate does not itself prove miscalibration. Inherit feature economics and identify snippet-path overhead. Test relevant §4 bad/refer cases and access-boundary cases.
 
-- **AC:** every draft logs trace ID, prompt version, confidence, intent, retrieval IDs, latency, tokens/cost, outcome, agent action, edit distance; Surfaced→Sent funnel renders in the dashboard.
-- **AC (definition of done for the feature, not just this story):** any §6 metric not computable from logged events blocks shadow-mode start.
-- Failure owner: data eng (named) · Cost: logging overhead ≤2% of request cost.
+### A4 Disable affected behavior and recover
 
-### Story A6 · Rollout/ops — shadow mode
-As the PM, I want a 2-week shadow phase where drafts are generated and scored but never shown so that offline evals are validated against reality before any agent sees a draft.
+As the on-call engineer, I want an accessible control to disable the affected draft path so that an incident can be contained without waiting for a new deployment.
 
-- **AC:** shadow drafts scored daily against golden-set metrics; divergence >5pts between offline and shadow accuracy → Kickoff assumptions reviewed before ramp.
-- **AC:** team-level randomization assignments locked and audited pre-ramp (contamination check, §8).
-- Failure owner: PM · Rollout gate: this story IS the gate to 5%.
+- Verify who may activate the control, what it stops, and what remains in flight. Define and measure a response target; “within 60 seconds” is a proposed target, not “immediately.”
+- Preserve a validated manual or template path where safe. Exercise the unavailable-fallback case.
+- Test the runbook, communication route, and restoration criteria. Use a suitable controlled drill; a production drill requires appropriate scope and authorization.
+- Map automatic triggers to severity and evidence. A sampled average error threshold does not cover every critical incident.
 
----
+**Ownership and operation:** on-call role and backup, with authority and access. Process ownership remains even without a per-action reviewer. Include control/monitoring overhead in feature costs and verify trigger coverage after relevant changes. Test the mapped §9 failure cases, including uncertain external effects; stopping future work does not undo completed effects.
 
-## 5 · Grooming checklist (run every backlog review)
+### A5 Valid telemetry and outcome joins
 
-- [ ] Every AI story carries all five inherited elements (thresholds, examples, owner, drift, cost) — or an explicit `none by design`.
-- [ ] All six story types present for any feature past Kickoff — no capability stories sprinting ahead of instrumentation/eval stories.
-- [ ] Behavior-example links resolve to the current Annex (stale links = stale spec).
-- [ ] Named failure owners have *consented* and their catch-rate review is calendared — a name without the conditions is escalation theater.
-- [ ] Thresholds trace to a golden-set simulation, not a guess.
-- [ ] Weekly: new production corrections became new behavior examples AND new eval cases (the dual seed) — top-10 story criteria refreshed monthly.
-- [ ] User Story Health computed and reported: __% (target 100%).
+As the product analyst, I want trustworthy events and outcome joins so that the team can compute the agreed metrics and detect gaps.
 
----
+- Emit applicable safe identifiers, configuration references, elapsed latency, billing inputs, eligibility/display/fallback state, and relevant user action.
+- Verify deduplication, population denominators, missing events, and joins to ticket resolution, surveys, or review labels where required.
+- Reconcile a small known fixture end to end: eligible → shown → sent → verified outcome. Test failed and missing-label cases too.
+- Enforce access, retention, sampling, and redaction requirements. Derive percentiles from event populations rather than storing a purported per-request P95.
 
-*Inheritance is the whole game: the PRD decides once; every story carries the decision. When a story and the PRD disagree, one of them is stale — fix it the same day.*
+**Ownership and operation:** data/analytics role. Alert on meaningful data-quality failures and version schema changes. An illustrative logging overhead limit such as 2% needs an explicit denominator and estimate. The feature may depend on this work before shadow mode; customer outcomes cannot all be inferred from generation logs.
+
+### A6 Shadow operation and controlled exposure
+
+As the PM, I want a bounded shadow phase followed by an appropriate exposure test so that we can verify operation before measuring user benefit.
+
+- Shadow outputs are not displayed or executed. Protect data, bound spend, and evaluate representative outputs against valid reference labels.
+- Record what shadow cannot answer: acceptance, review behavior, and causal user-outcome effects require relevant exposure evidence.
+- If a controlled experiment is appropriate, verify team assignment, spillover assumptions, cluster count, and the power/evidence plan before ramping.
+- Advance only when the checks required for that stage are met. Hold or stop on the defined conditions, and preserve accurate state when evidence is insufficient.
+
+**Ownership and operation:** experiment owner with engineering and operations coverage. A two-week duration or five-percentage-point offline/online gap is illustrative and must fit volume, case mix, and uncertainty. Include shadow and experiment overhead in the budget. Link §8/§12 requirements and controls; running for a fixed number of days is not a passing result.
+
+## 4 Grooming and completion review
+
+- Confirm the user or enabling outcome and the current requirement source.
+- Check coverage across the six relevant areas, including shared components and dependencies.
+- Verify actual permission, applicable evidence policy, examples, failure behavior, ownership, and cost basis.
+- Resolve contradictions between a story and the PRD explicitly; neither becomes current merely because it was edited last.
+- Record unresolved assumptions and their decision deadlines. Do not invent uncertainty when review found no material gap.
+- Mark completion only with appropriate evidence; distinguish implementation complete from exposure approved.
+
+**User Story Health:** reviewed in-scope items with all applicable inherited requirements traceable and verifiable, divided by all reviewed in-scope items. Review applicability rather than rewarding filled blanks. Complete coverage is a readiness aid; it does not establish real-world quality by itself.

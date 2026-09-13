@@ -1,252 +1,144 @@
 ---
 name: rtp-frontend-slides
-version: v1.0_latest
-description: 'Build production-quality HTML slide decks from scratch or by converting existing PowerPoint files: zero dependencies, no build tools, single self-contained HTML file with inline CSS and JavaScript. Six-phase workflow with a "show, don''t tell" style discovery (3 visual previews to react to, not abstract labels to pick from), strict one-viewport-per-slide layout, smooth animations, keyboard/touch navigation, accessibility, and responsive design. Use when building a pitch deck, teaching deck, conference talk, or internal meeting deck; when converting a .pptx into an animated web deck; or when enhancing an existing HTML presentation. Triggers on "build a deck", "presentation", "slides", "convert this PPT", "HTML presentation", "pitch deck", "frontend slides".'
----
-# Frontend Slides — Build Beautiful HTML Presentations with AI
-
-A complete guide to creating stunning, zero-dependency HTML slide decks from scratch or by converting PowerPoint files. Designed for non-designers who want production-quality presentations without knowing CSS or JavaScript. Works with any AI coding assistant (Claude, ChatGPT, Copilot, Gemini, Perplexity, etc.).
-
-Based on the open-source [frontend-slides](https://github.com/zarazhangrui/frontend-slides) project by Zara Zhang (MIT License), enhanced with accessibility best practices, performance patterns, and an expanded design system.
-
+version: v1.0.1_latest
+description: 'Build or improve HTML presentations, including faithful conversions of PowerPoint content. Use for pitch decks, teaching, conference talks, internal presentations, or an existing web deck that needs clearer design, navigation, or accessibility. Follow six phases: identify the mode, understand and inventory the content, choose a visual direction, build the deck, verify it, and deliver it. Default to one HTML file with inline CSS and JavaScript and no framework or build requirement. Use visual previews when the style is undecided; follow an established brand without repeating that choice. Preserve readable content at small sizes and zoom, provide keyboard access and reduced-motion behavior, and verify the intended browser and offline requirements. A single file with remote fonts or media is not fully self-contained.'
 ---
 
-## What This Approach Does
+# Frontend Slides — Make an HTML deck people can present and read
 
-You describe what your presentation is about and how you want it to feel. The AI generates a self-contained HTML file with inline CSS and JavaScript — no build tools, no npm, no frameworks. The result is a single file with smooth animations, keyboard/touch navigation, responsive design, and accessibility support that will work unchanged a decade from now.
+Turn a clear story into a browser presentation with readable slides, dependable navigation, and a deliberate visual identity. Default to plain HTML, inline CSS, and inline JavaScript. Use one file where practical; no framework or build step is required for the delivered deck.
 
-The core insight is "show, don't tell." Rather than asking you to pick between abstract labels like "minimalist" or "bold," the process generates 3 visual previews so you can react to what you actually see. Most people can't articulate design preferences in words, but they know immediately what they like when they see it.
+This local skill adapts Zara Zhang's [frontend-slides project](https://github.com/zarazhangrui/frontend-slides). The local version and style catalog are maintained separately from upstream. It is guidance for creating and checking a deck, not a bundled implementation or a guarantee that any assistant can run the necessary tools.
 
----
+## Phase 0 — Identify the mode and delivery conditions
 
-## The Process
+Use **New Presentation**, **PowerPoint Conversion**, or **Enhancement of Existing HTML**. Read the supplied deck or project before changing it. Preserve the source and existing working behavior during conversion or enhancement.
 
-The workflow has six phases. Depending on your starting point, you may skip some.
+Establish the audience, purpose, presentation setting, time or slide budget, available content, and current brand. Infer what is clear from the request; ask only about gaps that affect the result. An explicitly requested HTML deck stays HTML. If the user needs editable PowerPoint or Google Slides, use the appropriate presentation workflow rather than silently substituting a web page.
 
-### Phase 0 — Detect Mode
+Decide whether the deck must work offline, be printed, or be hosted. One HTML file can still depend on remote fonts, images, video, or APIs. For a genuinely self-contained delivery, embed suitable licensed assets or use local system fonts and verify it with the network unavailable. If media warrants an accompanying folder, explain that packaging choice. Publishing is a separate action governed by the user's request.
 
-Three entry points exist. **New Presentation** starts from scratch with your content. **PPT Conversion** takes an existing PowerPoint and transforms it into an animated web deck. **Enhancement** takes an existing HTML presentation and improves its styling, animations, or accessibility.
+## Phase 1 — Understand and inventory the content
 
-### Phase 1 — Content Discovery
+Identify the central message and the progression of evidence or decisions. Write slide takeaways before adding effects. A five-to-ten-slide overview, a ten-to-twenty-slide talk, and a longer teaching deck need different pacing; these ranges are planning prompts, not fixed categories.
 
-Before any design work happens, the content needs to be understood. Three questions matter: What is this presentation for (pitch deck, teaching, conference talk, internal meeting)? How long should it be (5–10 slides, 10–20, or 20+)? Do you have content ready, or do you need help structuring it?
+Review images early so they can shape the story. Product screenshots can anchor relevant demonstrations, while a logo may belong on the opening or closing slide. Do not create three feature slides merely because three screenshots exist. Explain a quality problem when it affects use; preserve an essential low-resolution image with an appropriate treatment or request a better source instead of silently discarding it.
 
-If you have images, they get evaluated for quality and relevance before anything else. The key principle is co-design: images shape the slide structure from the start, not as an afterthought. Three good product screenshots mean three feature slides anchored by those screenshots. A clear logo means it goes on the title and closing slides. A blurry or irrelevant image gets excluded with an explanation. If you have no images, CSS-generated visuals (gradients, shapes, patterns, typography) provide all the visual interest needed.
+Without supplied images, use typography, diagrams, CSS shapes, or other relevant visuals. Photographs and illustrations are valid when they explain the subject; abstract decoration is not a substitute for necessary evidence.
 
-### Phase 2 — Style Discovery
+For **PowerPoint conversion**, perform extraction here, before styling or rebuilding:
 
-This is the "show, don't tell" phase. You pick the feeling you want the audience to have — Impressed/Confident, Excited/Energized, Calm/Focused, or Inspired/Moved — and the AI generates three distinct single-slide HTML previews. Each preview is a self-contained title slide showing the typography, color palette, animation style, and overall aesthetic. You pick the one you like, say what you'd change, or ask to mix elements from multiple previews.
+1. Inventory the slide count and order, visible text, images, charts, tables, groups, links, media, notes, and important relationships.
+2. Use available tools such as `python-pptx` for supported extraction. Its [documentation](https://python-pptx.readthedocs.io/en/latest/) notes that the format has unsupported features; parsing text and pictures does not prove that every object or behavior was recovered.
+3. Render or inspect the source slides to detect omissions and ordering problems. Record unsupported animations, SmartArt, embedded objects, or media as applicable, without claiming all files have these issues.
+4. Resolve meaningful ambiguities and keep a source-to-output map. Ask about substantive editorial changes when needed; do not require reconfirmation of an already authorized faithful conversion.
+5. Keep speaker notes and hidden material separate from the public audience deck unless their inclusion is intended. Content hidden in HTML remains readable in the file source.
 
-The mood-to-style mapping works like this: Impressed/Confident maps to Corporate Elegant, Dark Executive, or Clean Minimal. Excited/Energized maps to Neon Cyber, Bold Gradients, or Kinetic Motion. Calm/Focused maps to Paper & Ink, Soft Muted, or Swiss Minimal. Inspired/Moved maps to Cinematic Dark, Warm Editorial, or Atmospheric.
+## Phase 2 — Choose the visual direction
 
-### Phase 3 — Generate the Presentation
+When the user has supplied a brand, template, or clear preference, follow it. When the direction is undecided, offer three distinct visual previews so the user can react to actual typography, color, density, and motion. A title slide can demonstrate atmosphere, but include representative dense content when that is necessary to judge readability. Do not complete dependent styling while a required preference is still pending.
 
-The full presentation gets built as a single HTML file with all CSS and JavaScript inline. Every slide fits exactly within one viewport — no scrolling within slides, ever. This is non-negotiable. If content overflows, it splits into multiple slides.
+The [style and motion reference](references/styles-and-motion.md) preserves ten local presets and example font pairings. Match them to the audience's needs: confidence, energy, calm, or an editorial story. These are design intentions, not guaranteed emotional effects or claims about what most people can articulate.
 
-### Phase 4 — PPT Conversion (if applicable)
+Use a coherent visual hierarchy and enough layout variety to support the content. Blue accents, Inter, Arial, system fonts, centered titles, and repeated cards are all valid choices when they serve the brand and task. Their presence does not establish AI authorship or poor quality. Avoid empty ornament, generic claims, and variation added only to look unconventional.
 
-For PowerPoint conversion, Python with the `python-pptx` library extracts all text, images, speaker notes, and slide structure. The extracted content gets confirmed with you, then rebuilt in the chosen web style.
+## Phase 3 — Build a readable deck with progressive enhancement
 
-### Phase 5 — Delivery
+Use semantic HTML and a clear document title and language. Give slides meaningful headings and navigation controls visible or accessible names. Content should be readable before optional animation initializes and if JavaScript fails.
 
-The finished file opens in the browser. Navigation works via arrow keys, spacebar, scroll wheel, touch/swipe, or clicking navigation dots. You get a summary of the file, style, and slide count, plus instructions for customizing colors, fonts, and animation timings by editing CSS variables.
+### Fit slides without hiding content
 
----
+For the intended presentation viewport, aim for one complete slide per screen. Start with a heading and a small number of points, or a heading, short paragraph, and visual. Five bullets and four cards are useful density prompts, not permission to hide a sixth essential point.
 
-## Design System: 10 Curated Style Presets
+If content is too dense, simplify faithfully, move detail into an explicitly included appendix or notes, or split the slide. At narrow widths, short screens, or browser zoom, allow a readable scrolling or document mode. A fixed height with `overflow: hidden` must not make content or focused controls inaccessible.
 
-Each style is inspired by real design references. Abstract shapes only — no generic illustrations.
-
-### Dark Themes
-
-**Neon Cyber** — Futuristic and techy. Cyan/magenta neon glows on deep dark backgrounds. Particle system canvas effects. Monospace accent fonts. Grid patterns. Glitch text reveals. Good for: AI, developer tools, startup pitches in technical spaces.
-
-**Midnight Executive** — Premium corporate feel. Deep navy and charcoal with gold or silver accents. Serif display type paired with clean sans-serif body. Subtle fade animations. Good for: investor pitches, executive briefings, financial presentations.
-
-**Deep Space** — Cinematic and vast. Near-black backgrounds with distant light points. Slow parallax-style depth. Large-scale typography with generous whitespace. Good for: keynotes, inspirational talks, company vision decks.
-
-**Terminal Green** — Developer-focused hacker aesthetic. Black backgrounds with phosphor green text. Monospace throughout. Typewriter/text-scramble reveals. Scanline overlay effects. Good for: technical talks, engineering team updates, open-source project presentations.
-
-### Light Themes
-
-**Paper & Ink** — Editorial and literary. Off-white backgrounds with deep black type. Serif headlines with refined spacing. Minimal motion — content-first. Good for: academic presentations, book-related talks, strategy decks that need to feel thoughtful.
-
-**Swiss Modern** — Clean Bauhaus-inspired geometry. Bold primary colors on white. Strong grid system. Geometric sans-serif typography. Precise, deliberate animations. Good for: design talks, product presentations, anything where clarity is paramount.
-
-**Soft Pastel** — Friendly and playful. Light pastel backgrounds with rounded shapes. Bouncy spring-easing animations. Rounded sans-serif fonts. Good for: educational content, creative pitches, anything targeting a non-technical audience.
-
-**Warm Editorial** — Magazine-style sophistication. Warm cream backgrounds with dark type. Strong typography hierarchy with pull quotes. Image-text interplay. One bold accent color. Good for: marketing presentations, brand decks, storytelling-heavy talks.
-
-### Specialty Themes
-
-**Brutalist** — Raw, bold, and attention-grabbing. High contrast black-and-white with one aggressive accent. Oversized type. Deliberately "imperfect" layout. Good for: creative agencies, provocative talks, anything that needs to stand out from polished corporate decks.
-
-**Gradient Wave** — Modern SaaS aesthetic. Flowing multi-color gradients on dark backgrounds. Smooth, continuous motion. Clean sans-serif type. Good for: product launches, SaaS demos, modern startup pitches.
-
----
-
-## Anti-AI-Slop Design Principles
-
-Generic AI-generated presentations share recognizable patterns that signal "a machine made this." Avoiding them is critical for credibility.
-
-**Never use:**
-- Purple gradients on white backgrounds (the single most common AI slide aesthetic)
-- Inter, Roboto, Arial, or system fonts as primary typefaces
-- Standard blue as the primary accent color
-- Predictable centered hero layouts with generic icon grids
-- Cookie-cutter card components with identical structure
-- Stock-photo-style decorative illustrations
-
-**Instead, use:**
-- Distinctive font pairings from Fontshare or Google Fonts: Clash Display + Satoshi, Cormorant Garamond + DM Sans, Syne + General Sans, Instrument Serif + Cabinet Grotesk, Space Mono + Switzer
-- Cohesive color themes with personality (not just a primary + neutral palette)
-- Atmospheric backgrounds: gradient meshes, noise textures, geometric patterns, layered transparencies
-- At least one signature visual moment that makes the deck memorable
-- Layout variety: asymmetry, overlap, grid-breaking elements, unexpected whitespace
-
----
-
-## Technical Requirements: The Non-Negotiables
-
-### Viewport Fitting
-
-Every slide must fit exactly in one viewport height. The mandatory CSS:
-
-```css
-html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
-.slide {
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;    /* dynamic viewport for mobile */
-    overflow: hidden;   /* no overflow, ever */
-    scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-```
-
-Content limits per slide: Title slides get 1 heading + 1 subtitle. Content slides get 1 heading + max 5 bullets OR 1 heading + 1 paragraph + 1 visual. Grid slides max out at 4 cards. If content doesn't fit, split into more slides.
-
-### Responsive Typography
-
-All font sizes and spacing must use `clamp()` for smooth scaling between mobile and desktop:
+This is a starting layout, not a complete deck implementation:
 
 ```css
 :root {
-    --title-size: clamp(1.5rem, 5vw, 4rem);
-    --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
-    --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
-    --slide-padding: clamp(1rem, 4vw, 4rem);
+  --title-size: clamp(2rem, 5vw, 4rem);
+  --h2-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  --body-size: clamp(1rem, 1.5vw, 1.25rem);
+  --slide-padding: clamp(1rem, 4vw, 4rem);
+}
+* { box-sizing: border-box; }
+html { scroll-snap-type: y proximity; }
+.slide {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--slide-padding);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+@media (max-width: 48rem), (max-height: 40rem) {
+  html { scroll-snap-type: none; }
+  .slide { min-height: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .slide-reveal, .deck-decoration {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}
+@media print {
+  html { scroll-snap-type: none; }
+  .slide { min-height: auto; break-after: page; }
+  .deck-navigation, .deck-decoration { display: none !important; }
+  .slide-reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
 }
 ```
 
-Height-based breakpoints handle short screens (landscape phones, tablets): at `max-height: 700px` padding and font sizes shrink; at `max-height: 600px` decorative elements hide; at `max-height: 500px` everything compresses to minimum.
+Use the class names consistently if adopting this snippet. JavaScript-driven canvas or motion needs its own reduced-motion handling; the CSS does not stop a running script. Inspect print output because a long slide can span pages even with a page-break rule.
 
-### Navigation
+Use responsive type and spacing that suit the content; `clamp()` is useful but not mandatory for every value. On short screens, remove unnecessary decoration or switch layouts before compressing text. Do not disable browser zoom. A negative function value should be written as `calc(-1 * clamp(...))`, not `-clamp(...)`.
 
-Every presentation ships with: keyboard navigation (arrows, space, Escape), touch/swipe support, mouse wheel scrolling, visual progress bar, clickable navigation dots, and a keyboard hint that fades after 3 seconds.
+### Make navigation predictable
 
-### Accessibility (WCAG 2.2 AA)
+Provide previous/next controls, a way to identify the current slide, and keyboard navigation. Navigation dots, a progress bar, swipe, wheel behavior, and shortcut hints are optional enhancements appropriate to the deck. A large deck may need an outline instead of dozens of dots.
 
-Mandatory accessibility features:
+Handle arrows or Space only when they should navigate the deck. Preserve typing, focused controls, browser shortcuts, and ordinary reading scroll. Do not trap focus, suppress every touch gesture, or advance multiple slides on one trackpad movement. Give Escape an actual documented action, such as closing an overlay; do not advertise a shortcut with no behavior. Keep help discoverable even if an initial hint fades.
 
-- Semantic HTML structure: `<section>` for slides, `<nav>` for navigation, proper heading hierarchy
-- `aria-label` on all slides and navigation controls
-- `role="progressbar"` on the progress indicator
-- Full keyboard operability without requiring a mouse
-- `prefers-reduced-motion` media query that disables all transitions, hides particle canvases, and removes staggered delays
-- Color contrast ratios of at least 4.5:1 for body text and 3:1 for large text
-- Visible focus indicators on all interactive elements
-- Touch targets at least 24x24 CSS pixels
+If using a progress bar, provide its accessible name and current, minimum, and maximum values, or use an appropriate native element. A decorative line need not pretend to be an interactive control. For slide changes, keep visual state, focus behavior, and the reading order coherent without repeatedly announcing the entire slide.
 
-### Performance
+### Add motion only after content works
 
-- Animate only `transform` and `opacity` (GPU-composited properties)
-- Use `will-change` sparingly, only on elements about to animate
-- Throttle scroll and mousemove event handlers
-- Disable particle systems, parallax, and canvas effects on mobile (`@media (max-width: 768px)`)
-- Keep total file size under 100KB for text-only presentations
+Fade/slide, scale, horizontal reveals, and blur are available patterns. Stagger related elements sparingly. Keep important content visible by default; activate hidden pending states only after the observer or animation system is ready, and restore visibility on failure or when focus reaches the content.
 
-### CSS Gotcha
+Honor reduced-motion preferences for transitions, stagger delays, scroll behavior, parallax, and canvas effects. Avoid flashing and provide a way to pause applicable ongoing movement. Particle systems and magnetic buttons are optional, not required markers of quality. Prefer a stable control target over an effect that makes it harder to click.
 
-Never negate CSS functions directly. Writing `-clamp(...)` is silently ignored by browsers with no error. Always use `calc(-1 * clamp(...))` instead.
+For performance, favor `transform` and `opacity` where suitable; do not promise they are always GPU-composited or cost-free. Use `will-change` briefly and only where useful. Schedule expensive event work carefully, stop offscreen or hidden-tab animation, and profile effects that use blur, filters, or canvas. A 768-pixel breakpoint can be a fallback, but width is not a reliable measure of device capability or user preference.
 
----
+## Phase 4 — Verify content, behavior, and presentation
 
-## Animation Patterns
+Review every slide in the browser, not just the opening view. Check a representative desktop, narrow screen, short landscape view, and enlarged text or zoom. Confirm:
 
-**Entrance animations** trigger when slides scroll into view via Intersection Observer:
+- All intended content, assets, source labels, and meaningful conversion details are present; numbers and claims remain accurate.
+- Slides read clearly, controls stay reachable, text does not clip, and layout changes preserve order.
+- Keyboard use, visible focus, slide controls, links, and any touch behavior work without trapping the reader.
+- Contrast meets the applicable criteria, and essential information does not rely on color alone. The usual AA text thresholds are 4.5:1 for ordinary text and 3:1 for qualifying large text; size is judged as delivered.
+- Targets satisfy applicable WCAG 2.2 AA sizing and spacing criteria; 24 by 24 CSS pixels is the minimum target criterion with exceptions, not a complete accessibility audit. Larger targets can be easier to use.
+- Reduced motion, unavailable fonts, script failure, and offline requirements have sensible outcomes.
+- Print or PDF output, when requested, includes all slides without hidden reveal states or navigation clutter.
 
-- **Fade + Slide Up** (default): Elements start invisible and 30px below, then animate to visible at their natural position. This is the workhorse — use it for most content.
-- **Scale In**: Elements start at 90% scale and fade in. Good for cards and images.
-- **Slide from Left/Right**: Horizontal movement for side-by-side reveals.
-- **Blur In**: Elements start blurred and sharpen into focus. Good for dramatic reveals.
+A semantic `<section>`, an ARIA label, and a few media queries do not establish WCAG conformance. Record the checks actually performed and any remaining limits. A text-only file under 100 KB is a useful original size target, not a reason to drop content, notices, or accessibility features. Report meaningful asset costs and optimize them where worthwhile.
 
-**Stagger children** by adding incremental `transition-delay` (0.1s, 0.2s, 0.3s...) to sequential elements within a slide. This creates a cascading reveal effect.
+## Phase 5 — Deliver the usable artifact
 
-**Background effects** add atmosphere without heavy assets: gradient meshes (layered radial-gradients at low opacity), noise textures (inline SVG data URIs), grid patterns (repeating linear-gradients at 3% opacity), grain overlays (tiny repeating noise patterns).
+Open or preview the deck when available. Provide the file, slide count, chosen style, essential navigation guidance, and any required companion assets. State material conversion gaps or checks that could not run. Keep customization instructions practical; explain CSS variables only when the user wants to edit the implementation.
 
-**Interactive effects** for engagement: 3D tilt cards that respond to mouse position, magnetic buttons that subtly follow cursor proximity, counter animations that count up to a target number, text scramble reveals that cycle through random characters before settling.
+If fonts fail, check the requested family and loaded assets, then verify the fallback and offline behavior. If animation fails, restore content visibility before repairing the observer. If navigation or snapping causes inaccessible content, fix the layout or use the reading mode instead of forcing mandatory snapping. If the deck is slow, reduce or remove expensive effects and measure again.
 
----
+Example requests include “Create a ten-slide pitch deck in the current brand,” “Convert this PowerPoint into a Midnight Executive HTML deck,” and “Show three calm visual directions for this conference talk.” The command name depends on the host installation; this local skill is named `rtp-frontend-slides`, while the upstream plugin has its own namespaced command. Do not rename or reinstall the local skill just to match an upstream example.
 
-## Effect → Feeling Quick Reference
+## Provenance and maintenance
 
-**Dramatic/Cinematic**: Slow fades (1–1.5s), large scale transitions, dark backgrounds with spotlights, parallax depth, serif display fonts.
+This revision is **v1.0.1_latest**, reviewed 13 September 2026. The earlier body listed 1.0.0, 2.0.0, and 3.0.0 milestones without a verified mapping to this local frontmatter or upstream releases. Treat those as historical narrative, not installed version identifiers. The current skill version is the frontmatter value.
 
-**Techy/Futuristic**: Neon glows, particle systems, grid patterns, monospace accents, cyan/magenta/electric blue palette, glitch effects.
-
-**Playful/Friendly**: Bouncy spring easing, rounded everything, pastels and bright primaries, floating/bobbing motion, large border-radius.
-
-**Professional/Corporate**: Subtle fast animations (200–300ms), clean sans-serif, navy/slate/charcoal, precise alignment, data visualization focus.
-
-**Calm/Minimal**: Near-imperceptible motion, high whitespace, muted palette, serif body text, generous padding, zero decoration.
-
-**Editorial/Magazine**: Strong typography hierarchy, pull quotes, image-text interplay, grid-breaking layouts, serif headlines + sans body, black-and-white with one accent.
-
----
-
-## Troubleshooting Quick Fixes
-
-**Fonts not loading**: Verify the Fontshare or Google Fonts URL is correct and the font names in CSS match exactly.
-
-**Animations not triggering**: Confirm the Intersection Observer JavaScript is running and that the `.visible` class is being added to slides when they enter the viewport.
-
-**Scroll snap broken**: Check that `scroll-snap-type: y mandatory` is on `html`, and every `.slide` has `scroll-snap-align: start`.
-
-**Content overflows a slide**: Split into multiple slides. Never allow scrolling within a single slide.
-
-**Mobile rendering issues**: Disable heavy effects (particles, canvas, parallax) at the 768px width breakpoint. Test touch/swipe events.
-
-**Slow performance**: Use `will-change` only where needed. Animate only `transform` and `opacity`. Throttle scroll/mousemove handlers. Reduce particle counts on mobile.
-
----
-
-## How to Use This Guide
-
-**With any AI assistant**: Paste this document (or relevant sections) into your conversation and ask the AI to create a presentation following these guidelines. Example prompts:
-
-- "Using the frontend-slides approach described here, create a 10-slide pitch deck for a fintech startup. I want it to feel Excited/Energized."
-- "Convert the content below into an HTML presentation using the Midnight Executive style from this guide: [your bullet points]"
-- "Generate 3 style preview HTML files for a calm, minimal conference talk."
-
-**With Claude Code**: Install as a skill at `~/.claude/skills/frontend-slides/` and invoke with `/frontend-slides`.
-
-**Standalone**: Use as a reference while hand-coding or pair-programming HTML presentations.
-
----
-
-## Version History
-
-- 3.0.0 — Enhanced with WCAG 2.2 accessibility requirements, performance optimization patterns, expanded anti-AI-slop guidelines, height-based responsive breakpoints, image co-design pipeline, CSS gotcha documentation, and universal AI compatibility
-- 2.0.0 — Original frontend-slides by @zarazhangrui with 10 style presets, PPT conversion, viewport fitting
-- 1.0.0 — Initial release
-
-## License
-
-MIT — Use it, modify it, share it.
-
-## Credits
-
-Original project by [@zarazhangrui](https://github.com/zarazhangrui/frontend-slides). Enhanced version incorporates accessibility guidance from W3C WAI, animation performance patterns from Google's Core Web Vitals research, and design anti-patterns from the frontend-design community.
+The upstream project is MIT-licensed. Preserve its copyright and license notices when redistributing covered material; see the bundled [upstream license](references/upstream-LICENSE.txt). This does not grant rights to unrelated fonts, photographs, logos, or presentation content. The local design and accessibility additions are guidance to validate, not a promise of unchanged browser behavior ten years from now.

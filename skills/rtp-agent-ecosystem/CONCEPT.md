@@ -1,263 +1,62 @@
-# agent-ecosystem: The Coordination Problem
+# Agent Ecosystem — The Coordination Problem
 
-## The Dual Definition
+An ecosystem combines agents with shared objectives or dependencies. Its benefit may come from parallel work, specialized tools, context separation, or complementary methods. Its costs include orchestration, latency, state management, verification, and failure recovery.
 
-**Business lens:** An agent ecosystem is a collection of AI agents working toward shared goals with interdependencies. Coordination cost is the latency, complexity, and failure surface added by making them work together. The value is parallelism and specialization. The risk is cascading failure.
+The relevant distributed-systems questions are familiar: who may change state, how work is delivered, what happens during a partial failure, and how the system knows an action completed. AI adds uncertain interpretation and output, but does not replace these obligations.
 
-**Technical lens:** Multi-agent systems are distributed systems with asynchrony, partial failures, and state consistency challenges. Coordination mechanisms (locks, versioning, pub-sub, consensus) trade off latency against consistency and complexity. The system is as reliable as its weakest coordinator.
+## A dependency can hide behind separate agents
 
----
+Illustration: a pricing agent returns a quote, a recommendation agent uses it, and an order agent completes checkout. If a price changes by 15% after a two-second-old read, the system needs a quote-validity policy and a check at commitment. The age and percentage are examples, not universal stale-data thresholds. A failed or surprising order follows from a missing business rule, not merely from having several agents.
 
-## The Trap: Independence Myth
+Agents reading the same immutable snapshot can be independent for that task. Shared mutable data, quotas, infrastructure, or external effects may create dependencies even when agents never message one another. Draw those dependencies explicitly.
 
-You have Agent A (pricing), Agent B (recommendations), Agent C (checkout). They're separate. They're independent. You deploy them.
+## Four architectural views
 
-A returns slightly stale prices (cache expired 2 seconds ago). B makes recommendations based on A's prices. C converts B's recommendation to order. But by checkout, prices have changed 15% and customer sees a surprise. The order fails.
+- **Pipeline:** A → B → C. Sequential completion time includes each stage plus communication, queueing, validation, and retries. A failure stops downstream work only if the workflow enforces the dependency. Correctly passing a malformed result can propagate a failure.
+- **Broadcast:** A emits an event to several subscribers, such as notification, analytics, and personalization. The subscribers may finish independently. Waiting for all branches takes at least the slowest branch plus relevant overhead; a broadcast need not wait for all. Shared input does not guarantee synchronized processing or state.
+- **Shared-state mesh:** several agents interact through a mutable resource. It can support concurrent work, but read/write and business-invariant semantics determine how much coordination is necessary.
+- **Orchestrated:** a coordinator owns transitions and progress. A workflow engine such as Temporal can make recovery explicit; durability, replay, and activity semantics must be verified for the chosen implementation. A coordinator is a logical concentration of responsibility, not inevitably one unprotected process.
 
-The trap is thinking agents are independent when they're actually coupled through data. Coupling is invisible until it breaks.
+These views can overlap. The main skill's supervisor, pipeline, fan-out/fan-in, and peer categories describe control flow; this guide also highlights broadcast and shared-state access.
 
-Real independence requires: no shared data, no dependencies, fully parallel. Most systems don't have that. If agents share any resource (user profile, inventory, pricing), they're coordinated systems.
+## Five ways to govern state
 
-**The fix:** Explicit dependency mapping. Draw the graph. See the coupling. Design for it.
+**Single writer or owning service.** Other components request changes rather than directly editing state. This simplifies coordination but does not make conflicts impossible: concurrent requests, duplicate delivery, restarts, and invalid business commands still need handling.
 
----
+**Version-checked updates.** Two agents read version 5. One atomic conditional update succeeds and creates version 6; the other's condition fails. The second re-reads and recomputes or escalates. Both must not be allowed to succeed on the same old version for a conflicting change. A retry should not repeat an already completed external action.
 
-## Multi-Agent Patterns: Four Architectures
+**Locks and transactions.** Acquire required locks in a consistent order, for example User before Order before Payment where this order fits the design. Handle timeouts and transaction aborts. The specific order is illustrative; every participant must follow the chosen policy. Long model calls while holding locks can create avoidable contention.
 
-### 1. Pipeline (A → B → C)
+**Partitioning.** Use nonoverlapping boundaries, such as user IDs [0, 50,000) and [50,000, 100,000). The old inclusive wording assigned the boundary user to both owners. Repartitioning is possible with an ownership-transfer protocol; stable partitions are not a universal prerequisite. Cross-partition transactions require separate treatment.
 
-Agent A produces output. Agent B consumes A's output, produces new output. Agent C consumes B's output.
+**CRDTs.** A suitable replicated data type can converge under concurrent updates. A supported counter can merge an increment of one and another of two into three. A last-write-wins register resolves concurrent values for the same key to one winner under its ordering rule; it does not expose both values as the original example claimed. Separate keys or a multi-value register have different semantics. Convergence does not ensure that a sale never exceeds stock or that a payment was authorized.
 
-**Example:** TextAgent (analyze user input) → PricingAgent (compute quote) → OrderAgent (create order)
+## Four handoff mechanisms
 
-**Properties:**
-- Sequential: latency = sum of latencies
-- Failures isolate: if A fails, B doesn't run
-- Clear ownership: A owns stage 1, B owns stage 2
+Request–reply gives a caller a direct response but needs a deadline and a way to resolve unknown completion. Pub–sub distributes events, with durability and delivery semantics chosen explicitly. Queues can provide persistent work distribution with leases, acknowledgements, redelivery, and dead-letter handling. Polling retrieves changes periodically, often with a cursor or version.
 
-**Failure mode:** If A produces bad output, B and C amplify the error downstream.
+An asynchronous receiver cannot proceed with missing prerequisites merely because it does not block a thread. A queue is durable only if configured and operated accordingly. Acknowledgement proves the agreed processing stage, not automatically a successful business result. Five-second polling is an example cadence, not a fixed latency guarantee; processing and service delays add time.
 
-**Mitigation:** Validate A's output before B consumes it. Implement quality gates between stages.
+## Contain partial failures
 
-### 2. Broadcast (A → B, C, D simultaneously)
+A five-second timeout, a breaker opening after three failures for sixty seconds, and retry delays of one, two, four, and eight seconds are illustrative settings. Derive real values from workload, deadlines, recovery behavior, and risk. Backoff and jitter reduce synchronized pressure; bounded retries and idempotency protect against repeated effects.
 
-Agent A produces work. Agents B, C, D all consume it independently.
+Separate processes or resource pools can limit a crash or overload, but shared hosts and services remain common failure points. A fallback can be a pause or clear failure. Continuing with stale data or a default value is safe only when the task permits it.
 
-**Example:** OrderAgent creates order. NotificationAgent sends email. AnalyticsAgent logs event. RecommendationAgent updates profile.
+## Five corrected failure scenarios
 
-**Properties:**
-- Parallel: latency = max(B, C, D), not sum
-- Loosely coupled: B's failure doesn't stop C
-- All see same input (consistency)
+1. **Order, billing, and fulfillment.** Keep the order in a pending state until payment status is established under the business policy. A timeout can conceal a successful charge, so query or reconcile with an idempotency key before retrying. Do not ship merely because a billing call returned no result. Compensation may release a reservation or refund a confirmed charge; it is not an automatic rollback of a shipped package.
+2. **Recommendation feedback.** Delayed click logs can affect training, but they do not necessarily worsen every model. Track event time, completeness, duplicate handling, and validation. Separate serving and training lifecycles where useful, with an appropriate freshness policy; deliberate lag alone is not a repair.
+3. **Inventory race.** With stock of five, two orders each requesting five can oversell if both validate against the same stale count. Stock might record zero after a lost update or become negative after separate decrements; the result depends on implementation. Use an atomic reservation/check or a suitable transaction. Two one-unit orders from stock five would not by themselves create negative five stock.
+4. **Lock inversion.** Agent A holds User and waits for Order while B holds Order and waits for User. A consistent acquisition order helps prevent this pattern; transaction recovery is still needed.
+5. **Subscriber failure.** A notification consumer can miss an event in an ephemeral system. Durable delivery, replay, acknowledgements, deduplication, and dead-letter review can improve recovery. A subscriber crash does not inherently lose an event in every pub-sub design.
 
-**Failure mode:** If one subscriber (B) crashes, A doesn't know. Message lost.
+These are illustrations, not documented incidents. Test slow workers, dropped or duplicated messages, network partitions, stale versions, and uncertain action completion in the actual design.
 
-**Mitigation:** Use reliable pub-sub (retry, dead letter queues). Subscribers acknowledge receipt.
+## Intellectual lineage
 
-### 3. Mesh (All agents read/write shared state)
+Distributed-systems work on consistency, transactions, replication, CRDTs, and partial failure informs these patterns. CAP concerns consistency and availability during a partition; it is not a rule that every system permanently picks two of three features. Raft and Paxos are consensus protocols, not replacements for an application workflow engine. Airflow and Temporal address orchestration with different execution assumptions.
 
-All agents can read and modify the same resource (user profile, inventory, account balance).
+Little's Law is L = λW under the relevant stable-system conditions: average work in the chosen system equals arrival rate times average time in it. State the boundary and consistent units. Queue depth divided by throughput describes average queue waiting time only with matching queue measures and assumptions; it does not directly estimate P95 end-to-end latency.
 
-**Example:** RecommendationAgent, PersonalizationAgent, NotificationAgent all read/write user preferences.
-
-**Properties:**
-- Highly parallel: no waiting for dependencies
-- Complex: multiple agents modifying same state = race conditions
-
-**Failure mode:** State divergence. One agent reads stale data. Two agents write conflicting changes.
-
-**Mitigation:** Use optimistic concurrency (version numbers, retry), pessimistic (locks), or CRDTs.
-
-### 4. Orchestrated (Central conductor controls agents)
-
-Single orchestrator (human, workflow engine, state machine) decides when each agent runs. Agents don't call each other.
-
-**Example:** Temporal workflow engine: Step 1 (run Agent A) → Step 2 (run Agent B) → Step 3 (run Agent C).
-
-**Properties:**
-- Explicit control: orchestrator knows exact sequence
-- Single point of failure: if orchestrator crashes, nothing runs
-- Higher latency: orchestrator adds overhead
-
-**Failure mode:** Orchestrator crashes. All pending work stops.
-
-**Mitigation:** Orchestrator is fault-tolerant (replicated, persistent state, idempotent re-execution).
-
----
-
-## State Ownership: Who Owns What?
-
-In multi-agent systems, state conflicts come from unclear ownership. Design this carefully.
-
-**Pattern 1: Single owner (no sharing)**
-- UserProfile owned by UserAgent. Only UserAgent can write it.
-- PricingCache owned by PricingAgent. Only PricingAgent updates it.
-- Other agents read only (or request write via UserAgent, which decides)
-- Simplest pattern. Serializes writes, but conflicts are impossible.
-
-**Pattern 2: Shared with versioning**
-- UserProfile is versioned. Each write increments version (v0 → v1 → v2).
-- Agent A reads v5, modifies, tries to write as v6. Agent B also read v5, modifies, tries to write as v6.
-- Both attempt succeed on v5, first wins, second gets version mismatch error.
-- Second agent retries: re-read v6, recompute, try again.
-- Optimistic concurrency. Works if conflicts are rare.
-
-**Pattern 3: Shared with locks**
-- UserProfile has a lock. Agent A locks it, modifies, unlocks. Agent B waits for lock.
-- Serializes access. Simple, but can deadlock if not careful.
-- Enforce strict lock ordering: always acquire locks in same order (User < Order < Payment).
-
-**Pattern 4: Partitioned by identity**
-- Each user partition owns subset of data. Agent A owns users 0-50k, Agent B owns 50k-100k.
-- No overlap. No conflicts. Parallel writes without synchronization.
-- Only works if partitioning is stable (users don't move between partitions).
-
-**Pattern 5: CRDTs (Conflict-free Replicated Data Types)**
-- Use data structures where concurrent modifications automatically merge.
-- Counters: +1 from Agent A, +2 from Agent B → result is +3 (commutative)
-- Last-write-wins maps: Agent A writes key="x", Agent B writes key="y" → both writes visible
-- Requires compatible semantics (not all data structures are CRDTs).
-
----
-
-## Handoff Patterns: How Agents Communicate
-
-When Agent A finishes and Agent B needs to know, how does B find out?
-
-### Pattern 1: Request-Reply (Synchronous)
-
-Agent B calls Agent A: "give me result." Waits for response. Blocks.
-
-```
-B: Call A("process this")
-A: [thinking...]
-B: [waiting...]
-A: Return result
-B: [got result, continue]
-```
-
-**Pros:** Simple, immediate notification, automatic coordination
-**Cons:** Blocking, latency adds, A failure blocks B
-
-**Use when:** Real-time, user-facing, latency critical, A is reliable
-
-### Pattern 2: Pub-Sub (Event-driven)
-
-Agent A publishes "task complete" event. Agent B subscribes. Notification is eventual (may take seconds).
-
-```
-A: Publish("task_complete", result)
-[Event travels through message bus]
-B: [receives event eventually]
-B: [processes result]
-```
-
-**Pros:** Non-blocking, loose coupling, parallel execution
-**Cons:** Eventual consistency, B doesn't know if A succeeded until event arrives
-
-**Use when:** Batch, asynchronous, latency tolerant, A might fail (B proceeds anyway)
-
-### Pattern 3: Queue (Work items)
-
-Agent A enqueues work to queue. Agent B dequeues. Asynchronous, with persistent storage.
-
-```
-A: Enqueue("work_item", result)
-[Persisted to queue]
-B: Dequeue("work_item")
-B: [processes work]
-B: Acknowledge (remove from queue)
-```
-
-**Pros:** Durable (survives crashes), retry-friendly, load balancing (multiple B agents)
-**Cons:** Extra infrastructure (queue system), slight latency
-
-**Use when:** Reliability critical, need retries, many B consumers
-
-### Pattern 4: Polling (Pull)
-
-Agent B periodically asks Agent A: "any new work?" Inefficient but simple.
-
-```
-B: [every 5 seconds]
-B: Call A("any new work?")
-A: Return result or "no updates"
-B: [process if available]
-```
-
-**Pros:** Simple, no event infrastructure needed
-**Cons:** Inefficient (B asks even when no work), high latency (up to 5 seconds)
-
-**Use when:** Low frequency, simple systems, don't have message bus
-
----
-
-## Isolation: Preventing Cascades
-
-In multi-agent systems, one agent's failure can cascade. Design isolation:
-
-**Timeout:** Agent B calls Agent A. If A doesn't respond in 5 seconds, B gives up and proceeds with default behavior.
-- Prevents infinite waiting
-- Fallback mechanism: B can retry, use cached data, or fail fast
-
-**Circuit breaker:** Agent B calls Agent A. A fails. B tries again. A fails again. After 3 failures, circuit opens: B stops calling A for 60 seconds. Then retries.
-- Prevents thrashing (constant retry against failing service)
-- Allows A time to recover
-
-**Bulkhead:** Agent A runs in separate process/container from Agent B. A crash doesn't crash B.
-- Provides true isolation (not just logical)
-- Adds infrastructure complexity
-
-**Fallback:** Agent B calls Agent A. A fails. B has a fallback: use cache, use default value, ask human, or fail gracefully.
-- Ensures system continues (even degraded)
-- Fallback must be designed upfront
-
-**Exponential backoff + jitter:** If A fails, B retries after 1s, then 2s, then 4s, 8s... with randomness to prevent thundering herd.
-- Reduces load on recovering service
-- Gives A time to recover
-
----
-
-## Real-World Pitfalls
-
-**Payment system cascade:** OrderAgent creates order → BillingAgent charges customer → FulfillmentAgent ships product. BillingAgent fails (API down). FulfillmentAgent doesn't know, ships anyway. Customer never charged. Revenue lost.
-- Fix: Implement compensating transactions (if Billing fails, OrderAgent rollsback order)
-
-**Recommendation feedback loop:** RecommendationAgent creates suggestions. UserAgent recommends. UserInteractionAgent logs clicks. RecommendationAgent retrains from logs. If UserInteractionAgent is slow, RecommendationAgent trains on stale data, gets worse.
-- Fix: Separate training schedule from serving. Training lags serving intentionally.
-
-**Inventory race condition:** OrderAgent reads inventory (stock=5). CustomerAgent also reads (stock=5). Both place orders. Both decrement stock. Actual stock is now -5.
-- Fix: Use pessimistic locking (lock before read), or versioning (detect conflict after, fail one order)
-
-**Deadlock in multi-agent lock:** Agent A acquires lock on User, then tries to acquire lock on Order. Agent B acquires lock on Order, then tries to acquire lock on User. Deadlock.
-- Fix: Always acquire locks in same order (User then Order, globally enforced)
-
-**Silent failure in pub-sub:** RecommendationAgent publishes "new recommendation". NotificationAgent crashes before receiving event. Message is lost (no retry logic). User never sees recommendation.
-- Fix: Use durable pub-sub with dead letter queues and acknowledgments
-
----
-
-## Design Checklist
-
-**Before deploying multi-agent system:**
-
-1. **Dependency graph:** Which agents depend on which? Is the graph acyclic (no loops)?
-2. **State ownership:** Every mutable resource has clear owner. No two agents writing without coordination.
-3. **Handoff protocol:** How does work move between agents? Request-reply, pub-sub, queue, or polling?
-4. **Isolation boundaries:** If Agent A fails, what happens to Agent B? Timeout? Circuit breaker? Fallback?
-5. **Conflict resolution:** If two agents modify same state, how is conflict detected and resolved?
-6. **Monitoring:** Can you see latency, errors, state divergence in real-time?
-7. **Testing:** Have you simulated Agent A failure? Slow Agent B? Network partition?
-
-Get these wrong, and your "parallel agents" system is less reliable than a single sequential agent.
-
----
-
-## Intellectual Lineage
-
-- **From distributed systems:** CAP theorem (Brewer, 2000), eventual consistency (Vogels, 2008), CRDT (Shapiro et al., 2011)
-- **From systems design:** Bulkheads, circuit breakers (Nygard, 2007), timeout patterns, graceful degradation
-- **From orchestration:** Workflow engines (Temporal, Airflow), state machines (Raft consensus, Paxos)
-- **From queuing theory:** Little's Law (latency = queue depth / throughput), load balancing, backpressure
-
-Multi-agent coordination is well-studied in distributed systems. The trap is thinking AI agents are exempt from these principles. They're not.
+See [SKILL.md](SKILL.md) for the coordination design and [research notes](references/research-and-operating-notes.md) for primary references and evidence limits.

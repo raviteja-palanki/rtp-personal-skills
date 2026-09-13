@@ -1,14 +1,31 @@
-# Color Palette Reference
+# Color palette reference
 
-## The Excalidraw-Inspired Pastel System
+Reference revision 1.4.1 — reviewed 13 September 2026.
 
-Eight semantic color families. Each has 6 shades for different roles.
+## Choose one palette deliberately
 
-### Selection Rule
+The earlier main skill and this companion contained different color systems. Both are retained here with distinct roles. Use the current project brand first. For a new unbranded diagram, use the Luminous Pastel palette below; for an existing diagram using the brighter legacy palette, retain its mapping unless a change is requested or required for readability. Do not silently combine “Thinking = Rose Quartz” with “Thinking = Teal” within the same set.
 
-Pick 2-3 primary families per diagram. Use neutral for structure. One family gets emphasis (saturated header bars), others get supporting roles (card backgrounds, chips).
+Use two or three semantic families plus neutral as a starting point. A single warning can legitimately have its own color. Additional categories may require additional families. Color is an aid to meaning, so retain labels and avoid color-only distinctions.
 
----
+## Luminous Pastel — main skill palette
+
+| Family and role | Header/accent | Card background | Dark text |
+|---|---|---|---|
+| Rose Quartz — thinking | `#D4789B` | `#FFF5F8` | `#8B3A5A` |
+| Wisteria — judgment | `#9478B8` | `#F8F5FF` | `#5B3E7A` |
+| Honey Amber — craft | `#D4A54A` | `#FFFCF5` | `#7A5A1E` |
+| Celadon — evaluation | `#6BA898` | `#F2FAF6` | `#2E6B54` |
+| Glacier — technical | `#5A9ABE` | `#F3F9FD` | `#2A5F7A` |
+| Coral — agents or risk, as labeled | `#D47B64` | `#FFF7F4` | `#8B4434` |
+| Moss — outcomes | `#7BA86C` | `#F5FAF2` | `#3A5E2E` |
+| Neutral — structure | As needed | `#FFFFFF` | `#1B1B1F` |
+
+For a small header on one of these saturated fills, `#1B1B1F` is a useful foreground candidate; calculate the actual pair. Do not automatically use white.
+
+## Legacy brighter palette — existing diagram maintenance
+
+The following values preserve the earlier companion. “Header fill” identifies a color role, not permission to place white text on it. Shade inventories vary by family; each does not have exactly six shades.
 
 ## Teal — Thinking, Foundation, Starting Points
 
@@ -97,35 +114,40 @@ Pick 2-3 primary families per diagram. Use neutral for structure. One family get
 
 | Role | Hex | Use |
 |------|-----|-----|
-| Background | `#FAFAF8` | ALWAYS the SVG background |
+| Background | `#FAFAF8` | Default canvas; current project branding may differ |
 | Card white | `#FFFFFF` | Default card body |
 | Light grey bg | `#F9FAFB` | Subtle differentiation |
 | Border | `#E5E7EB` | Structural containers |
 | Body text | `#5F6B7A` | Primary body copy |
 | Title text | `#1B1B1F` | Headlines, titles |
 | Arrow/connector | `#9CA3AF` | Flow lines, arrows |
-| Footer text | `#9CA3AF` | Attribution, meta |
+| Legacy footer tone | `#9CA3AF` | Decorative use only on the default canvas; use body text color for readable metadata |
 | Muted text | `#78716C` | Callout body, secondary info |
 
 ---
 
-## Accessibility Notes
+## Contrast checks and use boundaries
 
-All color combinations meet WCAG AA contrast ratio:
-- `#1B1B1F` on `#FAFAF8` = 15.8:1 (AAA)
-- `#5F6B7A` on `#FAFAF8` = 5.2:1 (AA)
-- `#FFFFFF` on `#14B8A6` = 3.2:1 (AA Large Text — headers only)
-- `#FFFFFF` on `#8B5CF6` = 4.6:1 (AA)
-- `#FFFFFF` on `#F59E0B` = 2.5:1 (AA Large Text — use 700+ weight)
+Calculated using the WCAG sRGB relative-luminance method, with opaque colors and results rounded to three decimals:
 
-For white-on-color headers, always use font-weight 700+ and size 16px+ to qualify as "large text" under WCAG.
+| Pair | Ratio | Consequence |
+|---|---|---|
+| `#1B1B1F` on `#FAFAF8` | 16.428:1 | Strong text contrast |
+| `#5F6B7A` on `#FAFAF8` | 5.191:1 | Meets the 4.5:1 normal-text threshold |
+| `#9CA3AF` on `#FAFAF8` | 2.429:1 | Fails normal and large text; use a darker foreground for metadata |
+| White on legacy Teal `#14B8A6` | 2.489:1 | Fails even the 3:1 large-text threshold |
+| White on legacy Purple `#8B5CF6` | 4.234:1 | Below the normal-text threshold |
+| White on legacy Amber `#F59E0B` | 2.148:1 | Fails even large text |
+| White on Rose Quartz | 3.018:1 | Requires qualifying large text, not a small header |
+| White on Wisteria | 3.725:1 | Requires qualifying large text |
+| White on Honey Amber | 2.263:1 | Fails even large text |
+| White on Celadon | 2.735:1 | Fails even large text |
+| White on Glacier | 3.088:1 | Requires qualifying large text |
+| White on Coral | 3.081:1 | Requires qualifying large text |
+| White on Moss | 2.742:1 | Fails even large text |
 
----
+These calculations correct the earlier claim that all palette combinations meet AA. They do not audit every possible pair, opacity, font, or rendering size. Bold weight alone does not turn 16-pixel text into qualifying large text. Check the final scaled size; retain at least 4.5:1 for ordinary text and 3:1 only where the large-text criterion applies.
 
-## Anti-Patterns
+Colored text on another colored background can be valid when the actual pair works. Likewise, `#86868B` and `#636366` are not universally forbidden colors: their suitability depends on background, purpose, and contrast. Do not rely on faint arrows where the connection itself carries essential information. Keep low-contrast shades for decoration or replace them with an appropriate darker token.
 
-- Never use `#86868B` (medium grey) as text on dark backgrounds — this is the old unreadable pattern
-- Never use `#636366` for anything the user needs to read
-- Never put colored text on colored backgrounds (e.g., purple text on teal bg)
-- Never use more than 3 color families + neutral in one diagram
-- Never use a color family for just one element — if it appears, it should appear at least 2-3 times
+Use the current [W3C contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) for the criterion and [non-text contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html) for meaningful graphical elements.
