@@ -35,7 +35,7 @@ Never ask a blank question. Never ask "who is this for" if the prompt has alread
 
 ## Step 3 — Invoke `stakeholder-communications` skill
 
-Load `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/craft/skills/stakeholder-communications/SKILL.md`. Apply:
+Load `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/craft/skills/rtp-stakeholder-communications/SKILL.md`. Apply:
 - The communication type's structure
 - The audience tier's needs and decision-language
 - The full quality gate
@@ -46,9 +46,9 @@ If the comm is about an AI feature in any way (model output, evals, model versio
 
 If the topic touches an AI feature, source the evidence before drafting. In order:
 - The feature's most recent eval matrix (look in the project's `evals/` folder, the `5_Knowledge/` zone, or recent `CHANGE_LOG.md` entries)
-- Reference `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/eval-and-quality/skills/ai-product-metrics/SKILL.md` for which metrics matter for this feature class
-- Reference `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/eval-and-quality/skills/eval-framework/SKILL.md` for methodology framing
-- If the feature has a known confidence-tuning history, reference `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/eval-and-quality/skills/confidence-tuner/SKILL.md`
+- Reference `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/eval-and-quality/skills/rtp-ai-product-metrics/SKILL.md` for which metrics matter for this feature class
+- Reference `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/eval-and-quality/skills/rtp-eval-framework/SKILL.md` for methodology framing
+- If the feature has a known confidence-tuning history, reference `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/eval-and-quality/skills/rtp-confidence-tuner/SKILL.md`
 
 If the eval evidence does not exist:
 > "There's no eval matrix I can anchor this comm to. Two paths: (a) draft the comm in the structure but flag every probabilistic claim with `[EVIDENCE NEEDED]` for you to fill in, or (b) pause and run `eval-framework` first. I'd recommend (a) if the comm is a draft for review, (b) if this is going out today."

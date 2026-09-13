@@ -346,6 +346,6 @@ A real `/design-ai-feature` run produces:
 ## CROSS-REFERENCES
 
 - **Universal Skill Protocol:** `2_Skills/ai-pm-skills/UNIVERSAL-SKILL-PROTOCOL.md`
-- **Orchestrator deep reference:** `2_Skills/ai-pm-skills/orchestrator/SKILL.md`
+- **Orchestrator deep reference:** `2_Skills/ai-pm-skills/rtp-orchestrator/SKILL.md`
 - **Related workflows:** `/ai-prd-flow` (lighter), `/plan-launch` (post-build), `/retro` (post-ship)
 - **Fits into:** Phase 1-3 of the canonical 12-day cycle in `workflows/new-ai-feature.md`

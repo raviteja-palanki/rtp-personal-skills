@@ -61,7 +61,7 @@ From the parallel reads in Step 1, extract:
 
 ## Step 4 — Invoke `stakeholder-communications` skill for tone
 
-Load `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/craft/skills/stakeholder-communications/SKILL.md`. Apply the Weekly Digest structural pattern from `## THE 5 COMMUNICATION TYPES § 5. Weekly Digest`.
+Load `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/craft/skills/rtp-stakeholder-communications/SKILL.md`. Apply the Weekly Digest structural pattern from `## THE 5 COMMUNICATION TYPES § 5. Weekly Digest`.
 
 If any AI feature is in scope (eval state line, model output, drift watch), apply the AI-NATIVE CONFIDENCE FRAMING rules:
 - Every eval claim has a number, sample size, and segment

@@ -30,7 +30,7 @@ Identify:
 - source claims, assumptions, thresholds, syntax and factual limits that must survive;
 - current aliases, canonical location, mirror and any deployed copies.
 
-Consult `2_Skills/SKILL-REGISTRY.md`, `2_Skills/STRUCTURE.md`, and the relevant tracker. Current maintenance records include `2_Skills/ai-pm-skills/REFINEMENT-TRACKER.md`, `SKILL-REVISION-PLAN.md`, and `SKILL-LEARNING-LOG.md`. Read relevant evidence in `5_Knowledge/session-anti-patterns.md`, user reviews, research update maps and synthesis digests. Do not treat an old “next action” or historical migration queue as the current assignment.
+Consult `2_Skills/SKILL-REGISTRY.md`, `2_Skills/STRUCTURE.md`, and the relevant tracker. Current maintenance records include `2_Skills/ai-pm-skills/REFINEMENT-TRACKER.md`, `SKILL-REVISION-PLAN.md`, and `2_Skills/CHANGE_LOG.md`. Read relevant evidence in `5_Knowledge/session-anti-patterns.md`, user reviews, research update maps and synthesis digests. Do not treat an old “next action” or historical migration queue as the current assignment.
 
 For **each skill revision**, re-read the current Novel Insights guide and the relevant pattern entries, including later challenges. Ask what useful instruction the evidence supports for this skill. Record the pattern considered and whether it changed the wording. Do not add a pattern merely to demonstrate that the ledger was consulted.
 

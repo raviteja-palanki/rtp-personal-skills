@@ -42,7 +42,6 @@ Then review what the script cannot decide:
 6. Inspect Git worktrees and active work where relevant. A worktree without recent file writes may still belong to a running, idle, or read-only session. Check task ownership, uncommitted changes, branch purpose, and unmerged work before proposing removal. Do not remove a worktree just because its modification time is old.
 7. Assess whether folder boundaries support actual work. Propose a clear, reversible reorganization when recurring workarounds reveal a problem.
 
-Check a legacy `.git-sync-status.md` or web-deployment location only if the current configuration still uses it. Derive counts from a defined scope and state exclusions such as archives, vendor skills, symlinks, or generated files. Do not treat an expected deployed subset as missing copies.
 
 ### Interpret file size correctly
 

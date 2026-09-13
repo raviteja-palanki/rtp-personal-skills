@@ -6,7 +6,7 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `2.7.6`  ·  **Commit:** `aa25904`  ·  **Generated:** 13 Sep 2026 16:45
+**Version:** `2.7.7`  ·  **Commit:** `887de56`  ·  **Generated:** 13 Sep 2026 16:56
 
 ## Totals
 
@@ -29,7 +29,7 @@ The description claims a split; these are checked against the filesystem every r
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **2.7.6**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **2.7.7**.
 
 ## Composition
 
@@ -96,7 +96,6 @@ These folders are renamed for plugin namespacing; content is identical to source
 | Version | Commit | Generated | Files | Skills | Commands |
 |---|---|---|---:|---:|---:|
 <!--HISTORY
-| 1.17.0 | 2791a2f | 30 Aug 2026 15:33 | 252 | 88 | 11 |
 | 2.0.0 | 404b360 | 30 Aug 2026 16:07 | 252 | 88 | 11 |
 | 2.1.0 | 77e350e | 30 Aug 2026 18:26 | 252 | 88 | 11 |
 | 2.2.0 | c3802c4 | 31 Aug 2026 01:24 | 252 | 88 | 11 |
@@ -111,8 +110,8 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 2.7.4 | 698cc62 | 13 Sep 2026 12:35 | 261 | 90 | 11 |
 | 2.7.5 | f3dbac4 | 13 Sep 2026 12:46 | 362 | 90 | 11 |
 | 2.7.6 | aa25904 | 13 Sep 2026 16:45 | 368 | 90 | 11 |
+| 2.7.7 | 887de56 | 13 Sep 2026 16:56 | 368 | 90 | 11 |
 HISTORY-->
-| 1.17.0 | 2791a2f | 30 Aug 2026 15:33 | 252 | 88 | 11 |
 | 2.0.0 | 404b360 | 30 Aug 2026 16:07 | 252 | 88 | 11 |
 | 2.1.0 | 77e350e | 30 Aug 2026 18:26 | 252 | 88 | 11 |
 | 2.2.0 | c3802c4 | 31 Aug 2026 01:24 | 252 | 88 | 11 |
@@ -127,3 +126,4 @@ HISTORY-->
 | 2.7.4 | 698cc62 | 13 Sep 2026 12:35 | 261 | 90 | 11 |
 | 2.7.5 | f3dbac4 | 13 Sep 2026 12:46 | 362 | 90 | 11 |
 | 2.7.6 | aa25904 | 13 Sep 2026 16:45 | 368 | 90 | 11 |
+| 2.7.7 | 887de56 | 13 Sep 2026 16:56 | 368 | 90 | 11 |
