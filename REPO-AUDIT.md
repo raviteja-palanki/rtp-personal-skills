@@ -6,15 +6,15 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `2.7.4`  ·  **Commit:** `698cc62`  ·  **Generated:** 13 Sep 2026 12:35
+**Version:** `2.7.5`  ·  **Commit:** `f3dbac4`  ·  **Generated:** 13 Sep 2026 12:46
 
 ## Totals
 
 | Metric | Count |
 |---|---:|
-| **Total tracked files** | **261** |
+| **Total tracked files** | **362** |
 | **Skills** (`SKILL.md`) | **90** |
-| Supporting files inside `skills/` | 122 |
+| Supporting files inside `skills/` | 223 |
 | Slash commands | 11 |
 
 ## Verified against `plugin.json`
@@ -29,13 +29,13 @@ The description claims a split; these are checked against the filesystem every r
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **2.7.4**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **2.7.5**.
 
 ## Composition
 
 | Area | Files |
 |---|---:|
-| `skills` | 212 |
+| `skills` | 313 |
 | `diagrams` | 16 |
 | `commands` | 11 |
 | `workflows` | 6 |
@@ -70,12 +70,14 @@ a redirect stub merged into `failure-modes` — intentionally excluded from the 
 
 ## Supporting files inside `skills/`
 
-90 skills carry 122 supporting files (1.4 per skill).
+90 skills carry 223 supporting files (2.5 per skill).
 
 | Type | Count |
 |---|---:|
-| `.md` | 114 |
+| `.md` | 213 |
 | `.svg` | 7 |
+| `.css` | 1 |
+| `.txt` | 1 |
 | `.py` | 1 |
 
 ## Name mapping (repo ↔ source)
@@ -94,7 +96,6 @@ These folders are renamed for plugin namespacing; content is identical to source
 | Version | Commit | Generated | Files | Skills | Commands |
 |---|---|---|---:|---:|---:|
 <!--HISTORY
-| 1.16.0 | 2a902e4 | 30 Aug 2026 14:56 | 252 | 88 | 11 |
 | 1.16.1 | 6b59a46 | 30 Aug 2026 14:59 | 252 | 88 | 11 |
 | 1.17.0 | 2791a2f | 30 Aug 2026 15:33 | 252 | 88 | 11 |
 | 2.0.0 | 404b360 | 30 Aug 2026 16:07 | 252 | 88 | 11 |
@@ -109,8 +110,8 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 2.7.2 | d7d0797 | 11 Sep 2026 03:04 | 258 | 90 | 11 |
 | 2.7.3 | d629378 | 12 Sep 2026 09:35 | 258 | 90 | 11 |
 | 2.7.4 | 698cc62 | 13 Sep 2026 12:35 | 261 | 90 | 11 |
+| 2.7.5 | f3dbac4 | 13 Sep 2026 12:46 | 362 | 90 | 11 |
 HISTORY-->
-| 1.16.0 | 2a902e4 | 30 Aug 2026 14:56 | 252 | 88 | 11 |
 | 1.16.1 | 6b59a46 | 30 Aug 2026 14:59 | 252 | 88 | 11 |
 | 1.17.0 | 2791a2f | 30 Aug 2026 15:33 | 252 | 88 | 11 |
 | 2.0.0 | 404b360 | 30 Aug 2026 16:07 | 252 | 88 | 11 |
@@ -125,3 +126,4 @@ HISTORY-->
 | 2.7.2 | d7d0797 | 11 Sep 2026 03:04 | 258 | 90 | 11 |
 | 2.7.3 | d629378 | 12 Sep 2026 09:35 | 258 | 90 | 11 |
 | 2.7.4 | 698cc62 | 13 Sep 2026 12:35 | 261 | 90 | 11 |
+| 2.7.5 | f3dbac4 | 13 Sep 2026 12:46 | 362 | 90 | 11 |
