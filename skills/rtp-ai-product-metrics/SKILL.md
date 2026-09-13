@@ -1,6 +1,6 @@
 ---
 name: ai-product-metrics
-version: v1.10.1_latest
+version: v1.10.2_latest
 description: 'Choose and define metrics that show whether an AI product delivers useful work, at what cost, and with which risks. Use for dashboards, North Star and AARRR design, the Surfaced/Invoked/Completed/Accepted/Retained funnel, release monitoring, or executive reporting. Covers acceptance, corrections, regeneration, conversational burden, task success, calibration, pass@k/pass^k, cost per successful outcome, cohorts, and companion measures for misleading improvements. Distinguish usage, quality, oversight, and realized value; acceptance and fewer escalations are signals, not proof. Connect each important measure to a decision, owner, denominator, time window, evidence limits, and response. Use correction clusters for discovery after checking their causes, and translate findings into business implications without inventing causal effects. Pairs with eval-framework, feedback-flywheel, confidence-tuner, cost-model, token-economics, stakeholder-communications, and fit-signal.'
 imports:
   - eval-framework
@@ -234,6 +234,6 @@ Use the [template](references/dashboard-template.md) as a menu, not a requiremen
 - Cohort and release comparisons that remain meaningful across changes.
 - Owners and response rules, open questions, and the next action.
 
-Conclude with the recommendation, main trade-off, largest uncertainty or risk, and next step. Use the [Universal Skill Protocol](../../../UNIVERSAL-SKILL-PROTOCOL.md) proportionately. A funnel, trend, or comparison can help; use `excalidraw-svg` when useful, without promising a visual makes the deliverable ten times better.
+Conclude with the recommendation, main trade-off, largest uncertainty or risk, and next step. Use the shared `UNIVERSAL-SKILL-PROTOCOL.md` proportionately: it lives at the AI PM collection root in the source library and the plugin root in distribution. A funnel, trend, or comparison can help; use `excalidraw-svg` when useful, without promising a visual makes the deliverable ten times better.
 
 `eval-framework` defines and validates evaluations; `confidence-tuner` assesses scores and judges; `production-observability` supports trace diagnosis; `ai-ux-patterns` supports burden and interaction design; `invisible-stack` / `context-spec` address evidenced context failures; `cost-model` / `token-economics` support economics; and `stakeholder-communications` supports the final narrative.

@@ -1,6 +1,6 @@
 ---
 name: judgment-guard
-version: v1.9.1_latest
+version: v1.9.2_latest
 description: 'Design where human judgment belongs in an AI workflow, how it remains effective, and how its contribution will be tested. Distinguish loss of expertise, failure to develop it, poor transfer to review, passive reliance, motivated avoidance, suppressed dissent, and framing that arrives too early. Choose proportionate checkpoints for practice, calibration, independent judgment, repair, reasoning records, and safe disclosure. Use when expert work changes, people stop questioning AI, or consequential decisions need effective human oversight. Compare human-only, AI-only, and combined performance where feasible; do not assume human involvement always improves outcomes. Pairs with determinism-compass, autonomy-spectrum, trust-ladder, agent-risk, and capability-tracking.'
 imports: []
 ---
@@ -97,7 +97,7 @@ Keep the four named capabilities visible where relevant: **judgment under uncert
 
 An entry-level role may produce work and provide practice, observation, and feedback. A middle-management role may carry oversight, escalation, and coordination. Removing the role can remove more than its visible output, but that is a hypothesis to inspect, not a reason to preserve every role unchanged.
 
-Name each useful function, decide whether it is still needed, and show where it will live. Some coordination may become unnecessary; some learning or oversight may need replacement capacity. The 70–20–10 learning framework does not imply that automating an entry-level task removes 90% of development. Route the workforce plan to `rtp-capability-tracking`, including the optional question: “What oversight capacity does this role provide that our current measures miss?”
+Name each useful function, decide whether it is still needed, and show where it will live. Some coordination may become unnecessary; some learning or oversight may need replacement capacity. The 70–20–10 learning framework does not imply that automating an entry-level task removes 90% of development. Keep the learning and oversight plan in this skill. Route changing model capabilities and dated technical dependencies to `rtp-capability-tracking`. An optional question is: “What oversight capacity does this role provide that our current measures miss?”
 
 ### Protect source access and the order of reasoning
 
