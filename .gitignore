@@ -71,3 +71,6 @@ __pycache__/
 # (archive/ history lives in 2_Skills source per Rule 41; not the plugin)
 skills/*/archive/
 skills/**/*.docx
+
+# Resume contact details, deliberately never published
+resume-contact.json

@@ -3,16 +3,20 @@
 **Author:** Ravi Teja Palanki · Senior Technical PM · Perplexity AI Fellow (2025)
 **Repo:** 90 skills + 11 slash commands, installable as a Claude Code plugin.
 
-This file is the operating manual for the library. If you install the plugin, this is what the skills assume about how to reason. The skills are the *what*; this is the *how*.
+This file is the operating manual for the library. It is what the skills assume about how to reason. The skills are the *what*; this is the *how*.
 
 ---
 
-## Install
+## Installing it on my own machines
 
 ```
 /plugin marketplace add raviteja-palanki/rtp-personal-skills
 /plugin install rtp-personal-skills@rtp-personal-skills
 ```
+
+These are the commands I use to put the library on a new machine, recorded here so I do not have to
+look them up. The license is All Rights Reserved, so read them as a description of how the thing
+runs rather than an invitation.
 
 Every skill is then addressable as `rtp-personal-skills:rtp-{name}`, for example `rtp-first-principles`, `rtp-eval-framework`, `rtp-ai-prd`.
 
@@ -171,4 +175,8 @@ Simplicity is the ultimate sophistication. If a system needs a manual to explain
 
 ## License
 
-See [LICENSE](LICENSE). The skills are the author's personal system, published for visibility. Use them, fork them, adapt them.
+All rights reserved. See [LICENSE](LICENSE).
+
+This repository is public so the work can be read, not so it can be reused. The ideas are yours to
+think with. The files are not yours to copy, redistribute, or ship inside another project. For
+anything beyond reading, the contact route is on [ravitejapalanki.com](https://ravitejapalanki.com).

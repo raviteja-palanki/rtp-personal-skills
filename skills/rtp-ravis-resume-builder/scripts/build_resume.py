@@ -10,6 +10,7 @@ Design: Apple-level spacing, balanced columns, pixel-perfect
 
 import sys
 import os
+import json
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.colors import HexColor
 from reportlab.pdfgen import canvas
@@ -207,6 +208,26 @@ URL_LADC        = "https://www.tapmi.edu.in/ladc/"
 URL_PROFILE     = "https://ravitejapalanki.com/profile"
 
 
+# ━━━ CONTACT DETAILS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Phone and email are deliberately not in this public repository. Supply them
+# through the environment, or through an untracked resume-contact.json beside
+# this script. An unconfigured run prints the placeholders below, so a missing
+# config is visible on the page rather than silent.
+
+def _contact():
+    local = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                         "resume-contact.json")
+    saved = {}
+    if os.path.exists(local):
+        with open(local) as fh:
+            saved = json.load(fh)
+    return (os.environ.get("RESUME_PHONE", saved.get("phone", "Phone on request")),
+            os.environ.get("RESUME_EMAIL", saved.get("email", "Email on request")))
+
+
+PHONE, EMAIL = _contact()
+
+
 # ━━━ MAIN BUILD ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 def build(output_path=None):
@@ -229,8 +250,8 @@ def build(output_path=None):
 
     c.setFont(F, 7.5)
     c.setFillColor(MID_GRAY)
-    c.drawRightString(W - MR, y + 2, "+91-7026334917")
-    c.drawRightString(W - MR, y - 10, "ravi.carpediem7@gmail.com")
+    c.drawRightString(W - MR, y + 2, PHONE)
+    c.drawRightString(W - MR, y - 10, EMAIL)
     c.drawRightString(W - MR, y - 22, "Bangalore, India")
     y -= 17
 

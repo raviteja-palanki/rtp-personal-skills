@@ -44,7 +44,7 @@ Here is what that produces. One request, end to end:
 
 **Ravi Teja Palanki** — Senior Technical PM at Honeywell · Perplexity AI Fellow 2025. 12+ years shipping enterprise products at Fortune 100 scale, now shipping Gen AI into production for safety-critical industrial environments, where a hallucination is not an inconvenience. It is a compliance incident.
 
-[ravitejapalanki.com](https://ravitejapalanki.com) · [LinkedIn](https://www.linkedin.com/in/ravipalanki) · ravi.aifluentproduct@gmail.com
+[ravitejapalanki.com](https://ravitejapalanki.com) · [LinkedIn](https://www.linkedin.com/in/ravipalanki)
 
 ## The full map
 

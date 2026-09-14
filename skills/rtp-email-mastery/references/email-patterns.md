@@ -20,7 +20,7 @@ Keep these as historical profile references. Use the current approved bio, progr
 
 The earlier statement that products were used by "90% of Fortune 500 life sciences customers" lacks a defined population and attribution in this skill. Verify its denominator, scope, date, and Ravi's role before using it. Do not broaden it to 90% of the Fortune 500.
 
-The original partnership signature supplied `+91 9019406604` and `ravitejapalanki.com`. Use contact details only when current, appropriate to the recipient, and intended for this message. A professional or partnership signature may include verified role, fellowship year, relevant alumni connection, and program role. A learner note can end "With gratitude, Ravi"; a personal note may need only his name. The earlier P.S. "I read every message" is a promise that requires confirmation.
+The original partnership signature supplied a mobile number and `ravitejapalanki.com`. Ravi's contact details are kept out of this repository, so take them from his current signature rather than from any file here. Use contact details only when current, appropriate to the recipient, and intended for this message. A professional or partnership signature may include verified role, fellowship year, relevant alumni connection, and program role. A learner note can end "With gratitude, Ravi"; a personal note may need only his name. The earlier P.S. "I read every message" is a promise that requires confirmation.
 
 ## The 24 writing-pattern checks
 
