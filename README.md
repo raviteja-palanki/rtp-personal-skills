@@ -52,8 +52,6 @@ Here is what that produces. One request, end to end:
   <img src="diagrams/skill-map.svg" alt="The full map: all 90 skills, named" width="1000"/>
 </p>
 
-<sub>The map is generated from the skills actually in this repo by [`diagrams/build-skill-map.py`](diagrams/build-skill-map.py), so it cannot quietly drift from what ships.</sub>
-
 ---
 
 <sub>This is my personal operating system. Public so the work is visible, not packaged for reuse. All Rights Reserved. · September 2026</sub>
