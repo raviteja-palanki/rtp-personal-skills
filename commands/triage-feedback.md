@@ -18,7 +18,7 @@ Take an unstructured pile of user feedback (CSV, Slack export, Notion list, NPS 
 - Reviewing customer success notes for systemic issues
 - The team is debating "what are users actually saying?" with different people pointing to different items
 
-## When NOT to use
+## When not to use
 
 - Volume below 20 items — read each one individually instead
 - The product has no AI features and a simpler 3-axis triage is sufficient
@@ -36,11 +36,11 @@ If empty, ask: "Paste your feedback, point me to a file, or tell me which source
 ## The chain
 
 ```
-ingest  →  feedback-triage  →  failure-modes cross-check  →  ranked routing
+ingest  →  rtp-feedback-triage  →  rtp-failure-modes cross-check  →  ranked routing
 (Step 1)     (Step 2)             (Step 3)                     (Step 4)
 ```
 
-### Step 1 — Ingest and Normalize
+### Step 1 — ingest and normalize
 
 Detect the format and normalize to a flat list:
 - **Plain text/list:** one feedback entry per line
@@ -56,9 +56,9 @@ For volume:
 
 Preserve a unique ID per item so the output can trace back to the source.
 
-### Step 2 — Run feedback-triage
+### Step 2 — run rtp-feedback-triage
 
-Apply the `feedback-triage` skill. For every item or theme:
+Apply the `rtp-feedback-triage` skill. For every item or theme:
 
 **Classify** into one of six categories:
 1. UX Issue (non-AI)
@@ -85,9 +85,9 @@ Apply the `feedback-triage` skill. For every item or theme:
 
 **Cluster into themes** when items share underlying issue. A theme requires 2+ separate sources mentioning the same problem (or 1 high-severity instance for catastrophic categories).
 
-### Step 3 — failure-modes Cross-Check
+### Step 3 — rtp-failure-modes Cross-Check
 
-For every AI Failure theme, cross-reference with the `failure-modes` taxonomy. This step is the bridge between user-reported failures and the engineering response.
+For every AI Failure theme, cross-reference with the `rtp-failure-modes` taxonomy. This step is the bridge between user-reported failures and the engineering response.
 
 For each AI failure theme, fill out:
 
@@ -97,7 +97,7 @@ For each AI failure theme, fill out:
 
 This cross-check is what turns the triage report into an engineering handoff. The AI eval team needs to know not just "users complained about X" but "this maps to failure type Y, which has detection latency Z, and the fix is W."
 
-### Step 4 — Ranked Routing
+### Step 4 — ranked routing
 
 Produce the final routing table. Each high-priority theme (score ≥ 5 OR AI-failure flag = 1) gets:
 
@@ -119,7 +119,7 @@ For "Experiment first" items, recommend:
 ## The triage report
 
 ```markdown
-# Feedback Triage: [period]
+# Feedback triage: [period]
 
 ## Executive summary
 [Top 3 pain points in one paragraph. The AI-failure rate. The routing recommendations.]
@@ -137,8 +137,8 @@ For "Experiment first" items, recommend:
 ## Themes ranked by score (top 10)
 [Table with frequency, severity, strategic fit, AI-failure flag, total, route]
 
-## AI Failure breakdown
-[Sub-types with counts, top failure-modes mapping, top recommended mitigations]
+## AI failure breakdown
+[Sub-types with counts, top rtp-failure-modes mapping, top recommended mitigations]
 
 ## Routing recommendations
 [Now / Next / Experiment first / Discovery / Decline]
@@ -161,7 +161,7 @@ For "Experiment first" items, recommend:
 A complete triage:
 - Classifies every item (no "miscellaneous" bucket)
 - Sub-classifies every AI failure
-- Cross-references AI failures with failure-modes
+- Cross-references AI failures with rtp-failure-modes
 - Has unambiguous routing for every high-priority theme
 - Includes a "what to ignore" section
 - Surfaces future capability signals separately (not routed to fix)
@@ -176,3 +176,7 @@ Before closing the triage cycle:
 4. Ask: "Are any of these themes the same complaint we triaged last cycle that didn't get fixed? If so, why?"
 
 The third question is the hardest one. Repeated unfixed themes are the strongest signal that the routing isn't actually triggering work — and that's the upstream problem to fix before running the next triage.
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.

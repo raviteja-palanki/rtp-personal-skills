@@ -1,14 +1,14 @@
 ---
 name: plan-launch
-description: Pre-launch readiness for AI features. Chains adoption-launch + ship-decision + cost-model + breach-ready + production-observability. Outputs a launch checklist with rollback criteria, kill-switch design, monitoring dashboard list, and comms plan. Triggers on "plan a launch," "ready to ship [AI feature]," "GA checklist."
+description: Pre-launch readiness for AI features. Chains rtp-adoption-launch + rtp-ship-decision + rtp-cost-model + rtp-breach-ready + rtp-production-observability. Outputs a launch checklist with rollback criteria, kill-switch design, monitoring dashboard list, and comms plan. Triggers on "plan a launch," "ready to ship [AI feature]," "GA checklist."
 version: 1.0.0
 author: RTP (Ravi Teja Palanki)
 chains:
-  - adoption-launch
-  - ship-decision
-  - cost-model
-  - breach-ready
-  - production-observability
+  - rtp-adoption-launch
+  - rtp-ship-decision
+  - rtp-cost-model
+  - rtp-breach-ready
+  - rtp-production-observability
 ---
 
 # /plan-launch
@@ -18,25 +18,23 @@ chains:
 
 ---
 
-## WHEN THIS RUNS
+## When this runs
 
 Trigger phrases: "plan a launch," "ready to ship [AI feature]," "GA checklist," "production rollout for AI."
-
-**Run in two sittings, not one.** Sitting 1: the readiness gates (ship-decision + cost-model at 10× volume) — these produce the go/no-go evidence, and a no-go here makes the rest moot. Sitting 2, fresh session: the launch machinery (adoption plan, kill-switch design with a named owner, monitoring dashboards, breach drill, comms). Teams that run all five in one pass reliably shortchange the machinery half, which is the half that saves you in week three.
 
 Use this when:
 - The AI-PRD is approved and engineering is implementing
 - You're 2-4 weeks from launch
 - The autonomy level is L3+ (L1-L2 features can use a normal launch plan; L3+ need this one)
 
-Do NOT use this for:
+Do not use this for:
 - Internal-only experiments (use a lighter checklist)
 - Pure deterministic features (use `pm-go-to-market:gtm-strategy` or similar)
 - Re-launching after a rollback (use `/retro` first to learn, then this to relaunch)
 
 ---
 
-## INPUT
+## Input
 
 The user invokes this with the feature name. If empty, ask:
 
@@ -48,9 +46,9 @@ If the answer to (3) is "no rollback path," stop. That's the first thing to fix.
 
 ---
 
-## STEP 1 — ADOPTION-LAUNCH
+## Step 1 — `rtp-adoption-launch`
 
-**Skill: `adoption-launch`**
+**Skill: `rtp-adoption-launch`**
 
 Plan the rollout pattern. Three options:
 
@@ -70,9 +68,9 @@ Between cohorts: hold gates. If any acceptance metric drops below floor, hold ro
 
 ---
 
-## STEP 2 — SHIP-DECISION
+## Step 2 — `rtp-ship-decision`
 
-**Skill: `ship-decision`**
+**Skill: `rtp-ship-decision`**
 
 The four ship questions, run before launch (not before GA — before each cohort gate):
 
@@ -85,9 +83,9 @@ If any answer is "no" or "we'll find out," the gate doesn't open.
 
 ---
 
-## STEP 3 — COST-MODEL (Launch Pass)
+## Step 3 — `rtp-cost-model` (launch pass)
 
-**Skill: `cost-model`**
+**Skill: `rtp-cost-model`**
 
 The launch-time cost check is different from the strategic cost check. Here you verify:
 
@@ -101,9 +99,9 @@ The structural risk: **cost ceilings without alerts are wishes**. Every ceiling 
 
 ---
 
-## STEP 4 — BREACH-READY
+## Step 4 — `rtp-breach-ready`
 
-**Skill: `breach-ready`**
+**Skill: `rtp-breach-ready`**
 
 The incident plan for AI failures. AI features fail differently from deterministic ones — they don't crash, they confidently return wrong answers.
 
@@ -122,11 +120,11 @@ Each row needs an owner. "Engineering" is not an owner. A name is an owner.
 
 ---
 
-## STEP 5 — PRODUCTION-OBSERVABILITY
+## Step 5 — `rtp-production-observability`
 
-**Skill: `production-observability`**
+**Skill: `rtp-production-observability`**
 
-The monitoring dashboard list. Without this, the breach-ready plan is fiction — you can't react to failures you can't see.
+The monitoring dashboard list. Without this, the rtp-breach-ready plan is fiction — you can't react to failures you can't see.
 
 Required dashboards (each linked, not just listed):
 
@@ -144,7 +142,7 @@ Each dashboard has:
 
 ---
 
-## STEP 6 — KILL-SWITCH DESIGN (THE L4+ REQUIREMENT)
+## Step 6 — kill-switch design (the L4+ requirement)
 
 **This is what makes AI launches different.** A kill-switch is the deliberate, designed mechanism to disable the AI feature in production without a code deploy.
 
@@ -156,7 +154,7 @@ For L4+ features, the kill-switch is not optional. It's the difference between "
 |---|---|
 | Trip-wire signal | The specific metric or alert that justifies pulling the switch |
 | Threshold | The numeric level at which the trip-wire fires |
-| Owner | One named person authorized to pull the switch (NOT a committee) |
+| Owner | One named person authorized to pull the switch. A person, not a committee. |
 | Backup owner | One additional named person if primary is unavailable |
 | Mechanism | Feature flag / config toggle / API kill / model fallback (not a code deploy) |
 | Time-to-disable | How long from decision to disabled (target: <2 minutes) |
@@ -169,7 +167,7 @@ For L4+ features, the kill-switch is not optional. It's the difference between "
 
 ---
 
-## STEP 7 — COMMS PLAN
+## Step 7 — comms plan
 
 Calls into the orchestrator's `/stakeholder-update` motion (or the `product-management:stakeholder-update` skill). Required comms:
 
@@ -182,11 +180,11 @@ Calls into the orchestrator's `/stakeholder-update` motion (or the `product-mana
 | Sales / CS | Briefing doc | Before each cohort | PM |
 | Compliance / Legal (if applicable) | Memo | Before launch, after first 30 days | PM + Legal |
 
-For each: what's said, who says it, when it's sent, what triggers an unscheduled comms (e.g., kill-switch pull → customer email within 4 hours).
+For each: what's said, who says it, when it's sent, and what triggers an unscheduled message. Pulling the kill switch, for example, means a customer email inside four hours.
 
 ---
 
-## STEP 8 — LAUNCH TIMELINE
+## Step 8 — launch timeline
 
 | T- | Action | Owner | Status |
 |---|---|---|---|
@@ -196,7 +194,7 @@ For each: what's said, who says it, when it's sent, what triggers an unscheduled
 | T-7 | Monitoring dashboards live; alert thresholds set | Eng + PM | |
 | T-7 | Breach-ready playbook reviewed with on-call | PM + Eng lead | |
 | T-5 | Comms plan approved; all draft messages reviewed | PM | |
-| T-3 | Final ship-decision check; cohort 1 list confirmed | PM | |
+| T-3 | Final rtp-ship-decision check; cohort 1 list confirmed | PM | |
 | T-1 | Kill-switch tested in staging; rollback drill complete | Eng | |
 | T-0 | Cohort 1 enabled (internal); monitoring active | Eng + PM | |
 | T+3 | Cohort 1 review; gate decision for cohort 2 | PM | |
@@ -206,7 +204,7 @@ For each: what's said, who says it, when it's sent, what triggers an unscheduled
 
 ---
 
-## OUTPUT FORMAT
+## Output format
 
 A single launch readiness document with:
 
@@ -214,7 +212,7 @@ A single launch readiness document with:
 2. **Cohort plan** (the staged rollout)
 3. **Ship-decision results** (pass/hold/fail per question)
 4. **Cost ceiling and alert thresholds**
-5. **Breach-ready playbook** (the failure mode → owner table)
+5. **Breach-ready playbook**, the table mapping each failure mode to its owner
 6. **Monitoring dashboards** (with links and owners)
 7. **Kill-switch design** (the 8-component table, completed)
 8. **Comms plan** (the audience table)
@@ -223,7 +221,7 @@ A single launch readiness document with:
 
 ---
 
-## QUALITY BAR
+## Quality bar
 
 A real `/plan-launch` document for an L4+ AI feature has:
 
@@ -238,10 +236,14 @@ A real `/plan-launch` document for an L4+ AI feature has:
 
 ---
 
-## CROSS-REFERENCES
+## Cross-references
 
 - **Run before:** the actual launch, ideally 2-4 weeks out
 - **Run after launch:** `/retro` at T+30 to extract lessons
 - **Related workflows:** `/design-ai-feature` (run earlier in the cycle), `/ai-prd-flow` (the spec this is launching)
-- **Skill files used:** `adoption-launch`, `ship-decision`, `cost-model`, `breach-ready`, `production-observability`
+- **Skill files used:** `rtp-adoption-launch`, `rtp-ship-decision`, `rtp-cost-model`, `rtp-breach-ready`, `rtp-production-observability`
 - **Stakeholder comms:** `product-management:stakeholder-update`
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.

@@ -1,6 +1,6 @@
 ---
 name: brief-me
-description: 60-second morning briefing pulling memory + recent activity + git history. Triggers on "brief me", "morning briefing", "where did I leave off", "what's on my plate", "GM Claude".
+description: A short morning brief drawn from memory, the action plan, recent activity and git history. Triggers on "brief me", "morning briefing", "where did I leave off", "what's on my plate", "GM Claude".
 ---
 
 # /brief-me
@@ -9,7 +9,7 @@ You are Ravi's chief of staff handing him a brief before he opens any file. The 
 
 This is not a status report. It's a decision-prep document. Every line earns its place by changing what Ravi does in the next hour.
 
-## Step 1 — Load everything (parallel reads)
+## Step 1 — load everything (parallel reads)
 
 Read in parallel. Do not serialize:
 - `/Users/ravitejapalanki/.claude/projects/-Users-ravitejapalanki-Desktop-Claude/memory/MEMORY.md` — auto-memory index and the linked memory files
@@ -23,13 +23,13 @@ In the background (parallel):
 
 Hold the full picture. Do not ask Ravi to re-brief on anything that's in memory.
 
-## Step 2 — Reconcile: what was promised vs. what shipped
+## Step 2 — reconcile: what was promised vs. what shipped
 
 From ACTION-PLAN.md, extract:
-- Items marked "in progress" with a date older than yesterday → these are carry-overs
-- Items completed in the last 7 days → for the "what shipped" section
-- Items with a deadline within 7 days → for the "at risk" section
-- Items untouched for >14 days → for the "stale" section
+- Items marked "in progress" and last touched before yesterday. These are the carry-overs.
+- Items completed in the last 7 days, for the "what shipped" section.
+- Items with a deadline inside 7 days, for the "at risk" section.
+- Items untouched for more than 14 days, for the "stale" section.
 
 From CHANGE_LOG.md, extract:
 - Significant changes in the last 7 days that are not yet reflected in ACTION-PLAN.md (drift between the two)
@@ -39,9 +39,9 @@ From git logs:
 - Skill changes that should be reflected in SKILL-REGISTRY.md but might not be
 - Commits to repos other than `rtp-personal-skills-repo` (signal: work happened outside the tracked surface)
 
-## Step 3 — Surface what changed without Ravi knowing
+## Step 3 — surface what changed without Ravi knowing
 
-This is the highest-value part of the briefing. Things that happened that he might not yet have integrated:
+This is the part worth the most attention, because it is the part Ravi cannot do for himself. Things that happened that he may not have integrated yet:
 - An action plan item is still listed but the work was already done in a recent commit (drift)
 - A skill was modified in the repo but the registry wasn't updated (governance gap)
 - A change log entry references a decision but no follow-up task exists in the action plan (loose end)
@@ -49,7 +49,7 @@ This is the highest-value part of the briefing. Things that happened that he mig
 
 Surface these as questions, not assertions. The auto-memory may be ahead of where Ravi thinks he is.
 
-## Step 4 — Compose the briefing
+## Step 4 — compose the briefing
 
 Structure (this exact format, every time):
 
@@ -78,22 +78,22 @@ DRIFT NOTICED
 - ...skip section if nothing to surface
 
 START HERE
-[One specific recommendation. Not "consider reviewing your roadmap." Instead: "The stakeholder-communications skill needs the registry update — 5 minutes — before any other work, otherwise the next session inherits broken state."]
+[One specific recommendation. Not "consider reviewing your roadmap." Instead: "The rtp-stakeholder-communications skill needs the registry update — 5 minutes — before any other work, otherwise the next session inherits broken state."]
 
 Why this: [one sentence — the reason this beats other options today, in concrete terms]
 ```
 
-Length: 80-120 lines including blank lines. Compact. Scannable in 30 seconds.
+Keep it to roughly 80 to 120 lines including blank lines. It should be scannable rather than read.
 
-## Step 5 — End with an override invitation
+## Step 5 — end with an override invitation
 
 Always close with:
 
 > "That's my read of the situation. You know things I don't — if there's something else on your mind, redirect. Otherwise I'll wait on your call for where to start."
 
-This is non-negotiable. The briefing is a recommendation, not a directive. Ravi decides where to start. The orchestrator filters and surfaces; the human chooses.
+Always close this way. The brief is a recommendation, not a directive. It filters and surfaces; Ravi decides where to start.
 
-## Step 6 — Memory write-back
+## Step 6 — memory write-back
 
 After delivering the briefing:
 - Update `last_briefed` timestamp in memory if such a field exists
@@ -115,10 +115,14 @@ Then proceed with whatever context Ravi gives.
 ## Quality bar
 
 A good output from this workflow:
-- Reads in 30 seconds
+- Can be scanned rather than read
 - Names specific items with ages, not vague categories
 - Catches at least one drift item per week (if the system is being used, drift accumulates)
 - Recommends a concrete START HERE with a real reason it beats other choices today
 - Never produces a "all clear" briefing when there are 14-day-old items in the action plan
 - Ends with an override invitation, never a directive
 - Uses Ravi's date format (DDMMMYYYY)
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.

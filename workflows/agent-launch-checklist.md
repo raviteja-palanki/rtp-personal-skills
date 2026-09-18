@@ -1,4 +1,4 @@
-# Agent Launch Checklist: Ship Autonomous AI Safely
+# Agent launch checklist
 **From prototype agent to production-grade autonomous system**
 
 A structured pre-launch workflow specifically for agent and autonomous AI features — where the consequence magnitude of failure is higher, the architecture is more complex, and traditional QA doesn't cover the failure surface. Use this when your AI feature makes autonomous decisions, uses tools, or operates in multi-step workflows.
@@ -10,14 +10,14 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 
 ---
 
-## Day 1: Agent Architecture Audit
+## Day 1: agent architecture audit
 
 **Goal:** Verify the agent architecture is sound, permissions are scoped, and failure boundaries are defined.
 
-### Morning: Architecture Review
+### Morning: architecture review
 
 **Layer 2 — Agent Design:**
-1. **agent-spec** — Audit the agent specification.
+1. **rtp-agent-spec** — Audit the agent specification.
    - Is the step graph complete? (every discrete operation mapped)
    - Autonomy level assigned per step with explicit reasoning?
    - Trust thresholds defined? (confidence score boundaries, not vague)
@@ -25,30 +25,30 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
    - Failure recovery specified per step? (rollback, notification, user experience)
    - Boundary matrix complete?
 
-2. **agent-harness** *(if harness pattern)* — Verify harness architecture.
+2. **rtp-agent-harness** *(if harness pattern)* — Verify harness architecture.
    - Planner→Generator→Evaluator roles clear?
    - Sprint contracts defined with testable pass/fail criteria?
    - Max iterations set with kill conditions?
    - Context management: Pre-Rot Threshold configured?
    - File-based communication vs. context window state?
 
-3. **agent-ecosystem** *(if multi-agent)* — Verify orchestration.
+3. **rtp-agent-ecosystem** *(if multi-agent)* — Verify orchestration.
    - Agent-to-agent communication protocols defined?
    - Error propagation boundaries explicit?
    - What happens when one agent in the chain fails?
    - Capability advertisement and task negotiation patterns?
 
-### Afternoon: Tool & Permission Audit
+### Afternoon: tool and permission audit
 
 **Layer 2 — Agent Design:**
-4. **tool-architecture** — Audit tool access governance.
+4. **rtp-tool-architecture** — Audit tool access governance.
    - Every tool classified by mutation type? (read, write-reversible, write-audited, delete, cascade)
    - Permission scopes defined? (agent, tool, resource, rate, approval gate)
    - Audit logs capture action + decision metadata?
    - Escape hatches exist? (circuit breaker, kill switch, rollback window)
    - MCP connectors tested in production-like environment?
 
-5. **autonomy-spectrum** — Verify autonomy calibration.
+5. **rtp-autonomy-spectrum** — Verify autonomy calibration.
    - Is the feature at the right autonomy level for launch?
    - Context anxiety thresholds set?
    - Progressive autonomy path defined? (start low, earn higher)
@@ -59,15 +59,15 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 
 ---
 
-## Day 2: Safety & Trust Validation
+## Day 2: safety and trust validation
 
 **Goal:** Validate that safety is designed in and trust mechanisms work correctly.
 
-### Pre-Flight: Responsible AI Governance Check
+### Pre-Flight: responsible AI governance check
 
 **Run this before any safety testing begins.** Safety testing without governance ownership is procedure without accountability.
 
-**Invoke `responsible-ai-program`** — Run the 3 Gaps diagnostic and SHARP self-assessment.
+**Invoke `rtp-responsible-ai-program`** — Run the 3 Gaps diagnostic and SHARP self-assessment.
 
 | Gap | Closed? | What "Closed" Means |
 |-----|---------|---------------------|
@@ -86,28 +86,28 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 
 ---
 
-### Morning: Safety Boundaries
+### Morning: safety boundaries
 
 **Layer 2 — Safety & Trust:**
-6. **safety-by-design** — Verify constitutional principles.
+6. **rtp-safety-by-design** — Verify constitutional principles.
    - 5-10 behavioral rules defined and testable?
    - Defense-in-depth layers active? (input validation → model constraints → output filtering → human review)
-   - Adversarial eval completed? (red-team the agent with adversarial inputs)
+   - Adversarial eval completed? (rtp-stress-test the agent with adversarial inputs)
    - Multi-agent safety: can one agent override another's safety constraints?
 
-7. **safety-as-moat** — Position safety for launch narrative.
+7. **rtp-safety-as-moat** — Position safety for launch narrative.
    - What's the alignment tax? (latency, accuracy, complexity cost of safety)
    - Where does safety become the feature story? (not just compliance)
    - What safety guarantees can we make to users?
 
 **Layer 1 — Thinking Core:**
-8. **failure-design** — Verify degradation paths.
+8. **rtp-failure-modes** — Verify degradation paths.
    - For each failure mode: what does the user experience?
    - Fallback cascade: AI → simpler model → rules → human — tested?
    - Recovery paths: how far back does rollback go?
    - User communication: how does the agent explain when it fails?
 
-9. **stress-test** — Run 6-dimension stress test.
+9. **rtp-stress-test** — Run 6-dimension stress test.
    - Scale: what happens at 10x concurrent agents?
    - Adversarial: malicious user inputs and prompt injection
    - Model degradation: agent with 10-20% worse model quality
@@ -115,17 +115,17 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
    - Cascade: one step fails — does the whole agent collapse?
    - Economic: cost per task at 10x volume
 
-### Afternoon: Trust Calibration
+### Afternoon: trust calibration
 
 **Layer 2 — Safety & Trust:**
-10. **trust-ladder** — Verify trust mechanisms.
+10. **rtp-trust-ladder** — Verify trust mechanisms.
     - Confidence displays calibrated? (stated confidence matches actual accuracy)
     - Trust repair works? (when agent fails, recovery restores user confidence)
     - Human override accessible at every autonomy level?
     - Trust-autonomy calibration table verified with real usage data?
 
 **Layer 1 — Thinking Core:**
-11. **bias-spotter** — Audit for decision biases in agent behavior.
+11. **rtp-bias-spotter** — Audit for decision biases in agent behavior.
     - Does the agent exhibit systematic biases?
     - Are there input patterns where bias is amplified?
     - Does multi-step reasoning compound biases?
@@ -135,35 +135,35 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 
 ---
 
-## Day 3: Evaluation & Observability
+## Day 3: evaluation and observability
 
 **Goal:** Verify eval infrastructure is ready and monitoring will catch production issues.
 
-### Morning: Eval Readiness
+### Morning: eval readiness
 
 **Layer 2 — Eval & Quality:**
-12. **eval-framework** — Verify agent-specific evals.
+12. **rtp-eval-framework** — Verify agent-specific evals.
     - Per-step eval: each step tested independently
     - End-to-end eval: full agent workflow tested
     - Cascading error eval: 90% × 90% × 90% = 72.9% — is this acceptable?
     - pass@k vs pass^k: are the right metrics applied per step?
     - Eval saturation check: are test sets fresh?
 
-13. **eval-driven-development** — Verify EDD discipline.
+13. **rtp-eval-driven-development** — Verify EDD discipline.
     - Every agent behavior has a corresponding eval?
     - Criteria drift addressed? (eval criteria updated from production observation)
     - Regression suite covers known failure modes?
 
-14. **ai-product-metrics** — Verify metrics dashboard.
+14. **rtp-ai-product-metrics** — Verify metrics dashboard.
     - Agent-specific metrics: step completion rate, rollback rate, human intervention rate
     - pass@k and pass^k per step and end-to-end
     - Cost per successful task completion (including retries)
     - Time-to-completion distribution
 
-### Afternoon: Observability
+### Afternoon: observability
 
 **Layer 2 — Eval & Quality:**
-15. **production-observability** — Verify monitoring stack.
+15. **rtp-production-observability** — Verify monitoring stack.
     - Silent degradation detection active?
     - Context anxiety monitoring (context window utilization approaching limits)?
     - Sprint contract compliance tracking?
@@ -171,7 +171,7 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
     - Alert routing: who gets paged for what severity?
 
 **Layer 1 — Thinking Core:**
-16. **determinism-compass** — Final determinism classification.
+16. **rtp-determinism-compass** — Final determinism classification.
     - Which agent outputs must be deterministic? Are they?
     - Which can be probabilistic? Within acceptable variance?
     - Are determinism requirements reflected in eval thresholds?
@@ -181,37 +181,37 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 
 ---
 
-## Day 4: Economics & Launch Decision
+## Day 4: economics and launch decision
 
 **Goal:** Validate cost structure and make the ship decision.
 
-### Morning: Economics Validation
+### Morning: economics validation
 
 **Layer 3 — Craft:**
-17. **cost-model** — Validate agent economics.
+17. **rtp-cost-model** — Validate agent economics.
     - Cost per successful task (including harness overhead, retries, eval cost)
     - Harness economics: justified? ($9 solo vs $200 harness — is quality worth it?)
     - Token flow: cached prompt optimization applied?
     - Cost at 10x, 100x scale: sustainable?
 
 **Layer 2 — AI Strategy:**
-18. **token-economics** — Verify token flow.
+18. **rtp-token-economics** — Verify token flow.
     - Input/output token patterns per step
     - Cached prompt economics leveraged?
     - Model routing: right model per step?
     - Cost surprises in production load testing?
 
 **Layer 2 — Product Sense:**
-19. **invisible-stack** — Verify hidden infrastructure.
+19. **rtp-invisible-stack** — Verify hidden infrastructure.
     - Retrieval latency under load?
     - Post-processing pipeline stable?
     - Monitoring coverage complete?
     - Infrastructure cost within budget?
 
-### Afternoon: Ship Decision
+### Afternoon: ship decision
 
 **Layer 3 — Craft:**
-20. **ship-decision** — Make the go/no-go decision.
+20. **rtp-ship-decision** — Make the go/no-go decision.
     - All eval gates passed?
     - Safety boundaries verified?
     - Tool permissions locked?
@@ -221,7 +221,7 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
     - Success metrics defined for first 30 days?
 
 **Layer 1 — Thinking Core:**
-21. **red-team** — Final pre-mortem.
+21. **rtp-stress-test** — Final pre-mortem.
     - "It's 30 days post-launch and this agent feature failed — why?"
     - What production scenarios aren't covered by evals?
     - What would make you pull the kill switch?
@@ -231,26 +231,26 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 
 ---
 
-## Day 5: Launch & Monitor (Launch Day)
+## Day 5: launch and monitor (launch Day)
 
 **Goal:** Execute launch and verify production behavior.
 
-### Morning: Staged Rollout
+### Morning: staged rollout
 
-22. **production-observability** — Monitor launch metrics in real-time.
+22. **rtp-production-observability** — Monitor launch metrics in real-time.
     - Canary metrics: error rate, latency, cost, user satisfaction
     - Compare canary vs. control (if A/B testing)
     - Watch for silent degradation signals
     - Monitor context anxiety levels
 
-### Afternoon: First 4 Hours
+### Afternoon: first 4 hours
 
-23. **feedback-flywheel** — Activate signal collection.
+23. **rtp-feedback-flywheel** — Activate signal collection.
     - User corrections flowing to eval pipeline?
     - Implicit signals tracked? (retries, abandonment, escalation)
     - Feedback latency: how fast are signals arriving?
 
-24. **ai-ux-patterns** — Monitor user interaction.
+24. **rtp-ai-ux-patterns** — Monitor user interaction.
     - Are confidence displays working as designed?
     - Are human-AI handoffs happening at right moments?
     - Any unexpected user behavior patterns?
@@ -260,23 +260,23 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 
 ---
 
-## Skill Coverage
+## Skill coverage
 
 | Plugin | Skills Used |
 |--------|------------|
-| **thinking-core** (4/7) | first-principles*, determinism-compass, bias-spotter, stress-test, failure-design, red-team |
-| **product-sense** (3/7) | invisible-stack, feedback-flywheel, ai-ux-patterns |
-| **agent-design** (5/5) | agent-spec, agent-harness, agent-ecosystem, tool-architecture, autonomy-spectrum |
-| **safety-and-trust** (3/3) | safety-by-design, safety-as-moat, trust-ladder |
-| **eval-and-quality** (4/4) | eval-framework, eval-driven-development, ai-product-metrics, production-observability |
-| **craft** (2/8) | cost-model, ship-decision |
-| **ai-strategy** (1/5) | token-economics |
+| **thinking-core** | rtp-first-principles*, rtp-determinism-compass, rtp-bias-spotter, rtp-stress-test, rtp-failure-modes |
+| **product-sense** | rtp-invisible-stack, rtp-feedback-flywheel, rtp-ai-ux-patterns |
+| **agent-design** | rtp-agent-spec, rtp-agent-harness, rtp-agent-ecosystem, rtp-tool-architecture, rtp-autonomy-spectrum |
+| **safety-and-trust** | rtp-safety-by-design, rtp-safety-as-moat, rtp-trust-ladder |
+| **eval-and-quality** | rtp-eval-framework, rtp-eval-driven-development, rtp-ai-product-metrics, rtp-production-observability |
+| **craft** | rtp-cost-model, rtp-ship-decision |
+| **ai-strategy** | rtp-token-economics |
 
-**Total: the 24 skills named below** (agent-launch focused subset)
+**The skills this sequence uses are named above.** It is the agent-launch subset, not the whole library.
 
 ---
 
-## Pre-Launch Checklist (Summary)
+## Pre-Launch checklist (summary)
 
 - [ ] Boundary matrix complete (autonomy level, trust threshold, failure mode, recovery cost per step)
 - [ ] Tool permissions scoped and audited (read/write/delete/cascade classified)
@@ -289,5 +289,9 @@ A structured pre-launch workflow specifically for agent and autonomous AI featur
 - [ ] Cost model validated (per-task cost sustainable at 10x scale)
 - [ ] Rollout plan defined (canary %, monitoring triggers, rollback criteria)
 - [ ] Kill conditions documented (what triggers immediate shutdown)
-- [ ] Pre-mortem completed (red-team of core assumptions)
+- [ ] Pre-mortem completed (rtp-stress-test of core assumptions)
 - [ ] 30-day monitoring plan active (metrics, alerts, review cadence)
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.

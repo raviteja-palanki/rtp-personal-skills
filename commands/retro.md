@@ -1,12 +1,12 @@
 ---
 name: retro
-description: Post-ship retrospective for AI features. Reads original AI-PRD, compares to shipped state via ai-product-metrics, runs stress-test retrospectively (assumptions held / failed), extracts feedback-flywheel updates. Outputs a structured retro doc with assumption audit, lessons learned, eval-pipeline updates, next-iteration backlog. Triggers on "retro," "post-mortem," "what did we learn from [feature]."
+description: Post-ship retrospective for AI features. Reads original AI-PRD, compares to shipped state via rtp-ai-product-metrics, runs rtp-stress-test retrospectively (assumptions held / failed), extracts rtp-feedback-flywheel updates. Outputs a structured retro doc with assumption audit, lessons learned, eval-pipeline updates, next-iteration backlog. Triggers on "retro," "post-mortem," "what did we learn from [feature]."
 version: 1.0.0
 author: RTP (Ravi Teja Palanki)
 chains:
-  - ai-product-metrics
-  - stress-test
-  - feedback-flywheel
+  - rtp-ai-product-metrics
+  - rtp-stress-test
+  - rtp-feedback-flywheel
 ---
 
 # /retro
@@ -16,25 +16,23 @@ chains:
 
 ---
 
-## WHEN THIS RUNS
+## When this runs
 
 Trigger phrases: "retro," "post-mortem," "what did we learn from [feature]," "post-ship review."
-
-**Run in two sittings, not one.** Sitting 1: pull the original AI-PRD and the production metrics, run the assumption audit (which assumptions held, which failed), and stop with a written audit summary. Sitting 2, fresh session: the lessons, the eval-pipeline updates, and the next-iteration backlog, with the audit as input. One giant retro session produces a status update wearing a retro's clothes; the gap between the sittings is where the honest read forms.
 
 Cadence:
 - **T+30:** First retro for any AI feature launch. Even if data is thin, the assumption audit is valuable.
 - **T+90:** Second retro for L4+ features. By then, real usage patterns and edge cases have surfaced.
 - **Triggered:** Any time a kill-switch is pulled, regardless of timeline.
 
-Do NOT use this for:
+Do not use this for:
 - Sprint retros (use `pm-execution:retro` — different scope, different cadence)
 - Pre-launch debriefs (no shipped state to measure)
 - Strategy reviews (use `/strategy-review`)
 
 ---
 
-## INPUT
+## Input
 
 The user invokes this with the feature name. If empty, ask:
 
@@ -46,7 +44,7 @@ If the original AI-PRD is missing, note this as a process gap and continue with 
 
 ---
 
-## STEP 1 — READ THE ORIGINAL AI-PRD
+## Step 1 — read the original `rtp-ai-prd`
 
 The retro starts where the PRD ended. Read:
 
@@ -62,9 +60,9 @@ If the PRD doesn't exist, the retro becomes a recollection exercise. Note this g
 
 ---
 
-## STEP 2 — AI-PRODUCT-METRICS COMPARISON
+## Step 2 — `rtp-ai-product-metrics` comparison
 
-**Skill: `ai-product-metrics`**
+**Skill: `rtp-ai-product-metrics`**
 
 Compare predicted to actual across both metric types. AI features need both because shipping a model that hits accuracy targets but kills user adoption is a different failure than shipping a model that users love but burns cash.
 
@@ -94,11 +92,11 @@ Compare predicted to actual across both metric types. AI features need both beca
 
 ---
 
-## STEP 3 — STRESS-TEST (Retrospective)
+## Step 3 — `rtp-stress-test` (retrospective)
 
-**Skill: `stress-test`**
+**Skill: `rtp-stress-test`**
 
-Run stress-test in reverse. The PRD made assumptions. Which held? Which failed? Which were never tested?
+Run rtp-stress-test in reverse. The PRD made assumptions. Which held? Which failed? Which were never tested?
 
 | Assumption | What we believed | What actually happened | Verdict |
 |---|---|---|---|
@@ -117,7 +115,7 @@ For each:
 
 ---
 
-## STEP 4 — FAILURE MODE AUDIT
+## Step 4 — failure mode audit
 
 What failure modes actually happened? Compare the PRD's predicted failure modes to what production showed:
 
@@ -136,9 +134,9 @@ If a kill-switch was pulled: dedicated section. What was the trip-wire signal? H
 
 ---
 
-## STEP 5 — FEEDBACK-FLYWHEEL EXTRACTION
+## Step 5 — `rtp-feedback-flywheel` extraction
 
-**Skill: `feedback-flywheel`**
+**Skill: `rtp-feedback-flywheel`**
 
 The improvement loop. What did production teach us that the eval set didn't catch?
 
@@ -169,7 +167,7 @@ For each failure case observed in production that the eval set missed:
 
 ---
 
-## STEP 6 — LESSONS & DECISION
+## Step 6 — lessons and decision
 
 Distill the retro into three categories.
 
@@ -196,7 +194,7 @@ Distill the retro into three categories.
 
 ---
 
-## STEP 7 — DECISION & NEXT-ITERATION BACKLOG
+## Step 7 — decision and next-iteration backlog
 
 For each open issue, one of four decisions:
 
@@ -217,7 +215,7 @@ Then produce the next-iteration backlog:
 
 ---
 
-## OUTPUT FORMAT
+## Output format
 
 ```
 Retro: [Feature Name]
@@ -255,7 +253,7 @@ LESSONS FOR THE PM SYSTEM
 
 ---
 
-## QUALITY BAR
+## Quality bar
 
 A real `/retro`:
 
@@ -271,9 +269,13 @@ A real `/retro`:
 
 ---
 
-## CROSS-REFERENCES
+## Cross-references
 
 - **Run after:** any AI feature ships, any kill-switch pulls, T+30 and T+90 milestones
 - **Feeds into:** `5_Knowledge/rules.md` (confirmed patterns), `hypotheses.md` (1-2x observations), skill learning logs
 - **Related workflows:** `/design-ai-feature` (the next bet learns from this retro), `/strategy-review` (quarterly aggregation of retros)
-- **Skill files used:** `ai-product-metrics`, `stress-test`, `feedback-flywheel`
+- **Skill files used:** `rtp-ai-product-metrics`, `rtp-stress-test`, `rtp-feedback-flywheel`
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.

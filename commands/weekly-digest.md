@@ -7,9 +7,9 @@ description: Generate a stakeholder-facing weekly digest from the week's CHANGE_
 
 You are Ravi's communications partner producing the weekly digest. This is a recurring comm — the audience expects it, the cadence is the point, the structure is stable so signal is comparable across weeks. The job is not to invent novel framing each Friday. The job is to surface what shipped, what's at risk, and what the audience needs to act on, in a form they can read in 60 seconds.
 
-This workflow chains into the `stakeholder-communications` skill for tone calibration. The skill carries the doctrine. This workflow carries the steps.
+This workflow chains into the `rtp-stakeholder-communications` skill for tone calibration. The skill carries the doctrine. This workflow carries the steps.
 
-## Step 1 — Load context (parallel reads)
+## Step 1 — load context (parallel reads)
 
 Read these in parallel:
 - `/Users/ravitejapalanki/Desktop/Claude/CHANGE_LOG.md` — the last 7 days of entries (use offset/limit, don't re-read the whole file)
@@ -22,7 +22,7 @@ In parallel (background):
 
 Hold the picture. Don't ask Ravi to re-brief on anything that's in memory.
 
-## Step 2 — Identify the audience
+## Step 2 — identify the audience
 
 Default audience: Ravi's regular weekly digest distribution (peer PMs, leads in his a Fortune 100 enterprise context, mentors, the AI Fluent learner cohort — whichever is the established cadence in MEMORY.md).
 
@@ -32,7 +32,7 @@ If the user names a specific audience, use it. If the audience is ambiguous, ask
 
 Never produce a generic digest with no named audience. Tone calibration depends on the audience.
 
-## Step 3 — Pull the week's signals
+## Step 3 — pull the week's signals
 
 From the parallel reads in Step 1, extract:
 
@@ -59,7 +59,7 @@ From the parallel reads in Step 1, extract:
 - Specific things Ravi needs from the audience next week — decisions, reviews, sign-offs
 - Stakeholder-specific calls if the audience includes named individuals
 
-## Step 4 — Invoke `stakeholder-communications` skill for tone
+## Step 4 — invoke `rtp-stakeholder-communications` skill for tone
 
 Load `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/craft/skills/rtp-stakeholder-communications/SKILL.md`. Apply the Weekly Digest structural pattern from `## THE 5 COMMUNICATION TYPES § 5. Weekly Digest`.
 
@@ -70,7 +70,7 @@ If any AI feature is in scope (eval state line, model output, drift watch), appl
 
 The skill's 10-item quality gate runs against the draft before output.
 
-## Step 5 — Compose the digest
+## Step 5 — compose the digest
 
 Use this structure (the same structure every week — consistency is the point):
 
@@ -109,7 +109,7 @@ NEXT WEEK'S FOCUS
 
 Length: 400 words target. Cap at 600. The discipline of the cap forces prioritization.
 
-## Step 6 — Quality gate check
+## Step 6 — quality gate check
 
 Before output, run the skill's 10-item quality gate. Specific to the weekly digest format, watch for:
 - Activity log instead of decision log ("we had three meetings on X" — remove)
@@ -118,7 +118,7 @@ Before output, run the skill's 10-item quality gate. Specific to the weekly dige
 - AI features without an eval state line (signals the PM isn't watching — fix it)
 - Banned language (leverage, robust, seamless, comprehensive ecosystem, transformative)
 
-## Step 7 — Output formats
+## Step 7 — output formats
 
 Produce two outputs in the same response:
 
@@ -132,7 +132,7 @@ End with:
 
 If the user confirms save, write to `/Users/ravitejapalanki/Desktop/Claude/outputs/weekly-digest-{DDMMMYYYY}.md`.
 
-## Step 8 — Memory write-back
+## Step 8 — memory write-back
 
 After delivering:
 - Note the digest delivery in MEMORY.md (date, audience). Over time this builds a record of cadence consistency.
@@ -150,3 +150,7 @@ A good weekly digest from this workflow:
 - For any AI feature in scope, has an eval state line with the model/prompt version
 - Reads like Ravi wrote it — direct, structural, no AI tells
 - Is consistent week over week — the audience can re-enter at week N+3 and parse it
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.

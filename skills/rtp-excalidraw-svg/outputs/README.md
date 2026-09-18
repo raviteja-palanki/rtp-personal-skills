@@ -8,6 +8,10 @@ This directory contains SVG outputs organized by version, tracking the evolution
 Contains the original SVG outputs created before the skill upgrade. These diagrams represent the initial visual architecture and workflow documentation for the AI PM framework.
 
 **Files in v1:**
+> **Archived 17 SEP 2026.** The seven layer diagrams below never lived in this folder and now sit in
+> `_archive/17SEP2026_2Skills-cleanup/architecture-svgs-april/`. They draw the April 2026 architecture,
+> a 55-skill library that no longer exists. Kept here as a record of what they showed.
+
 - `01-architecture-overview.svg` - High-level system architecture overview
 - `02-thinking-layer.svg` - Thinking layer component diagram
 - `03-judgment-layer.svg` - Judgment layer component diagram

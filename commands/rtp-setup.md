@@ -2,7 +2,7 @@
 description: Bootstrap the full RTP ecosystem on a fresh Claude Code account — install rtp-personal-skills + companion plugins (superpowers, compound-engineering, pm-skills, anthropic-skills, dev tools)
 ---
 
-# /rtp-setup — Bootstrap the Full RTP Ecosystem
+# /rtp-setup
 
 You are running on a Claude Code account where Ravi Teja Palanki's complete operating system needs to be installed. The user just invoked `/rtp-setup` to absorb the full ecosystem in one shot.
 

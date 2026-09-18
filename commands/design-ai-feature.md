@@ -1,37 +1,37 @@
 ---
 name: design-ai-feature
-description: The pre-build gauntlet for any new AI feature — ten gates across three bounded stages (Fit, ~15 min; Shape, one session; Build gate, one deep session), each stage a realistic sitting with its own decision output. Triggers on "design an AI feature," "should we build AI for X," "validate this AI idea."
+description: A validation pass before any new AI feature is built. It runs seven skills in sequence, with stop conditions, before any code is written. Triggers on "design an AI feature," "should we build AI for X," "validate this AI idea."
 version: 1.0.0
 author: RTP (Ravi Teja Palanki)
 chains:
-  - problem-ai-fit
-  - first-principles
-  - autonomy-spectrum
-  - determinism-compass
-  - prompt-craft
-  - eval-framework
-  - cost-model
-  - ai-ux-patterns
-  - safety-by-design
-  - ai-prd
+  - rtp-problem-ai-fit
+  - rtp-first-principles
+  - rtp-autonomy-spectrum
+  - rtp-determinism-compass
+  - rtp-prompt-craft
+  - rtp-eval-framework
+  - rtp-cost-model
+  - rtp-ai-ux-patterns
+  - rtp-safety-by-design
+  - rtp-ai-prd
 ---
 
 # /design-ai-feature
-**The pre-build gauntlet. Most AI features fail because the team skipped one of these gates.**
+**Run this before the build, not after it.** Each gate below is a question that is cheap to answer now and expensive to answer once the feature exists.
 
 > "If you can't pass all ten gates with honest answers, you're not ready to write the PRD. You're ready to kill the idea or shrink the scope until it survives." — RTP
 
 ---
 
-## WHEN THIS RUNS
+## When this runs
 
 Trigger phrases: "design an AI feature," "should we build AI for X," "validate this AI idea," "is this an AI problem?"
 
-Do NOT use this for: feature improvements that already shipped (use `/retro`), pure UX changes on a deterministic feature (use `pm-execution:create-prd`), or research-only exploration (use `/discover`).
+Do not use this for an improvement to something already shipped, which belongs in `/retro`; for a UX change on a deterministic feature, which belongs in `pm-execution:create-prd`; or for exploration that is only research, which belongs in `/discover`.
 
 ---
 
-## THE STRUCTURAL INSIGHT
+## The structural insight
 
 Most PMs jump from "let's build AI for X" straight to model selection or prompt design. They skip the question that matters: **is this even an AI problem, and at what autonomy level?**
 
@@ -39,28 +39,18 @@ The cost of skipping is high. AI features that ship without these gates fail in 
 
 | Gate skipped | Failure pattern in production |
 |---|---|
-| problem-ai-fit | Built ML for a problem rules would have solved at 1/100th the cost |
-| autonomy-spectrum | Gave the AI L4 autonomy when L2 was sufficient — got sued when it took an irreversible action |
-| determinism-compass | Mixed probabilistic and deterministic in one workflow — unpredictable behavior at scale |
-| eval-framework | Shipped without acceptance criteria — can't tell when the model regressed |
-| cost-model | Per-call cost × volume × margin = negative unit economics at GA |
-| safety-by-design | Bolted on guardrails after launch — broke the UX, didn't fix the failure mode |
+| rtp-problem-ai-fit | Built ML for a problem rules would have solved at 1/100th the cost |
+| rtp-autonomy-spectrum | Gave the AI L4 autonomy where L2 would have done, then faced a lawsuit over an irreversible action |
+| rtp-determinism-compass | Mixed probabilistic and deterministic steps in one workflow, and behavior became unpredictable at scale |
+| rtp-eval-framework | Shipped without acceptance criteria, so nobody can tell when the model has regressed |
+| rtp-cost-model | Per-call cost × volume × margin = negative unit economics at GA |
+| rtp-safety-by-design | Bolted guardrails on after launch, which broke the experience and did not fix the failure mode |
 
-This workflow runs all ten gates — but **never in one sitting.** Ten gates in one prompt produces ten shallow passes; the depth that makes each gate worth running needs its own attention. So the gauntlet runs as **three bounded stages**, each a realistic single session with its own decision output. Each stage ends with a one-paragraph summary that becomes the next stage's input, so the work resumes cleanly in a fresh prompt (or a fresh day) with nothing lost.
-
-| Stage | Gates | The question it answers | Typical effort | Kill rate |
-|---|---|---|---|---|
-| **Stage 1 — Fit** | 1–2 (problem-ai-fit, first-principles) | Is this even an AI problem? | ~15 minutes | Highest — most ideas die here, cheaply |
-| **Stage 2 — Shape** | 3–4, 8 (autonomy-spectrum, determinism-compass, ai-ux-patterns) | What form should it take — how much autonomy, what architecture, what user experience? | One focused session | Medium |
-| **Stage 3 — Build gate** | 5–7, 9–10 (prompt-craft, eval-framework, cost-model, safety-by-design, ai-prd) | Are we ready to build — measured, costed, safe, specced? | One deep session (the heaviest stage) | Low, but the most expensive to skip |
-
-Run Stage 1 the moment the idea appears. Don't schedule Stage 2 until Stage 1 passes. A stage can be invoked on its own when its inputs already exist ("we know it's an AI problem, shape it").
-
-**Drift guard:** the tables in this file are summaries; the skills are the source of truth. When a skill updates (for example, the verifiability cut line now caps every autonomy decision in `autonomy-spectrum`), the skill wins over this file's summary.
+This workflow runs all ten gates in sequence. If any gate fails, the workflow halts and surfaces "here's why we shouldn't proceed."
 
 ---
 
-## INPUT
+## Input
 
 The user invokes this with a feature description. If empty, ask:
 
@@ -72,11 +62,9 @@ The third question routes the rest of the workflow. If the answer is "regulator,
 
 ---
 
-## STAGE 1 — FIT (run this the moment the idea appears; ~15 minutes)
+## Step 1 — gate: `rtp-problem-ai-fit`
 
-## STEP 1 — GATE: PROBLEM-AI-FIT
-
-**Skill: `problem-ai-fit`**
+**Skill: `rtp-problem-ai-fit`**
 
 Run the AI fit check before anything else. The output is a 0-16 score across four dimensions:
 
@@ -91,9 +79,9 @@ Run the AI fit check before anything else. The output is a 0-16 score across fou
 
 ---
 
-## STEP 2 — GATE: FIRST-PRINCIPLES
+## Step 2 — gate: `rtp-first-principles`
 
-**Skill: `first-principles`**
+**Skill: `rtp-first-principles`**
 
 Strip the feature to its irreducible task. Vendor hype, competitor moves, "AI for everything" pressure — all out. What's the ONE atomic operation the user actually needs?
 
@@ -103,15 +91,11 @@ Classify the atomic operation: LOOKUP / TRANSFORM / CLASSIFY / GENERATE / DECIDE
 
 **Pass signal:** Atomic operation is non-trivial AND the input is genuinely unstructured. Continue.
 
-**STAGE 1 CHECKPOINT — stop here.** Write the Stage-1 summary (fit score, atomic operation, verdict: proceed / kill / deterministic path) and end the session. Stage 2 starts fresh with that summary as input. If the verdict is kill, you just saved a build at the cost of fifteen minutes.
-
 ---
 
-## STAGE 2 — SHAPE (one focused session: autonomy, architecture, experience)
+## Step 3 — gate: `rtp-autonomy-spectrum`
 
-## STEP 3 — GATE: AUTONOMY-SPECTRUM
-
-**Skill: `autonomy-spectrum`**
+**Skill: `rtp-autonomy-spectrum`**
 
 Place the feature on the 7-level spectrum:
 
@@ -139,9 +123,9 @@ If any of those four are missing, this is L3 max until they're built.
 
 ---
 
-## STEP 4 — GATE: DETERMINISM-COMPASS
+## Step 4 — gate: `rtp-determinism-compass`
 
-**Skill: `determinism-compass`**
+**Skill: `rtp-determinism-compass`**
 
 Position the feature on the probabilistic vs. deterministic axis. The failure mode this gate catches: **mixing them in one workflow.**
 
@@ -160,17 +144,11 @@ Three patterns:
 
 **Pass signal:** The workflow is one of the three patterns AND every probabilistic-to-deterministic handoff has a contract. Continue.
 
-**STAGE 2 CONTINUES with Step 8 (ai-ux-patterns) — run it now, before the checkpoint.** Autonomy, architecture, and experience are one design conversation; splitting UX into the build stage is how "the model works but users don't trust it" ships.
-
-**STAGE 2 CHECKPOINT — stop here.** Write the Stage-2 summary (autonomy level with its four controls, determinism pattern with handoff contracts, UX patterns with fallback design) and end the session. Stage 3 is the heavy one; it deserves a fresh session with full attention.
-
 ---
 
-## STAGE 3 — BUILD GATE (one deep session: prompt, evals, cost, safety, PRD)
+## Step 5 — gate: `rtp-prompt-craft`
 
-## STEP 5 — GATE: PROMPT-CRAFT
-
-**Skill: `prompt-craft`**
+**Skill: `rtp-prompt-craft`**
 
 Only runs if Step 4 said "probabilistic." Skip otherwise.
 
@@ -179,7 +157,7 @@ Design the prompt as a product artifact, not a string. Required elements:
 - Role and identity for the model
 - Context (what it knows about the user, the product, the moment)
 - Task (the atomic operation from Step 2)
-- Constraints (what it must NOT do)
+- Constraints, meaning what it must never do
 - Output format (JSON schema, structured tags, or strict freeform contract)
 - 2-3 few-shot examples covering the common case AND one edge case
 - Refusal language for inputs outside scope
@@ -192,9 +170,9 @@ Design the prompt as a product artifact, not a string. Required elements:
 
 ---
 
-## STEP 6 — GATE: EVAL-FRAMEWORK
+## Step 6 — gate: `rtp-eval-framework`
 
-**Skill: `eval-framework`**
+**Skill: `rtp-eval-framework`**
 
 Build the eval surface BEFORE the feature. Most teams build the feature first, then realize they can't measure quality. By then, you've shipped fragile.
 
@@ -217,9 +195,9 @@ Required outputs:
 
 ---
 
-## STEP 7 — GATE: COST-MODEL
+## Step 7 — gate: `rtp-cost-model`
 
-**Skill: `cost-model`**
+**Skill: `rtp-cost-model`**
 
 Model production economics before scaling. Required inputs: avg input/output tokens per call, model tier, retrieval cost (if RAG), daily volume at GA (not pilot), revenue or value per call.
 
@@ -233,9 +211,9 @@ Model production economics before scaling. Required inputs: avg input/output tok
 
 ---
 
-## STEP 8 — GATE: AI-UX-PATTERNS
+## Step 8 — gate: `rtp-ai-ux-patterns`
 
-**Skill: `ai-ux-patterns`**
+**Skill: `rtp-ai-ux-patterns`**
 
 How users experience probabilistic output. Most AI features fail here, not in the model. Required:
 
@@ -250,9 +228,9 @@ How users experience probabilistic output. Most AI features fail here, not in th
 
 ---
 
-## STEP 9 — GATE: SAFETY-BY-DESIGN
+## Step 9 — gate: `rtp-safety-by-design`
 
-**Skill: `safety-by-design`**
+**Skill: `rtp-safety-by-design`**
 
 Guardrails and human-in-the-loop. The autonomy level from Step 3 determines the depth of this gate.
 
@@ -274,9 +252,9 @@ Required outputs by autonomy level:
 
 ---
 
-## STEP 10 — PRODUCE: AI-PRD
+## Step 10 — produce with `rtp-ai-prd`
 
-**Skill: `ai-prd`**
+**Skill: `rtp-ai-prd`**
 
 If all gates passed, assemble the AI-PRD. The PM doesn't rewrite — Steps 1-9 already produced the inputs. The PRD includes: problem and AI justification (Steps 1-2), autonomy level (Step 3), determinism architecture (Step 4), prompt spec with version and golden examples (Step 5), eval framework with acceptance criteria (Step 6), unit economics and cost ceiling (Step 7), UX patterns and fallback design (Step 8), safety controls and kill-switch design (Step 9), improvement flywheel, ship decision criteria.
 
@@ -284,7 +262,7 @@ For the lighter PRD-only motion, use `/ai-prd-flow`.
 
 ---
 
-## OUTPUT FORMAT — ONE-PAGE DECISION SUMMARY
+## Output format — one-page decision summary
 
 After all gates run, produce this single page. The PRD is the appendix.
 
@@ -313,22 +291,22 @@ If PIVOT: Specific changes that would unblock. Next step: re-run gates [list].
 
 ---
 
-## THE FAST PATH (Internal, Low-Stakes Features Only)
+## The fast path (internal, Low-Stakes features only)
 
 Triggers: feature is internal-only, low-stakes, expected volume <100/day, autonomy L1-L2 only.
 
 Fast path skips:
-- Step 7 (cost-model) — capture per-call ceiling and daily ceiling, no full model
-- Step 9 (safety-by-design) — capture refusal language, logging, escalation contact
+- Step 7 (rtp-cost-model) — capture per-call ceiling and daily ceiling, no full model
+- Step 9 (rtp-safety-by-design) — capture refusal language, logging, escalation contact
 
 Fast path keeps:
-- All other gates (problem-ai-fit, first-principles, autonomy-spectrum, determinism-compass, prompt-craft, eval-framework, ai-ux-patterns)
+- All other gates (rtp-problem-ai-fit, rtp-first-principles, rtp-autonomy-spectrum, rtp-determinism-compass, rtp-prompt-craft, rtp-eval-framework, rtp-ai-ux-patterns)
 
 Fast path output: same one-page summary, with cost and safety as "fast path" notes.
 
 ---
 
-## QUALITY BAR
+## Quality bar
 
 A real `/design-ai-feature` run produces:
 
@@ -343,9 +321,13 @@ A real `/design-ai-feature` run produces:
 
 ---
 
-## CROSS-REFERENCES
+## Cross-references
 
 - **Universal Skill Protocol:** `2_Skills/ai-pm-skills/UNIVERSAL-SKILL-PROTOCOL.md`
 - **Orchestrator deep reference:** `2_Skills/ai-pm-skills/rtp-orchestrator/SKILL.md`
 - **Related workflows:** `/ai-prd-flow` (lighter), `/plan-launch` (post-build), `/retro` (post-ship)
 - **Fits into:** Phase 1-3 of the canonical 12-day cycle in `workflows/new-ai-feature.md`
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.

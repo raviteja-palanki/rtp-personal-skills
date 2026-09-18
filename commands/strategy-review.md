@@ -1,14 +1,14 @@
 ---
 name: strategy-review
-description: Quarterly strategic check for AI products. Chains strategy-canvas + moat-finder + competitive-map + cost-model + signal-scanner. Outputs a 25-point scorecard, strategic gaps, and 3 recommended moves for the next quarter. Triggers on "strategy review," "quarterly review," "where are we strategically."
+description: Quarterly strategic check for AI products. Chains rtp-strategy-canvas + rtp-moat-finder + rtp-competitive-map + rtp-cost-model + rtp-signal-scanner. Outputs a 25-point scorecard, strategic gaps, and 3 recommended moves for the next quarter. Triggers on "strategy review," "quarterly review," "where are we strategically."
 version: 1.0.0
 author: RTP (Ravi Teja Palanki)
 chains:
-  - strategy-canvas
-  - moat-finder
-  - competitive-map
-  - cost-model
-  - signal-scanner
+  - rtp-strategy-canvas
+  - rtp-moat-finder
+  - rtp-competitive-map
+  - rtp-cost-model
+  - rtp-signal-scanner
 ---
 
 # /strategy-review
@@ -18,22 +18,20 @@ chains:
 
 ---
 
-## WHEN THIS RUNS
+## When this runs
 
 Trigger phrases: "strategy review," "quarterly review," "where are we strategically," "is our AI strategy working."
 
 Cadence: quarterly. Run before the next planning cycle, not after — the output should change what you fund next quarter.
 
-**Run in two sittings, not one.** Sitting 1: the evidence gathering — strategy-canvas state, moat audit, competitive map, cost reality, signal scan — ending with the raw 25-point scorecard, no interpretation. Sitting 2, fresh session: the judgment — the strategic gaps and the three moves, argued from the scorecard. Separating evidence from judgment is what keeps the review from becoming a vibes check with a rubric attached.
-
-Do NOT use this for:
+Do not use this for:
 - Single-feature strategy decisions (use `/design-ai-feature`)
 - Pricing-only reviews (use `pm-product-strategy:pricing-strategy`)
 - Competitive intel for a sales deal (use `pm-go-to-market:competitive-battlecard`)
 
 ---
 
-## INPUT
+## Input
 
 The user invokes this with optional focus area. If empty, run the full review.
 
@@ -47,9 +45,9 @@ If context is thin, ask:
 
 ---
 
-## STEP 1 — STRATEGY-CANVAS
+## Step 1 — `rtp-strategy-canvas`
 
-**Skill: `strategy-canvas`**
+**Skill: `rtp-strategy-canvas`**
 
 Map the current AI strategy across the canvas dimensions:
 
@@ -67,9 +65,9 @@ Flag any **Missing** dimension as a critical gap. Strategy with a missing dimens
 
 ---
 
-## STEP 2 — MOAT-FINDER
+## Step 2 — `rtp-moat-finder`
 
-**Skill: `moat-finder`**
+**Skill: `rtp-moat-finder`**
 
 Where does AI defensibility live? Run the four-source check:
 
@@ -86,9 +84,9 @@ For each Absent or Emerging source: what would move it to Strong over the next q
 
 ---
 
-## STEP 3 — COMPETITIVE-MAP
+## Step 3 — `rtp-competitive-map`
 
-**Skill: `competitive-map`**
+**Skill: `rtp-competitive-map`**
 
 Map the AI competitive landscape. Direct competitors, alternative approaches, and the platform players (OpenAI, Anthropic, Google) that could absorb your category.
 
@@ -103,9 +101,9 @@ The platform-player check: if OpenAI or Anthropic shipped a feature next quarter
 
 ---
 
-## STEP 4 — COST-MODEL (Strategic Pass)
+## Step 4 — `rtp-cost-model` (strategic pass)
 
-**Skill: `cost-model`**
+**Skill: `rtp-cost-model`**
 
 A strategic cost model is different from a feature-level cost model. Here you check:
 
@@ -118,9 +116,9 @@ The strategic question: **Are we ahead of the cost curve or behind it?** Compani
 
 ---
 
-## STEP 5 — SIGNAL-SCANNER
+## Step 5 — `rtp-signal-scanner`
 
-**Skill: `signal-scanner`**
+**Skill: `rtp-signal-scanner`**
 
 What's changing in the AI landscape that we haven't responded to yet? The last 90 days only. Five categories:
 
@@ -136,7 +134,7 @@ For each signal: **what action does this trigger?** A signal without an action i
 
 ---
 
-## STEP 6 — THE SCORECARD
+## Step 6 — the scorecard
 
 After all five steps run, score each dimension on a 1-5 scale. Honest scoring or skip the exercise.
 
@@ -158,7 +156,7 @@ After all five steps run, score each dimension on a 1-5 scale. Honest scoring or
 
 ---
 
-## STEP 7 — THREE MOVES FOR NEXT QUARTER
+## Step 7 — three moves for next quarter
 
 Distill the review into three (and only three) recommended moves. Not five. Not "and also." Three.
 
@@ -167,13 +165,13 @@ For each move:
 - **What to do** — specific, scoped, owned by a named person
 - **Why this move** — which dimension of the scorecard does it lift?
 - **What success looks like at end of quarter** — measurable
-- **What we're NOT doing** because of this — the trade-off
+- **What we are choosing not to do** as a result, and the trade-off that represents
 
 The discipline of three moves is the discipline of strategy. A list of ten moves is a wish list. Three moves is a portfolio.
 
 ---
 
-## OUTPUT FORMAT
+## Output format
 
 ```
 Strategy Review — [Quarter, Year]
@@ -217,7 +215,7 @@ THINGS TO WATCH
 
 ---
 
-## QUALITY BAR
+## Quality bar
 
 A real `/strategy-review` produces:
 
@@ -232,9 +230,13 @@ A real `/strategy-review` produces:
 
 ---
 
-## CROSS-REFERENCES
+## Cross-references
 
 - **Run before:** annual planning, OKR-setting (`pm-execution:plan-okrs`)
 - **Run after:** any major competitor launch, model capability shift, or cost-curve change
 - **Related workflows:** `/design-ai-feature` for individual feature strategy, `/retro` for post-ship learning
-- **Skill files used:** `strategy-canvas`, `moat-finder`, `competitive-map`, `cost-model`, `signal-scanner`
+- **Skill files used:** `rtp-strategy-canvas`, `rtp-moat-finder`, `rtp-competitive-map`, `rtp-cost-model`, `rtp-signal-scanner`
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.

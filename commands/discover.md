@@ -18,7 +18,7 @@ Take a rough problem area or feature idea and run it through the discovery chain
 - A quarterly planning cycle is starting and the team needs a structured way to choose between candidate directions
 - A stakeholder said "we should use AI for X" and the PM needs to either confirm the problem-AI fit or push back
 
-## When NOT to use
+## When not to use
 
 - The work is clearly scoped (regulatory deliverable, contract obligation, known bug fix)
 - The team is in execution mode on a single committed direction — discovery work is overhead
@@ -39,13 +39,13 @@ If the input is empty, ask: "What problem area, user struggle, or rough idea do 
 This workflow chains five skills. Each output feeds the next.
 
 ```
-problem-ai-fit  →  jtbd-analysis  →  opportunity-solution-tree  →  assumption mapping  →  experiment plan
+rtp-problem-ai-fit  →  rtp-jtbd-analysis  →  rtp-opportunity-solution-tree  →  assumption mapping  →  experiment plan
    (Step 1)         (Step 2)              (Step 3)                  (Step 4)              (Step 5)
 ```
 
-### Step 1 — Problem-AI Fit
+### Step 1 — problem and AI fit
 
-Run `problem-ai-fit`. Establish:
+Run `rtp-problem-ai-fit`. Establish:
 - WHO the customer actually is (segment, not "users")
 - WHAT problem they have in their words
 - HOW they solve it today (the real competitor)
@@ -59,9 +59,9 @@ If the recommendation is "Build with rules," the rest of the workflow doesn't ne
 
 If the recommendation is "Build with AI" or "Build hybrid," continue.
 
-### Step 2 — JTBD Analysis
+### Step 2 — JTBD analysis
 
-Run `jtbd-analysis`. Decipher:
+Run `rtp-jtbd-analysis`. Decipher:
 - The surface job (what the user says they want)
 - The hidden job (what they're actually hiring AI to do — emotional, social, cognitive)
 - The four forces (push, pull, anxiety, habit)
@@ -71,9 +71,9 @@ Run `jtbd-analysis`. Decipher:
 
 If the four-forces analysis shows that anxiety + habit > push + pull, flag this. The problem may be real but the solution won't be adopted. The workflow continues, but the assumption map will need to address adoption fragility explicitly.
 
-### Step 3 — Opportunity-Solution Tree
+### Step 3 — opportunity-solution tree
 
-Run `opportunity-solution-tree`. Build:
+Run `rtp-opportunity-solution-tree`. Build:
 - Desired outcome (sourced from problem-AI fit and JTBD analysis)
 - 3-7 opportunities (user struggles in user voice)
 - 2-4 solutions per opportunity
@@ -82,11 +82,11 @@ Run `opportunity-solution-tree`. Build:
 
 **Output of this step:** a ranked tree with explicit "no" list (opportunities considered and rejected, with reasons).
 
-If the tree has zero "Probabilistic+Evals" entries, the recommendation might be to NOT make this an AI investment — the work is mostly deterministic. Honor that — don't force AI labels.
+If the tree has zero "Probabilistic+Evals" entries, the recommendation may be to leave this alone as an AI investment, because the work is mostly deterministic. Honor that answer rather than forcing an AI label onto it.
 
-### Step 4 — Assumption Mapping
+### Step 4 — assumption mapping
 
-For the top 1-2 opportunities, surface every assumption embedded in the framing. Use the format from `problem-ai-fit` Step 4:
+For the top 1-2 opportunities, surface every assumption embedded in the framing. Use the format from `rtp-problem-ai-fit` Step 4:
 
 | Assumption | Evidence Level | Load-Bearing? | How to Test |
 |---|---|---|---|
@@ -94,11 +94,11 @@ For the top 1-2 opportunities, surface every assumption embedded in the framing.
 
 Sort by: Unknown + Load-bearing first. These are what kill the project if untested.
 
-Pull in `uncertainty-research` here for the test design — the right research method depends on the assumption type (desirability vs feasibility vs viability).
+Pull in `rtp-uncertainty-research` here for the test design — the right research method depends on the assumption type (desirability vs feasibility vs viability).
 
 **Output of this step:** an assumption table with at least 5 assumptions per top opportunity, sorted by risk.
 
-### Step 5 — Experiment Plan
+### Step 5 — experiment plan
 
 For the top 2-3 riskiest assumptions, design the cheapest test that would prove or disprove them.
 
@@ -123,20 +123,20 @@ Compile the five outputs into one document:
 ## Executive summary
 [3-5 sentences. The recommendation, the hidden job, the top opportunity, the riskiest assumption, the next experiment.]
 
-## Problem-AI Fit
+## problem and AI fit
 - Customer: [segment]
 - Problem: [in user words]
 - Current solution: [the real competitor]
 - Recommendation: [Build with AI / rules / hybrid / don't build / gather evidence]
 - Hypothesis: [if true / if false / damage if wrong]
 
-## JTBD Analysis
+## JTBD analysis
 - Surface job: [statement]
 - Hidden job: [statement]
 - Four forces: [push / pull / anxiety / habit summary]
 - Design implication: [paragraph]
 
-## Opportunity-Solution Tree
+## opportunity-solution tree
 - Desired outcome: [sentence]
 - Top 3 opportunities (ranked):
   1. [opportunity] — [score, top solution, AI-feasibility]
@@ -144,10 +144,10 @@ Compile the five outputs into one document:
   3. ...
 - Said no to: [opportunities considered and rejected, with reasons]
 
-## Assumption Map
+## Assumption map
 [Table — 5+ assumptions for top opportunity, sorted by Unknown + Load-bearing first]
 
-## Experiment Plan
+## Experiment plan
 1. [Experiment 1] — testing [assumption] via [method] in [timeline]
 2. [Experiment 2] — ...
 3. [Experiment 3] — ...
@@ -178,3 +178,7 @@ Before closing the discovery cycle:
 2. State the riskiest assumption in one sentence
 3. State the next experiment in one sentence
 4. Ask: "Are we discovering, or are we rationalizing a pre-decided direction?" If the latter, restart at Step 1 with a different framing.
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.

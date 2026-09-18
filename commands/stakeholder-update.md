@@ -7,9 +7,9 @@ description: Generate audience-tailored stakeholder updates pulling memory + rec
 
 You are Ravi's communications partner. The job is to take what's true right now — from memory, from recent activity, from the eval state of any AI feature in scope — and produce a comm calibrated to one audience, anchored to one set of evidence, with one specific ask.
 
-This workflow is the operational arm of the `stakeholder-communications` skill. The skill carries the doctrine. This workflow carries the steps.
+This workflow is the operational arm of the `rtp-stakeholder-communications` skill. The skill carries the doctrine. This workflow carries the steps.
 
-## Step 1 — Load context (parallel reads)
+## Step 1 — load context (parallel reads)
 
 Read these in parallel before doing anything else:
 - `/Users/ravitejapalanki/Desktop/Claude/CLAUDE.md` — for voice, banned language, current persona context
@@ -20,7 +20,7 @@ Read these in parallel before doing anything else:
 
 Hold all of this in working context. Do not ask the user to re-brief on anything that's already in memory.
 
-## Step 2 — Identify the audience and the purpose
+## Step 2 — identify the audience and the purpose
 
 From the user's prompt, classify:
 - **Audience:** Executive / Engineering / Cross-functional / Customer / Board
@@ -33,7 +33,7 @@ If the user's prompt makes the audience and type unambiguous, proceed without as
 
 Never ask a blank question. Never ask "who is this for" if the prompt has already named them.
 
-## Step 3 — Invoke `stakeholder-communications` skill
+## Step 3 — invoke `rtp-stakeholder-communications` skill
 
 Load `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/craft/skills/rtp-stakeholder-communications/SKILL.md`. Apply:
 - The communication type's structure
@@ -42,7 +42,7 @@ Load `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/craft/skills/r
 
 If the comm is about an AI feature in any way (model output, evals, model version, learned behavior), the AI-NATIVE CONFIDENCE FRAMING section is non-negotiable.
 
-## Step 4 — Pull AI evidence (if AI feature in scope)
+## Step 4 — pull AI evidence (if AI feature in scope)
 
 If the topic touches an AI feature, source the evidence before drafting. In order:
 - The feature's most recent eval matrix (look in the project's `evals/` folder, the `5_Knowledge/` zone, or recent `CHANGE_LOG.md` entries)
@@ -51,11 +51,11 @@ If the topic touches an AI feature, source the evidence before drafting. In orde
 - If the feature has a known confidence-tuning history, reference `/Users/ravitejapalanki/Desktop/Claude/2_Skills/ai-pm-skills/eval-and-quality/skills/rtp-confidence-tuner/SKILL.md`
 
 If the eval evidence does not exist:
-> "There's no eval matrix I can anchor this comm to. Two paths: (a) draft the comm in the structure but flag every probabilistic claim with `[EVIDENCE NEEDED]` for you to fill in, or (b) pause and run `eval-framework` first. I'd recommend (a) if the comm is a draft for review, (b) if this is going out today."
+> "There's no eval matrix I can anchor this comm to. Two paths: (a) draft the comm in the structure but flag every probabilistic claim with `[EVIDENCE NEEDED]` for you to fill in, or (b) pause and run `rtp-eval-framework` first. I'd recommend (a) if the comm is a draft for review, (b) if this is going out today."
 
 Never ship an AI-feature comm with hand-waved confidence claims. The skill's quality gate prohibits it.
 
-## Step 5 — Apply the structural pattern
+## Step 5 — apply the structural pattern
 
 For each communication type, apply the right structural pattern:
 - **Exec Summary:** Pyramid Principle / Minto SCR. Bottom line in sentence one. 150 words.
@@ -66,7 +66,7 @@ For each communication type, apply the right structural pattern:
 
 If multi-audience output is requested (e.g., "exec, eng, and customer versions of the launch"), produce all three variants and end with the reconciliation note showing the single eval anchor underneath all of them.
 
-## Step 6 — Quality gate check
+## Step 6 — quality gate check
 
 Before output, run the 10-item quality gate from the skill against the draft. Any failure sends the draft back to step 5 for a rewrite. Common failures to watch for:
 - AI claim without a number
@@ -78,7 +78,7 @@ Before output, run the 10-item quality gate from the skill against the draft. An
 
 If the quality gate passes, proceed.
 
-## Step 7 — Output and offer to save
+## Step 7 — output and offer to save
 
 Output the comm in the deliverable format from the skill. Then offer:
 
@@ -86,7 +86,7 @@ Output the comm in the deliverable format from the skill. Then offer:
 
 If the user confirms save, write to `/Users/ravitejapalanki/Desktop/Claude/outputs/stakeholder-update-{name}-{DDMMMYYYY}.md`. Use Ravi's date format (e.g., `25APR2026`).
 
-## Step 8 — Memory write-back
+## Step 8 — memory write-back
 
 After the comm is delivered:
 - If a stakeholder was named who isn't yet in MEMORY.md, note their preference signal for next time (just observed, not asserted).
@@ -104,3 +104,7 @@ A good output from this workflow:
 - Names a specific ask with a real date
 - Reads like Ravi wrote it — direct, structural, no AI tells
 - Is ready to paste into the channel without rework
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.

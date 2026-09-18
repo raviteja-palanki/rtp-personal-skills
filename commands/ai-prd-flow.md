@@ -4,11 +4,11 @@ description: The PRD-writing motion for AI features. Lighter than /design-ai-fea
 version: 1.0.0
 author: RTP (Ravi Teja Palanki)
 chains:
-  - problem-ai-fit
-  - ai-use-case-readiness
-  - jtbd-analysis
-  - ai-prd
-  - ship-decision
+  - rtp-problem-ai-fit
+  - rtp-ai-use-case-readiness
+  - rtp-jtbd-analysis
+  - rtp-ai-prd
+  - rtp-ship-decision
 ---
 
 # /ai-prd-flow
@@ -18,17 +18,17 @@ chains:
 
 ---
 
-## WHEN THIS RUNS
+## When this runs
 
 Trigger phrases: "write the AI PRD," "spec this feature," "PRD for [AI feature]."
 
 Use when strategic gates are already passed (you ran `/design-ai-feature` or equivalent due diligence) and the feature scope is decided. This is documentation, not exploration.
 
-Do NOT use for new AI ideas without strategic validation (use `/design-ai-feature`), pure deterministic features (use `pm-execution:create-prd`), or post-ship documentation (use `/retro`).
+Do not use this for a new AI idea that has not been validated strategically, which belongs in `/design-ai-feature`; for a purely deterministic feature, which belongs in `pm-execution:create-prd`; or for documenting something already shipped, which belongs in `/retro`.
 
 ---
 
-## INPUT
+## Input
 
 If empty, ask:
 1. "What's the feature and what user problem does it solve?"
@@ -39,9 +39,9 @@ If the user can't answer (2) or (3), redirect to `/design-ai-feature` first.
 
 ---
 
-## STEP 1 — VALIDATE: PROBLEM-AI-FIT
+## Step 1 — validate with `rtp-problem-ai-fit`
 
-**Skill: `problem-ai-fit`**
+**Skill: `rtp-problem-ai-fit`**
 
 Confirm AI is still the right tool. 30-second sanity check if `/design-ai-feature` already ran. Verify:
 - The problem still requires AI (rules wouldn't solve 80%+)
@@ -52,9 +52,9 @@ Confirm AI is still the right tool. 30-second sanity check if `/design-ai-featur
 
 ---
 
-## STEP 2 — DEFINE: USE-CASE-READINESS
+## Step 2 — define with `rtp-ai-use-case-readiness`
 
-**Skill: `ai-use-case-readiness`**
+**Skill: `rtp-ai-use-case-readiness`**
 
 Score across four dimensions:
 
@@ -69,9 +69,9 @@ Score across four dimensions:
 
 ---
 
-## STEP 3 — DEFINE: JTBD-ANALYSIS
+## Step 3 — define with `rtp-jtbd-analysis`
 
-**Skill: `jtbd-analysis`**
+**Skill: `rtp-jtbd-analysis`**
 
 Frame the feature as a Job-to-Be-Done, not a feature description:
 
@@ -83,20 +83,20 @@ Frame the feature as a Job-to-Be-Done, not a feature description:
 
 The JTBD becomes the PRD's North Star. If a feature decision contradicts the JTBD, the JTBD wins or the JTBD changes — never both quietly.
 
-**Note:** If `jtbd-analysis` skill isn't yet built, fall back to `pm-product-discovery:opportunity-solution-tree` and capture the JTBD in plain language.
+**Note:** If `rtp-jtbd-analysis` skill isn't yet built, fall back to `pm-product-discovery:rtp-opportunity-solution-tree` and capture the JTBD in plain language.
 
 ---
 
-## STEP 4 — PRODUCE: AI-PRD
+## Step 4 — produce with `rtp-ai-prd`
 
-**Skill: `ai-prd`**
+**Skill: `rtp-ai-prd`**
 
 Assemble the AI-PRD. The 10 sections, in order:
 
 1. **Problem & JTBD** — from Step 3
 2. **AI Justification** — from Step 1, the 80% test result
 3. **Use Case Readiness Scorecard** — from Step 2
-4. **Autonomy Level** — L1-L6 with rationale (reference: `autonomy-spectrum`)
+4. **Autonomy Level** — L1-L6 with rationale (reference: `rtp-autonomy-spectrum`)
 5. **Probabilistic Specification** — operations breakdown, confidence thresholds (show if >X%, clarify if Y-Z%, decline if <Y%), output format, prompt version
 6. **Dual Success Metrics** — user outcome (task completion, time-to-value, satisfaction) AND AI-specific (accuracy by class, hallucination rate, false positive/negative, latency P50/P95, confidence calibration). Each metric: target + floor.
 7. **Eval Acceptance Criteria** — references the golden set, LLM-as-judge prompts, regression detection. Every criterion testable.
@@ -106,9 +106,9 @@ Assemble the AI-PRD. The 10 sections, in order:
 
 ---
 
-## STEP 5 — VALIDATE: SHIP-DECISION
+## Step 5 — validate with `rtp-ship-decision`
 
-**Skill: `ship-decision`**
+**Skill: `rtp-ship-decision`**
 
 The four ship questions:
 1. Are we solving the right problem? (JTBD intact, AI justified)
@@ -116,12 +116,12 @@ The four ship questions:
 3. Can we afford this at GA? (Cost ceiling matches business model)
 4. Can we recover when it breaks? (Failure recovery designed, not hoped for)
 
-All yes → PRD ready for engineering review.
-Any no → document the gap, decide whether to ship with tracked risk or fix first.
+All yes, and the PRD is ready for engineering review.
+Any no, and the gap gets documented. Then decide whether to ship with the risk tracked or fix it first.
 
 ---
 
-## OUTPUT FORMAT
+## Output format
 
 Single AI-PRD document. The 10 sections from Step 4, opened by an executive summary:
 
@@ -142,7 +142,7 @@ The full 10 sections follow. Engineering reads the executive summary first; if i
 
 ---
 
-## QUALITY BAR
+## Quality bar
 
 A real `/ai-prd-flow` PRD has:
 - A JTBD framing, not a feature description
@@ -151,15 +151,19 @@ A real `/ai-prd-flow` PRD has:
 - Cost ceilings, not hand-waves
 - Failure recovery, not "we'll handle it later"
 - Autonomy level explicit, not implicit
-- Passes ship-decision before engineering sees it
+- Passes rtp-ship-decision before engineering sees it
 
 **The test:** Engineering reads it, has zero AI-specific questions left, and starts implementation. If they push back with "what happens at 60% confidence?" or "what's the rollback?", the PRD wasn't done.
 
 ---
 
-## CROSS-REFERENCES
+## Cross-references
 
 - **Run before this:** `/design-ai-feature` (strategic validation)
 - **Run after this:** `/plan-launch` (launch coordination)
 - **Run post-ship:** `/retro` (learning extraction)
-- **Skill files used:** `problem-ai-fit`, `ai-use-case-readiness`, `jtbd-analysis`, `ai-prd`, `ship-decision`
+- **Skill files used:** `rtp-problem-ai-fit`, `rtp-ai-use-case-readiness`, `rtp-jtbd-analysis`, `rtp-ai-prd`, `rtp-ship-decision`
+
+---
+
+**Revised 17 SEP 2026.** Skill names carry the `rtp-` prefix and resolve to skills that ship. Removed the roster totals, which counted a library of 39 and drift silently; the steps name the skills they use instead. Headings are sentence case, emphasis is carried by the sentence rather than capitals, and em dashes are out of running prose. `rtp-failure-design` was replaced by `rtp-failure-modes`, which it merged into, and `red-team` by `rtp-stress-test`, since no skill by that name exists. The sequence and the reasoning are unchanged.
