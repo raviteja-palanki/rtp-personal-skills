@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "The product judgment Ravi Teja Palanki uses to ship AI, written down and version controlled. 90 skills (an always-on orchestrator, 67 AI PM skills across 7 specialist layers, 22 general-purpose) and 11 slash commands. AI product management is where the depth sits; the same discipline works on any question. Check the evidence first, say so when the direction is wrong, and end with the action rather than the summary.",
-    "version": "2.7.7"
+    "version": "2.7.8"
   },
   "plugins": [
     {
       "name": "rtp-personal-skills",
       "source": "./",
       "description": "The complete library: rtp-aipm-orchestrator, always on, plus 67 AI PM skills across 7 specialist layers (thinking-core, product-sense, ai-strategy, safety-and-trust, agent-design, eval-and-quality, craft), 22 general-purpose skills, and 11 slash commands including /rtp-setup.",
-      "version": "2.7.7",
+      "version": "2.7.8",
       "author": {
         "name": "Ravi Teja Palanki (RTP)"
       },
