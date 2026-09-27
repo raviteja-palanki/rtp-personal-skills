@@ -1,5 +1,5 @@
 ---
-name: rtp-adoption-launch
+name: adoption-launch
 version: v1.10.2_latest
 description: 'Plan and improve AI adoption as an ongoing product launch: choose a useful starting cohort, involve the people doing the work, fund support, and measure sustained task outcomes. Use before rollout, when use stalls, or when access and activity look healthy but value is unclear. Diagnose product fit, skills, workflow, incentives, trust, and capacity before choosing an intervention. Use Surge, Dip, and Rebound as planning scenarios rather than a universal calendar. Include managers, expert users, meaningful participation, the destination of savings, and safe agent permissions. Pairs with needs-guard, attitudinal-segmentation, agent-risk, purpose-dialogue, judgment-guard, autonomy-spectrum, uncertainty-research, and feedback-triage. Triggers: AI rollout, adoption plan, stalled usage, change management, champions program.'
 imports: [first-principles, needs-guard]

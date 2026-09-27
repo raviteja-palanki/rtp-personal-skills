@@ -1,6 +1,6 @@
 ---
 name: feedback-flywheel
-version: v1.4.1_latest
+version: v1.4.2_latest
 description: 'Turn user feedback into verified product improvements through a clear path from capture to review, evaluation, experiment, and release. Use when designing a feedback loop, finding why collected feedback changes nothing, or preparing a loop before launch. Include corrections, exceptional successes, and unexpected uses. Distinguish behavior from a reliable label, speed from improvement, and useful learning from a defensible moat. Scale the process to volume, consequence, and available data rights; a manual loop can be appropriate. Pairs with eval-framework and eval-driven-development for testing, ai-product-metrics for measurement, moat-finder for defensibility, and gossip-mode for informal signals. Triggers: feedback loop, data flywheel, user corrections, annotation bottleneck.'
 imports: [first-principles, stress-test]
 ---
@@ -33,12 +33,6 @@ Design capture around a question you can act on, with an owner and proportionate
 | **Repurposing** | Users succeeding at an intent or workflow the product did not anticipate | Every outlier is a new market, or intuition should override contrary evidence |
 
 Capture implicit signals where they are informative and permitted: edit direction and extent, regeneration sequences, time before reuse, and escalation context. Offer lightweight explicit feedback—such as a rating with optional tone, accuracy, completeness, or relevance categories—when it helps interpretation. There is no universal requirement that 80% of signals be implicit.
-
-**Negative signals are more decision-relevant than positive signals.** Positive feedback confirms what you already believe. Negative feedback points to real gaps. When triaging signals, weight negative feedback higher: a single "this doesn't work" from a real user is more informative than ten "this is great" from satisfied users.
-
-**The attribution problem.** When you observe an outcome change, can you attribute it to your product change vs. external factors (seasonality, market changes, concurrent experiments, competitor moves)? Before claiming causality, ask: "What else changed at the same time?" Design experiments to isolate your change effect.
-
-**Feedback from non-users matters as much as feedback from users.** Understanding why people DON'T use the product is as important as understanding why they do. Systematically collect non-user feedback: (1) trial users who didn't convert; (2) prospects who evaluated and rejected; (3) former users who churned. Non-user feedback reveals the barriers you can't see from inside the product.
 
 An expert-validated correction often conveys more than a bare rating. Its value still depends on competence, task, and context. A full rewrite may change style rather than fix errors; no edit may mean satisfaction, uncritical acceptance, or abandonment elsewhere. A human resolution becomes a reference only after checking its quality. Do not assign fixed reliability percentages to these behaviors.
 
@@ -82,6 +76,10 @@ A model’s stated confidence, a high edit distance, or “deleted everything”
 
 Find the actual bottleneck: access, deduplication, interpretation, expert availability, evaluation, engineering, release, or outcome measurement. Track eligible demand, useful throughput, unresolved high-priority items, and age at each stage. A growing queue does not by itself prove annotation is the problem. Nor should every collected event be labeled: duplicates, irrelevant events, and intentionally sampled traffic can make a low processing percentage sensible.
 
+**The decision-change gate.** Not every feedback item warrants the same speed of response. Apply the decision-change gate: "Will acting on this feedback change a consequential decision?" If yes → fast loop. If no → archive or aggregate. Fast-moving feedback loops create compounding advantage when they serve high-quality decisions. Slow, noisy loops are worse than no loop at all. Measure loop velocity separately for high-consequence items vs. low-consequence items.
+
+**What you measure accelerates.** The metrics in your feedback loop shape what the product improves. If you only measure speed, you will optimize for speed and miss quality. If you only measure accuracy, you will miss usability. Choose measures that cover the full consequence set: accuracy, safety, agency, trust, and the speed of useful correction.
+
 ### Before real users exist
 
 Start with representative tasks, domain examples, and reviewed synthetic cases. Have qualified people assess or correct outputs using explicit criteria. Keep synthetic provenance visible and test later against actual usage. Simulated accept/reject events can exercise instrumentation; they cannot establish what users value or supply ground truth merely because the simulation labels them “pass” and “fail.”
@@ -118,8 +116,6 @@ Protect each transition:
 - **Test before claiming gain.** Reproduce the failure before the fix, apply the change, then retain a regression test. Verify the main outcome and relevant quality, safety, cost, and latency effects.
 - **Measure impact credibly.** Use a randomized experiment when feasible and suitable. Otherwise state the comparison design, confounders, sample limits, and what causal claim it supports. An offline score increase is not automatically a user benefit.
 
-**The decision-change gate.** Feedback is only valuable if it changes a decision. After each signal is processed through the loop, ask: "Did this signal change what we’re doing? If not, why not?" Signals that don’t change decisions are noise, not feedback. The five-stage handoff should close with an explicit decision record: "This signal caused us to change X / This signal confirmed our current direction / This signal was noted but insufficient to change Y."
-
 ## 4. Measure closure and choose useful automation
 
 Keep a small set of measures tied to the decision:
@@ -143,8 +139,6 @@ Use the five maturity labels descriptively:
 | **L5 — Bounded automatic adaptation** | Some updates run within explicit authority and verified controls | Monitor degradation, containment, and whether automation still earns its cost |
 
 L2 or L3 can be the right end state. L5 does not require unrestricted online learning, and a level does not establish safety or defensibility. Reference-set sizes, staffing, processing percentages, and cycle times depend on the workload. See [examples and calculations](references/evidence-and-examples.md) for the original illustrative values and their limits.
-
-**Loop velocity as strategic asset.** The speed of the feedback loop matters more than its volume. A team that learns from feedback in 3 days beats a team that collects 10x more feedback but takes 30 days to act. Design for speed: reduce handoff friction, pre-commit decision points, automate signal extraction. Loop velocity is a competitive advantage.
 
 ## 5. Test the advantage separately
 

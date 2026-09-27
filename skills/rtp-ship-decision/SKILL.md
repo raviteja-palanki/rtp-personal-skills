@@ -1,6 +1,6 @@
 ---
 name: ship-decision
-version: v1.2.1_latest
+version: v1.2.2_latest
 description: 'Make an evidence-based go/no-go decision for an AI feature at the proposed launch scope. Use before a pilot, production release, material capability change, or expansion. Review seven areas: safety and authority, reliability, economics, observability, user understanding, graceful degradation, and accountable release approval. Define task-specific constraints and thresholds before evaluating; distinguish observed error rates from what the sample can establish. Include proportionate regression checks, staged exposure, tested recovery, and a day-one review with ten monitoring areas. Compare launch, narrower launch, delay, and stop, including the cost of inaction. Recognize evidence-based decisions to end failing work without rewarding arbitrary cancellations. Internal, experimental, or pre-PMF status changes review depth but does not remove consequential risks. Pairs with eval-framework, stress-test, safety-as-moat, failure-modes, cost-model, agent-risk, and prompt-as-product.'
 imports: [stress-test, safety-as-moat, failure-modes, cost-model]
 ---

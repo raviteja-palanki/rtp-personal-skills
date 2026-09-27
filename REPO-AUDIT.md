@@ -6,14 +6,14 @@
 > disagrees with what is actually on disk. Hand-maintained counts drift; this
 > one cannot.
 
-**Version:** `2.7.7`  ·  **Commit:** `887de56`  ·  **Generated:** 13 Sep 2026 16:56
+**Version:** `2.7.9`  ·  **Commit:** `c69a69f`  ·  **Generated:** 27 Sep 2026 09:20
 
 ## Totals
 
 | Metric | Count |
 |---|---:|
-| **Total tracked files** | **368** |
-| **Skills** (`SKILL.md`) | **90** |
+| **Total tracked files** | **366** |
+| **Skills** (`SKILL.md`) | **91** |
 | Supporting files inside `skills/` | 229 |
 | Slash commands | 11 |
 
@@ -23,20 +23,20 @@ The description claims a split; these are checked against the filesystem every r
 
 | Bucket | Claimed | Actual | |
 |---|---:|---:|:--:|
-| Total skills | 90 | 90 | ✔ |
-| AI-PM skills | 67 | 67 | ✔ |
-| General-purpose | 22 | 22 | ✔ |
+| Total skills | 91 | 91 | ✔ |
+| AI-PM skills | — | 67 | ❌ |
+| General-purpose | — | 23 | ❌ |
 | Slash commands | 11 | 11 | ✔ |
 | Orchestrator | 1 | 1 | ✔ |
 
-Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **2.7.7**.
+Version fields are locked in step: `plugin.json` = `marketplace.json` metadata = `marketplace.json` plugins[0] = **2.7.9**.
 
 ## Composition
 
 | Area | Files |
 |---|---:|
 | `skills` | 319 |
-| `diagrams` | 16 |
+| `diagrams` | 15 |
 | `commands` | 11 |
 | `workflows` | 6 |
 | `frameworks` | 4 |
@@ -49,7 +49,6 @@ Version fields are locked in step: `plugin.json` = `marketplace.json` metadata =
 | `README.md` | 1 |
 | `REPO-AUDIT.md` | 1 |
 | `UNIVERSAL-SKILL-PROTOCOL.md` | 1 |
-| `_archived-skills` | 1 |
 | `companion-plugins.json` | 1 |
 
 ## AI-PM layers (counted in `2_Skills/ai-pm-skills/`)
@@ -70,7 +69,7 @@ a redirect stub merged into `failure-modes` — intentionally excluded from the 
 
 ## Supporting files inside `skills/`
 
-90 skills carry 229 supporting files (2.5 per skill).
+91 skills carry 229 supporting files (2.5 per skill).
 
 | Type | Count |
 |---|---:|
@@ -96,7 +95,6 @@ These folders are renamed for plugin namespacing; content is identical to source
 | Version | Commit | Generated | Files | Skills | Commands |
 |---|---|---|---:|---:|---:|
 <!--HISTORY
-| 2.0.0 | 404b360 | 30 Aug 2026 16:07 | 252 | 88 | 11 |
 | 2.1.0 | 77e350e | 30 Aug 2026 18:26 | 252 | 88 | 11 |
 | 2.2.0 | c3802c4 | 31 Aug 2026 01:24 | 252 | 88 | 11 |
 | 2.3.0 | ac86e05 | 31 Aug 2026 04:43 | 252 | 88 | 11 |
@@ -111,8 +109,8 @@ These folders are renamed for plugin namespacing; content is identical to source
 | 2.7.5 | f3dbac4 | 13 Sep 2026 12:46 | 362 | 90 | 11 |
 | 2.7.6 | aa25904 | 13 Sep 2026 16:45 | 368 | 90 | 11 |
 | 2.7.7 | 887de56 | 13 Sep 2026 16:56 | 368 | 90 | 11 |
+| 2.7.9 | c69a69f | 27 Sep 2026 09:20 | 366 | 91 | 11 |
 HISTORY-->
-| 2.0.0 | 404b360 | 30 Aug 2026 16:07 | 252 | 88 | 11 |
 | 2.1.0 | 77e350e | 30 Aug 2026 18:26 | 252 | 88 | 11 |
 | 2.2.0 | c3802c4 | 31 Aug 2026 01:24 | 252 | 88 | 11 |
 | 2.3.0 | ac86e05 | 31 Aug 2026 04:43 | 252 | 88 | 11 |
@@ -127,3 +125,4 @@ HISTORY-->
 | 2.7.5 | f3dbac4 | 13 Sep 2026 12:46 | 362 | 90 | 11 |
 | 2.7.6 | aa25904 | 13 Sep 2026 16:45 | 368 | 90 | 11 |
 | 2.7.7 | 887de56 | 13 Sep 2026 16:56 | 368 | 90 | 11 |
+| 2.7.9 | c69a69f | 27 Sep 2026 09:20 | 366 | 91 | 11 |

@@ -1,5 +1,5 @@
 ---
-name: rtp-production-observability
+name: production-observability
 version: v1.2.1_latest
 description: 'Detect, investigate, and respond to AI degradation in production. Connect system health, task quality, user outcomes, and cost to traces, versioned configurations, and an accountable response. Design alerts without mistaking a proxy, a noisy score, or a missing span for proof of failure. Distinguish model, prompt, retrieval, memory, tool, and infrastructure problems; reconcile claimed actions with verified effects; and turn recurring failures into evaluation cases and discovery evidence. Examine human review and gaps between organizational reports and lived experience, with limits on proposed instruments. Use when shipping, debugging "it worked yesterday", designing alerts, or checking whether monitoring would detect an important failure. Pairs with eval-framework, confidence-tuner, invisible-stack, feedback-flywheel, and observability-stack. Triggers include "monitoring AI", "model drift", "quality regression", "traces", and "why did the agent fail".'
 imports:

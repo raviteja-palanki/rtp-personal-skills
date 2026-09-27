@@ -1,5 +1,5 @@
 ---
-name: rtp-breach-ready
+name: breach-ready
 version: v1.0.1_latest
 description: 'Prepare a system and its people to contain a security incident, maintain essential service where safe, and recover from trusted resources. Review five resilience dimensions: isolation, graceful degradation, manual or independent fallback, communication, and recovery. Use a realistic outage scenario, including a 48-hour exercise when relevant, to test dependencies, staffing, data integrity, backup restoration, and recovery objectives. Pair resilience with prevention; neither guarantees that every incident is avoided or quickly resolved. Use for sensitive-data systems, services with material downtime consequences, continuity planning, and post-incident reviews. Scale the effort for low-impact experiments while checking their access and dependencies. Triggers include "breach readiness", "ransomware recovery", "business continuity", "manual fallback", "backup restore", and "what if our systems go down".'
 imports: [stress-test, failure-modes]

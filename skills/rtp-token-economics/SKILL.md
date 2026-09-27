@@ -1,5 +1,5 @@
 ---
-name: rtp-token-economics
+name: token-economics
 version: v1.4.2_latest
 description: "Choose how to charge for an AI product and package its value while keeping customer spending understandable and the business sustainable. Use for launch pricing, a plan change, an enterprise offer, bill shock, or a claim that per-seat pricing no longer works. Compare six model families against willingness to pay, usage and cost distributions, outcome measurability, procurement, and competition. Cover software and labor budgets, bundle/add-on/standalone packaging, discounts, renewal defaults, pricing transitions, and spending controls. Consume full delivery costs from cost-model; assess portfolio contribution, customer-level tail exposure, and growth scenarios without treating a percentile as a universal launch gate. Produce a pricing decision, evidence gaps, a margin analysis, and an implementation plan. Connect to moat-finder, harness-operating-model, adoption-launch, and stakeholder-communications."
 imports: [stress-test, falsification]

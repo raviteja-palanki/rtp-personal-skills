@@ -1,5 +1,5 @@
 ---
-name: rtp-responsible-ai-program
+name: responsible-ai-program
 description: 'Build or audit a responsible-AI program that connects principles to product decisions, accountable owners, effective controls, and practical resources. Use the three gaps—accountability, strategy, and resources—to locate problems, then apply SHARP: structure ownership, hardwire ethics, align ethical and business risk, reward responsible behavior, and practice judgment. Test whether people can detect, challenge, change, or stop a harmful use; distinguish written authority from evidence of effective action. Preserve meaningful participation, criteria review, proportionate oversight, and clear disclosure without treating a score or checklist as proof of maturity. Use for enterprise AI governance, program audits, launch-review design, and risk communication. Pairs with safety-as-moat, safety-by-design, dual-lens, and alignment-check. Triggers include "responsible AI", "AI governance program", "ethics program", "SHARP framework", and "accountability gap".'
 imports: ["safety-as-moat", "safety-by-design", "dual-lens"]
 version: v1.8.1_latest

@@ -1,5 +1,5 @@
 ---
-name: rtp-build-or-buy
+name: build-or-buy
 version: v2.6.1_latest
 description: 'Choose how to obtain an AI capability and which parts to own. Compare prompting, examples in context, retrieval-augmented generation, fine-tuning, and a finished vendor product; these can be combined. Use six checks for task fit, simpler baselines, data, latency, economics, and ongoing ownership. Reject an option that fails a critical requirement without assuming every other option fails too. Assess data rights and provider reuse before testing sensitive work, and include orchestration, review, support, and switching costs. Use for feature scoping, vendor renewals, custom-versus-API decisions, or model-tuning proposals. Pairs with moat-finder, cost-model, agent-harness, invisible-stack, determinism-compass, and ai-portfolio-management. Triggers: build or buy, fine-tune versus prompt, RAG versus API, should we train a model, vendor replacement.'
 imports: [determinism-compass, stress-test, agent-harness]

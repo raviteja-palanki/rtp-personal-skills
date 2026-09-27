@@ -1,5 +1,5 @@
 ---
-name: rtp-eval-framework
+name: eval-framework
 version: v1.5.1_latest
 description: "Design an evaluation approach for an AI product: define useful behavior, inspect real failures, choose representative and risk-focused cases, validate scorers, and set a justified quality bar. Use for a launch, quality complaint, evaluation redesign, or production-monitoring plan. Covers open/axial/selective coding, code and human checks, LLM judges, component and trajectory tests, pass@k/pass^k, rubric validity, source and tool context, normative benchmarks, adversarial probes, differentiation, and review of the conclusions drawn from results. Preserve useful regression coverage while testing relevant new capabilities. Separate correctness, constraints, user experience, cost, and uncertainty; a completed action or high score does not establish success by itself. Pairs with eval-driven-development, confidence-tuner, ai-product-metrics, production-observability, feedback-flywheel, failure-modes, and judgment-guard."
 imports: [feedback-flywheel, first-principles, stress-test]

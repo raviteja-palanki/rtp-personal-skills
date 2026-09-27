@@ -1,5 +1,5 @@
 ---
-name: rtp-observability-stack
+name: observability-stack
 version: v1.0.1_latest
 description: 'Choose and operate an AI observability platform with a clear purpose, controlled data collection, and a practical exit path. Connect tracing to evaluation, datasets, experiments, and regression checks. Compare Phoenix, Arize AX, LangSmith, or structured logs against deployment needs, operating cost, useful features, and migration effort. Explain OpenTelemetry, OTLP, OpenInference, and GenAI semantic conventions without promising effortless portability. Check query freshness, export limits, sensitive fields, access, and write-capable tools before production data flows. Use for observability selection, agent instrumentation, trace-to-eval setup, or a tooling audit. Start with production-observability when the monitoring questions are unclear; use eval-framework and eval-driven-development for evaluation design. Triggers include "which observability tool", "Arize vs Phoenix", "LangSmith", "set up tracing", "OpenInference", and "vendor lock-in on traces".'
 imports:

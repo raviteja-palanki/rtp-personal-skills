@@ -1,6 +1,6 @@
 ---
-name: ai-product-taste
-version: v1.3.1_latest
+name: rtp-product-taste
+version: v1.3.2_latest
 description: 'Define what excellent AI output means for a specific user, task, domain, and price point. Use when strong benchmark scores do not translate into useful work, when a team cannot explain its quality bar, or when deciding whether to ship or improve a feature. Establish essential requirements, meaningful user outcomes, tolerable imperfections, and examples that evaluators can judge consistently. Examine acceptance by segment, the first useful experience, prompt framing, and whether users select among many outputs or depend on one finished artifact. Turn the result into a taste spec for eval-framework and eval-driven-development. Pairs with jtbd-analysis, confidence-tuner, prompt-craft, ai-product-metrics, and fit-signal.'
 imports:
   - first-principles
@@ -77,8 +77,6 @@ Acceptance is evidence of a choice, not proof of quality: people may accept a wr
 Write the taste spec with examples of excellent, acceptable, and unacceptable output. Annotate why each example belongs in that category. Include common work, difficult cases, and severe failures even when rare. Five to ten corner cases can start a discussion; coverage depends on the task, not that count.
 
 Turn the spec into an evaluation rubric with `rtp-eval-framework` and into release checks with `rtp-eval-driven-development`. Clarify how disagreement between evaluators is resolved. Keep some cases separate for checking whether an improvement generalizes. Update the bar when evidence warrants it, with a recorded reason and version, so learning is distinguishable from moving a target after seeing results.
-
-### 6. Update your taste
 
 **Step 6: Update your taste.** Taste is not a fixed standard — it is a hypothesis to test and refine. After every product review, ask: "Was my taste correct? What did I miss? What did I overrate?" The best PMs update their taste faster than others.
 

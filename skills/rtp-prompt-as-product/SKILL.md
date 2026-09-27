@@ -1,6 +1,6 @@
 ---
 name: prompt-as-product
-version: v1.0.1_latest
+version: v1.0.2_latest
 description: 'Manage prompts as versioned product artifacts so changes can be understood, evaluated, released, monitored, and recovered safely. Use when shipping a production prompt change, investigating changed AI behavior, or designing a prompt release process. Record the prompt and its dependencies, define intended behavior and decision criteria, test relevant regressions, choose proportionate live exposure, and prepare a tested recovery path. Includes decision tables, four evaluation tiers, experiment cost estimates, release gates, and monitoring by version. Scale the process to the change: a prototype edit, routine low-impact update, major behavior change, and urgent fix need different evidence. Prompt-craft writes the prompt; context-spec designs its information environment; eval-driven-development and eval-framework define and measure quality. Pairs with determinism-compass, production-observability, cost-model, and ship-decision.'
 imports:
   - eval-framework

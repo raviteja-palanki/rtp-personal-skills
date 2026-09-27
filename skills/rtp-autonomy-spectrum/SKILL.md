@@ -1,5 +1,5 @@
 ---
-name: rtp-autonomy-spectrum
+name: autonomy-spectrum
 version: v1.8.1_latest
 description: 'Choose how much an AI system may decide and do for each interaction. Use when designing an AI feature, evaluating an agent, changing execution rights, or checking whether human oversight works as intended. Keep the shared seven labels: Feature, Chatbot, Assistant, Copilot, Agent, Autonomous Agent, and Multi-Agent. Pair the label with actual planning rights, action permissions, scope, duration, oversight, and accountability; multiple agents do not automatically have greater authority. Compare designed and observed behavior, assess consequences and task-specific performance, choose a supervision mode, and define escalation and recovery. Produce a per-interaction map with the current arrangement, recommendation, evidence, and open decisions. Covers progressive trust, permission granularity, meaningful review, dissent, and preserving human practice. Pairs with ai-use-case-readiness, trust-ladder, agent-spec, agent-risk, tool-architecture, agent-harness, and judgment-guard.'
 imports:

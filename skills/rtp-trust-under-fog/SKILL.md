@@ -1,5 +1,5 @@
 ---
-name: rtp-trust-under-fog
+name: trust-under-fog
 version: v1.2.1_latest
 description: 'Communicate clearly when outcomes remain uncertain. Use for AI capability claims, stakeholder expectations, planning ranges, disclosure decisions, and recovery after over-promising. Separate observed results, forecasts, enforceable commitments, and unknowns. Explain the evidence, conditions, consequences, and response plan at the depth the audience needs. Decide what to disclose using materiality, obligations, actionability, and timing; account for the costs of silence as well as disclosure. Produce a claim-and-evidence map, audience-specific wording, monitoring and reset conditions, and a recovery plan where needed. Pairs with determinism-compass for system boundaries, dual-lens for technical and stakeholder perspectives, trust-ladder for appropriate reliance, and confidence-tuner for calibrated estimates. Do not invent probabilities, stakeholder tolerance percentages, or guarantees merely to sound confident.'
 imports: [determinism-compass, dual-lens]

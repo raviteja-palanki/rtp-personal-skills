@@ -1,5 +1,5 @@
 ---
-name: rtp-multi-modal-product-design
+name: multi-modal-product-design
 version: v1.0.1_latest
 description: 'Choose text, voice/audio, image/vision, video, or a useful combination for an AI interaction. Use when scoping a multimodal feature, comparing input and output channels, designing a switch or fallback, setting latency and cost budgets, or reviewing an underused modality. Start with the task, user abilities and context, access needs, and consequences. Compare task success, input effort, verification effort, latency, cost per useful outcome, failure modes, and observed reliance. Test clean, typical, and degraded inputs against a fair baseline; specify behavior when a channel fails or outputs disagree. Produce a modality decision, review and correction paths, measurable operating limits, and revisit triggers. Verification cost is important but does not override accessibility or task fit. Pairs with cost-model, token-economics, ai-ux-patterns, confidence-tuner, eval-framework, and autonomy-spectrum. Triggers include multimodal, voice UI, add audio/video, and modality choice.'
 imports:

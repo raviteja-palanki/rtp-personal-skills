@@ -1,5 +1,5 @@
 ---
-name: rtp-tool-architecture
+name: tool-architecture
 version: v1.0.1_latest
 description: 'Design and review an agent tool as an action contract: what it does, under whose authority, what it affects, and how success, failure, and recovery are established. Use when choosing tools, defining read/write access, building MCP or A2A integrations, auditing permissions, or handling retries and partial work. Covers eight contract fields, least privilege, task-scoped authority, the read/propose/approve/execute/verify/reconcile roles, duplicate handling, compensation, a permissioned registry, tool threats, provenance, rollout evaluation, and tested stopping paths. Assess disclosure, mutation, reversibility, and downstream effects separately; a read can be sensitive and an authorized irreversible action may still be appropriate. Produce a tool contract, enforced boundaries, result and error semantics, and an evaluation/recovery plan. Pairs with determinism-compass, agent-harness, safety-by-design, agent-ecosystem, harness-operating-model, and confidence-tuner.'
 imports:

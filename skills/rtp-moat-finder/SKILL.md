@@ -1,5 +1,5 @@
 ---
-name: rtp-moat-finder
+name: moat-finder
 version: v2.15.1_latest
 description: 'Assess whether an AI product creates valuable advantages that competitors cannot readily copy, replace, or bypass. Start with the customer problem, value economics, and a credible competitive alternative. Evaluate five mechanisms: useful proprietary data, workflow integration, harness mastery, trust and reliability, and network effects. Then examine distribution, model dependence, learning-loop ownership, portability, and the scarce resources that affect value capture. Produce an evidence-based scorecard, scenarios, open questions, and the next investment or test. Scores are discussion aids, not survival predictions; no fixed number of moats guarantees defensibility. Use for strategy, quarterly reviews, acquisition assessments, or a board narrative. Pairs with strategy-canvas, build-or-buy, safety-as-moat, feedback-flywheel, capability-tracking, and competitive-map. Triggers include defensibility, moat, competitive advantage, and copycat risk.'
 imports: [bias-spotter, determinism-compass]

@@ -1,5 +1,5 @@
 ---
-name: rtp-cost-model
+name: cost-model
 version: v1.5.1_latest
 description: 'Calculate the full cost of delivering a useful AI outcome, including model calls, retrieval, tools, storage, retries, human work, evaluation, and operations. Use for launch decisions, pricing inputs, vendor renewals, scaling plans, or affordability reviews. Define success and the accounting period; distinguish aggregate cost per success from task and account cost percentiles. Model current volume, growth, and downside scenarios, including usage, vendor units, prices, quality, and review capacity. Compare routing, caching, batch processing, and harness designs on cost at acceptable quality. Deliver a traceable cost model, sensitivities, spending controls, and pricing handoff. Prototypes and intentional loss leaders still need a proportionate budget. Pairs with token-economics for pricing, stress-test for scale, moat-finder for advantage, and ship-decision for release decisions. Triggers: unit economics, AI cost model, cost per outcome, can we afford this.'
 imports: [stress-test, token-economics]

@@ -1,5 +1,5 @@
 ---
-name: rtp-purpose-dialogue
+name: purpose-dialogue
 version: v1.3.1_latest
 description: 'Help people examine why an AI initiative matters and meaningfully influence the decisions still open to them. Use when the purpose is unclear, leadership and affected teams describe it differently, or a significant change raises questions about values, work, or careers. Follow LISTEN, CONNECT, CHALLENGE, and CO-CREATE at a depth suited to the need. State what is fixed and what can change before inviting input. Produce a purpose statement grounded in what was heard, a values map, unresolved tensions, accountable commitments, and a record of how input was considered. Agreement, disagreement, silence, and plan changes are signals to interpret, not automatic success or failure scores. Route quality, workload, needs, and leadership problems to the relevant owners. Pairs with needs-guard, adoption-launch, problem-type, alignment-check, and vision-setting. Triggers include purpose alignment, meaningful participation, stalled adoption, and values conflicts.'
 imports: [first-principles, alignment-check]

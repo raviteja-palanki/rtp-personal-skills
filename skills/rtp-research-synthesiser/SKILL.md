@@ -1,5 +1,5 @@
 ---
-name: rtp-research-synthesiser
+name: research-synthesiser
 version: v2.3.1_latest
 description: 'Synthesize Ravi’s research signals into a clear, sourced digest that explains what changed and what it means. Use for a named intelligence dimension, a full sequential synthesis, emerging-pattern review, or cross-topic connections. The configured inputs are SuperGrok and Perplexity collections in Notion; verify actual access, dated entries, and prior coverage before treating them as current. Process one dimension at a time, continuing through all requested dimensions when a full pass is authorized. Check the underlying sources rather than treating agreement between two AI summaries as verification. Compare prior findings, preserve contradictions and source limits, and propose useful course, skill, interview, or knowledge updates. Includes all ten dimensions, saved page IDs, digest and run-log formats, and output routing. Do not manufacture novelty or automatically promote a pattern from its mention count.'
 ---

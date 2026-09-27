@@ -1,5 +1,5 @@
 ---
-name: rtp-design-spec
+name: design-spec
 description: 'Encode an existing design system as DESIGN.md so people and coding agents can find exact tokens, understand their purpose, and apply them consistently. Use for design-to-engineering handoffs, agent-readable brand guidance, token audits, or Tailwind and DTCG exports. Triggers include "design.md", "design tokens", "design spec", "tokens.json", and "Tailwind config from design". Read the current brand and project implementation first; preserve their decisions and identify gaps instead of inventing a replacement system. Choose a token-only, standard, or full handoff; validate references and supported formats, check the intended consumer, and document motion, interaction, and accessibility work that the format cannot verify.'
 author: Ravi Teja Palanki
 version: v1.0.1_latest

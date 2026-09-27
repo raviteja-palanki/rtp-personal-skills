@@ -1,6 +1,6 @@
 ---
 name: problem-type
-version: v1.0.1_latest
+version: v1.0.2_latest
 description: 'Diagnose whether a stuck AI initiative needs a technical fix, changes in how people work, or both. Use when problems recur, adoption remains low after improvements, or stakeholders disagree about the goal. Compare five signals, keep the diagnosis provisional, and sequence the technical and adaptive work. This is a separate question from whether the problem needs AI. Pairs with problem-ai-fit, alignment-check, adoption-launch, needs-guard, bias-spotter, and falsification.'
 imports: []
 ---
@@ -26,8 +26,6 @@ The technical/adaptive distinction comes from Ronald Heifetz's leadership work. 
 
 Technical does not mean easy, permanent, or free of resistance. Adaptive does not mean that implementation is irrelevant or that every concern requires months of discussion. Use the distinction to identify the work the current proposal has left out.
 
-This is a different axis from `problem-ai-fit`. A suitable AI use case can still depend on organizational changes, while a problem that does not need AI can contain adaptive work.
-
 **A richer problem taxonomy:** Beyond technical/adaptive, ask which category this problem belongs to:
 
 - **Clarity problem:** The goal is unclear or contested. Fix: align on what success looks like before solving.
@@ -35,6 +33,8 @@ This is a different axis from `problem-ai-fit`. A suitable AI use case can still
 - **Incentive problem:** People could but won't. Fix: realign incentives, not exhortations.
 - **Coordination problem:** Many people need to align. Fix: decision rights, communication cadence, shared metrics.
 - **Political problem:** Stakeholders blocking for positional reasons. Fix: understand the politics, find shared interests, manage rivalries.
+
+This is a different axis from `problem-ai-fit`. A suitable AI use case can still depend on organizational changes, while a problem that does not need AI can contain adaptive work.
 
 ## Begin with the observed problem
 

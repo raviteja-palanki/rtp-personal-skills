@@ -1,6 +1,6 @@
 ---
 name: judgment-guard
-version: v1.9.2_latest
+version: v1.9.3_latest
 description: 'Design where human judgment belongs in an AI workflow, how it remains effective, and how its contribution will be tested. Distinguish loss of expertise, failure to develop it, poor transfer to review, passive reliance, motivated avoidance, suppressed dissent, and framing that arrives too early. Choose proportionate checkpoints for practice, calibration, independent judgment, repair, reasoning records, and safe disclosure. Use when expert work changes, people stop questioning AI, or consequential decisions need effective human oversight. Compare human-only, AI-only, and combined performance where feasible; do not assume human involvement always improves outcomes. Pairs with determinism-compass, autonomy-spectrum, trust-ladder, agent-risk, and capability-tracking.'
 imports: []
 ---

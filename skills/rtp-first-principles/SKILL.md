@@ -1,6 +1,6 @@
 ---
 name: first-principles
-version: v1.2.1_latest
+version: v1.2.2_latest
 description: 'Clarify an AI product problem before choosing a solution. Identify the user outcome, break the work into essential operations, and decide which need rules, learned patterns, or accountable human judgment. Use for new feature proposals, technology changes, competitive responses, and diagnoses where the framing is uncertain. Keep the check brief when decomposition is already sound or the decision is easily reversible. Pairs with problem-ai-fit, determinism-compass, and bias-spotter.'
 imports: []
 ---
@@ -126,6 +126,8 @@ Ask what is needed before supplying the strongest available capability. This con
 
 **Source connection:** van Vugt, Sheng, and Andrews, HBR, "Are You Meeting the Needs of the People You Lead?", 13 May 2026, supplies the leadership side of the earlier comparison. The machine side comes from the library's autonomy guidance. The connection is a corpus interpretation, not a universal explanation for every failure.
 
+**Decomposing organizational constraints.** First-principles decomposition applies to political/organizational constraints too, not just technical ones. When stakeholders block a solution, decompose their constraint: is it a real resource limit, a risk tolerance, a political position, or a misalignment of incentives? Each requires a different response.
+
 ## Inspect the model as one component
 
 The useful product question is what the current system can reliably do under the intended conditions. Inspect its documented capabilities, connected tools, memory, configuration, and actual task performance. Do not assume that all deployed assistants lack memory or current information, or that a model must fail on every unfamiliar problem.
@@ -173,8 +175,6 @@ The earlier file attributes the component-decomposition teaching to Mahesh witho
 The earlier medical-information example used an assumed benchmark score of 95% and an assumed product requirement of 99.5%, a difference of 4.5 percentage points. Retain this as arithmetic in a constructed example. Neither figure is a verified MedQA result, a clinical safety standard, or a deployment recommendation.
 
 The useful exercise is to ask whether capability and requirement measure the same task and population, which errors remain, how serious they are, and whether a proposed control addresses those errors. Do not assert that prompting cannot close a particular gap, that review defeats the goal, or that a disclaimer makes deployment acceptable without supporting evidence. Consider narrowing the task or changing the product when the requirement cannot be supported, and identify the qualified review needed for the actual domain.
-
-**Decomposing organizational constraints.** First-principles decomposition applies to political/organizational constraints too, not just technical ones. When stakeholders block a solution, decompose their constraint: is it a real resource limit, a risk tolerance, a political position, or a misalignment of incentives? Each requires a different response.
 
 ## Deliver a usable decomposition
 

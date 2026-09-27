@@ -1,8 +1,8 @@
 ---
-name: rtp-trust-ladder
+name: trust-ladder
 description: 'Design appropriate reliance on AI so users understand its limits, accept useful help, and catch consequential errors. Use for permissions, progressive autonomy, over-reliance, avoidable distrust, and recovery after failure. Match authority to the task, stakes, evidence, user needs, and real recovery options. Assess trust separately from the ability to challenge an outcome. Measure correct acceptance and error detection without targeting a fixed rejection rate. Produce a permission and visibility plan, calibration measures, failure examples, and a recovery path. Pairs with autonomy-spectrum for capability labels, confidence-tuner for uncertainty signals, judgment-guard for effective review, and trust-under-fog for disclosure. Triggers: calibrated trust, over-reliance, trust repair, progressive autonomy. Trust scores or acceptance rates alone do not authorize consequential action.'
 imports: ["determinism-compass"]
-version: v1.4.1_latest
+version: v1.4.2_latest
 ---
 
 # Trust Ladder
@@ -53,8 +53,6 @@ Correct material misunderstandings before exposing the user to the misunderstood
 
 Use explanations that help the person assess the result. A generated account is not a faithful trace of all internal reasoning. Showing evidence, source quality, assumptions, or verified action receipts can be more useful than a long rationale. Evaluate comprehension; do not equate opening an explanation with reading or understanding it.
 
-**The trust gap.** The gap between what the system can actually do and what users think it can do manifests differently for different user segments. The PM must decide: close the gap by improving the system's capability, or manage user expectations? Both are valid strategies; the choice depends on the segment's tolerance for error and the cost of capability improvement.
-
 ## Step 3 — Assess trust and influence separately
 
 Use these five states as prompts for inquiry:
@@ -69,11 +67,9 @@ Use these five states as prompts for inquiry:
 
 Ask about trust directly and compare responses with task performance. Do not assign a state solely from click speed, tenure, low rejection, or lack of reported errors. These signals have multiple explanations.
 
+**Trust has a required sequence.** The five trust states have a natural order: distrustful → skeptical → conditional → confident. You cannot skip steps. You cannot ask users to grant you trust before you have earned it. A product that tries to jump to “confident” before the user has moved through “skeptical” and “conditional” will face resistance or, worse, superficial compliance followed by over-reliance. Design the experience to match the user's current trust state, not the state you want them in.
+
 For reviewers, ask two distinct questions: “How much do you trust the recommendation in this task?” and “Can you challenge or change what happens when it is wrong?” Investigate the reasons and actual decision rights. High trust with low influence can expose an authority gap; it is not a validated detector of fabricated justification. A score difference needs a defined instrument and comparable meanings before interpretation. Use `judgment-guard` for review competence and `responsible-ai-program` for authority and escalation.
-
-**Trust as a two-way street.** Effective AI systems need to trust users appropriately too — not second-guessing correct user inputs, not requiring unnecessary verification for routine actions. The trust-ladder currently addresses user-trust-in-system; the reverse (system-trust-in-user) is equally important for user experience.
-
-**Designing for warranted distrust.** When a system is genuinely unreliable, appropriate distrust is rational and should be designed for, not eliminated. The goal is not always to increase trust — sometimes the goal is to make the system's limitations clear so users can compensate. Distrust is the correct response to an unreliable system.
 
 ## Step 4 — Assign a permission mode for each action
 
@@ -89,8 +85,6 @@ Decide from stakes, actual permissions, tested performance, available controls, 
 Make permission changes specific and reviewable. A “trust this type” control should name the action class, data, recipients, limits, and duration; it is not an open-ended waiver. Allow people to change a preference or revoke delegation through a usable route. Recheck policy and resource authorization at execution.
 
 See the [calibration design tables](references/calibration-design-tables.md) for the eleven relationship scenarios and domain-specific considerations retained from the original framework.
-
-**Verification design matters more than trust level.** The mechanisms for verification (can the user actually check, challenge, and override?) matter more than the user's stated trust level. A user who trusts but cannot verify is over-reliant. Design for effective verification, not just high trust scores.
 
 ## Step 5 — Present uncertainty and explanations that support judgment
 

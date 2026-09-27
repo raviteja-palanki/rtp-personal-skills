@@ -1,5 +1,5 @@
 ---
-name: rtp-user-stories
+name: user-stories
 version: v1.0.1_latest
 description: 'Turn product intent into verifiable backlog items for AI and non-AI work. Use when refining a backlog, breaking a PRD into stories, resolving repeated acceptance disagreements, or deciding whether unknowns need a spike. Choose a useful work type: user story, technical enabler, investigation, or ordinary task. Apply INVEST with judgment, examine five scenario classes, define observable acceptance and verification, size using the team’s conventions, and slice into useful increments. AI items trace applicable behavior, permissions, evidence policy, examples, failure ownership, monitoring, and cost implications to the current AI-PRD; resolve conflicts rather than copying outdated thresholds. Includes invoice-routing, webhook, OCR, and draft-assistant examples. Prefer lightweight cards and conversation to unnecessary ceremony, and distinguish implementation complete from approved user exposure. Pairs with ai-prd, determinism-compass, and eval-framework.'
 imports:

@@ -1,5 +1,5 @@
 ---
-name: rtp-strategy-canvas
+name: strategy-canvas
 version: v1.2.1_latest
 description: 'Choose where an AI product will compete, which customer outcome it will improve, and why the organization can deliver and sustain that value. Use for a new strategy, a quarterly review, a major assumption change, or a roadmap that needs clearer choices. Work through seven connected steps: Objective, Users, Superpowers, Vision, Pillars, Impact, and Roadmap. Separate durable assumptions from uncertain ones; write conditional bets, credible alternatives, and explicit review triggers. Produce a concise canvas with priorities, exclusions, evidence, resource commitments, owners, and a review date. Treat feedback loops, model advantages, and strategy lifetimes as claims to test, not universal rules. Connect to moat-finder, vision-setting, ai-portfolio-management, capability-tracking, harness-operating-model, and token-economics for their deeper analysis. Triggers include AI strategy, strategic direction, product strategy, and quarterly strategy reset.'
 imports: [first-principles, moat-finder]

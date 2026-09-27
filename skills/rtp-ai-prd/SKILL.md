@@ -1,6 +1,6 @@
 ---
-name: rtp-ai-prd
-version: v1.2.1_latest
+name: ai-prd
+version: v1.2.2_latest
 description: 'Specify an AI feature so product, design, engineering, and operations can build and evaluate the same intended behavior. Connect the user problem and scope to behavior examples, evidence and confidence requirements, failure recovery, ownership, cost per successful outcome, rollout decisions, and monitoring. Translate relevant requirements into acceptance criteria across six backlog areas: capability, evaluation, fallback, guardrails, instrumentation, and rollout. Use for new AI capabilities, production requirements, architecture reviews, or adding AI criteria to an existing backlog; use a provisional Speclet for early exploration. Includes the section 0–13 PRD template and worked user stories. Pairs with eval-framework, confidence-tuner, cost-model, gen-ai-experimentation, ship-decision, and user-stories. Triggers: AI PRD, probabilistic spec, AI product requirements, AI user story.'
 imports:
   - determinism-compass
@@ -190,6 +190,7 @@ The canonical format contains **a §0 header plus thirteen substantive sections,
 | §11 Economics | Cost, outcome denominator, growth/stress cases, ceiling and response |
 | §12 Lifecycle and launch | Stage criteria, readiness evidence, review decisions |
 | §13 Questions and decisions | Assumptions, sources, owners, due decisions, resolutions |
+| §13b Decision Record | Options considered, criteria, trade-offs accepted, bets being made, and reasoning at decision time |
 
 **13b. Decision Record.** The best PRDs capture the reasoning behind decisions: what was considered, what was rejected, and why. Future teams will update rather than restart if they understand the reasoning. Record: the options considered, the criteria used, the trade-offs accepted, and the bets being made. This is not a retrospective — it is a prospective record of the thinking at the time of the decision.
 

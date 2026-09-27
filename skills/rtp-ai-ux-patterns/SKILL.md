@@ -1,5 +1,5 @@
 ---
-name: rtp-ai-ux-patterns
+name: ai-ux-patterns
 version: v1.9.2_latest
 description: 'Design AI interfaces that help users understand uncertainty, make appropriate decisions, and recover when something goes wrong. Use for confidence signals, progressive disclosure, loading and error states, explanations, conversation design, persona, and group interaction. Start with the user task, actual system behavior, consequences, and available controls. Choose patterns according to evidence and the action a user can take; do not manufacture confidence, progress, or reassurance. Includes calibration checks, review-effectiveness tests, natural-language UX patterns, and exploration versus focused retrieval. Pairs with trust-ladder, failure-modes, confidence-tuner, judgment-guard, and ai-product-taste.'
 imports: [trust-ladder, failure-modes]

@@ -1,6 +1,6 @@
 ---
-name: rtp-stakeholder-communications
-version: v1.9.1_latest
+name: stakeholder-communications
+version: v1.9.2_latest
 description: 'Write stakeholder messages that help people understand the evidence, the decision, and their part in the next step. Use for executive summaries, engineering briefs, launch announcements, risk escalations, weekly digests, or work that is not landing with its audience. Adapt the same underlying facts to executives, engineers, partners, customers, and boards without changing their meaning. For AI performance claims, make scope, measurement, uncertainty, known limits, monitoring, and recovery traceable at the depth the audience needs. Includes five communication formats, four worked cases, six audience needs, relationship mapping, a four-level trust framework, channel choice, constructive challenge, issue selling, candor, and influence without formal authority. Keep advice proportionate: a short update can stay short, and missing evidence should be stated rather than invented. Pairs with trust-under-fog, confidence-tuner, eval-framework, ai-product-metrics, and problem-ai-fit.'
 imports:
   - ai-product-metrics
@@ -133,6 +133,10 @@ For voluntary initiatives, report participation and its denominator alongside ou
 **Every meeting has two purposes.** Before any meeting, identify both: the Capital P purpose (the agenda, the decision, the information transfer) and the lowercase p purpose (how you want people to feel — heard, aligned, energized, trusted). Ambitious efficient people fixate on Capital P and miss lowercase p. Design for both.
 
 **Prep discipline:** For every meeting, spend 5 minutes before it starts defining: (1) What is the one message I want them to leave with? (2) How do I want them to feel? (3) What decision or action should follow?
+
+**The conversation before the communication.** Effective communication depends on the preceding relationship work, not just message crafting. Before any high-stakes communication, invest in the relationship: informal 1:1s, shared context, establishing trust. The relationship investment often matters more than the message quality.
+
+**Managing up: translating between levels.** Executive communication is translating between organizational levels. Your boss needs to hear impact, not execution. Before any upward communication, ask: “What does this person actually need to know to make the right decision?” Then lead with that.
 
 ## Run conversations with clear roles and follow-through
 
