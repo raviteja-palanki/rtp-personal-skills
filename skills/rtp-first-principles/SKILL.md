@@ -50,9 +50,13 @@ Write one sentence in the user's language before naming the proposed technology.
 
 Technology may be part of the user's actual task, such as administering a model platform. The test is whether the sentence explains the need rather than merely naming the solution.
 
+**Identify the bottleneck before decomposing.** Before decomposing the problem, ask: "What is the one thing that, if improved, would make everything else easier or unnecessary?" The Theory of Constraints: the system's output is limited by its bottleneck. Decompose the bottleneck, not the whole system.
+
 ### 2. Identify the essential operation and workflow
 
 Ask what completion means to the user. Separate that outcome from its interface and implementation. Then identify the operations needed to achieve it, including dependencies, handoffs, and the final state. Do not compress several consequential operations into one vague label merely to produce a single "atom."
+
+**Compress the problem, expand the solution space.** This is the signature strategic move: clarify the problem statement as tightly as possible (compress), then explore the widest range of solutions (expand). Most teams do the opposite — they keep the problem vague and converge on a familiar solution early.
 
 ### 3. Test each component for necessity
 
@@ -83,6 +87,8 @@ The result should help the team choose a design, not merely rename the proposal.
 Describe what the component actually produces: a ranking, classification, extracted field, generated response, or proposed action. Compare this with the outcome the product promises, such as finding the right record, completing an authorized action, or giving a supported answer.
 
 Record the measured capability, task population, product requirement, and remaining gap. Consider options such as a better prompt, retrieval, fine-tuning, validation, review, narrower scope, or a different product design. Choose based on evidence from the task. A general benchmark is not a substitute for the product's own evaluation.
+
+**Stopping rule:** Decompose until you can name the leverage point — the specific operation whose improvement would most change the outcome. If you cannot name the leverage point, you haven't decomposed far enough. If the leverage point is "more of everything," you haven't compressed the problem enough.
 
 ## Revisit the framing when its conditions change
 
@@ -167,6 +173,8 @@ The earlier file attributes the component-decomposition teaching to Mahesh witho
 The earlier medical-information example used an assumed benchmark score of 95% and an assumed product requirement of 99.5%, a difference of 4.5 percentage points. Retain this as arithmetic in a constructed example. Neither figure is a verified MedQA result, a clinical safety standard, or a deployment recommendation.
 
 The useful exercise is to ask whether capability and requirement measure the same task and population, which errors remain, how serious they are, and whether a proposed control addresses those errors. Do not assert that prompting cannot close a particular gap, that review defeats the goal, or that a disclaimer makes deployment acceptable without supporting evidence. Consider narrowing the task or changing the product when the requirement cannot be supported, and identify the qualified review needed for the actual domain.
+
+**Decomposing organizational constraints.** First-principles decomposition applies to political/organizational constraints too, not just technical ones. When stakeholders block a solution, decompose their constraint: is it a real resource limit, a risk tolerance, a political position, or a misalignment of incentives? Each requires a different response.
 
 ## Deliver a usable decomposition
 

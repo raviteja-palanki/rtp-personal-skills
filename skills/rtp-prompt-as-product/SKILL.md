@@ -15,6 +15,8 @@ A short edit can change behavior across many tasks. Its visual size does not tel
 
 Use this skill for the prompt lifecycle. Use `prompt-craft` to improve the instructions themselves and `context-spec` to design what information reaches the model. If production behavior changes without a prompt edit, investigate model, retrieval, tools, routing, data, and traffic changes too.
 
+**Prompt changes reflect product strategy.** Every prompt change reflects what the product promises, what it prioritizes, and who it serves. A prompt that shifts to be more deferential changes the product's personality. A prompt that adds safety refusal changes who can use the product. Prompt changes should be reviewed at the product strategy level, not just as engineering changes.
+
 ## Start with the change and its exposure
 
 Identify the current version, proposed change, intended outcome, affected users and tasks, and whether the system only produces drafts or can act externally. Use existing context; request missing facts only when they change the release decision.
@@ -42,6 +44,10 @@ Run the appropriate baseline evaluations and capture production metrics for a co
 Save the candidate and a readable diff. State the observed problem, intended behavior, plausible mechanism, and evidence that would count against the change. Separate unrelated changes when that makes effects easier to interpret; document a necessary bundle as a bundle.
 
 Example: “For factual support questions, require an approved policy source before stating eligibility. Expected benefit: fewer unsupported eligibility claims. Watch for unnecessary refusals, added latency, and unresolved cases.” This is a testable hypothesis, not a promised improvement.
+
+**The compounding effect of small prompt changes.** Small, seemingly insignificant changes accumulate into major behavioral shifts. Maintain a change log that tracks cumulative drift, not just individual changes. Every 10 small changes should trigger a behavioral regression test against the original intent.
+
+**Who owns the prompt's product behavior?** The PM is accountable for the overall behavioral contract the prompt represents. When a prompt change alters behavior, the PM should be in the review loop. This is a governance question, not a technical one — who signs off on what the product promises to do?
 
 ### 3. Define behavior and decision criteria before testing
 

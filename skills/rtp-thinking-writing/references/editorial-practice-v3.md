@@ -10,7 +10,7 @@ Use this companion for major researched writing and teaching packages. The lesso
 
 The article questions a decision unit: whole roles are too coarse when AI changes particular tasks. It then follows the consequences into coordination, tacit operational knowledge, review, redeployment and reversibility. The useful craft is the movement from an understandable management mistake to a more precise way of deciding.
 
-**Apply it:** When introducing a concept, explain the distinction that improves the reader's judgment before naming more frameworks. In S01, a model's output, a workflow's completion and a business result are different levels. Their relationship needs explanation, rather than three slogans.
+**Apply it:** When introducing a concept, explain the distinction that improves the reader's judgment before naming more frameworks. The S01 note that follows is an editorial case from that course project, not experimental evidence. In S01, a model's output, a workflow's completion and a business result are different levels. Their relationship needs explanation, rather than three slogans.
 
 **Do not import the article's certainty wholesale.** Statements about inherently human work or the causes of workforce outcomes still need evidence. The editorial structure can be useful even where the source's claim needs qualification.
 

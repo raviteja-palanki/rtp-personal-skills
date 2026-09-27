@@ -1,6 +1,6 @@
 ---
 name: rtp-research-librarian
-version: v1.2.1_latest
+version: v1.2.2_latest
 description: 'Identify, name, deduplicate, and file incoming research in Ravi’s 3_Research library, then keep its indexes accurate. Use when Ravi asks to file resources, material arrives in 00_NEW, or a task encounters a clear filing problem. Inspect content before naming it, view images before identifying them, distinguish publication dates from capture dates, and preserve editions and format variants. Use the current MAP and folder context rather than an old hardcoded shelf list. Archive verified duplicates with recovery records; retain unresolved items with explicit reasons. Prefer useful names and retrievable metadata over cosmetic folder balance. This skill also guides focused library research and source checking. Pair with rtp-claude-admin for workspace governance, rtp-hbr-research and rtp-research-synthesiser for journal analysis, rtp-deep-dive-writer for series writing, and rtp-skill-refresh for skill updates.'
 imports: []
 ---
@@ -102,6 +102,12 @@ The old “no shelf over 40% of its parent” rule is **retired**. Split only wh
 
 Use `_tools/index-check.py` for current index policy and forward/reverse checks; inspect its invocation before running a repair. `_tools/rebuild-map.py` rebuilds the generated map from the index. Do not invent an index-regeneration command or hand-edit generated map counts. Preserve curated author, date and kind fields when reconciling rows. Journal `ARTICLE-GRAPH.csv` and its queue have their own generators and source-versus-format counting rules.
 
+### Transcript-backed YouTube note collections
+
+Courses and interview notes can be a high-value source of a practitioner's reasoning when they retain the direct video link, transcript or caption basis, speaker attribution, and any ASR ambiguities. They are a source for what the speaker said, not automatic confirmation of the speaker's forecast, metric, company fact, or exact proper name. Preserve the source link and ambiguity section. Attribute the claim, then inspect a primary record before carrying a consequential fact into a synthesis, skill, or article.
+
+Do not duplicate a cross-cutting note into every matching topic shelf. Keep its provenance collection intact and expose the relationship through controlled tags in the generated `MAP.md`. A per-note tag table should say both the topic and its strongest current or candidate series fit. Candidate series must be visibly labeled as candidates. Treat catalogs and source inventories as discovery and provenance records; treat the linked note as the insight extraction.
+
 Exclude `.DS_Store`, tooling, staging and archives according to actual policy. Do not claim a file count is a logical-resource count. Run only the affected checks after a small filing change; a library-wide audit is a separate scope.
 
 ## Research and escalation
@@ -134,4 +140,4 @@ Checks: performed results, failures, and untested conditions
 Index/map: actual updates and integrity-check results
 ```
 
-Use only relevant sections for a small run. When a skill or governance rule needs an authorized correction, follow the exact-source backup and version process in `rtp-claude-admin`, update the registry/change log, and preserve the reason. This skill's September 13, 2026 revision reconciles the live map, date precision, duplicate evidence and its earlier contradictory folder rules.
+Use only relevant sections for a small run. When a skill or governance rule needs an authorized correction, follow the exact-source backup and version process in `rtp-claude-admin`, update the registry/change log, and preserve the reason. Version 1.2.2 adds the transcript-backed YouTube note protocol: direct source links, attribution, evidence limits, controlled cross-series tags, and visible candidate-series status.

@@ -55,6 +55,8 @@ Check the dated [evidence notes](references/safety-economics-evidence.md) before
 
 Examine actual wins, losses, renewals, security reviews, and comparable alternatives. Interview a few relevant buyers to start, then broaden if the evidence is thin or unrepresentative.
 
+**Safety as a feature, not a tax.** Safety investments can create user value, not just reduce harm. Example: "this system doesn't hallucinate legal citations" is a product feature, not a compliance checkbox. Reframe safety investments as value creation: what user need does this control serve? What trust premium does it unlock?
+
 1. Which customers require the control? Does its removal trigger a real contractual issue, a procurement objection, or only a preference?
 2. Did it change a buying decision, price, renewal, or time to approval? What else changed?
 3. Could a competitor offer equivalent assurance quickly? What would remain distinctive?
@@ -73,6 +75,10 @@ Where data dependence creates concern, explain what is collected, why, retention
 Give regulators and auditors accurate, scoped evidence and required disclosures. Give buyers and users information that helps them choose and act: limitations, controls, recourse, and changes that affect them. Protect sensitive security details without substituting vague assurances.
 
 The Novel Insights disclosure cases suggest checking **actionability and timing**, and measuring delayed trust or fit alongside immediate conversion. This is a useful hypothesis, not proof that disclosure always helps sales. Required disclosures and material information can remain necessary even when the recipient has limited recourse. Neither “stay quiet with customers” nor “disclosure earns regulatory leniency” is a reliable general rule.
+
+**Safety theater vs. real safety.** Controls that look good in audits but don't actually prevent harm are safety theater. The hygiene-factor/differentiator distinction helps: if a control is a hygiene factor (everyone has it), its audit visibility doesn't create competitive advantage. If it's a differentiator, measure it by harm reduction, not audit checkmarks.
+
+**When safety constraints enable better products.** Well-designed constraints can improve products. Requiring factuality can make retrievers more useful. Requiring explainability can make AI decisions more actionable. Don't treat safety as a trade-off with capability — sometimes safety constraints force better product design.
 
 ### Use the CDR Calculus
 
@@ -129,6 +135,8 @@ Model immediate response, legal and remediation cost, interrupted operations, cu
 An illustrative $2M immediate loss plus $4M annual revenue × 1.5 years × a constant 20% shortfall totals $3.2M. This assumes a stable annual revenue base and a sustained shortfall; it is not a general NRR formula. Convert revenue effects to the chosen economic measure and compare the probability-weighted reduction against control costs over that same period. A $300,000 annual protection does not automatically avoid the whole amount.
 
 Legal duties and unacceptable harm remain constraints alongside economics. A failure cost ten times engineering cost is not, by itself, a decision rule.
+
+**The alignment tax is often paid by the wrong person.** Safety controls that create friction often fall on users rather than on the system or the company. Analyze who bears the alignment tax: if users bear it (extra steps, slower workflows, reduced capability), the control may be well-intentioned but poorly designed. Consider whether the friction can be shifted to the system side.
 
 ## Phase 6 — Design protection that supports the claim
 

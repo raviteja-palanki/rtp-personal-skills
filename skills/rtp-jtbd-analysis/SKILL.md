@@ -67,6 +67,8 @@ NEXT TEST: [what would support or challenge that interpretation]
 
 Keep both functional and additional needs in the product requirements and evaluation where they matter. Do not place the functional job in the PRD and hide the consequential needs only in informal design discussion.
 
+**Jobs have lifecycles.** A job evolves over time: (1) Pain point — the customer is actively suffering; (2) Routine — the job becomes habitual, less emotionally charged; (3) Commodity — the job is table-stakes, differentiated only by price/convenience. A job that is a differentiator today may be table-stakes tomorrow. Map where your served job sits on this lifecycle.
+
 ## 2. Investigate workarounds as revealed effort
 
 A workaround can show that someone has spent time, money, or risk to make progress. It is often a useful starting point because it exists in a real workflow. Its effort is not automatic proof of a market, a profitable opportunity, or willingness to buy your proposed solution.
@@ -90,6 +92,10 @@ Look for independently created workarounds and explain relevant differences. Two
 
 The local Michelin case describes fleet operators combining telematics and manual data to connect tire performance with broader operations. It illustrates how a workaround may cross a product boundary. Its chronology and outcome claims remain case evidence rather than proof of a general sequence. See [evidence notes](references/evidence-and-boundaries.md).
 
+**Job mapping: find the highest-leverage step.** Identify the full sequence of steps in a job and look for the most painful/underserved step. The job map reveals intervention points that are invisible when you only identify the job at the top level. Example: "Getting approved for a mortgage" involves (find lender → compare rates → submit application → provide documents → wait for approval → close). The most painful step may be "provide documents" — that's your intervention point, not the whole job.
+
+**The buyer's job vs. the user's job.** In enterprise contexts, these jobs often diverge. The person who pays has different needs than the person who uses. Map both jobs separately. If you only map the user's job, you will miss the buyer's decision criteria and adoption will stall at the purchase step.
+
 ## 3. Examine the four forces of a change
 
 Bob Moesta’s demand-side framework organizes influences that make progress attractive or difficult:
@@ -106,6 +112,8 @@ Bob Moesta’s demand-side framework organizes influences that make progress att
 Give each force the attention the evidence warrants. Anxiety may dominate, but it is not universally two or three times larger than expected. There is no requirement to invert a supposed 90/10 effort split, name exactly three anxieties, or fill every quadrant with two invented entries.
 
 Consider both action and inaction. A maintenance operator can face harm from an unnecessary shutdown and from a missed failure. Ask how each is detected, decided, explained, and assigned—not merely how the product can make one choice feel safer.
+
+**The hire/fire framework.** Every job has a hiring side (what caused the customer to start using your product) and a firing side (what would cause them to abandon it). You typically understand the hiring side well. The firing side is where competitive threats hide. Ask: "What would make this customer fire us even if we're serving the original job?"
 
 ## 4. Reconstruct real switching episodes
 

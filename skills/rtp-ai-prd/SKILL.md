@@ -61,6 +61,8 @@ Define scope and non-goals before tool use or commitments. Separate drafting fro
 
 Record a provisional user-outcome and system-metric pair here; define it once in Phase 3. Version prompts, model/configuration, context/retrieval changes, and relevant tools so later results can be traced to the configuration that produced them.
 
+**Contextual expertise requirement:** Document the real org process, not just the documented one. The PRD should capture: who actually makes decisions (not just who's on the org chart), what the informal approval chains are, and what the team's actual working rhythms are. This information is invisible to newcomers but critical to execution success.
+
 ## Phase 2 — Specify failure, containment, and ownership
 
 For relevant operations, examine false positives, false negatives, ambiguity, out-of-domain inputs, unsupported claims, unavailable dependencies, changing data, misuse, and adverse segment effects. When content is retrieved or tools are connected, include prompt injection, unauthorized writes, exfiltration, cross-user leakage, and uncertain external-action status.
@@ -95,6 +97,10 @@ Give examples stable IDs and provenance. Mark invented names, records, amounts, 
 Fifteen to twenty-five examples can be a useful initial behavior contract, not a universal minimum or a statistically sufficient evaluation set. Coverage depends on the task, segments, important errors, and interactions. Questions from engineers can reveal a missing requirement, conflicting evidence, or a design choice; they do not mean the only remedy is more examples.
 
 Behavior examples seed both regression tests and story criteria. Keep a held-out evaluation set where needed; examples used to tune prompts are not independent evidence of generalization. Triage production corrections for validity, duplication, sensitivity, and generalizability. Add the meaningful failure pattern to tests and update affected examples/stories. Do not automatically retain every raw correction or alter three artifacts for every typo.
+
+**The "bad decisions impossible" test:** A good PRD should make it hard to build the wrong thing, not just describe the right thing. After writing your PRD, ask: "Could someone build something that passes all the acceptance criteria but is still the wrong product?" If yes, the PRD needs stronger constraints.
+
+**The "testable by someone who wasn't in the room" test:** If someone who wasn't in the strategy and design discussions reads your PRD, can they build the right thing? If they would build something different, the PRD needs to be more explicit about intent and constraints.
 
 ### Specify three evaluation layers
 
@@ -184,6 +190,8 @@ The canonical format contains **a §0 header plus thirteen substantive sections,
 | §11 Economics | Cost, outcome denominator, growth/stress cases, ceiling and response |
 | §12 Lifecycle and launch | Stage criteria, readiness evidence, review decisions |
 | §13 Questions and decisions | Assumptions, sources, owners, due decisions, resolutions |
+
+**13b. Decision Record.** The best PRDs capture the reasoning behind decisions: what was considered, what was rejected, and why. Future teams will update rather than restart if they understand the reasoning. Record: the options considered, the criteria used, the trade-offs accepted, and the bets being made. This is not a retrospective — it is a prospective record of the thinking at the time of the decision.
 
 Use the team's existing format when appropriate and retain an equivalent mapping. Length follows complexity and consequence; a particular page count does not establish rigor.
 

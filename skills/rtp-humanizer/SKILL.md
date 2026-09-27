@@ -1,6 +1,6 @@
 ---
 name: rtp-humanizer
-version: v2.1.1_latest
+version: v2.1.3_latest
 description: 'Review a draft for wording and structural habits that make it feel generic, inflated, repetitive, or difficult to follow. Use after rtp-thinking-writing when a specific passage needs diagnosis, when Ravi asks for a humanizer or slop check, or when reviewing someone else''s draft. Edit mode makes the smallest useful changes; detect mode identifies passages and explains the issue without rewriting or guessing authorship; structure mode repairs the remaining organization of a draft. Preserve meaning, evidence, personality, warranted uncertainty, quotations, and functional syntax. Includes 17 named patterns, a contextual word list, formatting preferences, and practical checks for rhythm, headings, assumptions, and sourcing. Pairs with rtp-thinking-writing for reasoning and voice, rtp-trendslop-check for empirical claims, and rtp-deep-dive-writer for long articles.'
 ---
 
@@ -8,7 +8,7 @@ description: 'Review a draft for wording and structural habits that make it feel
 
 Make the draft easier to understand while preserving its meaning and the qualities that make it the writer's own. Diagnose the passage, explain the problem when useful, and make the smallest change that resolves it.
 
-`rtp-thinking-writing` remains the starting point for reasoning, evidence, structure, and voice. This skill supports that work when a specific writing problem needs attention. Read the master when needed at the start of a session or when its guidance changes; do not repeatedly reopen unchanged files before every sentence.
+`rtp-thinking-writing` remains the starting point for reasoning, evidence, structure, and voice. Fixing a prose habit does not show that a claim is supported. Evidence labels stay with the master skill. Repetition across chapters is also the master's job, not one of the patterns below. This skill supports that work when a specific writing problem needs attention. Read the master when needed at the start of a session or when its guidance changes; do not repeatedly reopen unchanged files before every sentence.
 
 A clean vocabulary cannot repair a missing argument. If the problem is unsupported reasoning or lost content, return to the master writing process rather than polishing the surface. Apply this guidance to the material in scope, including short replies, specifications, instructions, and longer prose, with effort suited to the request.
 
@@ -50,9 +50,9 @@ Prefer a familiar, precise alternative in authored prose when it preserves meani
 
 Review often-empty adverbs such as just, literally, honestly, simply, actually, truly, fundamentally, importantly, crucially, inherently, and inevitably. Cut them when they add nothing; retain a word that supplies real emphasis, limitation, or the writer's natural rhythm.
 
-Review filler such as "it's worth noting," "at the end of the day," "when it comes to," "at its core," "in today's world," "the reality is," "in terms of," "with regard to," "in order to," "going forward," and "let's dive in." Keep necessary orientation, such as a useful roadmap in a long article. Prefer "to" for "in order to" and "because" for "due to the fact that" where meaning is unchanged.
+Review filler such as "it's worth noting," "at the end of the day," "when it comes to," "at its core," "in today's world," "the reality is," "in terms of," "with regard to," "in order to," "going forward," and "let's dive in." Keep necessary orientation, such as a useful roadmap in a long article. Prefer "to" for "in order to" and "because" for "due to the fact that" where meaning is unchanged. In a chapter a reader will study, a sentence that needs a second comma usually wants to be two sentences. Keep the explanation. Do not shorten it into a clause the reader has to unpack.
 
-Replace a habitual "Monday move" or "what to do on Monday" heading with the actual action. Keep a weekday when the message concerns a real schedule. Earlier instructions reported a September 1 count of three uses in 221 articles and 259 local files; that historical count has not been reproduced here and is not a general rule about good writing.
+Replace a habitual "Monday move" or "what to do on Monday" heading with the actual action. Keep a weekday when the message concerns a real schedule. An earlier instruction cited a count of weekday headings across the project's article corpus and the local file set. That count has not been reproduced here and is not a general rule about good writing.
 
 ## Diagnose the 17 named patterns
 
@@ -136,6 +136,6 @@ Fix remaining material defects and stop when the requested work is complete. A p
 
 ## Attribution and revision
 
-The original skill credits Sam Rowe's `no-ai-slop` under the MIT license, extended with Ravi's preferences and evidence discipline. Preserve that attribution and any applicable license notice when distributing the library. This revision did not independently locate the upstream source or verify its license text. The claimed 221-article heading study and earlier session anecdote are historical editorial background, not research independently reproduced here.
+The original skill credits Sam Rowe's `no-ai-slop` under the MIT license, extended with Ravi's preferences and evidence discipline. Preserve that attribution and any applicable license notice when distributing the library. This revision did not independently locate the upstream source or verify its license text. An earlier heading study and session anecdote are historical editorial background, not research independently reproduced here.
 
 **Revision 2.1.1, 13 Sep 2026.** Preserves all three modes, the complete 17-pattern list, word-review vocabulary, formatting preferences, structure guidance, and factual discipline. Aligns them with the approved master writing standard and replaces conflicting absolutes with clear conditions.

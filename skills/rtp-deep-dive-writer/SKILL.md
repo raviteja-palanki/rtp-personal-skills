@@ -1,6 +1,6 @@
 ---
 name: rtp-deep-dive-writer
-version: v1.1.1_latest
+version: v1.1.3_latest
 description: 'Write or revise Ravi''s substantial practitioner articles on AI products, evaluation, context, agents, and related technical subjects. Help a senior product manager understand a mechanism, make a better decision, and use a practical artifact. Preserve Ravi''s curious, candid voice, useful existing material, verified evidence, and connections across his series. Use rtp-thinking-writing for the shared writing standard; this skill adds research, article structure, series navigation, two-visual guidance, and a focused revision process. Read the article-revision reference before revising an existing article and the series-publishing reference for website-bound work. Keep examples, source findings, interpretation, and recommendations distinct. Preserve the current project''s publishing contract and report incomplete checks honestly.'
 ---
 
@@ -58,7 +58,7 @@ Use real cases within their documented scope. Signal constructed or composite ex
 
 ## 3. Teach through a clear sequence
 
-The following is the default deep-dive template. Preserve required site fields and established section contracts. Adapt section length and, where the project permits, headings or order to the lesson. One-off articles need not inherit a website's navigation metadata.
+The following is the default deep-dive template for a standalone researched article. Preserve required site fields and established section contracts. Adapt section length and, where the project permits, headings or order to the lesson. One-off articles need not inherit a website's navigation metadata. For a chapter in a series or a book, the sequence is advisory. Keep the parts that serve that chapter's job. A middle chapter does not need an "up next" that only names the following chapter. Point to the next decision when a pointer helps. Evidence labels follow `rtp-thinking-writing`. This file does not keep a second tier list.
 
 | Part | What the reader receives |
 |---|---|
@@ -79,13 +79,13 @@ Use the clarity and concrete stakes Ravi values in advertising without turning e
 
 Use familiar words, active verbs, and named actors where they help. Introduce necessary jargon on first use in each standalone article, including terms such as inference, tokens, latency, embeddings, retrieval, JSON, MCP, P95, or a named regulation when the intended reader may not know them. A short definition should support the lesson rather than interrupt every sentence. Preserve technically necessary distinctions.
 
-Vary sentence length with the thought. Read for natural speech rhythm; a silent review is valid and should be described honestly. Remove empty claims of importance, stacked hedges, filler, generic conclusions, sales language, and chatbot greetings. Use `rtp-humanizer` to diagnose specific patterns. Its guidance concerns writing habits, not a list of words that must disappear from quotations or all legitimate uses.
+Vary sentence length with the thought. For a chapter a reader will study, follow `rtp-thinking-writing`: short sentences that carry one step, an explanation the reader can retell, and a page where the heading stays with its sentence. Read for natural speech rhythm; a silent review is valid and should be described honestly. Remove empty claims of importance, stacked hedges, filler, generic conclusions, sales language, and chatbot greetings. Use `rtp-humanizer` to diagnose specific patterns. Its guidance concerns writing habits, not a list of words that must disappear from quotations or all legitimate uses.
 
 Length follows the lesson and the user's requested format. Compress repetition and routine definitions; expand mechanisms, worked examples, and consequences that need explanation. Do not impose a word minimum, a fixed percentage cut, or deliberate messiness to simulate a human voice.
 
 ### Make Connecting the dots earn its place
 
-This signature section should explain a connection the reader can assess. Consider:
+This signature section should explain a connection the reader can assess. The connection is the one defined in `rtp-thinking-writing`. The four types below are ways to build the section in an article. They are not a second definition. Consider:
 
 - **Autonomy:** How does the importance of the concept change with the system's actual permissions and ability to act?
 - **Advantage:** Which resource or operating habit could compound, under what conditions, and who else could reproduce it?
@@ -138,5 +138,9 @@ Do not invent endorsement from Naval Ravikant, an executive, or a colleague. Rea
 Save the revision to the established project folder and filename, with a recoverable earlier version. Update the active tracker, affected links, and required article metadata. Report what changed, where the file is, which checks were completed, and any material uncertainty or unfinished asset work. Editing an article does not by itself authorize publishing it.
 
 Use companion skills when they improve the article: `rtp-autonomy-spectrum` and `rtp-ai-use-case-readiness` for capability and permissions; `rtp-moat-finder` and `rtp-safety-as-moat` for competitive claims; `rtp-eval-framework` for evaluation; `rtp-strategy-canvas` for strategic choices; `rtp-trust-ladder` for appropriate reliance; `rtp-excalidraw-svg` for visuals; and `rtp-thinking-writing`, `rtp-thinking-skills`, and `rtp-humanizer` for reasoning and expression. Verify the installed name when source and plugin names differ.
+
+**Revision 1.1.3, 25 Sep 2026.** A study chapter uses the master's rule for short sentences, an explanation the reader can retell, and a page the eye can follow.
+
+**Revision 1.1.2, 25 Sep 2026.** The ten-part sequence stays the default for a standalone article and becomes advisory for a book chapter. Evidence labels stay with `rtp-thinking-writing`. Connecting the dots keeps that skill's definition.
 
 **Revision 1.1.1, 13 Sep 2026.** Preserves the original teaching template, four planning areas, nine revision checks, research standard, two-visual workflow, series navigation, and practitioner voice. Reconciles conflicting version labels and replaces mechanical style rules with clear, evidence-aware editorial checks.

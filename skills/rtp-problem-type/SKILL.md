@@ -28,6 +28,14 @@ Technical does not mean easy, permanent, or free of resistance. Adaptive does no
 
 This is a different axis from `problem-ai-fit`. A suitable AI use case can still depend on organizational changes, while a problem that does not need AI can contain adaptive work.
 
+**A richer problem taxonomy:** Beyond technical/adaptive, ask which category this problem belongs to:
+
+- **Clarity problem:** The goal is unclear or contested. Fix: align on what success looks like before solving.
+- **Capability problem:** We know what to do but can't execute. Fix: build capability or reduce scope.
+- **Incentive problem:** People could but won't. Fix: realign incentives, not exhortations.
+- **Coordination problem:** Many people need to align. Fix: decision rights, communication cadence, shared metrics.
+- **Political problem:** Stakeholders blocking for positional reasons. Fix: understand the politics, find shared interests, manage rivalries.
+
 ## Begin with the observed problem
 
 State the problem, affected people, desired outcome, and previous attempts. Separate observed behavior from your interpretation of its cause. Use the context already supplied and ask only for information that materially changes the diagnosis.
@@ -65,6 +73,8 @@ Consider a model producing disputed recommendations:
 Avoid building against an undefined requirement and discovering the disagreement only at deployment. Equally, do not delay a known protective fix while waiting for complete organizational agreement. Define enough shared direction to make a bounded technical test useful, then revisit the decision with evidence.
 
 A six-week conversation is one possible planning choice, not a required duration or a promise of success. Choose the timebox from the decision and its urgency. When activities are independent, start longer-lead work early and coordinate the results.
+
+**Time-boxed diagnosis with decision points.** When to stop diagnosing and start acting? Set explicit time boxes: "We will diagnose for 2 days, then decide." At the decision point, choose: act with current information, extend diagnosis, or escalate. Diagnosing indefinitely is itself a decision — and usually the wrong one.
 
 ## Turn the diagnosis into action
 

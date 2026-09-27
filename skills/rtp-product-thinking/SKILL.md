@@ -30,6 +30,11 @@ The original invocation examples—constant activity, perceived blockers, featur
 ## A practical evaluation sequence
 
 1. **Frame the question.** State what is being decided and distinguish facts, interpretations, and assumptions. Remain open to a different diagnosis.
+
+**Diagnose before solving.** Apply the pause ladder. Ask: "What problem am I actually trying to solve? Is it even the right problem?" Before any solution work, write down the problem statement and the evidence that it's the right problem. Then ask: "What would make us wrong?"
+
+**Include inaction as a comparable option.** When comparing solutions, explicitly include "no change" as an option with its own costs, risks, and opportunity costs. Inaction is not free.
+
 2. **Place the work.** Identify impact, execution, or optics; the product's Explore, Expand, or Extract stage; and the relevant customer need. More than one level or stage may apply.
 3. **Compare plausible choices.** Include a simpler solution, current behavior, or no change where relevant. State opportunity cost and the limits of the comparison.
 4. **Investigate the consequential uncertainty.** Select a diagnostic framework, source review, conversation, prototype, or experiment that can change the decision. Do not run all frameworks by default.
@@ -53,6 +58,14 @@ This consolidates the original fourteen application prompts: openness; discussio
 | **Notice what practice reinforces** | Protect time for the work that develops judgment; make status communication useful and proportionate. | Updates can establish a critical decision or commitment. They are not automatically empty optics or low-leverage work. |
 | **Examine human and system causes** | Consider fear, incentives, ambiguity, skills, workload, tools, and decision rights together. | Not every project problem is psychological, and an emotional explanation is a hypothesis to check. |
 
+**10. The diagnosis-is-the-cure stance.** Before solving any problem, pause. The pause ladder: 2 minutes for routine decisions, 20 minutes for important ones, 2 hours for consequential ones, 2 days for existential ones. Most product failures are wrong-problem failures, not bad-execution failures. If you do not diagnose accurately, you will fail no matter how hard you execute.
+
+**11. The noise-to-signal stance.** A PM's core sensemaking skill is converting organizational noise into decision-relevant signal. Ask: is this feedback from a real user need or from an organizational preference (status, signaling, politics)? "Build what is needed, not what is liked."
+
+**12. The priority-vs-urgency stance.** Distinguish between what is genuinely important (moves outcomes) and what feels urgent (high activity, low leverage). The urgent displaces the important by default; the PM's job is to protect the important.
+
+**13. The context-engineer stance.** The PM shapes the team's information environment — what the team knows, what they don't, what they're optimizing for. This is one of the highest-leverage PM functions and is almost entirely invisible.
+
 See [the judgment principles](references/judgment-principles.md) for the nineteen decision lenses, including LNO and its time-horizon companion, 3X, taste, delegation, estimates, and influence.
 
 ## Keep the central distinctions clear
@@ -66,6 +79,10 @@ See [the judgment principles](references/judgment-principles.md) for the ninetee
 **3X** distinguishes Explore, Expand, and Extract. Change emphasis as uncertainty and scale change: learning in exploration, overcoming growth constraints in expansion, and sustainable value in maturity. Evidence, economics, documentation, and responsible risk-taking can matter at every stage. There is no blanket ban on early A/B tests or a requirement that every mature decision use one.
 
 **Taste and evidence** work together. Form a reasoned expectation before metrics arrive, then test and refine it. AI can help generate, critique, and synthesize high-value ideas; the responsible decision-maker must still assess the evidence and retain accountable judgment. Do not confuse using assistance with abandoning thinking, or declare current model capabilities from an old categorical claim.
+
+**The Priority/Urgency Distinction:** Priority = moves outcomes; Urgency = feels immediate. In fast-moving environments, urgency systematically displaces priority. The PM must explicitly protect priority work from urgency colonization.
+
+**The Visible/Invisible Leverage Distinction:** The highest-leverage work for a PM is often invisible — resolving ambiguity, aligning stakeholders, clarifying strategy, surfacing hidden assumptions. The "optics" distinction captures part of this but the specific Doshi insight is that great PMs sometimes look idle because they're doing the invisible work that actually moves outcomes.
 
 ## Diagnose without turning a label into a verdict
 

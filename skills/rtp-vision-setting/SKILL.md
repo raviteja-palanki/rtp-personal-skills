@@ -93,6 +93,12 @@ This is the library's practical synthesis, influenced by product-thinking work a
 | **Differentiating** | Does it express the intended contribution or focus? | Explain the relevant emphasis. A vision need not uniquely identify a company without its logo or itself establish a moat. |
 | **Motivating** | Can the intended audience see a reason to care? | Test understanding, credibility, and relevance with people; do not assume every engineer or customer shares one emotional response. |
 
+**6. Excludable.** A good vision makes some opportunities obviously out of scope. If everything still seems possible, the vision is too vague. List the non-goals explicitly — what you will NOT do, even if it seems related.
+
+**7. Falsifiable.** A good vision implies specific bets that, if they fail, would force a vision reconsideration. If nothing could change your mind about the vision, it isn't a vision — it's an aspiration. Name the falsifier.
+
+**8. Decision-active.** A good vision should change how people make decisions today. If publishing the vision doesn't change any decisions, it wasn't useful. Test: "What decision would we make differently because of this vision?"
+
 Use **supported**, **needs work**, or **not yet tested**, with reasons. Do not manufacture five passes by changing the wording alone. A weak area may be a research gap rather than an editing problem. Retain the question it raises and the next step.
 
 ### Test durability without inventing a guarantee
@@ -128,6 +134,8 @@ Name the priorities the vision strengthens, exclusions it supports, and unresolv
 If calculating the share of investment serving the vision, state the denominator—people, money, time, or weighted commitments. Counting bets equally can hide their different sizes. The old 60%, 75%, and 40–50% allocation thresholds were not empirically calibrated gates. Assess capacity, dependencies, and obligations rather than passing a fixed percentage.
 
 Investigate apparent contradictions. A product that promises useful explanations does not necessarily require an interpretable underlying model, and explanation alone does not establish trust or correctness. Determine what users can verify and which controls they need. An executive dashboard can support the operator outcome even when operators are the primary users. Resolve conflict through scope, sequence, design, resources, or a change to the vision as appropriate.
+
+**Vision needs a theory of progress.** A vision is the destination; a theory of progress is how you get there. The theory of progress has its own assumptions, tests, and falsifiers. "We will achieve this vision by [mechanism]" — that mechanism is the theory of progress. Without it, a vision is just a destination with no route. Teams that confuse vision with theory of progress either abandon the vision (when progress is hard) or abandon the theory (when the vision feels right but the path doesn't work).
 
 Conclude with one of three descriptive judgments:
 

@@ -53,6 +53,8 @@ Correct material misunderstandings before exposing the user to the misunderstood
 
 Use explanations that help the person assess the result. A generated account is not a faithful trace of all internal reasoning. Showing evidence, source quality, assumptions, or verified action receipts can be more useful than a long rationale. Evaluate comprehension; do not equate opening an explanation with reading or understanding it.
 
+**The trust gap.** The gap between what the system can actually do and what users think it can do manifests differently for different user segments. The PM must decide: close the gap by improving the system's capability, or manage user expectations? Both are valid strategies; the choice depends on the segment's tolerance for error and the cost of capability improvement.
+
 ## Step 3 — Assess trust and influence separately
 
 Use these five states as prompts for inquiry:
@@ -69,6 +71,10 @@ Ask about trust directly and compare responses with task performance. Do not ass
 
 For reviewers, ask two distinct questions: “How much do you trust the recommendation in this task?” and “Can you challenge or change what happens when it is wrong?” Investigate the reasons and actual decision rights. High trust with low influence can expose an authority gap; it is not a validated detector of fabricated justification. A score difference needs a defined instrument and comparable meanings before interpretation. Use `judgment-guard` for review competence and `responsible-ai-program` for authority and escalation.
 
+**Trust as a two-way street.** Effective AI systems need to trust users appropriately too — not second-guessing correct user inputs, not requiring unnecessary verification for routine actions. The trust-ladder currently addresses user-trust-in-system; the reverse (system-trust-in-user) is equally important for user experience.
+
+**Designing for warranted distrust.** When a system is genuinely unreliable, appropriate distrust is rational and should be designed for, not eliminated. The goal is not always to increase trust — sometimes the goal is to make the system's limitations clear so users can compensate. Distrust is the correct response to an unreliable system.
+
 ## Step 4 — Assign a permission mode for each action
 
 Choose from explicit modes such as **suggest**, **prepare for approval**, **execute within delegated bounds**, or **pause and refer**. Use the shared autonomy labels only as a separate description of the system. These modes replace the earlier conflicting Level 0–4 numbering.
@@ -83,6 +89,8 @@ Decide from stakes, actual permissions, tested performance, available controls, 
 Make permission changes specific and reviewable. A “trust this type” control should name the action class, data, recipients, limits, and duration; it is not an open-ended waiver. Allow people to change a preference or revoke delegation through a usable route. Recheck policy and resource authorization at execution.
 
 See the [calibration design tables](references/calibration-design-tables.md) for the eleven relationship scenarios and domain-specific considerations retained from the original framework.
+
+**Verification design matters more than trust level.** The mechanisms for verification (can the user actually check, challenge, and override?) matter more than the user's stated trust level. A user who trusts but cannot verify is over-reliant. Design for effective verification, not just high trust scores.
 
 ## Step 5 — Present uncertainty and explanations that support judgment
 

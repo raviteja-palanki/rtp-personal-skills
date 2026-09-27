@@ -42,6 +42,10 @@ Group opportunities where relationships help understanding. Three to seven is a 
 
 Choose a target opportunity before exhaustively designing every branch. Explore multiple meaningfully different solutions for that target, often two to four. For a consequential decision, compare alternatives rather than several cosmetic versions of the first idea. Do not require every unselected opportunity to have a full solution and experiment set.
 
+**Make "active not-doing" visible.** The tree should show what you're deliberately excluding, not just what you're including. Add an "Excluded" branch with clear rationale: "We are not pursuing X because Y." Active not-doing is as important as active doing.
+
+**Adapt branching factor to uncertainty level.** Explore widely (3–4 solutions) when the opportunity is unclear. Narrow quickly (1–2 solutions) when the solution space is well-understood. The default of "two to four" should be adjusted based on how well you understand the opportunity.
+
 ## 2. Select opportunities on evidence and outcome relevance
 
 Compare the importance and reach of the need, its likely contribution to the outcome, available evidence, strategic relevance, and major uncertainties. Consider rare serious consequences as well as frequency. Keep the evidence behind each judgment visible.
@@ -53,6 +57,10 @@ Estimate effort for **candidate solutions**, not for an opportunity before explo
 For comparable solutions, one optional effort scale is 1 = least effort through 5 = greatest effort; lower is easier. Use that direction consistently. The older rubric inverted the scale and then broke ties in the wrong direction. Avoid mixing a vague opportunity score with a precise delivery date.
 
 Choose the number of next bets from capacity and uncertainty, not a quota of three to five. Show why the chosen path deserves attention and what evidence could change the choice.
+
+**Sequencing is as important as selection.** The first opportunity you tackle shapes organizational learning, stakeholder confidence, and team momentum. Consider: which opportunity generates the fastest learning? Which one builds credibility for the next? Which one de-risks the riskiest assumption across all opportunities? The first move is a strategic choice, not just a prioritization choice.
+
+**Start with the smallest viable opportunity that generates learning.** The opportunity that seems smallest may be the right first move if it generates the most decision-relevant information. The impact × confidence heuristic may bias toward larger opportunities that are harder to test quickly.
 
 ## 3. Apply the feasibility and evaluation check
 

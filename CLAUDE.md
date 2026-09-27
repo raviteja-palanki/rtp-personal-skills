@@ -103,6 +103,10 @@ Rules that follow from it:
 - **Adoption ≠ value.** Seats sold ≠ software used; announcement ≠ renewal. The test: *useful work shipped per dollar, and can you draw the line?*
 - Name a public company, link a primary source. No defensible URL → soften to a generic pattern or drop it. Two independent sources for any load-bearing number.
 
+### Transcript-backed video notes
+
+When a workspace uses transcript-backed YouTube notes, preserve the direct video link, the transcript or caption basis, and any ambiguity flags. Such a note is strong evidence of what a named speaker argued or demonstrated. It is not independent proof of the speaker's forecast, metric, company fact, or proper-name transcription. Attribute the statement, then check a primary record before relying on a consequential claim.
+
 ---
 
 ## The output bar

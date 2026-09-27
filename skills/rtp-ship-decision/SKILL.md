@@ -26,7 +26,11 @@ Revisit the decision at useful points:
 
 These are decision purposes, not four mandatory meetings. Reuse applicable prior reviews after checking their version, scope, and unresolved conditions. Internal use, opt-in, automatic rollback, a short experiment, or pre-PMF status may justify a lighter process; none alone establishes low risk.
 
+**Launch to learn vs. launch to deliver.** Distinguish between: (1) launches designed to generate evidence (learning launches — narrower, more instrumented, shorter duration) and (2) launches designed to deliver value (production launches — broader, higher reliability bar). A learning launch is a valid go option with different evidence requirements and a pre-committed learning plan.
+
 ## Seven readiness areas
+
+**0. Clarify the launch objective.** Before evaluating readiness, ask: "What are we optimizing for?" Teams sometimes launch to hit a metric rather than serve a need. State the objective explicitly and verify it matches the actual user need, not just the internal goal.
 
 ### 1. Safety, authority, and applicable obligations
 
@@ -169,6 +173,8 @@ The [Day-one review template](references/day-one-review.md) retains ten monitori
 Severity and causal context determine action. One critical incident can require immediate containment; two unrelated adoption metrics below plan need not trigger rollback. Multiple warnings should be investigated for a shared cause without automatically counting correlated signals as independent evidence. A useful color system supports judgment rather than replacing it.
 
 All green at 24 hours means the observed checks passed for that window. It does not establish long-term stability or justify automatically reducing review to weekly. Continue until delayed outcomes, meaningful usage cycles, and relevant failure paths have been observed, then set ongoing and event-triggered review with `production-observability`.
+
+**Post-launch learning design.** Design the post-launch period as a deliberate learning opportunity with pre-committed decision points: "At day 7, we will have learned X and will decide Y." "At day 30, if metric Z hasn't moved, we will pivot." Make learning visible and actionable.
 
 ## Make difficult decisions easier to surface
 

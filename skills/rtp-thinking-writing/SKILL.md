@@ -1,6 +1,6 @@
 ---
 name: rtp-thinking-writing
-version: v4.0.2_latest
+version: v4.0.4_latest
 description: 'Ravi''s default thinking and writing guidance for replies, edits, memos, articles, teaching materials, interview answers, specifications, and changelogs. Develop a useful point, support it honestly, and explain it in warm, plain language. Match the depth to the request: keep brief replies brief and review substantial drafts for reasoning, evidence, structure, and natural expression. Pairs with rtp-aipm-orchestrator for approach and skill selection, and rtp-humanizer for specific writing patterns.'
 ---
 
@@ -77,6 +77,8 @@ When the question is contested, present the strongest reasonable opposing view i
 
 Check your own bias: would you accept this evidence if it pointed toward the opposite conclusion? Test a proposed connection against another explanation and a case where it may not apply. Two credible sources do not, by themselves, establish a new causal claim.
 
+Connecting the dots means that connection: a join the reader can assess. In a standalone article, `rtp-deep-dive-writer` may give the join its own section. The meaning stays the one in this file. A book chapter does not have to use that heading.
+
 ## 2. Give the reader something useful at the start
 
 Lead with the answer, the central idea, or the decision. A reader who stops after the opening should still understand the main point and its practical meaning.
@@ -95,6 +97,12 @@ Use connected prose to explain causes and consequences. Use bullets for parallel
 
 Let section shapes follow their content. Repeated structure can help a reference manual or comparison; forced repetition can make an article tedious. Vary the structure when it improves the reading, not simply to create variation.
 
+In a multi-chapter work, treat each chapter's opening as the reader's return to the argument. Say what the reader should still hold from earlier chapters, then the decision this chapter adds. Do not re-explain a concept already introduced unless this chapter's own job needs that explanation again. Open on a concrete scene when the scene makes that decision easier to see. When a chapter teaches one framework, name the framework and the chapter's job near the start, in the words the reader will use later. A bound book may add a division marker, a running head, and one contents page. Those belong to the package. They do not replace the chapter.
+
+Working-manuscript markers belong in a draft. Remove them before a publish-ready file. A file prepared for the reader should not still announce that it is a working manuscript.
+
+On the printed page, the reader should see the join without hunting. A heading stays with its first sentence. A table stays whole. A running head or a column name is not another line of body text. Leave white space only when the next block does not fit. Do not open a hole for a block that would have fit.
+
 Honor the requested length and format. Remove repetition and unnecessary structure before cutting reasoning the reader needs. If two requirements cannot both be met, explain the specific conflict rather than silently dropping an essential part. No fixed paragraph count can determine the right depth for every question.
 
 For arithmetic, state the assumptions, units, population, and period. Show each necessary operation, explain the result in words, and keep denominators consistent. For a decision that depends on an assumption, show how changing that assumption could alter the choice.
@@ -108,6 +116,8 @@ Introduce a technical term only when it helps, and explain it briefly on first u
 State the finding without an unsupported superlative. Use one accurate qualification instead of several overlapping hedges. "The evidence suggests" may be honest; "it could potentially be argued" usually adds uncertainty without explaining it. Preserve hedging that reflects a real limit.
 
 Read for natural rhythm. Vary sentence length where the thought calls for it, keep each paragraph focused, and make the connection to the next paragraph clear. Avoid repeated dramatic reveals, empty contrasts, lists of what you are not doing, and endings that merely recap the whole piece.
+
+For a chapter a reader will study, write so the point can be absorbed in one reading and retold later. Explain the mechanism until that retelling is possible. Prefer a short sentence that carries one step. If a sentence needs a second comma, split it. Use a longer sentence only when the join itself needs it. Simplicity is in the words. The explanation stays.
 
 Do not invent experience or authority. Write "across these three documented cases" only when those cases were examined. When writing in Ravi's voice, use his personal experience only when he or the supplied material establishes it. Describe his responsibility precisely and preserve the contributions of others.
 
@@ -172,5 +182,9 @@ The answer should meet the checks appropriate to its scope:
 - The ending completes the answer without an unnecessary flourish.
 
 Preserve a deliberate register, a source's exact wording, and uncertainty justified by the evidence. Use a framework only when it improves the reader's understanding or decision.
+
+**Version 4.0.4, 25 SEP 2026.** For a study chapter, explain until the reader can retell the point, keep most sentences to one step, and set the page so a heading stays with its sentence and a table stays whole. Prior versions remain in the skill archive.
+
+**Version 4.0.3, 25 SEP 2026.** Adds short rules for a multi-chapter book: recall before new material, a scene when it carries the decision, one named framework near the start, and no working-manuscript marker in a publish-ready file. Connecting the dots keeps the meaning in this file when an article gives it a section. Prior versions remain in the skill archive.
 
 **Version 4.0.2, 13 SEP 2026.** Integration review of the approved v4.0.1 wording. Preserves the reasoning method, evidence discipline, artifact-specific depth, interview and teaching guidance, and five review dimensions. Adds clear interfaces to the revised email and README skills, protection for publishing syntax, and guidance for using qualified Novel Insights. Companion filenames retain their historical v3 identifiers; their review notes distinguish past desk checks from new evaluations. Prior versions remain in the skill archive.

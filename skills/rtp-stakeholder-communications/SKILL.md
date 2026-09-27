@@ -120,6 +120,8 @@ Report what has been observed and what is being watched: “Acceptance stayed wi
 
 Drift may occur; it is not necessarily happening now. Re-baselining should record a justified change in population or objective, not erase a regression. Specify whether a threshold is a relative percent or percentage-point change, and use a meaningful window and denominator.
 
+**LNO applied to communication.** The same message can be Leverage, Neutral, or Overhead depending on the audience. A detailed technical breakdown is Leverage for the engineering lead but Overhead for the CEO. Before crafting any message, classify it by audience: what does this person need to hear, and at what level of detail?
+
 ## Communicate risk and governance in decision terms
 
 Connect the request to a concrete exposure, obligation, operational dependency, customer outcome, or financial consequence. Quantify where the evidence supports it and distinguish exposure from expected loss. A $420,000 renewal pipeline touching a feature is not $420,000 of proven lost revenue.
@@ -127,6 +129,10 @@ Connect the request to a concrete exposure, obligation, operational dependency, 
 Boards can act on legal duties, severe plausible harms, stakeholder commitments, or strategic dependencies without a precise dollar estimate or a prior incident. If uncertainty matters, explain what is unknown and request the needed mitigation, investigation, or decision. Do not delay a required control merely to make the risk look financially measurable. `trust-under-fog` helps with disclosure under uncertainty; `confidence-tuner` helps match claims and confidence to evidence.
 
 For voluntary initiatives, report participation and its denominator alongside outcomes and use. Falling attendance, questions, or contributions can indicate withdrawal, competing demands, task completion, or another cause. Investigate rather than labeling quiet as health or inevitable failure. “No objections raised” describes reporting; it does not establish consent or success. Participation is a useful early indicator in some settings, not the only one.
+
+**Every meeting has two purposes.** Before any meeting, identify both: the Capital P purpose (the agenda, the decision, the information transfer) and the lowercase p purpose (how you want people to feel — heard, aligned, energized, trusted). Ambitious efficient people fixate on Capital P and miss lowercase p. Design for both.
+
+**Prep discipline:** For every meeting, spend 5 minutes before it starts defining: (1) What is the one message I want them to leave with? (2) How do I want them to feel? (3) What decision or action should follow?
 
 ## Run conversations with clear roles and follow-through
 

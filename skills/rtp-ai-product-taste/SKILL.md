@@ -78,6 +78,12 @@ Write the taste spec with examples of excellent, acceptable, and unacceptable ou
 
 Turn the spec into an evaluation rubric with `rtp-eval-framework` and into release checks with `rtp-eval-driven-development`. Clarify how disagreement between evaluators is resolved. Keep some cases separate for checking whether an improvement generalizes. Update the bar when evidence warrants it, with a recorded reason and version, so learning is distinguishable from moving a target after seeing results.
 
+### 6. Update your taste
+
+**Step 6: Update your taste.** Taste is not a fixed standard — it is a hypothesis to test and refine. After every product review, ask: "Was my taste correct? What did I miss? What did I overrate?" The best PMs update their taste faster than others.
+
+**Taste development as a meta-skill:** Taste improves through deliberate practice: (1) consume excellent work across domains (not just your product category); (2) articulate why things are good or bad — "why" is the underappreciated part of taste; (3) seek out dissenting opinions and calibrate against them; (4) track your predictions over time and measure calibration.
+
 ## Domain examples: choose the specific use before choosing the bar
 
 These examples illustrate judgment, not clinical, legal, or release standards.
@@ -127,6 +133,10 @@ Ask how the work is judged:
 - **Depth of the finished artifact:** a particular report, essay, investigation, or argument must stand on its own. Assess coherence, distinctive insight, evidence, and accountability for the complete artifact. It can still benefit from multiple drafts, research assistance, or critique.
 
 Many workflows combine both. Do not infer that AI necessarily improves portfolios or inevitably homogenizes a single artifact. Test whether it improves the required quality in this workflow. The distinction from the Atlantic/OpenAI podcast discussion is a useful design lens; undisclosed deal terms and broad causal claims are outside what that source establishes.
+
+**Good taste means knowing what NOT to build.** Taste includes knowing when AI is the wrong answer. The AI product manager's taste is demonstrated not only by what they build but by what they refuse to build. If you cannot articulate why a proposed AI feature should not exist, your taste is not developed enough.
+
+**Team-level taste calibration:** Build taste across your team through: calibration sessions (everyone rates the same output independently, then discusses deltas), shared rubrics (co-created quality standards), taste reviews (regular sessions where the team evaluates real AI outputs together). The PM is responsible for building team taste, not just having it individually.
 
 ## Diagnose a gap before prescribing polish
 

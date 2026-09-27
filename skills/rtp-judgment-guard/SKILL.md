@@ -16,6 +16,12 @@ This skill addresses two connected design questions:
 
 Adoption does not inevitably remove the human, and automation does not always erode a valuable skill. The task is to make the change deliberate and inspect its consequences. A capability may be worth preserving, worth rebuilding, or intentionally retired; those are different decisions.
 
+The PM is also a judge — receiving AI-generated analyses, recommendations, dashboards, and strategy docs. The PM must decide what to trust, what to challenge, and what to ignore. For critical customer-understanding passes, do NOT AI-summarize — read raw material yourself. For non-critical analysis, by all means AI-summarize.
+
+**Strategy-level judgment erosion.** This skill focuses heavily on execution-level judgment (review quality, calibration, override). Strategy-level judgment erosion is equally dangerous: teams optimizing locally while the strategy drifts. Ask regularly: "Are we building the right thing?" not just "Are we building it right?"
+
+**"Don't outsource your judgment to AI."** AI augments thinking; it does not replace it. The PM's job is to decide what is good — that cannot be delegated to a model, even a very good one.
+
 ## Start here: role, consequence, authority, and evidence
 
 Before prescribing a checkpoint, state:
@@ -132,6 +138,8 @@ Use suitable cases with independently established answers or qualified reference
 For longitudinal assessment, keep conditions, task difficulty, and measures comparable enough to interpret change. Use a stable reference component plus new coverage where the work changes. Ten to twenty monthly cases may support a learning conversation but need not yield a precise performance estimate.
 
 Seeded known-good and known-bad cases can help assess detection and unnecessary rejection. Use controlled, authorized evaluation conditions; do not let deliberately wrong test material drive real consequential actions. Other methods—expert audits, outcome-linked samples, or carefully designed comparisons—may also be valid. Seeded cases are not the only way to distinguish mechanisms, and they may be unrepresentative or recognizable.
+
+**Conviction vs. calibration.** The balance between having strong convictions and being well-calibrated. When evidence is sparse or ambiguous, calibration is more important than conviction. When evidence is strong and consensus is wrong, conviction is more important than calibration. The PM must know which mode they're in.
 
 ### Checkpoint 3 — Independent view, criteria, and meaningful override
 

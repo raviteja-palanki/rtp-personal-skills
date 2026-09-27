@@ -126,3 +126,7 @@ When someone else has deeper technical expertise, you can help by asking the nex
 | Pulse reader | Tentatively name a pattern in the room and invite correction | Describe observations without mind-reading or diagnosing emotion as fact |
 
 These paths can work through formal channels too. They need context and trust, but lack of prior standing is not proof that a respectful attempt will fail. Preserve others' ability to say no and the organization's legitimate decision process. A private process is not automatically illegitimate because every detail is not made public; accountability and confidentiality must both be handled correctly.
+
+**The conversation before the communication.** Effective communication depends on the preceding relationship work, not just message crafting. Before any high-stakes communication, invest in the relationship: informal 1:1s, shared context, establishing trust. The relationship investment often matters more than the message quality.
+
+**Managing up: translating between levels.** Executive communication is translating between organizational levels. Your boss needs to hear impact, not execution. Before any upward communication, ask: "What does this person actually need to know to make the right decision?" Then lead with that.
